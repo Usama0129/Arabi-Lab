@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-// ↓ パスが違う場合は修正してください (../../lib/supabaseClient など)
+// ↓ パスが違う場合は修正してください
 import { supabase } from "../lib/supabaseClient";
 
 export default function AdminPage() {
@@ -10,6 +10,7 @@ export default function AdminPage() {
   const [title, setTitle] = useState("");
   const [level, setLevel] = useState("初級");
   const [category, setCategory] = useState("");
+  const [videoUrl, setVideoUrl] = useState(""); // ★追加：動画URL
   const [contentPlain, setContentPlain] = useState("");
   const [contentVoweled, setContentVoweled] = useState("");
 
@@ -51,10 +52,17 @@ export default function AdminPage() {
     setLoading(true);
 
     try {
-      // 1. 親記事を保存
+      // 1. 親記事を保存（★video_urlを追加）
       const { data: articleData, error: articleError } = await supabase
         .from("articles")
-        .insert([{ title, level, category, content_plain: contentPlain, content_voweled: contentVoweled }])
+        .insert([{ 
+            title, 
+            level, 
+            category, 
+            video_url: videoUrl || null, // 動画URLがあれば保存
+            content_plain: contentPlain, 
+            content_voweled: contentVoweled 
+        }])
         .select()
         .single();
 
@@ -87,7 +95,7 @@ export default function AdminPage() {
       if (quizList.length > 0) {
         const quizToInsert = quizList.map(q => ({
           article_id: articleId,
-          type: "reading", // とりあえず読解問題として保存
+          type: "reading",
           text: q.question,
           options: q.options,
           correct_index: q.correct,
@@ -96,10 +104,10 @@ export default function AdminPage() {
         await supabase.from("article_questions").insert(quizToInsert);
       }
 
-      alert(`記事「${title}」と関連データを全て保存しました！`);
+      alert(`記事「${title}」と動画データを保存しました！`);
       
       // フォームをリセット
-      setTitle(""); setCategory(""); setContentPlain(""); setContentVoweled("");
+      setTitle(""); setCategory(""); setVideoUrl(""); setContentPlain(""); setContentVoweled("");
       setSentences([]); setVocabList([]); setQuizList([]);
 
     } catch (e: any) {
@@ -121,7 +129,7 @@ export default function AdminPage() {
             <h2 className="font-bold text-gray-700 bg-gray-100 p-2 rounded">1. 基本情報</h2>
             <div>
               <label className="block text-sm font-bold mb-1">タイトル</label>
-              <input className="w-full p-2 border rounded" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="例: 週末の予定" />
+              <input className="w-full p-2 border rounded" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="例: ニュース解説" />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -135,9 +143,15 @@ export default function AdminPage() {
               </div>
               <div>
                 <label className="block text-sm font-bold mb-1">カテゴリー</label>
-                <input className="w-full p-2 border rounded" value={category} onChange={(e) => setCategory(e.target.value)} placeholder="例: 日常" />
+                <input className="w-full p-2 border rounded" value={category} onChange={(e) => setCategory(e.target.value)} placeholder="例: 経済" />
               </div>
             </div>
+             {/* ★動画URL入力欄 */}
+            <div>
+                <label className="block text-sm font-bold mb-1 text-red-600">YouTube URL (任意)</label>
+                <input className="w-full p-2 border rounded bg-red-50" value={videoUrl} onChange={(e) => setVideoUrl(e.target.value)} placeholder="例: https://www.youtube.com/watch?v=..." />
+            </div>
+
             {level !== "会話" && (
               <>
                 <div>
@@ -164,7 +178,7 @@ export default function AdminPage() {
                  <div className="flex-1 space-y-2">
                     <input className="w-full p-2 border rounded font-arabic" placeholder="アラビア語" dir="rtl" value={s.arabic} onChange={(e) => updateSentence(i, 'arabic', e.target.value)} />
                     <div className="flex gap-2">
-                       <input className="w-1/3 p-2 border rounded text-xs" placeholder="話者 (例: Aさん)" value={s.speaker} onChange={(e) => updateSentence(i, 'speaker', e.target.value)} />
+                       <input className="w-1/3 p-2 border rounded text-xs" placeholder="話者" value={s.speaker} onChange={(e) => updateSentence(i, 'speaker', e.target.value)} />
                        <input className="w-2/3 p-2 border rounded text-sm" placeholder="日本語訳" value={s.japanese} onChange={(e) => updateSentence(i, 'japanese', e.target.value)} />
                     </div>
                  </div>
