@@ -66,7 +66,6 @@ export default function Home() {
 
   // --- Helpers ---
   const normalizeArabic = (text: string) => text.replace(/[\u064B-\u065F\u0670]/g, "").replace(/[.,،؟:;!۔"«»]/g, "").replace(/\s+/g, " ").trim();
-  // 母音記号（タシュキール）を削除する関数
   const removeTashkeel = (text: string) => text.replace(/[\u064B-\u065F\u0670]/g, "");
 
   const formatTime = (seconds: number) => {
@@ -139,7 +138,6 @@ export default function Home() {
     return () => subscription.unsubscribe();
   }, []);
 
-  // Stats Logic (省略)
   useEffect(() => {
     setCompletedArticleIds(JSON.parse(localStorage.getItem("arabicApp_completed") || "[]"));
     const lastDate = localStorage.getItem("arabicApp_lastDate");
@@ -269,11 +267,13 @@ export default function Home() {
   const checkDictation = () => { if (normalizeArabic(dictationInput) === targetWordClean) setDictationFeedback("correct"); else setDictationFeedback("incorrect"); };
   const nextDictation = () => { if (!activeArticle) return; if (dictationIndex < activeArticle.sentences.length - 1) { const nextIdx = dictationIndex + 1; setDictationIndex(nextIdx); generateDictationProblem(activeArticle, nextIdx); } else changeScreen("result"); };
   
-  // 音声再生
+  // ★ 音声再生 (強力なクリーニング追加)
   const speakText = (text: string, speaker?: string) => {
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
-      const cleanText = text.replace(/[\(\)a-zA-Z0-9\-\.]/g, "").trim(); 
+      // ★ 修正: アラビア文字とスペース以外をすべて消す！(ドットや英語は消滅します)
+      const cleanText = text.replace(/[^\u0600-\u06FF\s]/g, "").trim(); 
+      
       const u = new SpeechSynthesisUtterance(cleanText);
       const voices = window.speechSynthesis.getVoices();
       const arabicVoice = voices.find(v => v.lang.includes('ar'));
@@ -285,13 +285,21 @@ export default function Home() {
     }
   };
 
-  // 記事の読み上げ機能
+  // ★ 記事読み上げ (強力なクリーニング追加)
   const playArticleAudio = () => {
     if (!activeArticle || !('speechSynthesis' in window)) return;
     window.speechSynthesis.cancel();
     setIsSpeaking(true);
     let voices = window.speechSynthesis.getVoices();
-    if (voices.length === 0) { window.speechSynthesis.onvoiceschanged = () => { voices = window.speechSynthesis.getVoices(); startPlayback(); }; } else { startPlayback(); }
+    
+    if (voices.length === 0) { 
+        window.speechSynthesis.onvoiceschanged = () => { 
+            voices = window.speechSynthesis.getVoices(); 
+            startPlayback(); 
+        }; 
+    } else { 
+        startPlayback(); 
+    }
 
     function startPlayback() {
         if (activeArticle?.category === "会話" || (activeArticle?.level === "会話" && activeArticle.sentences)) {
@@ -311,29 +319,30 @@ export default function Home() {
              speakNextSentence();
           } else { setIsSpeaking(false); }
         } else {
-          // 読解モード（音声再生ロジック）
-          // 上級: 母音なし優先、中級: 母音あり優先
+          // 読解モード
           let textToRead = "";
           
           if (activeArticle!.level === "上級") {
-             // 上級: Plain(母音なし) 優先
              textToRead = (activeArticle!.sentences && activeArticle!.sentences.length > 0) 
                  ? activeArticle!.sentences.map(s => s.arabic).join(" ") 
                  : (activeArticle!.contentPlain || activeArticle!.contentVoweled || "");
-             // 音声としては母音がないと変かもしれないが、ロジックとしてはPlain優先
           } else if (activeArticle!.level === "中級" || activeArticle?.category === "物語") {
-             // 中級: Voweled(母音あり) 優先
              textToRead = (activeArticle!.sentences && activeArticle!.sentences.length > 0) 
                  ? activeArticle!.sentences.map(s => s.arabic).join(" ") 
                  : (activeArticle!.contentVoweled || activeArticle!.contentPlain || "");
           } else {
-             // 初級: Voweled(母音あり) 優先
              textToRead = activeArticle!.contentVoweled || activeArticle!.contentPlain || "";
           }
 
           if (textToRead) {
-            const u = new SpeechSynthesisUtterance(textToRead);
+            // ★ 修正: アラビア文字以外を抹殺！ドットも残りません。
+            const cleanText = textToRead.replace(/[^\u0600-\u06FF\s]/g, "").trim();
+
+            const u = new SpeechSynthesisUtterance(cleanText);
             u.lang = 'ar-SA';
+            const arabicVoice = voices.find(v => v.lang.includes('ar'));
+            if (arabicVoice) { u.voice = arabicVoice; }
+
             u.onend = () => setIsSpeaking(false);
             window.speechSynthesis.speak(u);
           }
@@ -383,13 +392,11 @@ export default function Home() {
              <div className="bg-white p-6 rounded-2xl shadow-lg border border-amber-100"><h3 className="font-bold mb-6 text-gray-600 font-serif">📈 スキルバランス</h3><div className="space-y-4" dir="ltr">{Object.entries(breakdown).map(([key, val]) => (<div key={key} className="space-y-2"><div className="flex justify-between text-xs font-bold uppercase text-gray-400"><span>{key}</span><span>{formatTime(val)}</span></div><div className="w-full bg-stone-100 rounded-full h-2.5 overflow-hidden"><div className={`h-full rounded-full ${key==='reading'?'bg-emerald-600':key==='listening'?'bg-blue-600':key==='dictation'?'bg-orange-500': key==='grammar' ? 'bg-purple-600' : 'bg-amber-500'}`} style={{width: `${stats.total ? (val/stats.total)*100 : 0}%`}}></div></div></div>))}</div></div></div>
         )}
 
-        {/* コース選択画面 */}
         {currentScreen === "levels" && (
           <div className="text-center py-10 animate-fade-in-up">
             <h2 className="text-3xl font-serif font-bold mb-3 text-emerald-950">コース選択</h2>
             <div className="w-16 h-1 bg-amber-400 mx-auto mb-8 rounded-full"></div>
             <div className="grid grid-cols-2 gap-4" dir="ltr">
-              {/* ★ ここを修正しました */}
               <LevelButton title="初級" subtitle="文法" color="bg-emerald-50 border-emerald-200" icon="🌱" onClick={() => handleSelectLevel("初級")} />
               <LevelButton title="会話" subtitle="日常会話" color="bg-amber-50 border-amber-200" icon="💬" onClick={() => handleSelectLevel("会話")} />
               <LevelButton title="中級" subtitle="発音記号あり・短文" color="bg-blue-50 border-blue-200" icon="📖" onClick={() => handleSelectLevel("中級")} />
@@ -426,7 +433,6 @@ export default function Home() {
           </div>
         )}
 
-        {/* 読解・学習画面 */}
         {currentScreen === "reader" && activeArticle && (
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden pb-10 border border-stone-200 animate-fade-in-up">
             <div className="bg-emerald-900 text-amber-50 p-4 flex justify-between items-center sticky top-0 z-10"><button onClick={() => changeScreen("list")} className="hover:text-white text-sm font-bold opacity-80 transition">✕ 閉じる</button><span className="font-bold text-xs tracking-wider opacity-80">{activeArticle.category}</span></div>
@@ -471,23 +477,19 @@ export default function Home() {
                            })}
                         </div>
                       ) : (
-                        // ★ 本文表示ロジック（修正完了）
                         <p className="text-3xl leading-[2.5] font-arabic text-justify mb-10 w-full text-gray-800" dir="rtl">
                            {(() => {
                              if (activeArticle.level === "上級") {
-                               // 上級: Plain(母音なし) 優先。もしPlainが無ければ、Sentences(母音あり)の母音を消して表示
                                if (activeArticle.contentPlain) return activeArticle.contentPlain;
                                if (activeArticle.sentences && activeArticle.sentences.length > 0) {
                                    return removeTashkeel(activeArticle.sentences.map(s => s.arabic).join(" "));
                                }
                                return activeArticle.contentVoweled ? removeTashkeel(activeArticle.contentVoweled) : "";
                              } else if (activeArticle.level === "中級" || activeArticle.category === "物語") {
-                               // 中級: Voweled(母音あり) 優先
                                return (activeArticle.sentences && activeArticle.sentences.length > 0)
                                    ? activeArticle.sentences.map(s => s.arabic).join(" ")
                                    : (activeArticle.contentVoweled || activeArticle.contentPlain || "");
                              } else {
-                               // 初級: Voweled(母音あり) 優先
                                return (activeArticle.contentVoweled || activeArticle.contentPlain);
                              }
                            })()}
@@ -502,7 +504,6 @@ export default function Home() {
             </div>
           </div>
         )}
-        {/* 残りの共通画面コンポーネント (省略なし) */}
         {currentScreen === "mode_select" && activeArticle && (
           <div className="flex flex-col items-center justify-center py-10 animate-fade-in-up max-w-xl mx-auto">
             <div className="w-24 h-24 bg-gradient-to-br from-emerald-700 to-emerald-900 text-amber-400 rounded-full flex items-center justify-center text-4xl mb-8 shadow-xl border-4 border-amber-100">🎓</div>
