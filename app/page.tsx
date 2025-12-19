@@ -4,7 +4,7 @@ import { supabase } from "./lib/supabaseClient";
 // 固定データ（既存の記事）も読み込んでおく
 import { articles as staticArticles, Article, QuizQuestion } from "./data";
 
-// --- Types ---
+// --- Typåes ---
 type Screen = "levels" | "topics" | "list" | "mode_select" | "reader" | "quiz" | "result" | "vocab" | "dictation" | "mypage";
 type LearningMode = "reading" | "listening" | "dictation" | "grammar";
 type StudyBreakdown = { reading: number; listening: number; dictation: number; vocab: number; grammar: number; };
