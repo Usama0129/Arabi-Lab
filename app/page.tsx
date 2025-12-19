@@ -27,7 +27,7 @@ const getYouTubeId = (url: string) => {
 export default function Home() {
   // --- State ---
   const [currentScreen, setCurrentScreen] = useState<Screen>("main_menu");
-  const [courseType, setCourseType] = useState<CourseType | null>(null); // ★追加：選択中のコースタイプ
+  const [courseType, setCourseType] = useState<CourseType | null>(null);
   const [selectedLevel, setSelectedLevel] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [activeArticle, setActiveArticle] = useState<Article & { videoUrl?: string } | null>(null);
@@ -220,7 +220,6 @@ export default function Home() {
   const handleLogout = async () => { await supabase.auth.signOut(); setUser(null); setIsPremium(false); setSavedVocab(JSON.parse(localStorage.getItem("arabicApp_vocab") || "[]")); changeScreen("main_menu"); };
   const changeScreen = (screen: Screen) => { stopSpeaking(); setCurrentScreen(screen); };
   
-  // ★コース選択処理 (Main Menu -> Sub Menu / Topics)
   const handleMainMenuClick = (type: CourseType) => {
     setCourseType(type);
     if (type === "grammar") {
@@ -230,7 +229,6 @@ export default function Home() {
         setSelectedLevel("会話");
         changeScreen("topics");
     } else {
-        // Reading, Listeningはレベル選択へ
         changeScreen("levels_sub");
     }
   };
@@ -242,16 +240,18 @@ export default function Home() {
 
   const handleSelectCategory = (category: string) => { setSelectedCategory(category); changeScreen("list"); };
   
+  // ★ 修正: リスニングならモード選択を飛ばして直接問題画面(reader)へ
   const handleArticleClick = (article: Article & { videoUrl?: string }, index: number) => { 
     if (isLockedContent(article)) { setShowUpgradeModal(true); return; }
     setActiveArticle(article); setActiveProblemNumber(index + 1); setRevealedVocabIndex(null); 
-    // リスニングコースならデフォルトでリスニングモードに
+    
     if (courseType === "listening") {
         setLearningMode("listening");
+        changeScreen("reader"); // モード選択画面(mode_select)をスキップ
     } else {
         setLearningMode("reading");
+        changeScreen("mode_select"); 
     }
-    changeScreen("mode_select"); 
   };
 
   const generateDictationProblem = (article: Article, index: number) => {
@@ -409,7 +409,6 @@ export default function Home() {
              <div className="bg-white p-6 rounded-2xl shadow-lg border border-amber-100"><h3 className="font-bold mb-6 text-gray-600 font-serif">📈 スキルバランス</h3><div className="space-y-4" dir="ltr">{Object.entries(breakdown).map(([key, val]) => (<div key={key} className="space-y-2"><div className="flex justify-between text-xs font-bold uppercase text-gray-400"><span>{key}</span><span>{formatTime(val)}</span></div><div className="w-full bg-stone-100 rounded-full h-2.5 overflow-hidden"><div className={`h-full rounded-full ${key==='reading'?'bg-emerald-600':key==='listening'?'bg-blue-600':key==='dictation'?'bg-orange-500': key==='grammar' ? 'bg-purple-600' : 'bg-amber-500'}`} style={{width: `${stats.total ? (val/stats.total)*100 : 0}%`}}></div></div></div>))}</div></div></div>
         )}
 
-        {/* ★メインメニュー (4つのコース) */}
         {currentScreen === "main_menu" && (
           <div className="text-center py-10 animate-fade-in-up">
             <h2 className="text-3xl font-serif font-bold mb-3 text-emerald-950">コース選択</h2>
@@ -423,7 +422,6 @@ export default function Home() {
           </div>
         )}
 
-        {/* ★サブメニュー (Reading/Listening用 レベル選択) */}
         {currentScreen === "levels_sub" && (
           <div className="text-center py-10 animate-fade-in-up">
             <button onClick={() => changeScreen("main_menu")} className="text-gray-400 mb-6 text-sm hover:text-emerald-700 transition flex items-center gap-1 font-bold mx-auto">← 戻る</button>
@@ -453,18 +451,14 @@ export default function Home() {
             </h2>
             <div className="grid grid-cols-2 gap-4" dir="ltr">
               {Array.from(new Set(allArticles.filter(a => {
-                  // ★フィルタリングロジック
-                  if (courseType === "grammar") return a.level === "初級"; // 文法はとりあえず初級
+                  if (courseType === "grammar") return a.level === "初級"; 
                   if (courseType === "conversation") return a.level === "会話";
                   
-                  // Reading/Listeningのフィルタ
                   if (a.level !== selectedLevel) return false;
                   
                   if (courseType === "listening") {
-                      // リスニングは動画があるものだけ
                       return a.videoUrl && a.videoUrl.length > 0;
                   } else if (courseType === "reading") {
-                      // リーディングは動画がないもの (※動画ありも含めるならここを削除)
                       return !a.videoUrl || a.videoUrl === "";
                   }
                   return true;
@@ -482,7 +476,6 @@ export default function Home() {
                   if (courseType === "grammar") return a.level === "初級" && a.category === selectedCategory;
                   if (courseType === "conversation") return a.level === "会話" && a.category === selectedCategory;
                   
-                  // Reading/Listening Logic
                   if (a.level !== selectedLevel || a.category !== selectedCategory) return false;
                   if (courseType === "listening") return a.videoUrl && a.videoUrl.length > 0;
                   if (courseType === "reading") return !a.videoUrl || a.videoUrl === "";
@@ -505,7 +498,7 @@ export default function Home() {
             <div className="bg-emerald-900 text-amber-50 p-4 flex justify-between items-center sticky top-0 z-10"><button onClick={() => changeScreen("list")} className="hover:text-white text-sm font-bold opacity-80 transition">✕ 閉じる</button><span className="font-bold text-xs tracking-wider opacity-80">{activeArticle.category}</span></div>
             <div className="p-6 md:p-10 flex flex-col items-center">
               
-              {/* ★ 動画プレイヤー */}
+              {/* 動画プレイヤー */}
               {activeArticle.videoUrl && getYouTubeId(activeArticle.videoUrl) && (
                 <div className="w-full max-w-xl mb-8 aspect-video rounded-xl overflow-hidden shadow-lg border border-stone-200">
                    <iframe 
@@ -522,6 +515,7 @@ export default function Home() {
 
               {learningMode === "grammar" ? (
                 <div className="w-full max-w-xl">
+                  {/* 文法問題 (省略なし) */}
                   {grammarQuestions.length > 0 ? (
                     <>
                       <div className="text-center mb-10"><span className="inline-block bg-purple-50 text-purple-700 border border-purple-200 px-4 py-1 rounded-full text-xs font-bold mb-6 tracking-wider">QUIZ {currentQuestionIndex + 1} / {grammarQuestions.length}</span><h2 className="text-xl font-bold mb-4 leading-relaxed text-gray-800">{grammarQuestions[currentQuestionIndex].text}</h2></div>
@@ -534,23 +528,10 @@ export default function Home() {
                 </div>
               ) : (
                 <>
-                  <h2 className="text-2xl font-serif font-bold mb-8 text-center text-emerald-950 w-full max-w-md">{activeArticle.title}</h2>
-                  {learningMode === "listening" ? (
-                    <div className="w-full py-20 flex flex-col items-center justify-center bg-stone-50 rounded-2xl mb-8 border border-stone-200 shadow-inner">
-                      {activeArticle.videoUrl && getYouTubeId(activeArticle.videoUrl) ? (
-                         <div className="w-full max-w-xl aspect-video rounded-xl overflow-hidden shadow-lg border border-stone-200 mb-6">
-                            <iframe width="100%" height="100%" src={`https://www.youtube.com/embed/${getYouTubeId(activeArticle.videoUrl)}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-                         </div>
-                      ) : (
-                         <>
-                           <div className="text-6xl mb-6 animate-pulse opacity-80">🎧</div>
-                           <p className="text-gray-400 mb-8 text-sm font-bold tracking-widest">LISTENING MODE</p>
-                           {!isSpeaking ? <button onClick={playArticleAudio} className="bg-emerald-700 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-emerald-800 transition transform hover:-translate-y-1">▶ 再生する</button> : <button onClick={stopSpeaking} className="bg-stone-400 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-stone-500 transition">⏹ 停止</button>}
-                         </>
-                      )}
-                    </div>
-                  ) : (
+                  {/* ★修正: リスニング以外の時だけ、タイトル・テキスト・音声ボタンを表示 */}
+                  {courseType !== "listening" && (
                     <>
+                      <h2 className="text-2xl font-serif font-bold mb-8 text-center text-emerald-950 w-full max-w-md">{activeArticle.level === "初級" ? `問題 ${activeProblemNumber} (${activeArticle.title})` : activeArticle.title}</h2>
                       <div className="w-full flex justify-end mb-4"><button onClick={playArticleAudio} className="text-xs font-bold bg-amber-100 px-3 py-2 rounded-full hover:bg-amber-200 text-amber-900 transition flex items-center gap-1">🔊 音声再生</button></div>
                       {activeArticle.level === "会話" ? (
                         <div className="w-full space-y-6 mb-10">
@@ -588,12 +569,14 @@ export default function Home() {
                       <div className="mb-10 w-full"><h3 className="font-bold mb-4 text-xs text-stone-400 tracking-widest uppercase">Vocabulary</h3><div className="flex flex-wrap gap-2">{activeArticle.vocabList.map((v, i) => (<VocabButton key={i} v={v} i={i} isRevealed={revealedVocabIndex === i} isSaved={savedVocab.some(sv => sv.word === v.word)} onReveal={() => setRevealedVocabIndex(i)} onSave={() => saveWord(v.word, v.meaning)} />))}</div></div>
                     </>
                   )}
-                  <button onClick={startQuiz} className="w-full bg-emerald-800 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-emerald-900 transition transform flex items-center justify-center gap-2"><span>📝</span> 理解度チェック ({activeArticle.questions.length}問)</button>
+                  {/* リスニングでも「理解度チェック」ボタンは表示 */}
+                  <button onClick={startQuiz} className="w-full bg-emerald-800 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-emerald-900 transition transform flex items-center justify-center gap-2"><span>📝</span> {courseType === "listening" ? "問題を解く" : `理解度チェック (${activeArticle.questions.length}問)`}</button>
                 </>
               )}
             </div>
           </div>
         )}
+        
         {/* 以下共通コンポーネント (省略なし) */}
         {currentScreen === "mode_select" && activeArticle && (
           <div className="flex flex-col items-center justify-center py-10 animate-fade-in-up max-w-xl mx-auto">
@@ -658,6 +641,12 @@ export default function Home() {
               {learningMode !== "dictation" && learningMode !== "grammar" && <div className="text-4xl font-bold text-emerald-600 mb-8">{quizScore} <span className="text-lg text-gray-300 font-normal">/ {activeArticle.questions.length}</span></div>}
               <div className="flex justify-center gap-4"><button onClick={() => changeScreen("list")} className="px-10 py-3 bg-emerald-900 text-white font-bold rounded-full hover:bg-emerald-800 shadow-lg transition">一覧に戻る</button></div>
             </div>
+            {/* ★ 結果画面にも動画を表示 (復習用) */}
+            {activeArticle.videoUrl && getYouTubeId(activeArticle.videoUrl) && (
+                <div className="w-full max-w-xl mx-auto mb-8 aspect-video rounded-xl overflow-hidden shadow-lg border border-stone-200">
+                   <iframe width="100%" height="100%" src={`https://www.youtube.com/embed/${getYouTubeId(activeArticle.videoUrl)}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                </div>
+            )}
             <div className="bg-white rounded-xl shadow-sm p-6 mb-4 border border-stone-100"><h3 className="font-bold mb-4 text-xs text-stone-400 tracking-widest uppercase border-b pb-2">📝 全文復習 (Review)</h3><div className="space-y-4">{activeArticle.sentences?.map((sent, i) => (<div key={i} className="p-3 bg-stone-50 rounded-lg group hover:bg-emerald-50 transition cursor-pointer" onClick={() => speakText(sent.arabic)}><p className="font-bold text-emerald-900 text-right font-arabic text-lg mb-1">{sent.arabic} <span className="text-xs text-gray-300 ml-2">🔊</span></p><p className="text-sm text-gray-600 text-right">{sent.japanese}</p></div>))}</div></div>
             <div className="bg-white rounded-xl shadow-sm p-6 mb-4 border border-stone-100"><h3 className="font-bold mb-4 text-xs text-stone-400 tracking-widest uppercase">単語を保存</h3><div className="flex flex-wrap gap-2 justify-center">{activeArticle.vocabList.map((v, i) => (<VocabButton key={i} v={v} i={i} isRevealed={revealedVocabIndex === i} isSaved={savedVocab.some(sv => sv.word === v.word)} onReveal={() => setRevealedVocabIndex(i)} onSave={() => saveWord(v.word, v.meaning)} />))}</div></div>
           </div>
