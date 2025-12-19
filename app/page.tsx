@@ -1,8 +1,8 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-// ↓ パスが違う場合は ../lib/supabaseClient などに直してください
 import { supabase } from "./lib/supabaseClient";
-import { articles, Article, QuizQuestion } from "./data";
+// 固定データ（既存の記事）も読み込んでおく
+import { articles as staticArticles, Article, QuizQuestion } from "./data";
 
 // --- Types ---
 type Screen = "levels" | "topics" | "list" | "mode_select" | "reader" | "quiz" | "result" | "vocab" | "dictation" | "mypage";
@@ -24,15 +24,18 @@ export default function Home() {
   const [learningMode, setLearningMode] = useState<LearningMode>("reading");
   const [activeProblemNumber, setActiveProblemNumber] = useState<number>(0);
   
+  // ★ 記事データの管理（固定データ + Supabaseデータ）
+  const [allArticles, setAllArticles] = useState<Article[]>(staticArticles);
+
   const [completedArticleIds, setCompletedArticleIds] = useState<number[]>([]); 
   const [savedVocab, setSavedVocab] = useState<{word: string, meaning: string}[]>([]); 
 
-  // ★ ユーザー情報 ＆ 有料プラン管理
+  // ユーザー情報
   const [user, setUser] = useState<any>(null);
   const [isPremium, setIsPremium] = useState(false); 
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
 
-  // Custom Vocab Input State
+  // Custom Vocab Input
   const [isAddingWord, setIsAddingWord] = useState(false);
   const [newArabic, setNewArabic] = useState("");
   const [newJapanese, setNewJapanese] = useState("");
@@ -78,39 +81,91 @@ export default function Home() {
     return `${m}m`;
   };
 
-  // --- 無料公開記事の設定 ---
-  const FREE_ARTICLE_IDS = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, // 初級
-    10, 11, 12, // 会話の一部
-    20, 21,     // レストランの一部
-    30, 40      // その他のお試し
-  ];
+  const FREE_ARTICLE_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 20, 21, 30, 40];
 
   const isLockedContent = (article: Article) => {
+    // Supabaseから来た記事(IDが大きい)は、とりあえず無料扱いにする（または有料設定にする）
+    if (article.id > 1000) return false; 
     if (isPremium) return false; 
     return !FREE_ARTICLE_IDS.includes(article.id);
   };
 
   // --- Effects ---
   
-  // ★ 1. ユーザー情報・有料状態・単語帳の取得
+  // ★ Supabaseから記事データを取得して結合する
   useEffect(() => {
-    // ユーザー設定（有料か？）を取得
+    const fetchSupabaseArticles = async () => {
+      // 記事と、それに関連する子データ（文、単語、クイズ）を全部取ってくる魔法のクエリ
+      const { data, error } = await supabase
+        .from('articles')
+        .select(`
+          *,
+          article_sentences(*),
+          article_vocab(*),
+          article_questions(*)
+        `);
+
+      if (error) {
+        console.error("Error fetching articles:", error);
+        return;
+      }
+
+      if (data && data.length > 0) {
+        // DBの形式(スネークケース)をアプリの型(キャメルケース)に変換
+        const formattedArticles: Article[] = data.map((d: any) => ({
+          id: d.id + 10000, // IDが被らないように大きな数字を足す
+          title: d.title,
+          level: d.level,
+          category: d.category,
+          // DBのカラム名(content_plain) -> アプリの変数名(contentPlain)
+          contentPlain: d.content_plain || "", 
+          contentVoweled: d.content_voweled || "",
+          
+          // 関連データがあれば整形、なければ空配列
+          sentences: d.article_sentences 
+            ? d.article_sentences.map((s: any) => ({
+                arabic: s.arabic,
+                japanese: s.japanese || "",
+                speaker: s.speaker || "Narrator"
+              })).sort((a: any, b: any) => (a.order_index || 0) - (b.order_index || 0))
+            : [],
+          
+          vocabList: d.article_vocab 
+            ? d.article_vocab.map((v: any) => ({
+                word: v.word,
+                meaning: v.meaning
+              }))
+            : [],
+            
+          questions: d.article_questions 
+            ? d.article_questions.map((q: any) => ({
+                type: q.type,
+                text: q.text,
+                options: q.options || [],
+                correctIndex: q.correct_index,
+                explanation: q.explanation || ""
+              }))
+            : []
+        }));
+
+        // 固定データの後ろに追加
+        setAllArticles([...staticArticles, ...formattedArticles]);
+      }
+    };
+
+    fetchSupabaseArticles();
+  }, []);
+
+  // ユーザー情報・単語帳取得
+  useEffect(() => {
     const fetchProfile = async (userId: string) => {
       const { data } = await supabase.from('profiles').select('is_premium').eq('id', userId).single();
       if (data) setIsPremium(data.is_premium || false);
     };
 
-    // クラウド単語帳を取得
     const fetchVocab = async (userId: string) => {
-      const { data } = await supabase
-        .from('vocab')
-        .select('word, meaning')
-        .order('created_at', { ascending: false });
-      
-      if (data) {
-        setSavedVocab(data);
-      }
+      const { data } = await supabase.from('vocab').select('word, meaning').order('created_at', { ascending: false });
+      if (data) setSavedVocab(data);
     };
 
     const initUser = async () => {
@@ -118,10 +173,9 @@ export default function Home() {
       setUser(session?.user ?? null);
       if (session?.user) {
         fetchProfile(session.user.id);
-        fetchVocab(session.user.id); // ログイン時はクラウドから単語を取得
+        fetchVocab(session.user.id);
       } else {
         setIsPremium(false);
-        // 未ログイン時はローカルストレージから取得
         const localVocab = JSON.parse(localStorage.getItem("arabicApp_vocab") || "[]");
         setSavedVocab(localVocab);
       }
@@ -142,10 +196,9 @@ export default function Home() {
     return () => subscription.unsubscribe();
   }, []);
 
-  // ★ 2. 学習履歴などのローカル保存（単語帳以外）
+  // ローカル保存（履歴・Stats）
   useEffect(() => {
     setCompletedArticleIds(JSON.parse(localStorage.getItem("arabicApp_completed") || "[]"));
-    // ... (既存のStreak計算ロジックはそのまま) ...
     const lastDate = localStorage.getItem("arabicApp_lastDate");
     const today = new Date().toDateString();
     let newStreak = parseInt(localStorage.getItem("arabicApp_streak") || "0");
@@ -163,7 +216,7 @@ export default function Home() {
     setBreakdown(JSON.parse(localStorage.getItem("arabicApp_breakdown") || JSON.stringify({ reading: 0, listening: 0, dictation: 0, vocab: 0, grammar: 0 })));
   }, []);
 
-  // ★ 3. タイマー処理
+  // Timer
   useEffect(() => {
     timerRef.current = setInterval(() => {
       let activeCategory: keyof StudyBreakdown | null = null;
@@ -191,7 +244,7 @@ export default function Home() {
     return () => { if (timerRef.current) clearInterval(timerRef.current); };
   }, [currentScreen, learningMode, stats.total]);
 
-  // ★ 4. 完了履歴の保存（単語帳の保存は関数内で行うのでここからは削除）
+  // Save history
   useEffect(() => {
     localStorage.setItem("arabicApp_completed", JSON.stringify(completedArticleIds));
   }, [completedArticleIds]);
@@ -199,65 +252,42 @@ export default function Home() {
 
   // --- Functions ---
 
-  // ★ 単語の保存（クラウド対応）
   const saveWord = async (word: string, meaning: string) => {
-    // 重複チェック
     if (savedVocab.some(v => v.word === word)) return;
-
     const newWord = { word, meaning };
-    
-    // 1. 画面上ですぐに追加（見た目の反映）
     setSavedVocab(prev => [newWord, ...prev]);
     setRevealedVocabIndex(null);
 
-    // 2. 保存処理
     if (user) {
-      // ログイン中：Supabaseに保存
       await supabase.from('vocab').insert({ user_id: user.id, word, meaning });
     } else {
-      // 未ログイン：Local Storageに保存
       const updated = [newWord, ...savedVocab];
       localStorage.setItem("arabicApp_vocab", JSON.stringify(updated));
     }
   };
 
-  // ★ 単語の削除（クラウド対応）
   const deleteWord = async (wordToDelete: string) => {
-    // 1. 画面上ですぐに削除
     setSavedVocab(prev => prev.filter(v => v.word !== wordToDelete));
-
-    // 2. 削除処理
     if (user) {
-      // ログイン中：Supabaseから削除
       await supabase.from('vocab').delete().match({ user_id: user.id, word: wordToDelete });
     } else {
-      // 未ログイン：Local Storageから削除
       const updated = savedVocab.filter(v => v.word !== wordToDelete);
       localStorage.setItem("arabicApp_vocab", JSON.stringify(updated));
     }
   };
 
-  // ★ カスタム単語追加（クラウド対応）
   const handleAddCustomWord = () => {
     if (!newArabic.trim() || !newJapanese.trim()) return;
     saveWord(newArabic.trim(), newJapanese.trim());
-    setNewArabic("");
-    setNewJapanese("");
-    setIsAddingWord(false);
+    setNewArabic(""); setNewJapanese(""); setIsAddingWord(false);
   };
 
   const handleLogin = async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: window.location.origin },
-    });
+    await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin } });
   };
-
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    setUser(null);
-    setIsPremium(false);
-    // ログアウトしたらローカルのデータを表示
+    setUser(null); setIsPremium(false);
     setSavedVocab(JSON.parse(localStorage.getItem("arabicApp_vocab") || "[]"));
     changeScreen("levels");
   };
@@ -277,10 +307,7 @@ export default function Home() {
   const handleSelectCategory = (category: string) => { setSelectedCategory(category); changeScreen("list"); };
 
   const handleArticleClick = (article: Article, index: number) => { 
-    if (isLockedContent(article)) {
-      setShowUpgradeModal(true);
-      return;
-    }
+    if (isLockedContent(article)) { setShowUpgradeModal(true); return; }
     setActiveArticle(article); 
     setActiveProblemNumber(index + 1); 
     setRevealedVocabIndex(null); 
@@ -288,6 +315,8 @@ export default function Home() {
   };
   
   const generateDictationProblem = (article: Article, index: number) => {
+    // センテンスがない記事（中級など）の場合はスキップ
+    if (!article.sentences || article.sentences.length === 0) return;
     const fullSentence = article.sentences[index].arabic;
     const words = fullSentence.split(" ");
     let candidates: number[] = [];
@@ -304,14 +333,22 @@ export default function Home() {
 
   const startLearning = (mode: LearningMode) => {
     setLearningMode(mode);
-    if (mode === "dictation" && activeArticle) { setDictationIndex(0); generateDictationProblem(activeArticle, 0); changeScreen("dictation"); }
+    if (mode === "dictation" && activeArticle) { 
+        if (!activeArticle.sentences || activeArticle.sentences.length === 0) {
+            alert("このコンテンツには書き取り問題がありません");
+            return;
+        }
+        setDictationIndex(0); generateDictationProblem(activeArticle, 0); changeScreen("dictation"); 
+    }
     else if (mode === "grammar" && activeArticle) {
       const grammarQs = activeArticle.questions.filter(q => q.type === "grammar");
+      if (grammarQs.length === 0) { alert("このコンテンツには文法問題がありません"); return; }
       setGrammarQuestions(grammarQs); setCurrentQuestionIndex(0); setGrammarFeedback(null); changeScreen("reader");
     } else { changeScreen("reader"); }
   };
 
   const startQuiz = () => { 
+    if (!activeArticle || activeArticle.questions.length === 0) { alert("クイズがありません"); return; }
     stopSpeaking(); 
     setQuizScore(0); 
     setCurrentQuestionIndex(0); 
@@ -387,10 +424,14 @@ export default function Home() {
              ? activeArticle!.sentences.map(s => s.arabic).join(" ")
              : (["初級"].includes(activeArticle!.level) ? activeArticle!.contentVoweled : activeArticle!.contentPlain);
           
-          const u = new SpeechSynthesisUtterance(textToRead);
-          u.lang = 'ar-SA';
-          u.onend = () => setIsSpeaking(false);
-          window.speechSynthesis.speak(u);
+          const textToReadFinal = textToRead || activeArticle?.contentVoweled || activeArticle?.contentPlain || "";
+          
+          if (textToReadFinal) {
+            const u = new SpeechSynthesisUtterance(textToReadFinal);
+            u.lang = 'ar-SA';
+            u.onend = () => setIsSpeaking(false);
+            window.speechSynthesis.speak(u);
+          }
         }
     }
   };
@@ -475,7 +516,6 @@ export default function Home() {
              <div className="bg-white p-6 rounded-2xl shadow-lg border border-amber-100"><h3 className="font-bold mb-6 text-gray-600 font-serif">📈 スキルバランス</h3><div className="space-y-4" dir="ltr">{Object.entries(breakdown).map(([key, val]) => (<div key={key} className="space-y-2"><div className="flex justify-between text-xs font-bold uppercase text-gray-400"><span>{key}</span><span>{formatTime(val)}</span></div><div className="w-full bg-stone-100 rounded-full h-2.5 overflow-hidden"><div className={`h-full rounded-full ${key==='reading'?'bg-emerald-600':key==='listening'?'bg-blue-600':key==='dictation'?'bg-orange-500': key==='grammar' ? 'bg-purple-600' : 'bg-amber-500'}`} style={{width: `${stats.total ? (val/stats.total)*100 : 0}%`}}></div></div></div>))}</div></div></div>
         )}
 
-        {/* ... (levels, topics, list などの画面は変更なし。コードが長くなるため省略せずそのまま使えます) ... */}
         {currentScreen === "levels" && (
           <div className="text-center py-10 animate-fade-in-up">
             <h2 className="text-3xl font-serif font-bold mb-3 text-emerald-950">コース選択</h2>
@@ -496,7 +536,7 @@ export default function Home() {
                {selectedLevel === "初級" ? "文法カテゴリー" : selectedLevel === "会話" ? "会話シーン" : selectedLevel === "中級" ? "中級テーマ" : "上級テーマ"}
             </h2>
             <div className="grid grid-cols-2 gap-4" dir="ltr">
-              {Array.from(new Set(articles.filter(a => a.level === selectedLevel).map(a => a.category))).map(cat => (
+              {Array.from(new Set(allArticles.filter(a => a.level === selectedLevel).map(a => a.category))).map(cat => (
                 <button key={cat} onClick={() => handleSelectCategory(cat)} className="bg-white p-6 rounded-xl shadow hover:shadow-lg border border-stone-200 hover:border-emerald-500 transition-all text-left group relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-2 h-full bg-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   <span className="text-2xl mb-2 block group-hover:scale-110 transition-transform w-fit">🏷️</span>
@@ -514,7 +554,7 @@ export default function Home() {
                <h2 className="text-xl font-serif font-bold text-emerald-950">{selectedCategory} ({selectedLevel})</h2>
             </div>
             <div className="space-y-3">
-              {articles.filter(a => a.level === selectedLevel && (a.category === selectedCategory || (selectedLevel !== "初級" && selectedLevel !== "会話" && selectedLevel !== "中級" && selectedLevel !== "上級"))).map((article, index) => {
+              {allArticles.filter(a => a.level === selectedLevel && (a.category === selectedCategory || (selectedLevel !== "初級" && selectedLevel !== "会話" && selectedLevel !== "中級" && selectedLevel !== "上級"))).map((article, index) => {
                   const locked = isLockedContent(article);
                   return (
                     <div key={article.id} onClick={() => handleArticleClick(article, index)} className={`p-5 rounded-xl shadow-sm border flex justify-between items-center transition-all group cursor-pointer ${locked ? "bg-stone-100 border-stone-200" : "bg-white hover:shadow-md border-stone-100 hover:border-amber-300"}`}>
@@ -537,7 +577,6 @@ export default function Home() {
           </div>
         )}
 
-        {/* Reader & Grammar Mode */}
         {currentScreen === "reader" && activeArticle && (
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden pb-10 border border-stone-200 animate-fade-in-up">
             <div className="bg-emerald-900 text-amber-50 p-4 flex justify-between items-center sticky top-0 z-10"><button onClick={() => changeScreen("list")} className="hover:text-white text-sm font-bold opacity-80 transition">✕ 閉じる</button><span className="font-bold text-xs tracking-wider opacity-80">{activeArticle.category}</span></div>
@@ -567,7 +606,6 @@ export default function Home() {
                   )}
                 </div>
               ) : (
-                /* --- Reading / Listening Mode --- */
                 <>
                   <h2 className="text-2xl font-serif font-bold mb-8 text-center text-emerald-950 w-full max-w-md">
                     {activeArticle.level === "初級" ? `問題 ${activeProblemNumber} (${activeArticle.title})` : activeArticle.title}
@@ -599,16 +637,24 @@ export default function Home() {
                         <p className="text-3xl leading-[2.5] font-arabic text-justify mb-10 w-full text-gray-800" dir="rtl">
                            {(() => {
                              if (activeArticle.level === "上級") {
-                               return removeTashkeel(activeArticle.sentences.map(s => s.arabic).join(" "));
+                               return removeTashkeel(activeArticle.sentences?.map(s => s.arabic).join(" ") || activeArticle.contentPlain || "");
                              } else if (activeArticle.level === "中級" || activeArticle.category === "物語") {
-                               return activeArticle.sentences.map(s => s.arabic).join(" ");
+                               return activeArticle.sentences?.map(s => s.arabic).join(" ") || activeArticle.contentVoweled || activeArticle.contentPlain || "";
                              } else {
                                return ["初級"].includes(activeArticle.level) ? activeArticle.contentVoweled : activeArticle.contentPlain;
                              }
                            })()}
                         </p>
                       )}
-                      <div className="mb-10 w-full"><h3 className="font-bold mb-4 text-xs text-stone-400 tracking-widest uppercase">Vocabulary</h3><div className="flex flex-wrap gap-2">{activeArticle.vocabList.map((v, i) => (<VocabButton key={i} v={v} i={i} isRevealed={revealedVocabIndex === i} isSaved={savedVocab.some(sv => sv.word === v.word)} onReveal={() => setRevealedVocabIndex(i)} onSave={() => saveWord(v.word, v.meaning)} />))}</div></div>
+                      <div className="mb-10 w-full"><h3 className="font-bold mb-4 text-xs text-stone-400 tracking-widest uppercase">Vocabulary</h3>
+                        <div className="flex flex-wrap gap-2">
+                            {activeArticle.vocabList && activeArticle.vocabList.length > 0 ? (
+                                activeArticle.vocabList.map((v, i) => (<VocabButton key={i} v={v} i={i} isRevealed={revealedVocabIndex === i} isSaved={savedVocab.some(sv => sv.word === v.word)} onReveal={() => setRevealedVocabIndex(i)} onSave={() => saveWord(v.word, v.meaning)} />))
+                            ) : (
+                                <p className="text-gray-400 text-sm">単語リストはありません</p>
+                            )}
+                        </div>
+                      </div>
                     </>
                   )}
                   <button onClick={startQuiz} className="w-full bg-emerald-800 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-emerald-900 transition transform flex items-center justify-center gap-2"><span>📝</span> 理解度チェック ({activeArticle.questions.length}問)</button>
@@ -618,8 +664,6 @@ export default function Home() {
           </div>
         )}
 
-        {/* ... (Dictation, Quiz, Result 画面は変更なし。Vocabは以下のように変更) ... */}
-        {/* Mode Select, Dictation, Quiz, Result は共通のため省略せずそのまま使用 */}
         {currentScreen === "mode_select" && activeArticle && (
           <div className="flex flex-col items-center justify-center py-10 animate-fade-in-up max-w-xl mx-auto">
             <div className="w-24 h-24 bg-gradient-to-br from-emerald-700 to-emerald-900 text-amber-400 rounded-full flex items-center justify-center text-4xl mb-8 shadow-xl border-4 border-amber-100">🎓</div>
