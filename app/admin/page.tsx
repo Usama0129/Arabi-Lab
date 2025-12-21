@@ -135,6 +135,7 @@ export default function AdminPage() {
               <div>
                 <label className="block text-sm font-bold mb-1">レベル</label>
                 <select className="w-full p-2 border rounded" value={level} onChange={(e) => setLevel(e.target.value)}>
+                　<option value="文法">文法</option>
                   <option value="初級">初級</option>
                   <option value="会話">会話</option>
                   <option value="中級">中級</option>

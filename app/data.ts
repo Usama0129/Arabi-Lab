@@ -13,7 +13,8 @@ export type Article = {
   id: number;
   title: string;
   category: string;
-  level: "初級" | "会話" | "中級" | "上級";
+  // ★ 変更箇所: ↓ 一番後ろに | "文法" を追加しました
+  level: "初級" | "会話" | "中級" | "上級" | "文法";
   contentVoweled: string;
   contentPlain: string;
   vocabList: { word: string; meaning: string }[];
@@ -1932,7 +1933,7 @@ export const articles: Article[] = [
 
   // --- 1. 指示代名詞 (Demonstratives) ---
   {
-    id: 101, title: "単数", category: "指示代名詞", level: "初級",
+    id: 101, title: "単数", category: "指示代名詞", level: "文法",
     contentVoweled: "هَذَا مُدَرِّسٌ.", contentPlain: "هذا مدرس.",
     vocabList: [{ word: "هَذَا", meaning: "これ(男)" }],
     questions: [
@@ -1950,7 +1951,7 @@ export const articles: Article[] = [
     sentences: [{ arabic: "هَذَا مُدَرِّسٌ.", japanese: "これは先生です。" }]
   },
   {
-    id: 102, title: "双数", category: "指示代名詞", level: "初級",
+    id: 102, title: "双数", category: "指示代名詞", level: "文法",
     contentVoweled: "هَذَانِ كِتَابَانِ.", contentPlain: "هذان كتابان.",
     vocabList: [{ word: "هَذَانِ", meaning: "これら2つ" }],
     questions: [
@@ -1968,7 +1969,7 @@ export const articles: Article[] = [
     sentences: [{ arabic: "هَذَانِ كِتَابَانِ.", japanese: "これらは2冊の本です。" }]
   },
   {
-    id: 103, title: "複数", category: "指示代名詞", level: "初級",
+    id: 103, title: "複数", category: "指示代名詞", level: "文法",
     contentVoweled: "هَؤُلَاءِ طُلَّابٌ.", contentPlain: "هؤلاء طلاب.",
     vocabList: [{ word: "هَؤُلَاءِ", meaning: "これら(人)" }],
     questions: [
@@ -1988,7 +1989,7 @@ export const articles: Article[] = [
 
   // --- 2. 疑問詞 ---
   {
-    id: 601, title: "基本の疑問詞", category: "疑問詞", level: "初級",
+    id: 601, title: "基本の疑問詞", category: "疑問詞", level: "文法",
     contentVoweled: "مَنْ هَذَا؟", contentPlain: "من هذا؟",
     vocabList: [{ word: "مَنْ", meaning: "誰" }, { word: "أَيْنَ", meaning: "どこ" }],
     questions: [
@@ -2006,7 +2007,7 @@ export const articles: Article[] = [
     sentences: [{ arabic: "مَنْ أَنْتَ؟", japanese: "あなたは誰ですか？" }]
   },
   {
-    id: 602, title: "Yes/Noと数", category: "疑問詞", level: "初級",
+    id: 602, title: "Yes/Noと数", category: "疑問詞", level: "文法",
     contentVoweled: "هَلْ أَنْتَ طَالِبٌ؟", contentPlain: "هل أنت طالب؟",
     vocabList: [{ word: "هَلْ", meaning: "〜ですか？" }, { word: "كَمْ", meaning: "いくつ" }],
     questions: [
@@ -2026,7 +2027,7 @@ export const articles: Article[] = [
 
   // --- 3. 所有・存在 ---
   {
-    id: 701, title: "Inda (物理的所有)", category: "所有・存在", level: "初級",
+    id: 701, title: "Inda (物理的所有)", category: "所有・存在", level: "文法",
     contentVoweled: "عِنْدِي.", contentPlain: "عندي.",
     vocabList: [{ word: "عِنْدَ", meaning: "〜の所に" }],
     questions: [
@@ -2044,7 +2045,7 @@ export const articles: Article[] = [
     sentences: [{ arabic: "عِنْدِي سُؤَالٌ.", japanese: "私には質問があります。" }]
   },
   {
-    id: 702, title: "Li (帰属・人間関係)", category: "所有・存在", level: "初級",
+    id: 702, title: "Li (帰属・人間関係)", category: "所有・存在", level: "文法",
     contentVoweled: "لِي أَخٌ.", contentPlain: "لي أخ.",
     vocabList: [{ word: "لِـ", meaning: "〜に(For)" }],
     questions: [
@@ -2064,7 +2065,7 @@ export const articles: Article[] = [
 
   // --- 4. 名詞・代名詞 (Nouns & Pronouns) ---
   {
-    id: 201, title: "冠詞 (al-)", category: "名詞・代名詞", level: "初級",
+    id: 201, title: "冠詞 (al-)", category: "名詞・代名詞", level: "文法",
     contentVoweled: "الْكِتَابُ.", contentPlain: "الكتاب.",
     vocabList: [{ word: "الـ", meaning: "その(The)" }],
     questions: [
@@ -2082,7 +2083,7 @@ export const articles: Article[] = [
     sentences: [{ arabic: "الْكِتَابُ جَدِيدٌ.", japanese: "その本は新しいです。" }]
   },
   {
-    id: 202, title: "人称代名詞", category: "名詞・代名詞", level: "初級",
+    id: 202, title: "人称代名詞", category: "名詞・代名詞", level: "文法",
     contentVoweled: "أَنَا.", contentPlain: "أنا.",
     vocabList: [{ word: "أَنَا", meaning: "私" }],
     questions: [
@@ -2100,7 +2101,7 @@ export const articles: Article[] = [
     sentences: [{ arabic: "أَنَا طَالِبٌ.", japanese: "私は学生です。" }]
   },
   {
-    id: 501, title: "形容詞", category: "名詞・形容詞", level: "初級",
+    id: 501, title: "形容詞", category: "名詞・形容詞", level: "文法",
     contentVoweled: "طَالِبٌ مُجْتَهِدٌ.", contentPlain: "طالب مجتهد.",
     vocabList: [{ word: "مُجْتَهِد", meaning: "勤勉な" }],
     questions: [
@@ -2118,7 +2119,7 @@ export const articles: Article[] = [
     sentences: [{ arabic: "هَذِهِ بُيُوتٌ قَدِيمَةٌ.", japanese: "これらは古い家々です。" }]
   },
   {
-    id: 502, title: "イダーファ（所有）", category: "名詞・形容詞", level: "初級",
+    id: 502, title: "イダーファ（所有）", category: "名詞・形容詞", level: "文法",
     contentVoweled: "بَابُ الْبَيْتِ.", contentPlain: "باب البيت.",
     vocabList: [{ word: "بَاب", meaning: "ドア" }],
     questions: [
@@ -2136,7 +2137,7 @@ export const articles: Article[] = [
     sentences: [{ arabic: "قَلَمُ الطَّالِبِ مَكْسُورٌ.", japanese: "その学生のペンは壊れています。" }]
   },
   {
-    id: 803, title: "数詞 (1-1000)", category: "名詞・形容詞", level: "初級",
+    id: 803, title: "数詞 (1-1000)", category: "名詞・形容詞", level: "文法",
     contentVoweled: "أَلْفُ لَيْلَةٍ.", contentPlain: "ألف ليلة.",
     vocabList: [{ word: "خَمْسَة", meaning: "5" }, { word: "أَلْف", meaning: "1000" }],
     questions: [
@@ -2158,7 +2159,7 @@ export const articles: Article[] = [
   //  カテゴリー: 動詞・時制 (Verbs & Tenses)
   // ==========================================
   {
-    id: 301, title: "過去形", category: "動詞・時制", level: "初級",
+    id: 301, title: "過去形", category: "動詞・時制", level: "文法",
     contentVoweled: "كَتَبْتُ رِسَالَةً.", contentPlain: "كتبت رسالة.",
     vocabList: [{ word: "كَتَبَ", meaning: "書いた" }],
     questions: [
@@ -2176,7 +2177,7 @@ export const articles: Article[] = [
     sentences: [{ arabic: "خَرَجَ مِنَ الْبَيْتِ.", japanese: "彼は家から出ました。" }]
   },
   {
-    id: 302, title: "現在形", category: "動詞・時制", level: "初級",
+    id: 302, title: "現在形", category: "動詞・時制", level: "文法",
     contentVoweled: "أَدْرُسُ الْعَرَبِيَّةَ.", contentPlain: "أدرس العربية.",
     vocabList: [{ word: "يَدْرُسُ", meaning: "勉強する" }],
     questions: [
@@ -2194,7 +2195,7 @@ export const articles: Article[] = [
     sentences: [{ arabic: "أَكْتُبُ بِالْقَلَمِ.", japanese: "私はペンで書きます。" }]
   },
   {
-    id: 303, title: "未来形", category: "動詞・時制", level: "初級",
+    id: 303, title: "未来形", category: "動詞・時制", level: "文法",
     contentVoweled: "سَأُسَافِرُ غَدًا.", contentPlain: "سأسافر غدا.",
     vocabList: [{ word: "سَـ", meaning: "〜するつもり" }],
     questions: [
@@ -2212,7 +2213,7 @@ export const articles: Article[] = [
     sentences: [{ arabic: "سَأَدْرُسُ فِي الْمَسَاءِ.", japanese: "私は夕方に勉強するつもりです。" }]
   },
   {
-    id: 304, title: "否定文", category: "動詞・時制", level: "初級",
+    id: 304, title: "否定文", category: "動詞・時制", level: "文法",
     contentVoweled: "لَا أُحِبُّ هَذَا.", contentPlain: "لا أحب هذا.",
     vocabList: [{ word: "لَا", meaning: "〜ない" }, { word: "مَا", meaning: "〜なかった" }],
     questions: [
@@ -2230,7 +2231,7 @@ export const articles: Article[] = [
     sentences: [{ arabic: "مَا فَهِمْتُ الدَّرْسَ.", japanese: "私はその授業を理解しませんでした。" }]
   },
   {
-    id: 305, title: "助動的動詞", category: "動詞・時制", level: "初級",
+    id: 305, title: "助動的動詞", category: "動詞・時制", level: "文法",
     contentVoweled: "كَانَ الْجَوُّ بَارِدًا.", contentPlain: "كان الجو باردا.",
     vocabList: [{ word: "كَانَ", meaning: "〜だった" }, { word: "لَيْسَ", meaning: "〜ではない" }],
     questions: [
@@ -2252,7 +2253,7 @@ export const articles: Article[] = [
   //  カテゴリー: 構文・その他 (Syntax & Others)
   // ==========================================
   {
-    id: 801, title: "命令・禁止", category: "構文・その他", level: "初級",
+    id: 801, title: "命令・禁止", category: "構文・その他", level: "文法",
     contentVoweled: "اُدْخُلْ وَلَا تَخْرُجْ.", contentPlain: "ادخل ولا تخرج.",
     vocabList: [{ word: "اُدْخُلْ", meaning: "入れ" }, { word: "لَا", meaning: "〜するな" }],
     questions: [
@@ -2270,7 +2271,7 @@ export const articles: Article[] = [
     sentences: [{ arabic: "اِفْتَحِ الْبَابَ.", japanese: "ドアを開けなさい。" }]
   },
   {
-    id: 802, title: "前置詞", category: "構文・その他", level: "初級",
+    id: 802, title: "前置詞", category: "構文・その他", level: "文法",
     contentVoweled: "فِي الْغُرْفَةِ.", contentPlain: "في الغرفة.",
     vocabList: [{ word: "فِي", meaning: "中に" }, { word: "عَلَى", meaning: "上に" }],
     questions: [
@@ -2288,7 +2289,7 @@ export const articles: Article[] = [
     sentences: [{ arabic: "الْكِتَابُ فِي الْحَقِيبَةِ.", japanese: "本はカバンの中にあります。" }]
   },
   {
-    id: 503, title: "副詞的表現", category: "構文・その他", level: "初級",
+    id: 503, title: "副詞的表現", category: "構文・その他", level: "文法",
     contentVoweled: "شُكْرًا جَزِيلًا.", contentPlain: "شكرا جزيلا.",
     vocabList: [{ word: "جِدًّا", meaning: "とても" }, { word: "أَيْضًا", meaning: "〜も" }],
     questions: [
@@ -2306,7 +2307,7 @@ export const articles: Article[] = [
     sentences: [{ arabic: "هَذَا جَمِيلٌ جِدًّا.", japanese: "これはとても美しいです。" }]
   },
   {
-    id: 504, title: "例外 (Illa)", category: "構文・その他", level: "初級",
+    id: 504, title: "例外 (Illa)", category: "構文・その他", level: "文法",
     contentVoweled: "لَا إِلَهَ إِلَّا اللهُ.", contentPlain: "لا إله إلا الله.",
     vocabList: [{ word: "إِلَّا", meaning: "〜を除いて" }],
     questions: [
@@ -2324,7 +2325,7 @@ export const articles: Article[] = [
     sentences: [{ arabic: "لَا إِلَهَ إِلَّا اللهُ.", japanese: "アッラーの他に神はなし。" }]
   },
   {
-    id: 505, title: "仮定・条件", category: "構文・その他", level: "初級",
+    id: 505, title: "仮定・条件", category: "構文・その他", level: "文法",
     contentVoweled: "إِنْ تَذْهَبْ أَذْهَبْ.", contentPlain: "إن تذهب أذهب.",
     vocabList: [{ word: "إِنْ", meaning: "もし〜なら" }, { word: "لَوْ", meaning: "もし〜だったら" }],
     questions: [
@@ -2342,7 +2343,7 @@ export const articles: Article[] = [
     sentences: [{ arabic: "إِنْ تَأْكُلْ كَثِيرًا تَمْرَضْ.", japanese: "もし沢山食べたら、病気になります。" }]
   },
   {
-    id: 403, title: "派生動詞", category: "動詞・応用", level: "初級",
+    id: 403, title: "派生動詞", category: "動詞・応用", level: "文法",
     contentVoweled: "عَلَّمَ الْمُدَرِّسُ الطَّالِبَ.", contentPlain: "علم المدرس الطالب.",
     vocabList: [{ word: "عَلَّمَ", meaning: "教える(II形)" }, { word: "دَرَسَ", meaning: "学ぶ(I形)" }],
     questions: [
@@ -2360,7 +2361,7 @@ export const articles: Article[] = [
     sentences: [{ arabic: "سَافَرَ إِلَى مِصْرَ.", japanese: "彼はエジプトへ旅行しました（第3形）。" }]
   },
   {
-    id: 5021, title: "接続詞", category: "構文・その他", level: "初級",
+    id: 5021, title: "接続詞", category: "構文・その他", level: "文法",
     contentVoweled: "أَنَا وَأَنْتَ.", contentPlain: "أنا وأنت.",
     vocabList: [{ word: "وَ", meaning: "〜と" }, { word: "لَكِنْ", meaning: "しかし" }],
     questions: [
@@ -2378,7 +2379,7 @@ export const articles: Article[] = [
     sentences: [{ arabic: "أُحِبُّ الشَّايَ وَالْقَهْوَةَ.", japanese: "私はお茶とコーヒーが好きです。" }]
   },
   {
-    id: 803, title: "数詞 (1-1000)", category: "構文・その他", level: "初級",
+    id: 803, title: "数詞 (1-1000)", category: "構文・その他", level: "文法",
     contentVoweled: "أَلْفُ لَيْلَةٍ.", contentPlain: "ألف ليلة.",
     vocabList: [{ word: "خَمْسَة", meaning: "5" }, { word: "أَلْف", meaning: "1000" }],
     questions: [
