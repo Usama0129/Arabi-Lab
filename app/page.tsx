@@ -28,11 +28,11 @@ export default function Home() {
   const [courseType, setCourseType] = useState<CourseType | null>(null);
   const [selectedLevel, setSelectedLevel] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [activeArticle, setActiveArticle] = useState<Article & { videoUrl?: string } | null>(null);
+  const [activeArticle, setActiveArticle] = useState<Article & { videoUrl?: string; imageUrls?: string[] } | null>(null);
   const [learningMode, setLearningMode] = useState<LearningMode>("reading");
   const [activeProblemNumber, setActiveProblemNumber] = useState<number>(0);
   
-  const [allArticles, setAllArticles] = useState<(Article & { videoUrl?: string })[]>(articles); 
+  const [allArticles, setAllArticles] = useState<(Article & { videoUrl?: string; imageUrls?: string[] })[]>(articles); 
 
   const [completedArticleIds, setCompletedArticleIds] = useState<number[]>([]); 
   const [savedVocab, setSavedVocab] = useState<{word: string, meaning: string}[]>([]); 
@@ -83,7 +83,7 @@ export default function Home() {
     return `${m}m`;
   };
 
-  const FREE_ARTICLE_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 20, 21, 30, 40];
+  const FREE_ARTICLE_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 20, 21, 30, 40, 101]; // 101を追加
   const isLockedContent = (article: Article) => {
     if (article.id > 1000) return false; 
     if (isPremium) return false; 
@@ -97,12 +97,13 @@ export default function Home() {
         .select(`*, article_sentences(*), article_vocab(*), article_questions(*)`);
       if (error) { console.error("Error:", error); return; }
       if (data && data.length > 0) {
-        const formattedArticles: (Article & { videoUrl?: string })[] = data.map((d: any) => ({
-          id: d.id + 10000, // ★Supabase由来のデータはIDが10000以上になります
+        const formattedArticles: (Article & { videoUrl?: string; imageUrls?: string[] })[] = data.map((d: any) => ({
+          id: d.id + 10000, 
           title: d.title,
           level: d.level,
           category: d.category,
-          videoUrl: d.video_url || "", 
+          videoUrl: d.video_url || "",
+          imageUrls: d.image_urls || [], // 将来的にSupabaseにカラムができても対応
           contentPlain: d.content_plain || "", 
           contentVoweled: d.content_voweled || "",
           sentences: d.article_sentences 
@@ -232,7 +233,6 @@ export default function Home() {
 
   const handleSelectCategory = (category: string) => { setSelectedCategory(category); changeScreen("list"); };
 
-  // ▼▼▼ 修正箇所: ここでdata.tsのデータを強力に排除します ▼▼▼
   const getFilteredArticles = () => {
     return allArticles.filter(a => {
         // 1. 文法コース
@@ -264,9 +264,8 @@ export default function Home() {
         return false;
     });
   };
-  // ▲▲▲ 修正箇所ここまで ▲▲▲
   
-  const handleArticleClick = (article: Article & { videoUrl?: string }, index: number) => { 
+  const handleArticleClick = (article: Article & { videoUrl?: string; imageUrls?: string[] }, index: number) => { 
     if (isLockedContent(article)) { setShowUpgradeModal(true); return; }
     setActiveArticle(article); setActiveProblemNumber(index + 1); setRevealedVocabIndex(null); 
     
@@ -305,7 +304,10 @@ export default function Home() {
     }
     else if (mode === "grammar" && activeArticle) {
       const grammarQs = activeArticle.questions.filter(q => q.type === "grammar");
-      if (grammarQs.length === 0) { alert("このコンテンツには文法問題がありません"); return; }
+      if (grammarQs.length === 0) { 
+          // 文法モードだがクイズがない場合（解説のみの場合など）は、そのままreaderを表示
+          // アラートは出さない
+      }
       setGrammarQuestions(grammarQs); setCurrentQuestionIndex(0); setGrammarFeedback(null); changeScreen("reader");
     } else { changeScreen("reader"); }
   };
@@ -413,6 +415,14 @@ export default function Home() {
              <div className="flex items-center gap-1 bg-emerald-900/50 px-3 py-1 rounded-full border border-emerald-700 text-xs font-bold text-emerald-100 ml-2"><span className="text-amber-400 animate-pulse">🔥</span> {streak}</div>
           </div>
           <div className="flex items-center gap-2">
+            {/* ▼▼▼ ★テスト用デバッグボタン（ここに追加！）▼▼▼ */}
+    <button 
+      onClick={() => setIsPremium(!isPremium)}
+      className="bg-purple-600 text-white px-2 py-1 rounded text-xs font-bold border border-purple-400 shadow-lg hover:bg-purple-500 transition mr-2"
+    >
+      {isPremium ? "🔧 無料に戻す" : "🔧 プレミアム化"}
+    </button>
+    {/* ▲▲▲ 追加ここまで ▲▲▲ */}
             {user ? (
                 <div className="flex items-center gap-2 mr-2">
                     <span className="text-emerald-100 text-[10px] hidden sm:inline">Hello!</span>
@@ -519,67 +529,135 @@ export default function Home() {
             <div className="bg-emerald-900 text-amber-50 p-4 flex justify-between items-center sticky top-0 z-10"><button onClick={() => changeScreen("list")} className="hover:text-white text-sm font-bold opacity-80 transition">✕ 閉じる</button><span className="font-bold text-xs tracking-wider opacity-80">{activeArticle.category}</span></div>
             <div className="p-6 md:p-10 flex flex-col items-center">
               
-              {activeArticle.videoUrl && getYouTubeId(activeArticle.videoUrl) && (
-                <div className="w-full max-w-xl mb-8 aspect-video rounded-xl overflow-hidden shadow-lg border border-stone-200">
-                   <iframe width="100%" height="100%" src={`https://www.youtube.com/embed/${getYouTubeId(activeArticle.videoUrl)}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-                </div>
-              )}
+              {/* ▼▼▼ 追加・修正箇所: 画像スライドまたは通常コンテンツの分岐 ▼▼▼ */}
+              {learningMode === "grammar" && activeArticle.imageUrls && activeArticle.imageUrls.length > 0 ? (
+                <div className="w-full max-w-2xl flex flex-col items-center">
+                  
+                  {/* タイトル */}
+                  <h2 className="text-2xl font-serif font-bold mb-6 text-emerald-950 text-center w-full border-b-2 border-amber-400 pb-4">
+                    {activeArticle.title}
+                  </h2>
+　　　　　　　　　　　　{/* ▼▼▼ ここに追加！(補足文の表示) ▼▼▼ */}
+　　　　　　　　　　　　{activeArticle.contentPlain && (
+                    <p className="text-sm text-gray-600 mb-8 text-center max-w-xl leading-relaxed">
+                      {activeArticle.contentPlain}
+                    </p>
+                  )}
+                  {/* ▲▲▲ 追加ここまで ▲▲▲ */}
+                  {/* 画像の表示 (複数枚対応) */}
+                  <div className="w-full space-y-6 mb-10">
+                    {activeArticle.imageUrls.map((url, idx) => (
+                      <img 
+                        key={idx}
+                        src={url} 
+                        alt={`Slide ${idx + 1}`}
+                        className="w-full rounded-xl shadow-md border border-stone-100"
+                        loading="lazy"
+                      />
+                    ))}
+                  </div>
 
-              {learningMode === "grammar" ? (
-                <div className="w-full max-w-xl">
-                  {grammarQuestions.length > 0 ? (
-                    <>
-                      <div className="text-center mb-10"><span className="inline-block bg-purple-50 text-purple-700 border border-purple-200 px-4 py-1 rounded-full text-xs font-bold mb-6 tracking-wider">QUIZ {currentQuestionIndex + 1} / {grammarQuestions.length}</span><h2 className="text-xl font-bold mb-4 leading-relaxed text-gray-800">{grammarQuestions[currentQuestionIndex].text}</h2></div>
-                      <div className="space-y-4 mb-8">{grammarQuestions[currentQuestionIndex].options.map((option, idx) => (<button key={idx} onClick={() => handleGrammarAnswer(idx)} disabled={grammarFeedback !== null} className={`w-full p-5 text-right rounded-xl border transition-all shadow-sm ${grammarFeedback ? (idx === grammarQuestions[currentQuestionIndex].correctIndex ? "bg-emerald-50 border-emerald-500 text-emerald-900" : "bg-gray-50 border-gray-200 opacity-50") : "bg-white border-stone-200 hover:border-purple-400 hover:bg-purple-50"}`}><span className="font-arabic text-lg">{option}</span></button>))}</div>
-                      {grammarFeedback === "correct" && (<div className="bg-emerald-50 border border-emerald-200 p-4 rounded-xl text-center mb-6 animate-bounce"><p className="text-2xl mb-1">🎉</p><p className="font-bold text-emerald-800">正解！</p><p className="text-xs text-emerald-600 mt-1">{grammarQuestions[currentQuestionIndex].explanation}</p></div>)}
-                      {grammarFeedback === "incorrect" && (<div className="bg-red-50 border border-red-200 p-4 rounded-xl text-center mb-6"><p className="text-2xl mb-1">😢</p><p className="font-bold text-red-800">残念...</p><p className="text-xs text-red-600 mt-1">{grammarQuestions[currentQuestionIndex].explanation}</p></div>)}
-                      {grammarFeedback && (<button onClick={nextGrammarQuestion} className="w-full bg-emerald-800 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-emerald-900 transition transform">{currentQuestionIndex < grammarQuestions.length - 1 ? "次の問題へ" : "結果を見る"}</button>)}
-                    </>
-                  ) : (<div className="text-center py-20 text-gray-400">文法問題がありません</div>)}
+                  {/* クイズへ進むボタン (問題がある場合のみ表示) */}
+                  {activeArticle.questions && activeArticle.questions.length > 0 ? (
+                    <div className="bg-emerald-50 p-6 rounded-2xl text-center w-full border border-emerald-100">
+                      <p className="text-emerald-900 font-bold mb-4">解説を読み終わりましたか？</p>
+                      <button 
+                        onClick={() => {
+                          const grammarQs = activeArticle.questions.filter(q => q.type === "grammar");
+                          if (grammarQs.length > 0) {
+                              setGrammarQuestions(grammarQs);
+                              setCurrentQuestionIndex(0);
+                              setGrammarFeedback(null);
+                              startQuiz();
+                          } else {
+                              alert("問題データがありません");
+                          }
+                        }} 
+                        className="w-full md:w-auto px-10 py-4 bg-emerald-600 text-white font-bold rounded-full shadow-lg hover:bg-emerald-700 transition transform hover:scale-105 flex items-center justify-center gap-2 mx-auto"
+                      >
+                        <span>✍️</span> 練習問題に挑戦する
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="text-center text-gray-500 text-sm">
+                      <p>このレッスンの解説は以上です。</p>
+                      <button onClick={() => changeScreen("list")} className="mt-4 text-emerald-600 underline">一覧に戻る</button>
+                    </div>
+                  )}
                 </div>
               ) : (
-                <>
-                  {courseType !== "listening" && (
-                    <>
-                      <h2 className="text-2xl font-serif font-bold mb-8 text-center text-emerald-950 w-full max-w-md">{activeArticle.level === "初級" ? `問題 ${activeProblemNumber} (${activeArticle.title})` : activeArticle.title}</h2>
-                      <div className="w-full flex justify-end mb-4"><button onClick={playArticleAudio} className="text-xs font-bold bg-amber-100 px-3 py-2 rounded-full hover:bg-amber-200 text-amber-900 transition flex items-center gap-1">🔊 音声再生</button></div>
-                      {activeArticle.level === "会話" ? (
-                        <div className="w-full space-y-6 mb-10">
-                           {activeArticle.sentences?.map((sent, idx) => {
-                             const isRight = idx % 2 === 0;
-                             return (
-                               <div key={idx} className={`flex ${isRight ? "justify-start" : "justify-end"}`}>
-                                 <div className={`max-w-[85%] p-5 rounded-2xl relative shadow-sm border ${isRight ? "bg-emerald-50 text-emerald-900 rounded-tr-none border-emerald-100" : "bg-white text-gray-800 rounded-tl-none border-gray-100"}`}>
-                                   <div className="flex justify-between items-center mb-2"><p className="text-xs font-bold opacity-60 uppercase">{sent.speaker}</p><button onClick={() => speakText(sent.arabic, sent.speaker)} className="text-gray-300 hover:text-emerald-600 text-sm transition">🔊</button></div>
-                                   <p className="text-xl font-arabic leading-loose">{sent.arabic}</p>
-                                 </div>
-                               </div>
-                             );
-                           })}
+                /* 通常のリーディング/リスニング、または画像のないコンテンツ */
+                <div className="w-full max-w-xl">
+                    
+                    {activeArticle.videoUrl && getYouTubeId(activeArticle.videoUrl) && (
+                      <div className="w-full max-w-xl mb-8 aspect-video rounded-xl overflow-hidden shadow-lg border border-stone-200">
+                        <iframe width="100%" height="100%" src={`https://www.youtube.com/embed/${getYouTubeId(activeArticle.videoUrl)}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                      </div>
+                    )}
+
+                    {/* 文法モードだが画像がない場合のフォールバック（いきなりクイズ） */}
+                    {learningMode === "grammar" && (
+                        <div className="text-center py-10">
+                            <h2 className="text-xl font-bold mb-4">{activeArticle.title}</h2>
+                            <p className="mb-6 text-gray-500">理解度チェックテストを開始します。</p>
+                            <button onClick={() => {
+                              const grammarQs = activeArticle.questions.filter(q => q.type === "grammar");
+                              if (grammarQs.length > 0) {
+                                  setGrammarQuestions(grammarQs);
+                                  setCurrentQuestionIndex(0);
+                                  setGrammarFeedback(null);
+                                  startQuiz();
+                              } else {
+                                  alert("問題がありません");
+                              }
+                            }} className="bg-emerald-600 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-emerald-700 transition">テストを開始する</button>
                         </div>
-                      ) : (
-                        <p className="text-xl md:text-2xl leading-loose font-arabic text-justify mb-10 w-full text-gray-800" dir="rtl">
-                           {(() => {
-                             if (activeArticle.level === "上級") {
-                               if (activeArticle.contentPlain) return activeArticle.contentPlain;
-                               if (activeArticle.sentences && activeArticle.sentences.length > 0) return removeTashkeel(activeArticle.sentences.map(s => s.arabic).join(" "));
-                               return activeArticle.contentVoweled ? removeTashkeel(activeArticle.contentVoweled) : "";
-                             } else if (activeArticle.level === "中級" || activeArticle.category === "物語") {
-                               return (activeArticle.sentences && activeArticle.sentences.length > 0)
-                                   ? activeArticle.sentences.map(s => s.arabic).join(" ")
-                                   : (activeArticle.contentVoweled || activeArticle.contentPlain || "");
-                             } else {
-                               return (activeArticle.contentVoweled || activeArticle.contentPlain);
-                             }
-                           })()}
-                        </p>
-                      )}
-                      <div className="mb-10 w-full"><h3 className="font-bold mb-4 text-xs text-stone-400 tracking-widest uppercase">Vocabulary</h3><div className="flex flex-wrap gap-2">{activeArticle.vocabList.map((v, i) => (<VocabButton key={i} v={v} i={i} isRevealed={revealedVocabIndex === i} isSaved={savedVocab.some(sv => sv.word === v.word)} onReveal={() => setRevealedVocabIndex(i)} onSave={() => saveWord(v.word, v.meaning)} />))}</div></div>
-                    </>
-                  )}
-                  <button onClick={startQuiz} className="w-full bg-emerald-800 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-emerald-900 transition transform flex items-center justify-center gap-2"><span>📝</span> {courseType === "listening" ? "問題を解く" : `理解度チェック (${activeArticle.questions.length}問)`}</button>
-                </>
+                    )}
+
+                    {/* 通常のリーディング・リスニング表示 */}
+                    {learningMode !== "grammar" && (
+                      <>
+                        <h2 className="text-2xl font-serif font-bold mb-8 text-center text-emerald-950 w-full max-w-md">{activeArticle.level === "初級" ? `問題 ${activeProblemNumber} (${activeArticle.title})` : activeArticle.title}</h2>
+                        <div className="w-full flex justify-end mb-4"><button onClick={playArticleAudio} className="text-xs font-bold bg-amber-100 px-3 py-2 rounded-full hover:bg-amber-200 text-amber-900 transition flex items-center gap-1">🔊 音声再生</button></div>
+                        {activeArticle.level === "会話" ? (
+                          <div className="w-full space-y-6 mb-10">
+                            {activeArticle.sentences?.map((sent, idx) => {
+                              const isRight = idx % 2 === 0;
+                              return (
+                                <div key={idx} className={`flex ${isRight ? "justify-start" : "justify-end"}`}>
+                                  <div className={`max-w-[85%] p-5 rounded-2xl relative shadow-sm border ${isRight ? "bg-emerald-50 text-emerald-900 rounded-tr-none border-emerald-100" : "bg-white text-gray-800 rounded-tl-none border-gray-100"}`}>
+                                    <div className="flex justify-between items-center mb-2"><p className="text-xs font-bold opacity-60 uppercase">{sent.speaker}</p><button onClick={() => speakText(sent.arabic, sent.speaker)} className="text-gray-300 hover:text-emerald-600 text-sm transition">🔊</button></div>
+                                    <p className="text-xl font-arabic leading-loose">{sent.arabic}</p>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        ) : (
+                          <p className="text-xl md:text-2xl leading-loose font-arabic text-justify mb-10 w-full text-gray-800" dir="rtl">
+                            {(() => {
+                              if (activeArticle.level === "上級") {
+                                if (activeArticle.contentPlain) return activeArticle.contentPlain;
+                                if (activeArticle.sentences && activeArticle.sentences.length > 0) return removeTashkeel(activeArticle.sentences.map(s => s.arabic).join(" "));
+                                return activeArticle.contentVoweled ? removeTashkeel(activeArticle.contentVoweled) : "";
+                              } else if (activeArticle.level === "中級" || activeArticle.category === "物語") {
+                                return (activeArticle.sentences && activeArticle.sentences.length > 0)
+                                    ? activeArticle.sentences.map(s => s.arabic).join(" ")
+                                    : (activeArticle.contentVoweled || activeArticle.contentPlain || "");
+                              } else {
+                                return (activeArticle.contentVoweled || activeArticle.contentPlain);
+                              }
+                            })()}
+                          </p>
+                        )}
+                        <div className="mb-10 w-full"><h3 className="font-bold mb-4 text-xs text-stone-400 tracking-widest uppercase">Vocabulary</h3><div className="flex flex-wrap gap-2">{activeArticle.vocabList.map((v, i) => (<VocabButton key={i} v={v} i={i} isRevealed={revealedVocabIndex === i} isSaved={savedVocab.some(sv => sv.word === v.word)} onReveal={() => setRevealedVocabIndex(i)} onSave={() => saveWord(v.word, v.meaning)} />))}</div></div>
+                        <button onClick={startQuiz} className="w-full bg-emerald-800 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-emerald-900 transition transform flex items-center justify-center gap-2"><span>📝</span> {courseType === "listening" ? "問題を解く" : `理解度チェック (${activeArticle.questions.length}問)`}</button>
+                      </>
+                    )}
+                </div>
               )}
+              {/* ▲▲▲ 追加・修正箇所ここまで ▲▲▲ */}
+
             </div>
           </div>
         )}

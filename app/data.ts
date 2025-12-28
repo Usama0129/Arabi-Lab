@@ -1,3 +1,8 @@
+// =================================================================
+//  data.ts (完全版)
+// =================================================================
+
+// ▼▼▼ 1. 型定義 (Type Definitions) - これがないとpage.tsxでエラーになります ▼▼▼
 export type QuestionType = "reading" | "vocabulary" | "grammar" | "tashkeel";
 
 export type QuizQuestion = {
@@ -13,16 +18,22 @@ export type Article = {
   id: number;
   title: string;
   category: string;
-  // ★ 変更箇所: ↓ 一番後ろに | "文法" を追加しました
-  level: "初級" | "会話" | "中級" | "上級" | "文法";
+  level: "初級" | "会話" | "中級" | "上級" | "文法"; 
   contentVoweled: string;
   contentPlain: string;
   vocabList: { word: string; meaning: string }[];
   questions: QuizQuestion[];
   sentences: { arabic: string; japanese: string; speaker?: string }[];
+  
+  // ▼ 画像・動画用（オプショナル）
+  videoUrl?: string;     
+  imageUrls?: string[];  
 };
 
+
+// ▼▼▼ 2. データ本体 (Articles Data) - articlesは1回だけ定義します ▼▼▼
 export const articles: Article[] = [
+
   // ==========================================
   //  カテゴリー: ホテル (Hotel) - 10 Scenes
   // ==========================================
@@ -1927,474 +1938,106 @@ export const articles: Article[] = [
     ]
   },
 
+  // =================================================================  
+    // ==========================================
+    //  PART 1: 文法 (Grammar) - 画像付き解説
+    // ==========================================
+  
+    // --- Lesson 1: アラビア文字と発音 ---
+// =================================================================
+  //  PART 1: 文法 (Grammar) - 画像付き解説
   // =================================================================
-  //  PART 2: 初級文法 (Beginner Grammar) - 全18カテゴリー (ID 101-803)
-  // =================================================================
+  {
+    id: 101,
+    level: "文法",
+    category: "文字と発音",
+    title: "Lesson 1: アラビア語のアルファベット（基本形）",
+  
+    // ★ 順番はどこでもOKです
+    contentPlain: "アラビア語は右から左に書きます。まずは基本の形を覚えましょう",
 
-  // --- 1. 指示代名詞 (Demonstratives) ---
-  {
-    id: 101, title: "単数", category: "指示代名詞", level: "文法",
-    contentVoweled: "هَذَا مُدَرِّسٌ.", contentPlain: "هذا مدرس.",
-    vocabList: [{ word: "هَذَا", meaning: "これ(男)" }],
-    questions: [
-      { id: 1011, type: "grammar", text: "「これは（男性の）先生です」", options: ["هَذَا مُدَرِّسٌ", "هَذِهِ مُدَرِّسٌ", "تِلْكَ مُدَرِّسَةٌ", "هَؤُلَاءِ مُدَرِّسٌ"], correctIndex: 0, explanation: "男性単数（近称）は「هَذَا」です。" },
-      { id: 1012, type: "grammar", text: "「あれは学校（Madrasah/女）です」", options: ["تِلْكَ مَدْرَسَةٌ", "ذَلِكَ مَدْرَسَةٌ", "هَذِهِ مَدْرَسَةٌ", "هَذَا مَدْرَسَةٌ"], correctIndex: 0, explanation: "女性単数（遠称）は「تِلْكَ」です。" },
-      { id: 1013, type: "grammar", text: "【意味】「هَذِهِ سَيَّارَةٌ」", options: ["これは車です", "あれは車です", "これは家です", "これらは車です"], correctIndex: 0, explanation: "「هَذِهِ」は女性単数の「これ」です。" },
-      { id: 1014, type: "grammar", text: "「これは私の母です」", options: ["هَذِهِ أُمِّي", "هَذَا أُمِّي", "تِلْكَ أُمِّي", "ذَلِكَ أُمِّي"], correctIndex: 0, explanation: "母（女性）なので「Hādhihi」を使います。" },
-      { id: 1015, type: "grammar", text: "【和訳】「مَا هَذَا؟」", options: ["これは何ですか？", "これは誰ですか？", "これはどこですか？", "これはいつですか？"], correctIndex: 0, explanation: "基本中の基本フレーズです。" },
-      { id: 1016, type: "grammar", text: "「あれは月（Qamar/男）です」", options: ["ذَلِكَ قَمَرٌ", "تِلْكَ قَمَرٌ", "هَذَا قَمَرٌ", "هَذِهِ قَمَرٌ"], correctIndex: 0, explanation: "男性単数（遠称）は「ذَلِكَ (Dhālika)」です。" },
-      { id: 1017, type: "grammar", text: "「これは私の父です」", options: ["هَذَا أَبِي", "هَذِهِ أَبِي", "تِلْكَ أَبِي", "هَؤُلَاءِ أَبِي"], correctIndex: 0, explanation: "父（男性）なので「Hādhā」を使います。" },
-      { id: 1018, type: "grammar", text: "【和訳】「مَنْ هَذِهِ؟」", options: ["この女性は誰ですか？", "この男性は誰ですか？", "これは何ですか？", "あれは誰ですか？"], correctIndex: 0, explanation: "「Hādhihi」を使っているので女性を指しています。" },
-      { id: 1019, type: "grammar", text: "「それは間違い（Khaṭa'/男）です」", options: ["هَذَا خَطَأٌ", "هَذِهِ خَطَأٌ", "هَذَا صَحِيحٌ", "هَذِهِ صَحِيحٌ"], correctIndex: 0, explanation: "間違い(男)なので「Hādhā」です。" },
-      { id: 10110, type: "grammar", text: "「あれは太陽（Shams/女）です」", options: ["تِلْكَ شَمْسٌ", "ذَلِكَ شَمْسٌ", "هَذِهِ شَمْسٌ", "هَذَا شَمْسٌ"], correctIndex: 0, explanation: "太陽はアラビア語で女性名詞です。" }
-    ],
-    sentences: [{ arabic: "هَذَا مُدَرِّسٌ.", japanese: "これは先生です。" }]
-  },
-  {
-    id: 102, title: "双数", category: "指示代名詞", level: "文法",
-    contentVoweled: "هَذَانِ كِتَابَانِ.", contentPlain: "هذان كتابان.",
-    vocabList: [{ word: "هَذَانِ", meaning: "これら2つ" }],
-    questions: [
-      { id: 1021, type: "grammar", text: "「これら2冊の本（Kitāb/男）は新しい」 (主格)", options: ["هَذَانِ الْكِتَابَانِ", "هَذَيْنِ الْكِتَابَيْنِ", "هَاتَانِ الْكِتَابَانِ", "هَاتَيْنِ الْكِتَابَيْنِ"], correctIndex: 0, explanation: "主格・男性は「هَذَانِ」です。" },
-      { id: 1022, type: "grammar", text: "「私はこれら2つの町（Madīnah/女）を訪れました」 (対格)", options: ["هَاتَيْنِ الْمَدِينَتَيْنِ", "هَاتَانِ الْمَدِينَتَانِ", "هَذَيْنِ الْمَدِينَتَيْنِ", "هَذِهِ الْمَدِينَةَ"], correctIndex: 0, explanation: "対格・女性は「هَاتَيْنِ」です。" },
-      { id: 1023, type: "grammar", text: "【意味】「فِي هَذَيْنِ الْبَيْتَيْنِ」", options: ["これら2つの家の中で", "これら2つの家は", "この家の中で", "家と家の間で"], correctIndex: 0, explanation: "前置詞の後なので属格「هَذَيْنِ」が使われています。" },
-      { id: 1024, type: "grammar", text: "「これら2人の先生（女）は」 (主格)", options: ["هَاتَانِ الْمُدَرِّسَتَانِ", "هَاتَيْنِ الْمُدَرِّسَتَيْنِ", "هَذَانِ الْمُدَرِّسَانِ", "هَذَيْنِ الْمُدَرِّسَيْنِ"], correctIndex: 0, explanation: "女性・双数・主格は「هَاتَانِ」です。" },
-      { id: 1025, type: "grammar", text: "「これら2本のペン（男）」 (主格)", options: ["هَذَانِ الْقَلَمَانِ", "هَذَيْنِ الْقَلَمَيْنِ", "هَاتَانِ الْقَلَمَانِ", "هَاتَيْنِ الْقَلَمَيْنِ"], correctIndex: 0, explanation: "男性・双数・主格は「هَذَانِ」です。" },
-      { id: 1026, type: "grammar", text: "「私はこれら2人の男に挨拶しました」 (属格)", options: ["عَلَى هَذَيْنِ الرَّجُلَيْنِ", "عَلَى هَذَانِ الرَّجُلَانِ", "عَلَى هَاتَيْنِ الرَّجُلَيْنِ", "عَلَى هَذَا الرَّجُلِ"], correctIndex: 0, explanation: "属格・男性・双数は「هَذَيْنِ」です。" },
-      { id: 1027, type: "grammar", text: "【和訳】「هَاتَانِ بِنْتَانِ」", options: ["これらは2人の少女です", "これらは2人の少年です", "これらは2つの家です", "これは少女です"], correctIndex: 0, explanation: "「Hātāni」は女性双数です。" },
-      { id: 1028, type: "grammar", text: "「これら2つの部屋（女）」 (主格)", options: ["هَاتَانِ الْغُرْفَتَانِ", "هَاتَيْنِ الْغُرْفَتَيْنِ", "هَذَانِ الْغُرْفَتَانِ", "هَذِهِ الْغُرْفَةُ"], correctIndex: 0, explanation: "女性名詞の双数主格は「Hātāni」です。" },
-      { id: 1029, type: "grammar", text: "「これら2つの本を読みました」 (対格)", options: ["هَذَيْنِ الْكِتَابَيْنِ", "هَذَانِ الْكِتَابَانِ", "هَاتَيْنِ الْكِتَابَيْنِ", "هَذَا الْكِتَابَ"], correctIndex: 0, explanation: "目的語（対格）なので「Hādhayni」です。" },
-      { id: 10210, type: "grammar", text: "「これら2人のエンジニア（男）」 (主格)", options: ["هَذَانِ الْمُهَنْدِسَانِ", "هَذَيْنِ الْمُهَنْدِسَيْنِ", "هَاتَانِ الْمُهَنْدِسَتَانِ", "هَؤُلَاءِ الْمُهَنْدِسُونَ"], correctIndex: 0, explanation: "男性双数主格は「Hādhāni」です。" }
-    ],
-    sentences: [{ arabic: "هَذَانِ كِتَابَانِ.", japanese: "これらは2冊の本です。" }]
-  },
-  {
-    id: 103, title: "複数", category: "指示代名詞", level: "文法",
-    contentVoweled: "هَؤُلَاءِ طُلَّابٌ.", contentPlain: "هؤلاء طلاب.",
-    vocabList: [{ word: "هَؤُلَاءِ", meaning: "これら(人)" }],
-    questions: [
-      { id: 1031, type: "grammar", text: "「これらは私の友達（人間）です」", options: ["هَؤُلَاءِ أَصْدِقَائِي", "هَذِهِ أَصْدِقَائِي", "هَذَا أَصْدِقَائِي", "تِلْكَ أَصْدِقَائِي"], correctIndex: 0, explanation: "人間の複数は「هَؤُلَاءِ」です。" },
-      { id: 1032, type: "grammar", text: "「あれらは美しい山（Jibāl/物）です」", options: ["تِلْكَ جِبَالٌ جَمِيلَةٌ", "أُولَئِكَ جِبَالٌ", "هَؤُلَاءِ جِبَالٌ", "ذَلِكَ جِبَالٌ"], correctIndex: 0, explanation: "物の複数は「女性単数扱い」なので「تِلْكَ」を使います。" },
-      { id: 1033, type: "grammar", text: "【意味】「هَؤُلَاءِ مُهَنْدِسُونَ」", options: ["これらはエンジニア達です", "あれらはエンジニア達です", "これはエンジニアです", "これらは工場です"], correctIndex: 0, explanation: "「هَؤُلَاءِ」は人の複数です。" },
-      { id: 1034, type: "grammar", text: "「これらは犬（動物）です」", options: ["هَذِهِ كِلَابٌ", "هَؤُلَاءِ كِلَابٌ", "هَذَا كِلَابٌ", "هَذَانِ كِلَابٌ"], correctIndex: 0, explanation: "動物も物扱いなので「هَذِهِ」です。" },
-      { id: 1035, type: "grammar", text: "「あれらは私の姉妹（人）です」", options: ["أُولَئِكَ أَخَوَاتِي", "تِلْكَ أَخَوَاتِي", "هَؤُلَاءِ أَخَوَاتِي", "ذَلِكَ أَخَوَاتِي"], correctIndex: 0, explanation: "人の複数（遠称）は「أُولَئِكَ」です。" },
-      { id: 1036, type: "grammar", text: "「これらは本（物）です」", options: ["هَذِهِ كُتُبٌ", "هَؤُلَاءِ كُتُبٌ", "هَذَا كُتُبٌ", "تِلْكَ كُتُبٌ"], correctIndex: 0, explanation: "物の複数は「Hādhihi」です。" },
-      { id: 1037, type: "grammar", text: "【和訳】「أُولَئِكَ هُمُ الْمُفْلِحُونَ」", options: ["あれらこそが成功者たちです", "これらは成功者です", "彼らは成功者です", "あなたは成功者です"], correctIndex: 0, explanation: "「Ulā'ika」は「あれらの人々」です。" },
-      { id: 1038, type: "grammar", text: "「これらは新しい車（物）です」", options: ["هَذِهِ سَيَّارَاتٌ", "هَؤُلَاءِ سَيَّارَاتٌ", "هَذِهِ سَيَّارَةٌ", "تِلْكَ سَيَّارَاتٌ"], correctIndex: 0, explanation: "物の複数は「Hādhihi」です。" },
-      { id: 1039, type: "grammar", text: "「これらは男性（人）です」", options: ["هَؤُلَاءِ رِجَالٌ", "هَذِهِ رِجَالٌ", "هَذَا رِجَالٌ", "أُولَئِكَ رِجَالٌ"], correctIndex: 0, explanation: "人の複数は「Hā'ulā'i」です。" },
-      { id: 10310, type: "grammar", text: "「あれらは星（物）です」", options: ["تِلْكَ نُجُومٌ", "أُولَئِكَ نُجُومٌ", "ذَلِكَ نُجُومٌ", "هَذِهِ نُجُومٌ"], correctIndex: 0, explanation: "物の複数（遠称）は「Tilka」です。" }
-    ],
-    sentences: [{ arabic: "هَؤُلَاءِ طُلَّابٌ.", japanese: "これらは学生たちです。" }]
-  },
+// ★ 修正版: "image" フォルダを追加し、ファイル名を写真通りに修正
+imageUrls: [
+  "/image/grammar/lesson1_1.jpg", 
+  "/image/grammar/lesson1_2.jpg", 
+  "/image/grammar/lesson1_3.jpg", 
+  "/image/grammar/lesson1_4.jpg", 
+  "/image/grammar/lesson1_5.jpg"
+],
 
-  // --- 2. 疑問詞 ---
-  {
-    id: 601, title: "基本の疑問詞", category: "疑問詞", level: "文法",
-    contentVoweled: "مَنْ هَذَا؟", contentPlain: "من هذا؟",
-    vocabList: [{ word: "مَنْ", meaning: "誰" }, { word: "أَيْنَ", meaning: "どこ" }],
-    questions: [
-      { id: 1, type: "grammar", text: "「これは誰ですか？」", options: ["مَنْ هَذَا؟", "مَا هَذَا؟", "أَيْنَ هَذَا؟", "هَلْ هَذَا؟"], correctIndex: 0, explanation: "人には「Man」を使います。" },
-      { id: 2, type: "grammar", text: "「これは何ですか？」", options: ["مَا هَذَا؟", "مَنْ هَذَا؟", "كَيْفَ هَذَا؟", "مَتَى هَذَا؟"], correctIndex: 0, explanation: "物には「Mā」を使います。" },
-      { id: 3, type: "grammar", text: "【和訳】「أَيْنَ الْمِفْتَاحُ؟」", options: ["鍵はどこですか？", "鍵はありますか？", "鍵はどれですか？", "鍵は誰のものですか？"], correctIndex: 0, explanation: "「Ayna」は場所を尋ねます。" },
-      { id: 4, type: "grammar", text: "「試験はいつですか？」", options: ["مَتَى الْامْتِحَانُ؟", "أَيْنَ الْامْتِحَانُ؟", "كَيْفَ الْامْتِحَانُ؟", "كَمِ الْامْتِحَانُ؟"], correctIndex: 0, explanation: "「Matā」は時間を尋ねます。" },
-      { id: 5, type: "grammar", text: "「元気ですか？（状態）」", options: ["كَيْفَ الْحَالُ؟", "مَا الْحَالُ؟", "مَنْ الْحَالُ؟", "أَيْنَ الْحَالُ؟"], correctIndex: 0, explanation: "「Kayfa」は状態や方法を尋ねます。" },
-      { id: 6, type: "grammar", text: "「なぜ（Why）あなたは行くのですか？」", options: ["لِمَاذَا تَذْهَبُ؟", "مَاذَا تَذْهَبُ؟", "مَنْ تَذْهَبُ؟", "أَيْنَ تَذْهَبُ؟"], correctIndex: 0, explanation: "「Limādhā」は理由を尋ねます。" },
-      { id: 7, type: "grammar", text: "【和訳】「مَاذَا تَفْعَلُ؟」", options: ["あなたは何をしていますか？", "あなたはどこに行きますか？", "あなたは誰ですか？", "なぜそうするのですか？"], correctIndex: 0, explanation: "「Mādhā」は動詞と一緒に使い「何を〜する？」と聞きます。" },
-      { id: 8, type: "grammar", text: "「どれ（Which）が好きですか？」", options: ["أَيُّ وَاحِدٍ تُحِبُّ؟", "مَنْ وَاحِدٍ تُحِبُّ؟", "أَيْنَ وَاحِدٍ تُحِبُّ؟", "هَلْ وَاحِدٍ تُحِبُّ؟"], correctIndex: 0, explanation: "「Ayyu」は選択肢の中から「どれ・どの」を尋ねます。" },
-      { id: 9, type: "grammar", text: "「どこから（From where）来ましたか？」", options: ["مِنْ أَيْنَ جِئْتَ؟", "إِلَى أَيْنَ جِئْتَ؟", "فِي أَيْنَ جِئْتَ؟", "مَعَ أَيْنَ جِئْتَ؟"], correctIndex: 0, explanation: "「Min ayna」で「どこから」となります。" },
-      { id: 10, type: "grammar", text: "【和訳】「مَعَ مَنْ ذَهَبْتَ؟」", options: ["誰と行きましたか？", "誰が行きましたか？", "誰のところへ行きましたか？", "なぜ行きましたか？"], correctIndex: 0, explanation: "「Ma'a man」で「誰と一緒に」となります。" }
-    ],
-    sentences: [{ arabic: "مَنْ أَنْتَ؟", japanese: "あなたは誰ですか？" }]
+    // ダミーデータ
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    questions: [] // アルファベット回は問題なし
   },
   {
-    id: 602, title: "Yes/Noと数", category: "疑問詞", level: "文法",
-    contentVoweled: "هَلْ أَنْتَ طَالِبٌ؟", contentPlain: "هل أنت طالب؟",
-    vocabList: [{ word: "هَلْ", meaning: "〜ですか？" }, { word: "كَمْ", meaning: "いくつ" }],
-    questions: [
-      { id: 1, type: "grammar", text: "「あなたは学生ですか？」", options: ["هَلْ أَنْتَ طَالِبٌ؟", "مَنْ أَنْتَ طَالِبٌ؟", "مَا أَنْتَ طَالِبٌ؟", "أَيْنَ أَنْتَ طَالِبٌ؟"], correctIndex: 0, explanation: "Yes/No疑問文は「Hal」を使います。" },
-      { id: 2, type: "grammar", text: "「これは本ですか？（アを使用）」", options: ["أَهَذَا كِتَابٌ؟", "هَلْ هَذَا كِتَابٌ؟", "مَا هَذَا كِتَابٌ؟", "مَنْ هَذَا كِتَابٌ؟"], correctIndex: 0, explanation: "「Hal」の代わりに「A (Hamza)」を文頭においても疑問文になります。" },
-      { id: 3, type: "grammar", text: "「本は何冊ありますか？（いくつ）」", options: ["كَمْ كِتَابًا؟", "كَمْ كِتَابٌ؟", "كَمْ كِتَابٍ؟", "كَمْ الْكِتَابُ؟"], correctIndex: 0, explanation: "「Kam (いくつ)」の後の名詞は、単数・対格（an）になります。" },
-      { id: 4, type: "grammar", text: "【和訳】「بِكَمْ هَذَا؟」", options: ["これはいくらですか？", "これはいくつですか？", "これはどうですか？", "これは何ですか？"], correctIndex: 0, explanation: "「Bi-kam」で値段（いくらで）を聞きます。" },
-      { id: 5, type: "grammar", text: "「あなたは先生ではないのですか？（否定疑問）」", options: ["أَلَسْتَ مُدَرِّسًا؟", "هَلْ لَسْتَ مُدَرِّسًا؟", "مَا أَنْتَ مُدَرِّسٌ؟", "أَيْنَ الْمُدَرِّسُ؟"], correctIndex: 0, explanation: "否定疑問文には通常「A (Hamza)」を使い、「A-laysa...」や「A-lam...」の形になります。" },
-      { id: 6, type: "grammar", text: "「（否定疑問に対して）はい、そうです（先生ではありません）」", options: ["نَعَمْ، لَسْتُ مُدَرِّسًا", "بَلَى، أَنَا مُدَرِّسٌ", "لَا، لَسْتُ مُدَرِّسًا", "كَلَّا"], correctIndex: 0, explanation: "否定疑問に対し、その通り（否定の内容を肯定）なら「Na'am」、いいえ（肯定の内容）なら「Balā」を使います。" },
-      { id: 7, type: "grammar", text: "「駅まで何キロですか？」", options: ["كَمْ كِيلُومِتْرًا إِلَى الْمَحَطَّةِ؟", "كَمْ كِيلُومِتْرٌ إِلَى الْمَحَطَّةِ؟", "كَمْ كِيلُومِتْرٍ إِلَى الْمَحَطَّةِ؟", "أَيْنَ الْمَحَطَّةُ؟"], correctIndex: 0, explanation: "Kamの後は単数対格（an）です。" },
-      { id: 8, type: "grammar", text: "【和訳】「كَمْ عُمْرُكَ؟」", options: ["あなたは何歳ですか？", "あなたの名前は何ですか？", "あなたはどこですか？", "あなたはどうですか？"], correctIndex: 0, explanation: "直訳は「あなたの寿命（年齢）はいくつですか」です。" },
-      { id: 9, type: "grammar", text: "「兄弟は何人いますか？」", options: ["كَمْ أَخًا لَكَ؟", "كَمْ أَخٌ لَكَ؟", "كَمْ إِخْوَةٌ لَكَ؟", "مَنْ أَخُوكَ؟"], correctIndex: 0, explanation: "Kamの後は必ず「単数」対格を使います。複数は使いません。" },
-      { id: 10, type: "grammar", text: "「このペンはいくらですか？」", options: ["بِكَمْ هَذَا الْقَلَمُ؟", "كَمْ هَذَا الْقَلَمُ؟", "أَيْنَ هَذَا الْقَلَمُ؟", "مَا هَذَا الْقَلَمُ؟"], correctIndex: 0, explanation: "価格を聞くときは「Bi-kam」を使います。" }
-    ],
-    sentences: [{ arabic: "كَمْ عُمْرُكَ؟", japanese: "あなたの年齢はいくつですか？" }]
-  },
+  id: 102,
+  level: "文法",
+  category: "文字と発音",
+  title: "Lesson 2: アラビア語のアルファベット（語頭、語中、語末）",
+  // ★ 順番はどこでもOKです
+  contentPlain: "アラビア語の文字は、それぞれ語頭、語中、語末によって形が変化しますので注意しましょう",
+  
+// ★ 修正版: "image" フォルダを追加し、ファイル名を写真通りに修正
+imageUrls: [
+"/image/grammar/lesson2_1.jpg", 
+"/image/grammar/lesson2_2.jpg", 
+"/image/grammar/lesson2_3.jpg", 
+],
 
-  // --- 3. 所有・存在 ---
-  {
-    id: 701, title: "Inda (物理的所有)", category: "所有・存在", level: "文法",
-    contentVoweled: "عِنْدِي.", contentPlain: "عندي.",
-    vocabList: [{ word: "عِنْدَ", meaning: "〜の所に" }],
-    questions: [
-      { id: 1, type: "grammar", text: "「私は車を持っています」", options: ["عِنْدِي سَيَّارَةٌ", "أَنَا سَيَّارَةٌ", "لِي سَيَّارَةٌ", "مَعِي سَيَّارَةٌ"], correctIndex: 0, explanation: "「Indī」は「私のところに〜がある＝持っている」です。" },
-      { id: 2, type: "grammar", text: "「あなたはペンを持っていますか？（男性へ）」", options: ["هَلْ عِنْدَكَ قَلَمٌ؟", "هَلْ عِنْدَكِ قَلَمٌ؟", "هَلْ عِنْدَهُ قَلَمٌ؟", "هَلْ عِنْدِي قَلَمٌ؟"], correctIndex: 0, explanation: "「あなた（男）のところ」は「Indaka」です。" },
-      { id: 3, type: "grammar", text: "【和訳】「عِنْدَهَا كِتَابٌ」", options: ["彼女は本を持っています", "彼は本を持っています", "あなたは本を持っています", "私は本を持っています"], correctIndex: 0, explanation: "「hā」は彼女（Her）を指します。" },
-      { id: 4, type: "grammar", text: "「私たちはお金を持っていません（否定）」", options: ["مَا عِنْدَنَا مَالٌ", "لَيْسَ عِنْدَنَا مَالٌ", "لَا عِنْدَنَا مَالٌ", "لَمْ عِنْدَنَا مَالٌ"], correctIndex: 0, explanation: "所有の否定には「Mā」がよく使われます（Laysaも可）。" },
-      { id: 5, type: "grammar", text: "「先生のところに質問があります」", options: ["عِنْدَ الْمُدَرِّسِ سُؤَالٌ", "لِلْمُدَرِّسِ سُؤَالٌ", "مَعَ الْمُدَرِّسِ سُؤَالٌ", "فِي الْمُدَرِّسِ سُؤَالٌ"], correctIndex: 0, explanation: "場所・存在としての「〜のところに」は「Inda」です。" },
-      { id: 6, type: "grammar", text: "「彼らは家を持っていますか？」", options: ["هَلْ عِنْدَهُمْ بَيْتٌ؟", "هَلْ عِنْدَهُ بَيْتٌ؟", "هَلْ عِنْدَكُمْ بَيْتٌ؟", "هَلْ عِنْدَنَا بَيْتٌ؟"], correctIndex: 0, explanation: "彼ら（複数）は「Hum」です。" },
-      { id: 7, type: "grammar", text: "【和訳】「عِنْدَكِ فُلُوسٌ？」", options: ["あなた（女）はお金を持っていますか？", "あなた（男）はお金を持っていますか？", "彼女はお金を持っていますか？", "彼はお金を持っていますか？"], correctIndex: 0, explanation: "「Indaki」は女性への問いかけです。" },
-      { id: 8, type: "grammar", text: "「時間がありますか？（私と一緒に）」", options: ["عِنْدَكَ وَقْتٌ؟", "لَكَ وَقْتٌ؟", "فِيكَ وَقْتٌ؟", "مِنْكَ وَقْتٌ؟"], correctIndex: 0, explanation: "「Indaka waqt?」で「時間ある？」という表現になります。" },
-      { id: 9, type: "grammar", text: "「辞書は図書館にあります」", options: ["الْقَامُوسُ عِنْدَ الْمَكْتَبَةِ", "الْقَامُوسُ فِي الْمَكْتَبَةِ", "الْقَامُوسُ لِلْمَكْتَبَةِ", "الْقَامُوسُ عَلَى الْمَكْتَبَةِ"], correctIndex: 1, explanation: "建物の中にある場合は「Fī」を使います。「Inda」は「〜の所有にある」「〜のそばに」というニュアンスです。" },
-      { id: 10, type: "grammar", text: "「私は何も持っていません」", options: ["مَا عِنْدِي شَيْءٌ", "لَا عِنْدِي شَيْءٌ", "لَيْسَ عِنْدِي شَيْءٌ", "لَمْ عِنْدِي شَيْءٌ"], correctIndex: 0, explanation: "「Mā indī shay'un」＝何もありません。" }
-    ],
-    sentences: [{ arabic: "عِنْدِي سُؤَالٌ.", japanese: "私には質問があります。" }]
-  },
-  {
-    id: 702, title: "Li (帰属・人間関係)", category: "所有・存在", level: "文法",
-    contentVoweled: "لِي أَخٌ.", contentPlain: "لي أخ.",
-    vocabList: [{ word: "لِـ", meaning: "〜に(For)" }],
-    questions: [
-      { id: 1, type: "grammar", text: "「私には兄弟がいます（人間関係）」", options: ["لِي أَخٌ", "عِنْدِي أَخٌ", "مَعِي أَخٌ", "بِي أَخٌ"], correctIndex: 0, explanation: "人間関係の所有には「Li」を使います。" },
-      { id: 2, type: "grammar", text: "「彼には3人の姉妹がいます」", options: ["لَهُ ثَلَاثُ أَخَوَاتٍ", "لَهَا ثَلَاثُ أَخَوَاتٍ", "لَكَ ثَلَاثُ أَخَوَاتٍ", "لِي ثَلَاثُ أَخَوَاتٍ"], correctIndex: 0, explanation: "「彼に」は「Lahu」です。" },
-      { id: 3, type: "grammar", text: "【和訳】「لِمَنْ هَذَا الْقَلَمُ؟」", options: ["このペンは誰のですか？", "このペンは誰ですか？", "このペンはどこですか？", "このペンは何ですか？"], correctIndex: 0, explanation: "「Li-man」は「誰のもの」という意味です。" },
-      { id: 4, type: "grammar", text: "「この本はムハンマドのものです」", options: ["هَذَا الْكِتَابُ لِمُحَمَّدٍ", "هَذَا الْكِتَابُ عِنْدَ مُحَمَّدٍ", "هَذَا الْكِتَابُ مُحَمَّدٌ", "هَذَا الْكِتَابُ مَعَ مُحَمَّدٍ"], correctIndex: 0, explanation: "名前に「Li」をつけると「Li-Muḥammadin」となります。" },
-      { id: 5, type: "grammar", text: "「あなた（女性）には子供がいますか？」", options: ["أَلَكِ أَطْفَالٌ؟", "أَلَكَ أَطْفَالٌ؟", "أَلَهُ أَطْفَالٌ؟", "أَلَهَا أَطْفَالٌ؟"], correctIndex: 0, explanation: "「Laki」は女性に対して「あなたには」です。" },
-      { id: 6, type: "grammar", text: "「称賛はアッラーにあり」", options: ["الْحَمْدُ لِلَّهِ", "الْحَمْدُ بِاللَّهِ", "الْحَمْدُ عَلَى اللَّهِ", "الْحَمْدُ فِي اللَّهِ"], correctIndex: 0, explanation: "定型句「Al-ḥamdu lillāh」です。" },
-      { id: 7, type: "grammar", text: "【和訳】「لَيْسَ لِي وَقْتٌ」", options: ["私には時間がありません", "私は時間ではありません", "時間は私のものではありません", "時間が欲しいです"], correctIndex: 0, explanation: "「Laysa lī」で「私にはない」となります。" },
-      { id: 8, type: "grammar", text: "「この家は誰のものですか？」", options: ["لِمَنْ هَذَا الْبَيْتُ؟", "مَنْ هَذَا الْبَيْتُ؟", "عِنْدَ مَنْ هَذَا الْبَيْتُ؟", "أَيْنَ هَذَا الْبَيْتُ؟"], correctIndex: 0, explanation: "所有者を尋ねるなら「Li-man」です。" },
-      { id: 9, type: "grammar", text: "「私たちには歴史がある」", options: ["لَنَا تَارِيخٌ", "بِنَا تَارِيخٌ", "فِينَا تَارِيخٌ", "مِنَّا تَارِيخٌ"], correctIndex: 0, explanation: "「Lanā」は「私たちには」です。" },
-      { id: 10, type: "grammar", text: "「それは私のものです」", options: ["إِنَّهُ لِي", "إِنَّهُ عِنْدِي", "إِنَّهُ مَعِي", "إِنَّهُ بِي"], correctIndex: 0, explanation: "帰属を表す「Lī」を使います。" }
-    ],
-    sentences: [{ arabic: "الْحَمْدُ لِلَّهِ.", japanese: "おかげさまで（称賛はアッラーにあり）。" }]
-  },
+  // ダミーデータ
+  contentVoweled: "",
+  sentences: [], 
+  vocabList: [],
+  questions: [] // アルファベット回は問題なし
+},
+{
+id: 103,
+level: "文法",
+category: "文字と発音",
+title: "Lesson 3: 発音記号",
+contentPlain: "ますは基本形と発音記号でアラビア語の読み方に慣れましょう",
 
-  // --- 4. 名詞・代名詞 (Nouns & Pronouns) ---
-  {
-    id: 201, title: "冠詞 (al-)", category: "名詞・代名詞", level: "文法",
-    contentVoweled: "الْكِتَابُ.", contentPlain: "الكتاب.",
-    vocabList: [{ word: "الـ", meaning: "その(The)" }],
-    questions: [
-      { id: 1, type: "grammar", text: "太陽文字（al-の発音が変わる）はどれ？", options: ["الشَّمْس (al-shams)", "الْقَمَر (al-qamar)", "الْبَاب (al-bāb)", "الْكِتَاب (al-kitāb)"], correctIndex: 0, explanation: "Shams（太陽）のShは太陽文字なので、al-がash-と同化します。" },
-      { id: 2, type: "grammar", text: "「その新しい本」正しい限定修飾は？", options: ["الْكِتَابُ الْجَدِيدُ", "كِتَابٌ جَدِيدٌ", "الْكِتَابُ جَدِيدٌ", "كِتَابُ الْجَدِيدِ"], correctIndex: 0, explanation: "名詞に定冠詞がつくと、形容詞にも定冠詞がつきます。" },
-      { id: 3, type: "grammar", text: "【意味】「الْبَيْتُ كَبِيرٌ」", options: ["その家は大きいです", "大きな家", "家と大きい", "ある家は大きい"], correctIndex: 0, explanation: "名詞(定)＋形容詞(非定)で「〜は〜です」という文になります。" },
-      { id: 4, type: "grammar", text: "月文字（al-の発音）はどれ？", options: ["الْقَمَر (al-qamar)", "الشَّمْس (al-shams)", "النُّور (al-nūr)", "الرَّجُل (al-rajul)"], correctIndex: 0, explanation: "Qamar（月）のQは月文字なので、al-はそのまま発音します。" },
-      { id: 5, type: "grammar", text: "「美しい女性（特定）」", options: ["الْمَرْأَةُ الْجَمِيلَةُ", "مَرْأَةٌ جَمِيلَةٌ", "الْمَرْأَةُ جَمِيلَةٌ", "مَرْأَةُ الْجَمِيلَةُ"], correctIndex: 0, explanation: "限定修飾なので両方にal-をつけます。" },
-      { id: 6, type: "grammar", text: "「学生は勤勉だ」", options: ["الطَّالِبُ مُجْتَهِدٌ", "الطَّالِبُ الْمُجْتَهِدُ", "طَالِبٌ مُجْتَهِدٌ", "طَالِبٌ الْمُجْتَهِدُ"], correctIndex: 0, explanation: "主語は定冠詞付き、述語は非限定です。" },
-      { id: 7, type: "grammar", text: "【和訳】「الْبَابُ مَفْتُوحٌ」", options: ["ドアは開いています", "開いたドア", "そのドアと開くこと", "ドアを開けなさい"], correctIndex: 0, explanation: "名詞文です。" },
-      { id: 8, type: "grammar", text: "太陽文字でないのは？", options: ["الْبَيْت", "السَّيَّارَة", "الزَّهْرَة", "الدَّار"], correctIndex: 0, explanation: "Baは月文字です。" },
-      { id: 9, type: "grammar", text: "「その長いペン」", options: ["الْقَلَمُ الطَّوِيلُ", "قَلَمٌ طَوِيلٌ", "الْقَلَمُ طَوِيلٌ", "قَلَمُ الطَّوِيلِ"], correctIndex: 0, explanation: "限定修飾句です。" },
-      { id: 10, type: "grammar", text: "「アッラーは慈悲深い」", options: ["اللهُ رَحِيمٌ", "اللهُ الرَّحِيمُ", "اللهَ رَحِيمًا", "اللهِ رَحِيمٍ"], correctIndex: 0, explanation: "名詞文の述語は非限定主格です。" }
-    ],
-    sentences: [{ arabic: "الْكِتَابُ جَدِيدٌ.", japanese: "その本は新しいです。" }]
-  },
-  {
-    id: 202, title: "人称代名詞", category: "名詞・代名詞", level: "文法",
-    contentVoweled: "أَنَا.", contentPlain: "أنا.",
-    vocabList: [{ word: "أَنَا", meaning: "私" }],
-    questions: [
-      { id: 1, type: "grammar", text: "「あなたは学生です（男性）」", options: ["أَنْتَ طَالِبٌ", "أَنْتِ طَالِبٌ", "هُوَ طَالِبٌ", "نَحْنُ طَالِبٌ"], correctIndex: 0, explanation: "あなた（男性）は「أَنْتَ (Anta)」です。" },
-      { id: 2, type: "grammar", text: "「彼らは先生たちです」", options: ["هُمْ مُدَرِّسُونَ", "هُنَّ مُدَرِّسُونَ", "أَنْتُمْ مُدَرِّسُونَ", "هُمَا مُدَرِّسُونَ"], correctIndex: 0, explanation: "彼ら（男性複数）は「هُمْ (Hum)」です。" },
-      { id: 3, type: "grammar", text: "【意味】「نَحْنُ مِنَ الْيَابَانِ」", options: ["私たちは日本出身です", "私は日本出身です", "彼らは日本出身です", "あなたは日本出身です"], correctIndex: 0, explanation: "「نَحْنُ (Naḥnu)」は「私たち」です。" },
-      { id: 4, type: "grammar", text: "「彼女は看護師です」", options: ["هِيَ مُمَرِّضَةٌ", "هُوَ مُمَرِّضَةٌ", "أَنْتِ مُمَرِّضَةٌ", "أَنَا مُمَرِّضَةٌ"], correctIndex: 0, explanation: "彼女は「Hiya」です。" },
-      { id: 5, type: "grammar", text: "「あなたたち（男性）はエンジニアです」", options: ["أَنْتُمْ مُهَنْدِسُونَ", "أَنْتُنَّ مُهَنْدِسُونَ", "هُمْ مُهَنْدِسُونَ", "نَحْنُ مُهَنْدِسُونَ"], correctIndex: 0, explanation: "あなたたち（男）は「Antum」です。" },
-      { id: 6, type: "grammar", text: "「彼ら2人は友達です」", options: ["هُمَا صَدِيقَانِ", "هُمْ صَدِيقَانِ", "أَنْتُمَا صَدِيقَانِ", "نَحْنُ صَدِيقَانِ"], correctIndex: 0, explanation: "彼ら2人（双数）は「Humā」です。" },
-      { id: 7, type: "grammar", text: "【和訳】「أَنْتِ ذَكِيَّةٌ」", options: ["あなた（女）は賢いです", "あなた（男）は賢いです", "彼女は賢いです", "私は賢いです"], correctIndex: 0, explanation: "「Anti」は女性への「あなた」です。" },
-      { id: 8, type: "grammar", text: "「彼女たち（女性）は先生です」", options: ["هُنَّ مُدَرِّسَاتٌ", "هُمْ مُدَرِّسَاتٌ", "أَنْتُنَّ مُدَرِّسَاتٌ", "نَحْنُ مُدَرِّسَاتٌ"], correctIndex: 0, explanation: "彼女ら（女性複数）は「Hunna」です。" },
-      { id: 9, type: "grammar", text: "「あなたたち2人は兄弟ですか？」", options: ["هَلْ أَنْتُمَا أَخَوَانِ؟", "هَلْ هُمَا أَخَوَانِ؟", "هَلْ أَنْتُمْ أَخَوَانِ؟", "هَلْ نَحْنُ أَخَوَانِ؟"], correctIndex: 0, explanation: "あなたたち2人は「Antumā」です。" },
-      { id: 10, type: "grammar", text: "「私と彼」", options: ["أَنَا وَهُوَ", "أَنَا وَهِيَ", "أَنْتَ وَهُوَ", "نَحْنُ وَهُوَ"], correctIndex: 0, explanation: "「Huwa」は彼です。" }
-    ],
-    sentences: [{ arabic: "أَنَا طَالِبٌ.", japanese: "私は学生です。" }]
-  },
-  {
-    id: 501, title: "形容詞", category: "名詞・形容詞", level: "文法",
-    contentVoweled: "طَالِبٌ مُجْتَهِدٌ.", contentPlain: "طالب مجتهد.",
-    vocabList: [{ word: "مُجْتَهِد", meaning: "勤勉な" }],
-    questions: [
-      { id: 1, type: "grammar", text: "「新しい本（単数・男）」", options: ["كِتَابٌ جَدِيدٌ", "كِتَابٌ جَدِيدَةٌ", "كِتَابٌ جُدُدٌ", "كِتَابَانِ جَدِيدَانِ"], correctIndex: 0, explanation: "性・数を一致させます。" },
-      { id: 2, type: "grammar", text: "「美しい町（単数・女）」", options: ["مَدِينَةٌ جَمِيلَةٌ", "مَدِينَةٌ جَمِيلٌ", "مَدِينَةٌ جَمِيلَاتٌ", "مَدِينَةٌ جَمِيلُونَ"], correctIndex: 0, explanation: "女性名詞には女性形形容詞（ة付き）を使います。" },
-      { id: 3, type: "grammar", text: "「2人の背の高い男（双数・男）」", options: ["رَجُلَانِ طَوِيلَانِ", "رَجُلَانِ طَوِيلَيْنِ", "رَجُلَانِ طَوِيلٌ", "رَجُلَانِ طَوِيلَةٌ"], correctIndex: 0, explanation: "双数主格には「āni」を両方につけます。" },
-      { id: 4, type: "grammar", text: "「小さな車たち（複数・物）」 ※注意", options: ["سَيَّارَاتٌ صَغِيرَةٌ", "سَيَّارَاتٌ صَغِيرَاتٌ", "سَيَّارَاتٌ صَغِيرُونَ", "سَيَّارَاتٌ صَغِيرٌ"], correctIndex: 0, explanation: "物の複数は「女性単数」で受けるため、形容詞は「Ṣaghīrah（女単）」になります。" },
-      { id: 5, type: "grammar", text: "【和訳】「مُهَنْدِسُونَ مَاهِرُونَ」", options: ["熟練したエンジニアたち（男複数）", "熟練したエンジニア（単数）", "熟練したエンジニアたち（女複数）", "エンジニアは熟練している"], correctIndex: 0, explanation: "人間（男性）の複数なので、形容詞も男性複数形「ūna」になっています。" },
-      { id: 6, type: "grammar", text: "「有名な女性の医者たち（複数・人）」", options: ["طَبِيبَاتٌ مَشْهُورَاتٌ", "طَبِيبَاتٌ مَشْهُورَةٌ", "طَبِيبَاتٌ مَشْهُورُونَ", "طَبِيبَاتٌ مَشْهُورٌ"], correctIndex: 0, explanation: "女性（人）の複数は、形容詞も女性複数形（āt）にします。" },
-      { id: 7, type: "grammar", text: "「2つの大きな部屋（双数・女）」", options: ["غُرْفَتَانِ كَبِيرَتَانِ", "غُرْفَتَانِ كَبِيرَانِ", "غُرْفَتَيْنِ كَبِيرَتَيْنِ", "غُرْفَةٌ كَبِيرَةٌ"], correctIndex: 0, explanation: "女性双数主格は「tāni」で一致させます。" },
-      { id: 8, type: "grammar", text: "【和訳】「رَجُلٌ كَرِيمٌ」", options: ["気前の良い男", "気前の良い女", "気前の良い人々", "男は気前が良い"], correctIndex: 0, explanation: "「Karīm」は気前の良い、高貴なという意味の男性単数形容詞です。" },
-      { id: 9, type: "grammar", text: "「壊れたペンたち（複数・物）」", options: ["أَقْلَامٌ مَكْسُورَةٌ", "أَقْلَامٌ مَكْسُورُونَ", "أَقْلَامٌ مَكْسُورَاتٌ", "أَقْلَامٌ مَكْسُورٌ"], correctIndex: 0, explanation: "物の複数は「女性単数」扱いなので「Maksūrah」を使います。" },
-      { id: 10, type: "grammar", text: "「冷たい水」", options: ["مَاءٌ بَارِدٌ", "مَاءٌ بَارِدَةٌ", "بَارِدٌ مَاءٌ", "الْمَاءُ بَارِدٌ"], correctIndex: 0, explanation: "水(Mā')は男性名詞です。" }
-    ],
-    sentences: [{ arabic: "هَذِهِ بُيُوتٌ قَدِيمَةٌ.", japanese: "これらは古い家々です。" }]
-  },
-  {
-    id: 502, title: "イダーファ（所有）", category: "名詞・形容詞", level: "文法",
-    contentVoweled: "بَابُ الْبَيْتِ.", contentPlain: "باب البيت.",
-    vocabList: [{ word: "بَاب", meaning: "ドア" }],
-    questions: [
-      { id: 1, type: "grammar", text: "「学校の先生（The teacher of the school）」", options: ["مُدَرِّسُ الْمَدْرَسَةِ", "الْمُدَرِّسُ الْمَدْرَسَةِ", "مُدَرِّسٌ الْمَدْرَسَةِ", "مُدَرِّسُ مَدْرَسَةٌ"], correctIndex: 0, explanation: "所有される語（Mudarris）は冠詞なし、所有者（Madrasah）は属格（i）です。" },
-      { id: 2, type: "grammar", text: "「アッラーの書（コーラン）」", options: ["كِتَابُ اللهِ", "الْكِتَابُ اللهِ", "كِتَابُ اللهَ", "كِتَابٌ اللهِ"], correctIndex: 0, explanation: "Kitābu Allāhi（属格）となります。" },
-      { id: 3, type: "grammar", text: "【和訳】「سَيَّارَةُ الْمُدِيرِ」", options: ["部長の車", "車の部長", "その車と部長", "部長は車です"], correctIndex: 0, explanation: "Sayyārah (車) + Al-Mudīr (部長)。" },
-      { id: 4, type: "grammar", text: "「社長の家のドアの鍵（二重イダーファ）」", options: ["مِفْتَاحُ بَابِ بَيْتِ الْمُدِيرِ", "مِفْتَاحُ الْبَابِ بَيْتِ الْمُدِيرِ", "الْمِفْتَاحُ بَابِ بَيْتِ الْمُدِيرِ", "مِفْتَاحُ بَابُ بَيْتُ الْمُدِيرِ"], correctIndex: 0, explanation: "最後の名詞だけに定冠詞がつき、中間はすべて属格になります。" },
-      { id: 5, type: "grammar", text: "「私の本」 接尾代名詞", options: ["كِتَابِي", "كِتَابُكَ", "كِتَابُهُ", "كِتَابَنَا"], correctIndex: 0, explanation: "「-ī」は「私の」を表します。" },
-      { id: 6, type: "grammar", text: "「あなたの名前（男性へ）」", options: ["اِسْمُكَ", "اِسْمُكِ", "اِسْمُهُ", "اِسْمُهَا"], correctIndex: 0, explanation: "「-ka」は「あなたの（男）」です。" },
-      { id: 7, type: "grammar", text: "【和訳】「بَيْتُهَا」", options: ["彼女の家", "彼の家", "彼らの家", "私の家"], correctIndex: 0, explanation: "「-hā」は「彼女の」です。" },
-      { id: 8, type: "grammar", text: "「神の使徒（預言者）」", options: ["رَسُولُ اللهِ", "الرَّسُولُ اللهِ", "رَسُولُ اللهَ", "رَسُولٌ اللهِ"], correctIndex: 0, explanation: "Rasūlullāh（ラスールッラー）です。" },
-      { id: 9, type: "grammar", text: "「大学の学生たち（複数）」", options: ["طُلَّابُ الْجَامِعَةِ", "الطُّلَّابُ الْجَامِعَةِ", "طُلَّابٌ الْجَامِعَةِ", "طُلَّابُ جَامِعَةٌ"], correctIndex: 0, explanation: "所有される語が複数になってもルールは同じです。" },
-      { id: 10, type: "grammar", text: "「私たちの先生」", options: ["مُدَرِّسُنَا", "مُدَرِّسُكُمْ", "مُدَرِّسُهُمْ", "مُدَرِّسِي"], correctIndex: 0, explanation: "「-nā」は「私たちの」です。" }
-    ],
-    sentences: [{ arabic: "قَلَمُ الطَّالِبِ مَكْسُورٌ.", japanese: "その学生のペンは壊れています。" }]
-  },
-  {
-    id: 803, title: "数詞 (1-1000)", category: "名詞・形容詞", level: "文法",
-    contentVoweled: "أَلْفُ لَيْلَةٍ.", contentPlain: "ألف ليلة.",
-    vocabList: [{ word: "خَمْسَة", meaning: "5" }, { word: "أَلْف", meaning: "1000" }],
-    questions: [
-      { id: 1, type: "grammar", text: "「3人の男（Rajul/男）」性別ルール", options: ["ثَلَاثَةُ رِجَالٍ (Thalāthah)", "ثَلَاثُ رِجَالٍ (Thalāth)", "ثَلَاثَةُ رَجُلٍ", "ثَلَاثُ رَجُلٍ"], correctIndex: 0, explanation: "3-10の数字は、数える名詞と性別を逆にします。男なので数字は女性形(Thalāthah)です。名詞は複数属格です。" },
-      { id: 2, type: "grammar", text: "「9台の車（Sayyārah/女）」", options: ["تِسْعُ سَيَّارَاتٍ (Tis')", "تِسْعَةُ سَيَّارَاتٍ (Tis'ah)", "تِسْعُ سَيَّارَةٍ", "تِسْعَةُ سَيَّارَةٍ"], correctIndex: 0, explanation: "車（女）なので、数字は男性形(Tis')を使います。" },
-      { id: 3, type: "grammar", text: "「11個の星（Kawkab/男）」11-99のルール", options: ["أَحَدَ عَشَرَ كَوْكَبًا", "أَحَدَ عَشَرَ كَوْكَبٍ", "أَحَدَ عَشَرَ كَوْكَبٌ", "وَاحِدَ عَشَرَ كَوْكَبًا"], correctIndex: 0, explanation: "11-99の数詞の後の名詞は「単数・対格（an）」になります。" },
-      { id: 4, type: "grammar", text: "「20リヤル」", options: ["عِشْرُونَ رِيَالًا", "عِشْرُونَ رِيَالٌ", "عِشْرُونَ رِيَالٍ", "عِشْرِينَ رِيَالٌ"], correctIndex: 0, explanation: "20, 30...90の後の名詞も「単数・対格（an）」です。" },
-      { id: 5, type: "grammar", text: "「100人の男」100/1000のルール", options: ["مِائَةُ رَجُلٍ", "مِائَةُ رَجُلًا", "مِائَةُ رِجَالٍ", "مِائَةُ رَجُلٌ"], correctIndex: 0, explanation: "100と1000の後の名詞は「単数・属格（in）」になります。" },
-      { id: 6, type: "grammar", text: "「1000夜（千夜一夜物語）」", options: ["أَلْفُ لَيْلَةٍ", "أَلْفُ لَيْلَةً", "أَلْفُ لَيَالٍ", "أَلْفُ لَيْلَةٌ"], correctIndex: 0, explanation: "1000の後の名詞は「単数・属格（in）」です。" },
-      { id: 7, type: "grammar", text: "【和訳】「خَمْسَةَ عَشَرَ قَلَمًا」", options: ["15本のペン", "5本のペン", "50本のペン", "10本のペン"], correctIndex: 0, explanation: "Khamsata 'ashara は15です。" },
-      { id: 8, type: "grammar", text: "「1冊の本」", options: ["كِتَابٌ وَاحِدٌ", "وَاحِدُ كِتَابٍ", "كِتَابٌ أَحَدٌ", "كِتَابٌ الْوَاحِدُ"], correctIndex: 0, explanation: "1と2は形容詞として名詞の後ろに置きます。" },
-      { id: 9, type: "grammar", text: "「12ヶ月」", options: ["اِثْنَا عَشَرَ شَهْرًا", "اِثْنَانِ عَشَرَ شَهْرًا", "اِثْنَا عَشَرَ شَهْرٍ", "اِثْنَيْ عَشَرَ شَهْرًا"], correctIndex: 0, explanation: "12の「2」の部分は双数扱い（Nunが落ちる）で、名詞は単数対格です。" },
-      { id: 10, type: "grammar", text: "「300（3つの100）」", options: ["ثَلَاثُمِائَةٍ", "ثَلَاثَةُ مِائَةٍ", "ثَلَاثُ مِائَةٍ", "ثَلَاثُونَ مِائَةٍ"], correctIndex: 0, explanation: "Thalāthu-mi'atin（300）のように繋げて書くのが一般的です。" }
-    ],
-    sentences: [{ arabic: "عِنْدِي سِتَّةُ كُتُبٍ.", japanese: "私は6冊の本を持っています。" }]
-  },
+// ★ 修正版: "image" フォルダを追加し、ファイル名を写真通りに修正
+imageUrls: [
+"/image/grammar/lesson3_1.jpg", 
+"/image/grammar/lesson3_2.jpg", 
+"/image/grammar/lesson3_3.jpg", 
+"/image/grammar/lesson3_4.jpg", 
+],
 
-  // ==========================================
-  //  カテゴリー: 動詞・時制 (Verbs & Tenses)
-  // ==========================================
-  {
-    id: 301, title: "過去形", category: "動詞・時制", level: "文法",
-    contentVoweled: "كَتَبْتُ رِسَالَةً.", contentPlain: "كتبت رسالة.",
-    vocabList: [{ word: "كَتَبَ", meaning: "書いた" }],
-    questions: [
-      { id: 1, type: "grammar", text: "「私は行きました」", options: ["ذَهَبْتُ (Dhahabtu)", "ذَهَبَ (Dhahaba)", "ذَهَبْتَ (Dhahabta)", "ذَهَبَتْ (Dhahabat)"], correctIndex: 0, explanation: "「私」の過去形語尾は「-tu」です。" },
-      { id: 2, type: "grammar", text: "「彼女は勉強しました」", options: ["دَرَسَتْ (Darasat)", "دَرَسَ (Darasa)", "دَرَسْتِ (Darasti)", "دَرَسُوا (Darasū)"], correctIndex: 0, explanation: "「彼女」の過去形語尾は「-at」です。" },
-      { id: 3, type: "grammar", text: "「彼らは食べました」", options: ["أَكَلُوا (Akalū)", "أَكَلْنَ (Akalna)", "أَكَلَا (Akalā)", "أَكَلْتُمْ (Akaltum)"], correctIndex: 0, explanation: "「彼ら（男）」の過去形語尾は「-ū」です。" },
-      { id: 4, type: "grammar", text: "【和訳】「سَمِعْنَا الْخَبَرَ」", options: ["私たちはそのニュースを聞きました", "私はそのニュースを聞きました", "彼らはそのニュースを聞きました", "あなたはそのニュースを聞きましたか"], correctIndex: 0, explanation: "「Sami'nā」の「-nā」は「私たち」を表します。" },
-      { id: 5, type: "grammar", text: "「あなた（男）は飲みました」", options: ["شَرِبْتَ", "شَرِبْتِ", "شَرِبْتُ", "شَرِبَ"], correctIndex: 0, explanation: "「-ta」は「あなた（男）」です。" },
-      { id: 6, type: "grammar", text: "「彼ら2人は書きました」", options: ["كَتَبَا", "كَتَبُوا", "كَتَبَتَا", "كَتَبْنَ"], correctIndex: 0, explanation: "双数（彼ら2人）はアリフ「ā」をつけます。" },
-      { id: 7, type: "grammar", text: "「あなたたち（女性複数）は座りました」", options: ["جَلَسْتُنَّ", "جَلَسْتُمْ", "جَلَسْنَ", "جَلَسْتِ"], correctIndex: 0, explanation: "女性複数の「あなたたち」は「-tunna」です。" },
-      { id: 8, type: "grammar", text: "【和訳】「خَرَجَتْ مِنَ الْبَيْتِ」", options: ["彼女は家から出ました", "彼は家から出ました", "私は家から出ました", "あなたは家から出ましたか"], correctIndex: 0, explanation: "「Kharajat」は彼女の過去形です。" },
-      { id: 9, type: "grammar", text: "「彼ら（女性複数）は理解しました」", options: ["فَهِمْنَ", "فَهِمُوا", "فَهِمْتُنَّ", "فَهِمَتَا"], correctIndex: 0, explanation: "「Hunna (彼女ら)」の過去形は「-na」です。" },
-      { id: 10, type: "grammar", text: "「あなたたち（男性複数）は帰りました」", options: ["رَجَعْتُمْ", "رَجَعُوا", "رَجَعْنَا", "رَجَعْتُنَّ"], correctIndex: 0, explanation: "「-tum」は「あなたたち（男）」です。" }
-    ],
-    sentences: [{ arabic: "خَرَجَ مِنَ الْبَيْتِ.", japanese: "彼は家から出ました。" }]
-  },
-  {
-    id: 302, title: "現在形", category: "動詞・時制", level: "文法",
-    contentVoweled: "أَدْرُسُ الْعَرَبِيَّةَ.", contentPlain: "أدرس العربية.",
-    vocabList: [{ word: "يَدْرُسُ", meaning: "勉強する" }],
-    questions: [
-      { id: 1, type: "grammar", text: "「彼は読みます」", options: ["يَقْرَأُ (Yaqra'u)", "تَقْرَأُ (Taqra'u)", "أَقْرَأُ (Aqra'u)", "نَقْرَأُ (Naqra'u)"], correctIndex: 0, explanation: "「彼」の現在形は「Ya-」で始まります。" },
-      { id: 2, type: "grammar", text: "「あなたはどこに住んでいますか？（男性）」", options: ["أَيْنَ تَسْكُنُ؟", "أَيْنَ يَسْكُنُ؟", "أَيْنَ تَسْكُنِينَ؟", "أَيْنَ أَسْكُنُ؟"], correctIndex: 0, explanation: "「あなた（男）」は「Ta-」で始まります。" },
-      { id: 3, type: "grammar", text: "「彼女は働いています」", options: ["تَعْمَلُ (Ta'malu)", "يَعْمَلُ (Ya'malu)", "أَعْمَلُ (A'malu)", "نَعْمَلُ (Na'malu)"], correctIndex: 0, explanation: "「彼女」の現在形は「Ta-」で始まります（あなた・男性と同じ形）。" },
-      { id: 4, type: "grammar", text: "【和訳】「مَاذَا تَأْكُلِينَ؟」", options: ["あなた（女性）は何を食べていますか？", "あなた（男性）は何を食べていますか？", "彼女は何を食べていますか？", "彼らは何を食べていますか？"], correctIndex: 0, explanation: "「Ta'kulīna」は「あなた（女性）」への形です。" },
-      { id: 5, type: "grammar", text: "「私たちは行きます」", options: ["نَذْهَبُ", "يَذْهَبُ", "تَذْهَبُ", "أَذْهَبُ"], correctIndex: 0, explanation: "「私たち」は「Na-」で始まります。" },
-      { id: 6, type: "grammar", text: "「彼らは書いています」", options: ["يَكْتُبُونَ", "تَكْتُبُونَ", "يَكْتُبْنَ", "يَكْتُبَانِ"], correctIndex: 0, explanation: "「彼ら（男）」は「Ya- ... -ūna」の形です。" },
-      { id: 7, type: "grammar", text: "「私は愛しています」", options: ["أُحِبُّ", "نُحِبُّ", "يُحِبُّ", "تُحِبُّ"], correctIndex: 0, explanation: "「私」は「A/U-」で始まります。" },
-      { id: 8, type: "grammar", text: "【和訳】「يَدْرُسُونَ」", options: ["彼らは勉強している", "あなたたちは勉強している", "彼ら2人は勉強している", "彼女らは勉強している"], correctIndex: 0, explanation: "「Yadrusūna」は彼ら（男）です。" },
-      { id: 9, type: "grammar", text: "「あなたたち（男性）は知っていますか？」", options: ["هَلْ تَعْرِفُونَ؟", "هَلْ يَعْرِفُونَ؟", "هَلْ تَعْرِفْنَ؟", "هَلْ نَعْرِفُ؟"], correctIndex: 0, explanation: "「あなたたち（男）」は「Ta- ... -ūna」です。" },
-      { id: 10, type: "grammar", text: "「彼女たち（彼ら女性）は飲んでいます」", options: ["يَشْرَبْنَ", "تَشْرَبْنَ", "يَشْرَبُونَ", "تَشْرَبُ"], correctIndex: 0, explanation: "「彼ら（女）」は「Ya- ... -na」です。" }
-    ],
-    sentences: [{ arabic: "أَكْتُبُ بِالْقَلَمِ.", japanese: "私はペンで書きます。" }]
-  },
-  {
-    id: 303, title: "未来形", category: "動詞・時制", level: "文法",
-    contentVoweled: "سَأُسَافِرُ غَدًا.", contentPlain: "سأسافر غدا.",
-    vocabList: [{ word: "سَـ", meaning: "〜するつもり" }],
-    questions: [
-      { id: 1, type: "grammar", text: "「私は明日行きます」", options: ["سَأَذْهَبُ غَدًا", "أَذْهَبُ غَدًا", "ذَهَبْتُ غَدًا", "لَنْ أَذْهَبَ غَدًا"], correctIndex: 0, explanation: "現在形に「Sa-」をつけると未来形になります。" },
-      { id: 2, type: "grammar", text: "「彼は後で帰るでしょう（Sawfa使用）」", options: ["سَوْفَ يَرْجِعُ", "سَوْفَ يَرْجِعَ", "سَوْفَ رَجَعَ", "سَوْفَ ارْجِعْ"], correctIndex: 0, explanation: "「Sawfa」の後は現在形（主格/u）が来ます。" },
-      { id: 3, type: "grammar", text: "【和訳】「سَنَكْتُبُ الرِّسَالَةَ」", options: ["私たちは手紙を書くつもりです", "私は手紙を書くつもりです", "彼らは手紙を書くつもりです", "あなたは手紙を書きますか"], correctIndex: 0, explanation: "「Sa-naktubu」は「私たち」の未来形です。" },
-      { id: 4, type: "grammar", text: "「彼女は成功するでしょう」", options: ["سَتَنْجَحُ", "سَيَنْجَحُ", "سَتَنْجَحِينَ", "سَأَنْجَحُ"], correctIndex: 0, explanation: "彼女の現在形「Tanjaḥu」に「Sa」をつけます。" },
-      { id: 5, type: "grammar", text: "「彼らはまもなく到着します」", options: ["سَيَصِلُونَ", "سَتَصِلُونَ", "سَيَصِلْنَ", "سَوَصَلُوا"], correctIndex: 0, explanation: "彼らの現在形「Yaṣilūna」に「Sa」をつけます。" },
-      { id: 6, type: "grammar", text: "【和訳】「سَأَرَاكَ قَرِيبًا」", options: ["すぐにあなたに会うでしょう", "すぐに私を見てください", "すぐに彼に会いました", "すぐに彼女は見るでしょう"], correctIndex: 0, explanation: "「Arā」は「私は見る・会う」、「ka」は「あなたに」です。" },
-      { id: 7, type: "grammar", text: "「あなた（男）は理解するでしょう」", options: ["سَتَفْهَمُ", "سَيَفْهَمُ", "سَتَفْهَمِينَ", "سَأَفْهَمُ"], correctIndex: 0, explanation: "あなたの現在形「Tafhamu」に「Sa」をつけます。" },
-      { id: 8, type: "grammar", text: "「あなたはいつ旅行する予定ですか？」", options: ["مَتَى سَتُسَافِرُ؟", "مَتَى تُسَافِرُ؟", "مَتَى سَافَرْتَ؟", "أَيْنَ سَتُسَافِرُ؟"], correctIndex: 0, explanation: "未来の予定を聞くので「Sa」をつけます。" },
-      { id: 9, type: "grammar", text: "「私たちは忘れないでしょう」", options: ["لَنْ نَنْسَى", "لَا نَنْسَى", "مَا نَسِينَا", "لَيْسَ نَنْسَى"], correctIndex: 0, explanation: "強い未来否定には「Lan」を使います。" },
-      { id: 10, type: "grammar", text: "「神が望めば（未来の不確定なこと）」", options: ["إِنْ شَاءَ اللهُ", "مَا شَاءَ اللهُ", "بِسْمِ اللهِ", "سُبْحَانَ اللهِ"], correctIndex: 0, explanation: "「In shā'a Allāh」は未来のことについて話すときによく使われます。" }
-    ],
-    sentences: [{ arabic: "سَأَدْرُسُ فِي الْمَسَاءِ.", japanese: "私は夕方に勉強するつもりです。" }]
-  },
-  {
-    id: 304, title: "否定文", category: "動詞・時制", level: "文法",
-    contentVoweled: "لَا أُحِبُّ هَذَا.", contentPlain: "لا أحب هذا.",
-    vocabList: [{ word: "لَا", meaning: "〜ない" }, { word: "مَا", meaning: "〜なかった" }],
-    questions: [
-      { id: 1, type: "grammar", text: "「私は知りません（現在）」", options: ["لَا أَعْرِفُ", "مَا عَرَفْتُ", "لَنْ أَعْرِفَ", "لَيْسَ أَعْرِفُ"], correctIndex: 0, explanation: "現在形の否定には「لَا (Lā)」を使います。" },
-      { id: 2, type: "grammar", text: "「私は見ませんでした（過去）」", options: ["مَا رَأَيْتُ", "لَا أَرَى", "لَنْ أَرَى", "لَيْسَ أَرَى"], correctIndex: 0, explanation: "過去形の否定には一般的に「مَا (Mā)」を使います。" },
-      { id: 3, type: "grammar", text: "「私は決して行きません（未来否定）」", options: ["لَنْ أَذْهَبَ", "لَا أَذْهَبُ", "مَا ذَهَبْتُ", "لَمْ أَذْهَبْ"], correctIndex: 0, explanation: "「لَنْ (Lan)」は未来の否定で、動詞の語尾が「a (Manṣūb)」になります。" },
-      { id: 4, type: "grammar", text: "【和訳】「لَمْ يَأْكُلْ شَيْئًا」", options: ["彼は何も食べなかった（過去否定）", "彼は何も食べない（現在否定）", "彼は食べないだろう（未来否定）", "彼は食べるな（禁止）"], correctIndex: 0, explanation: "「Lam」+現在形短形は、過去の意味の否定になります。" },
-      { id: 5, type: "grammar", text: "「私は学生ではありません」", options: ["لَسْتُ طَالِبًا", "لَا طَالِبٌ", "مَا طَالِبٌ", "لَمْ طَالِبٌ"], correctIndex: 0, explanation: "名詞文の否定には「Laysa」を使います。" },
-      { id: 6, type: "grammar", text: "「彼らは理解していません」", options: ["لَا يَفْهَمُونَ", "مَا فَهِمُوا", "لَنْ يَفْهَمُوا", "لَمْ يَفْهَمُوا"], correctIndex: 0, explanation: "現在の状態（理解していない）の否定は「Lā」+ 現在形です。" },
-      { id: 7, type: "grammar", text: "「彼女は来ませんでした」", options: ["مَا جَاءَتْ", "لَا تَجِيءُ", "لَنْ تَجِيءَ", "لَيْسَتْ جَاءَتْ"], correctIndex: 0, explanation: "過去の否定は「Mā」+ 過去形です。" },
-      { id: 8, type: "grammar", text: "【和訳】「لَا أُحِبُّ الْقَهْوَةَ」", options: ["私はコーヒーが好きではありません", "私はコーヒーを飲みませんでした", "私はコーヒーを飲まないでしょう", "コーヒーはありません"], correctIndex: 0, explanation: "現在形「Uḥibbu（好む）」の否定です。" },
-      { id: 9, type: "grammar", text: "「問題はありません」", options: ["لَا مُشْكِلَةَ", "مَا مُشْكِلَةٌ", "لَنْ مُشْكِلَةً", "لَمْ مُشْكِلَةً"], correctIndex: 0, explanation: "「Lā mushkilah」は「No problem」の定型表現です。" },
-      { id: 10, type: "grammar", text: "「彼はまだ帰っていません」", options: ["لَمْ يَرْجِعْ بَعْدُ", "مَا رَجَعَ بَعْدُ", "لَا يَرْجِعُ بَعْدُ", "لَنْ يَرْجِعَ بَعْدُ"], correctIndex: 0, explanation: "「Lam」は「まだ〜していない」という意味でも使われます。" }
-    ],
-    sentences: [{ arabic: "مَا فَهِمْتُ الدَّرْسَ.", japanese: "私はその授業を理解しませんでした。" }]
-  },
-  {
-    id: 305, title: "助動的動詞", category: "動詞・時制", level: "文法",
-    contentVoweled: "كَانَ الْجَوُّ بَارِدًا.", contentPlain: "كان الجو باردا.",
-    vocabList: [{ word: "كَانَ", meaning: "〜だった" }, { word: "لَيْسَ", meaning: "〜ではない" }],
-    questions: [
-      { id: 1, type: "grammar", text: "「私は学生ではありません」 (Laysa)", options: ["لَسْتُ طَالِبًا", "لَيْسَ طَالِبًا", "لَسْتَ طَالِبًا", "لَسْنَا طَالِبًا"], correctIndex: 0, explanation: "「私」の Laysa の活用形は「Lastu」です。" },
-      { id: 2, type: "grammar", text: "「天気は良かった（過去）」 (Kana)", options: ["كَانَ الْجَوُّ جَمِيلًا", "كَانَ الْجَوُّ جَمِيلٌ", "إِنَّ الْجَوَّ جَمِيلٌ", "لَيْسَ الْجَوُّ جَمِيلًا"], correctIndex: 0, explanation: "Kanaの述語は対格（Fatḥah）になります。「Jamīlan」が正解。" },
-      { id: 3, type: "grammar", text: "【意味】「لَيْسَتْ سَيَّارَةً」", options: ["（それは）車ではありません", "（彼は）車ではありません", "（私は）車ではありません", "車はありません"], correctIndex: 0, explanation: "「Laysat」は「彼女/それ(女)」の否定です。" },
-      { id: 4, type: "grammar", text: "「私たちは忙しくありません」", options: ["لَسْنَا مَشْغُولِينَ", "لَسْتُمْ مَشْغُولِينَ", "لَيْسُوا مَشْغُولِينَ", "لَسْتُ مَشْغُولًا"], correctIndex: 0, explanation: "「Lasnā」は「私たち」の否定です。" },
-      { id: 5, type: "grammar", text: "「彼は金持ちだった」", options: ["كَانَ غَنِيًّا", "كَانَ غَنِيٌّ", "كَانَ غَنِيٍّ", "كُنْتُ غَنِيًّا"], correctIndex: 0, explanation: "「Kāna」の述語は対格（an）です。" },
-      { id: 6, type: "grammar", text: "「私は先生になりたい（〜になりたい）」", options: ["أُرِيدُ أَنْ أَكُونَ مُدَرِّسًا", "أُرِيدُ أَنْ كَانَ مُدَرِّسًا", "أُرِيدُ أَنْ يَكُونَ مُدَرِّسًا", "أُرِيدُ أَنْ كُنْتُ مُدَرِّسًا"], correctIndex: 0, explanation: "「An」の後は接続法（Akūna）になります。" },
-      { id: 7, type: "grammar", text: "【和訳】「كُنْتُ مَرِيضًا」", options: ["私は病気でした", "あなたは病気でした", "彼は病気でした", "私は病気です"], correctIndex: 0, explanation: "「Kuntu」は「私は〜だった」です。" },
-      { id: 8, type: "grammar", text: "「彼らは幸せではありません」", options: ["لَيْسُوا سُعَدَاءَ", "لَيْسَ سُعَدَاءُ", "لَسْنَا سُعَدَاءَ", "لَسْتُمْ سُعَدَاءَ"], correctIndex: 0, explanation: "「彼ら」のLaysaは「Laysū」です。" },
-      { id: 9, type: "grammar", text: "「ドアは開いていた」", options: ["كَانَ الْبَابُ مَفْتُوحًا", "كَانَ الْبَابُ مَفْتُوحٌ", "كَانَتِ الْبَابُ مَفْتُوحًا", "كَانَ الْبَابَ مَفْتُوحًا"], correctIndex: 0, explanation: "ドア（Bāb）は男性名詞なので「Kāna」です。" },
-      { id: 10, type: "grammar", text: "「彼女はここにいなかった」", options: ["لَمْ تَكُنْ هُنَا", "مَا كَانَتْ هُنَا", "لَيْسَتْ هُنَا", "لَنْ تَكُونَ هُنَا"], correctIndex: 1, explanation: "過去の否定は「Mā kānat」または「Lam takun」です。選択肢では「Mā kānat」が自然な過去形否定です。" }
-    ],
-    sentences: [{ arabic: "لَسْتُ مَشْغُولًا.", japanese: "私は忙しくありません。" }]
-  },
-
-  // ==========================================
-  //  カテゴリー: 構文・その他 (Syntax & Others)
-  // ==========================================
-  {
-    id: 801, title: "命令・禁止", category: "構文・その他", level: "文法",
-    contentVoweled: "اُدْخُلْ وَلَا تَخْرُجْ.", contentPlain: "ادخل ولا تخرج.",
-    vocabList: [{ word: "اُدْخُلْ", meaning: "入れ" }, { word: "لَا", meaning: "〜するな" }],
-    questions: [
-      { id: 1, type: "grammar", text: "「座りなさい（男性へ）」", options: ["اِجْلِسْ (Ijlis)", "اِجْلِسِي (Ijlisī)", "تَجْلِسُ (Tajlisu)", "اُجْلُسْ (Ujlus)"], correctIndex: 0, explanation: "Jalasa (i) 型の命令は「Ijlis」です。" },
-      { id: 2, type: "grammar", text: "「行くな（男性へ・禁止）」", options: ["لَا تَذْهَبْ (Lā tadhhab)", "لَا تَذْهَبُ (Lā tadhhabu)", "لَا تَذْهَبِي (Lā tadhhabī)", "مَا تَذْهَبْ (Mā tadhhab)"], correctIndex: 0, explanation: "禁止の「Lā」の後は語尾がスクーン（短形）になります。" },
-      { id: 3, type: "grammar", text: "「読みなさい（女性へ）」", options: ["اِقْرَئِي (Iqra'ī)", "اِقْرَأْ (Iqra')", "تَقْرَئِينَ (Taqra'īna)", "اُقْرُئِي (Uqru'ī)"], correctIndex: 0, explanation: "女性への命令は語尾に「ī」をつけます。" },
-      { id: 4, type: "grammar", text: "【和訳】「اُدْخُلُوا」", options: ["入りなさい（複数男性）", "入りなさい（単数男性）", "入りなさい（単数女性）", "入るな（複数男性）"], correctIndex: 0, explanation: "「-ū」は複数男性への命令語尾です。" },
-      { id: 5, type: "grammar", text: "「これを飲みなさい（男性へ）」", options: ["اِشْرَبْ هَذَا", "اُشْرُبْ هَذَا", "شَرِبَ هَذَا", "تَشْرَبُ هَذَا"], correctIndex: 0, explanation: "Shariba (a) 型の命令は「Ishrab」です。" },
-      { id: 6, type: "grammar", text: "「悲しむな（La Tahzan）」", options: ["لَا تَحْزَنْ", "لَا تَحْزَنُ", "مَا تَحْزَنْ", "لَنْ تَحْزَنَ"], correctIndex: 0, explanation: "禁止形は語尾がスクーンになります。" },
-      { id: 7, type: "grammar", text: "「書きなさい（男性へ）」", options: ["اُكْتُبْ", "اِكْتُبْ", "كَتَبَ", "يَكْتُبُ"], correctIndex: 0, explanation: "Kataba (u) 型の命令は「Uktub」です。" },
-      { id: 8, type: "grammar", text: "【和訳】「لَا تَنْسَ」", options: ["忘れるな", "忘れない", "忘れませんでした", "忘れないでしょう"], correctIndex: 0, explanation: "語尾の母音が脱落する（Tansā -> Tansa）のが弱文字動詞の禁止形の特徴です。" },
-      { id: 9, type: "grammar", text: "「ここで待ちなさい（女性へ）」", options: ["اِنْتَظِرِي هُنَا", "اِنْتَظِرْ هُنَا", "اِنْتَظِرُوا هُنَا", "تَنْتَظِرِينَ هُنَا"], correctIndex: 0, explanation: "女性への命令は「-ī」をつけます。" },
-      { id: 10, type: "grammar", text: "「アッラーを崇めなさい（複数）」", options: ["اُعْبُدُوا اللهَ", "اُعْبُدْ اللهَ", "يَعْبُدُونَ اللهَ", "عَبَدُوا اللهَ"], correctIndex: 0, explanation: "Abada (u) 型の複数命令は「U'budū」です。" }
-    ],
-    sentences: [{ arabic: "اِفْتَحِ الْبَابَ.", japanese: "ドアを開けなさい。" }]
-  },
-  {
-    id: 802, title: "前置詞", category: "構文・その他", level: "文法",
-    contentVoweled: "فِي الْغُرْفَةِ.", contentPlain: "في الغرفة.",
-    vocabList: [{ word: "فِي", meaning: "中に" }, { word: "عَلَى", meaning: "上に" }],
-    questions: [
-      { id: 1, type: "grammar", text: "「机の上に」", options: ["عَلَى الْمَكْتَبِ (Maktabi)", "عَلَى الْمَكْتَبَ (Maktaba)", "عَلَى الْمَكْتَبُ (Maktabu)", "فِي الْمَكْتَبِ (Fī)"], correctIndex: 0, explanation: "前置詞（Ala）の後の名詞は属格（i）になります。" },
-      { id: 2, type: "grammar", text: "「日本から」", options: ["مِنَ الْيَابَانِ", "إِلَى الْيَابَانِ", "فِي الْيَابَانِ", "عَنِ الْيَابَانِ"], correctIndex: 0, explanation: "「から」は「Min」です。" },
-      { id: 3, type: "grammar", text: "【和訳】「ذَهَبْتُ إِلَى الْمَكْتَبَةِ」", options: ["私は図書館へ行きました", "私は図書館から来ました", "私は図書館にいます", "私は図書館が好きです"], correctIndex: 0, explanation: "「Ilā」は「〜へ」という方向を表します。" },
-      { id: 4, type: "grammar", text: "「家の中に」", options: ["فِي الْبَيْتِ", "فِي الْبَيْتَ", "فِي الْبَيْتُ", "إِلَى الْبَيْتِ"], correctIndex: 0, explanation: "「Fī」は「〜の中に」です。" },
-      { id: 5, type: "grammar", text: "「先生について（About）」", options: ["عَنِ الْمُدَرِّسِ", "مِنَ الْمُدَرِّسِ", "عَلَى الْمُدَرِّسِ", "فِي الْمُدَرِّسِ"], correctIndex: 0, explanation: "「An」は「〜について」という意味があります。" },
-      { id: 6, type: "grammar", text: "「ペンで（道具）」", options: ["بِالْقَلَمِ", "فِي الْقَلَمِ", "مِنَ الْقَلَمِ", "عَلَى الْقَلَمِ"], correctIndex: 0, explanation: "「Bi」は手段・道具を表します。" },
-      { id: 7, type: "grammar", text: "【和訳】「الْكِتَابُ لِمُحَمَّدٍ」", options: ["その本はムハンマドのものです", "その本はムハンマドです", "その本はムハンマドと一緒です", "ムハンマドは本を持っています"], correctIndex: 0, explanation: "「Li」は所有を表します。" },
-      { id: 8, type: "grammar", text: "「月のように（比喩）」", options: ["كَالْقَمَرِ", "فِي الْقَمَرِ", "بِالْقَمَرِ", "مِنَ الْقَمَرِ"], correctIndex: 0, explanation: "「Ka」は「〜のように」という意味の前置詞です。" },
-      { id: 9, type: "grammar", text: "「夜明けまで」", options: ["حَتَّى الْفَجْرِ", "مِنَ الْفَجْرِ", "عَنِ الْفَجْرِ", "فِي الْفَجْرِ"], correctIndex: 0, explanation: "「Hattā」は「〜まで」を表します。" },
-      { id: 10, type: "grammar", text: "「アッラーに誓って」", options: ["وَاللهِ", "فِي اللهِ", "إِلَى اللهِ", "عَنِ اللهِ"], correctIndex: 0, explanation: "「Wa」は誓いの前置詞としても使われ、後の名詞を属格（Wallāhi）にします。" }
-    ],
-    sentences: [{ arabic: "الْكِتَابُ فِي الْحَقِيبَةِ.", japanese: "本はカバンの中にあります。" }]
-  },
-  {
-    id: 503, title: "副詞的表現", category: "構文・その他", level: "文法",
-    contentVoweled: "شُكْرًا جَزِيلًا.", contentPlain: "شكرا جزيلا.",
-    vocabList: [{ word: "جِدًّا", meaning: "とても" }, { word: "أَيْضًا", meaning: "〜も" }],
-    questions: [
-      { id: 1, type: "grammar", text: "「とても大きい」", options: ["كَبِيرٌ جِدًّا", "كَبِيرٌ كَثِيرًا", "جِدًّا كَبِيرٌ", "كَبِيرٌ فَقَطْ"], correctIndex: 0, explanation: "「Jiddan (とても)」は形容詞の後に置きます。" },
-      { id: 2, type: "grammar", text: "「私も (Me too)」", options: ["أَنَا أَيْضًا", "أَنَا فَقَطْ", "أَنَا جِدًّا", "أَنَا هُنَا"], correctIndex: 0, explanation: "「Ayḍan」は「〜もまた」という意味です。" },
-      { id: 3, type: "grammar", text: "【和訳】「أَهْلًا وَسَهْلًا」", options: ["ようこそ", "ありがとう", "ごめんなさい", "さようなら"], correctIndex: 0, explanation: "定型的な歓迎の挨拶です。" },
-      { id: 4, type: "grammar", text: "「少しだけ」", options: ["قَلِيلًا", "كَثِيرًا", "جِدًّا", "دَائِمًا"], correctIndex: 0, explanation: "「Qalīlan」は「少し」です。" },
-      { id: 5, type: "grammar", text: "「いつも (Always)」", options: ["دَائِمًا", "أَبَدًا", "أَحْيَانًا", "غَالِبًا"], correctIndex: 0, explanation: "「Dā'iman」は「いつも」です。" },
-      { id: 6, type: "grammar", text: "「たぶん (Maybe)」", options: ["رُبَّمَا", "أَكِيدٌ", "بِالتَّأْكِيدِ", "طَبْعًا"], correctIndex: 0, explanation: "「Rubbamā」は「たぶん」です。" },
-      { id: 7, type: "grammar", text: "「本当に (Really)」", options: ["حَقًّا", "صِدْقًا", "جِدًّا", "فِعْلًا"], correctIndex: 0, explanation: "「Ḥaqqan」は「本当に」です。" },
-      { id: 8, type: "grammar", text: "「今日」", options: ["الْيَوْمَ", "أَمْسِ", "غَدًا", "الْآنَ"], correctIndex: 0, explanation: "「Al-yawma」は「今日」です。" },
-      { id: 9, type: "grammar", text: "「ゆっくりと」", options: ["بِبُطْءٍ", "بِسُرْعَةٍ", "بِصَوْتٍ عَالٍ", "بِهُدُوءٍ"], correctIndex: 0, explanation: "「Bi-buṭ'in」は「ゆっくり」です。" },
-      { id: 10, type: "grammar", text: "「速く」", options: ["بِسُرْعَةٍ", "بِبُطْءٍ", "قَلِيلًا", "كَثِيرًا"], correctIndex: 0, explanation: "「Bi-sur'atin」は「速く」です。" }
-    ],
-    sentences: [{ arabic: "هَذَا جَمِيلٌ جِدًّا.", japanese: "これはとても美しいです。" }]
-  },
-  {
-    id: 504, title: "例外 (Illa)", category: "構文・その他", level: "文法",
-    contentVoweled: "لَا إِلَهَ إِلَّا اللهُ.", contentPlain: "لا إله إلا الله.",
-    vocabList: [{ word: "إِلَّا", meaning: "〜を除いて" }],
-    questions: [
-      { id: 1, type: "grammar", text: "「アッラーの他に神はなし（シャハーダ）」", options: ["لَا إِلَهَ إِلَّا اللهُ", "لَا إِلَهَ وَاللهُ", "لَا إِلَهَ مَعَ اللهِ", "لَا إِلَهَ غَيْرُ اللهِ"], correctIndex: 0, explanation: "「Illa (〜を除いて)」を使った最も有名なフレーズです。" },
-      { id: 2, type: "grammar", text: "「学生たちは来たが、ザイドだけ来なかった」", options: ["جَاءَ الطُّلَّابُ إِلَّا زَيْدًا", "جَاءَ الطُّلَّابُ إِلَّا زَيْدٍ", "جَاءَ الطُّلَّابُ إِلَّا زَيْدٌ", "جَاءَ الطُّلَّابُ مَعَ زَيْدٍ"], correctIndex: 0, explanation: "Illaの後の名詞は原則として対格（Zaydan）になります。" },
-      { id: 3, type: "grammar", text: "【意味】「مَا أَكَلْتُ شَيْئًا إِلَّا تُفَّاحَةً」", options: ["私はリンゴ以外何も食べなかった", "私はリンゴだけ食べた", "私はリンゴも食べた", "私はリンゴを食べなかった"], correctIndex: 0, explanation: "直訳は「リンゴを除いて何も食べなかった」＝「リンゴだけ食べた」です。" },
-      { id: 4, type: "grammar", text: "「金曜日以外は毎日働く」", options: ["أَعْمَلُ كُلَّ يَوْمٍ إِلَّا الْجُمُعَةَ", "أَعْمَلُ كُلَّ يَوْمٍ وَالْجُمُعَةَ", "أَعْمَلُ كُلَّ يَوْمٍ مَعَ الْجُمُعَةِ", "أَعْمَلُ الْجُمُعَةَ فَقَطْ"], correctIndex: 0, explanation: "「Illa al-jumu'ata」で「金曜日を除いて」となります。" },
-      { id: 5, type: "grammar", text: "「彼以外誰も知らない」", options: ["لَا يَعْرِفُ أَحَدٌ إِلَّا هُوَ", "لَا يَعْرِفُ أَحَدٌ إِلَّا إِيَّاهُ", "لَا يَعْرِفُ أَحَدٌ وَهُوَ", "لَا يَعْرِفُ أَحَدٌ مَعَهُ"], correctIndex: 1, explanation: "代名詞の場合は「Illa iyyāhu」の形が一般的です（または主格のIlla huwa）。" },
-      { id: 6, type: "grammar", text: "【和訳】「لَيْسَ فِي الْبَيْتِ إِلَّا عَلِيٌّ」", options: ["家にはアリしかいない", "家にはアリ以外がいる", "家にはアリもいない", "アリは家にいない"], correctIndex: 0, explanation: "「Laysa... Illa...」で「〜しかいない」という限定表現になります。" },
-      { id: 7, type: "grammar", text: "「一つを除いて全てのドアが開いている」", options: ["كُلُّ الْأَبْوَابِ مَفْتُوحَةٌ إِلَّا بَابًا وَاحِدًا", "إِلَّا بَابٌ وَاحِدٌ", "إِلَّا بَابٍ وَاحِدٍ", "مَعَ بَابٍ وَاحِدٍ"], correctIndex: 0, explanation: "Illaの後は対格「Bāban wāḥidan」です。" },
-      { id: 8, type: "grammar", text: "「彼らは皆帰ったが、私だけ残った」", options: ["رَجَعُوا جَمِيعًا إِلَّا أَنَا", "إِلَّا لِي", "إِلَّا بِي", "إِلَّا مَعِي"], correctIndex: 0, explanation: "「Illa ana」または「Illa iyyāya」を使います。" },
-      { id: 9, type: "grammar", text: "「水以外は何も飲みません」", options: ["لَا أَشْرَبُ شَيْئًا إِلَّا الْمَاءَ", "لَا أَشْرَبُ الْمَاءَ", "أَشْرَبُ كُلَّ شَيْءٍ", "أَشْرَبُ الْمَاءَ وَالشَّايَ"], correctIndex: 0, explanation: "否定文 + Illa で「〜しか〜ない」を表します。" },
-      { id: 10, type: "grammar", text: "「アハマド以外は合格した」", options: ["نَجَحَ الْجَمِيعُ إِلَّا أَحْمَدَ", "إِلَّا أَحْمَدُ", "إِلَّا أَحْمَدِ", "مَعَ أَحْمَدَ"], correctIndex: 0, explanation: "Aḥmadaは非限定変化名詞なので対格でもFatḥahです。" }
-    ],
-    sentences: [{ arabic: "لَا إِلَهَ إِلَّا اللهُ.", japanese: "アッラーの他に神はなし。" }]
-  },
-  {
-    id: 505, title: "仮定・条件", category: "構文・その他", level: "文法",
-    contentVoweled: "إِنْ تَذْهَبْ أَذْهَبْ.", contentPlain: "إن تذهب أذهب.",
-    vocabList: [{ word: "إِنْ", meaning: "もし〜なら" }, { word: "لَوْ", meaning: "もし〜だったら" }],
-    questions: [
-      { id: 1, type: "grammar", text: "「もしあなたが勉強すれば、成功するでしょう」", options: ["إِنْ تَدْرُسْ تَنْجَحْ", "إِنْ تَدْرُسُ تَنْجَحُ", "إِذَا تَدْرُسُ تَنْجَحُ", "لَوْ تَدْرُسْ تَنْجَحْ"], correctIndex: 0, explanation: "In (もし)を使うと、動詞は短形（スクーン）になります。" },
-      { id: 2, type: "grammar", text: "「もし私が金持ちだったら（実際は違う）」", options: ["لَوْ كُنْتُ غَنِيًّا", "إِنْ كُنْتُ غَنِيًّا", "إِذَا كُنْتُ غَنِيًّا", "مَتَى كُنْتُ غَنِيًّا"], correctIndex: 0, explanation: "ありえない仮定（反実仮想）には「Law」を使います。" },
-      { id: 3, type: "grammar", text: "【意味】「إِذَا جَاءَ نَصْرُ اللهِ」", options: ["アッラーの助けが来る時（もし来たら）", "アッラーの助けが来た", "アッラーの助けは来る", "アッラーの助けを待つ"], correctIndex: 0, explanation: "Idha は「〜する時、もし〜なら」という未来の条件を表します。" },
-      { id: 4, type: "grammar", text: "「もし彼が行くなら、私も行きます」", options: ["إِنْ يَذْهَبْ أَذْهَبْ", "إِنْ يَذْهَبُ أَذْهَبُ", "لَوْ يَذْهَبُ أَذْهَبْ", "إِذَا يَذْهَبْ أَذْهَبُ"], correctIndex: 0, explanation: "In + 短形 + 短形 の形です。" },
-      { id: 5, type: "grammar", text: "「もしあなたが知っていたら（過去の仮定）」", options: ["لَوْ كُنْتَ تَعْلَمُ", "إِنْ كُنْتَ تَعْلَمُ", "إِذَا كُنْتَ تَعْلَمُ", "مَتَى كُنْتَ تَعْلَمُ"], correctIndex: 0, explanation: "「Law」は「もし〜だったら（実際はそうでない）」に使われます。" },
-      { id: 6, type: "grammar", text: "「あなたが誰であれ」", options: ["مَهْمَا كُنْتَ", "أَيْنَ كُنْتَ", "مَتَى كُنْتَ", "مَنْ كُنْتَ"], correctIndex: 0, explanation: "「Mahmā」は「たとえ〜でも、何であれ」を表します。" },
-      { id: 7, type: "grammar", text: "【和訳】「مَنْ يَزْرَعْ يَحْصُدْ」", options: ["種を蒔く者は刈り取る（自業自得）", "種を蒔く人は疲れる", "収穫する人は種を蒔く", "農業は大切だ"], correctIndex: 0, explanation: "条件文を使ったことわざです。「Man（〜する人）」も条件の意味を持ちます。" },
-      { id: 8, type: "grammar", text: "「もし雨が降ったら」", options: ["إِذَا نَزَلَ الْمَطَرُ", "لَوْ نَزَلَ الْمَطَرُ", "إِنْ نَزَلَ الْمَطَرُ", "مَتَى نَزَلَ الْمَطَرُ"], correctIndex: 0, explanation: "「Idha」+ 過去形は「〜したら（未来）」を表します。" },
-      { id: 9, type: "grammar", text: "「もし時間があれば」", options: ["إِنْ كَانَ عِنْدَكَ وَقْتٌ", "لَوْ كَانَ عِنْدَكَ وَقْتٌ", "إِذَا كَانَ عِنْدَكَ وَقْتٌ", "لَيْسَ عِنْدَكَ وَقْتٌ"], correctIndex: 0, explanation: "In + Kāna で「もし〜なら」を表せます。" },
-      { id: 10, type: "grammar", text: "「あなたがどこへ行こうとも」", options: ["أَيْنَمَا تَذْهَبْ", "كَيْفَمَا تَذْهَبْ", "حَيْثُمَا تَذْهَبْ", "مَهْمَا تَذْهَبْ"], correctIndex: 0, explanation: "「Aynamā」は「どこへ〜しようとも」です。" }
-    ],
-    sentences: [{ arabic: "إِنْ تَأْكُلْ كَثِيرًا تَمْرَضْ.", japanese: "もし沢山食べたら、病気になります。" }]
-  },
-  {
-    id: 403, title: "派生動詞", category: "動詞・応用", level: "文法",
-    contentVoweled: "عَلَّمَ الْمُدَرِّسُ الطَّالِبَ.", contentPlain: "علم المدرس الطالب.",
-    vocabList: [{ word: "عَلَّمَ", meaning: "教える(II形)" }, { word: "دَرَسَ", meaning: "学ぶ(I形)" }],
-    questions: [
-      { id: 1, type: "grammar", text: "「教える（Allama）」は何形？（シャッダがある）", options: ["第2形", "第1形", "第3形", "第4形"], correctIndex: 0, explanation: "真ん中の文字にシャッダ（ッ）があるのは第2形の特徴です。" },
-      { id: 2, type: "grammar", text: "「会う・面会する（Qābala）」は何形？（アリフがある）", options: ["第3形", "第2形", "第5形", "第6形"], correctIndex: 0, explanation: "最初の文字の後にアリフがあるのは第3形の特徴です。" },
-      { id: 3, type: "grammar", text: "【意味】「تَكَلَّمَ بِالْعَرَبِيَّةِ」", options: ["彼はアラビア語を話した", "彼はアラビア語を教えた", "彼はアラビア語を書いた", "彼はアラビア語を学んだ"], correctIndex: 0, explanation: "「Takallama」は第5形で「話す」という意味です。" },
-      { id: 4, type: "grammar", text: "「準備する（Ist'adda）」は何形？（Ist-で始まる）", options: ["第10形", "第8形", "第9形", "第7形"], correctIndex: 0, explanation: "「Ist-」で始まるのは第10形の特徴です。" },
-      { id: 5, type: "grammar", text: "「協力する（Ta'āwanū）」は何形？", options: ["第6形", "第5形", "第3形", "第4形"], correctIndex: 0, explanation: "「Ta- ... ā ...」のパターンは第6形（相互作用）です。" },
-      { id: 6, type: "grammar", text: "「壊れる（Inkasara）」は何形？", options: ["第7形", "第5形", "第8形", "第2形"], correctIndex: 0, explanation: "「In-」で始まる（受身・反射）のは第7形です。" },
-      { id: 7, type: "grammar", text: "「待つ（Intaẓara）」は何形？", options: ["第8形", "第7形", "第9形", "第10形"], correctIndex: 0, explanation: "「I-t-」が挟まる（If-ta-'a-la）のは第8形です。" },
-      { id: 8, type: "grammar", text: "「送る（Arsala）」は何形？", options: ["第4形", "第2形", "第3形", "第1形"], correctIndex: 0, explanation: "「A-」で始まるのは第4形です。" },
-      { id: 9, type: "grammar", text: "【和訳】「اِسْتَقْبَلَ الضَّيْفَ」", options: ["彼は客を迎えた", "彼は客になった", "彼は客を送った", "彼は客を待った"], correctIndex: 0, explanation: "Istaqbala（第10形）は「迎える、受信する」です。" },
-      { id: 10, type: "grammar", text: "「赤くなる（Iḥmarra）」は何形？", options: ["第9形", "第2形", "第7形", "第8形"], correctIndex: 0, explanation: "色や身体的欠陥を表す第9形です。" }
-    ],
-    sentences: [{ arabic: "سَافَرَ إِلَى مِصْرَ.", japanese: "彼はエジプトへ旅行しました（第3形）。" }]
-  },
-  {
-    id: 5021, title: "接続詞", category: "構文・その他", level: "文法",
-    contentVoweled: "أَنَا وَأَنْتَ.", contentPlain: "أنا وأنت.",
-    vocabList: [{ word: "وَ", meaning: "〜と" }, { word: "لَكِنْ", meaning: "しかし" }],
-    questions: [
-      { id: 1, type: "grammar", text: "「お茶とコーヒー」", options: ["شَايٌ وَقَهْوَةٌ", "شَايٌ أَوْ قَهْوَةٌ", "شَايٌ ثُمَّ قَهْوَةٌ", "شَايٌ فَقَهْوَةٌ"], correctIndex: 0, explanation: "「と (and)」は「Wa」です。" },
-      { id: 2, type: "grammar", text: "「貧しいが、幸せだ」", options: ["فَقِيرٌ وَلَكِنْ سَعِيدٌ", "فَقِيرٌ أَوْ سَعِيدٌ", "فَقِيرٌ فَسَعِيدٌ", "فَقِيرٌ ثُمَّ سَعِيدٌ"], correctIndex: 0, explanation: "「しかし (but)」は「Lākin」を使います。" },
-      { id: 3, type: "grammar", text: "【意味】「دَخَلَ الْمُدَرِّسُ ثُمَّ الطَّالِبُ」", options: ["先生が入って、それから学生が入った", "先生と学生が同時に入った", "先生か学生が入った", "先生が入ったが学生は入らなかった"], correctIndex: 0, explanation: "「Thumma」は順序（〜して、それから）を表します。" },
-      { id: 4, type: "grammar", text: "「お茶かコーヒー」", options: ["شَايٌ أَوْ قَهْوَةٌ", "شَايٌ وَقَهْوَةٌ", "شَايٌ بَلْ قَهْوَةٌ", "شَايٌ إِذَنْ قَهْوَةٌ"], correctIndex: 0, explanation: "「または (or)」は「Aw」です。" },
-      { id: 5, type: "grammar", text: "「彼が入った、するとすぐ私が出た」", options: ["دَخَلَ فَخَرَجْتُ", "دَخَلَ ثُمَّ خَرَجْتُ", "دَخَلَ وَخَرَجْتُ", "دَخَلَ أَوْ خَرَجْتُ"], correctIndex: 0, explanation: "「Fa」は「〜してすぐに（即時性）」を表します。" },
-      { id: 6, type: "grammar", text: "「〜だから（理由）」", options: ["لِأَنَّ", "أَنَّ", "إِنَّ", "لَعَلَّ"], correctIndex: 0, explanation: "「Li-anna」は「Because」です。" },
-      { id: 7, type: "grammar", text: "「〜まで（Even/Until）」", options: ["حَتَّى", "إِلَى", "مِنْ", "عَنْ"], correctIndex: 0, explanation: "「Hattā」は「〜まで、〜さえも」を表します。" },
-      { id: 8, type: "grammar", text: "「〜ではなくて〜だ（Not A but B）」", options: ["لَيْسَ هَذَا بَلْ ذَاكَ", "لَيْسَ هَذَا وَذَاكَ", "لَيْسَ هَذَا أَوْ ذَاكَ", "لَيْسَ هَذَا ثُمَّ ذَاكَ"], correctIndex: 0, explanation: "「Bal」は訂正（いや〜だ）を表します。" },
-      { id: 9, type: "grammar", text: "「それゆえに（Therefore）」", options: ["لِذَلِكَ", "لِأَنَّ", "لَكِنْ", "بَلْ"], correctIndex: 0, explanation: "「Li-dhālika」は「そのため、だから」です。" },
-      { id: 10, type: "grammar", text: "「〜の前に」", options: ["قَبْلَ أَنْ", "بَعْدَ أَنْ", "مُنْذُ أَنْ", "حِينَ"], correctIndex: 0, explanation: "「Qabla an」+ 動詞 で「〜する前に」となります。" }
-    ],
-    sentences: [{ arabic: "أُحِبُّ الشَّايَ وَالْقَهْوَةَ.", japanese: "私はお茶とコーヒーが好きです。" }]
-  },
-  {
-    id: 803, title: "数詞 (1-1000)", category: "構文・その他", level: "文法",
-    contentVoweled: "أَلْفُ لَيْلَةٍ.", contentPlain: "ألف ليلة.",
-    vocabList: [{ word: "خَمْسَة", meaning: "5" }, { word: "أَلْف", meaning: "1000" }],
-    questions: [
-      { id: 1, type: "grammar", text: "「3人の男（Rajul/男）」性別ルール", options: ["ثَلَاثَةُ رِجَالٍ (Thalāthah)", "ثَلَاثُ رِجَالٍ (Thalāth)", "ثَلَاثَةُ رَجُلٍ", "ثَلَاثُ رَجُلٍ"], correctIndex: 0, explanation: "3-10の数字は、数える名詞と性別を逆にします。男なので数字は女性形(Thalāthah)です。名詞は複数属格です。" },
-      { id: 2, type: "grammar", text: "「9台の車（Sayyārah/女）」", options: ["تِسْعُ سَيَّارَاتٍ (Tis')", "تِسْعَةُ سَيَّارَاتٍ (Tis'ah)", "تِسْعُ سَيَّارَةٍ", "تِسْعَةُ سَيَّارَةٍ"], correctIndex: 0, explanation: "車（女）なので、数字は男性形(Tis')を使います。" },
-      { id: 3, type: "grammar", text: "「11個の星（Kawkab/男）」11-99のルール", options: ["أَحَدَ عَشَرَ كَوْكَبًا", "أَحَدَ عَشَرَ كَوْكَبٍ", "أَحَدَ عَشَرَ كَوْكَبٌ", "وَاحِدَ عَشَرَ كَوْكَبًا"], correctIndex: 0, explanation: "11-99の数詞の後の名詞は「単数・対格（an）」になります。" },
-      { id: 4, type: "grammar", text: "「20リヤル」", options: ["عِشْرُونَ رِيَالًا", "عِشْرُونَ رِيَالٌ", "عِشْرُونَ رِيَالٍ", "عِشْرِينَ رِيَالٌ"], correctIndex: 0, explanation: "20, 30...90の後の名詞も「単数・対格（an）」です。" },
-      { id: 5, type: "grammar", text: "「100人の男」100/1000のルール", options: ["مِائَةُ رَجُلٍ", "مِائَةُ رَجُلًا", "مِائَةُ رِجَالٍ", "مِائَةُ رَجُلٌ"], correctIndex: 0, explanation: "100と1000の後の名詞は「単数・属格（in）」になります。" },
-      { id: 6, type: "grammar", text: "「1000夜（千夜一夜物語）」", options: ["أَلْفُ لَيْلَةٍ", "أَلْفُ لَيْلَةً", "أَلْفُ لَيَالٍ", "أَلْفُ لَيْلَةٌ"], correctIndex: 0, explanation: "1000の後の名詞は「単数・属格（in）」です。" },
-      { id: 7, type: "grammar", text: "【和訳】「خَمْسَةَ عَشَرَ قَلَمًا」", options: ["15本のペン", "5本のペン", "50本のペン", "10本のペン"], correctIndex: 0, explanation: "Khamsata 'ashara は15です。" },
-      { id: 8, type: "grammar", text: "「1冊の本」", options: ["كِتَابٌ وَاحِدٌ", "وَاحِدُ كِتَابٍ", "كِتَابٌ أَحَدٌ", "كِتَابٌ الْوَاحِدُ"], correctIndex: 0, explanation: "1と2は形容詞として名詞の後ろに置きます。" },
-      { id: 9, type: "grammar", text: "「12ヶ月」", options: ["اِثْنَا عَشَرَ شَهْرًا", "اِثْنَانِ عَشَرَ شَهْرًا", "اِثْنَا عَشَرَ شَهْرٍ", "اِثْنَيْ عَشَرَ شَهْرًا"], correctIndex: 0, explanation: "12の「2」の部分は双数扱い（Nunが落ちる）で、名詞は単数対格です。" },
-      { id: 10, type: "grammar", text: "「300（3つの100）」", options: ["ثَلَاثُمِائَةٍ", "ثَلَاثَةُ مِائَةٍ", "ثَلَاثُ مِائَةٍ", "ثَلَاثُونَ مِائَةٍ"], correctIndex: 0, explanation: "Thalāthu-mi'atin（300）のように繋げて書くのが一般的です。" }
-    ],
-    sentences: [{ arabic: "عِنْدِي سِتَّةُ كُتُبٍ.", japanese: "私は6冊の本を持っています。" }]
+// ダミーデータ
+contentVoweled: "",
+sentences: [], 
+vocabList: [],
+questions: [] // アルファベット回は問題なし
+},
+{
+  id: 104,
+  level: "文法",
+  category: "文字と発音",
+  title: "Lesson 4: 発音記号②",
+  contentPlain: "長母音とつまる音（ッ）の発音について",
+  
+  // ★ 修正版: "image" フォルダを追加し、ファイル名を写真通りに修正
+  imageUrls: [
+  "/image/grammar/lesson4_1.jpg", 
+  "/image/grammar/lesson4_2.jpg", 
+  "/image/grammar/lesson4_3.jpg", 
+  "/image/grammar/lesson4_4.jpg", 
+  "/image/grammar/lesson4_5.jpg", 
+  "/image/grammar/lesson4_6.jpg", 
+  "/image/grammar/lesson4_7.jpg", 
+  "/image/grammar/lesson4_8.jpg",
+  "/image/grammar/lesson4_9.jpg",
+  ],
+  
+  // ダミーデータ
+  contentVoweled: "",
+  sentences: [], 
+  vocabList: [],
+  questions: [] // アルファベット回は問題なし
   },
   // =================================================================
   //  PART 3: 中級コース (Intermediate Course) - 読解・物語
