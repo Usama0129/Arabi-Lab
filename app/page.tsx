@@ -640,7 +640,7 @@ export default function Home() {
                           </p>
                         )}
                         <div className="mb-10 w-full"><h3 className="font-bold mb-4 text-xs text-stone-400 tracking-widest uppercase">Vocabulary</h3><div className="flex flex-wrap gap-2">{activeArticle.vocabList.map((v, i) => (<VocabButton key={i} v={v} i={i} isRevealed={revealedVocabIndex === i} isSaved={savedVocab.some(sv => sv.word === v.word)} onReveal={() => setRevealedVocabIndex(i)} onSave={() => saveWord(v.word, v.meaning)} />))}</div></div>
-                        <button onClick={startQuiz} className="w-full bg-emerald-800 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-emerald-900 transition transform flex items-center justify-center gap-2"><span>📝</span> {courseType === "listening" ? "問題を解く" : `理解度チェック (${activeArticle.questions.length}問)`}</button>
+                        <button onClick={() => startQuiz()} className="w-full bg-emerald-800 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-emerald-900 transition transform flex items-center justify-center gap-2"><span>📝</span> {courseType === "listening" ? "問題を解く" : `理解度チェック (${activeArticle.questions.length}問)`}</button>
                       </>
                     )}
                 </div>
