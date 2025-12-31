@@ -2,11 +2,13 @@
 //  data.ts (完全版)
 // =================================================================
 
-// ▼▼▼ 1. 型定義 (Type Definitions) - これがないとpage.tsxでエラーになります ▼▼▼
-export type QuestionType = "reading" | "vocabulary" | "grammar" | "tashkeel";
+// ▼▼▼ 1. 型定義 (Type Definitions) ▼▼▼
+
+// ★ここに "orthography" を追加しました
+export type QuestionType = "reading" | "vocabulary" | "grammar" | "tashkeel" | "orthography";
 
 export type QuizQuestion = {
-  id: number;
+  id?: number; // ★古いデータと新しいデータが混在してもいいように ? (省略可能) にしておくと安全です
   type: QuestionType;
   text: string;
   options: string[];
@@ -14,23 +16,33 @@ export type QuizQuestion = {
   explanation: string;
 };
 
+export type Vocab = {
+  word: string;
+  meaning: string;
+};
+
+export type Sentence = {
+  arabic: string;
+  japanese: string;
+  speaker?: string;
+};
+
 export type Article = {
   id: number;
   title: string;
   category: string;
+  // ★ "文法" レベルが含まれていることを確認
   level: "初級" | "会話" | "中級" | "上級" | "文法"; 
   contentVoweled: string;
   contentPlain: string;
-  vocabList: { word: string; meaning: string }[];
+  vocabList: Vocab[];
   questions: QuizQuestion[];
-  sentences: { arabic: string; japanese: string; speaker?: string }[];
+  sentences: Sentence[];
   
   // ▼ 画像・動画用（オプショナル）
   videoUrl?: string;     
   imageUrls?: string[];  
 };
-
-
 // ▼▼▼ 2. データ本体 (Articles Data) - articlesは1回だけ定義します ▼▼▼
 export const articles: Article[] = [
 
@@ -1945,7 +1957,7 @@ export const articles: Article[] = [
   
     // --- Lesson 1: アラビア文字と発音 ---
 // =================================================================
-  //  PART 1: 文法 (Grammar) - 画像付き解説
+//  PART 1: 文法 (Grammar) - 画像付き解説
   // =================================================================
   {
     id: 101,
@@ -1953,25 +1965,54 @@ export const articles: Article[] = [
     category: "文字と発音",
     title: "Lesson 1: アラビア語のアルファベット（基本形）",
   
-    // ★ 順番はどこでもOKです
     contentPlain: "アラビア語は右から左に書きます。まずは基本の形を覚えましょう",
 
-// ★ 修正版: "image" フォルダを追加し、ファイル名を写真通りに修正
-imageUrls: [
-  "/image/grammar/lesson1_1.jpg", 
-  "/image/grammar/lesson1_2.jpg", 
-  "/image/grammar/lesson1_3.jpg", 
-  "/image/grammar/lesson1_4.jpg", 
-  "/image/grammar/lesson1_5.jpg"
-],
+    // 画像パスはご自身の環境に合わせてください
+    imageUrls: [
+      "/image/grammar/lesson1_1.jpg", 
+      "/image/grammar/lesson1_2.jpg", 
+      "/image/grammar/lesson1_3.jpg", 
+      "/image/grammar/lesson1_4.jpg", 
+      "/image/grammar/lesson1_5.jpg"
+    ],
 
-    // ダミーデータ
     contentVoweled: "",
     sentences: [], 
     vocabList: [],
-    questions: [] // アルファベット回は問題なし
+
+    // ▼▼▼ ここが重要！問題データを追加します ▼▼▼
+    questions: [
+      {
+        type: "orthography",       // ★このタイプを指定すると「クリックして答え表示」になります
+        text: "次の文字をつなげてください： ب + ي + ت", 
+        explanation: "بيت",        // 正解の文字
+        options: [],               // 空でOK
+        correctIndex: 0            // 無視されます
+      },
+      {
+        type: "orthography",
+        text: "次の文字をつなげてください： ك + ت + ا + ب",
+        explanation: "كتاب",
+        options: [],
+        correctIndex: 0
+      },
+      {
+        type: "orthography",
+        text: "次の文字をバラしてください： قَلَم",
+        explanation: "ق + ل + م",
+        options: [],
+        correctIndex: 0
+      },
+      {
+        type: "orthography",
+        text: "次の文字をつなげてください： ش + ك + ر + اً",
+        explanation: "شكراً",
+        options: [],
+        correctIndex: 0
+      }
+    ] 
   },
-  {
+{
   id: 102,
   level: "文法",
   category: "文字と発音",
@@ -2017,7 +2058,7 @@ questions: [] // アルファベット回は問題なし
   id: 104,
   level: "文法",
   category: "文字と発音",
-  title: "Lesson 4: 発音記号②",
+  title: "Lesson 4: 長母音と重子音",
   contentPlain: "長母音とつまる音（ッ）の発音について",
   
   // ★ 修正版: "image" フォルダを追加し、ファイル名を写真通りに修正
@@ -2039,6 +2080,4758 @@ questions: [] // アルファベット回は問題なし
   vocabList: [],
   questions: [] // アルファベット回は問題なし
   },
+  {
+    id: 105,
+    level: "文法",
+    category: "文字と発音",
+    title: "Lesson 5: タンウィーン",
+    contentPlain: "これは単語の最後に付き、「～ン (n)」という音を加える記号です。主に「ある～」「一人の～」といった**非限定（英語の a / an）**の意味を持たせるために使います。",
+    
+    // ★ 修正版: "image" フォルダを追加し、ファイル名を写真通りに修正
+    imageUrls: [
+    "/image/grammar/lesson5_1.jpg", 
+    "/image/grammar/lesson5_2.jpg", 
+    ],
+    
+    // ダミーデータ
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    questions: [] // アルファベット回は問題なし
+    },
+    {
+      id: 106,
+      level: "文法",
+      category: "文字と発音",
+      title: "Lesson 6: 太陽文字と月文字",
+      contentPlain: "これは定冠詞「アル」を単語の頭につけた時、「ル」の音を読むか、読まないかのルールです。",
+      
+      // ★ 修正版: "image" フォルダを追加し、ファイル名を写真通りに修正
+      imageUrls: [
+      "/image/grammar/lesson6_1.jpg", 
+      "/image/grammar/lesson6_2.jpg", 
+      "/image/grammar/lesson6_3.jpg", 
+      "/image/grammar/lesson6_4.jpg", 
+      "/image/grammar/lesson6_5.jpg", 
+      ],
+      
+      // ダミーデータ
+      contentVoweled: "",
+      sentences: [], 
+      vocabList: [],
+      questions: [] // アルファベット回は問題なし
+      },
+      {
+        id: 107,
+        level: "文法",
+        category: "文字と発音",
+        title: "Lesson 7: 各文字を使った単語",
+        contentPlain: "アラビア語のアルファベット28文字を使った、「語頭・語中・語末」の単語帳です。アラビア語の文字がどの様に書かれるか確認しましょう",
+        
+        // ★ 修正版: "image" フォルダを追加し、ファイル名を写真通りに修正
+        imageUrls: [
+        "/image/grammar/lesson7_1.jpg", 
+        "/image/grammar/lesson7_2.jpg", 
+        "/image/grammar/lesson7_3.jpg", 
+        "/image/grammar/lesson7_4.jpg", 
+        "/image/grammar/lesson7_5.jpg", 
+        "/image/grammar/lesson7_6.jpg", 
+        "/image/grammar/lesson7_7.jpg", 
+        "/image/grammar/lesson7_8.jpg", 
+        "/image/grammar/lesson7_9.jpg", 
+        ],
+        
+        // ダミーデータ
+        contentVoweled: "",
+        sentences: [], 
+        vocabList: [],
+        questions: [] // アルファベット回は問題なし
+        },  
+        {
+          id: 108,
+          level: "文法",
+          category: "人称代名詞",
+          title: "Lesson 8: 人称代名詞（主格）",
+          // 少し説明文を追加しておきました
+          contentPlain: "アラビア語の独立人称代名詞（「私は」「彼は」などの主語になる言葉）の表です。アラビア語は「男性か女性か」「1人か2人か3人以上か」によって言葉が細かく変わるのが特徴です。",
+          
+          imageUrls: [
+            "/image/grammar/lesson8_1.jpg", 
+            "/image/grammar/lesson8_2.jpg", 
+            "/image/grammar/lesson8_3.jpg", 
+          ],
+          
+          contentVoweled: "",
+          sentences: [], 
+          vocabList: [],
+          
+          // ▼ 作成した3つの4択問題です
+          questions: [
+            {
+              type: "grammar",
+              text: "「私」を意味するアラビア語はどれですか？",
+              options: ["أَنَا (ana)", "أَنْتَ (anta)", "هُوَ (huwa)", "نَحْنُ (nahnu)"],
+              correctIndex: 0,
+              explanation: "「私」は男女共通で أَنَا (ana) と言います。"
+            },
+            {
+              type: "grammar",
+              text: "女性に対して「あなた」と呼びかける時の代名詞は？",
+              options: ["أَنْتَ (anta)", "أَنْتِ (anti)", "هِيَ (hiya)", "أَنْتُمَا (antuma)"],
+              correctIndex: 1,
+              explanation: "「あなた」は性別で区別します。男性は أَنْتَ (anta)、女性は أَنْتِ (anti) です。"
+            },
+            {
+              type: "grammar",
+              text: "「彼（三人称単数男性）」を意味する代名詞は？",
+              options: ["هِيَ (hiya)", "هُمْ (hum)", "هُوَ (huwa)", "أَنَا (ana)"],
+              correctIndex: 2,
+              explanation: "「彼」は هُوَ (huwa) です。対して「彼女」は هِيَ (hiya) です。"
+            }
+          ]
+        },
+         {
+            id: 109,
+            level: "文法",
+            category: "疑問詞",
+            title: "Lesson 9: 疑問詞",
+            contentPlain: "「これは何？」「誰？」「どこ？」など、質問をする時に使う言葉（疑問詞）を学びます。",
+            
+            imageUrls: [
+              "/image/grammar/lesson9_1.jpg", 
+              "/image/grammar/lesson9_2.jpg", 
+              "/image/grammar/lesson9_3.jpg", 
+              "/image/grammar/lesson9_4.jpg", 
+            ],
+            
+            contentVoweled: "",
+            sentences: [], 
+            vocabList: [],
+            
+            // ▼ 作成した5つの4択問題です
+            questions: [
+              {
+                type: "grammar",
+                text: "「これは何ですか？」(物について聞く) 空欄に入る言葉は？\n「___ هَذَا؟」",
+                options: ["مَا (Mā)", "مَنْ (Man)", "أَيْنَ (Ayna)", "كَيْفَ (Kayfa)"],
+                correctIndex: 0,
+                explanation: "人間以外（物）について「何」と聞くときは مَا (Mā) を使います。"
+              },
+              {
+                type: "grammar",
+                text: "「この人は誰ですか？」(人間について聞く) 空欄に入る言葉は？\n「___ هَذَا؟」",
+                options: ["مَا (Mā)", "مَنْ (Man)", "مَتَى (Matā)", "كَمْ (Kam)"],
+                correctIndex: 1,
+                explanation: "人間について「誰」と聞くときは مَنْ (Man) を使います。"
+              },
+              {
+                type: "grammar",
+                text: "場所を尋ねる「どこ」を意味する疑問詞は？",
+                options: ["أَيْنَ (Ayna)", "مَتَى (Matā)", "كَيْفَ (Kayfa)", "هَلْ (Hal)"],
+                correctIndex: 0,
+                explanation: "「どこ」は أَيْنَ (Ayna) です。例：Min ayna anta?（あなたはどこから来ましたか？）"
+              },
+              {
+                type: "grammar",
+                text: "状態や方法を尋ねる「どのように（どう）」は？\n(例：お元気ですか？ ___ حَالُكَ؟)",
+                options: ["أَيْنَ (Ayna)", "مَنْ (Man)", "كَيْفَ (Kayfa)", "مَا (Mā)"],
+                correctIndex: 2,
+                explanation: "「どのように」は كَيْفَ (Kayfa) です。挨拶の Kayfa haluka?（調子はどう？）でよく使われます。"
+              },
+              {
+                type: "grammar",
+                text: "「はい」か「いいえ」で答える疑問文を作るとき、文頭に置く言葉は？\n(例：あなたは学生ですか？ ___ أَنْتَ طَالِبٌ؟)",
+                options: ["هَلْ (Hal)", "مَنْ (Man)", "أَيْنَ (Ayna)", "مَا (Mā)"],
+                correctIndex: 0,
+                explanation: "Yes/No疑問文を作るには、文頭に هَلْ (Hal) を置きます。"
+              }
+            ]
+          },
+{
+    id: 110,
+    level: "文法",
+    category: "名詞の性",
+    title: "Lesson 10: 名詞の性",
+    contentPlain: "アラビア語の「名詞の性（男性形・女性形）」についてのまとめです。アラビア語の名詞には、「中性」がなく、すべての単語が「男性」か「女性」に分かれます。",
+    
+    imageUrls: [
+      "/image/grammar/lesson10_1.jpg", 
+      "/image/grammar/lesson10_2.jpg", 
+      "/image/grammar/lesson10_3.jpg", 
+      "/image/grammar/lesson10_4.jpg", 
+    ],
+    
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    questions: [
+      {
+        type: "grammar",
+        text: "次の中から「女性名詞」を選んでください。",
+        options: [
+          "كِتَاب (kitāb - 本)",
+          "سَيَّارَة (sayyāra - 車)", // 正解 (ةがついている)
+          "قَلَم (qalam - ペン)",
+          "بَيْت (bayt - 家)"
+        ],
+        correctIndex: 1,
+        explanation: "語尾に「ター・マルブータ (ة)」が付いている名詞は、基本的に女性名詞です。"
+      },
+      {
+        type: "grammar",
+        text: "次の中から「男性名詞」を選んでください。",
+        options: [
+          "طَالِبَة (ṭāliba - 女子学生)",
+          "مُهَنْدِس (muhandis - エンジニア)", // 正解 (ةがない)
+          "مُعَلِّمَة (mu‘allima - 女性教師)",
+          "حَقِيبَة (ḥaqība - カバン)"
+        ],
+        correctIndex: 1,
+        explanation: "「ة」が付いていない、自然な形の名詞は基本的に男性名詞です。"
+      },
+      {
+        type: "grammar",
+        text: "次の中から「女性名詞」を選んでください。",
+        options: [
+          "بَاب (bāb - ドア)",
+          "كُرْسِيّ (kursiyy - 椅子)",
+          "طَاوِلَة (ṭāwila - テーブル)", // 正解
+          "مَكْتَب (maktab - 机)"
+        ],
+        correctIndex: 2,
+        explanation: "طَاوِلَة (テーブル) は語尾に「ة」が付くため女性名詞です。"
+      },
+      {
+        type: "grammar",
+        text: "次の中から「女性名詞」を選んでください。",
+        options: [
+          "أَب (ab - 父)",
+          "أَخ (akh - 兄/弟)",
+          "رَجُل (rajul - 男)",
+          "أُمّ (umm - 母)" // 正解 (生物的に女性)
+        ],
+        correctIndex: 3,
+        explanation: "「母 (أُمّ)」のように、意味的に女性を指す言葉は「ة」がなくても女性名詞になります。"
+      },
+      {
+        type: "grammar",
+        text: "次の中から「女性名詞」を選んでください。",
+        options: [
+          "رَأْس (ra's - 頭)",
+          "يَد (yad - 手)", // 正解 (体の対になるパーツ)
+          "أَنْف (anf - 鼻)",
+          "فَم (fam - 口)"
+        ],
+        correctIndex: 1,
+        explanation: "「手 (يَد)」や「目 (عَيْن)」のように、体の中で「2つ（対）あるもの」は女性名詞として扱われることが多いです。"
+      }
+    ]
+  },
+{
+    id: 111,
+    level: "文法",
+    category: "名詞の数",
+    title: "Lesson 11: 名詞の数",
+    contentPlain: "日本語や英語は「単数（1つ）」と「複数（2つ以上）」だけですが、アラビア語には「双数（そうすう）」という「2つ（ペア）」専用の形があるのが最大の特徴です。",
+    
+    imageUrls: [
+      "/image/grammar/lesson11_1.jpg", 
+      "/image/grammar/lesson11_2.jpg", 
+      "/image/grammar/lesson11_3.jpg", 
+      "/image/grammar/lesson11_4.jpg", 
+    ],
+    
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    questions: [
+      {
+        type: "grammar",
+        text: "「本 (كِتَاب)」の「双数形（2冊の本）」を選んでください。",
+        options: [
+          "كِتَابُون (kitābūn)",
+          "كِتَابَان (kitābān)", // 正解
+          "كِتَابَات (kitābāt)",
+          "كُتُب (kutub)"
+        ],
+        correctIndex: 1,
+        explanation: "双数形を作るには、単数形の語尾に「-ān (ان)」を付けます。"
+      },
+      {
+        type: "grammar",
+        text: "「エンジニア (مُهَنْدِس)」の「規則男性複数形（エンジニアたち）」は？",
+        options: [
+          "مُهَنْدِسُون (muhandisūn)", // 正解
+          "مُهَنْدِسَان (muhandisān)",
+          "مُهَنْدِسَات (muhandisāt)",
+          "مُهَنْدِسَة (muhandisa)"
+        ],
+        correctIndex: 0,
+        explanation: "規則男性複数形は、語尾に「-ūn (ون)」を付けます。"
+      },
+      {
+        type: "grammar",
+        text: "「女子学生 (طَالِبَة)」の「双数形（2人の女子学生）」は？\n（ヒント：ة がどうなるか？）",
+        options: [
+          "طَالِبَان (ṭālibān)",
+          "طَالِبَات (ṭālibāt)",
+          "طَالِبَتَان (ṭālibatān)", // 正解
+          "طُلاَّب (ṭullāb)"
+        ],
+        correctIndex: 2,
+        explanation: "女性名詞（ةで終わる語）を双数にする時は、ة を t に開いてから an を付け、「-atān (تان)」となります。"
+      },
+      {
+        type: "grammar",
+        text: "「女性教師 (مُعَلِّمَة)」の「規則女性複数形（女性教師たち）」は？",
+        options: [
+          "مُعَلِّمُون (mu‘allimūn)",
+          "مُعَلِّمَان (mu‘allimān)",
+          "مُعَلِّمَات (mu‘allimāt)", // 正解
+          "مُعَلِّم (mu‘allim)"
+        ],
+        correctIndex: 2,
+        explanation: "規則女性複数形は、語尾の ة を取って「-āt (ات)」を付けます。"
+      },
+      {
+        type: "grammar",
+        text: "次の単語の中で「規則男性複数形」の形をしているものはどれですか？",
+        options: [
+          "مُسْلِمَات (muslimāt - 女性ムスリムたち)",
+          "مُسْلِمَان (muslimān - 2人のムスリム)",
+          "مُسْلِمُون (muslimūn - 男性ムスリムたち)", // 正解
+          "مُسْلِم (muslim - ムスリム)"
+        ],
+        correctIndex: 2,
+        explanation: "語尾が「-ūn (ون)」で終わっているのが規則男性複数形の特徴です。"
+      }
+    ]
+  },
+{
+    id: 112,
+    level: "文法",
+    category: "名詞の格",
+    title: "Lesson 12: 名詞の格",
+    contentPlain: "アラビア語の最大の特徴である「格変化」のまとめです。アラビア語は、単語の最後の母音を変えることで、「～が」「～を」「～の」という意味を区別します。",
+    
+    imageUrls: [
+      "/image/grammar/lesson12_1.jpg", 
+      "/image/grammar/lesson12_2.jpg", 
+      "/image/grammar/lesson12_3.jpg", 
+      "/image/grammar/lesson12_4.jpg", 
+      "/image/grammar/lesson12_5.jpg", 
+      "/image/grammar/lesson12_6.jpg", 
+    ],
+    
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    questions: [
+      {
+        type: "grammar",
+        text: "「主格（～が）」を表す時の、基本的な語尾の母音はどれですか？",
+        options: [
+          "ファトハ（a / an）",
+          "カスラ（i / in）",
+          "ダンマ（u / un）", // 正解
+          "スクーン（無母音）"
+        ],
+        correctIndex: 2,
+        explanation: "主格（文の主語など）は、基本的に「ウ (u)」または「ウン (un)」の音で終わります。"
+      },
+      {
+        type: "grammar",
+        text: "動詞の「目的語（～を）」になる時、名詞はどの格になりますか？",
+        options: [
+          "主格",
+          "対格", // 正解
+          "属格",
+          "切格"
+        ],
+        correctIndex: 1,
+        explanation: "「～を」にあたる目的語は「対格」になり、語尾が「ア (a)」や「アン (an)」になります。"
+      },
+      {
+        type: "grammar",
+        text: "「家 (bayt)」が「家の中に (fī bayt...)」となる時、前置詞の後ろに来る正しい形は？",
+        options: [
+          "fī baytun (فِي بَيْتٌ)",
+          "fī baytan (فِي بَيْتًا)",
+          "fī baytin (فِي بَيْتٍ)", // 正解
+          "fī bayt (فِي بَيْتْ)"
+        ],
+        correctIndex: 2,
+        explanation: "前置詞の後ろに来る名詞は必ず「属格」になり、語尾が「イ (i)」や「イン (in)」になります。"
+      },
+      {
+        type: "grammar",
+        text: "「私はパンを食べた」のパンの格変化で正しいのは？",
+        options: [
+          "khubzun (خُبْزٌ)",
+          "khubzin (خُبْزٍ)",
+          "khubzan (خُبْزًا)", // 正解
+          "khubz (خُبْزْ)"
+        ],
+        correctIndex: 2,
+        explanation: "「パンを」は動詞の目的語なので「対格」になります。対格（非限定）は「アン (an)」という音になり、文字の上にアリフが添えられることが多いです。"
+      },
+      {
+        type: "grammar",
+        text: "「学生は新しい」のように、主語として使う場合の正しい母音は？",
+        options: [
+          "at-ṭāliba (الطَّالِبَ)",
+          "at-ṭālibu (الطَّالِبُ)", // 正解
+          "at-ṭālibi (الطَّالِبِ)",
+          "at-ṭālib (الطَّالِبْ)"
+        ],
+        correctIndex: 1,
+        explanation: "文の主語は「主格」なので、語尾は「ウ (u)」になります。"
+      }
+    ]
+  },
+{
+    id: 113,
+    level: "文法",
+    category: "指示代名詞",
+    title: "Lesson 13: 指示代名詞",
+    contentPlain: "アラビア語の指示代名詞（これ・あれ）の表です。日本語と違い、「男性か女性か」「人間か物か」によって使い分ける必要があります。",
+    
+    imageUrls: [
+      "/image/grammar/lesson13_1.jpg", 
+      "/image/grammar/lesson13_2.jpg", 
+      "/image/grammar/lesson13_3.jpg", 
+    ],
+    
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    questions: [
+      {
+        type: "grammar",
+        text: "男性名詞（本など）を指して「これは～です」と言うときは？",
+        options: [
+          "هَذِهِ (hādhihi)",
+          "هَذَا (hādhā)", // 正解
+          "ذَلِكَ (dhālika)",
+          "تِلْكَ (tilka)"
+        ],
+        correctIndex: 1,
+        explanation: "男性単数の「これ」は هَذَا (hādhā) です。"
+      },
+      {
+        type: "grammar",
+        text: "女性名詞（車など）を指して「あれは～です」と言うときは？",
+        options: [
+          "ذَلِكَ (dhālika)",
+          "هَذَا (hādhā)",
+          "تِلْكَ (tilka)", // 正解
+          "أُولَئِكَ (ulā'ika)"
+        ],
+        correctIndex: 2,
+        explanation: "女性単数の「あれ」は تِلْكَ (tilka) です。"
+      },
+      {
+        type: "grammar",
+        text: "「これらは（私たちの）先生です」のように、人間の複数を指すときは？",
+        options: [
+          "هَؤُلَاءِ (hā'ulā'i)", // 正解
+          "هَذِهِ (hādhihi)",
+          "هَذَا (hādhā)",
+          "تِلْكَ (tilka)"
+        ],
+        correctIndex: 0,
+        explanation: "人間（理性あるもの）の複数を指すときは、男女共通で هَؤُلَاءِ (hā'ulā'i) を使います。"
+      },
+      {
+        type: "grammar",
+        text: "「あれらは本です」のように、人間以外の「物」の複数を指すときは？",
+        options: [
+          "أُولَئِكَ (ulā'ika)",
+          "ذَلِكَ (dhālika)",
+          "تِلْكَ (tilka)", // 正解
+          "هَؤُلَاءِ (hā'ulā'i)"
+        ],
+        correctIndex: 2,
+        explanation: "アラビア語の重要ルール：『人間以外の複数は、女性単数として扱う』ため、「あれ（女）」である تِلْكَ を使います。"
+      },
+      {
+        type: "grammar",
+        text: "「これは美しい町（madīna：女性名詞）です」と言うときの正しい形は？",
+        options: [
+          "هَذَا مَدِينَةٌ (Hādhā madīna)",
+          "هَذِهِ مَدِينَةٌ (Hādhihi madīna)", // 正解
+          "ذَلِكَ مَدِينَةٌ (Dhālika madīna)",
+          "هَؤُلَاءِ مَدِينَةٌ (Hā'ulā'i madīna)"
+        ],
+        correctIndex: 1,
+        explanation: "町 (madīna) は ة で終わる女性名詞なので、近称は هَذِهِ (hādhihi) を使います。"
+      }
+    ]
+  },
+{
+    id: 114,
+    level: "文法",
+    category: "形容詞",
+    title: "Lesson 14: 形容詞",
+    contentPlain: "英語（Big house）とは逆で、形容詞は「名詞の 後ろ に置く」のが基本です。そしてその形容詞は数、性、限定・非限定など名詞と「セット（お揃い）」にする必要があります。",
+    
+    imageUrls: [
+      "/image/grammar/lesson14_1.jpg", 
+      "/image/grammar/lesson14_2.jpg", 
+      "/image/grammar/lesson14_3.jpg", 
+      "/image/grammar/lesson14_4.jpg", 
+      "/image/grammar/lesson14_5.jpg", 
+      "/image/grammar/lesson14_6.jpg", 
+    ],
+    
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    questions: [
+      {
+        type: "grammar",
+        text: "「新しい家（A new house）」の正しい語順は？",
+        options: [
+          "جَدِيدٌ بَيْتٌ (jadīdun baytun)",
+          "بَيْتٌ جَدِيدٌ (baytun jadīdun)", // 正解 (ウン・ウンで一致)
+          "الْبَيْتُ الْجَدِيدُ (al-baytu al-jadīdu)",
+          "بَيْتُ الْجَدِيدِ (baytu al-jadīdi)"
+        ],
+        correctIndex: 1,
+        explanation: "名詞（baytun）の後ろに形容詞（jadīdun）を置きます。どちらも「非限定（ある家）」なので、語尾はタンウィーン（un）で揃えます。"
+      },
+      {
+        type: "grammar",
+        text: "「美しい車（sayyāra: 女性名詞）」と言うときの正しい形は？",
+        options: [
+          "سَيَّارَةٌ جَمِيلٌ (sayyāratun jamīlun)",
+          "سَيَّارَةٌ جَمِيلَةٌ (sayyāratun jamīlatun)", // 正解 (女性形・ウンで一致)
+          "جَمِيلَةٌ سَيَّارَةٌ (jamīlatun sayyāratun)",
+          "السَّيَّارَةُ جَمِيلَةٌ (as-sayyāratu jamīlatun)"
+        ],
+        correctIndex: 1,
+        explanation: "名詞が女性形（sayyāratun）なら、形容詞も女性形（jamīlatun）にします。"
+      },
+      {
+        type: "grammar",
+        text: "「その 大きい 家（The big house）」のように限定する場合の形は？",
+        options: [
+          "الْبَيْتُ كَبِيرٌ (al-baytu kabīrun)",
+          "بَيْتٌ الْكَبِيرُ (baytun al-kabīru)",
+          "الْبَيْتُ الْكَبِيرُ (al-baytu al-kabīru)", // 正解 (アル・アル、ウ・ウで一致)
+          "بَيْتٌ كَبِيرٌ (baytun kabīrun)"
+        ],
+        correctIndex: 2,
+        explanation: "「その～」と限定する場合、両方に定冠詞 (Al-) をつけます。Alがつくと語尾のタンウィーン（un）が消え、短い母音（u）になる点にも注意しましょう。"
+      },
+      {
+        type: "grammar",
+        text: "「広い家の中で」正しいアラビア語を選んでください。",
+        options: [
+          "فِي بَيْتٍ وَاسِعٌ (fī baytin wāsi‘un)",
+          "فِي بَيْتٍ وَاسِعًا (fī baytin wāsi‘an)",
+          "فِي بَيْتٍ وَاسِعٍ (fī baytin wāsi‘in)", // 正解 (イン・インで一致)
+          "فِي بَيْتٍ الْوَاسِعِ (fī baytin al-wāsi‘i)"
+        ],
+        correctIndex: 2,
+        explanation: "前置詞（fī）の後ろなので「家 (baytin)」は属格です。形容詞もそれに合わせて「属格 (wāsi‘in)」にします。"
+      },
+      {
+        type: "grammar",
+        text: "「古い本（複数形）」と言うとき、形容詞はどうなりますか？\n（ヒント：本 kutub は人間以外）",
+        options: [
+          "كُتُبٌ قَدِيمُونَ (kutubun qadīmūna - 男性複数)",
+          "كُتُبٌ قَدِيمَةٌ (kutubun qadīmatun - 女性単数)", // 正解
+          "كُتُبٌ قَدِيمَاتٌ (kutubun qadīmātun - 女性複数)",
+          "كُتُبٌ قَدِيمٌ (kutubun qadīmun - 男性単数)"
+        ],
+        correctIndex: 1,
+        explanation: "重要ルール：「人間以外の複数名詞」を修飾する形容詞は、「女性単数形」を使います。"
+      }
+    ]
+  },
+  {
+       id: 115,
+        level: "文法",
+        category: "名詞文",
+        title: "Lesson 15: 名詞文",
+        contentPlain: "「名詞文（AはBです）」のレッスンです。「定冠詞(アル)」があるかないかだけで、意味が形容詞か名詞文に変わるので、しっかりと違いを確認しましょう",
+        
+        // ★ 修正版: "image" フォルダを追加し、ファイル名を写真通りに修正
+        imageUrls: [
+        "/image/grammar/lesson15_1.jpg", 
+        "/image/grammar/lesson15_2.jpg", 
+        "/image/grammar/lesson15_3.jpg", 
+        "/image/grammar/lesson15_4.jpg", 
+        "/image/grammar/lesson15_5.jpg", 
+        ],
+        
+        // ダミーデータ
+        contentVoweled: "",
+        sentences: [], 
+        vocabList: [],
+        questions: [] // アルファベット回は問題なし
+        },  
+{
+    id: 115,
+    level: "文法",
+    category: "名詞文",
+    title: "Lesson 15: 名詞文",
+    contentPlain: "「名詞文（AはBです）」のレッスンです。「定冠詞(アル)」があるかないかだけで、意味が形容詞か名詞文に変わるので、しっかりと違いを確認しましょう",
+    
+    imageUrls: [
+      "/image/grammar/lesson15_1.jpg", 
+      "/image/grammar/lesson15_2.jpg", 
+      "/image/grammar/lesson15_3.jpg", 
+      "/image/grammar/lesson15_4.jpg", 
+      "/image/grammar/lesson15_5.jpg", 
+    ],
+    
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    questions: [
+      {
+        type: "grammar",
+        text: "「その家は大きいです（The house is big）」という文を選んでください。",
+        options: [
+          "الْبَيْتُ الْكَبِيرُ (Al-baytu al-kabīru)",
+          "الْبَيْتُ كَبِيرٌ (Al-baytu kabīrun)", // 正解
+          "بَيْتٌ كَبِيرٌ (Baytun kabīrun)",
+          "بَيْتٌ الْكَبِيرُ (Baytun al-kabīru)"
+        ],
+        correctIndex: 1,
+        explanation: "「AはBです」と言う場合、A（主語）には定冠詞をつけ、B（述語）には定冠詞を**つけません**。"
+      },
+      {
+        type: "grammar",
+        text: "次のアラビア語の意味はどれですか？\n「اَلْمُدَرِّسُ مَشْغُولٌ (Al-mudarrisu mashghūlun)」",
+        options: [
+          "その忙しい先生",
+          "先生は忙しいです", // 正解
+          "ある忙しい先生",
+          "忙しい先生は..."
+        ],
+        correctIndex: 1,
+        explanation: "先生（Alあり）＋忙しい（Alなし）の組み合わせなので、これは形容詞による修飾ではなく「先生は忙しい」という文章になります。"
+      },
+      {
+        type: "grammar",
+        text: "「その車は新しいです（The car is new）」正しい形は？",
+        options: [
+          "السَّيَّارَةُ جَدِيدٌ (As-sayyāratu jadīdun)",
+          "السَّيَّارَةُ الْجَدِيدَةُ (As-sayyāratu al-jadīdatu)",
+          "السَّيَّارَةُ جَدِيدَةٌ (As-sayyāratu jadīdatun)", // 正解
+          "سَيَّارَةٌ جَدِيدَةٌ (Sayyāratun jadīdatun)"
+        ],
+        correctIndex: 2,
+        explanation: "主語（車）が女性形なので、述語（新しい）も女性形にします。かつ、述語には定冠詞 Al をつけません。"
+      },
+      {
+        type: "grammar",
+        text: "「彼はエンジニアです（He is an engineer）」を選んでください。",
+        options: [
+          "هُوَ مُهَنْدِسٌ (Huwa muhandisun)", // 正解
+          "هُوَ الْمُهَنْدِسُ (Huwa al-muhandisu)",
+          "هُوَ مُهَنْدِسٍ (Huwa muhandisin)",
+          "هُوَ مُهَنْدِسًا (Huwa muhandisan)"
+        ],
+        correctIndex: 0,
+        explanation: "「彼は～」の主語 Huwa の後は、職業などを非限定（Alなし）・主格（un）で置きます。"
+      },
+      {
+        type: "grammar",
+        text: "形容詞句「その美しい日本（The beautiful Japan）」を選んでください。",
+        options: [
+          "الْيَابَانُ جَمِيلَةٌ (Al-yābānu jamīlatun)",
+          "الْيَابَانُ الْجَمِيلَةُ (Al-yābānu al-jamīlatu)", // 正解
+          "يَابَانُ جَمِيلَةٌ (Yābānu jamīlatun)",
+          "الْيَابَانَ الْجَمِيلَةَ (Al-yābāna al-jamīlata)"
+        ],
+        correctIndex: 1,
+        explanation: "「～は…です」ではなく「その美しい～」とまとめる場合は、名詞と形容詞の両方に定冠詞 (Al) をつけて一致させます。"
+      }
+    ]
+  },
+{
+    id: 116,
+    level: "文法",
+    category: "前置詞",
+    title: "Lesson 16: 前置詞",
+    contentPlain: "アラビア語の前置詞（～で、～へ、～から）レッスンです。「前置詞の後ろは、必ず属格（イ / i）になる」というのが、アラビア語の鉄の掟です。",
+    
+    imageUrls: [
+      "/image/grammar/lesson16_1.jpg", 
+      "/image/grammar/lesson16_2.jpg", 
+      "/image/grammar/lesson16_3.jpg", 
+      "/image/grammar/lesson16_4.jpg", 
+      "/image/grammar/lesson16_5.jpg", 
+      "/image/grammar/lesson16_6.jpg", 
+      "/image/grammar/lesson16_7.jpg", 
+      "/image/grammar/lesson16_8.jpg", 
+      "/image/grammar/lesson16_9.jpg", 
+    ],
+    
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    questions: [
+      {
+        type: "grammar",
+        // ★全文を選択肢に入れました
+        text: "「本は机の上にあります」正しい文を選んでください。\n（ヒント：前置詞 ‘alā の後ろは属格）",
+        options: [
+          "اَلْكِتَابُ عَلَى الْمَكْتَبُ (Al-kitābu ‘alā al-maktabu - 主格)",
+          "اَلْكِتَابُ عَلَى الْمَكْتَبَ (Al-kitābu ‘alā al-maktaba - 対格)",
+          "اَلْكِتَابُ عَلَى الْمَكْتَبِ (Al-kitābu ‘alā al-maktabi - 属格)", // 正解
+          "اَلْكِتَابُ عَلَى الْمَكْتَبْ (Al-kitābu ‘alā al-maktab - 無母音)"
+        ],
+        correctIndex: 2,
+        explanation: "前置詞（‘alā）の後ろの名詞は、必ず「属格（カスラ/i）」になります。"
+      },
+      {
+        type: "grammar",
+        text: "「学生は教室の中にいます」空欄に入る前置詞は？\n「اَلطَّالِبُ ___ الْفَصْلِ (Aṭ-ṭālibu ___ al-faṣli)」",
+        options: [
+          "فِي (fī)", // 正解
+          "عَلَى (‘alā)",
+          "مِنْ (min)",
+          "إِلَى (ilā)"
+        ],
+        correctIndex: 0,
+        explanation: "「～の中に (in)」を表す前置詞は فِي (fī) です。"
+      },
+      {
+        type: "grammar",
+        text: "「私は日本出身です（I am from Japan）」\n「أَنَا ___ الْيَابَانِ (Ana ___ al-yābāni)」",
+        options: [
+          "إِلَى (ilā)",
+          "مِنْ (min)", // 正解
+          "فِي (fī)",
+          "عَلَى (‘alā)"
+        ],
+        correctIndex: 1,
+        explanation: "「～から (from)」を表す前置詞は مِنْ (min) です。"
+      },
+      {
+        type: "grammar",
+        text: "「この道は空港へ（続いています）」\n「هَذَا الطَّرِيقُ ___ الْمَطَارِ (Hādhā aṭ-ṭarīqu ___ al-maṭāri)」",
+        options: [
+          "مِنْ (min)",
+          "بِـ (bi)",
+          "إِلَى (ilā)", // 正解
+          "لِـ (li)"
+        ],
+        correctIndex: 2,
+        explanation: "「～へ (to)」という方向・目的地を表す前置詞は إِلَى (ilā) です。"
+      },
+      {
+        type: "grammar",
+        text: "「これはムハンマドの（ための）本です」所有を表す前置詞は？\n「هَذَا الْكِتَابُ ___ مُحَمَّدٍ (Hādhā al-kitābu ___ Muḥammadin)」",
+        options: [
+          "لِـ (li)", // 正解
+          "فِي (fī)",
+          "عَلَى (‘alā)",
+          "مِنْ (min)"
+        ],
+        correctIndex: 0,
+        explanation: "「～のための (for)」「～の所有の」を表すときは前置詞 لِـ (li) を使います。"
+      }
+    ]
+  },
+{
+    id: 117,
+    level: "文法",
+    category: "関連形容詞",
+    title: "Lesson 17: 関連形容詞",
+    contentPlain: "名詞を形容詞（～の、～製の、～人）に変える「関連形容詞（ニスバ形容詞）」のレッスンです。基本ルールは語尾に「ヤー」を付けるだけですが、語尾に余分な文字（ターマルブータやアリフ）がある場合は、それを削除してから付けます。",
+    
+    imageUrls: [
+      "/image/grammar/lesson17_1.jpg", 
+      "/image/grammar/lesson17_2.jpg", 
+      "/image/grammar/lesson17_3.jpg", 
+      "/image/grammar/lesson17_4.jpg", 
+    ],
+    
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    questions: [
+      {
+        type: "grammar",
+        text: "「日本 (الْيَابَان)」を「日本の・日本人 (男性)」にする正しい形は？",
+        options: [
+          "يَابَانِيّ (Yābāniyy)", // 正解
+          "يَابَان (Yābān)",
+          "يَابَانَة (Yābāna)",
+          "يَابَانُون (Yābānūn)"
+        ],
+        correctIndex: 0,
+        explanation: "基本ルール：名詞の語尾に「-iyy (يّ)」を付けます。"
+      },
+      {
+        type: "grammar",
+        text: "「サウジアラビア (السُّعُودِيَّة)」を「サウジの・サウジ人」にする形は？\n（ヒント：語尾の ة を削除）",
+        options: [
+          "سُعُودِيَّة (Sa‘ūdiyya)",
+          "سُعُود (Sa‘ūd)",
+          "سُعُودِيّ (Sa‘ūdiyy)", // 正解
+          "سُعُودَات (Sa‘ūdāt)"
+        ],
+        correctIndex: 2,
+        explanation: "語尾に「ター・マルブータ (ة)」がある場合、それを取ってから「-iyy」を付けます。"
+      },
+      {
+        type: "grammar",
+        text: "「商業 (تِجَارَة)」を「商業の・商業的な」にする形は？\n（ヒント：語尾の ة を削除）",
+        options: [
+          "تَاجِر (Tājir - 商人)",
+          "تِجَارِيّ (Tijāriyy)", // 正解
+          "تِجَارَة (Tijāra)",
+          "تِجَارِيُّون (Tijāriyyūn)"
+        ],
+        correctIndex: 1,
+        explanation: "تِجَارَة (tijāra) の ة を取り、تِجَارِيّ (tijāriyy) にします。"
+      },
+      {
+        type: "grammar",
+        text: "「歴史 (تَارِيخ)」を「歴史の・歴史的な」にする形は？",
+        options: [
+          "تَارِيخِيّ (Tārīkhiyy)", // 正解
+          "مُؤَرِّخ (Mu'arrikh - 歴史家)",
+          "تَارِيخ (Tārīkh)",
+          "تَوَارِيخ (Tawārīkh - 歴史(複))"
+        ],
+        correctIndex: 0,
+        explanation: "余分な文字がない場合は、そのまま語尾に「-iyy (يّ)」を付けます。"
+      },
+      {
+        type: "grammar",
+        text: "「シリア (سُورِيَا)」を「シリアの・シリア人」にする形は？\n（ヒント：語尾のアリフを削除）",
+        options: [
+          "سُورِيَا (Sūriyā)",
+          "سُورِيّ (Sūriyy)", // 正解
+          "سُورِيَّان (Sūriyyān)",
+          "سُور (Sūr)"
+        ],
+        correctIndex: 1,
+        explanation: "語尾が長母音（アリフなど）で終わる場合、それを削除してから「-iyy」を付けます。"
+      }
+    ]
+  },
+{
+    id: 118,
+    level: "文法",
+    category: "イダーファ（ofの表現）",
+    title: "Lesson 18: イダーファ",
+    contentPlain: "日本語の「AのB」（先生の本、車の鍵など）のような所有者と所有されるものの関係文を作るときに使うレッスンです。先生は所有者であり、所有されるものは本のようなイメージです。アラビア語ではこの文法をイダーファと言います。「最初の単語(所有されるもの)は限定され、定冠詞がある扱いと同じになり、非限定の印である『アル』と『タンウィーン』を取る」のが最大のルールです。",
+    
+    imageUrls: [
+      "/image/grammar/lesson18_1.jpg", 
+      "/image/grammar/lesson18_2.jpg", 
+      "/image/grammar/lesson18_3.jpg", 
+      "/image/grammar/lesson18_4.jpg", 
+      "/image/grammar/lesson18_5.jpg", 
+      "/image/grammar/lesson18_6.jpg", 
+      "/image/grammar/lesson18_7.jpg", 
+      "/image/grammar/lesson18_8.jpg", 
+      "/image/grammar/lesson18_9.jpg", 
+    ],
+    
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    questions: [
+      {
+        type: "grammar",
+        text: "「先生の本は新しいです」正しい文を選んでください。",
+        options: [
+          "اَلْكِتَابُ الْمُدَرِّسِ جَدِيدٌ (Al-kitābu al-mudarrisi jadīdun)",
+          "كِتَابُ الْمُدَرِّسُ جَدِيدٌ (Kitābu al-mudarrisu jadīdun)",
+          "كِتَابُ الْمُدَرِّسِ جَدِيدٌ (Kitābu al-mudarrisi jadīdun)", // 正解
+          "كِتَابٌ الْمُدَرِّسِ جَدِيدٌ (Kitābun al-mudarrisi jadīdun)"
+        ],
+        correctIndex: 2,
+        explanation: "1語目（本）は文頭なので主格(u)ですが、イダーファなのでアルもタンウィーンも付きません。2語目（先生）は常に属格(i)です。"
+      },
+      {
+        type: "grammar",
+        text: "「日本の首都は東京です」正しい文を選んでください。",
+        options: [
+          "عَاصِمَةُ الْيَابَانِ طُوكِيُو (ʿĀṣimatu al-yābāni Ṭūkyū)", // 正解
+          "اَلْعَاصِمَةُ الْيَابَانِ طُوكِيُو (Al-ʿāṣimatu al-yābāni Ṭūkyū)",
+          "عَاصِمَةٌ الْيَابَانِ طُوكِيُو (ʿĀṣimatun al-yābāni Ṭūkyū)",
+          "عَاصِمَةُ الْيَابَانَ طُوكِيُو (ʿĀṣimatu al-yābāna Ṭūkyū)"
+        ],
+        correctIndex: 0,
+        explanation: "固有名詞（日本）を使ったイダーファです。1語目（首都）からアルを取り、2語目（日本）を属格(i)にします。"
+      },
+      {
+        type: "grammar",
+        text: "「これは（ある）学生の本です」",
+        options: [
+          "هَذَا كِتَابُ الطَّالِبِ (Hādhā kitābu aṭ-ṭālibi)",
+          "هَذَا كِتَابُ طَالِبٍ (Hādhā kitābu ṭālibin)", // 正解
+          "هَذَا كِتَابٌ طَالِبٍ (Hādhā kitābun ṭālibin)",
+          "هَذَا الْكِتَابُ طَالِبٍ (Hādhā al-kitābu ṭālibin)"
+        ],
+        correctIndex: 1,
+        explanation: "「ある学生の」と非限定にする場合、2語目（学生）からアルを取り、属格のタンウィーン「in (ٍ )」を付けます。"
+      },
+      {
+        type: "grammar",
+        text: "「鍵は車のドアにあります」\n（ヒント：前置詞 fī の後ろ＋定冠詞あり）",
+        options: [
+          "اَلْمِفْتَاحُ فِي بَابُ السَّيَّارَةِ (Al-miftāḥu fī bābu as-sayyārati)",
+          "اَلْمِفْتَاحُ فِي بَابَ السَّيَّارَةِ (Al-miftāḥu fī bāba as-sayyārati)",
+          "اَلْمِفْتَاحُ فِي بَابِ السَّيَّارَةِ (Al-miftāḥu fī bābi as-sayyārati)", // 正解
+          "اَلْمِفْتَاحُ فِي الْبَابِ السَّيَّارَةِ (Al-miftāḥu fī al-bābi as-sayyārati)"
+        ],
+        correctIndex: 2,
+        explanation: "前置詞（fī）の後ろなので、1語目（ドア）は属格(i)になります。2語目（車）もイダーファのルールで属格(i)です。"
+      },
+      {
+        type: "grammar",
+        // ★修正箇所: 動詞をやめ、「ムハンマドは〜にいます」という名詞文に変更
+        text: "「ムハンマドは（ある）友人の家にいます」",
+        options: [
+          "مُحَمَّدٌ فِي بَيْتِ صَدِيقٍ (Muḥammadun fī bayti ṣadīqin)", // 正解
+          "مُحَمَّدٌ فِي بَيْتٍ صَدِيقٍ (Muḥammadun fī baytin ṣadīqin)",
+          "مُحَمَّدٌ فِي الْبَيْتِ صَدِيقٍ (Muḥammadun fī al-bayti ṣadīqin)",
+          "مُحَمَّدٌ فِي بَيْتِ الصَّدِيقِ (Muḥammadun fī bayti aṣ-ṣadīqi)"
+        ],
+        correctIndex: 0,
+        explanation: "前置詞 fī の影響で1語目（家）は属格(i)。2語目（友人）は「ある友人」なのでアルなしの属格(in)になります。"
+      }
+    ]
+  },
+ {
+    id: 119,
+    level: "文法",
+    category: "動詞の過去形",
+    title: "Lesson 19: 動詞の過去形",
+    contentPlain: "アラビア語の動詞（完了形＝過去形）のレッスンです。アラビア語の動詞は、「誰がやったか」によって語尾が細かく変わりますが、「語根」という3つの文字がベースになることを理解すれば簡単です。",
+    
+    imageUrls: [
+      "/image/grammar/lesson19_1.jpg", 
+      "/image/grammar/lesson19_2.jpg", 
+      "/image/grammar/lesson19_3.jpg", 
+      "/image/grammar/lesson19_4.jpg", 
+      "/image/grammar/lesson19_5.jpg", 
+      "/image/grammar/lesson19_6.jpg", 
+      "/image/grammar/lesson19_7.jpg", 
+      "/image/grammar/lesson19_8.jpg", 
+      "/image/grammar/lesson19_9.jpg", 
+      "/image/grammar/lesson19_10.jpg", 
+      "/image/grammar/lesson19_11.jpg", 
+      "/image/grammar/lesson19_12.jpg", 
+      "/image/grammar/lesson19_13.jpg", 
+      "/image/grammar/lesson19_14.jpg", 
+      "/image/grammar/lesson19_15.jpg", 
+      "/image/grammar/lesson19_16.jpg", 
+      "/image/grammar/lesson19_17.jpg", 
+      "/image/grammar/lesson19_18.jpg", 
+      "/image/grammar/lesson19_19.jpg", 
+      "/image/grammar/lesson19_20.jpg", 
+      "/image/grammar/lesson19_21.jpg", 
+    ],
+    
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    questions: [
+      {
+        type: "grammar",
+        text: "「彼は手紙を書きました」正しい形は？\n「___ الرِّسَالَةَ (___ ar-risālata)」",
+        options: [
+          "كَتَبَ (kataba)", // 正解
+          "كَتَبَتْ (katabat)",
+          "كَتَبْتُ (katabtu)",
+          "كَتَبُوا (katabū)"
+        ],
+        correctIndex: 0,
+        explanation: "「彼（三人称単数男性）」は動詞の基本形そのものです。"
+      },
+      {
+        type: "grammar",
+        text: "「私は大学へ行きました」\n「___ إِلَى الْجَامِعَةِ (___ ilā al-jāmi‘ati)」",
+        options: [
+          "ذَهَبَ (dhahaba)",
+          "ذَهَبْتَ (dhahabta)",
+          "ذَهَبْتُ (dhahabtu)", // 正解
+          "ذَهَبْنَا (dhahabnā)"
+        ],
+        correctIndex: 2,
+        explanation: "「私」の過去形語尾は「-tu」です。Dhahabtu (私は行った)。"
+      },
+      {
+        type: "grammar",
+        text: "「彼女はアラビア語を勉強しました」\n「___ الْعَرَبِيَّةَ (___ al-‘arabiyyata)」",
+        options: [
+          "دَرَسَ (darasa)",
+          "دَرَسَتْ (darasat)", // 正解
+          "دَرَسْتِ (darasti)",
+          "دَرَسُوا (darasū)"
+        ],
+        correctIndex: 1,
+        explanation: "「彼女」にするには、語尾に静止したター「-at」をつけます。"
+      },
+      {
+        type: "grammar",
+        text: "「あなた（男性）は水を飲みましたか？」\n「هَلْ ___ الْمَاءَ؟ (Hal ___ al-mā'a?)」",
+        options: [
+          "شَرِبْتَ (sharibta)", // 正解
+          "شَرِبْتِ (sharibti)",
+          "شَرِبَ (shariba)",
+          "شَرِبْتُمْ (sharibtum)"
+        ],
+        correctIndex: 0,
+        explanation: "「あなた（男）」の語尾は「-ta」です。"
+      },
+      {
+        type: "grammar",
+        text: "「あなた（女性）はレッスンを理解しましたか？」\n「هَلْ ___ الدَّرْسَ؟ (Hal ___ ad-darsa?)」",
+        options: [
+          "فَهِمْتَ (fahimta)",
+          "فَهِمْتِ (fahimti)", // 正解
+          "فَهِمَتْ (fahimat)",
+          "فَهِمْنَا (fahimnā)"
+        ],
+        correctIndex: 1,
+        explanation: "「あなた（女）」の語尾は「-ti」です。"
+      },
+      {
+        type: "grammar",
+        text: "「私たちは家に戻りました」\n「___ إِلَى الْبَيْتِ (___ ilā al-bayti)」",
+        options: [
+          "رَجَعْنَا (rajaʿnā)", // 正解
+          "رَجَعْتُمْ (rajaʿtum)",
+          "رَجَعُوا (rajaʿū)",
+          "رَجَعْتُ (rajaʿtu)"
+        ],
+        correctIndex: 0,
+        explanation: "「私たち」の語尾は「-nā」です。"
+      },
+      {
+        type: "grammar",
+        text: "「彼ら（男性たち）はパンを食べました」\n「___ الْخُبْزَ (___ al-khubza)」",
+        options: [
+          "أَكَلَ (akala)",
+          "أَكَلَتْ (akalat)",
+          "أَكَلُوا (akalū)", // 正解
+          "أَكَلْنَ (akalna)"
+        ],
+        correctIndex: 2,
+        explanation: "「彼ら」の語尾は「-ū」です。"
+      },
+      {
+        type: "grammar",
+        text: "「学生たちは学校へ行きました」正しい文は？",
+        options: [
+          "اَلطُّلَّابُ ذَهَبَ إِلَى الْمَدْرَسَةِ",
+          "اَلطُّلَّابُ ذَهَبُوا إِلَى الْمَدْرَسَةِ (Aṭ-ṭullābu dhahabū ...)", // 正解
+          "اَلطُّلَّابُ ذَهَبَتْ إِلَى الْمَدْرَسَةِ",
+          "اَلطُّلَّابُ ذَهَبْنَ إِلَى الْمَدْرَسَةِ"
+        ],
+        correctIndex: 1,
+        explanation: "主語（学生たち）が先に来る場合、動詞もそれに合わせて「彼ら（複数形）」にします。"
+      },
+      {
+        type: "grammar",
+        text: "「学生たちは学校へ行きました」正しい文は？",
+        options: [
+          "ذَهَبَ الطُّلَّابُ إِلَى الْمَدْرَسَةِ (Dhahaba aṭ-ṭullābu ...)", // 正解
+          "ذَهَبُوا الطُّلَّابُ إِلَى الْمَدْرَسَةِ",
+          "ذَهَبَتِ الطُّلَّابُ إِلَى الْمَدْرَسَةِ",
+          "ذَهَبْنَ الطُّلَّابُ إِلَى الْمَدْرَسَةِ"
+        ],
+        correctIndex: 0,
+        explanation: "動詞が文頭に来る場合、主語が複数であっても、動詞は「単数形（彼）」のままにするルールがあります。"
+      },
+      {
+        type: "grammar",
+        text: "「あなたたち（複数男性）はコーランを読みました」\n「___ الْقُرْآنَ (___ al-qur'āna)」",
+        options: [
+          "قَرَأْتُمْ (qara'tum)", // 正解
+          "قَرَأْتُمَا (qara'tumā)",
+          "قَرَأُوا (qara'ū)",
+          "قَرَأْنَا (qara'nā)"
+        ],
+        correctIndex: 0,
+        explanation: "「あなたたち（男）」の語尾は「-tum」です。"
+      }
+    ]
+  },  
+   {
+    id: 120,
+    level: "文法",
+    category: "動詞の現在形",
+    title: "Lesson 20: 動詞の現在形",
+    contentPlain: "動詞の現在形のレッスンです。「～している」「（習慣的に）～する」という意味になります。完了形（過去）との最大の違いは、動詞の語頭と語尾の両方が変化することです。",
+    
+    imageUrls: [
+      "/image/grammar/lesson20_1.jpg", 
+      "/image/grammar/lesson20_2.jpg", 
+      "/image/grammar/lesson20_3.jpg", 
+      "/image/grammar/lesson20_4.jpg", 
+      "/image/grammar/lesson20_5.jpg", 
+      "/image/grammar/lesson20_6.jpg", 
+      "/image/grammar/lesson20_7.jpg", 
+      "/image/grammar/lesson20_8.jpg", 
+      "/image/grammar/lesson20_9.jpg", 
+      "/image/grammar/lesson20_10.jpg", 
+      "/image/grammar/lesson20_11.jpg", 
+      "/image/grammar/lesson20_12.jpg", 
+      "/image/grammar/lesson20_13.jpg", 
+    ],
+    
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    questions: [
+      {
+        type: "grammar",
+        text: "「彼は手紙を書きます（書いています）」\n「___ الرِّسَالَةَ (___ ar-risālata)」",
+        options: [
+          "يَكْتُبُ (yaktubu)", // 正解
+          "تَكْتُبُ (taktubu)",
+          "أَكْتُبُ (aktubu)",
+          "نَكْتُبُ (naktubu)"
+        ],
+        correctIndex: 0,
+        explanation: "「彼（三人称単数男性）」の現在形は、語頭に「ヤ (ya-)」を付けます。"
+      },
+      {
+        type: "grammar",
+        text: "「私はコーヒーを飲みます」\n「___ الْقَهْوَةَ (___ al-qahwata)」",
+        options: [
+          "أَشْرَبُ (ashrabu)", // 正解
+          "يَشْرَبُ (yashrabu)",
+          "تَشْرَبُ (tashrabu)",
+          "نَشْرَبُ (nashrabu)"
+        ],
+        correctIndex: 0,
+        explanation: "「私（一人称単数）」の現在形は、語頭に「ア (a-)」を付けます。"
+      },
+      {
+        type: "grammar",
+        // ★追加: 目的語（対格）を選ぶ問題
+        text: "「彼はコーランを読みます」正しい目的語の形は？\n「يَقْرَأُ ___」",
+        options: [
+          "الْقُرْآنُ (al-qur'ānu)",
+          "الْقُرْآنَ (al-qur'āna)", // 正解
+          "الْقُرْآنِ (al-qur'āni)",
+          "الْقُرْآنْ (al-qur'ān)"
+        ],
+        correctIndex: 1,
+        explanation: "動詞の「目的語（～を）」は、対格（a / an）になります。"
+      },
+      {
+        type: "grammar",
+        text: "「彼女はアラビア語を勉強します」\n「___ الْعَرَبِيَّةَ (___ al-‘arabiyyata)」",
+        options: [
+          "يَدْرُسُ (yadrusu)",
+          "تَدْرُسُ (tadrusu)", // 正解
+          "أَدْرُسُ (adrusu)",
+          "يَدْرُسُونَ (yadrusūna)"
+        ],
+        correctIndex: 1,
+        explanation: "「彼女（三人称単数女性）」の現在形は、語頭に「タ (ta-)」を付けます。"
+      },
+      {
+        type: "grammar",
+        text: "「あなた（女性）は理解していますか？」\n（語尾の変化に注意！）",
+        options: [
+          "تَفْهَمُ (tafhamu)",
+          "تَفْهَمِينَ (tafhamīna)", // 正解
+          "تَفْهَمُونَ (tafhamūna)",
+          "يَفْهَمُ (yafhamu)"
+        ],
+        correctIndex: 1,
+        explanation: "「あなた（女）」は特別です。語頭の「タ」に加え、語尾に「～イーナ (-īna)」が付きます。"
+      },
+      {
+        type: "grammar",
+        // ★追加: 目的語（対格）を選ぶ問題
+        text: "「私たちは（ある）本を書きます」正しい目的語の形は？\n「نَكْتُبُ ___」",
+        options: [
+          "كِتَابًا (kitāban)", // 正解
+          "كِتَابٌ (kitābun)",
+          "كِتَابٍ (kitābin)",
+          "الْكِتَابُ (al-kitābu)"
+        ],
+        correctIndex: 0,
+        explanation: "「本を」は目的語なので対格です。非限定（ある本）なのでタンウィーンの「an」になります。"
+      },
+      {
+        type: "grammar",
+        text: "「彼ら（男性たち）は昼食を食べます」\n「___ الْغَدَاءَ (___ al-ghadā'a)」",
+        options: [
+          "يَأْكُلُ (ya'kulu)",
+          "يَأْكُلُونَ (ya'kulūna)", // 正解
+          "تَأْكُلُونَ (ta'kulūna)",
+          "نَأْكُلُ (na'kulu)"
+        ],
+        correctIndex: 1,
+        explanation: "「彼ら」は語頭の「ヤ」に加え、語尾に「～ウーナ (-ūna)」が付きます。"
+      },
+      {
+        type: "grammar",
+        text: "「学生たちは大学へ行きます」正しい文は？",
+        options: [
+          "اَلطُّلَّابُ يَذْهَبُ ... (Aṭ-ṭullābu yadhhabu)",
+          "اَلطُّلَّابُ يَذْهَبُونَ إِلَى الْجَامِعَةِ (Aṭ-ṭullābu yadhhabūna ilā al-jāmi‘ati)", // 正解
+          "اَلطُّلَّابُ تَذْهَبُونَ ... (Aṭ-ṭullābu tadhhabūna)",
+          "اَلطُّلَّابُ نَذْهَبُ ... (Aṭ-ṭullābu nadhhabu)"
+        ],
+        correctIndex: 1,
+        explanation: "主語（学生たち）が先に来る場合、動詞も「彼ら（複数）」の形にします。"
+      },
+      {
+        type: "grammar",
+        text: "「学生たちは大学へ行きます」正しい文は？",
+        options: [
+          "يَذْهَبُ الطُّلَّابُ إِلَى الْجَامِعَةِ (Yadhhabu aṭ-ṭullābu ilā al-jāmi‘ati)", // 正解
+          "يَذْهَبُونَ الطُّلَّابُ ... (Yadhhabūna aṭ-ṭullābu)",
+          "تَذْهَبُ الطُّلَّابُ ... (Tadhhabu aṭ-ṭullābu)",
+          "أَذْهَبُ الطُّلَّابُ ... (Adhhabu aṭ-ṭullābu)"
+        ],
+        correctIndex: 0,
+        explanation: "動詞が文頭に来る場合、主語が複数であっても動詞は「彼（単数）」の形のまま使います。"
+      },
+      {
+        type: "grammar",
+        text: "「あなたたち（複数男性）は宿題を書きますか？」\n「هَلْ ___ الْوَاجِبَ؟ (Hal ___ al-wājiba?)」",
+        options: [
+          "تَكْتُبُونَ (taktubūna)", // 正解
+          "يَكْتُبُونَ (yaktubūna)",
+          "تَكْتُبُ (taktubu)",
+          "نَكْتُبُ (naktubu)"
+        ],
+        correctIndex: 0,
+        explanation: "「あなたたち（男）」は語頭の「タ」に加え、語尾に「～ウーナ (-ūna)」が付きます。"
+      }
+    ]
+  },
+    {
+    id: 121,
+    level: "文法",
+    category: "人称代名詞（属格、対格）",
+    title: "Lesson 21: 人称代名詞（属格、対格）",
+    contentPlain: "人称代名詞の接尾形（くっつく代名詞）のレッスンです。これらは、単語の語尾にピタッとくっついて、「～の（私の、彼の）」や「～を（私を、彼を）」という役割を果たします。",
+    
+    imageUrls: [
+      "/image/grammar/lesson21_1.jpg", 
+      "/image/grammar/lesson21_2.jpg", 
+      "/image/grammar/lesson21_3.jpg", 
+      "/image/grammar/lesson21_4.jpg", 
+      "/image/grammar/lesson21_5.jpg", 
+      "/image/grammar/lesson21_6.jpg", 
+    ],
+    
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    questions: [
+      {
+        type: "grammar",
+        text: "「これは私の本です」正しい形は？\n「هَذَا ___ (Hādhā ___)」",
+        options: [
+          "كِتَابِي (kitābī)", // 正解
+          "كِتَابُكَ (kitābuka)",
+          "كِتَابُهُ (kitābuhu)",
+          "كِتَابُهَا (kitābuhā)"
+        ],
+        correctIndex: 0,
+        explanation: "名詞に付く「私の～」は、語尾に「イー (-ī)」を付けます。"
+      },
+      {
+        type: "grammar",
+        text: "「彼女の名前はファーティマです」\n「___ فَاطِمَة (___ Fāṭima)」",
+        options: [
+          "اِسْمُهَا (Ismuhā)", // 正解
+          "اِسْمُهُ (Ismuhu)",
+          "اِسْمُكِ (Ismuki)",
+          "اِسْمِي (Ismī)"
+        ],
+        correctIndex: 0,
+        explanation: "「彼女の～」は語尾に「ハー (-hā)」を付けます。"
+      },
+      {
+        type: "grammar",
+        text: "「私は私の名前に（向かって）書きました」\n「كَتَبْتُ إِلَى ___ (Katabtu ilā ___)」",
+        options: [
+          "اِسْمِي (ismī)", // 正解
+          "اِسْمَنِي (ismani)",
+          "اِسْمُكَ (ismuka)",
+          "اِسْمِهِ (ismihi)"
+        ],
+        correctIndex: 0,
+        explanation: "名詞に付く「私の～」は、語尾に「イー (-ī)」を付けます。"
+      },
+      {
+        type: "grammar",
+        text: "「彼は自分の（彼の）本を見ました」\n「نَظَرَ فِي ___ (Naẓara fī ___)」",
+        options: [
+          "كِتَابِهِ (kitābihi)", // 正解
+          "كِتَابُهُ (kitābuhu)",
+          "كِتَابَهُ (kitābahu)",
+          "كِتَابُكَ (kitābuka)"
+        ],
+        correctIndex: 0,
+        explanation: "「彼の～」は「フ (-hu)」ですが、直前の母音が i (fī) なので、発音がつられて「ヒ (-hi)」になります。"
+      },
+      {
+        type: "grammar",
+        text: "「彼は宿題（男性名詞）を書きましたか？ はい、彼は『それ』を書きました」\n「هَلْ كَتَبَ الْوَاجِبَ؟ نَعَمْ، ___ (Na‘am, ___)」",
+        options: [
+          "كَتَبَهُ (katabahu)", // 正解
+          "كَتَبَهَا (katabahā)",
+          "كَتَبَتْهُ (katabathu)",
+          "كَتَبُوهُ (katabūhu)"
+        ],
+        correctIndex: 0,
+        explanation: "男性名詞（al-wājib）を指す「それ」は、動詞の後に「フ (-hu)」を付けます。"
+      },
+      {
+        type: "grammar",
+        text: "「彼は手紙（女性名詞）を書きましたか？ はい、彼は『それ』を書きました」\n「هَلْ كَتَبَ الرِّسَالَةَ؟ نَعَمْ، ___ (Na‘am, ___)」",
+        options: [
+          "كَتَبَهَا (katabahā)", // 正解
+          "كَتَبَهُ (katabahu)",
+          "كَتَبَتْهَا (katabathā)",
+          "كَتَبُوهَا (katabūhā)"
+        ],
+        correctIndex: 0,
+        explanation: "女性名詞（ar-risāla）を指す「それ」は、動詞の後に「ハー (-hā)」を付けます。"
+      },
+      {
+        type: "grammar",
+        text: "「彼は彼女を見ました（＝彼女の方を見た）」\n「نَظَرَ إِلَى___ (Naẓara ilā___)」",
+        options: [
+          "ـهَا (-hā) → إِلَيْهَا (ilayhā)", // 正解
+          "ـهُ (-hu) → إِلَيْهِ (ilayhi)",
+          "ـكَ (-ka) → إِلَيْكَ (ilayka)",
+          "ـهُمْ (-hum) → إِلَيْهِمْ (ilayhim)"
+        ],
+        correctIndex: 0,
+        explanation: "動詞 nazara（見る）は前置詞 ilā を伴います。「彼女」は hā ですが、ilā とくっつくと ilayhā になります。"
+      },
+      {
+        type: "grammar",
+        text: "「これはあなた（男性）のもの（＝あなたにとっての）ですか？」\n「هَلْ هَذَا ___؟ (Hal hādhā ___?)」",
+        options: [
+          "لَكَ (laka)", // 正解
+          "لَكِ (laki)",
+          "لَهُ (lahu)",
+          "لِي (lī)"
+        ],
+        correctIndex: 0,
+        explanation: "前置詞（li = ～のための）に付く場合も同じ変化をします。男性相手の「あなた」は「カ (-ka)」です。"
+      }
+    ]
+  },
+{
+    id: 122,
+    level: "文法",
+    category: "規則女性複数形",
+    title: "Lesson 22: 規則女性複数形",
+    contentPlain: "女性の複数形「規則女性複数（～アート）」のレッスンです。この形の最大の特徴は「対格（～を）」になっても「ア (a)」の音を使わないという点です。つまり、「対格」と「属格」が全く同じ形になります。",
+    
+    imageUrls: [
+      "/image/grammar/lesson22_1.jpg", 
+      "/image/grammar/lesson22_2.jpg", 
+      "/image/grammar/lesson22_3.jpg", 
+      "/image/grammar/lesson22_4.jpg", 
+      "/image/grammar/lesson22_5.jpg", 
+      "/image/grammar/lesson22_6.jpg", 
+      "/image/grammar/lesson22_7.jpg", 
+      "/image/grammar/lesson22_8.jpg", 
+      "/image/grammar/lesson22_9.jpg", 
+    ],
+    
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    questions: [
+      {
+        type: "grammar",
+        text: "「女子学生たちは大学へ行きました（主格）」正しい形は？\n「ذَهَبَتِ ___ إِلَى الْجَامِعَةِ」",
+        options: [
+          "الطَّالِبَاتُ (aṭ-ṭālibātu)", // 正解
+          "الطَّالِبَاتِ (aṭ-ṭālibāti)",
+          "الطَّالِبَاتَ (aṭ-ṭālibāta)",
+          "الطَّالِبَةُ (aṭ-ṭālibatu)"
+        ],
+        correctIndex: 0,
+        explanation: "主語（～が）の場合は、通常通り「ウ (-u)」の音になります。"
+      },
+      {
+        type: "grammar",
+        text: "【最重要】「私は女性の先生たちを見ました（対格）」\n「رَأَيْتُ ___ (Ra'aytu ___)」",
+        options: [
+          "الْمُعَلِّمَاتَ (al-mu‘allimāta)",
+          "الْمُعَلِّمَاتُ (al-mu‘allimātu)",
+          "الْمُعَلِّمَاتِ (al-mu‘allimāti)", // 正解
+          "الْمُعَلِّمَةَ (al-mu‘allimata)"
+        ],
+        correctIndex: 2,
+        explanation: "これが最大の特徴です！規則女性複数形は、対格（～を）であっても絶対に「ア」にならず、「イ (-i)」の音になります。"
+      },
+      {
+        type: "grammar",
+        text: "「彼は（いくつかの）言語を勉強しました（対格・非限定）」\n「دَرَسَ ___ (Darasa ___)」",
+        options: [
+          "لُغَاتًا (lughātan)",
+          "لُغَاتٍ (lughātin)", // 正解
+          "لُغَاتٌ (lughātun)",
+          "لُغَةً (lughatan)"
+        ],
+        correctIndex: 1,
+        explanation: "非限定の「～を」であっても、「アン (-an)」ではなく「イン (-in)」になります。"
+      },
+      {
+        type: "grammar",
+        text: "「私は（複数の）空港へ行きました（属格）」\n「ذَهَبْتُ إِلَى ___ (Dhahabtu ilā ___)」",
+        options: [
+          "الْمَطَارَاتِ (al-maṭārāti)", // 正解
+          "الْمَطَارَاتَ (al-maṭārāta)",
+          "الْمَطَارَاتُ (al-maṭārātu)",
+          "الْمَطَارِ (al-maṭāri)"
+        ],
+        correctIndex: 0,
+        explanation: "前置詞の後ろ（属格）は通常通り「イ (-i)」です。つまり、対格と属格が全く同じ形になります。"
+      },
+      {
+        type: "grammar",
+        text: "「彼は車（複数）を買いました」正しい文を選んでください。",
+        options: [
+          "اِشْتَرَى سَيَّارَاتٍ (Ishtarā sayyārātin)", // 正解
+          "اِشْتَرَى سَيَّارَاتًا (Ishtarā sayyārātan)",
+          "اِشْتَرَى سَيَّارَاتٌ (Ishtarā sayyārātun)",
+          "اِشْتَرَى السَّيَّارَاتَ (Ishtarā as-sayyārāta)"
+        ],
+        correctIndex: 0,
+        explanation: "目的語なので対格です。女性複数は「ア」を嫌うため、非限定なら「イン (-in)」となります。"
+      }
+    ]
+  },
+{
+    id: 123,
+    level: "文法",
+    category: "名詞文の否定",
+    title: "Lesson 23: ライサの使い方",
+    contentPlain: "名詞文の否定形「AはBではありません」と言うための特殊動詞、「ライサ 」レッスン。これは文法的に「動詞の過去形」と同じ変化をしますが、意味は「現在」です。そして最大の特徴は、B（述語）の語尾を「アン (an)」に変えるという強力なルールを持っていることです。",
+    
+    imageUrls: [
+      "/image/grammar/lesson23_1.jpg", 
+      "/image/grammar/lesson23_2.jpg", 
+      "/image/grammar/lesson23_3.jpg", 
+      "/image/grammar/lesson23_4.jpg", 
+      "/image/grammar/lesson23_5.jpg", 
+    ],
+    
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    questions: [
+      {
+        type: "grammar",
+        text: "「その家は大きくありません」正しい形は？",
+        options: [
+          "لَيْسَ الْبَيْتُ كَبِيرًا (Laysa al-baytu kabīran)", // 正解
+          "لَيْسَ الْبَيْتُ كَبِيرٌ (Laysa al-baytu kabīrun)",
+          "لَيْسَ الْبَيْتُ كَبِيرٍ (Laysa al-baytu kabīrin)",
+          "لَيْسَتِ الْبَيْتُ كَبِيرًا (Laysati al-baytu kabīran)"
+        ],
+        correctIndex: 0,
+        explanation: "ライサが入ると、述語（大きい）は対格になり、語尾が「アン (-an)」に変わります。"
+      },
+      {
+        type: "grammar",
+        text: "「その車は新しくありません」",
+        options: [
+          "لَيْسَ السَّيَّارَةُ جَدِيدَةً (Laysa as-sayyāratu jadīdatan)",
+          "لَيْسَتِ السَّيَّارَةُ جَدِيدَةٌ (Laysati as-sayyāratu jadīdatun)",
+          "لَيْسَتِ السَّيَّارَةُ جَدِيدَةً (Laysati as-sayyāratu jadīdatan)", // 正解
+          "لَيْسَتِ السَّيَّارَةَ جَدِيدَةً (Laysati as-sayyārata jadīdatan)"
+        ],
+        correctIndex: 2,
+        explanation: "主語が女性なので動詞は「ライサト (laysat)」になり、述語は対格「アン (-an)」になります。"
+      },
+      {
+        type: "grammar",
+        text: "【重要】「女性の先生たちは忙しくありません」",
+        options: [
+          "لَيْسَتِ الْمُعَلِّمَاتُ مَشْغُولَاتًا (mashghūlātan)",
+          "لَيْسَتِ الْمُعَلِّمَاتُ مَشْغُولَاتٍ (mashghūlātin)", // 正解
+          "لَيْسَتِ الْمُعَلِّمَاتُ مَشْغُولَاتٌ (mashghūlātun)",
+          "لَيْسَ الْمُعَلِّمَاتُ مَشْغُولَاتٍ (Laysa...)"
+        ],
+        correctIndex: 1,
+        explanation: "規則女性複数形は「ア (a)」の音を嫌うため、対格になっても「イン (-in)」という音になります。「〜タン (-ātan)」という形は存在しません！"
+      },
+      {
+        type: "grammar",
+        text: "【重要】「学生たち（彼ら）は小さくありません」",
+        options: [
+          "اَلطُّلَّابُ لَيْسَ صِغَارًا (Aṭ-ṭullābu laysa ṣighāran)",
+          "اَلطُّلَّابُ لَيْسُوا صِغَارًا (Aṭ-ṭullābu laysū ṣighāran)", // 正解
+          "اَلطُّلَّابُ لَيْسُوا صِغَارٌ (Aṭ-ṭullābu laysū ṣighārun)",
+          "اَلطُّلَّابُ لَسْنَ صِغَارًا (Aṭ-ṭullābu lasna ṣighāran)"
+        ],
+        correctIndex: 1,
+        explanation: "主語が先に来ているので、ライサも「彼ら」に合わせて「ライ スー (laysū)」と複数形にします。"
+      },
+      {
+        type: "grammar",
+        text: "「私は医者ではありません」",
+        options: [
+          "لَيْسَ أَنَا طَبِيبًا (Laysa ana ṭabīban)",
+          "لَسْتَ طَبِيبًا (Lasta ṭabīban)",
+          "لَسْتُ طَبِيبًا (Lastu ṭabīban)", // 正解
+          "لَسْنَا طَبِيبًا (Lasnā ṭabīban)"
+        ],
+        correctIndex: 2,
+        explanation: "「私」に対応する形は「ラストゥ (lastu)」です。述語は忘れずに「アン (-an)」にします。"
+      }
+    ]
+  },
+{
+    id: 124,
+    level: "文法",
+    category: "名詞文の過去、過去進行形",
+    title: "Lesson 24: カーナの使い方",
+    contentPlain: "「～でした」と「過去進行形」を表す「カーナ 」です。これはアラビア語で最も重要な単語の一つです。文法ルールは「ライサ」と全く同じで、名詞文の場合は「B（述語）を対格（アン）に変える」という力を持っています。",
+    
+    imageUrls: [
+      "/image/grammar/lesson24_1.jpg", 
+      "/image/grammar/lesson24_2.jpg", 
+      "/image/grammar/lesson24_3.jpg", 
+      "/image/grammar/lesson24_4.jpg", 
+      "/image/grammar/lesson24_5.jpg", 
+    ],
+    
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    questions: [
+      {
+        type: "grammar",
+        text: "「天気が寒かったです（The weather was cold）」",
+        options: [
+          "كَانَ الْجَوُّ بَارِدًا (Kāna al-jawwu bāridan)", // 正解
+          "كَانَ الْجَوُّ بَارِدٌ (Kāna al-jawwu bāridun)",
+          "كَانَ الْجَوُّ بَارِدٍ (Kāna al-jawwu bāridin)",
+          "كَانَتِ الْجَوُّ بَارِدًا (Kānati al-jawwu bāridan)"
+        ],
+        correctIndex: 0,
+        explanation: "カーナが入ると、述語（寒い）は対格になり「アン (-an)」に変わります。"
+      },
+      {
+        type: "grammar",
+        text: "「その車は新しかったです（The car was new）」",
+        options: [
+          "كَانَتِ السَّيَّارَةُ جَدِيدَةً (Kānati as-sayyāratu jadīdatan)", // 正解
+          "كَانَتِ السَّيَّارَةُ جَدِيدَةٌ (Kānati as-sayyāratu jadīdatun)",
+          "كَانَ السَّيَّارَةُ جَدِيدَةً (Kāna as-sayyāratu jadīdatan)",
+          "كَانَتِ السَّيَّارَةَ جَدِيدَةً (Kānati as-sayyārata jadīdatan)"
+        ],
+        correctIndex: 0,
+        explanation: "主語（車）が女性なので、動詞も「カーナト (kānat)」にします。述語は対格（-an）です。"
+      },
+      {
+        type: "grammar",
+        text: "「私は学生でした（I was a student）」",
+        options: [
+          "كُنْتُ طَالِبًا (Kuntu ṭāliban)", // 正解
+          "كَانَ أَنَا طَالِبًا (Kāna ana ṭāliban)",
+          "كُنْتُ طَالِبٌ (Kuntu ṭālibun)",
+          "كُنْتَ طَالِبًا (Kunta ṭāliban)"
+        ],
+        correctIndex: 0,
+        explanation: "「私」のカーナ活用は「クントゥ (kuntu)」です。"
+      },
+      {
+        type: "grammar",
+        text: "【重要】「先生たち（女性）は忙しかったです」",
+        options: [
+          "كَانَتِ الْمُعَلِّمَاتُ مَشْغُولَاتًا (mashghūlātan)",
+          "كَانَتِ الْمُعَلِّمَاتُ مَشْغُولَاتٍ (mashghūlātin)", // 正解
+          "كَانَتِ الْمُعَلِّمَاتُ مَشْغُولَاتٌ (mashghūlātun)",
+          "كَانَ الْمُعَلِّمَاتُ مَشْغُولَاتٍ (Kāna...)"
+        ],
+        correctIndex: 1,
+        explanation: "述語が「規則女性複数」の場合、対格になっても「アン」ではなく「イン (-in)」になります。"
+      },
+      {
+        type: "grammar",
+        text: "「彼は本を読んでいました（He was reading）」\n（ヒント：過去進行形＝カーナ＋現在形）",
+        options: [
+          "كَانَ يَقْرَأُ الْكِتَابَ (Kāna yaqra'u al-kitāba)", // 正解
+          "كَانَ قَرَأَ الْكِتَابَ (Kāna qara'a al-kitāba)",
+          "كَانَ يَقْرَأَ الْكِتَابَ (Kāna yaqra'a al-kitāba)",
+          "كَانَ يَقْرَأُ الْكِتَابُ (Kāna yaqra'u al-kitābu)"
+        ],
+        correctIndex: 0,
+        explanation: "「〜していました（過去進行）」は、「カーナ ＋ 現在形動詞」で作ります。動詞の後ろの目的語（本）は対格です。"
+      },
+      {
+        type: "grammar",
+        text: "「学生たち（複数）は勉強していました」",
+        options: [
+          "اَلطُّلَّابُ كَانَ يَدْرُسُونَ",
+          "اَلطُّلَّابُ كَانُوا يَدْرُسُونَ (Aṭ-ṭullābu kānū yadrusūna)", // 正解
+          "اَلطُّلَّابُ كُنْتُمْ يَدْرُسُونَ",
+          "اَلطُّلَّابُ كَانُوا يَدْرُسُ (Aṭ-ṭullābu kānū yadrusu)"
+        ],
+        correctIndex: 1,
+        explanation: "主語（学生たち）が先に来た場合、カーナも「彼ら（カーヌー）」と複数形にします。"
+      },
+      {
+        type: "grammar",
+        text: "「学生たち（複数）は勉強していました」\n（ヒント：カーナが先 → 単数のまま）",
+        options: [
+          "كَانَ الطُّلَّابُ يَدْرُسُونَ (Kāna aṭ-ṭullābu yadrusūna)", // 正解
+          "كَانُوا الطُّلَّابُ يَدْرُسُونَ (Kānū aṭ-ṭullābu yadrusūna)",
+          "كَانَتِ الطُّلَّابُ يَدْرُسُونَ",
+          "كَانَ الطُّلَّابُ يَدْرُسُ (Kāna aṭ-ṭullābu yadrusu)"
+        ],
+        correctIndex: 0,
+        explanation: "カーナが文頭に来る場合、主語が複数でもカーナは単数形（Kāna）のまま使います。"
+      },
+      {
+        type: "grammar",
+        text: "「男の子は家の中にいました（The boy was in the house）」",
+        options: [
+          "كَانَ الْوَلَدُ فِي الْبَيْتِ (Kāna al-waladu fī al-bayti)", // 正解
+          "كَانَ الْوَلَدُ فِي الْبَيْتَ (Kāna al-waladu fī al-bayta)",
+          "كَانَ الْوَلَدُ فِي الْبَيْتُ (Kāna al-waladu fī al-baytu)",
+          "كَانَ فِي الْبَيْتِ الْوَلَدَ (Kāna fī al-bayti al-walada)"
+        ],
+        correctIndex: 0,
+        explanation: "述語が「前置詞句（家の中に）」の場合、見た目の格変化は起こりません。前置詞の後ろは常に属格（i）のままです。"
+      },
+      {
+        type: "grammar",
+        text: "「あなたたちは幸せでしたか？」",
+        options: [
+          "هَلْ كُنْتُمْ مَسْرُورِينَ؟ (Hal kuntum masrūrīna?)", // 正解
+          "هَلْ كُنْتُمْ مَسْرُورُونَ؟ (Hal kuntum masrūrūna?)",
+          "هَلْ كُنْتُمْ مَسْرُورًا؟ (Hal kuntum masrūran?)",
+          "هَلْ كَانُوا مَسْرُورِينَ؟ (Hal kānū masrūrīna?)"
+        ],
+        correctIndex: 0,
+        explanation: "「あなたたち（複数）」なので述語も複数形にします。さらにカーナの述語は対格になるため、規則男性複数の対格「イーナ (-īna)」を使います。"
+      },
+      {
+        type: "grammar",
+        text: "「彼女は料理をしていました」",
+        options: [
+          "كَانَتْ تَطْبُخُ (Kānat taṭbukhu)", // 正解
+          "كَانَتْ يَطْبُخُ (Kānat yaṭbukhu)",
+          "كَانَ تَطْبُخُ (Kāna taṭbukhu)",
+          "كَانَتْ طَبَخَتْ (Kānat ṭabakhat)"
+        ],
+        correctIndex: 0,
+        explanation: "「彼女」なのでカーナは Kānat、動詞の現在形も「彼女（Ta-）」で合わせます。"
+      }
+    ]
+  },
+{
+    id: 125,
+    level: "文法",
+    category: "数字（1〜10）",
+    title: "Lesson 25: 1から10までの数字の文法",
+    contentPlain: "アラビア語学習者の「最大の難関」とも言われる「数詞（数字の文法）」のレッスンです。混乱を招くのでここでは1から10までを学びます。アラビア語の数字は、「数える物が男か女か」によって形がコロコロ変わり、さらに「後ろに来る名詞の形」も数によって変わります。",
+    
+    imageUrls: [
+      "/image/grammar/lesson25_1.jpg", 
+      "/image/grammar/lesson25_2.jpg", 
+      "/image/grammar/lesson25_3.jpg", 
+      "/image/grammar/lesson25_4.jpg", 
+      "/image/grammar/lesson25_5.jpg", 
+      "/image/grammar/lesson25_6.jpg", 
+      "/image/grammar/lesson25_7.jpg", 
+      "/image/grammar/lesson25_8.jpg", 
+    ],
+    
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    questions: [
+      {
+        type: "grammar",
+        text: "「一人の男の子（One boy）」正しい形は？\n（ヒント：1と2は形容詞と同じルール）",
+        options: [
+          "وَلَدٌ وَاحِدٌ (waladun wāḥidun)", // 正解
+          "وَلَدٌ وَاحِدَةٌ (waladun wāḥidatun)",
+          "وَاحِدٌ وَلَدٌ (wāḥidun waladun)",
+          "وَلَدٍ وَاحِدٍ (waladin wāḥidin)"
+        ],
+        correctIndex: 0,
+        explanation: "1と2は形容詞のように名詞の後ろに置き、性別を一致させます。男の子（男性）なので wāḥidun です。"
+      },
+      {
+        type: "grammar",
+        text: "「一人の娘（One daughter）」正しい形は？\n（ヒント：娘 bint は女性名詞）",
+        options: [
+          "بِنْتٌ وَاحِدٌ (bintun wāḥidun)",
+          "بِنْتٌ وَاحِدَةٌ (bintun wāḥidatun)", // 正解
+          "وَاحِدَةٌ بِنْتٌ (wāḥidatun bintun)",
+          "بِنْتٍ وَاحِدَةٍ (bintin wāḥidatin)"
+        ],
+        correctIndex: 1,
+        explanation: "名詞が女性なら、数字も女性形（wāḥidatun）にします。"
+      },
+      {
+        type: "grammar",
+        text: "【重要】「3冊の本（Three books）」正しい形は？\n（ヒント：本 kitāb は男性名詞）",
+        options: [
+          "ثَلَاثَةُ كُتُبٍ (thalāthatu kutubin)", // 正解
+          "ثَلَاثُ كُتُبٍ (thalāthu kutubin)",
+          "ثَلَاثَةُ كِتَابٍ (thalāthatu kitābin)",
+          "كُتُبٌ ثَلَاثَةٌ (kutubun thalāthatun)"
+        ],
+        correctIndex: 0,
+        explanation: "3〜10の数字は「性別が逆」になります。本（男性）を数える場合、数字は「女性形（ターマルブータ付）」にします。また、後ろの名詞は「複数・属格」です。"
+      },
+      {
+        type: "grammar",
+        text: "【重要】「5台の車（Five cars）」正しい形は？\n（ヒント：車 sayyāra は女性名詞）",
+        options: [
+          "خَمْسَةُ سَيَّارَاتٍ (khamsatu sayyārātin)",
+          "خَمْسُ سَيَّارَاتٍ (khamsu sayyārātin)", // 正解
+          "خَمْسُ سَيَّارَةٍ (khamsu sayyāratin)",
+          "سَيَّارَاتٌ خَمْسٌ (sayyārātun khamsun)"
+        ],
+        correctIndex: 1,
+        explanation: "車（女性）を数える場合、数字は「男性形（ターマルブータなし）」を使います。"
+      },
+      {
+        type: "grammar",
+        text: "「私は4本のペンを買いました（I bought 4 pens）」\n（ヒント：ペン qalam は男性名詞／目的語は対格）",
+        options: [
+          "اِشْتَرَيْتُ أَرْبَعَةَ أَقْلَامٍ (arba‘ata aqlāmin)", // 正解
+          "اِشْتَرَيْتُ أَرْبَعَةُ أَقْلَامٍ (arba‘atu aqlāmin)",
+          "اِشْتَرَيْتُ أَرْبَعَ أَقْلَامٍ (arba‘a aqlāmin)",
+          "اِشْتَرَيْتُ أَرْبَعَةٍ أَقْلَامٍ (arba‘ati aqlāmin)"
+        ],
+        correctIndex: 0,
+        explanation: "ペン（男性）なので数字は女性形（arba‘a）。さらに「～を」という目的語なので、対格（ア / a）になり、arba‘ata となります。"
+      },
+      {
+        type: "grammar",
+        text: "「（ある）家に、7人の男たちがいます」\n（ヒント：男 rajul は男性名詞／主語は主格）",
+        options: [
+          "فِي بَيْتٍ سَبْعَةُ رِجَالٍ (sab‘atu rijālin)", // 正解
+          "فِي بَيْتٍ سَبْعُ رِجَالٍ (sab‘u rijālin)",
+          "فِي بَيْتٍ سَبْعَةَ رِجَالٍ (sab‘ata rijālin)",
+          "فِي بَيْتٍ سَبْعَةِ رِجَالٍ (sab‘ati rijālin)"
+        ],
+        correctIndex: 0,
+        explanation: "男（男性）なので数字は女性形（sab‘a）。文の主語なので主格（ウ / u）になり、sab‘atu となります。"
+      },
+      {
+        type: "grammar",
+        text: "「6日間で（in 6 days）」前置詞の後の変化は？\n（ヒント：日 yawm は男性名詞）",
+        options: [
+          "فِي سِتَّةِ أَيَّامٍ (fī sittati ayyāmin)", // 正解
+          "فِي سِتَّةَ أَيَّامٍ (fī sittata ayyāmin)",
+          "فِي سِتُّ أَيَّامٍ (fī sittu ayyāmin)",
+          "فِي سِتَّةُ أَيَّامٍ (fī sittatu ayyāmin)"
+        ],
+        correctIndex: 0,
+        explanation: "日（男性）なので数字は女性形（sitta）。前置詞 fī の後ろなので属格（イ / i）になり、sittati となります。"
+      },
+      {
+        type: "grammar",
+        text: "「私は9つの大学を見ました」\n（ヒント：大学 jāmi‘a は女性名詞）",
+        options: [
+          "رَأَيْتُ تِسْعَةَ جَامِعَاتٍ (tis‘ata jāmi‘ātin)",
+          "رَأَيْتُ تِسْعَ جَامِعَاتٍ (tis‘a jāmi‘ātin)", // 正解
+          "رَأَيْتُ تِسْعُ جَامِعَاتٍ (tis‘u jāmi‘ātin)",
+          "رَأَيْتُ تِسْعًا جَامِعَاتٍ (tis‘an jāmi‘ātin)"
+        ],
+        correctIndex: 1,
+        explanation: "大学（女性）なので数字は男性形（tis‘ / ターマルブータなし）。目的語なので対格（ア）となり、tis‘a となります。"
+      },
+      {
+        type: "grammar",
+        text: "「10リヤル（10 Riyals）」正しい形は？\n（ヒント：リヤル riyāl は男性名詞）",
+        options: [
+          "عَشَرَةُ رِيَالَاتٍ (‘asharatu riyālātin)", // 正解
+          "عَشْرُ رِيَالَاتٍ (‘ashru riyālātin)",
+          "عَشَرَةُ رِيَالٍ (‘asharatu riyālin)",
+          "عَشَرَةَ رِيَالَاتٍ (‘asharata riyālātin)"
+        ],
+        correctIndex: 0,
+        explanation: "リヤル（男性）なので数字は女性形（‘ashara）。単独で言う場合や主語の場合は主格（u）を使います。※リヤルの複数形は riyālāt ですが、性別判断は「単数形」で行います。"
+      },
+ {
+        type: "grammar",
+        text: "数えられる名詞（数詞の後ろ）の形として正しいのは？\n「3つの家：ثَلَاثَةُ ___」",
+        options: [
+          "بُيُوتٌ (buyūtun - 複数主格)",
+          "بَيْتٍ (baytin - 単数属格)",
+          "بُيُوتٍ (buyūtin - 複数属格)", // 正解
+          "بُيُوتًا (buyūtan - 複数対格)"
+        ],
+        correctIndex: 2,
+        explanation: "3〜10の数字の後ろに来る名詞は、必ず「複数形」かつ「属格（in）」になります。"
+      }
+    ]
+  },
+  {
+    id: 126,
+    level: "文法",
+    category: "接続法（〜すること、未来の否定）",
+    title: "Lesson 26: 接続法",
+    contentPlain: "特定の単語（アン、ランなど）が動詞の前に来ると、動詞の語尾が「ウ (u)」から「ア (a)」に変わったり、「複数形のン (n)」が消えたりします。",
+    
+    imageUrls: [
+      "/image/grammar/lesson26_1.jpg", 
+      "/image/grammar/lesson26_2.jpg", 
+      "/image/grammar/lesson26_3.jpg", 
+      "/image/grammar/lesson26_4.jpg", 
+      "/image/grammar/lesson26_5.jpg", 
+      "/image/grammar/lesson26_6.jpg", 
+      "/image/grammar/lesson26_7.jpg",  
+    ],
+    
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    questions: [
+      {
+        type: "grammar",
+        text: "「私は市場へ行きたいです」\n（直訳：私は市場へ行くことを欲する）\n「أُرِيدُ أَنْ ___ إِلَى السُّوقِ」",
+        options: [
+          "أَذْهَبُ (adhhabu)",
+          "أَذْهَبَ (adhhaba)", // 正解
+          "أَذْهَبْ (adhhab)",
+          "أَذْهَبِ (adhhabi)"
+        ],
+        correctIndex: 1,
+        explanation: "「アン (an)」の後ろに来る動詞は接続法になり、語尾が「ウ (u)」から「ア (a)」に変わります。"
+      },
+      {
+        type: "grammar",
+        text: "「彼は明日、決して勉強しないでしょう（未来否定）」\n「هُوَ لَنْ ___ غَدًا」",
+        options: [
+          "يَدْرُسُ (yadrusu)",
+          "يَدْرُسَ (yadrusa)", // 正解
+          "يَدْرُسْ (yadrus)",
+          "يَدْرُسِي (yadrusī)"
+        ],
+        correctIndex: 1,
+        explanation: "未来を強く否定する「ラン (lan)」の後ろも接続法（a）になります。"
+      },
+      {
+        type: "grammar",
+        text: "「彼ら（男性複数）は座りたがっています」\n「يُرِيدُونَ أَنْ ___」",
+        options: [
+          "يَجْلِسُونَ (yajlisūna)",
+          "يَجْلِسُوا (yajlisū)", // 正解
+          "يَجْلِسَا (yajlisā)",
+          "يَجْلِسْنَ (yajlisna)"
+        ],
+        correctIndex: 1,
+        explanation: "通常の現在形は「～ウーナ (-ūna)」ですが、接続法になると最後の「ナ (n)」が消えて「～ウー (-ū)」になります。"
+      },
+      {
+        type: "grammar",
+        text: "「あなた（女性）は決して行かないでしょう」\n「أَنْتِ لَنْ ___」",
+        options: [
+          "تَذْهَبِينَ (tadhhabīna)",
+          "تَذْهَبِي (tadhhabī)", // 正解
+          "تَذْهَبَا (tadhhabā)",
+          "تَذْهَبَ (tadhhaba)"
+        ],
+        correctIndex: 1,
+        explanation: "あなた（女）の「～イーナ (-īna)」も、接続法になると「ナ (n)」が消えて「～イー (-ī)」になります。"
+      },
+      {
+        type: "grammar",
+        text: "「私たちは水を飲みたいです」\n「نُرِيدُ أَنْ ___ الْمَاءَ」",
+        options: [
+          "نَشْرَبُ (nashrabu)",
+          "نَشْرَبَ (nashraba)", // 正解
+          "نَشْرَبْ (nashrab)",
+          "نَشْرَبِ (nashrabi)"
+        ],
+        correctIndex: 1,
+        explanation: "私たち（We）の動詞も、基本ルール通り語尾を「ア (a)」に変えます。"
+      }
+    ]
+  }, 
+  {
+    id: 127,
+    level: "文法",
+    category: "要求法（禁止・動詞の過去否定",
+    title: "Lesson 27: 要求法",
+    contentPlain: "「～しなかった（過去否定）」や「～するな（禁止）」と言う時に使います。前の接続法と似ていますが、こちらは、「無音(スクーンにする）」のが特徴です。",
+    
+    imageUrls: [
+      "/image/grammar/lesson27_1.jpg", 
+      "/image/grammar/lesson27_2.jpg", 
+      "/image/grammar/lesson27_3.jpg", 
+      "/image/grammar/lesson27_4.jpg", 
+      "/image/grammar/lesson27_5.jpg", 
+      "/image/grammar/lesson27_6.jpg", 
+      "/image/grammar/lesson27_7.jpg", 
+    ],
+    
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    questions: [
+      {
+        type: "grammar",
+        text: "「彼は手紙を書かなかった（過去否定）」\n「هُوَ لَمْ ___ الرِّسَالَةَ (Huwa lam ___ ar-risālata)」",
+        options: [
+          "يَكْتُبُ (yaktubu)",
+          "يَكْتُبَ (yaktuba)",
+          "يَكْتُبْ (yaktub)", // 正解
+          "كَتَبَ (kataba)"
+        ],
+        correctIndex: 2,
+        explanation: "「ラム (lam)」の後ろは要求法になり、基本形の語尾「ウ (u)」が「無音（スクーン）」に変わります。"
+      },
+      {
+        type: "grammar",
+        text: "「私は学校へ行きませんでした」\n「أَنَا لَمْ ___ إِلَى الْمَدْرَسَةِ (Ana lam ___ ilā al-madrasati)」",
+        options: [
+          "أَذْهَبُ (adhhabu)",
+          "أَذْهَبْ (adhhab)", // 正解
+          "أَذْهَبَ (adhhaba)",
+          "ذَهَبْتُ (dhahabtu)"
+        ],
+        correctIndex: 1,
+        explanation: "「私」の動詞も同様に、語尾をスクーンにします。意味は過去ですが、使うのは「現在形の変形」である点に注意しましょう。"
+      },
+      {
+        type: "grammar",
+        text: "「（あなた男性は）ここに座ってはいけません（禁止）」\n「لَا ___ هُنَا (Lā ___ hunā)」",
+        options: [
+          "تَجْلِسُ (tajlisu)",
+          "تَجْلِسَ (tajlisa)",
+          "تَجْلِسْ (tajlis)", // 正解
+          "تَجْلِسِي (tajlisī)"
+        ],
+        correctIndex: 2,
+        explanation: "禁止の「ラー (lā)」の後ろも要求法です。語尾をスクーンにします。"
+      },
+      {
+        type: "grammar",
+        text: "「彼ら（男性複数）は食べませんでした」\n「هُمْ لَمْ ___ (Hum lam ___)」",
+        options: [
+          "يَأْكُلُونَ (ya'kulūna)",
+          "يَأْكُلُوا (ya'kulū)", // 正解
+          "يَأْكُلْنَ (ya'kulna)",
+          "يَأْكُلُ (ya'kulu)"
+        ],
+        correctIndex: 1,
+        explanation: "複数形「～ウーナ (-ūna)」の場合、接続法と同じく、最後の「ナ (n)」が消えて「～ウー (-ū)」になります。"
+      },
+      {
+        type: "grammar",
+        text: "「（あなた女性は）行ってはいけません」\n「يَا مَرْيَمُ، لَا ___ (Yā Maryamu, lā ___)」",
+        options: [
+          "تَذْهَبِينَ (tadhhabīna)",
+          "تَذْهَبِي (tadhhabī)", // 正解
+          "تَذْهَبْ (tadhhab)",
+          "تَذْهَبْنَ (tadhhabna)"
+        ],
+        correctIndex: 1,
+        explanation: "あなた（女）の「～イーナ (-īna)」も、最後の「ナ (n)」を削除します。"
+      }
+    ]
+  }, 
+  {
+    id: 128,
+    level: "文法",
+    category: "命令形",
+    title: "Lesson 28: 命令形",
+    contentPlain: "命令形は、「要求法」の応用で作れます。作り方は、「頭と尻尾の変化」です。",
+    
+    imageUrls: [
+      "/image/grammar/lesson28_1.jpg", 
+      "/image/grammar/lesson28_2.jpg", 
+      "/image/grammar/lesson28_3.jpg", 
+      "/image/grammar/lesson28_4.jpg", 
+    ],
+    
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    questions: [
+      {
+        type: "grammar",
+        text: "「（あなたの）名前を書いてください」\n（ヒント：ハムザ記号は書きません）\n「___ اسْمَكَ (___ ismaka)」",
+        options: [
+          "اُكْتُبْ (uktub - ハムザなし)", // 正解
+          "أُكْتُبْ (uktub - ハムザあり)",
+          "اِكْتُبْ (iktub)",
+          "أَكْتُبْ (aktub)"
+        ],
+        correctIndex: 0,
+        explanation: "現在形（yaktubu）の真ん中が「ウ」なので、命令形の頭は「ウ（damma）」になりますが、文字はハムザ記号のない「アリフ（Hamzat al-Waṣl）」を使います。"
+      },
+      {
+        type: "grammar",
+        text: "「（あなた男性は）ここに座ってください」\n「___ هُنَا (___ hunā)」",
+        options: [
+          "اُجْلِسْ (ujlis)",
+          "اِجْلِسْ (ijlis - ハムザなし)", // 正解
+          "إِجْلِسْ (ijlis - ハムザあり)",
+          "أَجْلِسْ (ajlis)"
+        ],
+        correctIndex: 1,
+        explanation: "現在形（yajlisu）の真ん中が「イ」なので、命令形の頭は「イ（kasra）」になります。ここでもハムザ記号は書きません。"
+      },
+      {
+        type: "grammar",
+        text: "「（あなた男性は）市場へ行ってください」\n「___ إِلَى السُّوقِ (___ ilā as-sūqi)」",
+        options: [
+          "اُذْهَبْ (udhhab)",
+          "اِذْهَبْ (idhhab - ハムザなし)", // 正解
+          "إِذْهَبْ (idhhab - ハムザあり)",
+          "أَذْهَبْ (adhhab)"
+        ],
+        correctIndex: 1,
+        explanation: "現在形（yadhhabu）の真ん中が「ア」の場合、命令形の頭は「イ（kasra）」になります。"
+      },
+      {
+        type: "grammar",
+        text: "「（あなた女性は）水を飲んでください」\n「يَا مَرْيَمُ، ___ الْمَاءَ (Yā Maryamu, ___ al-mā'a)」",
+        options: [
+          "اِشْرَبِي (ishrabī)", // 正解
+          "اِشْرَبِينَ (ishrabīna)",
+          "إِشْرَبِي (ishrabī - ハムザあり)",
+          "اِشْرَبْ (ishrab)"
+        ],
+        correctIndex: 0,
+        explanation: "女性への命令は語尾の「ナ」を取ります。頭のアリフにはハムザを書きません。"
+      },
+      {
+        type: "grammar",
+        text: "「（あなたたち男性は）教室に入ってください」\n「يَا طُلَّابُ، ___ الْفَصْلَ (Yā ṭullābu, ___ al-faṣla)」",
+        options: [
+          "اِدْخُلُوا (idkhulū)",
+          "اُدْخُلُوا (udkhulū - ハムザなし)", // 正解
+          "أُدْخُلُوا (udkhulū - ハムザあり)",
+          "اُدْخُلُونَ (udkhulūna)"
+        ],
+        correctIndex: 1,
+        explanation: "現在形（yadkhulūna）の真ん中が「ウ」なので、頭も「ウ」になります。ハムザ記号のないアリフを使います。"
+      }
+    ]
+  },
+  {
+    id: 129,
+    level: "文法",
+    category: "受け身",
+    title: "Lesson 29: 受け身",
+    contentPlain: "アラビア語の受動態は、「母音（ハラカ）」を塗り替えることで作ります。過去形は「ウ・イ・ア（Fu'ila）」のリズム。現在形は「ユ・ア・ウ（Yu'alu）」です。",
+    
+    imageUrls: [
+      "/image/grammar/lesson29_1.jpg", 
+      "/image/grammar/lesson29_2.jpg", 
+      "/image/grammar/lesson29_3.jpg", 
+      "/image/grammar/lesson29_4.jpg", 
+      "/image/grammar/lesson29_5.jpg", 
+      "/image/grammar/lesson29_6.jpg", 
+      "/image/grammar/lesson29_7.jpg", 
+      "/image/grammar/lesson29_8.jpg", 
+    ],
+    
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    questions: [
+      {
+        type: "grammar",
+        text: "動詞の過去形「書いた（kataba）」を、受動態「書かれた」にする正しい形は？\n（ヒント：過去形の受け身は Fu'ila のリズム）",
+        options: [
+          "كُتِبَ (kutiba)", // 正解
+          "كَاتِب (kātib)",
+          "كِتَاب (kitāb)",
+          "يَكْتُبُ (yaktubu)"
+        ],
+        correctIndex: 0,
+        explanation: "過去形の受動態は、最初の文字を「ウ」、最後から2番目の文字を「イ」にする「フイラ（Fu'ila）」のパターンを作ります。"
+      },
+      {
+        type: "grammar",
+        text: "動詞の現在形「飲む（yashrabu）」を、受動態「飲まれる」にする正しい形は？\n（ヒント：現在形の受け身は Yu'alu のリズム）",
+        options: [
+          "يُشْرَبُ (yushrabu)", // 正解
+          "يَشْرَبُ (yashrabu)",
+          "شُرِبَ (shuriba)",
+          "شَارِب (shārib)"
+        ],
+        correctIndex: 0,
+        explanation: "現在形の受動態は、語頭を「ユ（yu）」にし、最後から2番目の文字を「ア（a）」にする「ユフアル（Yuf'alu）」のパターンです。"
+      },
+      {
+        type: "grammar",
+        text: "「その本は読まれました」正しい文はどれですか？\n（ヒント：本 al-kitāb は男性名詞）",
+        options: [
+          "قُرِئَ الْكِتَابُ (Quri'a al-kitābu)", // 正解
+          "قَرَأَ الْكِتَابَ (Qara'a al-kitāba)",
+          "قُرِئَتِ الْكِتَابُ (Quri'ati al-kitābu)",
+          "قُرِئَ الْكِتَابَ (Quri'a al-kitāba)"
+        ],
+        correctIndex: 0,
+        explanation: "「読まれた（quri'a）」＋「本（al-kitābu）」の形です。受動態の主語（代理主語）は主格（u）になります。"
+      },
+      {
+        type: "grammar",
+        text: "「そのカバンは盗まれました」\n（ヒント：カバン ḥaqība は女性名詞）",
+        options: [
+          "سُرِقَتِ الْحَقِيبَةُ (Suriqati al-ḥaqībatu)", // 正解
+          "سُرِقَ الْحَقِيبَةُ (Suriqa al-ḥaqībatu)",
+          "سَرَقَتِ الْحَقِيبَةُ (Saraqati al-ḥaqībatu)",
+          "سُرِقَتِ الْحَقِيبَةَ (Suriqati al-ḥaqībata)"
+        ],
+        correctIndex: 0,
+        explanation: "カバン（ḥaqība）は女性名詞なので、動詞も「彼女」の形（Suriqat）に合わせます。"
+      },
+      {
+        type: "grammar",
+        text: "次の文の意味として正しいものは？\n「يُسْمَعُ الصَّوْتُ (Yusma'u aṣ-ṣawtu)」",
+        options: [
+          "その声は聞こえる（聞かれる）", // 正解
+          "彼は声を聞く",
+          "その声は聞かれた（過去）",
+          "声を聞け（命令）"
+        ],
+        correctIndex: 0,
+        explanation: "Yusma'u（ユ・ア・ウ）は現在形の受動態です。「聞かれる＝聞こえる」という意味になります。"
+      },
+      {
+        type: "grammar",
+        text: "「殺された（qutila）」を表すアラビア語は？",
+        options: [
+          "قُتِلَ (qutila)", // 正解
+          "قَتَلَ (qatala)",
+          "يُقْتَلُ (yuqtalu)",
+          "قَاتِل (qātil)"
+        ],
+        correctIndex: 0,
+        explanation: "Qutila（ウ・イ・ア）は過去形の受動態です。"
+      },
+      {
+        // ★修正：能動態→受動態への書き換え問題
+        type: "grammar",
+        text: "次の文を受動態に書き換えた正しい形は？\n能動態：「学生は手紙を書きました」\n（kātaba aṭ-ṭālibu ar-risālata）",
+        options: [
+          "كُتِبَتِ الرِّسَالَةُ (Kutibati ar-risālatu)", // 正解
+          "كُتِبَتِ الرِّسَالَةَ (Kutibati ar-risālata)",
+          "كُتِبَ الرِّسَالَةُ (Kutiba ar-risālatu)",
+          "كَتَبَتِ الرِّسَالَةُ (Katabati ar-risālatu)"
+        ],
+        correctIndex: 0,
+        explanation: "目的語「手紙（女性名詞）」が主語になるため、動詞は「書かれた（女性形）」になり、手紙は主格（u）になります。"
+      },
+      {
+        type: "grammar",
+        text: "「そのドアは開けられています（状態・現在）」\n（ヒント：開ける fataḥa → 受動 yuftaḥu）",
+        options: [
+          "اَلْبَابُ يُفْتَحُ (Al-bābu yuftaḥu)", // 正解
+          "اَلْبَابُ يَفْتَحُ (Al-bābu yaftaḥu)",
+          "اَلْبَابُ فُتِحَ (Al-bābu futiḥa)",
+          "اَلْبَابُ مَفْتُوحٌ (Al-bābu maftūḥun)"
+        ],
+        correctIndex: 0,
+        explanation: "現在受動態 Yuftaḥu を使います。「ドアが開けられる（開く）」という状態を表します。"
+      },
+      {
+        type: "grammar",
+        text: "「彼ら（男性複数）は助けられた（支援された）」正しい形は？\n（ヒント：助ける naṣara → 受動 nuṣira）",
+        options: [
+          "نُصِرُوا (nuṣirū)", // 正解
+          "نَصَرُوا (naṣarū)",
+          "نُصِرَتْ (nuṣirat)",
+          "يُنْصَرُونَ (yunṣarūna)"
+        ],
+        correctIndex: 0,
+        explanation: "基本形 nuṣira に、彼ら（複数）の語尾「ウー」を付けます。Nuṣirū（彼らは助けられた）。"
+      },
+      {
+        // ★修正：「レッスンは理解された」という標準的な文
+        type: "grammar",
+        text: "「そのレッスンは（よく）理解されました」\n（ヒント：理解する fahima → 受動 fuhima）",
+        options: [
+          "فُهِمَ الدَّرْسُ (Fuhima ad-darsu)", // 正解
+          "فَهِمَ الدَّرْسُ (Fahima ad-darsu)",
+          "فُهِمَ الدَّرْسَ (Fuhima ad-darsa)",
+          "يُفْهَمُ الدَّرْسُ (Yufhamu ad-darsu)"
+        ],
+        correctIndex: 0,
+        explanation: "「理解された」は過去受動（フイラ）なので Fuhima です。主語（レッスン）は主格（u）になります。"
+      }
+    ]
+  },
+  {
+    id: 130,
+    level: "文法",
+    category: "動詞の派生形",
+    title: "Lesson 30: 動詞の派生形",
+    contentPlain: "アラビア語の動詞は基本の3語根動詞(3つの文字からなる基本動詞)から派生した「派生形（2形～10形）」があり、アラビア語の中でも派生形の方がよく使われます。「型」とだいたいの意味はその型によって決まっているので、意味を掴んでどんどんボキャブラリーを増やしましょう。",
+    
+    imageUrls: [
+      "/image/grammar/lesson30_1.jpg", 
+      "/image/grammar/lesson30_2.jpg", 
+      "/image/grammar/lesson30_3.jpg", 
+      "/image/grammar/lesson30_4.jpg", 
+      "/image/grammar/lesson30_5.jpg", 
+      "/image/grammar/lesson30_6.jpg", 
+      "/image/grammar/lesson30_7.jpg", 
+    ],
+    
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    questions: [
+      // --- 第2形 ---
+      {
+        type: "grammar",
+        text: "「先生は生徒たちにアラビア語を教えました」をアラビア語で言うと？",
+        options: [
+          "دَرَّسَ الْمُدَرِّسُ الطُّلَّابَ اللُّغَةَ الْعَرَبِيَّةَ", // 正解
+          "دَرَسَ الْمُدَرِّسُ الطُّلَّابَ اللُّغَةَ الْعَرَبِيَّةَ",
+          "أَدْرَسَ الْمُدَرِّسُ الطُّلَّابَ اللُّغَةَ الْعَرَبِيَّةَ",
+          "تَدَارَسَ الْمُدَرِّسُ الطُّلَّابَ اللُّغَةَ الْعَرَبِيَّةَ"
+        ],
+        correctIndex: 0,
+        explanation: "【第2形】です。「勉強する（darasa）」ではなく、強調・他動詞化する第2形「教える（darrasa）」を使います。"
+      },
+      {
+        type: "grammar",
+        text: "「تُنَظِّفُ الْأُمُّ الْغُرْفَةَ كُلَّ يَوْمٍ」の意味は？",
+        options: [
+          "母は毎日、部屋を掃除します", // 正解
+          "母は毎日、部屋を掃除しました",
+          "母は毎日、部屋を見ます",
+          "母は毎日、部屋に入ります"
+        ],
+        correctIndex: 0,
+        explanation: "【第2形】です。tunaẓẓifu は「掃除する（naẓẓafa）」の現在形です。"
+      },
+      
+      // --- 第3形 ---
+      {
+        type: "grammar",
+        text: "「彼は先月、サウジアラビアへ旅行しました」をアラビア語で言うと？",
+        options: [
+          "سَافَرَ إِلَى السَّعُودِيَّةِ الشَّهْرَ الْمَاضِيَ", // 正解
+          "سَفَرَ إِلَى السَّعُودِيَّةِ الشَّهْرَ الْمَاضِيَ",
+          "أَسْفَرَ إِلَى السَّعُودِيَّةِ الشَّهْرَ الْمَاضِيَ",
+          "يُسَافِرُ إِلَى السَّعُودِيَّةِ الشَّهْرَ الْمَاضِيَ"
+        ],
+        correctIndex: 0,
+        explanation: "【第3形】です。「旅行する」は第3形（sāfara）の動詞です。"
+      },
+      {
+        type: "grammar",
+        text: "「أُشَاهِدُ التِّلْفَازَ كُلَّ لَيْلَةٍ」の意味は？",
+        options: [
+          "私は毎晩、テレビを観ます", // 正解
+          "私は毎晩、テレビを観ました",
+          "彼は毎晩、テレビを観ます",
+          "私は毎晩、テレビを目撃します"
+        ],
+        correctIndex: 0,
+        explanation: "【第3形】です。ushāhidu は「観る（shāhada）」の現在形・一人称単数です。"
+      },
+
+      // --- 第4形 ---
+      {
+        type: "grammar",
+        text: "「私は友人に手紙を送りました」をアラビア語で言うと？",
+        options: [
+          "أَرْسَلْتُ الرِّسَالَةَ إِلَى صَدِيقِي", // 正解
+          "رَسَلْتُ الرِّسَالَةَ إِلَى صَدِيقِي",
+          "رَاسَلْتُ الرِّسَالَةَ إِلَى صَدِيقِي",
+          "تَرَاسَلْتُ الرِّسَالَةَ إِلَى صَدِيقِي"
+        ],
+        correctIndex: 0,
+        explanation: "【第4形】です。「送る（arsala）」は代表的な第4形動詞です。"
+      },
+      {
+        type: "grammar",
+        text: "「يُخْرِجُ الْوَلَدُ الْكِتَابَ مِنَ الْحَقِيبَةِ」の意味は？",
+        options: [
+          "男の子はカバンから本を取り出します", // 正解
+          "男の子はカバンから本と出かけます",
+          "男の子はカバンから本を卒業します",
+          "男の子はカバンから本を取り出しました"
+        ],
+        correctIndex: 0,
+        explanation: "【第4形】です。yukhriju は「出す（akhraja）」の現在形です。「出る（kharaja）」は第1形です。"
+      },
+      {
+        type: "grammar",
+        text: "「あなたは何がしたいですか？」をアラビア語で言うと？",
+        options: [
+          "مَاذَا تُرِيدُ ؟", // 正解
+          "مَاذَا تَرِيدُ ؟",
+          "مَاذَا تُرَادُ ؟",
+          "مَاذَا أَرَادَ ؟"
+        ],
+        correctIndex: 0,
+        explanation: "【第4形】です。「〜したい（arāda）」の現在形 turīdu を使います。第4形なので現在形の頭の母音は「ウ」です。"
+      },
+
+      // --- 第5形 ---
+      {
+        type: "grammar",
+        text: "「تَكَلَّمَ الرَّجُلُ بِاللُّغَةِ الْعَرَبِيَّةِ」の意味は？",
+        options: [
+          "その男はアラビア語で話しました", // 正解
+          "その男はアラビア語で話します",
+          "その男はアラビア語を学びました",
+          "その男はアラビア語を知っています"
+        ],
+        correctIndex: 0,
+        explanation: "【第5形】です。takallama は過去形です。現在形なら yatakallamu になります。"
+      },
+      {
+        type: "grammar",
+        text: "「私たちは遅れません」をアラビア語で言うと？",
+        options: [
+          "نَحْنُ لَا نَتَأَخَّرُ", // 正解
+          "نَحْنُ لَا نُتَأَخَّرُ",
+          "نَحْنُ لَا نَتَأَخِّرُ",
+          "نَحْنُ لَا نُؤَخِّرُ"
+        ],
+        correctIndex: 0,
+        explanation: "【第5形】です。「遅れる（ta'akhkhara）」の現在形です。"
+      },
+
+      // --- 第6形 ---
+      {
+        type: "grammar",
+        text: "「تَعَاوَنَ الْمُوَظَّفُونَ فِي الْعَمَلِ」の意味は？",
+        options: [
+          "社員たちは仕事で協力し合いました", // 正解
+          "社員たちは仕事を手伝いました",
+          "社員たちは仕事で助けを求めました",
+          "社員たちは仕事を始めました"
+        ],
+        correctIndex: 0,
+        explanation: "【第6形】です。ta'āwana は「互いに協力する」という意味です。"
+      },
+      {
+        type: "grammar",
+        text: "「冬には雪が降り落ちます」をアラビア語で言うと？",
+        options: [
+          "يَتَسَاقَطُ الثَّلْجُ فِي الشِّتَاءِ", // 正解
+          "يُتَسَاقَطُ الثَّلْجُ فِي الشِّتَاءِ",
+          "يَسْقُطُ الثَّلْجُ فِي الشِّتَاءِ",
+          "يُسْقِطُ الثَّلْجُ فِي الشِّتَاءِ"
+        ],
+        correctIndex: 0,
+        explanation: "【第6形】です。「次々と落ちる」というニュアンスで第6形 yatasāqaṭu がよく使われます。"
+      },
+
+      // --- 第7形 ---
+      {
+        type: "grammar",
+        text: "「اِنْكَسَرَ الْكُوبُ」の意味は？",
+        options: [
+          "コップが割れました", // 正解
+          "コップを割りました",
+          "コップが落ちました",
+          "コップを買いました"
+        ],
+        correctIndex: 0,
+        explanation: "【第7形】です。inkasara は「割る（kasara）」の自動詞形「割れる」です。"
+      },
+      {
+        type: "grammar",
+        text: "「ここで電話（通話）が切れます」をアラビア語で言うと？",
+        options: [
+          "يَنْقَطِعُ الْاِتِّصَالُ هُنَا", // 正解
+          "يُنْقَطَعُ الْاِتِّصَالُ هُنَا",
+          "يَقْطَعُ الْاِتِّصَالُ هُنَا",
+          "يُقَطِّعُ الْاِتِّصَالُ هُنَا"
+        ],
+        correctIndex: 0,
+        explanation: "【第7形】です。「切れる（inqaṭa'a）」の現在形 yanqaṭi'u を選びます。"
+      },
+
+      // --- 第8形 ---
+      {
+        type: "grammar",
+        text: "「يَشْتَغِلُ أَبِي فِي شَرِكَةٍ كَبِيرَةٍ」の意味は？",
+        options: [
+          "父は大きな会社で働いています", // 正解
+          "父は大きな会社で働きました",
+          "父は大きな会社を作りました",
+          "父は大きな会社で忙しいです"
+        ],
+        correctIndex: 0,
+        explanation: "【第8形】です。yashtaghilu は「働く」の現在形です。"
+      },
+      {
+        type: "grammar",
+        text: "「私たちはラジオでニュースを聞きました」をアラビア語で言うと？",
+        options: [
+          "اِسْتَمَعْنَا إِلَى الْأَخْبَارِ فِي الرَّادِيُو", // 正解
+          "اِسْتَمَعْتُمْ إِلَى الْأَخْبَارِ فِي الرَّادِيُو",
+          "سَمِعْنَا إِلَى الْأَخْبَارِ فِي الرَّادِيُو",
+          "اِسْتَمَعُوا إِلَى الْأَخْبَارِ فِي الرَّادِيُو"
+        ],
+        correctIndex: 0,
+        explanation: "【第8形】です。「聞く（istama'a）」は第10形のように見えますが第8形です。"
+      },
+      {
+        type: "grammar",
+        text: "「اِنْتَظَرْتُ صَدِيقِي فِي الْمَحَطَّةِ」の意味は？",
+        options: [
+          "私は駅で友人を待ちました", // 正解
+          "私は駅で友人を見ました",
+          "私は駅で友人と会いました",
+          "私は駅で友人を送りました"
+        ],
+        correctIndex: 0,
+        explanation: "【第8形】です。intaẓara は「待つ」という意味です。"
+      },
+
+      // --- 第10形 ---
+      {
+        type: "grammar",
+        text: "「彼は仕事でパソコンを使いました」をアラビア語で言うと？",
+        options: [
+          "اِسْتَخْدَمَ الْكُمِبِيُوتَرَ فِي الْعَمَلِ", // 正解
+          "خَدَمَ الْكُمِبِيُوتَرَ فِي الْعَمَلِ",
+          "اِسْتَخَدَمَ الْكُمِبِيُوتَرَ فِي الْعَمَلِ",
+          "اِخْدَمَ الْكُمِبِيُوتَرَ فِي الْعَمَلِ"
+        ],
+        correctIndex: 0,
+        explanation: "【第10形】です。「使う（istakhdama）」は代表的な第10形動詞です。"
+      },
+      {
+        type: "grammar",
+        text: "「يَسْتَقْبِلُ الْمُدِيرُ الضَّيْفَ」の意味は？",
+        options: [
+          "マネージャーは客を出迎えます", // 正解
+          "マネージャーは客を受け入れました",
+          "マネージャーは客と会います",
+          "マネージャーは客にキスします"
+        ],
+        correctIndex: 0,
+        explanation: "【第10形】です。yastaqbilu は「出迎える・受信する」の現在形です。"
+      },
+
+      // --- 総合 ---
+      {
+        type: "grammar",
+        text: "「ムハンマドは予習を準備します（持ってきます）」をアラビア語で言うと？",
+        options: [
+          "يُحْضِرُ مُحَمَّدٌ التَّحْضِيرَ", // 正解
+          "يَحْضُرُ مُحَمَّدٌ التَّحْضِيرَ",
+          "يُحَضِّرُ مُحَمَّدٌ التَّحْضِيرَ",
+          "يَتَحَضَّرُ مُحَمَّدٌ التَّحْضِيرَ"
+        ],
+        correctIndex: 0,
+        explanation: "【第4形】です。「準備する」は yuḥḍiru（第4形）、「出席する」は yaḥḍuru（第1形）です。"
+      },
+      {
+        type: "grammar",
+        text: "「أَسْتَغْفِرُ اللهَ」の意味は？",
+        options: [
+          "私は神に赦しを求めます", // 正解
+          "神は私を赦しました",
+          "私は神を赦します",
+          "私は神に感謝します"
+        ],
+        correctIndex: 0,
+        explanation: "【第10形】です。astaghfiru は「赦しを求める（istaghfara）」の現在形です。"
+      }
+    ]
+  },
+  {
+    id: 131,
+    level: "文法",
+    category: "関係代名詞",
+    title: "Lesson 31: 関係代名詞",
+    contentPlain: "文章と文章をつなぐ「接着剤（〜するところの）」の役割をする言葉です。英語のwhichやwhoにあたりますが、独特のルール「特定なら接着剤あり、不特定なら接着剤なし」と、「必ず代名詞で振り返る（アーイド）」という2点がポイントです。",
+    
+    imageUrls: [
+      "/image/grammar/lesson31_1.jpg", 
+      "/image/grammar/lesson31_2.jpg", 
+      "/image/grammar/lesson31_3.jpg", 
+      "/image/grammar/lesson31_4.jpg", 
+      "/image/grammar/lesson31_5.jpg", 
+      "/image/grammar/lesson31_6.jpg", 
+      "/image/grammar/lesson31_7.jpg", 
+      "/image/grammar/lesson31_8.jpg", 
+    ],
+    
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    questions: [
+      {
+        type: "grammar",
+        text: "「昨日来たその学生（男性）は誰ですか？」\n「مَنِ الطَّالِبُ ___ جَاءَ أَمْسِ ؟」",
+        options: [
+          "الَّذِي (allaḏī)", // 正解
+          "الَّتِي (allatī)",
+          "الَّذِينَ (allaḏīna)",
+          "مَا (mā)"
+        ],
+        correctIndex: 0,
+        explanation: "先行詞「その学生（aṭ-ṭālibu）」は【男性・単数】なので、関係代名詞は「アラディー」を使います。"
+      },
+      {
+        type: "grammar",
+        // ★解説修正：アーイドの省略について追記
+        text: "「私は、通りにあるその車（女性名詞）を見ました」\n「رَأَيْتُ السَّيَّارَةَ ___ فِي الشَّارِعِ」",
+        options: [
+          "الَّتِي (allatī)", // 正解
+          "الَّذِي (allaḏī)",
+          "الَّذِينَ (allaḏīna)",
+          "اللَّاتِي (allātī)"
+        ],
+        correctIndex: 0,
+        explanation: "先行詞「その車」は女性単数なので「アッラティー」です。ここでのポイントは、本来「通りにいる『それ（彼女）』」という帰着代名詞（hiya）が隠れている点です（التي [هي] في الشارع）。名詞文や前置詞句が続く場合、この代名詞はよく省略されます。"
+      },
+      {
+        type: "grammar",
+        text: "「工場で働いている（特定の）男性たちは勤勉です」\n「اَلرِّجَالُ ___ يَعْمَلُونَ فِي الْمَصْنَعِ مُجْتَهِدُونَ」",
+        options: [
+          "الَّذِينَ (allaḏīna)", // 正解
+          "الَّذِي (allaḏī)",
+          "اللَّاتِي (allātī)",
+          "الَّتِي (allatī)"
+        ],
+        correctIndex: 0,
+        explanation: "先行詞「その男性たち（ar-rijālu）」は【男性・複数】なので、「アッラズィーナ」を使います。"
+      },
+      {
+        type: "grammar",
+        text: "「病院に行きたい（特定の）女性たちはここにいます」\n「اَلنِّسَاءُ ___ يُرِدْنَ الذَّهَابَ إِلَى الْمُسْتَشْفَى هُنَا」",
+        options: [
+          "اللَّاتِي (allātī)", // 正解
+          "الَّتِي (allatī)",
+          "الَّذِينَ (allaḏīna)",
+          "الَّذِي (allaḏī)"
+        ],
+        correctIndex: 0,
+        explanation: "先行詞「その女性たち（an-nisā'u）」は【女性・複数】なので、「アッラーティー」を使います。"
+      },
+      {
+        type: "grammar",
+        text: "「私が買ったその本（複数）はどこですか？」",
+        options: [
+          "أَيْنَ الْكُتُبُ الَّتِي اشْتَرَيْتُهَا؟ (allatī ... -hā)", // 正解
+          "أَيْنَ الْكُتُبُ الَّذِي اشْتَرَيْتُهُ؟ (allaḏī ... -hu)",
+          "أَيْنَ الْكُتُبُ الَّذِينَ اشْتَرَيْتُهُمْ؟ (allaḏīna ... -hum)",
+          "أَيْنَ الْكُتُبُ الَّتِي اشْتَرَيْتُ؟ (allatī ... [なし])"
+        ],
+        correctIndex: 0,
+        explanation: "先行詞「その本たち（al-kutubu）」は【人間以外の複数】なので女性単数扱いとなり「アッラティー」を使います。また、関係節の中で「それらを買った」と言い直すための帰着代名詞（アーイド）「ハー (-hā)」が動詞の後ろに必要です。"
+      },
+      {
+        type: "grammar",
+        text: "「私は、英語を話す（ある）学生を見ました」",
+        options: [
+          "رَأَيْتُ طَالِبًا يَتَكَلَّمُ الْإِنْجِلِيزِيَّةَ (ṭāliban yatakallamu...)", // 正解
+          "رَأَيْتُ طَالِبًا الَّذِي يَتَكَلَّمُ الْإِنْجِلِيزِيَّةَ (ṭāliban allaḏī...)",
+          "رَأَيْتُ الطَّالِبَ يَتَكَلَّمُ الْإِنْجِلِيزِيَّةَ (aṭ-ṭāliba yatakallamu...)",
+          "رَأَيْتُ طَالِبًا هُوَ يَتَكَلَّمُ الْإِنْجِلِيزِيَّةَ"
+        ],
+        correctIndex: 0,
+        explanation: "先行詞「ある学生（ṭāliban）」は非限定（定冠詞なし）なので、関係代名詞（接着剤）を使ってはいけません。そのまま文章を続けます。"
+      },
+      {
+        type: "grammar",
+        text: "「その男性は、私が（彼と）一緒に住んでいる人です」\n「اَلرَّجُلُ الَّذِي أَسْكُنُ ___」",
+        options: [
+          "مَعَهُ (ma'a-hu)", // 正解
+          "مَعَ (ma'a)",
+          "مَعَهَا (ma'a-hā)",
+          "مَعِي (ma'ī)"
+        ],
+        correctIndex: 0,
+        explanation: "「一緒に（ma'a）」という前置詞の後ろにも、先行詞（男性）を指す「フ (-hu)」を必ず付けます。英語のように前置詞で終わらせてはいけません。"
+      },
+      {
+        type: "grammar",
+        // ★追加：関係代名詞「マ（もの・こと）」
+        text: "「あなたが聞いた『こと（もの）』を書いてください」\n「اُكْتُبْ ___ سَمِعْتَ」",
+        options: [
+          "مَا (mā)", // 正解
+          "مَنْ (man)",
+          "الَّذِي (allaḏī)",
+          "الَّتِي (allatī)"
+        ],
+        correctIndex: 0,
+        explanation: "先行詞が含まれている関係代名詞です。「～するもの（こと）」という抽象的な内容や物事を指す場合、「マー (mā)」を使います。英語の what に近いです。"
+      },
+      {
+        type: "grammar",
+        // ★追加：関係代名詞「マン（人・者）」
+        text: "「知識を持っている『人（者）』に聞きなさい」\n「اِسْأَلْ ___ يَعْلَمُ」",
+        options: [
+          "مَنْ (man)", // 正解
+          "مَا (mā)",
+          "الَّذِي (allaḏī)",
+          "الَّتِي (allatī)"
+        ],
+        correctIndex: 0,
+        explanation: "「～する人（者）」と特定の人を指さずに言う場合、関係代名詞「マン (man)」を使います。性別や数に関係なく使えます。"
+      },
+      {
+        type: "grammar",
+        text: "正しい文を選んでください。\n「私が書いたその手紙は、机の上にあります」",
+        options: [
+          "اَلرِّسَالَةُ الَّتِي كَتَبْتُهَا عَلَى الْمَكْتَبِ", // 正解
+          "اَلرِّسَالَةُ كَتَبْتُهَا عَلَى الْمَكْتَبِ",
+          "اَلرِّسَالَةُ الَّتِي كَتَبْتُ عَلَى الْمَكْتَبِ",
+          "رِسَالَةٌ الَّتِي كَتَبْتُهَا عَلَى الْمَكْتَبِ"
+        ],
+        correctIndex: 0,
+        explanation: "先行詞「その手紙（al-risāla）」は限定なので「allatī」が必要。さらに「それを書いた」というアーイド「-hā」も必要です。"
+      }
+    ]
+  },
+  {
+    id: 132,
+    level: "文法",
+    category: "能動分詞・受動分詞",
+    title: "Lesson 32: 能動分詞・受動分詞",
+    contentPlain: "アラビア語の「能動分詞（〜する人・している）」と「受動分詞（〜されたもの・されている）」の作り方です。英語でいう「ing (現在分詞)」と「ed (過去分詞)」にあたります。",
+    
+    imageUrls: [
+      "/image/grammar/lesson32_1.jpg", 
+      "/image/grammar/lesson32_2.jpg", 
+      "/image/grammar/lesson32_3.jpg", 
+      "/image/grammar/lesson32_4.jpg", 
+      "/image/grammar/lesson32_5.jpg", 
+    ],
+    
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    questions: [
+      // --- 基本形 (第1形) ---
+      {
+        type: "grammar",
+        text: "「私は市場へ行きます（行っているところです）」\n（ヒント：能動分詞を使って「〜している」を表す）\n「أَنَا ___ إِلَى السُّوقِ」",
+        options: [
+          "ذَاهِبٌ (dhāhibun)", // 正解
+          "ذَهَبٌ (dhahabun)",
+          "مَذْهُوبٌ (madh-hūbun)",
+          "ذَهَّابٌ (dhahhābun)"
+        ],
+        correctIndex: 0,
+        explanation: "第1形の能動分詞は「ファーイル（Fā'il）」の形です。「行く（dhahaba）」→「行く人・行っている（dhāhib）」となります。"
+      },
+      {
+        type: "grammar",
+        text: "「そのドアは開いています（開けられています）」\n（ヒント：受動分詞を使って状態を表す）\n「اَلْبَابُ ___」",
+        options: [
+          "مَفْتُوحٌ (maftūḥun)", // 正解
+          "فَاتِحٌ (fātiḥun)",
+          "فَتَّاحٌ (fattāḥun)",
+          "مُفْتَتَحٌ (muftataḥun)"
+        ],
+        correctIndex: 0,
+        explanation: "第1形の受動分詞は「マフウール（Maf'ūl）」の形です。「開ける（fataḥa）」→「開けられた（maftūḥ）」となります。"
+      },
+      {
+        type: "grammar",
+        text: "「あなたは（話を）理解していますか？」\n「هَلْ أَنْتَ ___ ؟」",
+        options: [
+          "فَاهِمٌ (fāhimun)", // 正解
+          "مَفْهُومٌ (mafhūmun)",
+          "فَهَّامٌ (fahhāmun)",
+          "مُتَفَهِّمٌ (mutifahhimun)"
+        ],
+        correctIndex: 0,
+        explanation: "「理解する（fahima）」の能動分詞「ファーヒム」を使って、進行形のような意味（分かっている状態）を表せます。"
+      },
+      {
+        type: "grammar",
+        text: "「この席は予約されています（取られています）」\n（ヒント：予約する/確保する ḥajaza）\n「هَذَا الْمَقْعَدُ ___」",
+        options: [
+          "مَحْجُوزٌ (maḥjūzun)", // 正解
+          "حَاجِزٌ (ḥājizun)",
+          "مُحْتَجِزٌ (muḥtajizun)",
+          "حِجَازٌ (ḥijāzun)"
+        ],
+        correctIndex: 0,
+        explanation: "「確保された」という受動の意味なので、受動分詞（マフウール形）を使います。"
+      },
+      
+      // --- 派生形 (Mu- で始まる形) ---
+      {
+        type: "grammar",
+        // ★修正箇所: li-l-lughati に変更
+        text: "「彼はアラビア語の先生（教える人）です」\n（ヒント：第2形 darrasa の能動分詞）\n「هُوَ ___ لِلُّغَةِ الْعَرَبِيَّةِ」",
+        options: [
+          "مُدَرِّسٌ (mudarrisun)", // 正解
+          "مُدَرَّسٌ (mudarrasun)",
+          "دَارِسٌ (dārisun)",
+          "مَدْرُوسٌ (madrūsun)"
+        ],
+        correctIndex: 0,
+        explanation: "派生形の分詞は頭に「ム (Mu-)」が付きます。能動分詞（〜する人）は、後ろから2番目の母音が「イ (i)」になります（ムダッリス）。"
+      },
+      {
+        type: "grammar",
+        text: "「彼は旅行者です（旅行しています）」\n（ヒント：第3形 sāfara の能動分詞）\n「هُوَ ___」",
+        options: [
+          "مُسَافِرٌ (musāfirun)", // 正解
+          "مُسَافَرٌ (musāfarun)",
+          "سَافِرٌ (sāfirun)",
+          "مُسْفِرٌ (musfirun)"
+        ],
+        correctIndex: 0,
+        explanation: "第3形の能動分詞です。Mu-sāf**i**r（ムサーフィル）となります。"
+      },
+      {
+        type: "grammar",
+        text: "「この車は中古（使われたもの）です」\n（ヒント：第10形 istakhdama の受動分詞）\n「هَذِهِ السَّيَّارَةُ ___」",
+        options: [
+          "مُسْتَخْدَمَةٌ (mustakhdamatun)", // 正解
+          "مُسْتَخْدِمَةٌ (mustakhdimatun)",
+          "مَخْدُومَةٌ (makhdūmatun)",
+          "خَادِمَةٌ (khādimatun)"
+        ],
+        correctIndex: 0,
+        explanation: "派生形の受動分詞（〜された）は、後ろから2番目の母音が「ア (a)」になります（ムスタフ**ダ**マ）。「使う人（ユーザー）」なら「ムスタフ**ディ**マ」です。"
+      },
+      {
+        type: "grammar",
+        text: "「社長（管理者）は事務所にいます」\n（ヒント：第4形 adāra の能動分詞）\n「___ مَوْجُودٌ فِي الْمَكْتَبِ」",
+        options: [
+          "اَلْمُدِيرُ (al-mudīru)", // 正解
+          "اَلْمُدَارُ (al-mudāru)",
+          "اَلدَّائِرُ (ad-dā'iru)",
+          "اَلْمَدُورُ (al-madūru)"
+        ],
+        correctIndex: 0,
+        explanation: "「管理する（adāra）」の能動分詞は「ムディール（mudīr）」です。日常会話で「マネージャー、社長」としてよく使われます。"
+      },
+      {
+        type: "grammar",
+        text: "「私はあなたを待っています（待っている人です）」\n（ヒント：第8形 intaẓara の能動分詞）\n「أَنَا ___ لَكَ」",
+        options: [
+          "مُنْتَظِرٌ (muntaẓirun)", // 正解
+          "مُنْتَظَرٌ (muntaẓarun)",
+          "نَاظِرٌ (nāẓirun)",
+          "مَنْظُورٌ (manẓūrun)"
+        ],
+        correctIndex: 0,
+        explanation: "「待つ（intaẓara）」の能動分詞なので、母音はイ（ムンタ**ジ**ル）です。逆に「待たれている（期待されている）結果」などは「ムンタ**ザ**ル」と言います。"
+      },
+      {
+        type: "grammar",
+        text: "「彼はムスリム（イスラム教徒）です」\n（ヒント：第4形 aslama = 服従する、の能動分詞）\n「هُوَ ___」",
+        options: [
+          "مُسْلِمٌ (muslimun)", // 正解
+          "مُسْلَمٌ (muslamun)",
+          "سَالِمٌ (sālimun)",
+          "مَسْلُومٌ (maslūmun)"
+        ],
+        correctIndex: 0,
+        explanation: "「イスラム教徒」という単語は、動詞「アスラマ（神に服従した）」の能動分詞「ムスリム（服従する人）」から来ています。"
+      }
+    ]
+  }, 
+  {
+    id: 133,
+    level: "文法",
+    category: "動名詞",
+    title: "Lesson 33: 動名詞",
+    contentPlain: "アラビア語の「動名詞（マスダル）」のまとめです。英語の「ing（～すること）」や「tion（～という行為）」にあたる名詞です。ここでも「基本形（1形）」と「派生形（2〜10形）」でルールが完全に分かれます。",
+    
+    imageUrls: [
+      "/image/grammar/lesson33_1.jpg", 
+      "/image/grammar/lesson33_2.jpg", 
+      "/image/grammar/lesson33_3.jpg", 
+      "/image/grammar/lesson33_4.jpg", 
+      "/image/grammar/lesson33_5.jpg", 
+      "/image/grammar/lesson33_6.jpg", 
+      "/image/grammar/lesson33_7.jpg", 
+      "/image/grammar/lesson33_8.jpg", 
+    ],
+    
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    questions: [
+      {
+        type: "grammar",
+        text: "動詞「دَرَّسَ（教える・第2形）」の動名詞（教育・教えること）は？",
+        options: [
+          "تَدْرِيسٌ (tadrīsun)", // 正解
+          "مُدَرِّسٌ (mudarrisun)",
+          "دَرْسٌ (darsun)",
+          "دِرَاسَةٌ (dirāsatun)"
+        ],
+        correctIndex: 0,
+        explanation: "第2形（Fa‘‘ala）の動名詞は、頭にタが付く「タフイール（Taf‘īl）」の形になります。Mudarris は「先生（能動分詞）」なので注意しましょう。"
+      },
+      {
+        type: "grammar",
+        text: "動詞「أَسْلَمَ（服従した・第4形）」の動名詞（神への帰依・イスラーム）は？",
+        options: [
+          "إِسْلَامٌ (islāmun)", // 正解
+          "مُسْلِمٌ (muslimun)",
+          "سَلَامٌ (salāmun)",
+          "تَسْلِيمٌ (taslīmun)"
+        ],
+        correctIndex: 0,
+        explanation: "第4形の動名詞パターンは「イフアール（If‘āl）」です。Aslama → Islām となります。"
+      },
+      {
+        type: "grammar",
+        text: "動詞「دَخَلَ（入る・第1形）」の動名詞（入り口・入ること）は？\n（ヒント：不規則ですが、動作を表す基本形によくあるパターンです）",
+        options: [
+          "دُخُولٌ (dukhūlun)", // 正解
+          "دَاخِلٌ (dākhilun)",
+          "مَدْخَلٌ (madkhalun)",
+          "إِدْخَالٌ (idkhālun)"
+        ],
+        correctIndex: 0,
+        explanation: "第1形の動名詞は不規則ですが、dakhala（入る）のような動作動詞は「〜ウール（Fu‘ūl）」の形になることが多いです。"
+      },
+      {
+        type: "grammar",
+        text: "動詞「قَرَأَ（読む・第1形）」の動名詞を使って、「私は読書が好きです」を完成させてください。\n「أُحِبُّ ___」",
+        options: [
+          "الْقِرَاءَةَ (al-qirā'ata)", // 正解
+          "الْقَارِئَ (al-qāri'a)",
+          "الْمَقْرُوءَ (al-maqrū'a)",
+          "الْقُرْآنَ (al-qur'āna)"
+        ],
+        correctIndex: 0,
+        explanation: "「読むこと」は Qirā'a（キラアー）です。第1形の動名詞パターンの一つ「フィアーラ（Fi‘āla）」の形です。"
+      },
+      {
+        type: "grammar",
+        text: "動詞「اِسْتَقْبَلَ（迎える・第10形）」の動名詞（受付／レセプション）は？",
+        options: [
+          "اِسْتِقْبَالٌ (istiqbālun)", // 正解
+          "مُسْتَقْبِلٌ (mustaqbilun)",
+          "مُسْتَقْبَلٌ (mustaqbalun)",
+          "قَبُولٌ (qabūlun)"
+        ],
+        correctIndex: 0,
+        explanation: "第10形の動名詞は、頭の「イスタ」が「イスティ」になり、後ろが伸びる「イスティフアール（Istif‘āl）」の形になります。"
+      }
+    ]
+  },
+  {
+    id: 134,
+    level: "文法",
+    category: "比較級と最上級",
+    title: "Lesson 34: 比較級と最上級",
+    contentPlain: "アラビア語の「比較級（～より大きい）」と「最上級（一番大きい）」の解説です。英語ではerとestで形が変わりますが、アラビア語ではたった1つの形「アフアル (Af'alu)」を使い回します。「アッラーフ・アクバル（神は偉大なり）」の「アクバル」がまさにこの形です。",
+    
+    imageUrls: [
+      "/image/grammar/lesson34_1.jpg", 
+      "/image/grammar/lesson34_2.jpg", 
+      "/image/grammar/lesson34_3.jpg", 
+      "/image/grammar/lesson34_4.jpg", 
+      "/image/grammar/lesson34_5.jpg", 
+    ],
+    
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    questions: [
+      {
+        type: "grammar",
+        text: "形容詞「大きい（kabīr）」を比較級・最上級の形「アフアル形」にすると？",
+        options: [
+          "أَكْبَرُ (akbaru)", // 正解
+          "كُبْرَى (kubrā)",
+          "كَابِرٌ (kābirun)",
+          "أَكْبَارٌ (akbārun)"
+        ],
+        correctIndex: 0,
+        explanation: "「カビール（kabīr）」の3語根（k-b-r）を「アフアル」の型にはめると「アクバル（akbaru）」になります。有名な「アッラーフ・アクバル」のアクバルです。"
+      },
+      {
+        type: "grammar",
+        text: "「太陽は月『より』大きいです」\n「اَلشَّمْسُ أَكْبَرُ ___ الْقَمَرِ」",
+        options: [
+          "مِنَ (mina)", // 正解
+          "عَنِ ('ani)",
+          "إِلَى (ilā)",
+          "فِي (fī)"
+        ],
+        correctIndex: 0,
+        explanation: "比較級の後ろで「〜より（than）」を表すには、前置詞「ミン（min）」を使います。"
+      },
+      {
+        type: "grammar",
+        text: "「カイロはエジプトで『最も大きい』都市です」\n「الْقَاهِرَةُ ___ مَدِينَةٍ فِي مِصْرَ」",
+        options: [
+          "أَكْبَرُ (akbaru)", // 正解
+          "كَبِيرَةُ (kabīratu)",
+          "الْأَكْبَرُ (al-akbaru)",
+          "أَكَابِرُ (akābiru)"
+        ],
+        correctIndex: 0,
+        explanation: "最上級として使う場合も形は「アクバル」のままです。「アクバル・マディーナティン（一番大きな都市）」のように、後ろに名詞を続けます。"
+      },
+      {
+        type: "grammar",
+        text: "「この車はあの車より『美しい』です」\n（ヒント：美しい jamīl → ？）\n「هَذِهِ السَّيَّارَةُ ___ مِنْ تِلْكَ」",
+        options: [
+          "أَجْمَلُ (ajmalu)", // 正解
+          "جَمِيلَةٌ (jamīlatun)",
+          "أَجْمَلَةُ (ajmalatu)",
+          "جَامِلٌ (jāmilun)"
+        ],
+        correctIndex: 0,
+        explanation: "「ジャミール（美しい）」をアフアル形にすると「アジュマル（ajmalu）」になります。比較級の形自体に性別の変化はないので、車（女性名詞）が主語でも ajmalu を使います。"
+      },
+      {
+        type: "grammar",
+        text: "「これが『一番良い』本です」\n（ヒント：良い ḥasan → ？）\n「هَذَا ___ كِتَابٍ」",
+        options: [
+          "أَحْسَنُ (aḥsanu)", // 正解
+          "حَسَنُ (ḥasanu)",
+          "أَحَاسِنُ (aḥāsinu)",
+          "مُحْسِنٌ (muḥsinun)"
+        ],
+        correctIndex: 0,
+        explanation: "「ハサン（良い）」のアフアル形は「アハサン（aḥsanu）」です。「一番良い〜（Best）」という意味でよく使われます。"
+      }
+    ]
+  },
+            {
+              id: 135,
+              level: "文法",
+              category: "音の変化",
+              title: "Lesson 35: 音の変化",
+              contentPlain: "アラビア語の発音をスムーズにするための、2つの重要な音の変化ルールです。「彼の～（フ）」が「ヒ」に変わったり、「イラー」が「イライヤ」に変わったりする理由を解説します。",
+              
+              imageUrls: [
+                "/image/grammar/lesson35_1.jpg", 
+                "/image/grammar/lesson35_2.jpg", 
+                "/image/grammar/lesson35_3.jpg", 
+                "/image/grammar/lesson35_4.jpg", 
+                "/image/grammar/lesson35_5.jpg", 
+              ],
+              
+              contentVoweled: "",
+              sentences: [], 
+              vocabList: [],
+              
+              questions: [
+                {
+                  type: "grammar",
+                  text: "「私はそれで（ペンで）書きました」\n（ヒント：bi + hu の変化）\n「كَتَبْتُ ___」",
+                  options: [
+                    "بِهِ (bihi)", // 正解
+                    "بِهُ (bihu)",
+                    "بُهُ (buhu)",
+                    "بَهِ (bahi)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "前置詞「ビ（bi）」の母音「イ」に釣られて、後ろの代名詞「フ（hu）」が「ヒ（hi）」に変わります。「ビフ」とは言いにくいので「ビヒ」になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「彼らの中に（善が）あります」\n（ヒント：fī + hum の変化）\n「___ خَيْرٌ」",
+                  options: [
+                    "فِيهِمْ (fīhim)", // 正解
+                    "فِيهُمْ (fīhum)",
+                    "فُوهُمْ (fūhum)",
+                    "فَاهُمْ (fāhum)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "前置詞「フィー（fī）」の「イー」の音に釣られて、「フム（hum）」が「ヒム（him）」に変わります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「彼に平安あれ」\n（ヒント：‘alā + hu の変化）\n「___ السَّلَامُ」",
+                  options: [
+                    "عَلَيْهِ (‘alayhi)", // 正解
+                    "عَلَيْهُ (‘alayhu)",
+                    "عَلَاهُ (‘alāhu)",
+                    "عَلِيهِ (‘alihi)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "前置詞「アラー」に代名詞がつくと「アライ（‘alay-）」になります。この「ヤ（y）」の音に釣られて、後ろが「ヒ（hi）」になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「彼は私を見ました（私のほうへ見た）」\n（ヒント：ilā + ana の変化）\n「نَظَرَ ___」",
+                  options: [
+                    "إِلَيَّ (ilayya)", // 正解
+                    "إِلَايَ (ilāya)",
+                    "إِلِي (ilī)",
+                    "إِلَنِي (ilanii)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "前置詞「イラー（ilā）」に「私（ī）」がつくと、音が融合して「イライヤ（ilayya）」という形になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「彼の家の中で」\n（ヒント：fī bayt... + hu）\n「فِي ___」",
+                  options: [
+                    "بَيْتِهِ (baytihi)", // 正解
+                    "بَيْتُهُ (baytuhu)",
+                    "بَيْتَهُ (baytahu)",
+                    "بَيْتِهُ (baytihu)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "前置詞「フィー」があるので「家（bayt）」は属格「バイティ（bayti）」になります。さらにその「イ」の音に釣られて、最後の「フ（hu）」も「ヒ（hi）」に変わります。"
+                }
+              ]
+            },
+            {
+              id: 136,
+              level: "文法",
+              category: "不規則複数形",
+              title: "Lesson 36: 不規則複数形",
+              contentPlain: "不規則複数形（ブロークン・プルーラル）の中でも、特に文法的に特殊な動きをする「限定なしだとタンウィーンがつかないグループ」についての解説です。専門用語では「二段変化名詞（マナー・ミナ・ッ・サルフ）」と呼ばれます。「モスク（マサージド）」などが代表例です。普通の単語とは違う、「2つの禁止ルール」と「例外の復活」がポイントです。",
+              
+              imageUrls: [
+                "/image/grammar/lesson36_1.jpg", 
+                "/image/grammar/lesson36_2.jpg", 
+                "/image/grammar/lesson36_3.jpg", 
+                "/image/grammar/lesson36_4.jpg", 
+                "/image/grammar/lesson36_5.jpg", 
+                "/image/grammar/lesson36_6.jpg", 
+                "/image/grammar/lesson36_7.jpg", 
+                "/image/grammar/lesson36_8.jpg", 
+              ],
+              
+              contentVoweled: "",
+              sentences: [], 
+              vocabList: [],
+              
+              questions: [
+                {
+                  type: "grammar",
+                  text: "「これらはモスク（複数形）です」\n（ヒント：非限定の主語。タンウィーン「ン」はつく？）\n「هَذِهِ ___」",
+                  options: [
+                    "مَسَاجِدُ (masājidu)", // 正解
+                    "مَسَاجِدٌ (masājidun)",
+                    "مَسَاجِدَ (masājida)",
+                    "مَسَاجِدٍ (masājidin)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「マファーイル型（mafā'il）」の複数形は二段変化名詞です。非限定でもタンウィーン（ン）がつかず、「マサージドゥ」となります。"
+                },
+                {
+                  type: "grammar",
+                  text: "【最重要】「私は（いくつかの）モスクで祈りました」\n（ヒント：前置詞の後ろの変化）\n「صَلَّيْتُ فِي ___」",
+                  options: [
+                    "مَسَاجِدَ (masājida)", // 正解
+                    "مَسَاجِدِ (masājidi)",
+                    "مَسَاجِدٍ (masājidin)",
+                    "مَسَاجِدُ (masājidu)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "二段変化名詞の最大の特徴です。非限定の場合、前置詞の後ろ（属格）であっても「イ」にならず「ア（fatḥa）」になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "【比較】「私は『その』モスク（複数）で祈りました」\n（ヒント：定冠詞アルがつくとどうなる？）\n「صَلَّيْتُ فِي ___」",
+                  options: [
+                    "الْمَسَاجِدِ (al-masājidi)", // 正解
+                    "الْمَسَاجِدَ (al-masājida)",
+                    "الْمَسَاجِدُ (al-masājidu)",
+                    "الْمَسَاجِدٍ (al-masājidin)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "定冠詞「アル」がつくと「禁止ルール」が解除されます。通常の名詞と同じように、前置詞の後ろなら「イ（kasra）」になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「私は（いくつかの）鍵でドアを開けました」\n（ヒント：鍵 miftāḥ → 複数 mafātīḥ）\n「فَتَحْتُ الْبَابَ بِـ___」",
+                  options: [
+                    "مَفَاتِيحَ (mafātīḥa)", // 正解
+                    "مَفَاتِيحِ (mafātīḥi)",
+                    "مَفَاتِيحٍ (mafātīḥin)",
+                    "مَفَاتِيحُ (mafātīḥu)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「マファーイール型（mafā'īl）」も二段変化名詞です。前置詞「ビ」の後ろなので属格ですが、非限定なので「ア」になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「東京の学校（複数）にて」\n（ヒント：イダーファで限定されると？）\n「فِي ___ طُوكْيُو」",
+                  options: [
+                    "مَدَارِسِ (madārisi)", // 正解
+                    "مَدَارِسَ (madārisa)",
+                    "مَدَارِسُ (madārisu)",
+                    "مَدَارِسٍ (madārisin)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "後ろの名詞（東京）によって限定されている（イダーファ）ため、禁止ルールが解除されます。通常通り「イ（kasra）」の音になります。"
+                },
+                // --- 追加問題 ---
+                {
+                  type: "grammar",
+                  text: "「私たちは（何人かの）学者たちから聞きました」\n（ヒント：学者 ‘ulamā’ も二段変化名詞）\n「سَمِعْنَا مِنْ ___」",
+                  options: [
+                    "عُلَمَاءَ (‘ulamā’a)", // 正解
+                    "عُلَمَاءٍ (‘ulamā’in)",
+                    "عُلَمَاءِ (‘ulamā’i)",
+                    "عُلَمَاءُ (‘ulamā’u)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「ウラマー（学者）」のように語尾が「アーウ（alif mamdūda）」で終わる複数形も二段変化名詞です。前置詞 min のあとですが、非限定なので「ア」になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "【難問】「私は新しい友達（複数）と出かけました」\n（ヒント：友達 aṣdiqā’ は二段変化、新しい judud は普通の名詞）\n「خَرَجْتُ مَعَ ___ ___」",
+                  options: [
+                    "أَصْدِقَاءَ جُدُدٍ (aṣdiqā’a jududin)", // 正解
+                    "أَصْدِقَاءَ جُدُدًا (aṣdiqā’a jududan)",
+                    "أَصْدِقَاءِ جُدُدٍ (aṣdiqā’i jududin)",
+                    "أَصْدِقَاءٍ جُدُدٍ (aṣdiqā’in jududin)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "ここが最大の難所です。「友達」は二段変化なので属格が「ア」になりますが、修飾する「新しい（judud）」は普通の名詞なので、通常通り属格が「イ（in）」になります。見た目はバラバラですが、どちらも「属格」です。"
+                },
+                {
+                  type: "grammar",
+                  text: "「この本は（特定の）学者たちのためのものです」\n（ヒント：定冠詞がついた場合）\n「هَذَا الْكِتَابُ لِلْـ___」",
+                  options: [
+                    "عُلَمَاءِ (‘ulamā’i)", // 正解
+                    "عُلَمَاءَ (‘ulamā’a)",
+                    "عُلَمَاءُ (‘ulamā’u)",
+                    "عُلَمَاءٍ (‘ulamā’in)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「ウラマー」も定冠詞「アル」がつけば禁止ルールが解除されます。前置詞リ（〜のための）の後ろなので、通常通り「イ」になります。"
+                }
+              ]
+            },
+            {
+              id: 137,
+              level: "文法",
+              category: "ハムザの種類",
+              title: "Lesson 37: ハムザを書くとき、書かないとき",
+              contentPlain: "「いつワスル（消えるハムザ）になり、いつカト（消えないハムザ）になるのか？」このルールは、動詞の「形（何形か）」と「時制（過去・命令など）」によって明確に決まっています。特に「命令形」と「第4形」が混乱しやすいポイントです。",
+              
+              imageUrls: [
+                "/image/grammar/lesson37_1.jpg", 
+                "/image/grammar/lesson37_2.jpg", 
+                "/image/grammar/lesson37_3.jpg", 
+                "/image/grammar/lesson37_4.jpg", 
+                "/image/grammar/lesson37_5.jpg", 
+                "/image/grammar/lesson37_6.jpg", 
+                "/image/grammar/lesson37_7.jpg", 
+              ],
+              
+              contentVoweled: "",
+              sentences: [], 
+              vocabList: [],
+              
+              questions: [
+                {
+                  type: "grammar",
+                  text: "「（あなた男性は）書いてください」\n正しい表記は？\n（ヒント：第1形の命令形はハムザトゥル・ワスル）",
+                  options: [
+                    "اُكْتُبْ (uktub)", // 正解
+                    "أُكْتُبْ (uktub - ハムザあり)",
+                    "إِكْتُبْ (iktub)",
+                    "أَكْتُبْ (aktub)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "基本形（第1形）の命令形の頭は「ハムザトゥル・ワスル（Hamzat al-Waṣl）」です。文字の上にハムザ記号（ء）は書きません。"
+                },
+                {
+                  type: "grammar",
+                  text: "【重要】「彼は（手紙を）送りました」\n正しい表記は？\n（ヒント：第4形 arsala はハムザトゥル・カト）",
+                  options: [
+                    "أَرْسَلَ (arsala)", // 正解
+                    "اِرْسَلَ (irsala)",
+                    "اَرْسَلَ (arsala - ハムザなし)",
+                    "أُرْسِلَ (ursila)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "第4形（Af‘ala）は、過去・命令・動名詞のすべてにおいて「ハムザトゥル・カト（Hamzat al-Qaṭ‘）」です。必ずハムザ記号（ء）を書きます。"
+                },
+                {
+                  type: "grammar",
+                  text: "「私はアラビア語を勉強します」\n正しい表記は？\n（ヒント：現在形の一人称「私は〜する」）",
+                  options: [
+                    "أَدْرُسُ (adrusu)", // 正解
+                    "اَدْرُسُ (adrusu - ハムザなし)",
+                    "اُدْرُسُ (udrusu)",
+                    "إِدْرُسُ (idrusu)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "動詞の形に関わらず、現在形の「私（Anā）」の活用（ア〜）は、すべて「ハムザトゥル・カト」です。必ずハムザを書きます。"
+                },
+                {
+                  type: "grammar",
+                  text: "「あなたの名前は何ですか？」\n正しい表記は？\n（ヒント：名詞 ism は特殊なワスル）",
+                  options: [
+                    "مَا اسْمُكَ ؟ (ma-smuka)", // 正解
+                    "مَا إِسْمُكَ ؟ (ma ismuka)",
+                    "مَا أَسْمُكَ ؟ (ma asmuka)",
+                    "مَا سْمُكَ ؟ (ma smuka)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「名前（ism）」や「息子（ibn）」など特定の10語は、名詞ですが例外的に「ハムザトゥル・ワスル」です。ハムザ記号は書かず、前の母音とつなげて発音します。"
+                },
+                {
+                  type: "grammar",
+                  text: "「（あなた男性は）待ってください」\n正しい表記は？\n（ヒント：第8形 intaẓara の命令形）",
+                  options: [
+                    "اِنْتَظِرْ (intaẓir)", // 正解
+                    "إِنْتَظِرْ (intaẓir - ハムザあり)",
+                    "أَنْتَظِرْ (antaẓir)",
+                    "اُنْتَظِرْ (untaẓir)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "5文字以上の動詞（第7〜10形）の命令形は、すべて「ハムザトゥル・ワスル」です。ハムザ記号は書きません。"
+                }
+              ]
+            },
+            {
+              id: 138,
+              level: "文法",
+              category: "ハムザの種類",
+              title: "Lesson 38: ハムザの形の変化",
+              contentPlain: "アラビア語の学習者が最も頭を悩ませる「ハムザの書き分け（どの椅子に座るか問題）」です。これは、ハムザを「弱い王様」、母音を「王様を座らせる椅子の提供者」と考えると、一気に分かりやすくなります。ルールは「母音の強さランキング」これ一つだけです。",
+              
+              imageUrls: [
+                "/image/grammar/lesson38_1.jpg", 
+                "/image/grammar/lesson38_2.jpg", 
+                "/image/grammar/lesson38_3.jpg", 
+                "/image/grammar/lesson38_4.jpg", 
+                "/image/grammar/lesson38_5.jpg", 
+                "/image/grammar/lesson38_6.jpg", 
+              ],
+              
+              contentVoweled: "",
+              sentences: [], 
+              vocabList: [],
+              
+              questions: [
+                {
+                  type: "grammar",
+                  text: "「質問（su'āl）」の正しいつづりは？\n（ヒント：前が「ウ」、自らは「ア」。勝つのはどっち？）",
+                  options: [
+                    "سُؤَال (su'āl)", // 正解
+                    "سُأَال (su'āl - アリフ)",
+                    "سُئَال (su'āl - ヤー)",
+                    "سُءَال (su'āl - 孤立)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "前の母音「ウ (u)」と自分の母音「ア (a)」が戦います。「ウ」の方が強いので、ウに対応する「ワウの椅子（ؤ）」に座ります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「聞かれた（su'ila）」受動態の正しいつづりは？\n（ヒント：前が「ウ」、自らは「イ」。最強は？）",
+                  options: [
+                    "سُئِلَ (su'ila)", // 正解
+                    "سُؤِلَ (su'ila - ワウ)",
+                    "سُأِلَ (su'ila - アリフ)",
+                    "سُءِلَ (su'ila - 孤立)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "前の「ウ」より、自分の「イ（kasra）」の方が強さランキング1位（最強）なので、イに対応する「ヤーの椅子（ئ）」に座ります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「頭（ra's）」の正しいつづりは？\n（ヒント：前が「ア」、自らは「無音」）",
+                  options: [
+                    "رَأْس (ra's)", // 正解
+                    "رَؤْس (ra's - ワウ)",
+                    "رَئْس (ra's - ヤー)",
+                    "رَءْس (ra's - 孤立)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "前の「ア」と自分の「無音（スクーン）」の勝負です。「ア」が勝つので、アに対応する「アリフの椅子（أ）」に座ります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「大統領／リーダー（ra'īs）」の正しいつづりは？\n（ヒント：前が「ア」、自らは「イ」）",
+                  options: [
+                    "رَئِيس (ra'īs)", // 正解
+                    "رَأِيس (ra'īs - アリフ)",
+                    "رَؤِيس (ra'īs - ワウ)",
+                    "رَءِيس (ra'īs - 孤立)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「ア」対「イ」の勝負です。最強の「イ」が勝つので、ヤーの椅子（ئ）になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "【語末】「彼は読む（yaqra'u）」の正しいつづりは？\n（ヒント：語末は『直前の母音』だけで決まります）",
+                  options: [
+                    "يَقْرَأُ (yaqra'u)", // 正解
+                    "يَقْرَؤُ (yaqra'u - ワウ)",
+                    "يَقْرَئُ (yaqra'u - ヤー)",
+                    "يَقْرَءُ (yaqra'u - 孤立)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "語末のハムザは、直前の母音が「ア」ならアリフの上に書きます。"
+                },
+                {
+                  type: "grammar",
+                  text: "【語末】「海岸（shāṭi'）」の正しいつづりは？\n（ヒント：直前の母音が『イ』）",
+                  options: [
+                    "شَاطِئ (shāṭi')", // 正解
+                    "شَاطِأ (shāṭi' - アリフ)",
+                    "شَاطِؤ (shāṭi' - ワウ)",
+                    "شَاطِء (shāṭi' - 孤立)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "語末で直前が「イ」の場合、点のつかないヤー（アリフ・マクスーラのような形）の上にハムザを書きます。"
+                },
+                {
+                  type: "grammar",
+                  text: "【語末】「水（mā'）」の正しいつづりは？\n（ヒント：直前が「長母音のアリフ」）",
+                  options: [
+                    "مَاء (mā')", // 正解
+                    "مَأ (ma')",
+                    "مَاؤ (mā'u)",
+                    "مَائ (mā'i)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "長母音（アー、ウー、イー）は「スクーン（無音）」扱いとなります。直前がスクーンの場合、ハムザは「孤立（椅子なし）」して行の上に書きます。"
+                },
+                {
+                  type: "grammar",
+                  text: "【語末】「物（shay'）」の正しいつづりは？\n（ヒント：直前がヤのスクーン）",
+                  options: [
+                    "شَيْء (shay')", // 正解
+                    "شَيْئ (shay' - ヤー)",
+                    "شَيْأ (shay' - アリフ)",
+                    "شَيُؤ (shayu')"
+                  ],
+                  correctIndex: 0,
+                  explanation: "直前がスクーン（無音）なので、ハムザは孤立します。「シェイ・ウ」ではなく「シェイ・ッ（声門閉鎖）」のような音です。"
+                }
+              ]
+            },
+            {
+              id: 139,
+              level: "文法",
+              category: "不規則動詞",
+              title: "Lesson 39: 中空動詞（くぼみ動詞）",
+              contentPlain: "真ん中の文字が「アリフ」になっている動詞です。辞書形（過去形）ではアリフですが、現在形になると「ウ・イ・ア」のどれかに変身します。また、命令形や「私」の過去形では、その長母音自体が消えて短くなる（くぼむ）のが特徴です。",
+              
+              imageUrls: [
+                "/image/grammar/lesson39_1.jpg", 
+                "/image/grammar/lesson39_2.jpg", 
+                "/image/grammar/lesson39_3.jpg", 
+                "/image/grammar/lesson39_4.jpg", 
+                "/image/grammar/lesson39_5.jpg", 
+                "/image/grammar/lesson39_6.jpg", 
+                "/image/grammar/lesson39_7.jpg", 
+                "/image/grammar/lesson39_8.jpg", 
+                "/image/grammar/lesson39_9.jpg", 
+                "/image/grammar/lesson39_10.jpg", 
+                "/image/grammar/lesson39_11.jpg", 
+                "/image/grammar/lesson39_12.jpg", 
+                "/image/grammar/lesson39_13.jpg", 
+                "/image/grammar/lesson39_14.jpg", 
+                "/image/grammar/lesson39_15.jpg", 
+              ],
+              
+              contentVoweled: "",
+              sentences: [], 
+              vocabList: [],
+              
+              questions: [
+                {
+                  type: "grammar",
+                  text: "「ムスリムたちはラマダーン月に断食します（現在形）」\n「___ الْمُسْلِمُونَ فِي رَمَضَانَ」",
+                  options: [
+                    "يَصُومُ (yaṣūmu)", // 正解
+                    "يَصَامُ (yaṣāmu)",
+                    "يَصِيمُ (yaṣīmu)",
+                    "يَصْمُ (yaṣmu)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "中空動詞の多くは、現在形で真ん中のアリフが「ウ (ū)」に変わります。ṣāma（サーマ）→ yaṣūmu（ヤスーム）です。"
+                },
+                {
+                  type: "grammar",
+                  text: "「その鳥は空を飛んでいます」\n「___ الطَّائِرُ فِي السَّمَاءِ」",
+                  options: [
+                    "يَطِيرُ (yaṭīru)", // 正解
+                    "يَطُورُ (yaṭūru)",
+                    "يَطَارُ (yaṭāru)",
+                    "طَائِرٌ (ṭā'irun)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "現在形で「イ (ī)」に変わるグループもあります。ṭāra（ターラ）→ yaṭīru（ヤティール）です。"
+                },
+                {
+                  type: "grammar",
+                  text: "「私は先月、カイロを訪れました」\n「___ الْقَاهِرَةَ الشَّهْرَ الْمَاضِيَ」",
+                  options: [
+                    "زُرْتُ (zurtu)", // 正解
+                    "زَارْتُ (zārtu)",
+                    "زِرْتُ (zirtu)",
+                    "زَرْتُ (zartu)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "中空動詞の過去形で、後ろに「トゥ（私）」などがつくと、真ん中の長母音は消えます（くぼみます）。zāra はウのグループなので、zurtu（ズルトゥ）になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「真実を言いなさい（男性への命令）」\n「___ الْحَقَّ」",
+                  options: [
+                    "قُلْ (qul)", // 正解
+                    "قُولْ (qūl)",
+                    "قَالَ (qāla)",
+                    "قِلْ (qil)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "命令形も「くぼみ」ます。qāla（言った）はウのグループなので、短くして「クル（qul）」となります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「彼はまだ戻ってきていません（否定・要求法）」\n「هُوَ لَمْ ___ بَعْدُ」",
+                  options: [
+                    "يَعُدْ (ya‘ud)", // 正解
+                    "يَعُودُ (ya‘ūdu)",
+                    "يَعِدْ (ya‘id)",
+                    "عَادَ (‘āda)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「ラム（lam）」の後ろで動詞は要求法（スクーン）になりますが、中空動詞はここでも長母音が消えて短くなります。ya‘ūdu → ya‘ud（ヤウド）となります。"
+                }
+              ]
+            },
+            {
+              id: 140,
+              level: "文法",
+              category: "不規則動詞",
+              title: "Lesson 40: ダブル動詞",
+              contentPlain: "ダブル動詞（重母音動詞）はシャッダを含む動詞です。 「シャッダがいつ外れるか？」 という理解は非常に重要です。暗記ではなく、「二つのスクーンの衝突という物理的な衝突事故を回避するための緊急回避行動として理解すると、わかりやすいです。",
+              
+              imageUrls: [
+                "/image/grammar/lesson40_1.jpg", 
+                "/image/grammar/lesson40_2.jpg", 
+                "/image/grammar/lesson40_3.jpg", 
+                "/image/grammar/lesson40_4.jpg", 
+                "/image/grammar/lesson40_5.jpg", 
+                "/image/grammar/lesson40_6.jpg", 
+                "/image/grammar/lesson40_7.jpg", 
+              ],
+              
+              contentVoweled: "",
+              sentences: [], 
+              vocabList: [],
+              
+              questions: [
+                {
+                  type: "grammar",
+                  text: "「私は（手紙の）返事をしました」\n（ヒント：返事する radda → 私は〜した。シャッダは外れる？）\n「___ عَلَى الرِّسَالَةِ」",
+                  options: [
+                    "رَدَدْتُ (radadtu)", // 正解
+                    "رَدَّتُ (raddatu)",
+                    "رَدِّتُ (radditu)",
+                    "رَدُدْتُ (radudtu)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「私（-tu）」のように子音で始まる語尾がつくと、シャッダが外れて元の2文字に戻ります（radda → radad-tu）。"
+                },
+                {
+                  type: "grammar",
+                  text: "「彼は（手紙の）返事をしました」\n（ヒント：彼は〜した。シャッダは？）\n「___ عَلَى الرِّسَالَةِ」",
+                  options: [
+                    "رَدَّ (radda)", // 正解
+                    "رَدَدَ (radada)",
+                    "رَدَّدَ (raddada)",
+                    "رُدَّ (rudda)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「彼」の場合は語尾がつかない（母音のみ）ので、シャッダはそのまま維持されます。"
+                },
+                {
+                  type: "grammar",
+                  text: "「私たちはその家の前を通りました」\n（ヒント：通る marra → 私たちは〜した）\n「___ أَمَامَ الْبَيْتِ」",
+                  options: [
+                    "مَرَرْنَا (mararnā)", // 正解
+                    "مَرَّنَا (marrnā)",
+                    "مَرْنَا (marnā)",
+                    "مُرِرْنَا (murirnā)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「私たち（-nā）」も子音で始まる語尾なので、marra が marar-nā に解凍されます。"
+                },
+                {
+                  type: "grammar",
+                  text: "「彼女はその家の前を通りました」\n（ヒント：彼女は〜した -at）\n「___ أَمَامَ الْبَيْتِ」",
+                  options: [
+                    "مَرَّتْ (marrat)", // 正解
+                    "مَرَرَتْ (mararat)",
+                    "مَرَّةً (marratan)",
+                    "مَرِّتْ (marrit)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「彼女（-at）」は母音で始まる（母音を伴う）とみなされ、シャッダは外れません。"
+                },
+                {
+                  type: "grammar",
+                  text: "「あなた（男性）はドアをノックしましたか？」\n（ヒント：ノックする daqqa → あなたは〜した）\n「هَلْ ___ الْبَابَ ؟」",
+                  options: [
+                    "دَقَقْتَ (daqaqta)", // 正解
+                    "دَقَّتَ (daqqata)",
+                    "دَقِقْتَ (daqiqta)",
+                    "دُقْتَ (duqta)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「あなた（-ta）」も子音で始まるので解凍されます（daqqa → daqaq-ta）。"
+                },
+                {
+                  type: "grammar",
+                  text: "「彼ら（男性複数）はドアをノックしました」\n（ヒント：彼らは〜した -ū）\n「هُمْ ___ الْبَابَ」",
+                  options: [
+                    "دَقُّوا (daqqū)", // 正解
+                    "دَقَقُوا (daqaqū)",
+                    "دَاقُّوا (dāqqū)",
+                    "دَقُونَا (daqūnā)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「彼ら（-ū）」は母音（長母音）で始まるので、シャッダは外れません。"
+                },
+                {
+                  type: "grammar",
+                  text: "「私はそう思いました（考えました）」\n（ヒント：思う ẓanna → 私は〜した）\n「___ ذَلِكَ」",
+                  options: [
+                    "ظَنَنْتُ (ẓanantu)", // 正解
+                    "ظَنَّتُ (ẓannatu)",
+                    "ظِنْتُ (ẓintu)",
+                    "ظُنْتُ (ẓuntu)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「ザンナ（ẓanna）」も「ザナントゥ」に解凍されます。"
+                },
+                {
+                  type: "grammar",
+                  text: "「彼はお金を数えます（現在形）」\n（ヒント：数える ‘adda → ya...u）\n「هُوَ ___ النُّقُودَ」",
+                  options: [
+                    "يَعُدُّ (ya‘uddu)", // 正解
+                    "يَعْدُدُ (ya‘dudu)",
+                    "يُعِدُّ (yu‘iddu)",
+                    "يَعْدُّ (ya‘ddu)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "現在形の場合、後ろに何もつかない（または母音だけの）場合はシャッダのままです。"
+                }
+              ]
+            },
+            {
+              id: 141,
+              level: "文法",
+              category: "不規則動詞",
+              title: "Lesson 41: 弱動詞",
+              contentPlain: "語尾に「弱い文字（アリフ・ワウ・ヤー）」を持つ動詞です。過去形では「私が～した」と言う時に元の形（ヤやワウ）が復活したり、要求法（～しなかった）では尻尾がちぎれて消えたりするのが特徴です。",
+              
+              imageUrls: [
+                "/image/grammar/lesson41_1.jpg", 
+                "/image/grammar/lesson41_2.jpg", 
+                "/image/grammar/lesson41_3.jpg", 
+                "/image/grammar/lesson41_4.jpg", 
+                "/image/grammar/lesson41_5.jpg", 
+                "/image/grammar/lesson41_6.jpg", 
+                "/image/grammar/lesson41_7.jpg", 
+                "/image/grammar/lesson41_8.jpg", 
+              ],
+              
+              contentVoweled: "",
+              sentences: [], 
+              vocabList: [],
+              
+              questions: [
+                {
+                  type: "grammar",
+                  text: "「私は（家まで）歩きました」\n（ヒント：歩く mashā → 私は〜した。アリフが『ヤ』に戻る？）\n「___ إِلَى الْبَيْتِ」",
+                  options: [
+                    "مَشَيْتُ (mashaytu)", // 正解
+                    "مَشَاتُ (mashātu)",
+                    "مَشَوْتُ (mashawtu)",
+                    "مَشِيتُ (mashītu)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「歩く（mashā）」のように語尾が「アリフ・マクスーラ（ى）」で終わる動詞は、過去形の活用で「ヤ（ay）」の音に戻ります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「私は彼を（パーティーに）招待しました」\n（ヒント：招待する da‘ā → 私は〜した。アリフが『ワウ』に戻る？）\n「___ لِلْحَفْلَةِ」",
+                  options: [
+                    "دَعَوْتُهُ (da‘awtuhu)", // 正解
+                    "دَعَيْتُهُ (da‘aytuhu)",
+                    "دَعَاتُهُ (da‘ātuhu)",
+                    "دَعُوتُهُ (da‘ūtuhu)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「招待する（da‘ā）」のように語尾が「縦長のアリフ（ا）」で終わる動詞の多くは、活用すると「ワウ（aw）」の音が現れます。"
+                },
+                {
+                  type: "grammar",
+                  text: "「エンジニアは新しい家を建てます（現在形）」\n（ヒント：建てる banā → ya...）\n「___ الْمُهَنْدِسُ بَيْتًا جَدِيدًا」",
+                  options: [
+                    "يَبْنِي (yabnī)", // 正解
+                    "يَبْنُو (yabnū)",
+                    "يَبْنَا (yabnā)",
+                    "بَنَى (banā)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「建てる（banā）」の現在形は「ヤブニー（yabnī）」です。語尾がイの音になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「彼は祈りませんでした（過去否定・要求法）」\n（ヒント：祈る ṣallā → yaṣallī → lam ...?）\n「هُوَ لَمْ ___」",
+                  options: [
+                    "يُصَلِّ (yuṣalli)", // 正解
+                    "يُصَلِّي (yuṣallī)",
+                    "يُصَلَّ (yuṣalla)",
+                    "صَلَّى (ṣallā)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "弱動詞の最大の特徴です。「ラム（lam）」の後ろでは、語尾の長母音（ī）が切り落とされて、短い母音（i）だけが残ります。表記上も「ヤー」が消えます。"
+                },
+                {
+                  type: "grammar",
+                  text: "「（あなた男性は）忘れてはいけません（禁止）」\n（ヒント：忘れる nasiya → yansā → lā ...?）\n「لَا ___」",
+                  options: [
+                    "تَنْسَ (tansa)", // 正解
+                    "تَنْسَى (tansā)",
+                    "تَنْسُ (tansu)",
+                    "نَسِيَ (nasiya)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "禁止の「ラー」の後ろでも、語尾の長母音（ā）が切り落とされます。「タンサー」ではなく、短く「タンサ（tansa）」となります。"
+                }
+              ]
+            },
+            {
+              id: 142,
+              level: "文法",
+              category: "二段変化名詞",
+              title: "Lesson 42: 二段変化名詞",
+              contentPlain: "二段変化名詞（マムヌー・ミナ・ッ・サルフ）の総まとめです。固有名詞（地名・人名）、形容詞（色・比較級）、特定の複数形など、多くの種類があります。「いつアになり、いつイに戻るのか？」その境界線をマスターしましょう。",
+              
+              imageUrls: [
+                "/image/grammar/lesson42_1.jpg", 
+                "/image/grammar/lesson42_2.jpg", 
+                "/image/grammar/lesson42_3.jpg", 
+                "/image/grammar/lesson42_4.jpg", 
+                "/image/grammar/lesson42_5.jpg", 
+                "/image/grammar/lesson42_6.jpg", 
+                "/image/grammar/lesson42_7.jpg", 
+                "/image/grammar/lesson42_8.jpg", 
+                "/image/grammar/lesson42_9.jpg", 
+              ],
+              
+              contentVoweled: "",
+              sentences: [], 
+              vocabList: [],
+              
+              questions: [
+                {
+                  type: "grammar",
+                  text: "「私はロンドンとパリへ旅行しました」\n（ヒント：外国の地名は二段変化）\n「سَافَرْتُ إِلَى ___ وَ ___」",
+                  options: [
+                    "لَنْدَنَ وَ بَارِيسَ (Landana wa Bārīsa)", // 正解
+                    "لَنْدَنٍ وَ بَارِيسٍ (Landanin wa Bārīsin)",
+                    "لَنْدَنِ وَ بَارِيسِ (Landani wa Bārīsi)",
+                    "لَنْدَنُ وَ بَارِيسُ (Landanu wa Bārīsu)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "前置詞「イラー（へ）」の後ろなので属格ですが、外国の地名は二段変化名詞のため、属格語尾が「ア（fatḥa）」になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「彼は赤いペンで書きました」\n（ヒント：赤 aḥmar は形容詞。前の「ペン」は普通の属格）\n「كَتَبَ بِقَلَمٍ ___」",
+                  options: [
+                    "أَحْمَرَ (aḥmara)", // 正解
+                    "أَحْمَرِ (aḥmari)",
+                    "أَحْمَرٍ (aḥmarin)",
+                    "أَحْمَرُ (aḥmaru)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "ここが難所です。「ペン（qalamin）」は普通の名詞なので属格「イン」ですが、それを修飾する「赤い（aḥmar）」は二段変化なので、属格でも「ア」になります。音が揃わないので注意が必要です。"
+                },
+                {
+                  type: "grammar",
+                  text: "「この本はファーティマのものです」\n（ヒント：女性名は二段変化）\n「هَذَا الْكِتَابُ لِـ___」",
+                  options: [
+                    "فَاطِمَةَ (Fāṭimata)", // 正解
+                    "فَاطِمَةِ (Fāṭimati)",
+                    "فَاطِمَةٍ (Fāṭimatin)",
+                    "فَاطِمَةُ (Fāṭimatu)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "前置詞「リ（〜の）」の後ろなので属格になります。女性名は基本的に二段変化なので「タ（a）」になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「私はラマダーン月に断食しました」\n（ヒント：〜ān で終わる固有名詞）\n「صُمْتُ فِي شَهْرِ ___」",
+                  options: [
+                    "رَمَضَانَ (Ramaḍāna)", // 正解
+                    "رَمَضَانِ (Ramaḍāni)",
+                    "رَمَضَانٍ (Ramaḍānin)",
+                    "رَمَضَانُ (Ramaḍānu)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「ラマダーン」や「ウスマーン」のように「アーン」で終わる固有名詞は二段変化です。イダーファの第2要素（属格の位置）ですが、語尾は「ア」になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「私たちは（ある）他の機会に会いましょう」\n（ヒント：他 ukhrā は形容詞。機会 furṣa は女性名詞）\n「سَنَلْتَقِي فِي فُرْصَةٍ ___」",
+                  options: [
+                    "أُخْرَى (ukhrā)", // 正解
+                    "آخَرَ (ākhara)",
+                    "أُخْرٍ (ukhrin)",
+                    "أَخِيرَةٍ (akhīratin)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「アハル（他・男）」の女性形「ウフラー（ukhrā）」も二段変化ですが、語尾がアリフなので母音の変化は見えません。しかし文法的には「ア」の状態です。"
+                },
+                {
+                  type: "grammar",
+                  text: "【例外ルール】「白い家の中で」\n（ヒント：定冠詞アルがつくとどうなる？）\n「فِي الْبَيْتِ ___」",
+                  options: [
+                    "الْأَبْيَضِ (al-abyaḍi)", // 正解
+                    "الْأَبْيَضَ (al-abyaḍa)",
+                    "الْأَبْيَضُ (al-abyaḍu)",
+                    "أَبْيَضَ (abyaḍa)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "色は二段変化（アになる）ですが、定冠詞「アル」がつくと「禁止ルール」が解除され、通常通り「イ（kasra）」に戻ります。"
+                },
+                {
+                  type: "grammar",
+                  text: "【例外ルール】「町の学校（複数）にて」\n（ヒント：イダーファで限定されると？）\n「فِي ___ الْمَدِينَةِ」",
+                  options: [
+                    "مَدَارِسِ (madārisi)", // 正解
+                    "مَدَارِسَ (madārisa)",
+                    "مَدَارِسُ (madārisu)",
+                    "مَدَارِسٍ (madārisin)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "これも解除ルールです。後ろの単語（町）によって限定されているため、二段変化名詞（マダーリス）でも「イ」に戻ります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「イブラーヒーム（預言者）より」\n（ヒント：非アラビア語源の男性名）\n「مِنْ ___」",
+                  options: [
+                    "إِبْرَاهِيمَ (Ibrāhīma)", // 正解
+                    "إِبْرَاهِيمِ (Ibrāhīmi)",
+                    "إِبْرَاهِيمٍ (Ibrāhīmin)",
+                    "إِبْرَاهِيمُ (Ibrāhīmu)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "イブラーヒーム、イスマーイールなどの非アラビア語源の預言者名は二段変化です。前置詞の後ろで「ア」になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「より良い生活のために」\n（ヒント：比較級 aḥsan + 女性名詞 ḥayāt）\n「لِحَيَاةٍ ___」",
+                  options: [
+                    "أَحْسَنَ (aḥsana)", // 正解
+                    "أَحْسَنِ (aḥsani)",
+                    "أَحْسَنٍ (aḥsanin)",
+                    "حُسْنَى (ḥusnā)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「生活（属格・イン）」を修飾する「より良い（aḥsan）」は二段変化なので、属格の位置で「ア」になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「私はお腹が空いた人（空腹な人）にパンをあげました」\n（ヒント：空腹 jaw'ān は二段変化）\n「أَعْطَيْتُ الْخُبْزَ لِرَجُلٍ ___」",
+                  options: [
+                    "جَوْعَانَ (jaw'āna)", // 正解
+                    "جَوْعَانِ (jaw'āni)",
+                    "جَوْعَانٍ (jaw'ānin)",
+                    "جَائِعٍ (jāi'in)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「〜アーン（fa'lān）」の形の形容詞（空腹、怒り、満腹など）は二段変化です。前の名詞（rajulin）が属格でも、こちらは「ア」になります。"
+                }
+              ]
+            },
+            {
+              id: 143,
+              level: "文法",
+              category: "5つの特殊名詞",
+              title: "Lesson 43: 5つの特殊名詞",
+              contentPlain: "「父・兄弟・義父・口・～の持ち主」の5つの単語は、格変化が母音記号（ダンマ・ファトハ・カスラ）ではなく、文字（ワウ・アリフ・ヤー）によって変わるという特別なルールを持っています。ただし「私の父」や「複数形」の場合は例外なので注意が必要です。",
+              
+              imageUrls: [
+                "/image/grammar/lesson43_1.jpg", 
+                "/image/grammar/lesson43_2.jpg", 
+                "/image/grammar/lesson43_3.jpg", 
+                "/image/grammar/lesson43_4.jpg", 
+                "/image/grammar/lesson43_5.jpg", 
+                "/image/grammar/lesson43_6.jpg", 
+                "/image/grammar/lesson43_7.jpg", 
+                "/image/grammar/lesson43_8.jpg", 
+                "/image/grammar/lesson43_9.jpg", 
+                "/image/grammar/lesson43_10.jpg", 
+              ],
+              
+              contentVoweled: "",
+              sentences: [], 
+              vocabList: [],
+              
+              questions: [
+                {
+                  type: "grammar",
+                  text: "「あなたのお父さんは医者です」\n（ヒント：主語なので主格）\n「___ طَبِيبٌ」",
+                  options: [
+                    "أَبُوكَ (Abūka)", // 正解
+                    "أَبَاكَ (Abāka)",
+                    "أَبِيكَ (Abīka)",
+                    "أَبُكَ (Abuka)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "5つの名詞は主格で「ワウ (ū)」を取ります。Abūka となります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「私はあなたの弟（兄）を見ました」\n（ヒント：目的語なので対格）\n「رَأَيْتُ ___」",
+                  options: [
+                    "أَخَاكَ (Akhāka)", // 正解
+                    "أَخُوكَ (Akhūka)",
+                    "أَخِيكَ (Akhīka)",
+                    "أَخَكَ (Akhaka)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "対格（〜を）の場合、文字は「アリフ (ā)」に変わります。Akhāka となります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「あなたの義理のお父さんによろしく伝えてください」\n（ヒント：前置詞 'alā の後ろは属格）\n「سَلِّمْ عَلَى ___」",
+                  options: [
+                    "حَمِيكَ (Ḥamīka)", // 正解
+                    "حَمَاكَ (Ḥamāka)",
+                    "حَمُوكَ (Ḥamūka)",
+                    "حَمِكَ (Ḥamika)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "属格（前置詞の後ろなど）の場合、文字は「ヤー (ī)」に変わります。Ḥamīka です。"
+                },
+                {
+                  type: "grammar",
+                  text: "「本当に、知識の持ち主（知識ある人）は尊敬されます」\n（ヒント：強調の Inna の後ろは対格）\n「إِنَّ ___ الْعِلْمِ مُحْتَرَمٌ」",
+                  options: [
+                    "ذَا (dhā)", // 正解
+                    "ذُو (dhū)",
+                    "ذِي (dhī)",
+                    "ذُوَا (dhuwā)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「ズー（〜の持ち主）」も5つの名詞の一つです。Inna の支配を受けて対格になるため、「ザー（dhā）」に変化します。"
+                },
+                {
+                  type: "grammar",
+                  text: "「あなたの口を開けてください」\n（ヒント：口 fū も5つの名詞。対格は？）\n「اِفْتَحْ ___」",
+                  options: [
+                    "فَاكَ (fāka)", // 正解
+                    "فُوكَ (fūka)",
+                    "فِيكَ (fīka)",
+                    "فَمَكَ (famaka)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "口（fū）も対格では「ファー（fā）」になります。「ファマカ（famaka）」も文法的に間違いではありませんが、5つの名詞としての活用（文字変化）を問う場合は fāka が正解です。"
+                },
+                {
+                  type: "grammar",
+                  text: "【難問・ひっかけ】「私の父はここにいます」\n（ヒント：「私の〜」がつくと特殊ルールはどうなる？）\n「___ مَوْجُودٌ هُنَا」",
+                  options: [
+                    "أَبِي (Abī)", // 正解
+                    "أَبُويَ (Abūya)",
+                    "أَبَايَ (Abāya)",
+                    "أَبُوِي (Abūī)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "最重要の例外です。「私の〜（ī）」がつく場合、5つの名詞の特殊ルール（文字変化）は適用されません。見た目は「アビー」のまま変わりません。"
+                },
+                {
+                  type: "grammar",
+                  text: "【難問】「父親たち（複数）が立ち上がりました」\n（ヒント：複数形になった場合、ルールは？）\n「قَامَ ___」",
+                  options: [
+                    "الْآبَاءُ (al-ābā'u)", // 正解
+                    "الْآبَاءَ (al-ābā'a)",
+                    "الْأَبُو (al-abū)",
+                    "الْأَبُونَ (al-abūna)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "5つの名詞として扱われるのは「単数形」の時だけです。複数形（アーバー）になったら、普通の名詞と同じように母音記号（ウ・ア・イ）で変化します。"
+                },
+                {
+                  type: "grammar",
+                  text: "【総合】「カーナ（〜だった）が入ると？」\n「あなたのお兄さんは不在でした」\n「كَانَ ___ غَائِبًا」",
+                  options: [
+                    "أَخُوكَ (akhūka)", // 正解
+                    "أَخَاكَ (akhāka)",
+                    "أَخِيكَ (akhīka)",
+                    "أَخٌ (akhun)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "動詞「カーナ（kāna）」の主語は主格のままです。したがって主格を表す「ワウ」を含む akhūka を選びます。"
+                }
+              ]
+            },
+            {
+              id: 144,
+              level: "文法",
+              category: "状態",
+              title: "Lesson 44: 状態（ハール）",
+              contentPlain: "「〜しながら」「〜の状態で」と、動作主の様子を説明する文法です。ポイントは「常に対格（〜を）」の形になることと、基本的に「非限定（定冠詞なし）」であることです。主語の性・数に一致させる必要があります。",
+              
+              imageUrls: [
+                "/image/grammar/lesson44_1.jpg", 
+                "/image/grammar/lesson44_2.jpg", 
+                "/image/grammar/lesson44_3.jpg", 
+                "/image/grammar/lesson44_4.jpg", 
+                "/image/grammar/lesson44_5.jpg", 
+              ],
+              
+              contentVoweled: "",
+              sentences: [], 
+              vocabList: [],
+              
+              questions: [
+                {
+                  type: "grammar",
+                  text: "「その男の子は『走って』来ました」\n（ヒント：ハールは常に対格）\n「جَاءَ الْوَلَدُ ___」",
+                  options: [
+                    "رَاكِضًا (rākiḍan)", // 正解
+                    "رَاكِضٌ (rākiḍun)",
+                    "رَاكِضٍ (rākiḍin)",
+                    "الرَّاكِضَ (ar-rākiḍa)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "状態（ハール）は常に対格（〜an）になります。また、基本的に非限定（定冠詞なし）です。"
+                },
+                {
+                  type: "grammar",
+                  text: "【難問】「少女たちは『笑いながら』話しました」\n（ヒント：女性規則複数の対格は？）\n「تَحَدَّثَتِ الْفَتَيَاتُ ___」",
+                  options: [
+                    "ضَاحِكَاتٍ (ḍāḥikātin)", // 正解
+                    "ضَاحِكَاتٌ (ḍāḥikātun)",
+                    "ضَاحِكَاتًا (ḍāḥikātan)",
+                    "ضَاحِكَةً (ḍāḥikatan)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "ここが難所です。女性規則複数の対格は「ア（fatḥa）」になれず、「イ（kasra）」の音を取ります。見た目は属格と同じですが、文法的には対格です。"
+                },
+                {
+                  type: "grammar",
+                  text: "「彼らは『急いで』戻りました」\n（ヒント：男性規則複数の対格）\n「رَجَعُوا ___」",
+                  options: [
+                    "مُسْرِعِينَ (musri'īna)", // 正解
+                    "مُسْرِعُونَ (musri'ūna)",
+                    "مُسْرِعَانِ (musri'āni)",
+                    "مُسْرِعًا (musri'an)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "主語（彼ら）に合わせてハールも複数形にします。男性規則複数の対格は「〜イーナ（īna）」になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「二人の学生は『歩いて』学校へ行きました」\n（ヒント：双数形の対格）\n「ذَهَبَ الطَّالِبَانِ إِلَى الْمَدْرَسَةِ ___」",
+                  options: [
+                    "مَاشِيَيْنِ (māshiyayni)", // 正解
+                    "مَاشِيَانِ (māshiyāni)",
+                    "مَاشِيًا (māshiyan)",
+                    "مَاشِينَ (māshīna)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "主語が双数（二人）なので、ハールも双数にします。双数の対格は「〜アイニ（ayni）」です。"
+                },
+                {
+                  type: "grammar",
+                  text: "【識別】「私はそのコーヒーを『熱いまま（状態で）』飲みました」\n（ヒント：定冠詞をつけると形容詞になってしまう）\n「شَرِبْتُ الْقَهْوَةَ ___」",
+                  options: [
+                    "حَارَّةً (ḥārratan)", // 正解
+                    "الْحَارَّةَ (al-ḥārrata)",
+                    "حَارَّةٌ (ḥārratun)",
+                    "حَارٍّ (ḥārrin)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "al-ḥārrata とすると「その熱いコーヒーを（飲んだ）」という修飾語になります。「熱い状態で（飲んだ）」とするには、非限定の ḥārratan を使います。"
+                },
+                {
+                  type: "grammar",
+                  text: "「敵は『殺されて（死体となって）』発見されました」\n（ヒント：受動分詞のハール）\n「وُجِدَ الْعَدُوُّ ___」",
+                  options: [
+                    "مَقْتُولًا (maqtūlan)", // 正解
+                    "قَاتِلًا (qātilan)",
+                    "مَقْتُولٌ (maqtūlun)",
+                    "قَتِيلٌ (qatīlun)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「殺された状態で」なので受動分詞の対格を使います。"
+                },
+                {
+                  type: "grammar",
+                  text: "【文ハール】「彼は『笑いながら』入ってきました」\n（ヒント：ワウ・ル・ハール + 名詞文）\n「دَخَلَ وَ ___」",
+                  options: [
+                    "هُوَ يَضْحَكُ (huwa yaḍḥaku)", // 正解
+                    "هُوَ يَضْحَكَ (huwa yaḍḥaka)",
+                    "هِيَ تَضْحَكُ (hiya taḍḥaku)",
+                    "يَضْحَكُ هُوَ (yaḍḥaku huwa)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「ワウ（〜しながら）+ 主語 + 動詞」で、文全体をハールとして使うことができます。"
+                },
+                {
+                  type: "grammar",
+                  text: "「彼らは『騎乗して（乗った状態で）』やって来ました」\n「أَقْبَلُوا ___」",
+                  options: [
+                    "رَاكِبِينَ (rākibīna)", // 正解
+                    "رَاكِبُونَ (rākibūna)",
+                    "رُكَّابًا (rukkāban)",
+                    "رَاكِبًا (rākiban)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "rākibīna は「乗っている人（能動分詞）」の複数・対格です。rukkāban（不規則複数）も文法的に間違いではありませんが、ここでは能動分詞の規則変化形 rākibīna がハールとして最も一般的です。"
+                }
+              ]
+            },
+            {
+              id: 145,
+              level: "文法",
+              category: "タムイーズ",
+              title: "Lesson 45: タムイーズ",
+              contentPlain: "「何の点で？」という曖昧さを解消するための言葉です。「彼は私より大きい」と言った時、「身長が？年齢が？」という疑問に答えるのがタムイーズです。比較級や数詞（11〜99）の後ろによく登場し、必ず対格（～an）になります。",
+              
+              imageUrls: [
+                "/image/grammar/lesson45_1.jpg", 
+                "/image/grammar/lesson45_2.jpg", 
+                "/image/grammar/lesson45_3.jpg", 
+                "/image/grammar/lesson45_4.jpg", 
+                "/image/grammar/lesson45_5.jpg", 
+                "/image/grammar/lesson45_6.jpg", 
+              ],
+              
+              contentVoweled: "",
+              sentences: [], 
+              vocabList: [],
+              
+              questions: [
+                {
+                  type: "grammar",
+                  text: "「彼は私より『経験において』勝っています（経験豊富です）」\n（ヒント：比較級 akthar の曖昧さを説明する）\n「هُوَ أَكْثَرُ مِنِّي ___」",
+                  options: [
+                    "خِبْرَةً (khibratan)", // 正解
+                    "خِبْرَةٌ (khibratun)",
+                    "خِبْرَةٍ (khibratin)",
+                    "الْخِبْرَةَ (al-khibrata)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "比較級の後ろで「何の点で」と説明する語はタムイーズと呼ばれ、対格（〜an）になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「一ヶ月は30『日』です」\n（ヒント：数詞 11〜99 の後ろの名詞はタムイーズ）\n「اَلشَّهْرُ ثَلَاثُونَ ___」",
+                  options: [
+                    "يَوْمًا (yawman)", // 正解
+                    "يَوْمٍ (yawmin)",
+                    "يَوْمٌ (yawmun)",
+                    "أَيَّامٍ (ayyāmin)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "11から99までの数詞の後ろに来る名詞は、単数・対格（タムイーズ）になります。3〜10の場合は複数・属格なので注意が必要です。"
+                },
+                {
+                  type: "grammar",
+                  text: "「コップは『水で』満ちました」\n（ヒント：満ちる imtala'a の内容を説明）\n「اِمْتَلَأَ الْكُوبُ ___」",
+                  options: [
+                    "مَاءً (mā'an)", // 正解
+                    "مَاءٌ (mā'un)",
+                    "مَاءٍ (mā'in)",
+                    "الْمَاءَ (al-mā'a)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「満ちた」「増えた」などの動詞の後ろで、その内容を説明する言葉もタムイーズ（対格）になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「あなたは何冊の本を持っていますか？」\n（ヒント：疑問詞 Kam の後ろ）\n「كَمْ ___ عِنْدَكَ ؟」",
+                  options: [
+                    "كِتَابًا (kitāban)", // 正解
+                    "كِتَابٍ (kitābin)",
+                    "كِتَابٌ (kitābun)",
+                    "كُتُبٍ (kutubin)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「いくつ？（Kam）」という疑問詞の後ろに来る名詞もタムイーズ扱いとなり、単数・対格になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「東京は世界で最も『人口において』大きな都市です」\n（ヒント：最上級 akbar の内容説明）\n「طُوكْيُو أَكْبَرُ مَدِينَةٍ ___ فِي الْعَالَمِ」",
+                  options: [
+                    "سُكَّانًا (sukkānan)", // 正解
+                    "سُكَّانٍ (sukkānin)",
+                    "سُكَّانٌ (sukkānun)",
+                    "السُّكَّانَ (as-sukkāna)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「一番大きい」と言った後、「（面積ではなく）人口の点で」と補足説明するためにタムイーズ（対格）を使います。"
+                }
+              ]
+            },
+            {
+              id: 146,
+              level: "文法",
+              category: "絶対目的語",
+              title: "Lesson 46: 絶対目的語",
+              contentPlain: "「彼は死ぬほど笑った（笑いを笑った）」のように、動詞の意味を強調するために、同じ語根の動名詞を重ねる表現です。強調だけでなく、「どんなふうに（種類）」や「何回（回数）」を説明する時にも使われます。常に対格（～an）になります。",
+              
+              imageUrls: [
+                "/image/grammar/lesson46_1.jpg", 
+                "/image/grammar/lesson46_2.jpg", 
+                "/image/grammar/lesson46_3.jpg", 
+                "/image/grammar/lesson46_4.jpg", 
+                "/image/grammar/lesson46_5.jpg", 
+                "/image/grammar/lesson46_6.jpg", 
+                "/image/grammar/lesson46_7.jpg", 
+              ],
+              
+              contentVoweled: "",
+              sentences: [], 
+              vocabList: [],
+              
+              questions: [
+                {
+                  type: "grammar",
+                  text: "「私はそのレッスンを完全に（強調）理解しました」\n（ヒント：fahima の動名詞を対格で重ねる）\n「فَهِمْتُ الدَّرْسَ ___」",
+                  options: [
+                    "فَهْمًا (fahman)", // 正解
+                    "فَهْمٌ (fahmun)",
+                    "فَهْمٍ (fahmin)",
+                    "مَفْهُومًا (mafhūman)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "絶対目的語の基本です。動詞 fahima と同じ語根の動名詞 fahm を対格（fahman）にして置くことで、意味を強調します。"
+                },
+                {
+                  type: "grammar",
+                  text: "「彼は深い眠りにつきました（深く眠りました）」\n（ヒント：形容詞で修飾して『種類』を説明する）\n「نَامَ ___ عَمِيقًا」",
+                  options: [
+                    "نَوْمًا (nawman)", // 正解
+                    "نِيَامًا (niyāman)",
+                    "مَنَامًا (manāman)",
+                    "نَائِمًا (nā'iman)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "動詞 nāma（眠る）の動名詞は nawm です。後ろに形容詞（'amīqan）を伴うことで、「どんな眠りか」を説明しています。"
+                },
+                {
+                  type: "grammar",
+                  text: "【形の一致】「神はムーサー（モーゼ）に直接語りかけました」\n（ヒント：動詞 kallama は第2形。対応する動名詞は？）\n「كَلَّمَ اللهُ مُوسَى ___」",
+                  options: [
+                    "تَكْلِيمًا (taklīman)", // 正解
+                    "كَلَامًا (kalāman)",
+                    "تَكَلُّمًا (takalluman)",
+                    "مُكَالَمَةً (mukālamatan)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "ここが間違いやすいポイントです。動詞が第2形（kallama）なら、絶対目的語も第2形の動名詞（taklīm）でなければなりません。kalām は第1形の動名詞です。"
+                },
+                {
+                  type: "grammar",
+                  text: "【イダーファ】「彼はライオンのように走りました（ライオンの走りを走った）」\n（ヒント：後ろの名詞とつながる場合、タンウィーンは？）\n「جَرَى ___ الْأَسَدِ」",
+                  options: [
+                    "جَرْيَ (jarya)", // 正解
+                    "جَرْيًا (jaryan)",
+                    "جَرْيُ (jaryu)",
+                    "مَجْرَى (majrā)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「〜の走り（jarya l-asad）」というイダーファ構文になるため、動名詞のタンウィーン（n）が消えて「ジャルヤ」になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "【回数】「私はカアバ神殿を２回巡回しました」\n（ヒント：動名詞の双数形）\n「طُفْتُ حَوْلَ الْكَعْبَةِ ___」",
+                  options: [
+                    "طَوْفَتَيْنِ (ṭawfatayni)", // 正解
+                    "طَوْفَتَانِ (ṭawfatāni)",
+                    "طَوَافًا (ṭawāfan)",
+                    "طَوْفَةً (ṭawfatan)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "回数を表す場合も絶対目的語になります。双数（2回）で、かつ対格なので「〜アイニ（ayni）」の形を選びます。"
+                },
+                {
+                  type: "grammar",
+                  text: "【代用・難問】「私は彼を『全ての』愛で愛しました（とても愛しました）」\n（ヒント：kulla を使って動名詞を後ろに回す）\n「أَحْبَبْتُهُ ___ الْحُبِّ」",
+                  options: [
+                    "كُلَّ (kulla)", // 正解
+                    "كُلُّ (kullu)",
+                    "كُلِّ (kulli)",
+                    "كُلًّا (kullan)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「クッラ（全て）」や「バアダ（一部）」などの語を使って強調する場合、その語自体が絶対目的語の代わり（対格）になり、本来の動名詞は後ろで属格になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "【派生形】「彼らは（政府に）激しく抗議しました」\n（ヒント：iḥtajja は第8形。動名詞の形は？）\n「اِحْتَجُّوا ___ شَدِيدًا」",
+                  options: [
+                    "اِحْتِجَاجًا (iḥtijājan)", // 正解
+                    "حِجَاجًا (ḥijājan)",
+                    "حُجَّةً (ḥujjatan)",
+                    "تَحَاجًّا (taḥājjan)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "動詞 iḥtajja（抗議する）は第8形（ifta'ala）なので、動名詞は iḥtijāj（ifti'ālパターン）になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "【動詞の省略】「（困難に対して）我慢しなさい！」\n（ヒント：動詞を使わず、絶対目的語だけで命令の意味を表す）\n「___ عَلَى الشَّدَائِدِ」",
+                  options: [
+                    "صَبْرًا (ṣabran)", // 正解
+                    "صَبْرٌ (ṣabrun)",
+                    "صَابِرًا (ṣābiran)",
+                    "اِصْبِرْ (iṣbir - 動詞)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「iṣbir ṣabran（忍耐強く耐えよ）」の動詞が省略された形です。日常会話の「シュクラン（感謝を）」や「アフワン（許しを）」もこの仲間です。"
+                }
+              ]
+            },
+            {
+              id: 147,
+              level: "文法",
+              category: "接続詞",
+              title: "Lesson 47: 接続詞",
+              contentPlain: "単語と単語、文と文をつなぐ「接続詞」のまとめです。「そして」だけでも、同時を表す「ワ」、順番を表す「ファ」、時間差を表す「スンマ」など、アラビア語は状況に応じて細かく使い分けます。",
+              
+              imageUrls: [
+                "/image/grammar/lesson47_1.jpg", 
+                "/image/grammar/lesson47_2.jpg", 
+                "/image/grammar/lesson47_3.jpg", 
+                "/image/grammar/lesson47_4.jpg", 
+                "/image/grammar/lesson47_5.jpg", 
+                "/image/grammar/lesson47_6.jpg", 
+                "/image/grammar/lesson47_7.jpg", 
+                "/image/grammar/lesson47_8.jpg", 
+                "/image/grammar/lesson47_9.jpg", 
+                "/image/grammar/lesson47_10.jpg", 
+              ],
+              
+              contentVoweled: "",
+              sentences: [], 
+              vocabList: [],
+              
+              questions: [
+                {
+                  type: "grammar",
+                  text: "「イマーム（導師）が礼拝の動作に入り、『それからすぐに』信徒たちも続きました」\n（ヒント：間髪入れずに続く「そして」）\n「كَبَّرَ الْإِمَامُ ___ الْمَأْمُومُونَ」",
+                  options: [
+                    "فَـ (fa)", // 正解
+                    "ثُمَّ (thumma)",
+                    "وَ (wa)",
+                    "أَوْ (aw)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「ファ（fa）」は順序を表し、かつ「遅れがない（即座に）」ことを強調します。「スンマ（thumma）」だと時間差があることになります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「農家は種をまき、『それから（数ヶ月後に）』収穫しました」\n（ヒント：時間差がある「そして」）\n「زَرَعَ الْفَلَّاحُ ___ حَصَدَ」",
+                  options: [
+                    "ثُمَّ (thumma)", // 正解
+                    "فَـ (fa)",
+                    "وَ (wa)",
+                    "بَلْ (bal)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "種まきと収穫の間には長い期間があるので、「スンマ（thumma）」を使います。"
+                },
+                {
+                  type: "grammar",
+                  text: "「あなたは紅茶を飲みますか？『それとも』コーヒーですか？」\n（ヒント：疑問詞『ア（a）』で始まる疑問文での選択）\n「أَ تَشْرَبُ الشَّايَ ___ الْقَهْوَةَ ؟」",
+                  options: [
+                    "أَمِ (am)", // 正解
+                    "أَوْ (aw)",
+                    "لَا (lā)",
+                    "بَلْ (bal)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「Aですか、それともBですか？」と聞く場合、「アウ（aw）」ではなく「アム（am）」を使います。「アウ」は「これかあれを（どちらでも）食べなさい」のような許可や選択に使います。"
+                },
+                {
+                  type: "grammar",
+                  text: "「私は成功を望みます、失敗で『はなく』」\n（ヒント：前の言葉を肯定し、後ろを否定する）\n「أُرِيدُ النَّجَاحَ ___ الْفَشَلَ」",
+                  options: [
+                    "لَا (lā)", // 正解
+                    "لَكِنْ (lākin)",
+                    "بَلْ (bal)",
+                    "أَوْ (aw)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「A、Bではない（A not B）」と言う場合、接続詞「ラー（lā）」を使います。"
+                },
+                {
+                  type: "grammar",
+                  text: "「私はマフムードを見かけました…いや（訂正）、ハリードでした」\n（ヒント：言い間違いを訂正する「いや、むしろ」）\n「رَأَيْتُ مَحْمُودًا ___ خَالِدًا」",
+                  options: [
+                    "بَلْ (bal)", // 正解
+                    "لَكِنْ (lākin)",
+                    "لَا (lā)",
+                    "ثُمَّ (thumma)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「バル（bal）」は、前の発言を取り消して言い直す（correction）時や、前の否定文を打ち消して「そうではなくて（rather）」と言う時に使います。"
+                }
+              ]
+            },
+            {
+              id: 148,
+              level: "文法",
+              category: "バダル（同格）",
+              title: "Lesson 48: バダル（同格）",
+              contentPlain: "「バダル（代用語）」は、前の言葉を言い換えたり、補足説明したりする文法です。「この本」「医者の田中さん」のように、イコール関係で結ばれる名詞同士は、常に「格（主格・所有格・目的格）」が一致します。",
+              
+              imageUrls: [
+                "/image/grammar/lesson48_1.jpg", 
+                "/image/grammar/lesson48_2.jpg", 
+                "/image/grammar/lesson48_3.jpg", 
+                "/image/grammar/lesson48_4.jpg", 
+                "/image/grammar/lesson48_5.jpg", 
+                "/image/grammar/lesson48_6.jpg", 
+                "/image/grammar/lesson48_7.jpg", 
+                "/image/grammar/lesson48_8.jpg", 
+                "/image/grammar/lesson48_9.jpg", 
+              ],
+              
+              contentVoweled: "",
+              sentences: [], 
+              vocabList: [],
+              
+              questions: [
+                {
+                  type: "grammar",
+                  text: "「私は『この』男の人を知っています」\n（ヒント：指示代名詞 hādhā は対格の位置にあります）\n「أَعْرِفُ هَذَا ___」",
+                  options: [
+                    "الرَّجُلَ (ar-rajula)", // 正解
+                    "الرَّجُلُ (ar-rajulu)",
+                    "الرَّجُلِ (ar-rajuli)",
+                    "رَجُلًا (rajulan)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「これ（hādhā）」は動詞「知る」の目的語なので対格の位置にあります。したがって、同格である「男の人」も対格（〜a）になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「私はパンを『半分』食べました」\n（ヒント：パン ar-raghīfa は対格。バダルの一部代用）\n「أَكَلْتُ الرَّغِيفَ ___」",
+                  options: [
+                    "نِصْفَهُ (niṣfahu)", // 正解
+                    "نِصْفُهُ (niṣfuhu)",
+                    "نِصْفِهِ (niṣfihi)",
+                    "نِصْفًا (niṣfan)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「パン（対格）」を言い換えるバダル（一部）なので、「半分」も対格（niṣfa）になります。後ろの -hu はパンを指す代名詞です。"
+                },
+                {
+                  type: "grammar",
+                  text: "「その先生は、私を感心させました、『知識』の点で（その先生の知識が私を感心させた）」\n（ヒント：動詞 A'jaba の主語は「先生」）\n「أَعْجَبَنِي الْمُدَرِّسُ ___」",
+                  options: [
+                    "عِلْمُهُ (‘ilmuhu)", // 正解
+                    "عِلْمَهُ (‘ilmahu)",
+                    "عِلْمِهِ (‘ilmihi)",
+                    "عِلْمًا (‘ilman)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「私を感心させた（a'jaba-nī）」の主語は「先生（al-mudarrisu / 主格）」です。したがって、その性質を説明するバダル（包摂）も主格（‘ilmu）になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「私たちはカリフ・ウマル（第2代正統カリフ）を愛しています」\n（ヒント：ウマルは二段変化名詞）\n「نُحِبُّ الْخَلِيفَةَ ___」",
+                  options: [
+                    "عُمَرَ (‘Umara)", // 正解
+                    "عُمَرُ (‘Umaru)",
+                    "عُمَرِ (‘Umari)",
+                    "عُمَرًا (‘Umaran)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「カリフ（al-khalīfata / 対格）」と言い換えの「ウマル」は同格なので対格になりますが、ウマルは二段変化名詞なのでタンウィーン（n）はつきません。"
+                },
+                {
+                  type: "grammar",
+                  text: "「私はあなたの兄弟ザイドに挨拶しました」\n（ヒント：akhīka は5つの名詞の属格）\n「سَلَّمْتُ عَلَى أَخِيكَ ___」",
+                  options: [
+                    "زَيْدٍ (Zaydin)", // 正解
+                    "زَيْدًا (Zaydan)",
+                    "زَيْدٌ (Zaydun)",
+                    "زَيْدُ (Zaydu)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「あなたの兄弟（akhīka）」は前置詞の後ろなので属格です。その同格である固有名詞「ザイド」も属格（in）になります。"
+                }
+              ]
+            }, 
+            {
+              id: 149,
+              level: "文法",
+              category: "種族否定のラー",
+              title: "Lesson 49: 種族否定のラー",
+              contentPlain: "「神はいない（ラー・イラーハ）」のように、「その種類のものは一つとして存在しない」と強く否定する表現です。このラーの後ろに来る名詞は、原則として「対格（ア）」になり、タンウィーン（ン）が消えるという強力なルールを持っています。",
+              
+              imageUrls: [
+                "/image/grammar/lesson49_1.jpg", 
+                "/image/grammar/lesson49_2.jpg", 
+                "/image/grammar/lesson49_3.jpg", 
+                "/image/grammar/lesson49_4.jpg", 
+                "/image/grammar/lesson49_5.jpg", 
+                "/image/grammar/lesson49_6.jpg", 
+                "/image/grammar/lesson49_7.jpg", 
+              ],
+              
+              contentVoweled: "",
+              sentences: [], 
+              vocabList: [],
+              
+              questions: [
+                {
+                  type: "grammar",
+                  text: "「アッラーの他に神はなし（シャハーダ）」\n「لَا ___ إِلَّا اللهُ」",
+                  options: [
+                    "إِلَهَ (ilāha)", // 正解
+                    "إِلَهًا (ilāhan)",
+                    "إِلَهُ (ilāhu)",
+                    "إِلَهٍ (ilāhin)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "これが基本形です。種族否定のラーの直後に来る名詞（主語）は、タンウィーンなしの「ア（Fatha）」に固定されます。"
+                },
+                {
+                  type: "grammar",
+                  text: "「それに疑いはない」\n「لَا ___ فِيهِ」",
+                  options: [
+                    "شَكَّ (shakka)", // 正解
+                    "شَكًّا (shakkan)",
+                    "شَكٌّ (shakkun)",
+                    "شَكِّ (shakki)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「疑いなし（No doubt）」という決まり文句です。タンウィーン（ン）を付けずに「シャッカ」と言います。"
+                },
+                {
+                  type: "grammar",
+                  text: "「問題ありません（No problem）」\n「لَا ___」",
+                  options: [
+                    "مُشْكِلَةَ (mushkilata)", // 正解
+                    "مُشْكِلَةً (mushkilatan)",
+                    "مُشْكِلَةٌ (mushkilatun)",
+                    "مُشْكِلَةٍ (mushkilatin)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "女性名詞の場合も同じです。タンウィーンなしの「ア」で「ムシュキラタ」となります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「（いかなる）ムスリムたちも嘘つきではありません」\n「لَا ___ كَاذِبُونَ」",
+                  options: [
+                    "مُسْلِمِينَ (muslimīna)", // 正解
+                    "مُسْلِمُونَ (muslimūna)",
+                    "مُسْلِمَانِ (muslimāni)",
+                    "مُسْلِمًا (musliman)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "ラーの直後は対格（イーナ）になります。一方、述語である「嘘つきだ（kādhibūna）」は主格（ウーナ）になります。これはラーが「インナ（Inna）」と同じ働き（主語を対格、述語を主格にする）を持つためです。"
+                },
+                {
+                  type: "grammar",
+                  text: "「（いかなる）女性たち（ムスリム女性たち）もいません」\n「لَا ___ مَوْجُودَاتٌ」",
+                  options: [
+                    "مُسْلِمَاتٍ (muslimātin)", // 正解
+                    "مُسْلِمَاتٌ (muslimātun)",
+                    "مُسْلِمَاتَ (muslimāta)",
+                    "مُسْلِمَةً (muslimatan)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "女性規則複数（〜āt）は、「ア」の音を取れないため、例外的に「イ（kasra）」の音になります。後ろの述語「いる（mawjūdātun）」は通常通り主格（ウン）になります。"
+                }
+              ]
+            },
+            {
+              id: 150,
+              level: "文法",
+              category: "インナとその姉妹",
+              title: "Lesson 50: インナとその姉妹",
+              contentPlain: "「本当に～だ（インナ）」「～だと（アンナ）」「しかし（ラーキンナ）」などの強調の助詞です。これらが文頭に来ると、その後の主語が「対格（～a）」に変化します。述語は元のまま（主格）です。カアンナ（あたかも～のように）、レイタ（～だったらいいのに）、ラアッラ（おそらく～だろう）も同じ仲間です。",
+              
+              imageUrls: [
+                "/image/grammar/lesson50_1.jpg", 
+                "/image/grammar/lesson50_2.jpg", 
+                "/image/grammar/lesson50_3.jpg", 
+                "/image/grammar/lesson50_4.jpg", 
+                "/image/grammar/lesson50_5.jpg", 
+                "/image/grammar/lesson50_6.jpg", 
+                "/image/grammar/lesson50_7.jpg", 
+                "/image/grammar/lesson50_8.jpg", 
+                "/image/grammar/lesson50_9.jpg", 
+              ],
+              
+              contentVoweled: "",
+              sentences: [], 
+              vocabList: [],
+              
+              questions: [
+                {
+                  type: "grammar",
+                  text: "「本当に、神はご存じであり、賢明な方です」\n「إِنَّ ___ عَلِيمٌ حَكِيمٌ」",
+                  options: [
+                    "اللهَ (Allāha)", // 正解
+                    "اللهُ (Allāhu)",
+                    "اللهِ (Allāhi)",
+                    "اللَّهُمَّ (Allāhumma)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "基本ルールです。「インナ」の後ろの主語（イズム・インナ）は対格（a）になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「本当に、信者たちは兄弟です」\n「إِنَّ ___ إِخْوَةٌ」",
+                  options: [
+                    "الْمُؤْمِنِينَ (al-mu'minīna)", // 正解
+                    "الْمُؤْمِنُونَ (al-mu'minūna)",
+                    "الْمُؤْمِنَانِ (al-mu'mināni)",
+                    "الْمُؤْمِنَيْنِ (al-mu'minayni)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "主語はインナの影響で対格（〜イーナ）になります。述語（兄弟）は主格のままです。"
+                },
+                {
+                  type: "grammar",
+                  text: "「（私は）試験が難しいと知っています」\n「أَعْلَمُ ___ الْاِمْتِحَانَ صَعْبٌ」",
+                  options: [
+                    "أَنَّ (anna)", // 正解
+                    "إِنَّ (inna)",
+                    "لَكِنَّ (lākinna)",
+                    "لَعَلَّ (la'alla)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「〜ということを（that）」と文中でつなぐ場合は「アンナ」を使います。この場合も後ろの主語（試験）は対格（a）になっています。"
+                },
+                {
+                  type: "grammar",
+                  text: "「彼は金持ちですが、ケチです」\n「هُوَ غَنِيٌّ لَكِنَّهُ ___」",
+                  options: [
+                    "بَخِيلٌ (bakhīlun)", // 正解
+                    "بَخِيلًا (bakhīlan)",
+                    "بَخِيلٍ (bakhīlin)",
+                    "بَخِيلُ (bakhīlu)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「ラーキンナ・フ（彼）」の「フ」が対格になった主語です。空欄は述語（ハバル）なので、主格（un）のまま残ります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「あたかも兵士たちはライオンのようです」\n「كَأَنَّ ___ أُسُودٌ」",
+                  options: [
+                    "الْجُنُودَ (al-junūda)", // 正解
+                    "الْجُنُودُ (al-junūdu)",
+                    "الْجُنُودِ (al-junūdi)",
+                    "جُنُودٌ (junūdun)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「カアンナ（〜のようだ）」もインナの姉妹なので、主語を対格（a）にします。"
+                },
+                {
+                  type: "grammar",
+                  text: "「もしも青春が戻ってくるならば（不可能な願望）」\n「لَيْتَ ___ يَعُودُ」",
+                  options: [
+                    "الشَّبَابَ (ash-shabāba)", // 正解
+                    "الشَّبَابُ (ash-shabābu)",
+                    "الشَّبَابِ (ash-shabābi)",
+                    "الشَّبَابًا (ash-shabāban)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「レイタ（〜ならばいいのに）」の後ろの名詞は主語扱いとなり、対格（a）になります。「戻ってくる（ya'ūdu）」という動詞文全体が述語の役割をします。"
+                },
+                {
+                  type: "grammar",
+                  text: "「おそらく、あなたのお父さんは到着するでしょう」\n「لَعَلَّ ___ قَادِمٌ」",
+                  options: [
+                    "أَبَاكَ (Abāka)", // 正解
+                    "أَبُوكَ (Abūka)",
+                    "أَبِيكَ (Abīka)",
+                    "أَبَاكِ (Abāki)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「ラアッラ（おそらく）」によって主語は対格になります。5つの名詞（父など）の対格は「アリフ（ā）」で表されるため、Abāka となります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「本当に、女子学生たちは勤勉です」\n「إِنَّ ___ مُجْتَهِدَاتٌ」",
+                  options: [
+                    "الطَّالِبَاتِ (aṭ-ṭālibāti)", // 正解
+                    "الطَّالِبَاتُ (aṭ-ṭālibātu)",
+                    "الطَّالِبَاتَ (aṭ-ṭālibāta)",
+                    "الطَّالِبَاتٍ (aṭ-ṭālibātin)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "ここが最大のひっかけです。女性規則複数の対格は「ア」になれず「イ（ti）」になります。一方、述語（勤勉だ）は主格なので「ウ（tun）」のままです。「イ」と「ウ」の組み合わせを選びます。"
+                }
+              ]
+            },
+            {
+              id: 151,
+              level: "文法",
+              category: "原因目的語",
+              title: "Lesson 51: 原因目的語",
+              contentPlain: "「勉強するために（目的）」「尊敬して（原因）」のように、動作の理由や目的を説明する文法です。前置詞（〜のために）を使わずに、動名詞をそのまま「対格（〜an / ~a）」にして動詞の後ろに置くのがカッコいい表現とされます。",
+              
+              imageUrls: [
+                "/image/grammar/lesson51_1.jpg", 
+                "/image/grammar/lesson51_2.jpg", 
+                "/image/grammar/lesson51_3.jpg", 
+                "/image/grammar/lesson51_4.jpg", 
+                "/image/grammar/lesson51_5.jpg", 
+                "/image/grammar/lesson51_6.jpg", 
+                "/image/grammar/lesson51_7.jpg", 
+                "/image/grammar/lesson51_8.jpg", 
+              ],
+              
+              contentVoweled: "",
+              sentences: [], 
+              vocabList: [],
+              
+              questions: [
+                {
+                  type: "grammar",
+                  text: "「生徒たちは先生に敬意を表して立ち上がりました」\n「قَامَ التَّلَامِيذُ ___ لِلْمُعَلِّمِ」",
+                  options: [
+                    "اِحْتِرَامًا (iḥtirāman)", // 正解
+                    "اِحْتِرَامٌ (iḥtirāmun)",
+                    "مُحْتَرِمِينَ (muḥtarimīna)",
+                    "لِلاِحْتِرَامِ (li-l-iḥtirāmi)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「尊敬すること（iḥtirām）」という動名詞を対格（an）にすることで、「〜のために（out of respect）」という理由を表します。muḥtarimīna は「尊敬しながら（ハール）」になるため、ここでは「敬意を表して（原因）」という文脈に最も適した iḥtirāman を選びます。"
+                },
+                {
+                  type: "grammar",
+                  text: "「私は成功を求めて勉強します」\n「أَدْرُسُ ___ فِي النَّجَاحِ」",
+                  options: [
+                    "رَغْبَةً (raghbatan)", // 正解
+                    "رَغْبَةٌ (raghbatun)",
+                    "رَاغِبًا (rāghiban)",
+                    "رَغْبَةٍ (raghbatin)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「熱望（raghba）」を対格にして理由を示します。rāghiban（望んでいる人＝能動分詞）だと「ハール（状態）」になり文法的には成立しますが、「原因目的語」の問題としては動名詞の raghbatan が正解です。"
+                },
+                {
+                  type: "grammar",
+                  text: "「彼らは神の満足を求めて寄付しました」\n「تَصَدَّقُوا ___ مَرْضَاتِ اللهِ」",
+                  options: [
+                    "اِبْتِغَاءَ (ibtighā'a)", // 正解
+                    "اِبْتِغَاءًا (ibtighā'an)",
+                    "اِبْتِغَاءُ (ibtighā'u)",
+                    "مُبْتَغِينَ (mubtaghīna)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「神の満足の・希求（ibtighā'a marḍāti...）」というイダーファ構造になっています。原因目的語なので対格（ア）ですが、イダーファの前側（ムダーフ）なのでタンウィーンはつきません。"
+                },
+                {
+                  type: "grammar",
+                  text: "「私は罰を恐れて嘘をつきませんでした」\n「لَمْ أَكْذِبْ ___ الْعِقَابِ」",
+                  options: [
+                    "خَوْفَ (khawfa)", // 正解
+                    "خَوْفًا (khawfan)",
+                    "خَائِفًا (khā'ifan)",
+                    "خَوْفِ (khawfi)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "これもイダーファ（罰の・恐れ）です。対格の「ア」になりますが、後ろに名詞が続くのでタンウィーンは落ちて「ハウファ（khawfa）」となります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「彼は知識を求めて旅に出ました」\n「سَافَرَ ___ لِلْعِلْمِ」",
+                  options: [
+                    "طَلَبًا (ṭalaban)", // 正解
+                    "طَالِبًا (ṭāliban)",
+                    "طَلَبٌ (ṭalabun)",
+                    "مَطْلَبًا (maṭlaban)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「知識のために（li-l-'ilmi）」とつながる場合、前の動名詞は単独の対格（an）になります。ṭāliban（求めている人）はハールになります。"
+                },
+                {
+                  type: "grammar",
+                  text: "「私たちは（神への）感謝として祈ります」\n「نُصَلِّي ___ لِلَّهِ」",
+                  options: [
+                    "شُكْرًا (shukran)", // 正解
+                    "شَاكِرِينَ (shākirīna)",
+                    "شُكْرٌ (shukrun)",
+                    "مَشْكُورًا (mashkūran)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「感謝（shukr）」を原因目的語（対格）にして「感謝して／感謝のために」と表現します。"
+                },
+                {
+                  type: "grammar",
+                  text: "「警察官は治安を維持するために立ちました」\n「وَقَفَ الشُّرْطِيُّ ___ عَلَى الْأَمْنِ」",
+                  options: [
+                    "حِفَاظًا (ḥifāẓan)", // 正解
+                    "حَافِظًا (ḥāfiẓan)",
+                    "مَحْفُوظًا (maḥfūẓan)",
+                    "حِفَاظٌ (ḥifāẓun)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「維持すること（ḥifāẓ）」を対格にします。ḥāfiẓan は能動分詞（ハール）です。"
+                },
+                {
+                  type: "grammar",
+                  text: "「私は彼に会いたいがために（思慕の情から）彼を訪ねました」\n「زُرْتُهُ ___ إِلَيْهِ」",
+                  options: [
+                    "شَوْقًا (shawqan)", // 正解
+                    "شَوْقٌ (shawqun)",
+                    "شَائِقًا (shā'iqan)",
+                    "مُشْتَاقًا (mushtāqan)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「思慕／恋しさ（shawq）」を原因として挙げる表現です。mushtāqan（会いたがっている状態で）も意味は通じますが、文法用語としての「原因目的語（動名詞を使う）」に従うと shawqan が正解です。"
+                }
+              ]
+            }, 
+
+            
   // =================================================================
   //  PART 3: 中級コース (Intermediate Course) - 読解・物語
   //  全10記事 × 各5問 = 50問 (ID 200 - 209)
