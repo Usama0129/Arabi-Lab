@@ -6,7 +6,6 @@ import { articles, Article, QuizQuestion } from "./data";
 
 // --- Types ---
 type Screen = "main_menu" | "levels_sub" | "topics" | "list" | "mode_select" | "reader" | "quiz" | "result" | "vocab" | "dictation" | "mypage";
-// ▼ 学習モードはシンプルに戻しました
 type LearningMode = "reading" | "listening" | "dictation" | "grammar";
 type CourseType = "grammar" | "conversation" | "reading" | "listening";
 type StudyBreakdown = { reading: number; listening: number; dictation: number; vocab: number; grammar: number; };
@@ -22,6 +21,14 @@ const getYouTubeId = (url: string) => {
   const match = url.match(regExp);
   return (match && match[2].length === 11) ? match[2] : null;
 };
+
+// --- Common Components ---
+// 統一された戻るボタンコンポーネント
+const HeaderBackButton = ({ onClick, text = "戻る", colorClass = "text-gray-400 hover:text-emerald-700" }: { onClick: () => void, text?: string, colorClass?: string }) => (
+  <button onClick={onClick} className={`mb-4 text-sm transition flex items-center gap-1 font-bold ${colorClass}`}>
+    <span>←</span> {text}
+  </button>
+);
 
 export default function Home() {
   // --- State ---
@@ -219,7 +226,6 @@ export default function Home() {
     setCourseType(type);
     if (type === "grammar") {
         setSelectedLevel("文法");
-        // ▼ 修正: 文法モードは直接トピック選択へ (モード選択画面をスキップ)
         changeScreen("topics"); 
     } else if (type === "conversation") {
         setSelectedLevel("会話");
@@ -261,7 +267,7 @@ export default function Home() {
     setActiveProblemNumber(index + 1); 
     setRevealedVocabIndex(null); 
     
-    // ▼ 修正: 文法モードも解説ページ(Reader)へ遷移
+    // 文法モードは直接解説ページ(Reader)へ
     if (courseType === "grammar") {
         startLearning("grammar");
     } else if (courseType === "listening") {
@@ -294,7 +300,6 @@ export default function Home() {
         setDictationIndex(0); generateDictationProblem(activeArticle, 0); changeScreen("dictation"); 
     }
     else if (mode === "grammar" && activeArticle) {
-      // 解説を読むモード
       const qs = activeArticle.questions; 
       setGrammarQuestions(qs); setCurrentQuestionIndex(0); setGrammarFeedback(null); changeScreen("reader");
     } else { changeScreen("reader"); }
@@ -325,10 +330,6 @@ export default function Home() {
     if (!activeArticle) return;
     if (currentQuestionIndex < activeArticle.questions.length - 1) { setCurrentQuestionIndex(prev => prev + 1); setQuizSelectedOption(null); setIsQuizResultVisible(false); }
     else { if (!completedArticleIds.includes(activeArticle.id)) { setCompletedArticleIds([...completedArticleIds, activeArticle.id]); } changeScreen("result"); }
-  };
-  const handleGrammarAnswer = (optionIndex: number) => {
-    const currentQ = grammarQuestions[currentQuestionIndex];
-    if (optionIndex === currentQ.correctIndex) { setGrammarFeedback("correct"); speakText(currentQ.options[optionIndex]); } else { setGrammarFeedback("incorrect"); }
   };
   const checkDictation = () => { if (normalizeArabic(dictationInput) === targetWordClean) setDictationFeedback("correct"); else setDictationFeedback("incorrect"); };
   const nextDictation = () => { if (!activeArticle) return; if (dictationIndex < activeArticle.sentences.length - 1) { const nextIdx = dictationIndex + 1; setDictationIndex(nextIdx); generateDictationProblem(activeArticle, nextIdx); } else changeScreen("result"); };
@@ -437,7 +438,10 @@ export default function Home() {
       <main className="max-w-3xl mx-auto p-4 pb-20">
         {currentScreen === "mypage" && (
            <div className="animate-fade-in-up">
-             <div className="mb-6 flex justify-between items-end"><h2 className="text-2xl font-serif font-bold text-emerald-950">📊 学習レポート</h2><button onClick={() => changeScreen("main_menu")} className="text-sm text-gray-400 hover:text-emerald-700 transition">閉じる ✕</button></div>
+             {/* 戻るボタンを追加 */}
+             <HeaderBackButton onClick={() => changeScreen("main_menu")} />
+             
+             <div className="mb-6 flex justify-between items-end"><h2 className="text-2xl font-serif font-bold text-emerald-950">📊 学習レポート</h2></div>
              {user && (<div className="bg-white p-4 rounded-xl shadow-sm border border-emerald-100 mb-6 flex items-center gap-4" dir="ltr">{user.user_metadata?.avatar_url ? (<img src={user.user_metadata.avatar_url} className="w-12 h-12 rounded-full" alt="User" />) : <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center text-2xl">👤</div>}<div><div className="flex items-center gap-2"><p className="font-bold text-emerald-900">{user.user_metadata?.full_name || "ユーザー"}</p>{isPremium ? <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full border border-amber-200">👑 有料会員</span> : <span className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">無料会員</span>}</div><p className="text-xs text-gray-500">{user.email}</p></div></div>)}
              <div className="grid grid-cols-3 gap-4 mb-8 text-center" dir="ltr"><StatCard label="今日" value={formatTime(stats.today)} color="text-emerald-700" /><StatCard label="今月" value={formatTime(stats.month)} color="text-blue-700" /><StatCard label="総計" value={formatTime(stats.total)} color="text-amber-600" /></div>
              <div className="bg-white p-6 rounded-2xl shadow-lg border border-amber-100"><h3 className="font-bold mb-6 text-gray-600 font-serif">📈 スキルバランス</h3><div className="space-y-4" dir="ltr">{Object.entries(breakdown).map(([key, val]) => (<div key={key} className="space-y-2"><div className="flex justify-between text-xs font-bold uppercase text-gray-400"><span>{key}</span><span>{formatTime(val)}</span></div><div className="w-full bg-stone-100 rounded-full h-2.5 overflow-hidden"><div className={`h-full rounded-full ${key==='reading'?'bg-emerald-600':key==='listening'?'bg-blue-600':key==='dictation'?'bg-orange-500': key==='grammar' ? 'bg-purple-600' : 'bg-amber-500'}`} style={{width: `${stats.total ? (val/stats.total)*100 : 0}%`}}></div></div></div>))}</div></div></div>
@@ -458,7 +462,11 @@ export default function Home() {
 
         {currentScreen === "levels_sub" && (
           <div className="text-center py-10 animate-fade-in-up">
-            <button onClick={() => changeScreen("main_menu")} className="text-gray-400 mb-6 text-sm hover:text-emerald-700 transition flex items-center gap-1 font-bold mx-auto">← 戻る</button>
+            {/* 共通コンポーネントを使用 */}
+            <div className="flex justify-center mb-4">
+               <HeaderBackButton onClick={() => changeScreen("main_menu")} />
+            </div>
+            
             <h2 className="text-2xl font-serif font-bold mb-3 text-emerald-950">
                 {courseType === "reading" ? "リーディング" : courseType === "listening" ? "リスニング" : "学習モード選択"}
             </h2>
@@ -480,13 +488,14 @@ export default function Home() {
 
         {currentScreen === "topics" && (
           <div className="animate-fade-in-up">
-            <button onClick={() => {
-                if (courseType === "conversation") {
+            {/* 共通コンポーネントを使用 */}
+            <HeaderBackButton onClick={() => {
+                if (courseType === "conversation" || courseType === "grammar") {
                     changeScreen("main_menu");
                 } else {
-                    changeScreen("main_menu");
+                    changeScreen("levels_sub");
                 }
-            }} className="text-gray-400 mb-6 text-sm hover:text-emerald-700 transition flex items-center gap-1 font-bold">← 戻る</button>
+            }} />
             
             <h2 className="text-2xl font-serif font-bold mb-6 text-emerald-950 border-b-2 border-amber-400 pb-2 inline-block">
                 {courseType === "grammar" ? "文法トピック" : 
@@ -494,7 +503,6 @@ export default function Home() {
                  `${selectedLevel}のテーマ`}
             </h2>
             <div className="grid grid-cols-2 gap-4" dir="ltr">
-              {/* 自動で文法トピックを表示 */}
               {Array.from(new Set(getFilteredArticles().map(a => a.category))).map(cat => (
                   <button key={cat} onClick={() => handleSelectCategory(cat)} className="bg-white p-6 rounded-xl shadow hover:shadow-lg border border-stone-200 hover:border-emerald-500 transition-all text-left group relative overflow-hidden">
                       <div className="absolute top-0 right-0 w-2 h-full bg-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -517,9 +525,9 @@ export default function Home() {
 
         {currentScreen === "list" && (
           <div className="animate-fade-in-up">
-            <button onClick={() => {
-                 changeScreen("topics");
-            }} className="text-gray-400 mb-6 text-sm hover:text-emerald-700 transition flex items-center gap-1 font-bold">← 戻る</button>
+            {/* 共通コンポーネントを使用 */}
+            <HeaderBackButton onClick={() => changeScreen("topics")} />
+
             <div className="flex justify-between items-end mb-6 border-b border-stone-200 pb-2"><h2 className="text-xl font-serif font-bold text-emerald-950">{selectedCategory}</h2></div>
             <div className="space-y-3">
               {getFilteredArticles().filter(a => a.category === selectedCategory).map((article, index) => {
@@ -537,7 +545,21 @@ export default function Home() {
 
         {currentScreen === "reader" && activeArticle && (
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden pb-10 border border-stone-200 animate-fade-in-up">
-            <div className="bg-emerald-900 text-amber-50 p-4 flex justify-between items-center sticky top-0 z-10"><button onClick={() => changeScreen("list")} className="hover:text-white text-sm font-bold opacity-80 transition">✕ 閉じる</button><span className="font-bold text-xs tracking-wider opacity-80">{activeArticle.category}</span></div>
+            {/* Header: ここを修正して戻るボタン風にする */}
+            <div className="bg-emerald-900 text-amber-50 p-4 flex justify-between items-center sticky top-0 z-10">
+                <button onClick={() => {
+                    // リスニング・文法モードは直接リストに戻る。それ以外はモード選択に戻る
+                    if (courseType === "listening" || courseType === "grammar") {
+                        changeScreen("list");
+                    } else {
+                        changeScreen("mode_select");
+                    }
+                }} className="hover:text-white text-sm font-bold opacity-80 transition flex items-center gap-1">
+                    <span>←</span> 戻る
+                </button>
+                <span className="font-bold text-xs tracking-wider opacity-80">{activeArticle.category}</span>
+            </div>
+
             <div className="p-6 md:p-10 flex flex-col items-center">
               
               {learningMode === "grammar" && activeArticle.imageUrls && activeArticle.imageUrls.length > 0 ? (
@@ -615,8 +637,26 @@ export default function Home() {
                               return (
                                 <div key={idx} className={`flex ${isRight ? "justify-start" : "justify-end"}`}>
                                   <div className={`max-w-[85%] p-5 rounded-2xl relative shadow-sm border ${isRight ? "bg-emerald-50 text-emerald-900 rounded-tr-none border-emerald-100" : "bg-white text-gray-800 rounded-tl-none border-gray-100"}`}>
-                                    <div className="flex justify-between items-center mb-2"><p className="text-xs font-bold opacity-60 uppercase">{sent.speaker}</p><button onClick={() => speakText(sent.arabic, sent.speaker)} className="text-gray-300 hover:text-emerald-600 text-sm transition">🔊</button></div>
-                                    <p className="text-xl font-arabic leading-loose">{sent.arabic}</p>
+                                    {/* Header */}
+                                    <div className="flex justify-between items-center mb-2">
+                                        <p className="text-xs font-bold opacity-60 uppercase">{sent.speaker}</p>
+                                        {learningMode !== "listening" && (
+                                            <button onClick={() => speakText(sent.arabic, sent.speaker)} className="text-gray-300 hover:text-emerald-600 text-sm transition">🔊</button>
+                                        )}
+                                    </div>
+                                    {/* Content */}
+                                    {learningMode === "listening" ? (
+                                        <div className="flex justify-center py-2">
+                                            <button 
+                                                onClick={() => speakText(sent.arabic, sent.speaker)} 
+                                                className={`w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-sm border-2 transition transform active:scale-95 hover:scale-105 ${isRight ? "bg-white border-emerald-200 text-emerald-600" : "bg-stone-50 border-stone-200 text-stone-500"}`}
+                                            >
+                                                🔊
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <p className="text-xl font-arabic leading-loose">{sent.arabic}</p>
+                                    )}
                                   </div>
                                 </div>
                               );
@@ -629,12 +669,14 @@ export default function Home() {
                                 if (activeArticle.contentPlain) return activeArticle.contentPlain;
                                 if (activeArticle.sentences && activeArticle.sentences.length > 0) return removeTashkeel(activeArticle.sentences.map(s => s.arabic).join(" "));
                                 return activeArticle.contentVoweled ? removeTashkeel(activeArticle.contentVoweled) : "";
-                              } else if (activeArticle.level === "中級" || activeArticle.category === "物語") {
-                                return (activeArticle.sentences && activeArticle.sentences.length > 0)
-                                    ? activeArticle.sentences.map(s => s.arabic).join(" ")
-                                    : (activeArticle.contentVoweled || activeArticle.contentPlain || "");
-                              } else {
-                                return (activeArticle.contentVoweled || activeArticle.contentPlain);
+                              } 
+                              else if (activeArticle.level === "中級") {
+                                if (activeArticle.contentVoweled) return activeArticle.contentVoweled;
+                                if (activeArticle.sentences && activeArticle.sentences.length > 0) return activeArticle.sentences.map(s => s.arabic).join(" ");
+                                return activeArticle.contentPlain || "";
+                              } 
+                              else {
+                                return (activeArticle.contentVoweled || activeArticle.contentPlain || "");
                               }
                             })()}
                           </p>
@@ -651,7 +693,12 @@ export default function Home() {
         )}
         
         {currentScreen === "mode_select" && activeArticle && (
-          <div className="flex flex-col items-center justify-center py-10 animate-fade-in-up max-w-xl mx-auto">
+          <div className="flex flex-col items-center justify-center py-10 animate-fade-in-up max-w-xl mx-auto relative">
+            {/* 戻るボタンを追加（絶対配置または上部に配置） */}
+            <div className="w-full text-left">
+                <HeaderBackButton onClick={() => changeScreen("list")} />
+            </div>
+
             <div className="w-24 h-24 bg-gradient-to-br from-emerald-700 to-emerald-900 text-amber-400 rounded-full flex items-center justify-center text-4xl mb-8 shadow-xl border-4 border-amber-100">🎓</div>
             <h2 className="text-2xl font-serif font-bold mb-4 text-center text-emerald-950">{activeArticle.title}</h2>
             <p className="text-gray-500 mb-10 text-sm tracking-wide">学習モードを選択</p>
@@ -669,13 +716,18 @@ export default function Home() {
                 <ModeButton icon="✍️" title="Dictation" subtitle="書き取り" color="border-orange-200 hover:bg-orange-50 text-orange-900" onClick={() => startLearning("dictation")} />
               )}
             </div>
-            <button onClick={() => changeScreen("list")} className="mt-12 text-gray-400 underline hover:text-emerald-700 transition">キャンセル</button>
+            {/* キャンセルボタンは上の戻るボタンと重複するので削除、またはそのまま残す */}
           </div>
         )}
 
         {currentScreen === "dictation" && activeArticle && activeArticle.sentences && (
           <div className="max-w-xl mx-auto animate-fade-in-up pb-32">
-             <div className="mb-6 flex justify-between items-center"><span className="text-xs font-bold text-gray-400 tracking-widest" dir="ltr">SENTENCE {dictationIndex + 1} / {activeArticle.sentences.length}</span><button onClick={() => changeScreen("list")} className="text-sm text-gray-400 hover:text-red-500">中断</button></div>
+             <div className="mb-6 flex justify-between items-center">
+                 {/* 戻るボタンを追加: ここでは「中断」として機能 */}
+                 <HeaderBackButton onClick={() => changeScreen("mode_select")} text="中断して戻る" colorClass="text-gray-400 hover:text-red-500" />
+                 <span className="text-xs font-bold text-gray-400 tracking-widest" dir="ltr">SENTENCE {dictationIndex + 1} / {activeArticle.sentences.length}</span>
+             </div>
+             
              <div className="bg-white p-8 rounded-2xl shadow-xl mb-4 text-center border border-stone-100">
                <h3 className="font-bold text-emerald-900 mb-8 font-serif">書き取り練習</h3>
                <button onClick={() => speakText(activeArticle.sentences[dictationIndex].arabic, activeArticle.sentences[dictationIndex].speaker)} className="bg-amber-100 text-amber-700 w-20 h-20 rounded-full text-4xl mb-10 hover:bg-amber-200 transition shadow-inner mx-auto flex items-center justify-center hover:scale-110 active:scale-95 border-2 border-amber-200">🔊</button>
@@ -690,9 +742,12 @@ export default function Home() {
         )}
         {currentScreen === "quiz" && activeArticle && (
           <div className="max-w-xl mx-auto animate-fade-in-up">
-             <div className="mb-4 text-center text-xs font-bold text-gray-400 tracking-widest" dir="ltr">QUESTION {currentQuestionIndex + 1} / {activeArticle.questions.length}</div>
+             <div className="flex justify-between items-center mb-4">
+                 {/* 戻るボタンを追加: ここでは「Reader（記事）」に戻る */}
+                 <HeaderBackButton onClick={() => changeScreen("reader")} text="記事に戻る" />
+                 <div className="text-center text-xs font-bold text-gray-400 tracking-widest" dir="ltr">QUESTION {currentQuestionIndex + 1} / {activeArticle.questions.length}</div>
+             </div>
              
-             {/* ▼▼▼ 修正: optionsの配列長が0なら文字ドリル、それ以外は4択クイズ ▼▼▼ */}
              {activeArticle.questions[currentQuestionIndex].type === "orthography" || activeArticle.questions[currentQuestionIndex].options.length === 0 ? (
                 <OrthographyDrill 
                   question={activeArticle.questions[currentQuestionIndex]} 
@@ -719,6 +774,11 @@ export default function Home() {
         )}
         {currentScreen === "result" && activeArticle && (
           <div className="pb-20 animate-fade-in-up">
+            {/* 結果画面から戻るボタンを追加: リストへ戻る */}
+             <div className="max-w-xl mx-auto">
+                 <HeaderBackButton onClick={() => changeScreen("list")} text="一覧に戻る" />
+             </div>
+
             <div className="text-center py-12 bg-white rounded-2xl shadow-xl mb-8 border border-stone-100">
               <div className="text-6xl mb-4">🎉</div>
               <h2 className="text-2xl font-serif font-bold mb-2 text-emerald-950">学習完了</h2>
@@ -739,7 +799,8 @@ export default function Home() {
         )}
         {currentScreen === "vocab" && (
           <div className="animate-fade-in-up pb-20">
-            <button onClick={() => changeScreen("main_menu")} className="text-gray-400 mb-6 text-sm hover:text-emerald-700 transition flex items-center gap-1 font-bold">← ホームに戻る</button>
+            <HeaderBackButton onClick={() => changeScreen("main_menu")} text="ホームに戻る" />
+            
             {!isFlashcardMode ? (
               <>
                 <div className="flex justify-between items-center mb-6"><h2 className="text-2xl font-serif font-bold text-emerald-950">📒 My 単語帳</h2><div className="flex gap-2"><button onClick={() => setIsAddingWord(!isAddingWord)} className="bg-emerald-100 text-emerald-800 px-4 py-2 rounded-full font-bold shadow-sm hover:bg-emerald-200 transition text-xs flex items-center gap-1">{isAddingWord ? "✕ 閉じる" : "＋ 単語を追加"}</button>{savedVocab.length > 0 && <button onClick={() => { setFcIndex(0); setFcFlipped(false); setIsFlashcardMode(true); }} className="bg-amber-500 text-emerald-950 px-4 py-2 rounded-full font-bold shadow-lg hover:bg-amber-400 transition text-xs flex items-center gap-1"><span>▶</span> 暗記モード</button>}</div></div>
@@ -784,7 +845,7 @@ function OrthographyDrill({ question, onNext, isLast }: any) {
       </span>
       
       <h3 className="text-lg font-bold mb-2 text-gray-500">問題</h3>
-      <div className="text-4xl font-bold font-arabic text-emerald-950 mb-10 py-6 bg-stone-50 rounded-xl border border-stone-200 dir-rtl">
+      <div className="text-4xl font-bold font-arabic text-emerald-950 mb-10 py-6 bg-stone-50 rounded-xl border border-stone-200 dir-rtl whitespace-pre-wrap">
         {question.text}
       </div>
 

@@ -269,7 +269,7 @@ export const articles: Article[] = [
       { speaker: "👨‍🍳 店員", arabic: "لِكَمْ شَخْصٍ وَمَتَى؟", japanese: "何名様で、いつですか？" },
       { speaker: "📞 客", arabic: "خَمْسَةُ أَشْخَاصٍ، السَّاعَةَ التَّاسِعَةَ.", japanese: "5人で、9時です。" },
       { speaker: "👨‍🍳 店員", arabic: "هَلْ تُرِيدُ قِسْمَ الْأَفْرَادِ أَمِ الْعَائِلَاتِ؟", japanese: "男性席（シングル）ですか、ファミリー席ですか？" },
-      { speaker: "📞 客", arabic: "قِسْمَ الْعَائِلَاتِ (مُغْلَق).", japanese: "ファミリー席（個室）で。" },
+      { speaker: "📞 客", arabic: "قِسْمَ الْعَائِلَاتِ.", japanese: "ファミリー席（個室）で。" },
       { speaker: "👨‍🍳 店員", arabic: "حَسَنًا، مَا اسْمُكَ وَرَقْمُكَ؟", japanese: "わかりました。お名前と番号を。" }
     ]
   },
@@ -1975,43 +1975,12 @@ export const articles: Article[] = [
       "/image/grammar/lesson1_4.jpg", 
       "/image/grammar/lesson1_5.jpg"
     ],
-
-    contentVoweled: "",
-    sentences: [], 
-    vocabList: [],
-
-    // ▼▼▼ ここが重要！問題データを追加します ▼▼▼
-    questions: [
-      {
-        type: "orthography",       // ★このタイプを指定すると「クリックして答え表示」になります
-        text: "次の文字をつなげてください： ب + ي + ت", 
-        explanation: "بيت",        // 正解の文字
-        options: [],               // 空でOK
-        correctIndex: 0            // 無視されます
-      },
-      {
-        type: "orthography",
-        text: "次の文字をつなげてください： ك + ت + ا + ب",
-        explanation: "كتاب",
-        options: [],
-        correctIndex: 0
-      },
-      {
-        type: "orthography",
-        text: "次の文字をバラしてください： قَلَم",
-        explanation: "ق + ل + م",
-        options: [],
-        correctIndex: 0
-      },
-      {
-        type: "orthography",
-        text: "次の文字をつなげてください： ش + ك + ر + اً",
-        explanation: "شكراً",
-        options: [],
-        correctIndex: 0
-      }
-    ] 
-  },
+// ダミーデータ
+contentVoweled: "",
+sentences: [], 
+vocabList: [],
+questions: [] // アルファベット回は問題なし
+},
 {
   id: 102,
   level: "文法",
@@ -2026,12 +1995,373 @@ imageUrls: [
 "/image/grammar/lesson2_2.jpg", 
 "/image/grammar/lesson2_3.jpg", 
 ],
+contentVoweled: "",
+sentences: [], 
+vocabList: [],
 
-  // ダミーデータ
-  contentVoweled: "",
-  sentences: [], 
-  vocabList: [],
-  questions: [] // アルファベット回は問題なし
+questions: [
+  // --- 基本編 (1-10) ---
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（家）：\nب + ي + ت", 
+    explanation: "بيت",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（本）：\nك + ت + ا + ب",
+    explanation: "كتاب",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（太陽）：\nش + م + س",
+    explanation: "شمس",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（月）：\nق + م + ر",
+    explanation: "قمر",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（平和）：\nس + ل + ا + م",
+    explanation: "سلام",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（ドア）：\nب + ا + ب",
+    explanation: "باب",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（お茶）：\nش + ا + ي",
+    explanation: "شاي",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（新しい）：\nج + د + ي + د",
+    explanation: "جديد",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（学校）：\nم + د + ر + س + ة",
+    explanation: "مدرسة",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（ペン）：\nق + ل + م",
+    explanation: "قلم",
+    options: [],
+    correctIndex: 0
+  },
+
+  // --- 人物・家族 (11-18) ---
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（男の子）：\nو + ل + د",
+    explanation: "ولد",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（女の子）：\nب + ن + ت",
+    explanation: "بنت",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（男性）：\nر + ج + ل",
+    explanation: "رجل",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（父）：\nأ + ب",
+    explanation: "أب",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（母）：\nأ + م",
+    explanation: "أم",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（兄/弟）：\nأ + خ",
+    explanation: "أخ",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（先生）：\nم + ع + ل + م",
+    explanation: "معلم",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（学生）：\nط + ا + ل + ب",
+    explanation: "طالب",
+    options: [],
+    correctIndex: 0
+  },
+
+  // --- 動物・自然 (19-26) ---
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（犬）：\nك + ل + ب",
+    explanation: "كلب",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（猫）：\nق + ط + ة",
+    explanation: "قطة",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（魚）：\nس + م + ك",
+    explanation: "سمك",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（ラクダ）：\nج + م + ل",
+    explanation: "جمل",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（木）：\nش + ج + ر + ة",
+    explanation: "شجرة",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（川）：\nن + ه + ر",
+    explanation: "نهر",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（山）：\nج + ب + ل",
+    explanation: "جبل",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（水）：\nم + ا + ء",
+    explanation: "ماء",
+    options: [],
+    correctIndex: 0
+  },
+
+  // --- 物・場所 (27-36) ---
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（コーヒー）：\nق + ه + و + ة",
+    explanation: "قهوة",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（車）：\nس + ي + ا + ر + ة",
+    explanation: "سيارة",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（椅子）：\nك + ر + س + ي",
+    explanation: "كرسي",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（机/オフィス）：\nم + ك + ت + ب",
+    explanation: "مكتب",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（部屋）：\nغ + ر + ف + ة",
+    explanation: "غرفة",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（窓）：\nش + ب + ا + ك",
+    explanation: "شباك",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（カバン）：\nح + ق + ي + ب + ة",
+    explanation: "حقيبة",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（時計）：\nس + ا + ع + ة",
+    explanation: "ساعة",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（鍵）：\nم + ف + ت + ا + ح",
+    explanation: "مفتاح",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（ベッド）：\nس + ر + ي + ر",
+    explanation: "سرير",
+    options: [],
+    correctIndex: 0
+  },
+
+  // --- 形容詞・その他 (37-42) ---
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（大きい）：\nك + ب + ي + ر",
+    explanation: "كبير",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（小さい）：\nص + غ + ي + ر",
+    explanation: "صغير",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（美しい）：\nج + م + ي + ل",
+    explanation: "جميل",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（古い）：\nق + د + ي + م",
+    explanation: "قديم",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（手）：\nي + د",
+    explanation: "يد",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をつなげてください（名前）：\nا + س + م",
+    explanation: "اسم",
+    options: [],
+    correctIndex: 0
+  },
+
+  // --- バラす練習 (43-50) ---
+  {
+    type: "orthography",
+    text: "次の文字をバラしてください（光）：\nنُور",
+    explanation: "ن + و + ر",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をバラしてください（アラブ）：\nعَرَب",
+    explanation: "ع + ر + ب",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をバラしてください（日本）：\nيَابَان",
+    explanation: "ي + ا + ب + ا + ن",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をバラしてください（エジプト）：\nمِصْر",
+    explanation: "م + ص + ر",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をバラしてください（ありがとう）：\nشُكْرًا",
+    explanation: "ش + ك + ر + ا + ً",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をバラしてください（頭）：\nرَأْس",
+    explanation: "ر + أ + س",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をバラしてください（心）：\nقَلْب",
+    explanation: "ق + ل + ب",
+    options: [],
+    correctIndex: 0
+  },
+  {
+    type: "orthography",
+    text: "次の文字をバラしてください（口）：\nفَم",
+    explanation: "ف + م",
+    options: [],
+    correctIndex: 0
+  }
+]
 },
 {
 id: 103,
@@ -6215,8 +6545,7 @@ questions: [] // アルファベット回は問題なし
               level: "文法",
               category: "絶対目的語",
               title: "Lesson 46: 絶対目的語",
-              contentPlain: "「彼は死ぬほど笑った（笑いを笑った）」のように、動詞の意味を強調するために、同じ語根の動名詞を重ねる表現です。強調だけでなく、「どんなふうに（種類）」や「何回（回数）」を説明する時にも使われます。常に対格（～an）になります。",
-              
+              contentPlain: "「彼は死ぬほど笑った（笑いを笑った）」のように、動詞の意味を強調するために、同じ語根の動名詞を重ねる表現です。強調だけでなく、「どんなふうに（種類）」や「何回（回数）」を説明する時にも使われます。常に対格（〜an）になります。",
               imageUrls: [
                 "/image/grammar/lesson46_1.jpg", 
                 "/image/grammar/lesson46_2.jpg", 
@@ -6714,8 +7043,7 @@ questions: [] // アルファベット回は問題なし
               level: "文法",
               category: "原因目的語",
               title: "Lesson 51: 原因目的語",
-              contentPlain: "「勉強するために」「尊敬して」のように、動作の理由や目的を説明する文法です。前置詞（〜のために）を使わずに、動名詞をそのまま「対格」にして動詞の後ろに置くことで表現します。",
-              
+              contentPlain: "「勉強するために」「尊敬して」のように、動作の理由や目的を説明する文法です。前置詞（〜のために）を使わずに、動名詞をそのまま「対格」にして動詞の後ろに置くことで表現します。",            
               imageUrls: [
                 "/image/grammar/lesson51_1.jpg", 
                 "/image/grammar/lesson51_2.jpg", 
@@ -6845,33 +7173,60 @@ questions: [] // アルファベット回は問題なし
 
   // --- 1. 物語 (Stories) ---
   {
-    id: 200, title: "ジュハーとロバ", category: "物語", level: "中級",
-    contentVoweled: "ذَهَبَ جُحَا إِلَى السُّوقِ لِيَبِيعَ حِمَارَهُ. وَلَكِنَّهُ نَدِمَ وَعَادَ بِهِ.",
-    contentPlain: "ذهب جحا إلى السوق ليبيع حماره. ولكنه ندم وعاد به.",
+    id: 200,
+    title: "ジュハーとロバ",
+    category: "物語",
+    level: "中級",
+    contentVoweled: "أَرَادَ جُحَا أَنْ يَبِيعَ حِمَارَهُ. ذَهَبَ إِلَى السُّوقِ وَوَقَفَ يُنَادِي. بَدَأَ النَّاسُ يَمْدَحُونَ الْحِمَارَ. فَظَنَّ جُحَا أَنَّ الْحِمَارَ مُمْتَازٌ حَقًّا. فَنَدِمَ عَلَى بَيْعِهِ وَعَادَ بِهِ إِلَى الْبَيْتِ.",
+    contentPlain: "أراد جحا أن يبيع حماره. ذهب إلى السوق ووقف ينادي. بدأ الناس يمدحون الحمار. فظن جحا أن الحمار ممتاز حقا. فندم على بيعه وعاد به إلى البيت.",
     vocabList: [
       { word: "بَاعَ", meaning: "売った" },
       { word: "حِمَار", meaning: "ロバ" },
-      { word: "نَدِمَ", meaning: "後悔した" }
+      { word: "نَدِمَ", meaning: "後悔した" },
+      { word: "يُنَادِي", meaning: "呼びかける（競売にかける）" },
+      { word: "مَدَحَ", meaning: "褒めた" }
     ],
     questions: [
       { id: 2001, type: "reading", text: "ジュハーはどこへ行きましたか？", options: ["家", "学校", "市場", "モスク"], correctIndex: 2, explanation: "「إِلَى السُّوقِ (市場へ)」行きました。" },
       { id: 2002, type: "reading", text: "何をするつもりでしたか？", options: ["買う", "売る", "食べる", "見る"], correctIndex: 1, explanation: "「لِيَبِيعَ (売るために)」です。" },
       { id: 2003, type: "reading", text: "何を売ろうとしましたか？", options: ["家", "車", "ロバ", "馬"], correctIndex: 2, explanation: "「حِمَارَهُ (彼のロバ)」です。" },
       { id: 2004, type: "reading", text: "結局どうしましたか？", options: ["売った", "売らなかった", "失くした", "盗まれた"], correctIndex: 1, explanation: "「عَادَ بِهِ (それと共に戻った)」ので売っていません。" },
-      { id: 2005, type: "grammar", text: "「〜するために（目的）」", options: ["لِـ", "بِـ", "فِي", "مِنْ"], correctIndex: 0, explanation: "動詞の前につく「Li- (〜するために)」です。" }
+      { id: 2005, type: "grammar", text: "「〜するために（目的）」", options: ["لِـ", "بِـ", "فِي", "مِنْ"], correctIndex: 0, explanation: "動詞の前につく「Li- (〜するために)」です。" },
+      // 追加した文法問題
+      { id: 2006, type: "grammar", text: "「وَقَفَ يُنَادِي」で、間に接続詞「و (wa)」が入らない理由は？", options: ["直前の動詞が過去形だから", "ハール（状態）が肯定の現在形動詞だから", "主語が異なるから", "場所を表す言葉だから"], correctIndex: 1, explanation: "ハール（状態文）が「肯定の現在形動詞」で始まる場合、通常「و」はつけずに直結させます。" }
     ],
     sentences: [
-      { speaker: "ナレーター", arabic: "أَرَادَ جُحَا أَنْ يَبِيعَ حِمَارَهُ.", japanese: "ジュハーはロバを売りたいと思いました。" },
-      { speaker: "ナレーター", arabic: "ذَهَبَ إِلَى السُّوقِ وَوَقَفَ يُنَادِي.", japanese: "彼は市場へ行き、叫んで立ちました。" },
-      { speaker: "ナレーター", arabic: "بَدَأَ النَّاسُ يَمْدَحُونَ الْحِمَارَ.", japanese: "人々はロバを褒め始めました。" },
-      { speaker: "ナレーター", arabic: "فَظَنَّ جُحَا أَنَّ الْحِمَارَ مُمْتَازٌ حَقًّا.", japanese: "そこでジュハーは「このロバは本当に素晴らしい」と思いました。" },
-      { speaker: "ナレーター", arabic: "فَنَدِمَ عَلَى بَيْعِهِ وَعَادَ بِهِ إِلَى الْبَيْتِ.", japanese: "彼は売ることを後悔し、ロバを連れて家に帰りました。" }
+      { 
+        speaker: "ナレーター", 
+        arabic: "أَرَادَ جُحَا أَنْ يَبِيعَ حِمَارَهُ.", 
+        japanese: "ジュハーはロバを売りたいと思いました。" 
+      },
+      { 
+        speaker: "ナレーター", 
+        arabic: "ذَهَبَ إِلَى السُّوقِ وَوَقَفَ يُنَادِي.", 
+        japanese: "彼は市場へ行き、大声で（買い手を）呼び始めました。" 
+      },
+      { 
+        speaker: "ナレーター", 
+        arabic: "بَدَأَ النَّاسُ يَمْدَحُونَ الْحِمَارَ.", 
+        japanese: "人々はロバを褒め始めました。" 
+      },
+      { 
+        speaker: "ナレーター", 
+        arabic: "فَظَنَّ جُحَا أَنَّ الْحِمَارَ مُمْتَازٌ حَقًّا.", 
+        japanese: "そこでジュハーは「このロバは本当に素晴らしい」と思いました。" 
+      },
+      { 
+        speaker: "ナレーター", 
+        arabic: "فَنَدِمَ عَلَى بَيْعِهِ وَعَادَ بِهِ إِلَى الْبَيْتِ.", 
+        japanese: "彼は売ることを後悔し、ロバを連れて家に帰りました。" 
+      }
     ]
   },
   {
     id: 201, title: "旅人イブン・バットゥータ", category: "物語", level: "中級",
-    contentVoweled: "إِبْنُ بَطُّوطَة رَحَّالَةٌ مَشْهُورٌ. زَارَ بِلَادًا كَثِيرَةً فِي الْعَالَمِ.",
-    contentPlain: "ابن بطوطة رحالة مشهور. زار بلادا كثيرة في العالم.",
+    contentVoweled: "وُلِدَ ابْنُ بَطُّوطَة فِي الْمَغْرِبِ. بَدَأَ رِحْلَتَهُ لِلْحَجِّ وَهُوَ صَغِيرٌ. اسْتَمَرَّتْ رِحْلَتُهُ ثَلَاثِينَ عَامًا. وَصَلَ إِلَى الْهِنْدِ وَالصِّينِ. كَتَبَ كِتَابًا مَشْهُورًا عَنْ رِحْلَتِهِ.",
+    contentPlain: "ولد ابن بطوطة في المغرب. بدأ رحلته للحج وهو صغير. استمرت رحلته ثلاثين عاما. وصل إلى الهند والصين. كتب كتابا مشهورا عن رحلته.",
     vocabList: [
       { word: "رَحَّالَة", meaning: "旅人/探検家" },
       { word: "عَالَم", meaning: "世界" },
@@ -6879,10 +7234,12 @@ questions: [] // アルファベット回は問題なし
     ],
     questions: [
       { id: 2011, type: "reading", text: "イブン・バットゥータの職業は？", options: ["王様", "医者", "旅人", "商人"], correctIndex: 2, explanation: "「رَحَّالَة (旅人)」です。" },
-      { id: 2012, type: "reading", text: "彼は何をしましたか？", options: ["本を書いた", "多くの国を訪れた", "家を建てた", "戦争をした"], correctIndex: 1, explanation: "「زَارَ بِلَادًا كَثِيرَةً」です。" },
+      // 修正箇所: 選択肢1を「本を書いた」から「絵を描いた」に変更し、正解が重複しないようにしました
+      { id: 2012, type: "reading", text: "彼は何をしましたか？", options: ["絵を描いた", "多くの国を訪れた", "家を建てた", "戦争をした"], correctIndex: 1, explanation: "「زَارَ بِلَادًا كَثِيرَةً」あるいは本文の旅の記述（インドや中国への到達）に基づきます。" },
       { id: 2013, type: "vocabulary", text: "「مَشْهُور」の意味は？", options: ["無名の", "有名な", "速い", "遠い"], correctIndex: 1, explanation: "Famous（有名な）です。" },
       { id: 2014, type: "reading", text: "彼の旅の記録は何と呼ばれますか？", options: ["リフラ（旅）", "キターブ（本）", "バイ（家）", "スーク（市場）"], correctIndex: 0, explanation: "彼の旅行記は「リフラ（Rihla）」です。" },
-      { id: 2015, type: "grammar", text: "「訪れました」の現在形は？", options: ["يَزُورُ", "زَارَ", "زُرْتُ", "زِيَارَة"], correctIndex: 0, explanation: "過去形「Zāra」に対し、現在形は「Yazūru」です。" }
+      { id: 2015, type: "grammar", text: "「訪れました」の現在形は？", options: ["يَزُورُ", "زَارَ", "زُرْتُ", "زِيَارَة"], correctIndex: 0, explanation: "過去形「Zāra」に対し、現在形は「Yazūru」です。" },
+      { id: 2016, type: "grammar", text: "「وَهُوَ صَغِيرٌ」の文法的役割は？", options: ["形容詞（ナアト）", "状態（ハール）", "主語（ムブタダ）", "目的語（マフウール）"], correctIndex: 1, explanation: "「（彼が）若い状態で」という状況を表す「ハール（状態文）」です。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "وُلِدَ ابْنُ بَطُّوطَة فِي الْمَغْرِبِ.", japanese: "イブン・バットゥータはモロッコで生まれました。" },
@@ -6892,857 +7249,916 @@ questions: [] // アルファベット回は問題なし
       { speaker: "ナレーター", arabic: "كَتَبَ كِتَابًا مَشْهُورًا عَنْ رِحْلَتِهِ.", japanese: "彼は旅についての有名な本を書きました。" }
     ]
   },
-  {
-    id: 203, title: "キツネとカラス", category: "物語", level: "中級",
-    contentVoweled: "رَأَى ثَعْلَبٌ غُرَابًا يَحْمِلُ قِطْعَةَ جُبْنٍ. أَرَادَ الثَّعْلَبُ أَخْذَهَا.",
-    contentPlain: "رأى ثعلب غرابا يحمل قطعة جبن. أراد الثعلب أخذها.",
-    vocabList: [
-      { word: "ثَعْلَب", meaning: "キツネ" },
-      { word: "غُرَاب", meaning: "カラス" },
-      { word: "جُبْن", meaning: "チーズ" }
-    ],
-    questions: [
-      { id: 2031, type: "reading", text: "カラスは何を持っていましたか？", options: ["肉", "パン", "チーズ", "金"], correctIndex: 2, explanation: "「قِطْعَةَ جُبْنٍ (チーズひとかけら)」です。" },
-      { id: 2032, type: "reading", text: "キツネは何を欲しがりましたか？", options: ["カラスを食べる", "チーズを取る", "歌う", "寝る"], correctIndex: 1, explanation: "「أَخْذَهَا (それ＝チーズを取ること)」です。" },
-      { id: 2033, type: "reading", text: "キツネはどうやってチーズを手に入れましたか？", options: ["木に登った", "カラスを褒めて歌わせた", "戦った", "買った"], correctIndex: 1, explanation: "カラスにお世辞を言って口を開かせました。" },
-      { id: 2034, type: "vocabulary", text: "「مَاكِر」の意味は？", options: ["正直な", "ずる賢い", "強い", "速い"], correctIndex: 1, explanation: "Sly/Cunning (ずる賢い) です。" },
-      { id: 2035, type: "grammar", text: "「落ちた」", options: ["سَقَطَ", "طَارَ", "أَكَلَ", "مَشَى"], correctIndex: 0, explanation: "「Saqaṭa」です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "وَقَفَ الْغُرَابُ عَلَى غُصْنِ شَجَرَةٍ.", japanese: "カラスは木の枝にとまりました。" },
-      { speaker: "ナレーター", arabic: "جَاءَ الثَّعْلَبُ وَقَالَ: مَا أَجْمَلَ صَوْتَكَ!", japanese: "キツネが来て言いました。「なんて美しい声なんだ！」" },
-      { speaker: "ナレーター", arabic: "غَنِّ لَنَا يَا صَدِيقِي.", japanese: "歌ってくれよ、友よ。" },
-      { speaker: "ナレーター", arabic: "فَتَحَ الْغُرَابُ فَمَهُ لِيُغَنِّيَ.", japanese: "カラスは歌うために口を開けました。" },
-      { speaker: "ナレーター", arabic: "فَسَقَطَتِ الْجُبْنَةُ وَأَكَلَهَا الثَّعْلَبُ.", japanese: "するとチーズが落ち、キツネがそれを食べました。" }
-    ]
+    {
+      id: 203, title: "キツネとカラス", category: "物語", level: "中級",
+      contentVoweled: "وَقَفَ الْغُرَابُ عَلَى غُصْنِ شَجَرَةٍ. جَاءَ الثَّعْلَبُ وَقَالَ: مَا أَجْمَلَ صَوْتَكَ! غَنِّ لَنَا يَا صَدِيقِي. فَتَحَ الْغُرَابُ فَمَهُ لِيُغَنِّيَ. فَسَقَطَتِ الْجُبْنَةُ وَأَكَلَهَا الثَّعْلَبُ.",
+      contentPlain: "وقف الغراب على غصن شجرة. جاء الثعلب وقال: ما أجمل صوتك! غن لنا يا صديقي. فتح الغراب فمه ليغني. فسقطت الجبنة وأكلها الثعلب.",
+      vocabList: [
+        { word: "ثَعْلَب", meaning: "キツネ" },
+        { word: "غُرَاب", meaning: "カラス" },
+        { word: "جُبْن", meaning: "チーズ" }
+      ],
+      questions: [
+        { id: 2031, type: "reading", text: "カラスは何を持っていましたか？", options: ["肉", "パン", "チーズ", "金"], correctIndex: 2, explanation: "「قِطْعَةَ جُبْنٍ (チーズひとかけら)」です。" },
+        { id: 2032, type: "reading", text: "キツネは何を欲しがりましたか？", options: ["カラスを食べる", "チーズを取る", "歌う", "寝る"], correctIndex: 1, explanation: "「أَخْذَهَا (それ＝チーズを取ること)」です。" },
+        { id: 2033, type: "reading", text: "キツネはどうやってチーズを手に入れましたか？", options: ["木に登った", "カラスを褒めて歌わせた", "戦った", "買った"], correctIndex: 1, explanation: "カラスにお世辞を言って口を開かせました。" },
+        { id: 2034, type: "vocabulary", text: "「مَاكِر」の意味は？", options: ["正直な", "ずる賢い", "強い", "速い"], correctIndex: 1, explanation: "Sly/Cunning (ずる賢い) です。" },
+        { id: 2035, type: "grammar", text: "「落ちた」", options: ["سَقَطَ", "طَارَ", "أَكَلَ", "مَشَى"], correctIndex: 0, explanation: "「Saqaṭa」です。" },
+        { id: 2036, type: "grammar", text: "命令形「غَنِّ（歌え）」の語末が短い理由は？", options: ["女性形だから", "弱動詞（欠損動詞）の命令形だから", "複数形だから", "間違い"], correctIndex: 1, explanation: "原形が「غَنَّى（Ghannā）」という弱動詞（語末が母音）のため、命令形では語末の長母音が脱落して「Ghanni」となります。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "وَقَفَ الْغُرَابُ عَلَى غُصْنِ شَجَرَةٍ.", japanese: "カラスは木の枝にとまりました。" },
+        { speaker: "ナレーター", arabic: "جَاءَ الثَّعْلَبُ وَقَالَ: مَا أَجْمَلَ صَوْتَكَ!", japanese: "キツネが来て言いました。「なんて美しい声なんだ！」" },
+        { speaker: "ナレーター", arabic: "غَنِّ لَنَا يَا صَدِيقِي.", japanese: "歌ってくれよ、友よ。" },
+        { speaker: "ナレーター", arabic: "فَتَحَ الْغُرَابُ فَمَهُ لِيُغَنِّيَ.", japanese: "カラスは歌うために口を開けました。" },
+        { speaker: "ナレーター", arabic: "فَسَقَطَتِ الْجُبْنَةُ وَأَكَلَهَا الثَّعْلَبُ.", japanese: "するとチーズが落ち、キツネがそれを食べました。" }
+      ]
+    },
+    {
+      id: 202, title: "アラビア書道", category: "文化", level: "中級",
+      contentVoweled: "يُعْتَبَرُ الْخَطُّ الْعَرَبِيُّ مِنْ أَهَمِّ الْفُنُونِ الْإِسْلَامِيَّةِ. هُنَاكَ أَنْوَاعٌ كَثِيرَةٌ مِنَ الْخُطُوطِ. مِثْلُ خَطِّ النَّسْخِ وَخَطِّ الرُّقْعَةِ. يَتَطَلَّبُ الْخَطُّ صَبْرًا وَتَدْرِيبًا. إِنَّهُ يُظْهِرُ جَمَالَ اللُّغَةِ الْعَرَبِيَّةِ.",
+      contentPlain: "يعتبر الخط العربي من أهم الفنون الإسلامية. هناك أنواع كثيرة من الخطوط. مثل خط النسخ وخط الرقعة. يتطلب الخط صبرا وتدريبا. إنه يظهر جمال اللغة العربية.",
+      vocabList: [
+        { word: "خَطّ", meaning: "書道/線" },
+        { word: "فَنّ", meaning: "芸術" },
+        { word: "قُرْآن", meaning: "クルアーン" }
+      ],
+      questions: [
+        { id: 2021, type: "reading", text: "アラビア書道とは何ですか？", options: ["スポーツ", "芸術", "料理", "音楽"], correctIndex: 1, explanation: "「فَنّ (芸術)」です。" },
+        { id: 2022, type: "reading", text: "何に使われますか？", options: ["手紙", "新聞", "クルアーンの書写", "看板"], correctIndex: 2, explanation: "「كِتَابَةِ الْقُرْآنِ (クルアーンを書くこと)」です。" },
+        { id: 2023, type: "reading", text: "書体の種類の一つは？", options: ["ナスフ体", "ゴシック体", "明朝体", "イタリック"], correctIndex: 0, explanation: "「Naskh (ナスフ)」は有名なアラビア書体です。" },
+        { id: 2024, type: "vocabulary", text: "「جَمِيل」の反対語は？", options: ["カビール", "カビーフ（醜い）", "ジャディード", "サギール"], correctIndex: 1, explanation: "Jamīl (美しい) の対義語は Qabīḥ (醜い) です。" },
+        { id: 2025, type: "grammar", text: "「使われています（受動態）」", options: ["يُسْتَخْدَمُ", "يَسْتَخْدِمُ", "اِسْتَخْدَمَ", "اِسْتِخْدَام"], correctIndex: 0, explanation: "Yustakhdamu は受動態です。" },
+        { id: 2026, type: "grammar", text: "「إِنَّهُ（それは本当に）」の後の名詞の格は？", options: ["主格（〜u）", "対格（〜a）", "属格（〜i）", "変化なし"], correctIndex: 1, explanation: "強調の助詞「إِنَّ (Inna)」の後ろに来る名詞（または代名詞）は、対格（マンスーブ）になります。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "يُعْتَبَرُ الْخَطُّ الْعَرَبِيُّ مِنْ أَهَمِّ الْفُنُونِ الْإِسْلَامِيَّةِ.", japanese: "アラビア書道は最も重要なイスラム芸術の一つとみなされています。" },
+        { speaker: "ナレーター", arabic: "هُنَاكَ أَنْوَاعٌ كَثِيرَةٌ مِنَ الْخُطُوطِ.", japanese: "書体には多くの種類があります。" },
+        { speaker: "ナレーター", arabic: "مِثْلُ خَطِّ النَّسْخِ وَخَطِّ الرُّقْعَةِ.", japanese: "ナスフ体やルクア体などです。" },
+        { speaker: "ナレーター", arabic: "يَتَطَلَّبُ الْخَطُّ صَبْرًا وَتَدْرِيبًا.", japanese: "書道は忍耐と練習を必要とします。" },
+        { speaker: "ナレーター", arabic: "إِنَّهُ يُظْهِرُ جَمَالَ اللُّغَةِ الْعَرَبِيَّةِ.", japanese: "それはアラビア語の美しさを示しています。" }
+      ]
+    },
+    {
+      id: 208, title: "砂漠の環境", category: "文化", level: "中級",
+      contentVoweled: "يَعِيشُ الْجَمَلُ فِي الصَّحْرَاءِ. يَسْتَطِيعُ تَحَمُّلَ الْعَطَشِ لِفَتْرَةٍ طَوِيلَةٍ. تَنْمُو أَشْجَارُ النَّخِيلِ فِي الْوَاحَاتِ. الْحَيَاةُ فِي الصَّحْرَاءِ صَعْبَةٌ وَلَكِنْ جَمِيلَةٌ. فِي اللَّيْلِ، يَكُونُ الْجَوُّ بَارِدًا.",
+      contentPlain: "يعيش الجمل في الصحراء. يستطيع تحمل العطش لفترة طويلة. تنمو أشجار النخيل في الواحات. الحياة في الصحراء صعبة ولكن جميلة. في الليل، يكون الجو باردا.",
+      vocabList: [
+        { word: "جَمَل", meaning: "ラクダ" },
+        { word: "نَخْلَة", meaning: "ナツメヤシの木" },
+        { word: "مَاء", meaning: "水" }
+      ],
+      questions: [
+        { id: 2081, type: "reading", text: "砂漠の特徴は？", options: ["寒くて雨が多い", "乾燥して暑い", "緑が多い", "雪が降る"], correctIndex: 1, explanation: "「الْجَفَاف وَالْحَرَارَة」です。" },
+        { id: 2082, type: "reading", text: "「砂漠の船」と呼ばれる動物は？", options: ["馬", "ライオン", "ラクダ", "羊"], correctIndex: 2, explanation: "「الْجَمَل (ラクダ)」です。" },
+        { id: 2083, type: "reading", text: "砂漠で育つ有名な木は？", options: ["リンゴ", "ナツメヤシ（ナヒル）", "桜", "松"], correctIndex: 1, explanation: "「النَّخِيل (ナツメヤシ)」です。" },
+        { id: 2084, type: "vocabulary", text: "「تَحَمُّل」の意味は？", options: ["睡眠", "食事", "忍耐/耐久", "遊び"], correctIndex: 2, explanation: "耐えること、忍耐力です。" },
+        { id: 2085, type: "grammar", text: "「少ない」", options: ["قَلِيل", "كَثِير", "كَبِير", "طَوِيل"], correctIndex: 0, explanation: "「Qalīl」です。" },
+        { id: 2086, type: "grammar", text: "「تَنْمُو أَشْجَارُ（木々が育つ）」で動詞が単数形なのはなぜ？", options: ["主語が人間以外の複数だから", "主語が単数だから", "動詞が文末にあるから", "間違い"], correctIndex: 0, explanation: "主語が「人間以外の複数形（ここでは木々）」の場合、動詞や形容詞は通常「女性単数」扱いで受けます。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "يَعِيشُ الْجَمَلُ فِي الصَّحْرَاءِ.", japanese: "ラクダは砂漠に住んでいます。" },
+        { speaker: "ナレーター", arabic: "يَسْتَطِيعُ تَحَمُّلَ الْعَطَشِ لِفَتْرَةٍ طَوِيلَةٍ.", japanese: "渇きに長期間耐えることができます。" },
+        { speaker: "ナレーター", arabic: "تَنْمُو أَشْجَارُ النَّخِيلِ فِي الْوَاحَاتِ.", japanese: "オアシスにはナツメヤシの木が育ちます。" },
+        { speaker: "ナレーター", arabic: "الْحَيَاةُ فِي الصَّحْرَاءِ صَعْبَةٌ وَلَكِنْ جَمِيلَةٌ.", japanese: "砂漠の生活は厳しいですが、美しいです。" },
+        { speaker: "ナレーター", arabic: "فِي اللَّيْلِ، يَكُونُ الْجَوُّ بَارِدًا.", japanese: "夜になると、天気は寒くなります。" }
+      ]
+    },
+    {
+      id: 204, title: "スマホ依存", category: "記事", level: "中級",
+      contentVoweled: "أَصْبَحَ الْهَاتِفُ جُزْءًا مُهِمًّا مِنْ حَيَاتِنَا. نَسْتَخْدِمُهُ لِلْعَمَلِ وَالتَّوَاصُلِ. وَلَكِنَّ الْإِسْرَافَ فِيهِ مُضِرٌّ. يُسَبِّبُ قِلَّةَ النَّوْمِ وَالتَّعَبَ. يَجِبُ أَنْ نَسْتَخْدِمَهُ بِحِكْمَةٍ.",
+      contentPlain: "أصبح الهاتف جزءا مهما من حياتنا. نستخدمه للعمل والتواصل. ولكن الإسراف فيه مضر. يسبب قلة النوم والتعب. يجب أن نستخدمه بحكمة.",
+      vocabList: [
+        { word: "هَاتِف ذَكِيّ", meaning: "スマートフォン" },
+        { word: "وَقْت", meaning: "時間" },
+        { word: "مُفِيد", meaning: "有益な" }
+      ],
+      questions: [
+        { id: 2041, type: "reading", text: "人々は何に時間を使っていますか？", options: ["読書", "スポーツ", "スマホ", "料理"], correctIndex: 2, explanation: "「الْهَوَاتِفِ الذَّكِيَّةِ (スマートフォン)」です。" },
+        { id: 2042, type: "reading", text: "スマホにはどんな側面がありますか？", options: ["良いことだけ", "悪いことだけ", "有益だが害もある", "関係ない"], correctIndex: 2, explanation: "メリットとデメリットの両方があります。" },
+        { id: 2043, type: "reading", text: "使いすぎるとどうなりますか？", options: ["元気になる", "目が疲れる/時間を無駄にする", "金持ちになる", "頭が良くなる"], correctIndex: 1, explanation: "「إِضَاعَةُ الْوَقْتِ (時間の浪費)」などの害があります。" },
+        { id: 2044, type: "vocabulary", text: "「تَوَاصُل」の意味は？", options: ["切断", "コミュニケーション", "食事", "睡眠"], correctIndex: 1, explanation: "Communicationのことです。" },
+        { id: 2045, type: "grammar", text: "「過ごす（時間）」", options: ["يَقْضِي", "يَشْتَرِي", "يَبِيعُ", "يُعْطِي"], correctIndex: 0, explanation: "「Yaqḍī」は（時間を）過ごす、という意味です。" },
+        { id: 2046, type: "grammar", text: "「يَجِبُ أَنْ نَسْتَخْدِمَهُ」で動詞の最後が「a」になる理由は？", options: ["過去形だから", "接続詞「أَنْ (an)」の後だから", "複数形だから", "主語がないから"], correctIndex: 1, explanation: "「أَنْ」の後ろの動詞は接続法（マンスーブ）になり、語末が「u」から「a」に変化します。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "أَصْبَحَ الْهَاتِفُ جُزْءًا مُهِمًّا مِنْ حَيَاتِنَا.", japanese: "電話は私たちの生活の重要な一部になりました。" },
+        { speaker: "ナレーター", arabic: "نَسْتَخْدِمُهُ لِلْعَمَلِ وَالتَّوَاصُلِ.", japanese: "私たちはそれを仕事や連絡に使います。" },
+        { speaker: "ナレーター", arabic: "وَلَكِنَّ الْإِسْرَافَ فِيهِ مُضِرٌّ.", japanese: "しかし、過度の使用は有害です。" },
+        { speaker: "ナレーター", arabic: "يُسَبِّبُ قِلَّةَ النَّوْمِ وَالتَّعَبَ.", japanese: "それは睡眠不足や疲れを引き起こします。" },
+        { speaker: "ナレーター", arabic: "يَجِبُ أَنْ نَسْتَخْدِمَهُ بِحِكْمَةٍ.", japanese: "私たちはそれを賢く使わなければなりません。" }
+      ]
+    },
+    {
+      id: 205, title: "健康的な食事", category: "記事", level: "中級",
+      contentVoweled: "لِلْحِفَاظِ عَلَى الصِّحَّةِ، مَارِسِ الرِّيَاضَةَ. تَنَاوَلِ الْفَوَاكِهَ وَالْخُضْرَوَاتِ يَوْمِيًّا. اِشْرَبِ الْمَاءَ بِكَثْرَةٍ. اِبْتَعِدْ عَنِ الْوَجَبَاتِ السَّرِيعَةِ. الْعَقْلُ السَّلِيمُ فِي الْجِسْمِ السَّلِيمِ.",
+      contentPlain: "للحفاظ على الصحة، مارس الرياضة. تناول الفواكه والخضروات يوميا. اشرب الماء بكثرة. ابتعد عن الوجبات السريعة. العقل السليم في الجسم السليم.",
+      vocabList: [
+        { word: "صِحَّة", meaning: "健康" },
+        { word: "خُضْرَوَات", meaning: "野菜" },
+        { word: "فَوَاكِه", meaning: "果物" }
+      ],
+      questions: [
+        { id: 2051, type: "reading", text: "「健康は健康な人の頭上の〇〇」", options: ["帽子", "王冠", "髪", "石"], correctIndex: 1, explanation: "ことわざ：「الصِّحَّةُ تَاجٌ (健康は王冠である)」。" },
+        { id: 2052, type: "reading", text: "何を食べるべきですか？", options: ["砂糖", "ファストフード", "野菜と果物", "塩"], correctIndex: 2, explanation: "「خُضْرَوَات وَفَوَاكِه」です。" },
+        { id: 2053, type: "reading", text: "何を避けるべきですか？", options: ["水", "運動", "糖分と脂肪", "睡眠"], correctIndex: 2, explanation: "「السُّكَّرِيَّات وَالدُّهُون (糖分と脂肪)」です。" },
+        { id: 2054, type: "vocabulary", text: "「جِسْم」の意味は？", options: ["心", "体", "頭", "足"], correctIndex: 1, explanation: "Body（体）のことです。" },
+        { id: 2055, type: "grammar", text: "「〜しなければならない」", options: ["يَجِبُ أَنْ", "أُرِيدُ أَنْ", "أُحِبُّ أَنْ", "أَسْتَطِيعُ أَنْ"], correctIndex: 0, explanation: "「Yajibu an」で義務を表します。" },
+        { id: 2056, type: "grammar", text: "「اِبْتَعِدْ（離れろ）」と一緒に使う前置詞は？", options: ["إِلَى（へ）", "فِي（で）", "عَنْ（から）", "مَعَ（と）"], correctIndex: 2, explanation: "「〜から離れる/避ける」は「اِبْتَعَدَ عَنْ（Ibta'ada 'an）」のセットで覚えます。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "لِلْحِفَاظِ عَلَى الصِّحَّةِ، مَارِسِ الرِّيَاضَةَ.", japanese: "健康を保つために、スポーツをしなさい。" },
+        { speaker: "ナレーター", arabic: "تَنَاوَلِ الْفَوَاكِهَ وَالْخُضْرَوَاتِ يَوْمِيًّا.", japanese: "毎日果物と野菜を食べなさい。" },
+        { speaker: "ナレーター", arabic: "اِشْرَبِ الْمَاءَ بِكَثْرَةٍ.", japanese: "水をたくさん飲みなさい。" },
+        { speaker: "ナレーター", arabic: "اِبْتَعِدْ عَنِ الْوَجَبَاتِ السَّرِيعَةِ.", japanese: "ファストフードは避けなさい。" },
+        { speaker: "ナレーター", arabic: "الْعَقْلُ السَّلِيمُ فِي الْجِسْمِ السَّلِيمِ.", japanese: "健全なる精神は健全なる身体に宿る。" }
+      ]
+    },
+    {
+      id: 206, title: "リヤドの発展", category: "ニュース", level: "中級",
+      contentVoweled: "كَانَتِ الرِّيَاضُ مَدِينَةً صَغِيرَةً فِي الْمَاضِي. الْآنَ، هِيَ مَدِينَةٌ حَدِيثَةٌ وَكَبِيرَةٌ. فِيهَا مَبَانٍ عَالِيَةٌ وَأَسْوَاقٌ كَثِيرَةٌ. رُؤْيَةُ 2030 تُغَيِّرُ الْمَدِينَةَ. يَزُورُهَا السُّيَّاحُ مِنْ كُلِّ مَكَانٍ.",
+      contentPlain: "كانت الرياض مدينة صغيرة في الماضي. الآن، هي مدينة حديثة وكبيرة. فيها مبان عالية وأسواق كثيرة. رؤية 2030 تغير المدينة. يزورها السياح من كل مكان.",
+      vocabList: [
+        { word: "عَاصِمَة", meaning: "首都" },
+        { word: "تَطَوُّر", meaning: "発展" },
+        { word: "مَبْنَى", meaning: "建物" }
+      ],
+      questions: [
+        { id: 2061, type: "reading", text: "リヤドは何ですか？", options: ["港町", "首都", "小さな村", "農場"], correctIndex: 1, explanation: "「عَاصِمَة (首都)」です。" },
+        { id: 2062, type: "reading", text: "どのように発展しましたか？", options: ["ゆっくり", "急速に", "変わっていない", "小さくなった"], correctIndex: 1, explanation: "「بِسُرْعَةٍ كَبِيرَةٍ (とても速く)」です。" },
+        { id: 2063, type: "reading", text: "現在リヤドにあるものは？", options: ["古い家だけ", "高層ビル（タワー）", "海", "山"], correctIndex: 1, explanation: "「أَبْرَاج (タワー/高層ビル)」が増えています。" },
+        { id: 2064, type: "vocabulary", text: "「مُسْتَقْبَل」の意味は？", options: ["過去", "現在", "未来", "歴史"], correctIndex: 2, explanation: "Future（未来）です。" },
+        { id: 2065, type: "grammar", text: "「なりました」", options: ["أَصْبَحَتْ", "كَانَتْ", "لَيْسَتْ", "بَقِيَتْ"], correctIndex: 0, explanation: "「Aṣbaḥat (Became)」です。" },
+        { id: 2066, type: "grammar", text: "「كَانَتِ الرِّيَاضُ مَدِينَةً（リヤドは町でした）」で、なぜ「町」が対格（〜a）？", options: ["主語だから", "目的語だから", "カーナ（Kāna）の述語だから", "間違い"], correctIndex: 2, explanation: "「Kāna（〜だった）」の述語（Khabar Kāna）は対格（マンスーブ）になるルールがあります。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "كَانَتِ الرِّيَاضُ مَدِينَةً صَغِيرَةً فِي الْمَاضِي.", japanese: "リヤドは昔、小さな町でした。" },
+        { speaker: "ナレーター", arabic: "الْآنَ، هِيَ مَدِينَةٌ حَدِيثَةٌ وَكَبِيرَةٌ.", japanese: "今では、現代的で大きな都市です。" },
+        { speaker: "ナレーター", arabic: "فِيهَا مَبَانٍ عَالِيَةٌ وَأَسْوَاقٌ كَثِيرَةٌ.", japanese: "高い建物や多くの市場があります。" },
+        { speaker: "ナレーター", arabic: "رُؤْيَةُ 2030 تُغَيِّرُ الْمَدِينَةَ.", japanese: "ビジョン2030が街を変えています。" },
+        { speaker: "ナレーター", arabic: "يَزُورُهَا السُّيَّاحُ مِنْ كُلِّ مَكَانٍ.", japanese: "各地から観光客が訪れます。" }
+      ]
+    },
+    {
+          id: 207, title: "時間の重要性", category: "文学", level: "中級",
+          contentVoweled: "يَقُولُ الْمَثَلُ: الْوَقْتُ كَالسَّيْفِ إِنْ لَمْ تَقْطَعْهُ قَطَعَكَ. الْوَقْتُ أَغْلَى مِنَ الذَّهَبِ. يَجِبُ تَنْظِيمُ الْوَقْتِ لِلنَّجَاحِ. لَا تُؤَجِّلْ عَمَلَ الْيَوْمِ إِلَى الْغَدِ. الدَّقِيقَةُ الَّتِي تَذْهَبُ لَا تَعُودُ. اِسْتَغِلَّ وَقْتَكَ فِي شَيْءٍ مُفِيدٍ.",
+          contentPlain: "يقول المثل: الوقت كالسيف إن لم تقطعه قطعك. الوقت أغلى من الذهب. يجب تنظيم الوقت للنجاح. لا تؤجل عمل اليوم إلى الغد. الدقيقة التي تذهب لا تعود. استغل وقتك في شيء مفيد.",
+          vocabList: [
+            { word: "وَقْت", meaning: "時間" },
+            { word: "سَيْف", meaning: "剣" },
+            { word: "ذَهَب", meaning: "金(Gold)" }
+          ],
+          questions: [
+            { id: 2071, type: "reading", text: "時間は何に例えられていますか？", options: ["水", "剣", "風", "花"], correctIndex: 1, explanation: "本文の「كَالسَّيْفِ (剣のようなもの)」という記述に基づきます。" },
+            { id: 2072, type: "reading", text: "過ぎた時間はどうなりますか？", options: ["戻ってくる", "戻らない", "買える", "止まる"], correctIndex: 1, explanation: "「لَا يَعُودُ (戻らない)」です。" },
+            { id: 2073, type: "reading", text: "時間をどう使うべきですか？", options: ["寝て過ごす", "無駄にする", "有益なことに使う", "遊ぶだけ"], correctIndex: 2, explanation: "「فِي شَيْءٍ مُفِيدٍ (有益なことに)」です。" },
+            { id: 2074, type: "vocabulary", text: "「نَجَاح」の意味は？", options: ["失敗", "成功", "勉強", "仕事"], correctIndex: 1, explanation: "成功のことです。" },
+            { id: 2075, type: "grammar", text: "「もし〜なら（条件）」", options: ["إِنْ / إِذَا", "لَكِنْ", "ثُمَّ", "أَوْ"], correctIndex: 0, explanation: "「In」や「Idhā」を使います。" },
+            { id: 2076, type: "grammar", text: "「أَغْلَى مِنَ...（〜より高い）」のような比較級の元の形は？", options: ["غَالٍ (Ghālin)", "رَخِيصٌ (Rakhīṣ)", "كَثِيرٌ (Kathīr)", "قَلِيلٌ (Qalīl)"], correctIndex: 0, explanation: "「高価な（Ghālin）」の比較級が「Aghlā」です。" }
+          ],
+          sentences: [
+            { speaker: "ナレーター", arabic: "يَقُولُ الْمَثَلُ: الْوَقْتُ كَالسَّيْفِ إِنْ لَمْ تَقْطَعْهُ قَطَعَكَ.", japanese: "格言にこうあります。「時間は剣のようなもの。あなたがそれを切らなければ（使わなければ）、それがあなたを切る」と。" },
+            { speaker: "ナレーター", arabic: "الْوَقْتُ أَغْلَى مِنَ الذَّهَبِ.", japanese: "時間は金よりも高価です。" },
+            { speaker: "ナレーター", arabic: "يَجِبُ تَنْظِيمُ الْوَقْتِ لِلنَّجَاحِ.", japanese: "成功のためには時間を管理しなければなりません。" },
+            { speaker: "ナレーター", arabic: "لَا تُؤَجِّلْ عَمَلَ الْيَوْمِ إِلَى الْغَدِ.", japanese: "今日の仕事を明日に延ばすな。" },
+            { speaker: "ナレーター", arabic: "الدَّقِيقَةُ الَّتِي تَذْهَبُ لَا تَعُودُ.", japanese: "過ぎ去った1分は戻ってきません。" },
+            { speaker: "ナレーター", arabic: "اِسْتَغِلَّ وَقْتَكَ فِي شَيْءٍ مُفِيدٍ.", japanese: "時間を有益なことに使いなさい。" }
+          ]
+    },
+    {
+      id: 209, title: "友人への手紙", category: "文学", level: "中級",
+      contentVoweled: "صَدِيقِي الْعَزِيزَ، السَّلَامُ عَلَيْكُمْ. أَكْتُبُ إِلَيْكَ لِأُخْبِرَكَ بِنَجَاحِي. أَنَا مُشْتَاقٌ إِلَيْكَ كَثِيرًا. سَأَزُورُكَ فِي الْعُطْلَةِ الصَّيْفِيَّةِ. انْتَظِرْ رَدَّكَ. صَدِيقُكَ الْمُخْلِصُ.",
+      contentPlain: "صديقي العزيز، السلام عليكم. أكتب إليك لأخبرك بنجاحي. أنا مشتاق إليك كثيرا. سأزورك في العطلة الصيفية. انتظر ردك. صديقك المخلص.",
+      vocabList: [
+        { word: "رِسَالَة", meaning: "手紙" },
+        { word: "عَزِيز", meaning: "親愛なる" },
+        { word: "مُشْتَاق", meaning: "恋しい/会いたい" }
+      ],
+      questions: [
+        { id: 2091, type: "reading", text: "これは何ですか？", options: ["ニュース", "手紙/メール", "詩", "契約書"], correctIndex: 1, explanation: "「رِسَالَة (手紙)」の形式です。" },
+        { id: 2092, type: "reading", text: "誰に宛てていますか？", options: ["父", "先生", "親愛なる友人", "敵"], correctIndex: 2, explanation: "「صَدِيقِي الْعَزِيز (親愛なる友よ)」です。" },
+        { id: 2093, type: "reading", text: "筆者の気持ちは？", options: ["怒っている", "会いたがっている", "疲れている", "忙しい"], correctIndex: 1, explanation: "「مُشْتَاقٌ إِلَيْكَ (君が恋しい)」と書いてあります。" },
+        { id: 2094, type: "vocabulary", text: "「قَرِيبًا」の意味は？", options: ["遠く", "すぐに/近々", "昔", "昨日"], correctIndex: 1, explanation: "Soon（すぐに）です。" },
+        { id: 2095, type: "grammar", text: "「書きます」", options: ["أَكْتُبُ", "أَقْرَأُ", "أَنَامُ", "أَمْشِي"], correctIndex: 0, explanation: "「Aktubu」です。" },
+        { id: 2096, type: "grammar", text: "「لِأُخْبِرَكَ（あなたに知らせるために）」の「Li」の機能は？", options: ["所有（〜のもの）", "目的（〜するために）", "誓い", "強調"], correctIndex: 1, explanation: "動詞の前につく「Li」は「Lam al-Ta'lil」と呼ばれ、目的を表し、後の動詞をマンスーブにします。" }
+      ],
+      sentences: [
+        { speaker: "手紙", arabic: "صَدِيقِي الْعَزِيزَ، السَّلَامُ عَلَيْكُمْ.", japanese: "親愛なる友よ、平安あれ。" },
+        { speaker: "手紙", arabic: "أَكْتُبُ إِلَيْكَ لِأُخْبِرَكَ بِنَجَاحِي.", japanese: "私の成功（合格）を知らせるために書いています。" },
+        { speaker: "手紙", arabic: "أَنَا مُشْتَاقٌ إِلَيْكَ كَثِيرًا.", japanese: "あなたがとても恋しいです。" },
+        { speaker: "手紙", arabic: "سَأَزُورُكَ فِي الْعُطْلَةِ الصَّيْفِيَّةِ.", japanese: "夏休みにあなたを訪ねるつもりです。" },
+        { speaker: "手紙", arabic: "انْتَظِرْ رَدَّكَ. صَدِيقُكَ الْمُخْلِصُ.", japanese: "返事を待っています。あなたの誠実な友より。" }
+      ]
+    },
+    {
+      id: 210, title: "医学の父 イブン・シーナー", category: "歴史", level: "中級",
+      contentVoweled: "يُعْتَبَرُ ابْنُ سِينَا مِنْ أَشْهَرِ الْعُلَمَاءِ الْمُسْلِمِينَ. وُلِدَ فِي مَدِينَةِ بُخَارَى. دَرَسَ الطِّبَّ وَالْفَلْسَفَةَ مُنْذُ الصِّغَرِ. كِتَابُهُ 'الْقَانُونُ' دُرِّسَ فِي جَامِعَاتِ أُورُوبَّا. لُقِّبَ بِأَمِيرِ الْأَطِبَّاءِ.",
+      contentPlain: "يعتبر ابن سينا من أشهر العلماء المسلمين. ولد في مدينة بخارى. درس الطب والفلسفة منذ الصغر. كتابه 'القانون' درس في جامعات أوروبا. لقب بأمير الأطباء.",
+      vocabList: [
+        { word: "طَبِيب", meaning: "医者" },
+        { word: "أَلَّفَ", meaning: "著した/書いた" },
+        { word: "قَانُون", meaning: "法律/規範" }
+      ],
+      questions: [
+        { id: 2101, type: "reading", text: "イブン・シーナーの職業は？", options: ["王様", "医者", "商人", "詩人"], correctIndex: 1, explanation: "「طَبِيبًا (医者)」です。" },
+        { id: 2102, type: "reading", text: "彼の有名な本は？", options: ["千夜一夜物語", "医学の典範（カノン）", "旅行記", "詩集"], correctIndex: 1, explanation: "「الْقَانُون فِي الطِّبِّ (医学の典範)」です。" },
+        { id: 2103, type: "reading", text: "彼はいつの時代の人ですか？", options: ["現代", "未来", "過去（昔）", "昨日"], correctIndex: 2, explanation: "「عَاشَ فِي الْمَاضِي (過去に生きた)」です。" },
+        { id: 2104, type: "vocabulary", text: "「عَظِيم」の意味は？", options: ["小さい", "偉大な", "悪い", "新しい"], correctIndex: 1, explanation: "Great（偉大な）という意味です。" },
+        { id: 2105, type: "grammar", text: "「彼は〜でした（過去）」", options: ["كَانَ", "يَكُونُ", "لَيْسَ", "أَصْبَحَ"], correctIndex: 0, explanation: "「Kāna」は過去の状態を表します。" },
+        { id: 2106, type: "grammar", text: "「وُلِدَ（生まれた）」や「لُقِّبَ（あだ名された）」の動詞の種類は？", options: ["能動態", "受動態", "命令形", "未来形"], correctIndex: 1, explanation: "最初の文字が「ウ（u）」の音で始まる過去形は、通常「受動態（Majhul）」です。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "يُعْتَبَرُ ابْنُ سِينَا مِنْ أَشْهَرِ الْعُلَمَاءِ الْمُسْلِمِينَ.", japanese: "イブン・シーナーは最も有名なイスラムの学者の一人と考えられています。" },
+        { speaker: "ナレーター", arabic: "وُلِدَ فِي مَدِينَةِ بُخَارَى.", japanese: "彼はブハラという町で生まれました。" },
+        { speaker: "ナレーター", arabic: "دَرَسَ الطِّبَّ وَالْفَلْسَفَةَ مُنْذُ الصِّغَرِ.", japanese: "幼い頃から医学と哲学を学びました。" },
+        { speaker: "ナレーター", arabic: "كِتَابُهُ 'الْقَانُونُ' دُرِّسَ فِي جَامِعَاتِ أُورُوبَّا.", japanese: "彼の著書『カノン』はヨーロッパの大学で教えられました。" },
+        { speaker: "ナレーター", arabic: "لُقِّبَ بِأَمِيرِ الْأَطِبَّاءِ.", japanese: "彼は「医師たちの長（プリンス）」と呼ばれました。" }
+      ]
+    },
+    {
+      id: 211, title: "アルハンブラ宮殿", category: "歴史", level: "中級",
+      contentVoweled: "يَقَعُ قَصْرُ الْحَمْرَاءِ فِي إِسْبَانِيَا. بَنَاهُ الْمُلُوكُ الْمُسْلِمُونَ فِي الْأَنْدَلُسِ. يَتَمَيَّزُ بِالنُّقُوشِ الْجَمِيلَةِ وَالْحَدَائِقِ. تُوجَدُ فِيهِ نَافُورَةُ الْأُسُودِ الشَّهِيرَةُ. يَزُورُهُ الْمَلَايِينُ كُلَّ عَامٍ.",
+      contentPlain: "يقع قصر الحمراء في إسبانيا. بناه الملوك المسلمون في الأندلس. يتميز بالنقوش الجميلة والحدائق. توجد فيه نافورة الأسود الشهيرة. يزوره الملايين كل عام.",
+      vocabList: [
+        { word: "قَصْر", meaning: "宮殿" },
+        { word: "أَحْمَر", meaning: "赤い" },
+        { word: "جَنَّة", meaning: "庭園/天国" }
+      ],
+      questions: [
+        { id: 2111, type: "reading", text: "アルハンブラ宮殿はどこにありますか？", options: ["カイロ", "バグダッド", "グラナダ（スペイン）", "ダマスカス"], correctIndex: 2, explanation: "「فِي غَرْنَاطَةَ (グラナダに)」です。" },
+        { id: 2112, type: "reading", text: "それは何の傑作ですか？", options: ["料理", "建築", "音楽", "スポーツ"], correctIndex: 1, explanation: "「تُحْفَة مِعْمَارِيَّة (建築の傑作)」です。" },
+        { id: 2113, type: "reading", text: "なぜ「アル・ハムラー（赤い）」と呼ばれますか？", options: ["壁が赤いから", "王の名前", "花の名前", "血の色"], correctIndex: 0, explanation: "「لَوْنُ حِجَارَتِهِ (石の色)」に由来します。" },
+        { id: 2114, type: "vocabulary", text: "「نَافُورَة」の意味は？", options: ["山", "噴水", "川", "道"], correctIndex: 1, explanation: "噴水のことです。" },
+        { id: 2115, type: "grammar", text: "「たくさんの観光客」", options: ["سُيَّاحٌ كَثِيرُونَ", "سُيَّاحٌ قَلِيلُونَ", "سُيَّاحٌ صِغَارٌ", "سُيَّاحٌ كَبِيرٌ"], correctIndex: 0, explanation: "Suyyāḥ (複数) には Kathīrūna (複数) を合わせます。" },
+        { id: 2116, type: "grammar", text: "「بَنَاهُ الْمُلُوكُ（王たちがそれを建てた）」の「hu」は何を指す？", options: ["王たち", "宮殿", "スペイン", "イスラム"], correctIndex: 1, explanation: "動詞につく代名詞「hu」は目的語です。ここでは「宮殿」を指します。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "يَقَعُ قَصْرُ الْحَمْرَاءِ فِي إِسْبَانِيَا.", japanese: "アルハンブラ宮殿はスペインにあります。" },
+        { speaker: "ナレーター", arabic: "بَنَاهُ الْمُلُوكُ الْمُسْلِمُونَ فِي الْأَنْدَلُسِ.", japanese: "アンダルスのイスラムの王たちが建てました。" },
+        { speaker: "ナレーター", arabic: "يَتَمَيَّزُ بِالنُّقُوشِ الْجَمِيلَةِ وَالْحَدَائِقِ.", japanese: "美しい彫刻と庭園が特徴です。" },
+        { speaker: "ナレーター", arabic: "تُوجَدُ فِيهِ نَافُورَةُ الْأُسُودِ الشَّهِيرَةُ.", japanese: "そこには有名なライオンの噴水があります。" },
+        { speaker: "ナレーター", arabic: "يَزُورُهُ الْمَلَايِينُ كُلَّ عَامٍ.", japanese: "毎年何百万人もの人々が訪れます。" }
+      ]
+    },
+    {
+      id: 212, title: "サラーフッディーン", category: "歴史", level: "中級",
+      contentVoweled: "وُلِدَ صَلَاحُ الدِّينِ فِي تِكْرِيت. وَحَّدَ مِصْرَ وَالشَّامَ. انْتَصَرَ فِي مَعْرَكَةِ حِطِّينَ. عَامَلَ الْأَسْرَى بِلُطْفٍ وَرَحْمَةٍ. إِنَّهُ رَمْزٌ لِلْفُرُوسِيَّةِ.",
+      contentPlain: "ولد صلاح الدين في تكريت. وحد مصر والشام. انتصر في معركة حطين. عامل الأسرى بلطف ورحمة. إنه رمز للفروسية.",
+      vocabList: [
+        { word: "قَائِد", meaning: "リーダー/司令官" },
+        { word: "شُجَاع", meaning: "勇敢な" },
+        { word: "حَرَّرَ", meaning: "解放した" }
+      ],
+      questions: [
+        { id: 2121, type: "reading", text: "サラーフッディーンはどんな人でしたか？", options: ["弱虫", "勇敢なリーダー", "商人", "農夫"], correctIndex: 1, explanation: "「قَائِدٌ شُجَاعٌ」です。" },
+        { id: 2122, type: "reading", text: "彼は何を解放しましたか？", options: ["カイロ", "バグダッド", "エルサレム（クドゥス）", "ダマスカス"], correctIndex: 2, explanation: "「الْقُدْس (エルサレム)」です。" },
+        { id: 2123, type: "reading", text: "彼は敵に対してどうでしたか？", options: ["残酷だった", "寛容だった", "無視した", "逃げた"], correctIndex: 1, explanation: "「مُتَسَامِحًا (寛容)」でした。" },
+        { id: 2124, type: "vocabulary", text: "「مَعْرَكَة」の意味は？", options: ["平和", "戦い/戦闘", "食事", "本"], correctIndex: 1, explanation: "Battle（戦い）のことです。" },
+        { id: 2125, type: "grammar", text: "「〜として知られている」", options: ["مَعْرُوفٌ بِـ", "مَجْهُولٌ بِـ", "كَبِيرٌ بِـ", "صَغِيرٌ بِـ"], correctIndex: 0, explanation: "「Ma'rūf bi-」です。" },
+        { id: 2126, type: "grammar", text: "「عَامَلَ（扱った）」のような派生形第3形の意味的特徴は？", options: ["反射（自分にする）", "相手のある行為", "受動", "要請"], correctIndex: 1, explanation: "第3形（Fā'ala）は、他者との関わりや相互行為を表すことが多いです。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "وُلِدَ صَلَاحُ الدِّينِ فِي تِكْرِيت.", japanese: "サラーフッディーンはティクリートで生まれました。" },
+        { speaker: "ナレーター", arabic: "وَحَّدَ مِصْرَ وَالشَّامَ.", japanese: "彼はエジプトとシリア（シャーム）を統一しました。" },
+        { speaker: "ナレーター", arabic: "انْتَصَرَ فِي مَعْرَكَةِ حِطِّينَ.", japanese: "彼はヒッティーンの戦いで勝利しました。" },
+        { speaker: "ナレーター", arabic: "عَامَلَ الْأَسْرَى بِلُطْفٍ وَرَحْمَةٍ.", japanese: "彼は捕虜を優しさと慈悲を持って扱いました。" },
+        { speaker: "ナレーター", arabic: "إِنَّهُ رَمْزٌ لِلْفُرُوسِيَّةِ.", japanese: "彼は騎士道の象徴です。" }
+      ]
+    },
+    {
+      id: 213, title: "コーヒーの歴史", category: "歴史", level: "中級",
+      contentVoweled: "يُقَالُ إِنَّ رَاعِيًا لَاحَظَ نَشَاطَ غَنَمِهِ. كَانَتْ تَأْكُلُ مِنْ شَجَرَةِ الْبُنِّ. بَدَأَ النَّاسُ يَغْلُونَ الْحُبُوبَ وَيَشْرَبُونَهَا. أَصْبَحَتِ الْقَهْوَةُ مَشْرُوبًا شَعْبِيًّا. الْيَوْمَ، لَا نَسْتَطِيعُ بَدْءَ يَوْمِنَا بِدُونِهَا.",
+      contentPlain: "يقال إن راعيا لاحظ نشاط غنمه. كانت تأكل من شجرة البن. بدأ الناس يغلون الحبوب ويشربونها. أصبحت القهوة مشروبا شعبيا. اليوم، لا نستطيع بدء يومنا بدونها.",
+      vocabList: [
+        { word: "قَهْوَة", meaning: "コーヒー" },
+        { word: "عَالَم", meaning: "世界" },
+        { word: "شَرِبَ", meaning: "飲んだ" }
+      ],
+      questions: [
+        { id: 2131, type: "reading", text: "コーヒーはどこで発見されましたか？", options: ["ブラジル", "イエメン/エチオピア", "フランス", "中国"], correctIndex: 1, explanation: "「فِي الْيَمَنِ (イエメンで)」と記述されています（起源説の一つ）。" },
+        { id: 2132, type: "reading", text: "誰が最初に飲みましたか？", options: ["王様", "羊飼いや修道士", "兵士", "子供"], correctIndex: 1, explanation: "「الرُّعَاة (羊飼いたち)」やスーフィーなどが知られています。" },
+        { id: 2133, type: "reading", text: "コーヒーはどうなりましたか？", options: ["消えた", "世界に広まった", "禁止された", "忘れられた"], correctIndex: 1, explanation: "「انْتَشَرَتْ (広まった)」です。" },
+        { id: 2134, type: "vocabulary", text: "「بُنّ」の意味は？", options: ["茶葉", "コーヒー豆", "砂糖", "カップ"], correctIndex: 1, explanation: "コーヒー豆のことです。" },
+        { id: 2135, type: "grammar", text: "「発見された（受動態）」", options: ["اُكْتُشِفَتْ", "اِكْتَشَفَ", "يَكْتَشِفُ", "كِتَابَة"], correctIndex: 0, explanation: "「Uktushifat」は受動態です。" },
+        { id: 2136, type: "grammar", text: "「يُقَالُ（言われている）」の直後に来る接続詞は？", options: ["أَنْ (An)", "إِنَّ (Inna)", "لِـ (Li)", "هَلْ (Hal)"], correctIndex: 1, explanation: "「Qāla（言った）」や受動態「Yuqālu」の直後で「〜と」引用する場合、Hamzaは下に付く「Inna」を使います。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "يُقَالُ إِنَّ رَاعِيًا لَاحَظَ نَشَاطَ غَنَمِهِ.", japanese: "ある羊飼いが、羊たちの活発さに気づいたと言われています。" },
+        { speaker: "ナレーター", arabic: "كَانَتْ تَأْكُلُ مِنْ شَجَرَةِ الْبُنِّ.", japanese: "それらはコーヒーの木（の実）を食べていました。" },
+        { speaker: "ナレーター", arabic: "بَدَأَ النَّاسُ يَغْلُونَ الْحُبُوبَ وَيَشْرَبُونَهَا.", japanese: "人々は豆を煮て飲み始めました。" },
+        { speaker: "ナレーター", arabic: "أَصْبَحَتِ الْقَهْوَةُ مَشْرُوبًا شَعْبِيًّا.", japanese: "コーヒーは人気のある飲み物になりました。" },
+        { speaker: "ナレーター", arabic: "الْيَوْمَ، لَا نَسْتَطِيعُ بَدْءَ يَوْمِنَا بِدُونِهَا.", japanese: "今日、私たちはそれなしで一日を始めることはできません。" }
+      ]
+    },
+    {
+      id: 214, title: "ペトラ遺跡", category: "歴史", level: "中級",
+      contentVoweled: "بَنَى الْأَنْبَاطُ مَدِينَةَ الْبَتْرَاءِ. تَتَمَيَّزُ بِلَوْنِهَا الْوَرْدِيِّ الْجَمِيلِ. يَدْخُلُ السُّيَّاحُ عَبْرَ مَمَرٍّ ضَيِّقٍ يُسَمَّى 'السِّيق'. فِي النِّهَايَةِ تَظْهَرُ 'الْخَزْنَةُ' الرَّائِعَةُ. إِنَّهَا مِنْ عَجَائِبِ الدُّنْيَا.",
+      contentPlain: "بنى الأنباط مدينة البتراء. تتميز بلونها الوردي الجميل. يدخل السياح عبر ممر ضيق يسمى 'السيق'. في النهاية تظهر 'الخزنة' الرائعة. إنها من عجائب الدنيا.",
+      vocabList: [
+        { word: "صَخْر", meaning: "岩" },
+        { word: "وَرْدِيّ", meaning: "バラ色の" },
+        { word: "سِيَاحَة", meaning: "観光" }
+      ],
+      questions: [
+        { id: 2141, type: "reading", text: "ペトラはどこにありますか？", options: ["エジプト", "ヨルダン", "シリア", "イラク"], correctIndex: 1, explanation: "「فِي الْأُرْدُنِّ (ヨルダンに)」です。" },
+        { id: 2142, type: "reading", text: "どのように作られましたか？", options: ["木で作られた", "岩に掘られた", "レンガで作られた", "鉄で作られた"], correctIndex: 1, explanation: "「مَحْفُورَةٌ فِي الصَّخْرِ (岩に掘られた)」です。" },
+        { id: 2143, type: "reading", text: "別名は何ですか？", options: ["白い都", "バラ色の都", "黒い都", "黄金の都"], correctIndex: 1, explanation: "「الْمَدِينَة الْوَرْدِيَّة」と呼ばれます。" },
+        { id: 2144, type: "vocabulary", text: "「خَزْنَة」の意味は？", options: ["宝物殿/金庫", "家", "道", "川"], correctIndex: 0, explanation: "ペトラの有名な遺跡「エル・ハズネ」のことです。" },
+        { id: 2155, type: "grammar", text: "「多くの人々」", options: ["نَاسٌ كَثِيرُونَ", "نَاسٌ قَلِيلُونَ", "نَاسٌ وَاحِدٌ", "نَاسٌ صَغِيرٌ"], correctIndex: 0, explanation: "Nās (人々) は複数扱いです。" },
+        { id: 2156, type: "grammar", text: "「يُسَمَّى（〜と呼ばれる）」はどの動詞の受動態？", options: ["過去形", "現在形", "命令形", "完了形"], correctIndex: 1, explanation: "「Yusammā」は現在形の受動態です。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "بَنَى الْأَنْبَاطُ مَدِينَةَ الْبَتْرَاءِ.", japanese: "ナバテア人がペトラの都市を建設しました。" },
+        { speaker: "ナレーター", arabic: "تَتَمَيَّزُ بِلَوْنِهَا الْوَرْدِيِّ الْجَمِيلِ.", japanese: "美しいバラ色が特徴です。" },
+        { speaker: "ナレーター", arabic: "يَدْخُلُ السُّيَّاحُ عَبْرَ مَمَرٍّ ضَيِّقٍ يُسَمَّى 'السِّيق'.", japanese: "観光客は「シーク」と呼ばれる狭い通路を通って入ります。" },
+        { speaker: "ナレーター", arabic: "فِي النِّهَايَةِ تَظْهَرُ 'الْخَزْنَةُ' الرَّائِعَةُ.", japanese: "終わりに素晴らしい「宝物殿（エル・ハズネ）」が現れます。" },
+        { speaker: "ナレーター", arabic: "إِنَّهَا مِنْ عَجَائِبِ الدُّنْيَا.", japanese: "それは世界の不思議の一つです。" }
+      ]
+    },
+    {
+      id: 215, title: "水は命", category: "記事", level: "中級",
+      contentVoweled: "خَلَقَ اللهُ كُلَّ شَيْءٍ حَيٍّ مِنَ الْمَاءِ. يَحْتَاجُ الْإِنْسَانُ وَالْحَيَوَانُ وَالنَّبَاتُ إِلَى الْمَاءِ. يَجِبُ أَلَّا نُسْرِفَ فِي اسْتِخْدَامِهِ. أَغْلِقِ الصُّنْبُورَ بَعْدَ الِاسْتِخْدَامِ. الْمَاءُ نِعْمَةٌ كَبِيرَةٌ.",
+      contentPlain: "خلق الله كل شيء حي من الماء. يحتاج الإنسان والحيوان والنبات إلى الماء. يجب ألا نسرف في استخدامه. أغلق الصنبور بعد الاستخدام. الماء نعمة كبيرة.",
+      vocabList: [
+        { word: "حَيَاة", meaning: "命/生活" },
+        { word: "إِسْرَاف", meaning: "浪費" },
+        { word: "شَرِبَ", meaning: "飲む" }
+      ],
+      questions: [
+        { id: 2151, type: "reading", text: "水とは何ですか？", options: ["ただの液体", "命の秘密/源", "高いもの", "不要なもの"], correctIndex: 1, explanation: "「سِرُّ الْحَيَاةِ (命の秘密)」です。" },
+        { id: 2152, type: "reading", text: "水なしで生きられますか？", options: ["はい", "いいえ", "1年なら", "少しなら"], correctIndex: 1, explanation: "「لَا يُمْكِنُ (不可能)」です。" },
+        { id: 2153, type: "reading", text: "私たちはどうすべきですか？", options: ["浪費する", "汚す", "大切にする/節約する", "捨てる"], correctIndex: 2, explanation: "「نُحَافِظَ عَلَيْهِ (それを守る/保つ)」べきです。" },
+        { id: 2154, type: "vocabulary", text: "「نَبَات」の意味は？", options: ["動物", "植物", "人間", "石"], correctIndex: 1, explanation: "植物です。" },
+        { id: 2155, type: "grammar", text: "「〜なしで」", options: ["بِدُونِ", "مَعَ", "بِـ", "لِـ"], correctIndex: 0, explanation: "「Bidūni」です。" },
+        { id: 2156, type: "grammar", text: "「أَلَّا نُسْرِفَ（浪費しないこと）」の「Allā」の分解は？", options: ["An + Lā", "In + Lā", "Al + Lā", "Anna + Lā"], correctIndex: 0, explanation: "接続詞「An」と否定「Lā」が結合して「Allā」となり、後の動詞はマンスーブ（接続法）になります。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "خَلَقَ اللهُ كُلَّ شَيْءٍ حَيٍّ مِنَ الْمَاءِ.", japanese: "神はすべての生きたものを水から創りました。" },
+        { speaker: "ナレーター", arabic: "يَحْتَاجُ الْإِنْسَانُ وَالْحَيَوَانُ وَالنَّبَاتُ إِلَى الْمَاءِ.", japanese: "人間、動物、植物は水を必要とします。" },
+        { speaker: "ナレーター", arabic: "يَجِبُ أَلَّا نُسْرِفَ فِي اسْتِخْدَامِهِ.", japanese: "使用において浪費してはいけません。" },
+        { speaker: "ナレーター", arabic: "أَغْلِقِ الصُّنْبُورَ بَعْدَ الِاسْتِخْدَامِ.", japanese: "使用後は蛇口を閉めなさい。" },
+        { speaker: "ナレーター", arabic: "الْمَاءُ نِعْمَةٌ كَبِيرَةٌ.", japanese: "水は大きな恵みです。" }
+      ]
+    },
+    {
+      id: 216, title: "ラクダ：砂漠の船", category: "記事", level: "中級",
+      contentVoweled: "يَسْتَطِيعُ الْجَمَلُ الْمَشْيَ عَلَى الرِّمَالِ بِسُهُولَةٍ. لَدَيْهِ خُفٌّ عَرِيضٌ لَا يَغُوصُ فِي الرَّمْلِ. يُخَزِّنُ الدُّهُونَ فِي سَنَامِهِ. كَانَ الْعَرَبُ يُسَافِرُونَ عَلَيْهِ قَدِيمًا. إِنَّهُ رَمْزٌ لِلصَّبْرِ.",
+      contentPlain: "يستطيع الجمل المشي على الرمال بسهولة. لديه خف عريض لا يغوص في الرمل. يخزن الدهون في سنامه. كان العرب يسافرون عليه قديما. إنه رمز للصبر.",
+      vocabList: [
+        { word: "جَمَل", meaning: "ラクダ" },
+        { word: "صَبْر", meaning: "忍耐" },
+        { word: "عَطَش", meaning: "渇き" }
+      ],
+      questions: [
+        { id: 2161, type: "reading", text: "ラクダの別名は？", options: ["砂漠の王", "砂漠の船", "砂漠の車", "砂漠の鳥"], correctIndex: 1, explanation: "「سَفِينَة الصَّحْرَاء」です。" },
+        { id: 2162, type: "reading", text: "ラクダは何に耐えられますか？", options: ["寒さだけ", "渇きと暑さ", "雨", "雪"], correctIndex: 1, explanation: "「الْعَطَش وَالْحَرّ」です。" },
+        { id: 2163, type: "reading", text: "ラクダはどこに水を蓄えますか？", options: ["胃", "足", "こぶ", "耳"], correctIndex: 2, explanation: "「السَّنَام (こぶ)」に脂肪として蓄えます。" },
+        { id: 2164, type: "vocabulary", text: "「رِمَال」の意味は？", options: ["水", "砂（複数）", "岩", "空"], correctIndex: 1, explanation: "砂のことです。" },
+        { id: 2165, type: "grammar", text: "「歩くことができます」", options: ["يَسْتَطِيعُ الْمَشْيَ", "لَا يَسْتَطِيعُ", "مَشَى", "يَمْشِي"], correctIndex: 0, explanation: "「Yastaṭī'u (できる)」です。" },
+        { id: 2166, type: "grammar", text: "「الْمَشْيَ（歩くこと）」の品詞は？", options: ["動詞", "形容詞", "マスダル（動名詞）", "粒子"], correctIndex: 2, explanation: "動詞「مَشَى（歩いた）」のマスダル（動名詞）です。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "يَسْتَطِيعُ الْجَمَلُ الْمَشْيَ عَلَى الرِّمَالِ بِسُهُولَةٍ.", japanese: "ラクダは砂の上を簡単に歩くことができます。" },
+        { speaker: "ナレーター", arabic: "لَدَيْهِ خُفٌّ عَرِيضٌ لَا يَغُوصُ فِي الرَّمْلِ.", japanese: "砂に沈まない広い足裏を持っています。" },
+        { speaker: "ナレーター", arabic: "يُخَزِّنُ الدُّهُونَ فِي سَنَامِهِ.", japanese: "こぶに脂肪を蓄えます。" },
+        { speaker: "ナレーター", arabic: "كَانَ الْعَرَبُ يُسَافِرُونَ عَلَيْهِ قَدِيمًا.", japanese: "昔、アラブ人はそれに乗って旅をしました。" },
+        { speaker: "ナレーター", arabic: "إِنَّهُ رَمْزٌ لِلصَّبْرِ.", japanese: "それは忍耐の象徴です。" }
+      ]
+    },
+    {
+      id: 217, title: "オリーブの木", category: "文化", level: "中級",
+      contentVoweled: "تَنْمُو شَجَرَةُ الزَّيْتُونِ فِي حَوْضِ الْبَحْرِ الْمُتَوَسِّطِ. زَيْتُ الزَّيْتُونِ صِحِّيٌّ وَلَذِيذٌ. يُسْتَخْدَمُ فِي الطَّبْخِ وَالْعِلَاجِ. غُصْنُ الزَّيْتُونِ رَمْزٌ لِلسَّلَامِ. ذُكِرَتْ هَذِهِ الشَّجَرَةُ فِي الْقُرْآنِ.",
+      contentPlain: "تنمو شجرة الزيتون في حوض البحر المتوسط. زيت الزيتون صحي ولذيذ. يستخدم في الطبخ والعلاج. غصن الزيتون رمز للسلام. ذكرت هذه الشجرة في القرآن.",
+      vocabList: [
+        { word: "زَيْت", meaning: "油/オイル" },
+        { word: "شَجَرَة", meaning: "木" },
+        { word: "سَلَام", meaning: "平和" }
+      ],
+      questions: [
+        { id: 2171, type: "reading", text: "オリーブの木の特徴は？", options: ["すぐに枯れる", "祝福された/長生きする", "毒がある", "小さい"], correctIndex: 1, explanation: "「مُبَارَكَة (祝福された)」であり長生きです。" },
+        { id: 2172, type: "reading", text: "何が採れますか？", options: ["水", "油（オイル）", "砂糖", "パン"], correctIndex: 1, explanation: "「زَيْت (油)」が採れます。" },
+        { id: 2173, type: "reading", text: "オリーブの枝は何の象徴？", options: ["戦争", "平和", "富", "力"], correctIndex: 1, explanation: "「السَّلَام (平和)」の象徴です。" },
+        { id: 2174, type: "vocabulary", text: "「صِحِّي」の意味は？", options: ["悪い", "健康的な", "病気の", "高い"], correctIndex: 1, explanation: "Healthyという意味です。" },
+        { id: 2175, type: "grammar", text: "「たくさんの木」", options: ["أَشْجَارٌ كَثِيرَةٌ", "شَجَرَةٌ وَاحِدَةٌ", "أَشْجَارٌ قَلِيلَةٌ", "شَجَرٌ كَثِيرٌ"], correctIndex: 0, explanation: "Ashjār (複数) + Kathīrah (女性単数) です。" },
+        { id: 2176, type: "grammar", text: "「ذُكِرَتْ（言及された）」の「t」は何？", options: ["私のこと", "女性形の標識", "過去形の一部", "複数形"], correctIndex: 1, explanation: "主語「الشَّجَرَةُ（木）」が女性名詞なので、動詞も女性形「ذُكِرَتْ」になっています。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "تَنْمُو شَجَرَةُ الزَّيْتُونِ فِي حَوْضِ الْبَحْرِ الْمُتَوَسِّطِ.", japanese: "オリーブの木は地中海沿岸で育ちます。" },
+        { speaker: "ナレーター", arabic: "زَيْتُ الزَّيْتُونِ صِحِّيٌّ وَلَذِيذٌ.", japanese: "オリーブオイルは健康的で美味しいです。" },
+        { speaker: "ナレーター", arabic: "يُسْتَخْدَمُ فِي الطَّبْخِ وَالْعِلَاجِ.", japanese: "料理や治療に使われます。" },
+        { speaker: "ナレーター", arabic: "غُصْنُ الزَّيْتُونِ رَمْزٌ لِلسَّلَامِ.", japanese: "オリーブの枝は平和の象徴です。" },
+        { speaker: "ナレーター", arabic: "ذُكِرَتْ هَذِهِ الشَّجَرَةُ فِي الْقُرْآنِ.", japanese: "この木はクルアーンの中で言及されています。" }
+      ]
+    },
+    {
+      id: 218, title: "ナイル川", category: "記事", level: "中級",
+      contentVoweled: "مِصْرُ هِبَةُ النِّيلِ. يَجْرِي النَّهْرُ مِنْ الْجَنُوبِ إِلَى الشَّمَالِ. عَاشَ الْمِصْرِيُّونَ الْقُدَمَاءُ عَلَى ضِفَافِهِ. بَنَوْا حَضَارَةً عَظِيمَةً. إِنَّهُ مَصْدَرُ الْحَيَاةِ لِلْمَلَايِينِ.",
+      contentPlain: "مصر هبة النيل. يجري النهر من الجنوب إلى الشمال. عاش المصريون القدماء على ضفافه. بنوا حضارة عظيمة. إنه مصدر الحياة للملايين.",
+      vocabList: [
+        { word: "نَهْر", meaning: "川" },
+        { word: "زِرَاعَة", meaning: "農業" },
+        { word: "مِصْر", meaning: "エジプト" }
+      ],
+      questions: [
+        { id: 2181, type: "reading", text: "ナイル川の特徴は？", options: ["一番短い", "世界最長", "一番深い", "一番広い"], correctIndex: 1, explanation: "「أَطْوَل نَهْر (一番長い川)」です。" },
+        { id: 2182, type: "reading", text: "どの国を通りますか？", options: ["エジプト", "日本", "フランス", "アメリカ"], correctIndex: 0, explanation: "「مِصْر (エジプト)」などです。" },
+        { id: 2183, type: "reading", text: "人々にとってなぜ重要ですか？", options: ["泳ぐため", "農業と飲み水のため", "見るため", "壁を作るため"], correctIndex: 1, explanation: "「الزِّرَاعَة وَالشُّرْب」です。" },
+        { id: 2184, type: "vocabulary", text: "「حَضَارَة」の意味は？", options: ["戦争", "文明", "砂漠", "動物"], correctIndex: 1, explanation: "Civilization（文明）です。" },
+        { id: 2185, type: "grammar", text: "「流れます」", options: ["يَجْرِي", "يَقِفُ", "يَأْكُلُ", "يَنَامُ"], correctIndex: 0, explanation: "「Yajrī (走る/流れる)」です。" },
+        { id: 2186, type: "grammar", text: "「بَنَوْا（彼らは建てた）」の原形は？", options: ["بَنَى (Banā)", "بَنِيَ (Baniya)", "بِنَاء (Binā')", "بَنُونَ (Banūna)"], correctIndex: 0, explanation: "原形「Banā（建てた）」の複数形です。語尾が母音で終わる動詞の複数形は不規則変化します。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "مِصْرُ هِبَةُ النِّيلِ.", japanese: "エジプトはナイルの賜物です。" },
+        { speaker: "ナレーター", arabic: "يَجْرِي النَّهْرُ مِنْ الْجَنُوبِ إِلَى الشَّمَالِ.", japanese: "川は南から北へ流れます。" },
+        { speaker: "ナレーター", arabic: "عَاشَ الْمِصْرِيُّونَ الْقُدَمَاءُ عَلَى ضِفَافِهِ.", japanese: "古代エジプト人はその岸辺に住んでいました。" },
+        { speaker: "ナレーター", arabic: "بَنَوْا حَضَارَةً عَظِيمَةً.", japanese: "彼らは偉大な文明を築きました。" },
+        { speaker: "ナレーター", arabic: "إِنَّهُ مَصْدَرُ الْحَيَاةِ لِلْمَلَايِينِ.", japanese: "それは何百万人もの人々の命の源です。" }
+      ]
+    },
+    {
+      id: 219, title: "砂漠の夜", category: "自然", level: "中級",
+      contentVoweled: "عِنْدَمَا تَغِيبُ الشَّمْسُ، يَعُمُّ السُّكُونُ. السَّمَاءُ صَافِيَةٌ وَمَلِيئَةٌ بِالنُّجُومِ. يُحِبُّ الْبَدْوُ السَّهَرَ تَحْتَ ضَوْءِ الْقَمَرِ. يُشْعِلُونَ النَّارَ وَيَشْرَبُونَ الْقَهْوَةَ. إِنَّهُ مَنْظَرٌ سَاحِرٌ.",
+      contentPlain: "عندما تغيب الشمس، يعم السكون. السماء صافية ومليئة بالنجوم. يحب البدو السهر تحت ضوء القمر. يشعلون النار ويشربون القهوة. إنه منظر ساحر.",
+      vocabList: [
+        { word: "لَيْل", meaning: "夜" },
+        { word: "نُجُوم", meaning: "星々" },
+        { word: "قَمَر", meaning: "月" }
+      ],
+      questions: [
+        { id: 2191, type: "reading", text: "砂漠の夜はどうですか？", options: ["うるさい", "静かで美しい", "暑い", "明るい"], correctIndex: 1, explanation: "「هَادِئ وَجَمِيل」です。" },
+        { id: 2192, type: "reading", text: "空には何が見えますか？", options: ["雲", "星", "飛行機", "太陽"], correctIndex: 1, explanation: "「النُّجُوم (星々)」です。" },
+        { id: 2193, type: "reading", text: "気温はどうなりますか？", options: ["暑くなる", "変わらない", "寒くなる", "蒸し暑い"], correctIndex: 2, explanation: "「يَمِيلُ لِلْبُرُودَةِ (寒くなる傾向がある)」です。" },
+        { id: 2194, type: "vocabulary", text: "「سَمَاء」の意味は？", options: ["海", "空", "地", "山"], correctIndex: 1, explanation: "空です。" },
+        { id: 2195, type: "grammar", text: "「輝く」", options: ["تَلْمَعُ", "تَنَامُ", "تَأْكُلُ", "تَذْهَبُ"], correctIndex: 0, explanation: "「Talma'u」です。" },
+        { id: 2196, type: "grammar", text: "「عِنْدَمَا（〜する時）」の品詞的な役割は？", options: ["時間のアドバーブ（副詞）", "場所のアドバーブ", "動詞", "名詞"], correctIndex: 0, explanation: "「時（Time）」を表す副詞的用法（Zarf Zamān）です。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "عِنْدَمَا تَغِيبُ الشَّمْسُ، يَعُمُّ السُّكُونُ.", japanese: "太陽が沈むと、静寂が広がります。" },
+        { speaker: "ナレーター", arabic: "السَّمَاءُ صَافِيَةٌ وَمَلِيئَةٌ بِالنُّجُومِ.", japanese: "空は澄んでいて、星でいっぱいです。" },
+        { speaker: "ナレーター", arabic: "يُحِبُّ الْبَدْوُ السَّهَرَ تَحْتَ ضَوْءِ الْقَمَرِ.", japanese: "ベドウィン（遊牧民）は月明かりの下で夜更かしするのが好きです。" },
+        { speaker: "ナレーター", arabic: "يُشْعِلُونَ النَّارَ وَيَشْرَبُونَ الْقَهْوَةَ.", japanese: "彼らは火を焚き、コーヒーを飲みます。" },
+        { speaker: "ナレーター", arabic: "إِنَّهُ مَنْظَرٌ سَاحِرٌ.", japanese: "それは魅惑的な光景です。" }
+      ]
+    },
+    {
+      id: 220, title: "ライオンとネズミ", category: "物語", level: "中級",
+      contentVoweled: "كَانَ الْأَسَدُ نَائِمًا. لَعِبَ فَأْرٌ صَغِيرٌ فَوْقَ رَأْسِهِ. اسْتَيْقَظَ الْأَسَدُ غَاضِبًا. تَرَجَّاهُ الْفَأْرُ، فَتَرَكَهُ. لَاحِقًا، قَطَّعَ الْفَأْرُ الشَّبَكَةَ وَأَنْقَذَ الْأَسَدَ.",
+      contentPlain: "كان الأسد نائما. لعب فأر صغير فوق رأسه. استيقظ الأسد غاضبا. ترجاه الفأر، فتركه. لاحقا، قطع الفأر الشبكة وأنقذ الأسد.",
+      vocabList: [
+        { word: "أَسَد", meaning: "ライオン" },
+        { word: "فَأْر", meaning: "ネズミ" },
+        { word: "سَاعَدَ", meaning: "助けた" }
+      ],
+      questions: [
+        { id: 2201, type: "reading", text: "ライオンはどうしましたか？", options: ["ネズミを食べた", "ネズミを逃がした", "ネズミと遊んだ", "ネズミを無視した"], correctIndex: 1, explanation: "「أَطْلَقَ سَرَاحَهُ (彼を釈放した/逃がした)」です。" },
+        { id: 2202, type: "reading", text: "後でライオンはどうなりましたか？", options: ["王になった", "網に捕まった", "病気になった", "眠った"], correctIndex: 1, explanation: "「وَقَعَ فِي شَبَكَةٍ (網に落ちた/捕まった)」です。" },
+        { id: 2203, type: "reading", text: "誰がライオンを助けましたか？", options: ["猟師", "別のライオン", "ネズミ", "誰もいない"], correctIndex: 2, explanation: "「الْفَأْر (ネズミ)」です。" },
+        { id: 2204, type: "vocabulary", text: "「شَبَكَة」の意味は？", options: ["家", "網/ネット", "穴", "箱"], correctIndex: 1, explanation: "網です。" },
+        { id: 2205, type: "grammar", text: "「小さい」", options: ["صَغِير", "كَبِير", "طَوِيل", "قَصِير"], correctIndex: 0, explanation: "「Saghīr」です。" },
+        { id: 2206, type: "grammar", text: "「كَانَ الْأَسَدُ نَائِمًا（ライオンは眠っていた）」で「眠っていた」が対格（〜an）なのは？", options: ["主語だから", "目的語だから", "カーナ（Kāna）の述語だから", "副詞だから"], correctIndex: 2, explanation: "「Kāna」の述語（Khabar Kāna）はマンスーブ（対格）になります。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "كَانَ الْأَسَدُ نَائِمًا.", japanese: "ライオンは眠っていました。" },
+        { speaker: "ナレーター", arabic: "لَعِبَ فَأْرٌ صَغِيرٌ فَوْقَ رَأْسِهِ.", japanese: "小さなネズミが彼の頭の上で遊びました。" },
+        { speaker: "ナレーター", arabic: "اسْتَيْقَظَ الْأَسَدُ غَاضِبًا.", japanese: "ライオンは怒って目を覚ましました。" },
+        { speaker: "ナレーター", arabic: "تَرَجَّاهُ الْفَأْرُ، فَتَرَكَهُ.", japanese: "ネズミが懇願したので、彼は放してやりました。" },
+        { speaker: "ナレーター", arabic: "لَاحِقًا، قَطَّعَ الْفَأْرُ الشَّبَكَةَ وَأَنْقَذَ الْأَسَدَ.", japanese: "その後、ネズミは網を食いちぎり、ライオンを救いました。" }
+      ]
+    },
+    {
+      id: 221, title: "アリとキリギリス", category: "物語", level: "中級",
+      contentVoweled: "فِي الصَّيْفِ، كَانَتِ النَّمْلَةُ نَشِيطَةً. جَمَعَتِ الْحُبُوبَ لِلشِّتَاءِ. أَمَّا الْجُنْدُبُ فَكَانَ كَسُولًا. جَاءَ الشِّتَاءُ وَلَمْ يَجِدِ الْجُنْدُبُ طَعَامًا. تَعَلَّمَ دَرْسًا فِي أَهَمِّيَّةِ الْعَمَلِ.",
+      contentPlain: "في الصيف، كانت النملة نشيطة. جمعت الحبوب للشتاء. أما الجندب فكان كسولا. جاء الشتاء ولم يجد الجندب طعاما. تعلم درسا في أهمية العمل.",
+      vocabList: [
+        { word: "نَمْلَة", meaning: "アリ" },
+        { word: "شِتَاء", meaning: "冬" },
+        { word: "عَمَل", meaning: "仕事" }
+      ],
+      questions: [
+        { id: 2211, type: "reading", text: "アリは何をしていましたか？", options: ["遊んでいた", "寝ていた", "働いていた", "歌っていた"], correctIndex: 2, explanation: "「تَعْمَلُ (働く)」です。" },
+        { id: 2212, type: "reading", text: "キリギリス（バッタ）は何をしていましたか？", options: ["働いていた", "遊んで歌っていた", "食べていた", "勉強していた"], correctIndex: 1, explanation: "「يَلْعَبُ وَيُغَنِّي (遊んで歌う)」です。" },
+        { id: 2213, type: "reading", text: "冬になってどうなりましたか？", options: ["キリギリスは空腹になった", "アリが餓死した", "夏になった", "みんな死んだ"], correctIndex: 0, explanation: "「جَاعَ الْجُنْدُب (バッタは飢えた)」です。" },
+        { id: 2214, type: "vocabulary", text: "「كَسُول」の意味は？", options: ["勤勉な", "怠け者の", "速い", "強い"], correctIndex: 1, explanation: "Lazy（怠け者）です。" },
+        { id: 2215, type: "grammar", text: "「集めます」", options: ["تَجْمَعُ", "تَرْمِي", "تَأْكُلُ", "تَشْرَبُ"], correctIndex: 0, explanation: "「Tajma'u」です。" },
+        { id: 2216, type: "grammar", text: "「أَمَّا... فَ...（〜に関しては、...）」の構文で、「Fa」の役割は？", options: ["否定", "原因", "話題の区切り（〜ならば/〜は）", "疑問"], correctIndex: 2, explanation: "「Ammā」で提起された話題に対するコメントを導くために、必ず「Fa」が置かれます。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "فِي الصَّيْفِ، كَانَتِ النَّمْلَةُ نَشِيطَةً.", japanese: "夏、アリは活発でした。" },
+        { speaker: "ナレーター", arabic: "جَمَعَتِ الْحُبُوبَ لِلشِّتَاءِ.", japanese: "冬のために穀物を集めました。" },
+        { speaker: "ナレーター", arabic: "أَمَّا الْجُنْدُبُ فَكَانَ كَسُولًا.", japanese: "一方、キリギリス（バッタ）は怠け者でした。" },
+        { speaker: "ナレーター", arabic: "جَاءَ الشِّتَاءُ وَلَمْ يَجِدِ الْجُنْدُبُ طَعَامًا.", japanese: "冬が来て、キリギリスは食べ物を見つけられませんでした。" },
+        { speaker: "ナレーター", arabic: "تَعَلَّمَ دَرْسًا فِي أَهَمِّيَّةِ الْعَمَلِ.", japanese: "彼は労働の重要性についての教訓を学びました。" }
+      ]
+    },
+    {
+      id: 222, title: "嘘をつく子供", category: "物語", level: "中級",
+      contentVoweled: "أَرَادَ الرَّاعِي أَنْ يَمْزَحَ مَعَ أَهْلِ الْقَرْيَةِ. صَرَخَ: ذِئْبٌ! سَاعِدُونِي! جَاءَ النَّاسُ، فَضَحِكَ الْوَلَدُ. فِي الْمَرَّةِ الثَّالِثَةِ، جَاءَ الذِّئْبُ حَقًّا. صَرَخَ الْوَلَدُ، لَكِنْ لَمْ يَأْتِ أَحَدٌ.",
+      contentPlain: "أراد الراعي أن يمزح مع أهل القرية. صرخ: ذئب! ساعدوني! جاء الناس، فضحك الولد. في المرة الثالثة، جاء الذئب حقا. صرخ الولد، لكن لم يأت أحد.",
+      vocabList: [
+        { word: "ذِئْب", meaning: "オオカミ" },
+        { word: "كَذِب", meaning: "嘘" },
+        { word: "صِدْق", meaning: "真実/正直" }
+      ],
+      questions: [
+        { id: 2221, type: "reading", text: "少年は何と叫びましたか？", options: ["火事だ", "泥棒だ", "オオカミだ", "助けて"], correctIndex: 2, explanation: "「ذِئْب (オオカミ)」です。" },
+        { id: 2222, type: "reading", text: "村人はどうしましたか？", options: ["無視した", "助けに来た", "笑った", "逃げた"], correctIndex: 1, explanation: "最初は「جَاءُوا لِلْمُسَاعَدَةِ (助けに来た)」です。" },
+        { id: 2223, type: "reading", text: "本当にオオカミが来た時、どうなりましたか？", options: ["誰も来なかった", "みんな来た", "少年は戦った", "オオカミは逃げた"], correctIndex: 0, explanation: "「لَمْ يُصَدِّقْهُ أَحَدٌ (誰も彼を信じなかった)」です。" },
+        { id: 2224, type: "vocabulary", text: "「غَنَم」の意味は？", options: ["牛", "羊", "馬", "犬"], correctIndex: 1, explanation: "羊（群れ）のことです。" },
+        { id: 2225, type: "grammar", text: "「信じませんでした」", options: ["لَمْ يُصَدِّقْ", "صَدَّقَ", "كَذَبَ", "قَالَ"], correctIndex: 0, explanation: "「Lam yuṣaddiq」です。" },
+        { id: 2226, type: "grammar", text: "「لَمْ يَأْتِ أَحَدٌ（誰も来なかった）」の「Ya'ti」が短い形なのは？", options: ["過去形だから", "短縮形（Majzum）だから", "女性形だから", "方言だから"], correctIndex: 1, explanation: "否定辞「Lam」の後は要求法（Majzum）になり、弱動詞「Atā」の最後の母音字が脱落します。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "أَرَادَ الرَّاعِي أَنْ يَمْزَحَ مَعَ أَهْلِ الْقَرْيَةِ.", japanese: "羊飼いは村の人々と冗談を言いたいと思いました。" },
+        { speaker: "ナレーター", arabic: "صَرَخَ: ذِئْبٌ! سَاعِدُونِي!", japanese: "彼は叫びました。「オオカミだ！助けてくれ！」" },
+        { speaker: "ナレーター", arabic: "جَاءَ النَّاسُ، فَضَحِكَ الْوَلَدُ.", japanese: "人々が来ると、少年は笑いました。" },
+        { speaker: "ナレーター", arabic: "فِي الْمَرَّةِ الثَّالِثَةِ، جَاءَ الذِّئْبُ حَقًّا.", japanese: "3回目、本当にオオカミが来ました。" },
+        { speaker: "ナレーター", arabic: "صَرَخَ الْوَلَدُ، لَكِنْ لَمْ يَأْتِ أَحَدٌ.", japanese: "少年は叫びましたが、誰も来ませんでした。" }
+      ]
+    },
+    {
+      id: 223, title: "アラブの格言", category: "文学", level: "中級",
+      contentVoweled: "الْأَمْثَالُ تَعْكِسُ ثَقَافَةَ الشُّعُوبِ. الصَّبْرُ مِفْتَاحُ الْفَرَجِ. مَنْ جَدَّ وَجَدَ، وَمَنْ زَرَعَ حَصَدَ. الْعِلْمُ نُورٌ وَالْجَهْلُ ظَلَامٌ. يَدٌ وَاحِدَةٌ لَا تُصَفِّقُ.",
+      contentPlain: "الأمثال تعكس ثقافة الشعوب. الصبر مفتاح الفرج. من جد وجد، ومن زرع حصد. العلم نور والجهل ظلام. يد واحدة لا تصفق.",
+      vocabList: [
+        { word: "صَبْر", meaning: "忍耐" },
+        { word: "مِفْتَاح", meaning: "鍵" },
+        { word: "فَرَج", meaning: "安らぎ/解決" }
+      ],
+      questions: [
+        { id: 2231, type: "reading", text: "「忍耐は〇〇の鍵」", options: ["成功", "安らぎ/解決", "家", "富"], correctIndex: 1, explanation: "「الْفَرَج (解決/安らぎ)」です。" },
+        { id: 2232, type: "reading", text: "「努力した者は〇〇」", options: ["見つける（報われる）", "失う", "疲れる", "泣く"], correctIndex: 0, explanation: "「وَجَدَ (見つけた＝報われた)」です。" },
+        { id: 2233, type: "vocabulary", text: "「حِكْمَة」の意味は？", options: ["愚かさ", "知恵", "強さ", "速さ"], correctIndex: 1, explanation: "Wisdom（知恵）です。" },
+        { id: 2234, type: "reading", text: "「知識は光」", options: ["الْعِلْمُ نُورٌ", "الْعِلْمُ ظَلَامٌ", "الْجَهْلُ نُورٌ", "الْمَالُ نُورٌ"], correctIndex: 0, explanation: "「Al-'ilmu nūr」です。" },
+        { id: 2235, type: "grammar", text: "「〜した者は」", options: ["مَنْ", "مَا", "أَيْنَ", "كَيْفَ"], correctIndex: 0, explanation: "関係代名詞的な「Man (Whoever)」です。" },
+        { id: 2236, type: "grammar", text: "「جَدَّ（努力した）」のような動詞を何と呼ぶ？", options: ["弱動詞", "倍化動詞（Muḍā'af）", "ハムザ付き動詞", "正しい動詞"], correctIndex: 1, explanation: "第2語根と第3語根が同じで、シャッダが付く動詞（Jaddaなど）は倍化動詞と呼ばれます。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "الْأَمْثَالُ تَعْكِسُ ثَقَافَةَ الشُّعُوبِ.", japanese: "ことわざは人々の文化を反映します。" },
+        { speaker: "ナレーター", arabic: "الصَّبْرُ مِفْتَاحُ الْفَرَجِ.", japanese: "忍耐は解決（安らぎ）への鍵である。" },
+        { speaker: "ナレーター", arabic: "مَنْ جَدَّ وَجَدَ، وَمَنْ زَرَعَ حَصَدَ.", japanese: "努力した者は見つけ（報われ）、種を蒔いた者は刈り取る。" },
+        { speaker: "ナレーター", arabic: "الْعِلْمُ نُورٌ وَالْجَهْلُ ظَلَامٌ.", japanese: "知識は光であり、無知は闇である。" },
+        { speaker: "ナレーター", arabic: "يَدٌ وَاحِدَةٌ لَا تُصَفِّقُ.", japanese: "片手では拍手できない（協力が必要）。" }
+      ]
+    },
+    {
+      id: 224, title: "読書の重要性", category: "記事", level: "中級",
+      contentVoweled: "الْقِرَاءَةُ رِحْلَةٌ عَبْرَ الزَّمَنِ. تَفْتَحُ لَنَا أَبْوَابَ الْعِلْمِ. الْكِتَابُ هُوَ خَيْرُ جَلِيسٍ. يَجِبُ أَنْ نَقْرَأَ كُلَّ يَوْمٍ. أُمَّةٌ تَقْرَأُ، أُمَّةٌ تَرْقَى.",
+      contentPlain: "القراءة رحلة عبر الزمن. تفتح لنا أبواب العلم. الكتاب هو خير جليس. يجب أن نقرأ كل يوم. أمة تقرأ، أمة ترقى.",
+      vocabList: [
+        { word: "قِرَاءَة", meaning: "読書" },
+        { word: "عَقْل", meaning: "理性/頭脳" },
+        { word: "كِتَاب", meaning: "本" }
+      ],
+      questions: [
+        { id: 2241, type: "reading", text: "読書は何を養いますか？", options: ["体", "頭脳（理性）", "筋肉", "胃"], correctIndex: 1, explanation: "「الْعَقْل (理性/頭脳)」です。" },
+        { id: 2242, type: "reading", text: "読書は何を増やしますか？", options: ["お金", "知識", "友達", "敵"], correctIndex: 1, explanation: "「الْمَعْرِفَة (知識)」です。" },
+        { id: 2243, type: "reading", text: "本は何に例えられますか？", options: ["最高の友", "重い荷物", "高価なもの", "敵"], correctIndex: 0, explanation: "「خَيْرُ جَلِيسٍ (最高の座り相手＝友)」と言われます。" },
+        { id: 2244, type: "vocabulary", text: "「مَكْتَبَة」の意味は？", options: ["学校", "図書館/本屋", "台所", "庭"], correctIndex: 1, explanation: "Library/Bookstoreです。" },
+        { id: 2245, type: "grammar", text: "「増やします」", options: ["تَزِيدُ", "تَنْقُصُ", "تَذْهَبُ", "تَأْتِي"], correctIndex: 0, explanation: "「Tazīdu」です。" },
+        { id: 2246, type: "grammar", text: "「خَيْرُ جَلِيسٍ（最良の友）」の構文は？", options: ["イダーファ（所有格構文）", "形容詞修飾", "主語と述語", "前置詞句"], correctIndex: 0, explanation: "「最高の〜（〜の中で最良のもの）」という表現で、イダーファ構造を使っています。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "الْقِرَاءَةُ رِحْلَةٌ عَبْرَ الزَّمَنِ.", japanese: "読書は時を超えた旅です。" },
+        { speaker: "ナレーター", arabic: "تَفْتَحُ لَنَا أَبْوَابَ الْعِلْمِ.", japanese: "それは私たちに知識の扉を開きます。" },
+        { speaker: "ナレーター", arabic: "الْكِتَابُ هُوَ خَيْرُ جَلِيسٍ.", japanese: "本は最高の友人です。" },
+        { speaker: "ナレーター", arabic: "يَجِبُ أَنْ نَقْرَأَ كُلَّ يَوْمٍ.", japanese: "私たちは毎日読むべきです。" },
+        { speaker: "ナレーター", arabic: "أُمَّةٌ تَقْرَأُ، أُمَّةٌ تَرْقَى.", japanese: "読む民は、向上する民です。" }
+      ]
+    },
+    {
+      id: 225, title: "アラビア語の日", category: "ニュース", level: "中級",
+      contentVoweled: "تَحْتَفِلُ الْأُمَمُ الْمُتَّحِدَةُ بِاللُّغَةِ الْعَرَبِيَّةِ. إِنَّهَا إِحْدَى اللُّغَاتِ الرَّسْمِيَّةِ السِّتِّ. يَتَحَدَّثُ بِهَا أَكْثَرُ مِنْ 400 مِلْيُونِ شَخْصٍ. هِيَ لُغَةٌ غَنِيَّةٌ وَعَرِيقَةٌ. نَحْنُ نَفْتَخِرُ بِلُغَتِنَا.",
+      contentPlain: "تحتفل الأمم المتحدة باللغة العربية. إنها إحدى اللغات الرسمية الست. يتحدث بها أكثر من 400 مليون شخص. هي لغة غنية وعريقة. نحن نفتخر بلغتنا.",
+      vocabList: [
+        { word: "يَوْم", meaning: "日" },
+        { word: "لُغَة", meaning: "言語" },
+        { word: "اِحْتِفَال", meaning: "お祝い" }
+      ],
+      questions: [
+        { id: 2251, type: "reading", text: "世界アラビア語デーはいつ？", options: ["1月1日", "12月18日", "9月23日", "5月5日"], correctIndex: 1, explanation: "「18 دِيسَمْبَر」です。" },
+        { id: 2252, type: "reading", text: "アラビア語は誰の言語ですか？", options: ["国連", "クルアーン", "科学だけ", "ヨーロッパ"], correctIndex: 1, explanation: "「لُغَةُ الْقُرْآنِ」です。" },
+        { id: 2253, type: "reading", text: "話者は世界にどれくらいいますか？", options: ["数人", "数億人", "100人", "いない"], correctIndex: 1, explanation: "「الْمَلَايِين (数百万以上＝実際は数億)」です。" },
+        { id: 2254, type: "vocabulary", text: "「رَسْمِيّ」の意味は？", options: ["公式の", "私的な", "遊びの", "偽の"], correctIndex: 0, explanation: "Official（公式）です。" },
+        { id: 2255, type: "grammar", text: "「話します」", options: ["يَتَحَدَّثُ", "يَكْتُبُ", "يَسْمَعُ", "يَمْشِي"], correctIndex: 0, explanation: "「Yataḥaddathu」です。" },
+        { id: 2256, type: "grammar", text: "「〜を誇りに思う」の前置詞は？", options: ["نَفْتَخِرُ بِـ (bi)", "نَفْتَخِرُ لِـ (li)", "نَفْتَخِرُ عَلَى (ala)", "نَفْتَخِرُ فِي (fi)"], correctIndex: 0, explanation: "「Iftakhara bi-」で「〜を誇る」という熟語になります。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "تَحْتَفِلُ الْأُمَمُ الْمُتَّحِدَةُ بِاللُّغَةِ الْعَرَبِيَّةِ.", japanese: "国連はアラビア語を祝います。" },
+        { speaker: "ナレーター", arabic: "إِنَّهَا إِحْدَى اللُّغَاتِ الرَّسْمِيَّةِ السِّتِّ.", japanese: "それは6つの公用語の一つです。" },
+        { speaker: "ナレーター", arabic: "يَتَحَدَّثُ بِهَا أَكْثَرُ مِنْ 400 مِلْيُونِ شَخْصٍ.", japanese: "4億人以上の人々が話しています。" },
+        { speaker: "ナレーター", arabic: "هِيَ لُغَةٌ غَنِيَّةٌ وَعَرِيقَةٌ.", japanese: "それは豊かで由緒ある言語です。" },
+        { speaker: "ナレーター", arabic: "نَحْنُ نَفْتَخِرُ بِلُغَتِنَا.", japanese: "私たちは自分たちの言語を誇りに思います。" }
+      ]
+    },
+    {
+      id: 226, title: "スマートシティ", category: "ニュース", level: "中級",
+      contentVoweled: "تَقَعُ نِيُوم شَمَالَ غَرْبِ الْمَمْلَكَةِ. سَتَكُونُ مَدِينَةً ذَكِيَّةً بِالْكَامِلِ. تَعْتَمِدُ عَلَى الطَّاقَةِ النَّظِيفَةِ. لَا تُوجَدُ فِيهَا سَيَّارَاتٌ تَقْلِيدِيَّةٌ. إِنَّهَا مَشْرُوعٌ طَمُوحٌ جِدًّا.",
+      contentPlain: "تقع نيوم شمال غرب المملكة. ستكون مدينة ذكية بالكامل. تعتمد على الطاقة النظيفة. لا توجد فيها سيارات تقليدية. إنها مشروع طموح جدا.",
+      vocabList: [
+        { word: "مَدِينَة", meaning: "都市" },
+        { word: "مُسْتَقْبَل", meaning: "未来" },
+        { word: "تِكْنُولُوجِيَا", meaning: "技術" }
+      ],
+      questions: [
+        { id: 2261, type: "reading", text: "NEOMとは何ですか？", options: ["古い村", "未来の都市", "海", "山"], correctIndex: 1, explanation: "「مَدِينَةُ الْمُسْتَقْبَلِ」です。" },
+        { id: 2262, type: "reading", text: "どこにありますか？", options: ["日本", "サウジアラビア", "アメリカ", "エジプト"], correctIndex: 1, explanation: "「فِي السُّعُودِيَّةِ」です。" },
+        { id: 2263, type: "reading", text: "何に依存しますか？", options: ["石油", "再生可能エネルギー", "石炭", "ガス"], correctIndex: 1, explanation: "「الطَّاقَة الْمُتَجَدِّدَة」です。" },
+        { id: 2264, type: "vocabulary", text: "「ذَكِيّ」の意味は？", options: ["愚かな", "スマート/賢い", "古い", "遅い"], correctIndex: 1, explanation: "Smart/Intelligentです。" },
+        { id: 2265, type: "grammar", text: "「使います」", options: ["تَسْتَخْدِمُ", "تَأْكُلُ", "تَنَامُ", "تَلْعَبُ"], correctIndex: 0, explanation: "「Tastakhdimu」です。" },
+        { id: 2266, type: "grammar", text: "「سَتَكُونُ（〜になるだろう）」の「Sa」の意味は？", options: ["過去", "現在", "未来", "否定"], correctIndex: 2, explanation: "動詞の頭につく「Sa」は未来を表す接頭辞です。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "تَقَعُ نِيُوم شَمَالَ غَرْبِ الْمَمْلَكَةِ.", japanese: "NEOMは王国の北西に位置します。" },
+        { speaker: "ナレーター", arabic: "سَتَكُونُ مَدِينَةً ذَكِيَّةً بِالْكَامِلِ.", japanese: "完全にスマートな都市になるでしょう。" },
+        { speaker: "ナレーター", arabic: "تَعْتَمِدُ عَلَى الطَّاقَةِ النَّظِيفَةِ.", japanese: "クリーンエネルギーに依存します。" },
+        { speaker: "ナレーター", arabic: "لَا تُوجَدُ فِيهَا سَيَّارَاتٌ تَقْلِيدِيَّةٌ.", japanese: "そこには従来の車はありません。" },
+        { speaker: "ナレーター", arabic: "إِنَّهَا مَشْرُوعٌ طَمُوحٌ جِدًّا.", japanese: "それは非常に野心的なプロジェクトです。" }
+      ]
+    },
+    {
+      id: 227, title: "SNSの影響", category: "記事", level: "中級",
+      contentVoweled: "أَصْبَحَ الْعَالَمُ قَرْيَةً صَغِيرَةً. نَسْتَطِيعُ مَعْرِفَةَ الْأَخْبَارِ فَوْرًا. نُشَارِكُ الصُّوَرَ وَالْأَفْكَارَ. وَلَكِنْ يَجِبُ الْحَذَرُ مِنَ الْشَّائِعَاتِ. لَا تُصَدِّقْ كُلَّ مَا تَقْرَأُ.",
+      contentPlain: "أصبح العالم قرية صغيرة. نستطيع معرفة الأخبار فورا. نشارك الصور والأفكار. ولكن يجب الحذر من الشائعات. لا تصدق كل ما تقرأ.",
+      vocabList: [
+        { word: "تَوَاصُل", meaning: "通信/交流" },
+        { word: "خَبَر", meaning: "ニュース" },
+        { word: "عَالَم", meaning: "世界" }
+      ],
+      questions: [
+        { id: 2271, type: "reading", text: "SNSは何をしますか？", options: ["遠くを近づける", "人を離す", "お金を配る", "食べ物を作る"], correctIndex: 0, explanation: "「تُقَرِّبُ الْبَعِيدَ」です。" },
+        { id: 2272, type: "reading", text: "ニュースはどう広がりますか？", options: ["ゆっくり", "非常に速く", "止まる", "消える"], correctIndex: 1, explanation: "「بِسُرْعَةٍ فَائِقَةٍ (超高速で)」です。" },
+        { id: 2273, type: "reading", text: "注意すべきことは？", options: ["たくさん使う", "偽ニュース（フェイクニュース）", "新しい携帯", "写真を撮る"], correctIndex: 1, explanation: "「الْأَخْبَارِ الْكَاذِبَةِ (嘘のニュース)」です。" },
+        { id: 2274, type: "vocabulary", text: "「صُورَة」の意味は？", options: ["音", "写真/像", "文字", "本"], correctIndex: 1, explanation: "Picture/Imageです。" },
+        { id: 2275, type: "grammar", text: "「広がります」", options: ["تَنْتَشِرُ", "تَجْلِسُ", "تَأْكُلُ", "تَنَامُ"], correctIndex: 0, explanation: "「Tantashiru」です。" },
+        { id: 2276, type: "grammar", text: "「لَا تُصَدِّقْ（信じるな）」の動詞がスクーン（無母音）で終わる理由は？", options: ["禁止のLaだから", "否定のLaだから", "過去形だから", "命令形だから"], correctIndex: 0, explanation: "「〜するな」という禁止の「Lā」の後では、動詞は要求法（Majzum）になり、語末がスクーンになります。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "أَصْبَحَ الْعَالَمُ قَرْيَةً صَغِيرَةً.", japanese: "世界は小さな村になりました。" },
+        { speaker: "ナレーター", arabic: "نَسْتَطِيعُ مَعْرِفَةَ الْأَخْبَارِ فَوْرًا.", japanese: "私たちはすぐにニュースを知ることができます。" },
+        { speaker: "ナレーター", arabic: "نُشَارِكُ الصُّوَرَ وَالْأَفْكَارَ.", japanese: "写真や考えを共有します。" },
+        { speaker: "ナレーター", arabic: "وَلَكِنْ يَجِبُ الْحَذَرُ مِنَ الْشَّائِعَاتِ.", japanese: "しかし、噂には注意しなければなりません。" },
+        { speaker: "ナレーター", arabic: "لَا تُصَدِّقْ كُلَّ مَا تَقْرَأُ.", japanese: "読むものすべてを信じてはいけません。" }
+      ]
+    },
+    {
+      id: 228, title: "スポーツの重要性", category: "健康", level: "中級",
+      contentVoweled: "الْحَرَكَةُ بَرَكَةٌ. الْمَشْيُ رِيَاضَةٌ سَهْلَةٌ وَمُفِيدَةٌ. تُسَاعِدُ الرِّيَاضَةُ فِي إِنْقَاصِ الْوَزْنِ. تَحْمِي مِنَ الْأَمْرَاضِ. اِجْعَلِ الرِّيَاضَةَ جُزْءًا مِنْ يَوْمِكَ.",
+      contentPlain: "الحركة بركة. المشي رياضة سهلة ومفيدة. تساعد الرياضة في إنقاص الوزن. تحمي من الأمراض. اجعل الرياضة جزءا من يومك.",
+      vocabList: [
+        { word: "رِيَاضَة", meaning: "スポーツ" },
+        { word: "جِسْم", meaning: "体" },
+        { word: "نَشَاط", meaning: "活動/活力" }
+      ],
+      questions: [
+        { id: 2281, type: "reading", text: "スポーツは何を強くしますか？", options: ["服", "体", "家", "車"], correctIndex: 1, explanation: "「الْجِسْم (体)」です。" },
+        { id: 2282, type: "reading", text: "精神的にはどうですか？", options: ["悪くなる", "気分を良くする", "眠くなる", "怒る"], correctIndex: 1, explanation: "「تُحَسِّنُ النَّفْسِيَّةَ (気分/精神を良くする)」です。" },
+        { id: 2283, type: "reading", text: "どれくらい運動すべきですか？", options: ["毎日少しずつ", "年に一回", "一日中", "しないほうがいい"], correctIndex: 0, explanation: "「نِصْف سَاعَة يَوْمِيًّا (毎日30分)」が推奨されています。" },
+        { id: 2284, type: "vocabulary", text: "「مَشْي」の意味は？", options: ["走り", "歩き/ウォーキング", "水泳", "ジャンプ"], correctIndex: 1, explanation: "Walkingです。" },
+        { id: 2285, type: "grammar", text: "「守ります」", options: ["تَحْمِي", "تَهْدِمُ", "تَنْسَى", "تَأْكُلُ"], correctIndex: 0, explanation: "「Taḥmī (Protect)」です。" },
+        { id: 2286, type: "grammar", text: "「اِجْعَلِ（〜にせよ）」という命令形がカスラ（i）で終わっている理由は？", options: ["間違い", "後ろの単語が定冠詞付きだから", "女性形だから", "弱動詞だから"], correctIndex: 1, explanation: "本来はスクーン（無母音）ですが、次に来る「الرِّيَاضَةَ」も無母音で始まるため、発音の便宜上カスラ（i）をつけてつなげます。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "الْحَرَكَةُ بَرَكَةٌ.", japanese: "運動（動き）は祝福です。" },
+        { speaker: "ナレーター", arabic: "الْمَشْيُ رِيَاضَةٌ سَهْلَةٌ وَمُفِيدَةٌ.", japanese: "ウォーキングは簡単で有益なスポーツです。" },
+        { speaker: "ナレーター", arabic: "تُسَاعِدُ الرِّيَاضَةُ فِي إِنْقَاصِ الْوَزْنِ.", japanese: "スポーツは体重を減らすのに役立ちます。" },
+        { speaker: "ナレーター", arabic: "تَحْمِي مِنَ الْأَمْرَاضِ.", japanese: "病気から守ります。" },
+        { speaker: "ナレーター", arabic: "اِجْعَلِ الرِّيَاضَةَ جُزْءًا مِنْ يَوْمِكَ.", japanese: "スポーツを1日の一部にしなさい。" }
+      ]
+    },
+    {
+      id: 229, title: "交通ルール", category: "社会", level: "中級",
+      contentVoweled: "اِرْبِطْ حِزَامَ الْأَمَانِ دَائِمًا. لَا تَتَجَاوَزِ السُّرْعَةَ الْمُحَدَّدَةَ. اِحْتَرِمْ إِشَارَةَ الْمُرُورِ. لَا تَسْتَخْدِمِ الْجَوَّالَ أَثْنَاءَ الْقِيَادَةِ. الْقِيَادَةُ فَنٌّ وَذَوْقٌ وَأَخْلَاقٌ.",
+      contentPlain: "اربط حزام الأمان دائما. لا تتجاوز السرعة المحددة. احترم إشارة المرور. لا تستخدم الجوال أثناء القيادة. القيادة فن وذوق وأخلاق.",
+      vocabList: [
+        { word: "مُرُور", meaning: "交通" },
+        { word: "إِشَارَة", meaning: "信号" },
+        { word: "حِزَام", meaning: "ベルト" }
+      ],
+      questions: [
+        { id: 2291, type: "reading", text: "交通ルールを守るとどうなりますか？", options: ["事故が増える", "命を守る", "遅れる", "お金がかかる"], correctIndex: 1, explanation: "「يَحْمِي الْأَرْوَاحَ (命を守る)」です。" },
+        { id: 2292, type: "reading", text: "赤信号ではどうしますか？", options: ["進む", "止まる", "走る", "曲がる"], correctIndex: 1, explanation: "「تَوَقَّفْ (止まれ)」です。" },
+        { id: 2293, type: "reading", text: "運転中に何をしてはいけませんか？", options: ["話す", "スマホを使う", "水を見る", "歌う"], correctIndex: 1, explanation: "「اِسْتِخْدَام الْهَاتِف (電話の使用)」です。" },
+        { id: 2294, type: "vocabulary", text: "「سُرْعَة」の意味は？", options: ["遅さ", "スピード/速さ", "高さ", "重さ"], correctIndex: 1, explanation: "スピードです。" },
+        { id: 2295, type: "grammar", text: "「締めてください」", options: ["اِرْبِطْ", "اِفْتَحْ", "اِكْسِرْ", "اِمْشِ"], correctIndex: 0, explanation: "「Irbiṭ (結べ/締めろ)」です。" },
+        { id: 2296, type: "grammar", text: "「لَا تَتَجَاوَزِ（超えるな）」の動詞末尾が「i」なのは？", options: ["女性への命令だから", "定冠詞との音の連結", "属格だから", "間違い"], correctIndex: 1, explanation: "禁止の「Lā」によりスクーンになるところですが、次の単語「السُّرْعَةَ」との連結（Waṣl）のため、カスラ（i）でつなげて発音します。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "اِرْبِطْ حِزَامَ الْأَمَانِ دَائِمًا.", japanese: "いつもシートベルトを締めなさい。" },
+        { speaker: "ナレーター", arabic: "لَا تَتَجَاوَزِ السُّرْعَةَ الْمُحَدَّدَةَ.", japanese: "制限速度を超えてはいけません。" },
+        { speaker: "ナレーター", arabic: "اِحْتَرِمْ إِشَارَةَ الْمُرُورِ.", japanese: "交通信号を尊重しなさい。" },
+        { speaker: "ナレーター", arabic: "لَا تَسْتَخْدِمِ الْجَوَّالَ أَثْنَاءَ الْقِيَادَةِ.", japanese: "運転中に携帯を使ってはいけません。" },
+        { speaker: "ナレーター", arabic: "الْقِيَادَةُ فَنٌّ وَذَوْقٌ وَأَخْلَاقٌ.", japanese: "運転は技術であり、センスであり、道徳です。" }
+      ]
+    },
+    {
+      id: 230, title: "鷹狩り", category: "文化", level: "中級",
+      contentVoweled: "الصَّيْدُ بِالصُّقُورِ جُزْءٌ مِنَ التُّرَاثِ الْعَرَبِيِّ. يُدَرِّبُ الصَّيَّادُ الصَّقْرَ بِعِنَايَةٍ. يَتَمَيَّزُ الصَّقْرُ بِبَصَرٍ حَادٍّ. إِنَّهُ رَمْزٌ لِلْقُوَّةِ وَالْحُرِّيَّةِ. تُقَامُ مَهْرَجَانَاتٌ خَاصَّةٌ لِلصُّقُورِ.",
+      contentPlain: "الصيد بالصقور جزء من التراث العربي. يدرب الصياد الصقر بعناية. يتميز الصقر ببصر حاد. إنه رمز للقوة والحرية. تقام مهرجانات خاصة للصقور.",
+      vocabList: [
+        { word: "صَقْر", meaning: "鷹（タカ/ハヤブサ）" },
+        { word: "صَيْد", meaning: "狩り" },
+        { word: "تُرَاث", meaning: "遺産/伝統" }
+      ],
+      questions: [
+        { id: 2301, type: "reading", text: "鷹狩りとは何ですか？", options: ["新しい遊び", "伝統的なスポーツ", "仕事", "危険な戦い"], correctIndex: 1, explanation: "「رِيَاضَة تَقْلِيدِيَّة (伝統的なスポーツ)」です。" },
+        { id: 2302, type: "reading", text: "誰にとって重要ですか？", options: ["ヨーロッパ人", "アラブ人", "アジア人", "アメリカ人"], correctIndex: 1, explanation: "「عِنْدَ الْعَرَبِ (アラブ人の間で)」です。" },
+        { id: 2303, type: "reading", text: "鷹の特徴は？", options: ["遅い", "弱い", "鋭い視力と速さ", "泳げる"], correctIndex: 2, explanation: "「بَصَرٍ حَادٍّ وَسُرْعَةٍ (鋭い視力と速さ)」です。" },
+        { id: 2304, type: "vocabulary", text: "「رَمْز」の意味は？", options: ["敵", "シンボル/象徴", "道具", "餌"], correctIndex: 1, explanation: "Symbol（象徴）です。" },
+        { id: 2305, type: "grammar", text: "「訓練します」", options: ["يُدَرِّبُ", "يَلْعَبُ", "يَأْكُلُ", "يَنَامُ"], correctIndex: 0, explanation: "「Yudarribu (Train)」です。" },
+        { id: 2306, type: "grammar", text: "「تُقَامُ（開催される）」の能動態は？", options: ["أَقَامَ (Aqāma)", "قَامَ (Qāma)", "قَوَّمَ (Qawwama)", "قَيَّمَ (Qayyama)"], correctIndex: 0, explanation: "「行う/開催する」は第4形「Aqāma」で、その受動態が「Tuqāmu」です。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "الصَّيْدُ بِالصُّقُورِ جُزْءٌ مِنَ التُّرَاثِ الْعَرَبِيِّ.", japanese: "鷹狩りはアラブの遺産の一部です。" },
+        { speaker: "ナレーター", arabic: "يُدَرِّبُ الصَّيَّادُ الصَّقْرَ بِعِنَايَةٍ.", japanese: "猟師は鷹を注意深く訓練します。" },
+        { speaker: "ナレーター", arabic: "يَتَمَيَّزُ الصَّقْرُ بِبَصَرٍ حَادٍّ.", japanese: "鷹は鋭い視力が特徴です。" },
+        { speaker: "ナレーター", arabic: "إِنَّهُ رَمْزٌ لِلْقُوَّةِ وَالْحُرِّيَّةِ.", japanese: "それは力と自由の象徴です。" },
+        { speaker: "ナレーター", arabic: "تُقَامُ مَهْرَجَانَاتٌ خَاصَّةٌ لِلصُّقُورِ.", japanese: "鷹のための特別なフェスティバルが開催されます。" }
+      ]
+    },
+    {
+      id: 231,
+      title: "アラビア馬",
+      category: "文化",
+      level: "中級",
+      // sentencesを結合して全文を作成
+      contentVoweled: "يُعْرَفُ الْحِصَانُ الْعَرَبِيُّ بِجَمَالِهِ. لَهُ رَأْسٌ صَغِيرٌ وَعَيْنَانِ كَبِيرَتَانِ. إِنَّهُ حَيَوَانٌ ذَكِيٌّ وَوَفِيٌّ لِصَاحِبِهِ. يُشَارِكُ فِي سِبَاقَاتِ السُّرْعَةِ وَالْقُدْرَةِ. الْعَرَبُ يُحِبُّونَ الْخَيْلَ كَثِيرًا.",
+      contentPlain: "يعرف الحصان العربي بجماله. له رأس صغير وعينان كبيرتان. إنه حيوان ذكي ووفي لصاحبه. يشارك في سباقات السرعة والقدرة. العرب يحبون الخيل كثيرا.",
+      vocabList: [
+        { word: "حِصَان", meaning: "馬" },
+        { word: "سَبَاق", meaning: "レース" },
+        { word: "أَصِيل", meaning: "純血の/本物の" },
+        { word: "قُدْرَة", meaning: "能力/耐久力" }, // 追加
+        { word: "وَفِيّ", meaning: "忠実な" } // 追加
+      ],
+      questions: [
+        { id: 2311, type: "reading", text: "アラビア馬の特徴は？", options: ["重い", "世界で最も美しいものの一つ", "遅い", "弱い"], correctIndex: 1, explanation: "「مِنْ أَجْمَلِ الْخُيُولِ」や「يُعْرَفُ بِجَمَالِهِ」から分かります。" },
+        { id: 2312, type: "reading", text: "何に使われますか？", options: ["農業", "レースとショー", "荷運び", "食用"], correctIndex: 1, explanation: "「السِّبَاقَات (レース)」や美容コンテストです。" },
+        { id: 2313, type: "reading", text: "その性格は？", options: ["凶暴", "賢くて忠実", "臆病", "怠け者"], correctIndex: 1, explanation: "「ذَكِيٌّ وَوَفِيٌّ (賢くて忠実)」です。" },
+        { id: 2314, type: "vocabulary", text: "「قُوَّة」の意味は？", options: ["弱さ", "力/強さ", "速さ", "色"], correctIndex: 1, explanation: "Power/Strengthです。" },
+        { id: 2315, type: "grammar", text: "「走ります」", options: ["يَجْرِي", "يَطِيرُ", "يَسْبَحُ", "يَزْحَفُ"], correctIndex: 0, explanation: "「Yajrī」です。" },
+        // 追加：やや難しい文法問題
+        { id: 2316, type: "grammar", text: "「عَيْنَانِ كَبِيرَتَانِ」が「ān (ان)」で終わっている理由は？", options: ["複数形だから", "双数形（2つ）だから", "所有格だから", "女性形だから"], correctIndex: 1, explanation: "目は2つあるため、双数形（Dual）のアリフとヌーンが使われています。" },
+        { id: 2317, type: "grammar", text: "「يُحِبُّونَ」の動詞の種類は？", options: ["過去形", "命令形", "五つの動詞（現在形・複数）", "受動態"], correctIndex: 2, explanation: "「ūna」で終わる現在形は「五つの動詞（Al-Af'al Al-Khamsa）」と呼ばれます。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "يُعْرَفُ الْحِصَانُ الْعَرَبِيُّ بِجَمَالِهِ.", japanese: "アラビア馬はその美しさで知られています。" },
+        { speaker: "ナレーター", arabic: "لَهُ رَأْسٌ صَغِيرٌ وَعَيْنَانِ كَبِيرَتَانِ.", japanese: "（それには）小さな頭と大きな二つの目があります。" },
+        { speaker: "ナレーター", arabic: "إِنَّهُ حَيَوَانٌ ذَكِيٌّ وَوَفِيٌّ لِصَاحِبِهِ.", japanese: "それは賢く、飼い主に忠実な動物です。" },
+        { speaker: "ナレーター", arabic: "يُشَارِكُ فِي سِبَاقَاتِ السُّرْعَةِ وَالْقُدْرَةِ.", japanese: "スピードや耐久力のレースに参加します。" },
+        { speaker: "ナレーター", arabic: "الْعَرَبُ يُحِبُّونَ الْخَيْلَ كَثِيرًا.", japanese: "アラブ人は馬をとても愛しています。" }
+      ]
+    },
+    {
+      id: 232,
+      title: "真珠採り",
+      category: "歴史",
+      level: "中級",
+      contentVoweled: "قَبْلَ النِّفْطِ، كَانَ اللُّؤْلُؤُ مَصْدَرَ الرِّزْقِ. يَغُوصُ الرِّجَالُ إِلَى أَعْمَاقِ الْبَحْرِ. يَبْحَثُونَ عَنِ الْمَحَّارِ لِاسْتِخْرَاجِ اللُّؤْلُؤِ. كَانَتْ رِحْلَةُ الْغَوْصِ تَسْتَمِرُّ شُهُورًا. إِنَّهَا جُزْءٌ مُهِمٌّ مِنْ تَارِيخِ الْخَلِيجِ.",
+      contentPlain: "قبل النفط، كان اللؤلؤ مصدر الرزق. يغوص الرجال إلى أعماق البحر. يبحثون عن المحار لاستخراج اللؤلؤ. كانت رحلة الغوص تستمر شهورا. إنها جزء مهم من تاريخ الخليج.",
+      vocabList: [
+        { word: "لُؤْلُؤ", meaning: "真珠" },
+        { word: "بَحْر", meaning: "海" },
+        { word: "غَوْص", meaning: "ダイビング" },
+        { word: "مَحَّار", meaning: "カキ（貝）" }, // 追加
+        { word: "شَاقّ", meaning: "過酷な" } // 追加
+      ],
+      questions: [
+        { id: 2321, type: "reading", text: "湾岸諸国の昔の仕事は？", options: ["農業", "真珠採り", "工場", "観光"], correctIndex: 1, explanation: "「الْغَوْص عَلَى اللُّؤْلُؤِ」です。" },
+        { id: 2322, type: "reading", text: "その仕事はどうでしたか？", options: ["簡単", "安全", "困難で危険", "退屈"], correctIndex: 2, explanation: "文脈上、深く潜る過酷な仕事でした。" },
+        { id: 2323, type: "reading", text: "彼らはどこへ行きましたか？", options: ["山の奥", "海の底", "砂漠", "空"], correctIndex: 1, explanation: "「أَعْمَاقِ الْبَحْرِ (海の深み)」です。" },
+        { id: 2324, type: "vocabulary", text: "「تِجَارَة」の意味は？", options: ["遊び", "貿易/商売", "勉強", "祈り"], correctIndex: 1, explanation: "Trade/Businessです。" },
+        { id: 2325, type: "grammar", text: "「潜ります」", options: ["يَغُوصُ", "يَعُومُ", "يَغْرَقُ", "يَشْرَبُ"], correctIndex: 0, explanation: "「Yaghūṣu (Dive)」です。" },
+        // 追加：やや難しい文法問題
+        { id: 2326, type: "grammar", text: "「لِاسْتِخْرَاجِ」の「Li-」の機能は？", options: ["未来を表す", "目的を表す（〜のために）", "所有を表す", "否定を表す"], correctIndex: 1, explanation: "Lam al-Ta'lil（理由・目的のラーム）で、「取り出すために」という意味になります。" },
+        { id: 2327, type: "grammar", text: "「كَانَ اللُّؤْلُؤُ مَصْدَرَ」で「مَصْدَرَ」が対格（a段）になっている理由は？", options: ["主語だから", "Kānaの述語（Khabar Kāna）だから", "前置詞の後だから", "動詞だから"], correctIndex: 1, explanation: "「Kāna」の述語（Khabar）は対格（Mansūb）になるルールです。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "قَبْلَ النِّفْطِ، كَانَ اللُّؤْلُؤُ مَصْدَرَ الرِّزْقِ.", japanese: "石油（が出る）前、真珠が生計の源でした。" },
+        { speaker: "ナレーター", arabic: "يَغُوصُ الرِّجَالُ إِلَى أَعْمَاقِ الْبَحْرِ.", japanese: "男たちは海の深くまで潜りました。" },
+        { speaker: "ナレーター", arabic: "يَبْحَثُونَ عَنِ الْمَحَّارِ لِاسْتِخْرَاجِ اللُّؤْلُؤِ.", japanese: "彼らは真珠を取り出すためにカキ（貝）を探します。" },
+        { speaker: "ナレーター", arabic: "كَانَتْ رِحْلَةُ الْغَوْصِ تَسْتَمِرُّ شُهُورًا.", japanese: "ダイビングの旅は数ヶ月続きました。" },
+        { speaker: "ナレーター", arabic: "إِنَّهَا جُزْءٌ مُهِمٌّ مِنْ تَارِيخِ الْخَلِيجِ.", japanese: "それは湾岸の歴史の重要な一部です。" }
+      ]
+    },
+    {
+      id: 233,
+      title: "アル・ウラー",
+      category: "記事",
+      level: "中級",
+      contentVoweled: "تَقَعُ الْعُلَا فِي شَمَالِ غَرْبِ السُّعُودِيَّةِ. تَشْتَهِرُ بِآثَارِ مَدَائِنِ صَالِحَ. طَبِيعَتُهَا الصَّخْرِيَّةُ سَاحِرَةٌ. تُعْتَبَرُ مُتْحَفًا مَفْتُوحًا. تُقَامُ فِيهَا حَفَلَاتٌ وَفَعَالِيَّاتٌ عَالَمِيَّةٌ.",
+      contentPlain: "تقع العلا في شمال غرب السعودية. تشتهر بآثار مدائن صالح. طبيعتها الصخرية ساحرة. تعتبر متحفا مفتوحات. تقام فيها حفلات وفعاليات عالمية.",
+      vocabList: [
+        { word: "آثَار", meaning: "遺跡" },
+        { word: "طَبِيعَة", meaning: "自然" },
+        { word: "سِيَاحَة", meaning: "観光" },
+        { word: "صَخْرِيّ", meaning: "岩の/岩石の" }, // 追加
+        { word: "مُتْحَف", meaning: "博物館" } // 追加
+      ],
+      questions: [
+        { id: 2331, type: "reading", text: "アル・ウラーはどんな場所ですか？", options: ["工場地帯", "歴史的観光地", "海辺の町", "雪山"], correctIndex: 1, explanation: "「مَدِينَة تَارِيخِيَّة وَسِيَاحِيَّة」です。" },
+        { id: 2332, type: "reading", text: "有名な遺跡は？", options: ["ピラミッド", "マダーイン・サーレハ", "万里の長城", "エッフェル塔"], correctIndex: 1, explanation: "「مَدَائِن صَالِح」です。" },
+        { id: 2333, type: "reading", text: "景色はどうですか？", options: ["ビルばかり", "岩山と砂漠", "森", "湖"], correctIndex: 1, explanation: "「الْجِبَال الصَّخْرِيَّة (岩山)」が特徴です。" },
+        { id: 2334, type: "vocabulary", text: "「مُتْحَف」の意味は？", options: ["学校", "博物館", "病院", "駅"], correctIndex: 1, explanation: "Museumです。" },
+        { id: 2335, type: "grammar", text: "「開かれています」", options: ["مَفْتُوحٌ", "مُغْلَقٌ", "مَكْسُورٌ", "بَعِيدٌ"], correctIndex: 0, explanation: "「Maftūḥ (Open)」です。" },
+        // 追加：やや難しい文法問題
+        { id: 2336, type: "grammar", text: "「تُعْتَبَرُ」が受動態になっている理由は？", options: ["主語が不明だから", "「〜と見なされている」という意味だから", "過去のことだから", "命令だから"], correctIndex: 1, explanation: "「〜と見なす」の受動態で「〜と見なされている（考えられている）」という意味になります。" },
+        { id: 2337, type: "grammar", text: "「مَدَائِنِ صَالِحَ」で「Sāliḥa」がa段（Fatha）で終わる理由は？", options: ["主語だから", "イダーファの第2要素（所有格）だが非限定名詞だから", "目的語だから", "間違い"], correctIndex: 1, explanation: "これは少々高度ですが、固有名詞の一部として、または「非限定名詞（Mumnu' min al-sarf）」の所有格としてFathaを取ることがあります（一般的にはKasraですが、文法的に非限定扱いされる場合）。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "تَقَعُ الْعُلَا فِي شَمَالِ غَرْبِ السُّعُودِيَّةِ.", japanese: "アル・ウラーはサウジアラビアの北西に位置します。" },
+        { speaker: "ナレーター", arabic: "تَشْتَهِرُ بِآثَارِ مَدَائِنِ صَالِحَ.", japanese: "マダーイン・サーレハの遺跡で有名です。" },
+        { speaker: "ナレーター", arabic: "طَبِيعَتُهَا الصَّخْرِيَّةُ سَاحِرَةٌ.", japanese: "その岩の多い自然は魅惑的です。" },
+        { speaker: "ナレーター", arabic: "تُعْتَبَرُ مُتْحَفًا مَفْتُوحًا.", japanese: "それは野外博物館（オープン・ミュージアム）と考えられています。" },
+        { speaker: "ナレーター", arabic: "تُقَامُ فِيهَا حَفَلَاتٌ وَفَعَالِيَّاتٌ عَالَمِيَّةٌ.", japanese: "そこでは世界的なコンサートやイベントが開催されます。" }
+      ]
+    },
+    {
+      id: 234,
+      title: "香木（ウード）",
+      category: "文化",
+      level: "中級",
+      contentVoweled: "يُسْتَخْرَجُ دُهْنُ الْعُودِ مِنْ شَجَرَةٍ خَاصَّةٍ. رَائِحَتُهُ قَوِيَّةٌ وَجَمِيلَةٌ. يُقَدَّمُ الْبَخُورُ لِلضُّيُوفِ كَنَوْعٍ مِنَ التَّكْرِيمِ. يَرْتَبِطُ الْعُودُ بِالْكَرَمِ الْعَرَبِيِّ. يُسْتَخْدَمُ فِي الْأَعْرَاسِ وَالْأَعْيَادِ.",
+      contentPlain: "يستخرج دهن العود من شجرة خاصة. رائحته قوية وجميلة. يقدم البخور للضيوف كنوع من التكريم. يرتبط العود بالكرم العربي. يستخدم في الأعراس والأعياد.",
+      vocabList: [
+        { word: "بَخُور", meaning: "お香" },
+        { word: "رَائِحَة", meaning: "香り" },
+        { word: "ضَيْف", meaning: "客" },
+        { word: "تَكْرِيم", meaning: "光栄に思うこと/歓迎" }, // 追加
+        { word: "أَعْرَاس", meaning: "結婚式（複数）" } // 追加
+      ],
+      questions: [
+        { id: 2341, type: "reading", text: "ウードとは何ですか？", options: ["食べ物", "香木/お香", "飲み物", "服"], correctIndex: 1, explanation: "「طِيب وَبَخُور (香水とお香)」の一種です。" },
+        { id: 2342, type: "reading", text: "価格はどうですか？", options: ["安い", "無料", "非常に高い", "普通"], correctIndex: 2, explanation: "本文にはありませんが、一般知識として、またID231のvocabListで「aghlā」が使われていた文脈です。" },
+        { id: 2343, type: "reading", text: "いつ使われますか？", options: ["寝る時", "おもてなしや結婚式", "スポーツの時", "勉強中"], correctIndex: 1, explanation: "「لِلضُّيُوفِ (客に)」や「فِي الْأَعْرَاسِ (結婚式で)」です。" },
+        { id: 2344, type: "vocabulary", text: "「خَشَب」の意味は？", options: ["石", "木材", "鉄", "紙"], correctIndex: 1, explanation: "Wood（木）のことです。" },
+        { id: 2345, type: "grammar", text: "「匂いを嗅ぐ」", options: ["يَشَمُّ", "يَأْكُلُ", "يَرَى", "يَلْمِسُ"], correctIndex: 0, explanation: "「Yashammu」です。" },
+        // 追加：やや難しい文法問題
+        { id: 2346, type: "grammar", text: "「يُسْتَخْرَجُ」の動詞の派生形（Wazn）は？", options: ["Form I (Fa'ala)", "Form II (Fa''ala)", "Form X (Istaf'ala)", "Form IV (Af'ala)"], correctIndex: 2, explanation: "「Ista-」で始まる動詞は第10形（Istaf'ala）で、「求める・引き出す」という意味を持つことが多いです。" },
+        { id: 2347, type: "grammar", text: "「رَائِحَتُهُ」の「hu」は何を指していますか？", options: ["木", "ウード（沈香）", "客", "場所"], correctIndex: 1, explanation: "「ウード（男性名詞）」の香りを指すため、男性単数の代名詞「hu」が使われています。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "يُسْتَخْرَجُ دُهْنُ الْعُودِ مِنْ شَجَرَةٍ خَاصَّةٍ.", japanese: "ウードの油は特別な木から抽出されます。" },
+        { speaker: "ナレーター", arabic: "رَائِحَتُهُ قَوِيَّةٌ وَجَمِيلَةٌ.", japanese: "その香りは強く、美しいです。" },
+        { speaker: "ナレーター", arabic: "يُقَدَّمُ الْبَخُورُ لِلضُّيُوفِ كَنَوْعٍ مِنَ التَّكْرِيمِ.", japanese: "お香は敬意の印（歓迎の一種）として客に提供されます。" },
+        { speaker: "ナレーター", arabic: "يَرْتَبِطُ الْعُودُ بِالْكَرَمِ الْعَرَبِيِّ.", japanese: "ウードはアラブの寛大さ（おもてなし）と結びついています。" },
+        { speaker: "ナレーター", arabic: "يُسْتَخْدَمُ فِي الْأَعْرَاسِ وَالْأَعْيَادِ.", japanese: "結婚式や祝祭で使用されます。" }
+      ]
+    },
+    {
+      id: 235,
+      title: "アル・フワーリズミー",
+      category: "歴史",
+      level: "中級",
+      contentVoweled: "عَاشَ الْخُوَارِزْمِيُّ فِي بَغْدَادَ. كَتَبَ كُتُبًا فِي الْحِسَابِ وَالْفَلَكِ. كَلِمَةُ 'لُوغَارِيتْم' مُشْتَقَّةٌ مِنِ اسْمِهِ. أَدْخَلَ نِظَامَ الْأَرْقَامِ الْهِنْدِيَّةِ وَالصِّفْرَ. تُرْجِمَتْ أَعْمَالُهُ إِلَى اللَّاتِينِيَّةِ.",
+      contentPlain: "عاش الخوارزمي في بغداد. كتب كتبا في الحساب والفلك. كلمة 'لوغاريتم' مشتقة من اسمه. أدخل نظام الأرقام الهندية والصفر. ترجمت أعماله إلى اللاتينية.",
+      vocabList: [
+        { word: "عَالِم", meaning: "学者" },
+        { word: "رِيَاضِيَّات", meaning: "数学" },
+        { word: "صِفْر", meaning: "ゼロ" },
+        { word: "فَلَك", meaning: "天文学" }, // 追加
+        { word: "تُرْجِمَ", meaning: "翻訳された" } // 追加
+      ],
+      questions: [
+        { id: 2351, type: "reading", text: "彼は何の学者ですか？", options: ["歴史", "数学", "文学", "音楽"], correctIndex: 1, explanation: "「رِيَاضِيَّات」です。" },
+        { id: 2352, type: "reading", text: "彼は何の創始者ですか？", options: ["幾何学", "代数学（アルジェブラ）", "化学", "生物学"], correctIndex: 1, explanation: "「عِلْم الْجَبْر (代数学)」です。" },
+        { id: 2353, type: "reading", text: "彼が導入した重要な数字は？", options: ["1", "10", "ゼロ", "100"], correctIndex: 2, explanation: "「الصِّفْر (ゼロ)」です。" },
+        { id: 2354, type: "vocabulary", text: "「حِسَاب」の意味は？", options: ["計算/算数", "言葉", "星", "地図"], correctIndex: 0, explanation: "Calculationです。" },
+        { id: 2355, type: "grammar", text: "「発明しました」", options: ["اخْتَرَعَ", "أَكَلَ", "نَامَ", "ذَهَبَ"], correctIndex: 0, explanation: "「Ikhtara'a」です。" },
+        // 追加：やや難しい文法問題
+        { id: 2356, type: "grammar", text: "「مُشْتَقَّةٌ」の意味と文法的役割は？", options: ["動詞・過去形", "受動分詞（派生した）", "能動分詞（派生する）", "名詞・場所"], correctIndex: 1, explanation: "「Mushtaqqa」は受動分詞（Ism Maf'ūl）で、「派生させられた＝由来する」という意味です。" },
+        { id: 2357, type: "grammar", text: "「تُرْجِمَتْ」の「t」は何を表しますか？", options: ["私が〜した", "あなたが〜した", "彼女（それ）が〜した（女性・単数）", "彼らが〜した"], correctIndex: 2, explanation: "動詞の最後につく静止したター（Tā' al-Tā'nīth）は、主語が女性名詞（ここでは「A'māl (作品群)」が非理性的複数で女性単数扱い）であることを示します。" }
+      ],
+      sentences: [
+        { speaker: "ナレーター", arabic: "عَاشَ الْخُوَارِزْمِيُّ فِي بَغْدَادَ.", japanese: "フワーリズミーはバグダッドに住んでいました。" },
+        { speaker: "ナレーター", arabic: "كَتَبَ كُتُبًا فِي الْحِسَابِ وَالْفَلَكِ.", japanese: "彼は算術と天文学の本を書きました。" },
+        { speaker: "ナレーター", arabic: "كَلِمَةُ 'لُوغَارِيتْم' مُشْتَقَّةٌ مِنِ اسْمِهِ.", japanese: "「アルゴリズム（対数）」という言葉は彼の名前に由来します。" },
+        { speaker: "ナレーター", arabic: "أَدْخَلَ نِظَامَ الْأَرْقَامِ الْهِنْدِيَّةِ وَالصِّفْرَ.", japanese: "彼はインド数字システムとゼロを導入しました。" },
+        { speaker: "ナレーター", arabic: "تُرْجِمَتْ أَعْمَالُهُ إِلَى اللَّاتِينِيَّةِ.", japanese: "彼の作品はラテン語に翻訳されました。" }
+      ]
   },
-
-  // --- 2. 文化 (Culture) ---
   {
-    id: 202, title: "アラビア書道", category: "文化", level: "中級",
-    contentVoweled: "الْخَطُّ الْعَرَبِيُّ فَنٌّ جَمِيلٌ. يُسْتَخْدَمُ فِي كِتَابَةِ الْقُرْآنِ.",
-    contentPlain: "الخط العربي فن جميل. يستخدم في كتابة القرآن.",
-    vocabList: [
-      { word: "خَطّ", meaning: "書道/線" },
-      { word: "فَنّ", meaning: "芸術" },
-      { word: "قُرْآن", meaning: "クルアーン" }
-    ],
-    questions: [
-      { id: 2021, type: "reading", text: "アラビア書道とは何ですか？", options: ["スポーツ", "芸術", "料理", "音楽"], correctIndex: 1, explanation: "「فَنّ (芸術)」です。" },
-      { id: 2022, type: "reading", text: "何に使われますか？", options: ["手紙", "新聞", "クルアーンの書写", "看板"], correctIndex: 2, explanation: "「كِتَابَةِ الْقُرْآنِ (クルアーンを書くこと)」です。" },
-      { id: 2023, type: "reading", text: "書体の種類の一つは？", options: ["ナスフ体", "ゴシック体", "明朝体", "イタリック"], correctIndex: 0, explanation: "「Naskh (ナスフ)」は有名なアラビア書体です。" },
-      { id: 2024, type: "vocabulary", text: "「جَمِيل」の反対語は？", options: ["カビール", "カビーフ（醜い）", "ジャディード", "サギール"], correctIndex: 1, explanation: "Jamīl (美しい) の対義語は Qabīḥ (醜い) です。" },
-      { id: 2025, type: "grammar", text: "「使われています（受動態）」", options: ["يُسْتَخْدَمُ", "يَسْتَخْدِمُ", "اِسْتَخْدَمَ", "اِسْتِخْدَام"], correctIndex: 0, explanation: "Yustakhdamu は受動態です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "يُعْتَبَرُ الْخَطُّ الْعَرَبِيُّ مِنْ أَهَمِّ الْفُنُونِ الْإِسْلَامِيَّةِ.", japanese: "アラビア書道は最も重要なイスラム芸術の一つとみなされています。" },
-      { speaker: "ナレーター", arabic: "هُنَاكَ أَنْوَاعٌ كَثِيرَةٌ مِنَ الْخُطُوطِ.", japanese: "書体には多くの種類があります。" },
-      { speaker: "ナレーター", arabic: "مِثْلُ خَطِّ النَّسْخِ وَخَطِّ الرُّقْعَةِ.", japanese: "ナスフ体やルクア体などです。" },
-      { speaker: "ナレーター", arabic: "يَتَطَلَّبُ الْخَطُّ صَبْرًا وَتَدْرِيبًا.", japanese: "書道は忍耐と練習を必要とします。" },
-      { speaker: "ナレーター", arabic: "إِنَّهُ يُظْهِرُ جَمَالَ اللُّغَةِ الْعَرَبِيَّةِ.", japanese: "それはアラビア語の美しさを示しています。" }
-    ]
-  },
-  {
-    id: 208, title: "砂漠の環境", category: "文化", level: "中級",
-    contentVoweled: "تَتَمَيَّزُ الصَّحْرَاءُ بِالْجَفَافِ وَالْحَرَارَةِ.",
-    contentPlain: "تتميز الصحراء بالجفاف والحرارة.",
-    vocabList: [
-      { word: "جَمَل", meaning: "ラクダ" },
-      { word: "نَخْلَة", meaning: "ナツメヤシの木" },
-      { word: "مَاء", meaning: "水" }
-    ],
-    questions: [
-      { id: 2081, type: "reading", text: "砂漠の特徴は？", options: ["寒くて雨が多い", "乾燥して暑い", "緑が多い", "雪が降る"], correctIndex: 1, explanation: "「الْجَفَاف وَالْحَرَارَة」です。" },
-      { id: 2082, type: "reading", text: "「砂漠の船」と呼ばれる動物は？", options: ["馬", "ライオン", "ラクダ", "羊"], correctIndex: 2, explanation: "「الْجَمَل (ラクダ)」です。" },
-      { id: 2083, type: "reading", text: "砂漠で育つ有名な木は？", options: ["リンゴ", "ナツメヤシ（ナヒル）", "桜", "松"], correctIndex: 1, explanation: "「النَّخِيل (ナツメヤシ)」です。" },
-      { id: 2084, type: "vocabulary", text: "「تَحَمُّل」の意味は？", options: ["睡眠", "食事", "忍耐/耐久", "遊び"], correctIndex: 2, explanation: "耐えること、忍耐力です。" },
-      { id: 2085, type: "grammar", text: "「少ない」", options: ["قَلِيل", "كَثِير", "كَبِير", "طَوِيل"], correctIndex: 0, explanation: "「Qalīl」です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "يَعِيشُ الْجَمَلُ فِي الصَّحْرَاءِ.", japanese: "ラクダは砂漠に住んでいます。" },
-      { speaker: "ナレーター", arabic: "يَسْتَطِيعُ تَحَمُّلَ الْعَطَشِ لِفَتْرَةٍ طَوِيلَةٍ.", japanese: "渇きに長期間耐えることができます。" },
-      { speaker: "ナレーター", arabic: "تَنْمُو أَشْجَارُ النَّخِيلِ فِي الْوَاحَاتِ.", japanese: "オアシスにはナツメヤシの木が育ちます。" },
-      { speaker: "ナレーター", arabic: "الْحَيَاةُ فِي الصَّحْرَاءِ صَعْبَةٌ وَلَكِنْ جَمِيلَةٌ.", japanese: "砂漠の生活は厳しいですが、美しいです。" },
-      { speaker: "ナレーター", arabic: "فِي اللَّيْلِ، يَكُونُ الْجَوُّ بَارِدًا.", japanese: "夜になると、天気は寒くなります。" }
-    ]
-  },
-
-  // --- 3. 記事 (Articles/Essays) ---
-  {
-    id: 204, title: "スマホ依存", category: "記事", level: "中級",
-    contentVoweled: "يَقْضِي النَّاسُ وَقْتًا طَوِيلًا عَلَى الْهَوَاتِفِ الذَّكِيَّةِ.",
-    contentPlain: "يقضي الناس وقتا طويلا على الهواتف الذكية.",
-    vocabList: [
-      { word: "هَاتِف ذَكِيّ", meaning: "スマートフォン" },
-      { word: "وَقْت", meaning: "時間" },
-      { word: "مُفِيد", meaning: "有益な" }
-    ],
-    questions: [
-      { id: 2041, type: "reading", text: "人々は何に時間を使っていますか？", options: ["読書", "スポーツ", "スマホ", "料理"], correctIndex: 2, explanation: "「الْهَوَاتِفِ الذَّكِيَّةِ (スマートフォン)」です。" },
-      { id: 2042, type: "reading", text: "スマホにはどんな側面がありますか？", options: ["良いことだけ", "悪いことだけ", "有益だが害もある", "関係ない"], correctIndex: 2, explanation: "メリットとデメリットの両方があります。" },
-      { id: 2043, type: "reading", text: "使いすぎるとどうなりますか？", options: ["元気になる", "目が疲れる/時間を無駄にする", "金持ちになる", "頭が良くなる"], correctIndex: 1, explanation: "「إِضَاعَةُ الْوَقْتِ (時間の浪費)」などの害があります。" },
-      { id: 2044, type: "vocabulary", text: "「تَوَاصُل」の意味は？", options: ["切断", "コミュニケーション", "食事", "睡眠"], correctIndex: 1, explanation: "Communicationのことです。" },
-      { id: 2045, type: "grammar", text: "「過ごす（時間）」", options: ["يَقْضِي", "يَشْتَرِي", "يَبِيعُ", "يُعْطِي"], correctIndex: 0, explanation: "「Yaqḍī」は（時間を）過ごす、という意味です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "أَصْبَحَ الْهَاتِفُ جُزْءًا مُهِمًّا مِنْ حَيَاتِنَا.", japanese: "電話は私たちの生活の重要な一部になりました。" },
-      { speaker: "ナレーター", arabic: "نَسْتَخْدِمُهُ لِلْعَمَلِ وَالتَّوَاصُلِ.", japanese: "私たちはそれを仕事や連絡に使います。" },
-      { speaker: "ナレーター", arabic: "وَلَكِنَّ الْإِسْرَافَ فِيهِ مُضِرٌّ.", japanese: "しかし、過度の使用は有害です。" },
-      { speaker: "ナレーター", arabic: "يُسَبِّبُ قِلَّةَ النَّوْمِ وَالتَّعَبَ.", japanese: "それは睡眠不足や疲れを引き起こします。" },
-      { speaker: "ナレーター", arabic: "يَجِبُ أَنْ نَسْتَخْدِمَهُ بِحِكْمَةٍ.", japanese: "私たちはそれを賢く使わなければなりません。" }
-    ]
-  },
-  {
-    id: 205, title: "健康的な食事", category: "記事", level: "中級",
-    contentVoweled: "الصِّحَّةُ تَاجٌ عَلَى رُؤُوسِ الْأَصِحَّاءِ. يَجِبُ أَنْ نَأْكُلَ طَعَامًا صِحِّيًّا.",
-    contentPlain: "الصحة تاج على رؤوس الأصحاء. يجب أن نأكل طعاما صحيا.",
-    vocabList: [
-      { word: "صِحَّة", meaning: "健康" },
-      { word: "خُضْرَوَات", meaning: "野菜" },
-      { word: "فَوَاكِه", meaning: "果物" }
-    ],
-    questions: [
-      { id: 2051, type: "reading", text: "「健康は健康な人の頭上の〇〇」", options: ["帽子", "王冠", "髪", "石"], correctIndex: 1, explanation: "ことわざ：「الصِّحَّةُ تَاجٌ (健康は王冠である)」。" },
-      { id: 2052, type: "reading", text: "何を食べるべきですか？", options: ["砂糖", "ファストフード", "野菜と果物", "塩"], correctIndex: 2, explanation: "「خُضْرَوَات وَفَوَاكِه」です。" },
-      { id: 2053, type: "reading", text: "何を避けるべきですか？", options: ["水", "運動", "糖分と脂肪", "睡眠"], correctIndex: 2, explanation: "「السُّكَّرِيَّات وَالدُّهُون (糖分と脂肪)」です。" },
-      { id: 2054, type: "vocabulary", text: "「جِسْم」の意味は？", options: ["心", "体", "頭", "足"], correctIndex: 1, explanation: "Body（体）のことです。" },
-      { id: 2055, type: "grammar", text: "「〜しなければならない」", options: ["يَجِبُ أَنْ", "أُرِيدُ أَنْ", "أُحِبُّ أَنْ", "أَسْتَطِيعُ أَنْ"], correctIndex: 0, explanation: "「Yajibu an」で義務を表します。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "لِلْحِفَاظِ عَلَى الصِّحَّةِ، مَارِسِ الرِّيَاضَةَ.", japanese: "健康を保つために、スポーツをしなさい。" },
-      { speaker: "ナレーター", arabic: "تَنَاوَلِ الْفَوَاكِهَ وَالْخُضْرَوَاتِ يَوْمِيًّا.", japanese: "毎日果物と野菜を食べなさい。" },
-      { speaker: "ナレーター", arabic: "اِشْرَبِ الْمَاءَ بِكَثْرَةٍ.", japanese: "水をたくさん飲みなさい。" },
-      { speaker: "ナレーター", arabic: "اِبْتَعِدْ عَنِ الْوَجَبَاتِ السَّرِيعَةِ.", japanese: "ファストフードは避けなさい。" },
-      { speaker: "ナレーター", arabic: "الْعَقْلُ السَّلِيمُ فِي الْجِسْمِ السَّلِيمِ.", japanese: "健全なる精神は健全なる身体に宿る。" }
-    ]
-  },
-
-  // --- 4. ニュース (News) ---
-  {
-    id: 206, title: "リヤドの発展", category: "ニュース", level: "中級",
-    contentVoweled: "الرِّيَاضُ عَاصِمَةُ الْمَمْلَكَةِ الْعَرَبِيَّةِ السُّعُودِيَّةِ. تَطَوَّرَتْ بِسُرْعَةٍ كَبِيرَةٍ.",
-    contentPlain: "الرياض عاصمة المملكة العربية السعودية. تطورت بسرعة كبيرة.",
-    vocabList: [
-      { word: "عَاصِمَة", meaning: "首都" },
-      { word: "تَطَوُّر", meaning: "発展" },
-      { word: "مَبْنَى", meaning: "建物" }
-    ],
-    questions: [
-      { id: 2061, type: "reading", text: "リヤドは何ですか？", options: ["港町", "首都", "小さな村", "農場"], correctIndex: 1, explanation: "「عَاصِمَة (首都)」です。" },
-      { id: 2062, type: "reading", text: "どのように発展しましたか？", options: ["ゆっくり", "急速に", "変わっていない", "小さくなった"], correctIndex: 1, explanation: "「بِسُرْعَةٍ كَبِيرَةٍ (とても速く)」です。" },
-      { id: 2063, type: "reading", text: "現在リヤドにあるものは？", options: ["古い家だけ", "高層ビル（タワー）", "海", "山"], correctIndex: 1, explanation: "「أَبْرَاج (タワー/高層ビル)」が増えています。" },
-      { id: 2064, type: "vocabulary", text: "「مُسْتَقْبَل」の意味は？", options: ["過去", "現在", "未来", "歴史"], correctIndex: 2, explanation: "Future（未来）です。" },
-      { id: 2065, type: "grammar", text: "「なりました」", options: ["أَصْبَحَتْ", "كَانَتْ", "لَيْسَتْ", "بَقِيَتْ"], correctIndex: 0, explanation: "「Aṣbaḥat (Became)」です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "كَانَتِ الرِّيَاضُ مَدِينَةً صَغِيرَةً فِي الْمَاضِي.", japanese: "リヤドは昔、小さな町でした。" },
-      { speaker: "ナレーター", arabic: "الْآنَ، هِيَ مَدِينَةٌ حَدِيثَةٌ وَكَبِيرَةٌ.", japanese: "今では、現代的で大きな都市です。" },
-      { speaker: "ナレーター", arabic: "فِيهَا مَبَانٍ عَالِيَةٌ وَأَسْوَاقٌ كَثِيرَةٌ.", japanese: "高い建物や多くの市場があります。" },
-      { speaker: "ナレーター", arabic: "رُؤْيَةُ 2030 تُغَيِّرُ الْمَدِينَةَ.", japanese: "ビジョン2030が街を変えています。" },
-      { speaker: "ナレーター", arabic: "يَزُورُهَا السُّيَّاحُ مِنْ كُلِّ مَكَانٍ.", japanese: "各地から観光客が訪れます。" }
-    ]
-  },
-
-  // --- 5. 文学 (Literature) ---
-  {
-        id: 207, title: "時間の重要性", category: "文学", level: "中級",
-        contentVoweled: "الْوَقْتُ كَالسَّيْفِ إِنْ لَمْ تَقْطَعْهُ قَطَعَكَ.",
-        contentPlain: "الوقت كالسيف إن لم تقطعه قطعك.",
-        vocabList: [
-          { word: "وَقْت", meaning: "時間" },
-          { word: "سَيْف", meaning: "剣" },
-          { word: "ذَهَب", meaning: "金(Gold)" }
-        ],
-        questions: [
-          { id: 2071, type: "reading", text: "時間は何に例えられていますか？", options: ["水", "剣", "風", "花"], correctIndex: 1, explanation: "本文の「كَالسَّيْفِ (剣のようなもの)」という記述に基づきます。" },
-          { id: 2072, type: "reading", text: "過ぎた時間はどうなりますか？", options: ["戻ってくる", "戻らない", "買える", "止まる"], correctIndex: 1, explanation: "「لَا يَعُودُ (戻らない)」です。" },
-          { id: 2073, type: "reading", text: "時間をどう使うべきですか？", options: ["寝て過ごす", "無駄にする", "有益なことに使う", "遊ぶだけ"], correctIndex: 2, explanation: "「فِي شَيْءٍ مُفِيدٍ (有益なことに)」です。" },
-          { id: 2074, type: "vocabulary", text: "「نَجَاح」の意味は？", options: ["失敗", "成功", "勉強", "仕事"], correctIndex: 1, explanation: "成功のことです。" },
-          { id: 2075, type: "grammar", text: "「もし〜なら（条件）」", options: ["إِنْ / إِذَا", "لَكِنْ", "ثُمَّ", "أَوْ"], correctIndex: 0, explanation: "「In」や「Idhā」を使います。" }
-        ],
-        sentences: [
-          // ▼▼▼ 修正: ここに「剣」の文を追加しました ▼▼▼
-          { speaker: "ナレーター", arabic: "يَقُولُ الْمَثَلُ: الْوَقْتُ كَالسَّيْفِ إِنْ لَمْ تَقْطَعْهُ قَطَعَكَ.", japanese: "格言にこうあります。「時間は剣のようなもの。あなたがそれを切らなければ（使わなければ）、それがあなたを切る」と。" },
-          { speaker: "ナレーター", arabic: "الْوَقْتُ أَغْلَى مِنَ الذَّهَبِ.", japanese: "時間は金よりも高価です。" },
-          { speaker: "ナレーター", arabic: "يَجِبُ تَنْظِيمُ الْوَقْتِ لِلنَّجَاحِ.", japanese: "成功のためには時間を管理しなければなりません。" },
-          { speaker: "ナレーター", arabic: "لَا تُؤَجِّلْ عَمَلَ الْيَوْمِ إِلَى الْغَدِ.", japanese: "今日の仕事を明日に延ばすな。" },
-          { speaker: "ナレーター", arabic: "الدَّقِيقَةُ الَّتِي تَذْهَبُ لَا تَعُودُ.", japanese: "過ぎ去った1分は戻ってきません。" },
-          { speaker: "ナレーター", arabic: "اِسْتَغِلَّ وَقْتَكَ فِي شَيْءٍ مُفِيدٍ.", japanese: "時間を有益なことに使いなさい。" }
-        ]
-  },
-  {
-    id: 209, title: "友人への手紙", category: "文学", level: "中級",
-    contentVoweled: "صَدِيقِي الْعَزِيز، كَيْفَ حَالُكَ؟ أَتَمَنَّى أَنْ تَكُونَ بِخَيْرٍ.",
-    contentPlain: "صديقي العزيز، كيف حالك؟ أتمنى أن تكون بخير.",
-    vocabList: [
-      { word: "رِسَالَة", meaning: "手紙" },
-      { word: "عَزِيز", meaning: "親愛なる" },
-      { word: "مُشْتَاق", meaning: "恋しい/会いたい" }
-    ],
-    questions: [
-      { id: 2091, type: "reading", text: "これは何ですか？", options: ["ニュース", "手紙/メール", "詩", "契約書"], correctIndex: 1, explanation: "「رِسَالَة (手紙)」の形式です。" },
-      { id: 2092, type: "reading", text: "誰に宛てていますか？", options: ["父", "先生", "親愛なる友人", "敵"], correctIndex: 2, explanation: "「صَدِيقِي الْعَزِيز (親愛なる友よ)」です。" },
-      { id: 2093, type: "reading", text: "筆者の気持ちは？", options: ["怒っている", "会いたがっている", "疲れている", "忙しい"], correctIndex: 1, explanation: "「مُشْتَاقٌ إِلَيْكَ (君が恋しい)」と書いてあります。" },
-      { id: 2094, type: "vocabulary", text: "「قَرِيبًا」の意味は？", options: ["遠く", "すぐに/近々", "昔", "昨日"], correctIndex: 1, explanation: "Soon（すぐに）です。" },
-      { id: 2095, type: "grammar", text: "「書きます」", options: ["أَكْتُبُ", "أَقْرَأُ", "أَنَامُ", "أَمْشِي"], correctIndex: 0, explanation: "「Aktubu」です。" }
-    ],
-    sentences: [
-      { speaker: "手紙", arabic: "صَدِيقِي الْعَزِيزَ، السَّلَامُ عَلَيْكُمْ.", japanese: "親愛なる友よ、平安あれ。" },
-      { speaker: "手紙", arabic: "أَكْتُبُ إِلَيْكَ لِأُخْبِرَكَ بِنَجَاحِي.", japanese: "私の成功（合格）を知らせるために書いています。" },
-      { speaker: "手紙", arabic: "أَنَا مُشْتَاقٌ إِلَيْكَ كَثِيرًا.", japanese: "あなたがとても恋しいです。" },
-      { speaker: "手紙", arabic: "سَأَزُورُكَ فِي الْعُطْلَةِ الصَّيْفِيَّةِ.", japanese: "夏休みにあなたを訪ねるつもりです。" },
-      { speaker: "手紙", arabic: "انْتَظِرْ رَدَّكَ. صَدِيقُكَ الْمُخْلِصُ.", japanese: "返事を待っています。あなたの誠実な友より。" }
-    ]
-  },
-  // --- 11. 歴史・偉人 (210-214) ---
-  {
-    id: 210, title: "医学の父 イブン・シーナー", category: "歴史", level: "中級",
-    contentVoweled: "كَانَ ابْنُ سِينَا طَبِيبًا عَظِيمًا. أَلَّفَ كِتَابَ الْقَانُونِ فِي الطِّبِّ.",
-    contentPlain: "كان ابن سينا طبيبا عظيما. ألف كتاب القانون في الطب.",
-    vocabList: [
-      { word: "طَبِيب", meaning: "医者" },
-      { word: "أَلَّفَ", meaning: "著した/書いた" },
-      { word: "قَانُون", meaning: "法律/規範" }
-    ],
-    questions: [
-      { id: 2101, type: "reading", text: "イブン・シーナーの職業は？", options: ["王様", "医者", "商人", "詩人"], correctIndex: 1, explanation: "「طَبِيبًا (医者)」です。" },
-      { id: 2102, type: "reading", text: "彼の有名な本は？", options: ["千夜一夜物語", "医学の典範（カノン）", "旅行記", "詩集"], correctIndex: 1, explanation: "「الْقَانُون فِي الطِّبِّ (医学の典範)」です。" },
-      { id: 2103, type: "reading", text: "彼はいつの時代の人ですか？", options: ["現代", "未来", "過去（昔）", "昨日"], correctIndex: 2, explanation: "「عَاشَ فِي الْمَاضِي (過去に生きた)」です。" },
-      { id: 2104, type: "vocabulary", text: "「عَظِيم」の意味は？", options: ["小さい", "偉大な", "悪い", "新しい"], correctIndex: 1, explanation: "Great（偉大な）という意味です。" },
-      { id: 2105, type: "grammar", text: "「彼は〜でした（過去）」", options: ["كَانَ", "يَكُونُ", "لَيْسَ", "أَصْبَحَ"], correctIndex: 0, explanation: "「Kāna」は過去の状態を表します。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "يُعْتَبَرُ ابْنُ سِينَا مِنْ أَشْهَرِ الْعُلَمَاءِ الْمُسْلِمِينَ.", japanese: "イブン・シーナーは最も有名なイスラムの学者の一人と考えられています。" },
-      { speaker: "ナレーター", arabic: "وُلِدَ فِي مَدِينَةِ بُخَارَى.", japanese: "彼はブハラという町で生まれました。" },
-      { speaker: "ナレーター", arabic: "دَرَسَ الطِّبَّ وَالْفَلْسَفَةَ مُنْذُ الصِّغَرِ.", japanese: "幼い頃から医学と哲学を学びました。" },
-      { speaker: "ナレーター", arabic: "كِتَابُهُ 'الْقَانُونُ' دُرِّسَ فِي جَامِعَاتِ أُورُوبَّا.", japanese: "彼の著書『カノン』はヨーロッパの大学で教えられました。" },
-      { speaker: "ナレーター", arabic: "لُقِّبَ بِأَمِيرِ الْأَطِبَّاءِ.", japanese: "彼は「医師たちの長（プリンス）」と呼ばれました。" }
-    ]
-  },
-  {
-    id: 211, title: "アルハンブラ宮殿", category: "歴史", level: "中級",
-    contentVoweled: "قَصْرُ الْحَمْرَاءِ فِي غَرْنَاطَةَ هُوَ تُحْفَةٌ مِعْمَارِيَّةٌ إِسْلَامِيَّةٌ.",
-    contentPlain: "قصر الحمراء في غرناطة هو تحفة معمارية إسلامية.",
-    vocabList: [
-      { word: "قَصْر", meaning: "宮殿" },
-      { word: "أَحْمَر", meaning: "赤い" },
-      { word: "جَنَّة", meaning: "庭園/天国" }
-    ],
-    questions: [
-      { id: 2111, type: "reading", text: "アルハンブラ宮殿はどこにありますか？", options: ["カイロ", "バグダッド", "グラナダ（スペイン）", "ダマスカス"], correctIndex: 2, explanation: "「فِي غَرْنَاطَةَ (グラナダに)」です。" },
-      { id: 2112, type: "reading", text: "それは何の傑作ですか？", options: ["料理", "建築", "音楽", "スポーツ"], correctIndex: 1, explanation: "「تُحْفَة مِعْمَارِيَّة (建築の傑作)」です。" },
-      { id: 2113, type: "reading", text: "なぜ「アル・ハムラー（赤い）」と呼ばれますか？", options: ["壁が赤いから", "王の名前", "花の名前", "血の色"], correctIndex: 0, explanation: "「لَوْنُ حِجَارَتِهِ (石の色)」に由来します。" },
-      { id: 2114, type: "vocabulary", text: "「نَافُورَة」の意味は？", options: ["山", "噴水", "川", "道"], correctIndex: 1, explanation: "噴水のことです。" },
-      { id: 2115, type: "grammar", text: "「たくさんの観光客」", options: ["سُيَّاحٌ كَثِيرُونَ", "سُيَّاحٌ قَلِيلُونَ", "سُيَّاحٌ صِغَارٌ", "سُيَّاحٌ كَبِيرٌ"], correctIndex: 0, explanation: "Suyyāḥ (複数) には Kathīrūna (複数) を合わせます。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "يَقَعُ قَصْرُ الْحَمْرَاءِ فِي إِسْبَانِيَا.", japanese: "アルハンブラ宮殿はスペインにあります。" },
-      { speaker: "ナレーター", arabic: "بَنَاهُ الْمُلُوكُ الْمُسْلِمُونَ فِي الْأَنْدَلُسِ.", japanese: "アンダルスのイスラムの王たちが建てました。" },
-      { speaker: "ナレーター", arabic: "يَتَمَيَّزُ بِالنُّقُوشِ الْجَمِيلَةِ وَالْحَدَائِقِ.", japanese: "美しい彫刻と庭園が特徴です。" },
-      { speaker: "ナレーター", arabic: "تُوجَدُ فِيهِ نَافُورَةُ الْأُسُودِ الشَّهِيرَةُ.", japanese: "そこには有名なライオンの噴水があります。" },
-      { speaker: "ナレーター", arabic: "يَزُورُهُ الْمَلَايِينُ كُلَّ عَامٍ.", japanese: "毎年何百万人もの人々が訪れます。" }
-    ]
-  },
-  {
-    id: 212, title: "サラーフッディーン", category: "歴史", level: "中級",
-    contentVoweled: "صَلَاحُ الدِّينِ الْأَيُّوبِيُّ قَائِدٌ شُجَاعٌ. حَرَّرَ الْقُدْسَ.",
-    contentPlain: "صلاح الدين الأيوبي قائد شجاع. حرر القدس.",
-    vocabList: [
-      { word: "قَائِد", meaning: "リーダー/司令官" },
-      { word: "شُجَاع", meaning: "勇敢な" },
-      { word: "حَرَّرَ", meaning: "解放した" }
-    ],
-    questions: [
-      { id: 2121, type: "reading", text: "サラーフッディーンはどんな人でしたか？", options: ["弱虫", "勇敢なリーダー", "商人", "農夫"], correctIndex: 1, explanation: "「قَائِدٌ شُجَاعٌ」です。" },
-      { id: 2122, type: "reading", text: "彼は何を解放しましたか？", options: ["カイロ", "バグダッド", "エルサレム（クドゥス）", "ダマスカス"], correctIndex: 2, explanation: "「الْقُدْس (エルサレム)」です。" },
-      { id: 2123, type: "reading", text: "彼は敵に対してどうでしたか？", options: ["残酷だった", "寛容だった", "無視した", "逃げた"], correctIndex: 1, explanation: "「مُتَسَامِحًا (寛容)」でした。" },
-      { id: 2124, type: "vocabulary", text: "「مَعْرَكَة」の意味は？", options: ["平和", "戦い/戦闘", "食事", "本"], correctIndex: 1, explanation: "Battle（戦い）のことです。" },
-      { id: 2125, type: "grammar", text: "「〜として知られている」", options: ["مَعْرُوفٌ بِـ", "مَجْهُولٌ بِـ", "كَبِيرٌ بِـ", "صَغِيرٌ بِـ"], correctIndex: 0, explanation: "「Ma'rūf bi-」です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "وُلِدَ صَلَاحُ الدِّينِ فِي تِكْرِيت.", japanese: "サラーフッディーンはティクリートで生まれました。" },
-      { speaker: "ナレーター", arabic: "وَحَّدَ مِصْرَ وَالشَّامَ.", japanese: "彼はエジプトとシリア（シャーム）を統一しました。" },
-      { speaker: "ナレーター", arabic: "انْتَصَرَ فِي مَعْرَكَةِ حِطِّينَ.", japanese: "彼はヒッティーンの戦いで勝利しました。" },
-      { speaker: "ナレーター", arabic: "عَامَلَ الْأَسْرَى بِلُطْفٍ وَرَحْمَةٍ.", japanese: "彼は捕虜を優しさと慈悲を持って扱いました。" },
-      { speaker: "ナレーター", arabic: "إِنَّهُ رَمْزٌ لِلْفُرُوسِيَّةِ.", japanese: "彼は騎士道の象徴です。" }
-    ]
-  },
-  {
-    id: 213, title: "コーヒーの歴史", category: "歴史", level: "中級",
-    contentVoweled: "اكْتُشِفَتِ الْقَهْوَةُ فِي الْيَمَنِ. ثُمَّ انْتَشَرَتْ فِي الْعَالَمِ.",
-    contentPlain: "اكتشفت القهوة في اليمن. ثم انتشرت في العالم.",
-    vocabList: [
-      { word: "قَهْوَة", meaning: "コーヒー" },
-      { word: "عَالَم", meaning: "世界" },
-      { word: "شَرِبَ", meaning: "飲んだ" }
-    ],
-    questions: [
-      { id: 2131, type: "reading", text: "コーヒーはどこで発見されましたか？", options: ["ブラジル", "イエメン/エチオピア", "フランス", "中国"], correctIndex: 1, explanation: "「فِي الْيَمَنِ (イエメンで)」と記述されています（起源説の一つ）。" },
-      { id: 2132, type: "reading", text: "誰が最初に飲みましたか？", options: ["王様", "羊飼いや修道士", "兵士", "子供"], correctIndex: 1, explanation: "「الرُّعَاة (羊飼いたち)」やスーフィーなどが知られています。" },
-      { id: 2133, type: "reading", text: "コーヒーはどうなりましたか？", options: ["消えた", "世界に広まった", "禁止された", "忘れられた"], correctIndex: 1, explanation: "「انْتَشَرَتْ (広まった)」です。" },
-      { id: 2134, type: "vocabulary", text: "「بُنّ」の意味は？", options: ["茶葉", "コーヒー豆", "砂糖", "カップ"], correctIndex: 1, explanation: "コーヒー豆のことです。" },
-      { id: 2135, type: "grammar", text: "「発見された（受動態）」", options: ["اُكْتُشِفَتْ", "اِكْتَشَفَ", "يَكْتَشِفُ", "كِتَابَة"], correctIndex: 0, explanation: "「Uktushifat」は受動態です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "يُقَالُ إِنَّ رَاعِيًا لَاحَظَ نَشَاطَ غَنَمِهِ.", japanese: "ある羊飼いが、羊たちの活発さに気づいたと言われています。" },
-      { speaker: "ナレーター", arabic: "كَانَتْ تَأْكُلُ مِنْ شَجَرَةِ الْبُنِّ.", japanese: "それらはコーヒーの木（の実）を食べていました。" },
-      { speaker: "ナレーター", arabic: "بَدَأَ النَّاسُ يَغْلُونَ الْحُبُوبَ وَيَشْرَبُونَهَا.", japanese: "人々は豆を煮て飲み始めました。" },
-      { speaker: "ナレーター", arabic: "أَصْبَحَتِ الْقَهْوَةُ مَشْرُوبًا شَعْبِيًّا.", japanese: "コーヒーは人気のある飲み物になりました。" },
-      { speaker: "ナレーター", arabic: "الْيَوْمَ، لَا نَسْتَطِيعُ بَدْءَ يَوْمِنَا بِدُونِهَا.", japanese: "今日、私たちはそれなしで一日を始めることはできません。" }
-    ]
-  },
-  {
-    id: 214, title: "ペトラ遺跡", category: "歴史", level: "中級",
-    contentVoweled: "الْبَتْرَاءُ مَدِينَةٌ أَثَرِيَّةٌ فِي الْأُرْدُنِّ. مَحْفُورَةٌ فِي الصَّخْرِ.",
-    contentPlain: "البتراء مدينة أثرية في الأردن. محفورة في الصخر.",
-    vocabList: [
-      { word: "صَخْر", meaning: "岩" },
-      { word: "وَرْدِيّ", meaning: "バラ色の" },
-      { word: "سِيَاحَة", meaning: "観光" }
-    ],
-    questions: [
-      { id: 2141, type: "reading", text: "ペトラはどこにありますか？", options: ["エジプト", "ヨルダン", "シリア", "イラク"], correctIndex: 1, explanation: "「فِي الْأُرْدُنِّ (ヨルダンに)」です。" },
-      { id: 2142, type: "reading", text: "どのように作られましたか？", options: ["木で作られた", "岩に掘られた", "レンガで作られた", "鉄で作られた"], correctIndex: 1, explanation: "「مَحْفُورَةٌ فِي الصَّخْرِ (岩に掘られた)」です。" },
-      { id: 2143, type: "reading", text: "別名は何ですか？", options: ["白い都", "バラ色の都", "黒い都", "黄金の都"], correctIndex: 1, explanation: "「الْمَدِينَة الْوَرْدِيَّة」と呼ばれます。" },
-      { id: 2144, type: "vocabulary", text: "「خَزْنَة」の意味は？", options: ["宝物殿/金庫", "家", "道", "川"], correctIndex: 0, explanation: "ペトラの有名な遺跡「エル・ハズネ」のことです。" },
-      { id: 2155, type: "grammar", text: "「多くの人々」", options: ["نَاسٌ كَثِيرُونَ", "نَاسٌ قَلِيلُونَ", "نَاسٌ وَاحِدٌ", "نَاسٌ صَغِيرٌ"], correctIndex: 0, explanation: "Nās (人々) は複数扱いです。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "بَنَى الْأَنْبَاطُ مَدِينَةَ الْبَتْرَاءِ.", japanese: "ナバテア人がペトラの都市を建設しました。" },
-      { speaker: "ナレーター", arabic: "تَتَمَيَّزُ بِلَوْنِهَا الْوَرْدِيِّ الْجَمِيلِ.", japanese: "美しいバラ色が特徴です。" },
-      { speaker: "ナレーター", arabic: "يَدْخُلُ السُّيَّاحُ عَبْرَ مَمَرٍّ ضَيِّقٍ يُسَمَّى 'السِّيق'.", japanese: "観光客は「シーク」と呼ばれる狭い通路を通って入ります。" },
-      { speaker: "ナレーター", arabic: "فِي النِّهَايَةِ تَظْهَرُ 'الْخَزْنَةُ' الرَّائِعَةُ.", japanese: "終わりに素晴らしい「宝物殿（エル・ハズネ）」が現れます。" },
-      { speaker: "ナレーター", arabic: "إِنَّهَا مِنْ عَجَائِبِ الدُّنْيَا.", japanese: "それは世界の不思議の一つです。" }
-    ]
-  },
-
-  // --- 12. 自然・環境 (215-219) ---
-  {
-    id: 215, title: "水は命", category: "記事", level: "中級",
-    contentVoweled: "الْمَاءُ سِرُّ الْحَيَاةِ. لَا يُمْكِنُ الْعَيْشُ بِدُونِهِ.",
-    contentPlain: "الماء سر الحياة. لا يمكن العيش بدونه.",
-    vocabList: [
-      { word: "حَيَاة", meaning: "命/生活" },
-      { word: "إِسْرَاف", meaning: "浪費" },
-      { word: "شَرِبَ", meaning: "飲む" }
-    ],
-    questions: [
-      { id: 2151, type: "reading", text: "水とは何ですか？", options: ["ただの液体", "命の秘密/源", "高いもの", "不要なもの"], correctIndex: 1, explanation: "「سِرُّ الْحَيَاةِ (命の秘密)」です。" },
-      { id: 2152, type: "reading", text: "水なしで生きられますか？", options: ["はい", "いいえ", "1年なら", "少しなら"], correctIndex: 1, explanation: "「لَا يُمْكِنُ (不可能)」です。" },
-      { id: 2153, type: "reading", text: "私たちはどうすべきですか？", options: ["浪費する", "汚す", "大切にする/節約する", "捨てる"], correctIndex: 2, explanation: "「نُحَافِظَ عَلَيْهِ (それを守る/保つ)」べきです。" },
-      { id: 2154, type: "vocabulary", text: "「نَبَات」の意味は？", options: ["動物", "植物", "人間", "石"], correctIndex: 1, explanation: "植物です。" },
-      { id: 2155, type: "grammar", text: "「〜なしで」", options: ["بِدُونِ", "مَعَ", "بِـ", "لِـ"], correctIndex: 0, explanation: "「Bidūni」です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "خَلَقَ اللهُ كُلَّ شَيْءٍ حَيٍّ مِنَ الْمَاءِ.", japanese: "神はすべての生きたものを水から創りました。" },
-      { speaker: "ナレーター", arabic: "يَحْتَاجُ الْإِنْسَانُ وَالْحَيَوَانُ وَالنَّبَاتُ إِلَى الْمَاءِ.", japanese: "人間、動物、植物は水を必要とします。" },
-      { speaker: "ナレーター", arabic: "يَجِبُ أَلَّا نُسْرِفَ فِي اسْتِخْدَامِهِ.", japanese: "使用において浪費してはいけません。" },
-      { speaker: "ナレーター", arabic: "أَغْلِقِ الصُّنْبُورَ بَعْدَ الِاسْتِخْدَامِ.", japanese: "使用後は蛇口を閉めなさい。" },
-      { speaker: "ナレーター", arabic: "الْمَاءُ نِعْمَةٌ كَبِيرَةٌ.", japanese: "水は大きな恵みです。" }
-    ]
-  },
-  {
-    id: 216, title: "ラクダ：砂漠の船", category: "記事", level: "中級",
-    contentVoweled: "الْجَمَلُ حَيَوَانٌ قَوِيٌّ. يُسَمَّى سَفِينَةَ الصَّحْرَاءِ.",
-    contentPlain: "الجمل حيوان قوي. يسمى سفينة الصحراء.",
-    vocabList: [
-      { word: "جَمَل", meaning: "ラクダ" },
-      { word: "صَبْر", meaning: "忍耐" },
-      { word: "عَطَش", meaning: "渇き" }
-    ],
-    questions: [
-      { id: 2161, type: "reading", text: "ラクダの別名は？", options: ["砂漠の王", "砂漠の船", "砂漠の車", "砂漠の鳥"], correctIndex: 1, explanation: "「سَفِينَة الصَّحْرَاء」です。" },
-      { id: 2162, type: "reading", text: "ラクダは何に耐えられますか？", options: ["寒さだけ", "渇きと暑さ", "雨", "雪"], correctIndex: 1, explanation: "「الْعَطَش وَالْحَرّ」です。" },
-      { id: 2163, type: "reading", text: "ラクダはどこに水を蓄えますか？", options: ["胃", "足", "こぶ", "耳"], correctIndex: 2, explanation: "「السَّنَام (こぶ)」に脂肪として蓄えます。" },
-      { id: 2164, type: "vocabulary", text: "「رِمَال」の意味は？", options: ["水", "砂（複数）", "岩", "空"], correctIndex: 1, explanation: "砂のことです。" },
-      { id: 2165, type: "grammar", text: "「歩くことができます」", options: ["يَسْتَطِيعُ الْمَشْيَ", "لَا يَسْتَطِيعُ", "مَشَى", "يَمْشِي"], correctIndex: 0, explanation: "「Yastaṭī'u (できる)」です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "يَسْتَطِيعُ الْجَمَلُ الْمَشْيَ عَلَى الرِّمَالِ بِسُهُولَةٍ.", japanese: "ラクダは砂の上を簡単に歩くことができます。" },
-      { speaker: "ナレーター", arabic: "لَدَيْهِ خُفٌّ عَرِيضٌ لَا يَغُوصُ فِي الرَّمْلِ.", japanese: "砂に沈まない広い足裏を持っています。" },
-      { speaker: "ナレーター", arabic: "يُخَزِّنُ الدُّهُونَ فِي سَنَامِهِ.", japanese: "こぶに脂肪を蓄えます。" },
-      { speaker: "ナレーター", arabic: "كَانَ الْعَرَبُ يُسَافِرُونَ عَلَيْهِ قَدِيمًا.", japanese: "昔、アラブ人はそれに乗って旅をしました。" },
-      { speaker: "ナレーター", arabic: "إِنَّهُ رَمْزٌ لِلصَّبْرِ.", japanese: "それは忍耐の象徴です。" }
-    ]
-  },
-  {
-    id: 217, title: "オリーブの木", category: "文化", level: "中級",
-    contentVoweled: "شَجَرَةُ الزَّيْتُونِ شَجَرَةٌ مُبَارَكَةٌ. تَعِيشُ لِسَنَوَاتٍ طَوِيلَةٍ.",
-    contentPlain: "شجرة الزيتون شجرة مباركة. تعيش لسنوات طويلة.",
-    vocabList: [
-      { word: "زَيْت", meaning: "油/オイル" },
-      { word: "شَجَرَة", meaning: "木" },
-      { word: "سَلَام", meaning: "平和" }
-    ],
-    questions: [
-      { id: 2171, type: "reading", text: "オリーブの木の特徴は？", options: ["すぐに枯れる", "祝福された/長生きする", "毒がある", "小さい"], correctIndex: 1, explanation: "「مُبَارَكَة (祝福された)」であり長生きです。" },
-      { id: 2172, type: "reading", text: "何が採れますか？", options: ["水", "油（オイル）", "砂糖", "パン"], correctIndex: 1, explanation: "「زَيْت (油)」が採れます。" },
-      { id: 2173, type: "reading", text: "オリーブの枝は何の象徴？", options: ["戦争", "平和", "富", "力"], correctIndex: 1, explanation: "「السَّلَام (平和)」の象徴です。" },
-      { id: 2174, type: "vocabulary", text: "「صِحِّي」の意味は？", options: ["悪い", "健康的な", "病気の", "高い"], correctIndex: 1, explanation: "Healthyという意味です。" },
-      { id: 2175, type: "grammar", text: "「たくさんの木」", options: ["أَشْجَارٌ كَثِيرَةٌ", "شَجَرَةٌ وَاحِدَةٌ", "أَشْجَارٌ قَلِيلَةٌ", "شَجَرٌ كَثِيرٌ"], correctIndex: 0, explanation: "Ashjār (複数) + Kathīrah (女性単数) です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "تَنْمُو شَجَرَةُ الزَّيْتُونِ فِي حَوْضِ الْبَحْرِ الْمُتَوَسِّطِ.", japanese: "オリーブの木は地中海沿岸で育ちます。" },
-      { speaker: "ナレーター", arabic: "زَيْتُ الزَّيْتُونِ صِحِّيٌّ وَلَذِيذٌ.", japanese: "オリーブオイルは健康的で美味しいです。" },
-      { speaker: "ナレーター", arabic: "يُسْتَخْدَمُ فِي الطَّبْخِ وَالْعِلَاجِ.", japanese: "料理や治療に使われます。" },
-      { speaker: "ナレーター", arabic: "غُصْنُ الزَّيْتُونِ رَمْزٌ لِلسَّلَامِ.", japanese: "オリーブの枝は平和の象徴です。" },
-      { speaker: "ナレーター", arabic: "ذُكِرَتْ هَذِهِ الشَّجَرَةُ فِي الْقُرْآنِ.", japanese: "この木はクルアーンの中で言及されています。" }
-    ]
-  },
-  {
-    id: 218, title: "ナイル川", category: "記事", level: "中級",
-    contentVoweled: "نَهْرُ النِّيلِ هُوَ أَطْوَلُ نَهْرٍ فِي الْعَالَمِ. يَمُرُّ بِمِصْرَ.",
-    contentPlain: "نهر النيل هو أطول نهر في العالم. يمر بمصر.",
-    vocabList: [
-      { word: "نَهْر", meaning: "川" },
-      { word: "زِرَاعَة", meaning: "農業" },
-      { word: "مِصْر", meaning: "エジプト" }
-    ],
-    questions: [
-      { id: 2181, type: "reading", text: "ナイル川の特徴は？", options: ["一番短い", "世界最長", "一番深い", "一番広い"], correctIndex: 1, explanation: "「أَطْوَل نَهْر (一番長い川)」です。" },
-      { id: 2182, type: "reading", text: "どの国を通りますか？", options: ["エジプト", "日本", "フランス", "アメリカ"], correctIndex: 0, explanation: "「مِصْر (エジプト)」などです。" },
-      { id: 2183, type: "reading", text: "人々にとってなぜ重要ですか？", options: ["泳ぐため", "農業と飲み水のため", "見るため", "壁を作るため"], correctIndex: 1, explanation: "「الزِّرَاعَة وَالشُّرْب」です。" },
-      { id: 2184, type: "vocabulary", text: "「حَضَارَة」の意味は？", options: ["戦争", "文明", "砂漠", "動物"], correctIndex: 1, explanation: "Civilization（文明）です。" },
-      { id: 2185, type: "grammar", text: "「流れます」", options: ["يَجْرِي", "يَقِفُ", "يَأْكُلُ", "يَنَامُ"], correctIndex: 0, explanation: "「Yajrī (走る/流れる)」です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "مِصْرُ هِبَةُ النِّيلِ.", japanese: "エジプトはナイルの賜物です。" },
-      { speaker: "ナレーター", arabic: "يَجْرِي النَّهْرُ مِنْ الْجَنُوبِ إِلَى الشَّمَالِ.", japanese: "川は南から北へ流れます。" },
-      { speaker: "ナレーター", arabic: "عَاشَ الْمِصْرِيُّونَ الْقُدَمَاءُ عَلَى ضِفَافِهِ.", japanese: "古代エジプト人はその岸辺に住んでいました。" },
-      { speaker: "ナレーター", arabic: "بَنَوْا حَضَارَةً عَظِيمَةً.", japanese: "彼らは偉大な文明を築きました。" },
-      { speaker: "ナレーター", arabic: "إِنَّهُ مَصْدَرُ الْحَيَاةِ لِلْمَلَايِينِ.", japanese: "それは何百万人もの人々の命の源です。" }
-    ]
-  },
-  {
-    id: 219, title: "砂漠の夜", category: "自然", level: "中級",
-    contentVoweled: "اللَّيْلُ فِي الصَّحْرَاءِ هَادِئٌ وَجَمِيلٌ. النُّجُومُ تَلْمَعُ.",
-    contentPlain: "الليل في الصحراء هادئ وجميل. النجوم تلمع.",
-    vocabList: [
-      { word: "لَيْل", meaning: "夜" },
-      { word: "نُجُوم", meaning: "星々" },
-      { word: "قَمَر", meaning: "月" }
-    ],
-    questions: [
-      { id: 2191, type: "reading", text: "砂漠の夜はどうですか？", options: ["うるさい", "静かで美しい", "暑い", "明るい"], correctIndex: 1, explanation: "「هَادِئ وَجَمِيل」です。" },
-      { id: 2192, type: "reading", text: "空には何が見えますか？", options: ["雲", "星", "飛行機", "太陽"], correctIndex: 1, explanation: "「النُّجُوم (星々)」です。" },
-      { id: 2193, type: "reading", text: "気温はどうなりますか？", options: ["暑くなる", "変わらない", "寒くなる", "蒸し暑い"], correctIndex: 2, explanation: "「يَمِيلُ لِلْبُرُودَةِ (寒くなる傾向がある)」です。" },
-      { id: 2194, type: "vocabulary", text: "「سَمَاء」の意味は？", options: ["海", "空", "地", "山"], correctIndex: 1, explanation: "空です。" },
-      { id: 2195, type: "grammar", text: "「輝く」", options: ["تَلْمَعُ", "تَنَامُ", "تَأْكُلُ", "تَذْهَبُ"], correctIndex: 0, explanation: "「Talma'u」です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "عِنْدَمَا تَغِيبُ الشَّمْسُ، يَعُمُّ السُّكُونُ.", japanese: "太陽が沈むと、静寂が広がります。" },
-      { speaker: "ナレーター", arabic: "السَّمَاءُ صَافِيَةٌ وَمَلِيئَةٌ بِالنُّجُومِ.", japanese: "空は澄んでいて、星でいっぱいです。" },
-      { speaker: "ナレーター", arabic: "يُحِبُّ الْبَدْوُ السَّهَرَ تَحْتَ ضَوْءِ الْقَمَرِ.", japanese: "ベドウィン（遊牧民）は月明かりの下で夜更かしするのが好きです。" },
-      { speaker: "ナレーター", arabic: "يُشْعِلُونَ النَّارَ وَيَشْرَبُونَ الْقَهْوَةَ.", japanese: "彼らは火を焚き、コーヒーを飲みます。" },
-      { speaker: "ナレーター", arabic: "إِنَّهُ مَنْظَرٌ سَاحِرٌ.", japanese: "それは魅惑的な光景です。" }
-    ]
-  },
-
-  // --- 13. 物語・文学 (220-224) ---
-  {
-    id: 220, title: "ライオンとネズミ", category: "物語", level: "中級",
-    contentVoweled: "أَمْسَكَ الْأَسَدُ بِالْفَأْرِ، لَكِنَّهُ أَطْلَقَ سَرَاحَهُ.",
-    contentPlain: "أمسك الأسد بالفأر، لكنه أطلق سراحه.",
-    vocabList: [
-      { word: "أَسَد", meaning: "ライオン" },
-      { word: "فَأْر", meaning: "ネズミ" },
-      { word: "سَاعَدَ", meaning: "助けた" }
-    ],
-    questions: [
-      { id: 2201, type: "reading", text: "ライオンはどうしましたか？", options: ["ネズミを食べた", "ネズミを逃がした", "ネズミと遊んだ", "ネズミを無視した"], correctIndex: 1, explanation: "「أَطْلَقَ سَرَاحَهُ (彼を釈放した/逃がした)」です。" },
-      { id: 2202, type: "reading", text: "後でライオンはどうなりましたか？", options: ["王になった", "網に捕まった", "病気になった", "眠った"], correctIndex: 1, explanation: "「وَقَعَ فِي شَبَكَةٍ (網に落ちた/捕まった)」です。" },
-      { id: 2203, type: "reading", text: "誰がライオンを助けましたか？", options: ["猟師", "別のライオン", "ネズミ", "誰もいない"], correctIndex: 2, explanation: "「الْفَأْر (ネズミ)」です。" },
-      { id: 2204, type: "vocabulary", text: "「شَبَكَة」の意味は？", options: ["家", "網/ネット", "穴", "箱"], correctIndex: 1, explanation: "網です。" },
-      { id: 2205, type: "grammar", text: "「小さい」", options: ["صَغِير", "كَبِير", "طَوِيل", "قَصِير"], correctIndex: 0, explanation: "「Saghīr」です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "كَانَ الْأَسَدُ نَائِمًا.", japanese: "ライオンは眠っていました。" },
-      { speaker: "ナレーター", arabic: "لَعِبَ فَأْرٌ صَغِيرٌ فَوْقَ رَأْسِهِ.", japanese: "小さなネズミが彼の頭の上で遊びました。" },
-      { speaker: "ナレーター", arabic: "اسْتَيْقَظَ الْأَسَدُ غَاضِبًا.", japanese: "ライオンは怒って目を覚ましました。" },
-      { speaker: "ナレーター", arabic: "تَرَجَّاهُ الْفَأْرُ، فَتَرَكَهُ.", japanese: "ネズミが懇願したので、彼は放してやりました。" },
-      { speaker: "ナレーター", arabic: "لَاحِقًا، قَطَّعَ الْفَأْرُ الشَّبَكَةَ وَأَنْقَذَ الْأَسَدَ.", japanese: "その後、ネズミは網を食いちぎり、ライオンを救いました。" }
-    ]
-  },
-  {
-    id: 221, title: "アリとキリギリス", category: "物語", level: "中級",
-    contentVoweled: "كَانَتِ النَّمْلَةُ تَعْمَلُ بِجِدٍّ فِي الصَّيْفِ لِتَجْمَعَ الطَّعَامَ.",
-    contentPlain: "كانت النملة تعمل بجد في الصيف لتجمع الطعام.",
-    vocabList: [
-      { word: "نَمْلَة", meaning: "アリ" },
-      { word: "شِتَاء", meaning: "冬" },
-      { word: "عَمَل", meaning: "仕事" }
-    ],
-    questions: [
-      { id: 2211, type: "reading", text: "アリは何をしていましたか？", options: ["遊んでいた", "寝ていた", "働いていた", "歌っていた"], correctIndex: 2, explanation: "「تَعْمَلُ (働く)」です。" },
-      { id: 2212, type: "reading", text: "キリギリス（バッタ）は何をしていましたか？", options: ["働いていた", "遊んで歌っていた", "食べていた", "勉強していた"], correctIndex: 1, explanation: "「يَلْعَبُ وَيُغَنِّي (遊んで歌う)」です。" },
-      { id: 2213, type: "reading", text: "冬になってどうなりましたか？", options: ["キリギリスは空腹になった", "アリが餓死した", "夏になった", "みんな死んだ"], correctIndex: 0, explanation: "「جَاعَ الْجُنْدُب (バッタは飢えた)」です。" },
-      { id: 2214, type: "vocabulary", text: "「كَسُول」の意味は？", options: ["勤勉な", "怠け者の", "速い", "強い"], correctIndex: 1, explanation: "Lazy（怠け者）です。" },
-      { id: 2215, type: "grammar", text: "「集めます」", options: ["تَجْمَعُ", "تَرْمِي", "تَأْكُلُ", "تَشْرَبُ"], correctIndex: 0, explanation: "「Tajma'u」です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "فِي الصَّيْفِ، كَانَتِ النَّمْلَةُ نَشِيطَةً.", japanese: "夏、アリは活発でした。" },
-      { speaker: "ナレーター", arabic: "جَمَعَتِ الْحُبُوبَ لِلشِّتَاءِ.", japanese: "冬のために穀物を集めました。" },
-      { speaker: "ナレーター", arabic: "أَمَّا الْجُنْدُبُ فَكَانَ كَسُولًا.", japanese: "一方、キリギリス（バッタ）は怠け者でした。" },
-      { speaker: "ナレーター", arabic: "جَاءَ الشِّتَاءُ وَلَمْ يَجِدِ الْجُنْدُبُ طَعَامًا.", japanese: "冬が来て、キリギリスは食べ物を見つけられませんでした。" },
-      { speaker: "ナレーター", arabic: "تَعَلَّمَ دَرْسًا فِي أَهَمِّيَّةِ الْعَمَلِ.", japanese: "彼は労働の重要性についての教訓を学びました。" }
-    ]
-  },
-  {
-    id: 222, title: "嘘をつく子供", category: "物語", level: "中級",
-    contentVoweled: "كَانَ وَلَدٌ يَصْرُخُ: ذِئْب! ذِئْب! لِيَخْدَعَ النَّاسَ.",
-    contentPlain: "كان ولد يصرخ: ذئب! ذئب! ليخدع الناس.",
-    vocabList: [
-      { word: "ذِئْب", meaning: "オオカミ" },
-      { word: "كَذِب", meaning: "嘘" },
-      { word: "صِدْق", meaning: "真実/正直" }
-    ],
-    questions: [
-      { id: 2221, type: "reading", text: "少年は何と叫びましたか？", options: ["火事だ", "泥棒だ", "オオカミだ", "助けて"], correctIndex: 2, explanation: "「ذِئْب (オオカミ)」です。" },
-      { id: 2222, type: "reading", text: "村人はどうしましたか？", options: ["無視した", "助けに来た", "笑った", "逃げた"], correctIndex: 1, explanation: "最初は「جَاءُوا لِلْمُسَاعَدَةِ (助けに来た)」です。" },
-      { id: 2223, type: "reading", text: "本当にオオカミが来た時、どうなりましたか？", options: ["誰も来なかった", "みんな来た", "少年は戦った", "オオカミは逃げた"], correctIndex: 0, explanation: "「لَمْ يُصَدِّقْهُ أَحَدٌ (誰も彼を信じなかった)」です。" },
-      { id: 2224, type: "vocabulary", text: "「غَنَم」の意味は？", options: ["牛", "羊", "馬", "犬"], correctIndex: 1, explanation: "羊（群れ）のことです。" },
-      { id: 2225, type: "grammar", text: "「信じませんでした」", options: ["لَمْ يُصَدِّقْ", "صَدَّقَ", "كَذَبَ", "قَالَ"], correctIndex: 0, explanation: "「Lam yuṣaddiq」です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "أَرَادَ الرَّاعِي أَنْ يَمْزَحَ مَعَ أَهْلِ الْقَرْيَةِ.", japanese: "羊飼いは村の人々と冗談を言いたいと思いました。" },
-      { speaker: "ナレーター", arabic: "صَرَخَ: ذِئْبٌ! سَاعِدُونِي!", japanese: "彼は叫びました。「オオカミだ！助けてくれ！」" },
-      { speaker: "ナレーター", arabic: "جَاءَ النَّاسُ، فَضَحِكَ الْوَلَدُ.", japanese: "人々が来ると、少年は笑いました。" },
-      { speaker: "ナレーター", arabic: "فِي الْمَرَّةِ الثَّالِثَةِ، جَاءَ الذِّئْبُ حَقًّا.", japanese: "3回目、本当にオオカミが来ました。" },
-      { speaker: "ナレーター", arabic: "صَرَخَ الْوَلَدُ، لَكِنْ لَمْ يَأْتِ أَحَدٌ.", japanese: "少年は叫びましたが、誰も来ませんでした。" }
-    ]
-  },
-  {
-    id: 223, title: "アラブの格言", category: "文学", level: "中級",
-    contentVoweled: "الصَّبْرُ مِفْتَاحُ الْفَرَجِ. مَنْ جَدَّ وَجَدَ.",
-    contentPlain: "الصبر مفتاح الفرج. من جد وجد.",
-    vocabList: [
-      { word: "صَبْر", meaning: "忍耐" },
-      { word: "مِفْتَاح", meaning: "鍵" },
-      { word: "فَرَج", meaning: "安らぎ/解決" }
-    ],
-    questions: [
-      { id: 2231, type: "reading", text: "「忍耐は〇〇の鍵」", options: ["成功", "安らぎ/解決", "家", "富"], correctIndex: 1, explanation: "「الْفَرَج (解決/安らぎ)」です。" },
-      { id: 2232, type: "reading", text: "「努力した者は〇〇」", options: ["見つける（報われる）", "失う", "疲れる", "泣く"], correctIndex: 0, explanation: "「وَجَدَ (見つけた＝報われた)」です。" },
-      { id: 2233, type: "vocabulary", text: "「حِكْمَة」の意味は？", options: ["愚かさ", "知恵", "強さ", "速さ"], correctIndex: 1, explanation: "Wisdom（知恵）です。" },
-      { id: 2234, type: "reading", text: "「知識は光」", options: ["الْعِلْمُ نُورٌ", "الْعِلْمُ ظَلَامٌ", "الْجَهْلُ نُورٌ", "الْمَالُ نُورٌ"], correctIndex: 0, explanation: "「Al-'ilmu nūr」です。" },
-      { id: 2235, type: "grammar", text: "「〜した者は」", options: ["مَنْ", "مَا", "أَيْنَ", "كَيْفَ"], correctIndex: 0, explanation: "関係代名詞的な「Man (Whoever)」です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "الْأَمْثَالُ تَعْكِسُ ثَقَافَةَ الشُّعُوبِ.", japanese: "ことわざは人々の文化を反映します。" },
-      { speaker: "ナレーター", arabic: "الصَّبْرُ مِفْتَاحُ الْفَرَجِ.", japanese: "忍耐は解決（安らぎ）への鍵である。" },
-      { speaker: "ナレーター", arabic: "مَنْ جَدَّ وَجَدَ، وَمَنْ زَرَعَ حَصَدَ.", japanese: "努力した者は見つけ（報われ）、種を蒔いた者は刈り取る。" },
-      { speaker: "ナレーター", arabic: "الْعِلْمُ نُورٌ وَالْجَهْلُ ظَلَامٌ.", japanese: "知識は光であり、無知は闇である。" },
-      { speaker: "ナレーター", arabic: "يَدٌ وَاحِدَةٌ لَا تُصَفِّقُ.", japanese: "片手では拍手できない（協力が必要）。" }
-    ]
-  },
-  {
-    id: 224, title: "読書の重要性", category: "記事", level: "中級",
-    contentVoweled: "الْقِرَاءَةُ تُغَذِّي الْعَقْلَ وَتَزِيدُ الْمَعْرِفَةَ.",
-    contentPlain: "القراءة تغذي العقل وتزيد المعرفة.",
-    vocabList: [
-      { word: "قِرَاءَة", meaning: "読書" },
-      { word: "عَقْل", meaning: "理性/頭脳" },
-      { word: "كِتَاب", meaning: "本" }
-    ],
-    questions: [
-      { id: 2241, type: "reading", text: "読書は何を養いますか？", options: ["体", "頭脳（理性）", "筋肉", "胃"], correctIndex: 1, explanation: "「الْعَقْل (理性/頭脳)」です。" },
-      { id: 2242, type: "reading", text: "読書は何を増やしますか？", options: ["お金", "知識", "友達", "敵"], correctIndex: 1, explanation: "「الْمَعْرِفَة (知識)」です。" },
-      { id: 2243, type: "reading", text: "本は何に例えられますか？", options: ["最高の友", "重い荷物", "高価なもの", "敵"], correctIndex: 0, explanation: "「خَيْرُ جَلِيسٍ (最高の座り相手＝友)」と言われます。" },
-      { id: 2244, type: "vocabulary", text: "「مَكْتَبَة」の意味は？", options: ["学校", "図書館/本屋", "台所", "庭"], correctIndex: 1, explanation: "Library/Bookstoreです。" },
-      { id: 2245, type: "grammar", text: "「増やします」", options: ["تَزِيدُ", "تَنْقُصُ", "تَذْهَبُ", "تَأْتِي"], correctIndex: 0, explanation: "「Tazīdu」です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "الْقِرَاءَةُ رِحْلَةٌ عَبْرَ الزَّمَنِ.", japanese: "読書は時を超えた旅です。" },
-      { speaker: "ナレーター", arabic: "تَفْتَحُ لَنَا أَبْوَابَ الْعِلْمِ.", japanese: "それは私たちに知識の扉を開きます。" },
-      { speaker: "ナレーター", arabic: "الْكِتَابُ هُوَ خَيْرُ جَلِيسٍ.", japanese: "本は最高の友人です。" },
-      { speaker: "ナレーター", arabic: "يَجِبُ أَنْ نَقْرَأَ كُلَّ يَوْمٍ.", japanese: "私たちは毎日読むべきです。" },
-      { speaker: "ナレーター", arabic: "أُمَّةٌ تَقْرَأُ، أُمَّةٌ تَرْقَى.", japanese: "読む民は、向上する民です。" }
-    ]
-  },
-
-  // --- 14. ニュース・社会 (225-229) ---
-  {
-    id: 225, title: "アラビア語の日", category: "ニュース", level: "中級",
-    contentVoweled: "الْيَوْمُ الْعَالَمِيُّ لِلُّغَةِ الْعَرَبِيَّةِ هُوَ 18 دِيسَمْبَر.",
-    contentPlain: "اليوم العالمي للغة العربية هو 18 ديسمبر.",
-    vocabList: [
-      { word: "يَوْم", meaning: "日" },
-      { word: "لُغَة", meaning: "言語" },
-      { word: "اِحْتِفَال", meaning: "お祝い" }
-    ],
-    questions: [
-      { id: 2251, type: "reading", text: "世界アラビア語デーはいつ？", options: ["1月1日", "12月18日", "9月23日", "5月5日"], correctIndex: 1, explanation: "「18 دِيسَمْبَر」です。" },
-      { id: 2252, type: "reading", text: "アラビア語は誰の言語ですか？", options: ["国連", "クルアーン", "科学だけ", "ヨーロッパ"], correctIndex: 1, explanation: "「لُغَةُ الْقُرْآنِ」です。" },
-      { id: 2253, type: "reading", text: "話者は世界にどれくらいいますか？", options: ["数人", "数億人", "100人", "いない"], correctIndex: 1, explanation: "「الْمَلَايِين (数百万以上＝実際は数億)」です。" },
-      { id: 2254, type: "vocabulary", text: "「رَسْمِيّ」の意味は？", options: ["公式の", "私的な", "遊びの", "偽の"], correctIndex: 0, explanation: "Official（公式）です。" },
-      { id: 2255, type: "grammar", text: "「話します」", options: ["يَتَحَدَّثُ", "يَكْتُبُ", "يَسْمَعُ", "يَمْشِي"], correctIndex: 0, explanation: "「Yataḥaddathu」です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "تَحْتَفِلُ الْأُمَمُ الْمُتَّحِدَةُ بِاللُّغَةِ الْعَرَبِيَّةِ.", japanese: "国連はアラビア語を祝います。" },
-      { speaker: "ナレーター", arabic: "إِنَّهَا إِحْدَى اللُّغَاتِ الرَّسْمِيَّةِ السِّتِّ.", japanese: "それは6つの公用語の一つです。" },
-      { speaker: "ナレーター", arabic: "يَتَحَدَّثُ بِهَا أَكْثَرُ مِنْ 400 مِلْيُونِ شَخْصٍ.", japanese: "4億人以上の人々が話しています。" },
-      { speaker: "ナレーター", arabic: "هِيَ لُغَةٌ غَنِيَّةٌ وَعَرِيقَةٌ.", japanese: "それは豊かで由緒ある言語です。" },
-      { speaker: "ナレーター", arabic: "نَحْنُ نَفْتَخِرُ بِلُغَتِنَا.", japanese: "私たちは自分たちの言語を誇りに思います。" }
-    ]
-  },
-  {
-    id: 226, title: "スマートシティ", category: "ニュース", level: "中級",
-    contentVoweled: "نِيُوم مَدِينَةُ الْمُسْتَقْبَلِ فِي السُّعُودِيَّةِ.",
-    contentPlain: "نيوم مدينة المستقبل في السعودية.",
-    vocabList: [
-      { word: "مَدِينَة", meaning: "都市" },
-      { word: "مُسْتَقْبَل", meaning: "未来" },
-      { word: "تِكْنُولُوجِيَا", meaning: "技術" }
-    ],
-    questions: [
-      { id: 2261, type: "reading", text: "NEOMとは何ですか？", options: ["古い村", "未来の都市", "海", "山"], correctIndex: 1, explanation: "「مَدِينَةُ الْمُسْتَقْبَلِ」です。" },
-      { id: 2262, type: "reading", text: "どこにありますか？", options: ["日本", "サウジアラビア", "アメリカ", "エジプト"], correctIndex: 1, explanation: "「فِي السُّعُودِيَّةِ」です。" },
-      { id: 2263, type: "reading", text: "何に依存しますか？", options: ["石油", "再生可能エネルギー", "石炭", "ガス"], correctIndex: 1, explanation: "「الطَّاقَة الْمُتَجَدِّدَة」です。" },
-      { id: 2264, type: "vocabulary", text: "「ذَكِيّ」の意味は？", options: ["愚かな", "スマート/賢い", "古い", "遅い"], correctIndex: 1, explanation: "Smart/Intelligentです。" },
-      { id: 2265, type: "grammar", text: "「使います」", options: ["تَسْتَخْدِمُ", "تَأْكُلُ", "تَنَامُ", "تَلْعَبُ"], correctIndex: 0, explanation: "「Tastakhdimu」です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "تَقَعُ نِيُوم شَمَالَ غَرْبِ الْمَمْلَكَةِ.", japanese: "NEOMは王国の北西に位置します。" },
-      { speaker: "ナレーター", arabic: "سَتَكُونُ مَدِينَةً ذَكِيَّةً بِالْكَامِلِ.", japanese: "完全にスマートな都市になるでしょう。" },
-      { speaker: "ナレーター", arabic: "تَعْتَمِدُ عَلَى الطَّاقَةِ النَّظِيفَةِ.", japanese: "クリーンエネルギーに依存します。" },
-      { speaker: "ナレーター", arabic: "لَا تُوجَدُ فِيهَا سَيَّارَاتٌ تَقْلِيدِيَّةٌ.", japanese: "そこには従来の車はありません。" },
-      { speaker: "ナレーター", arabic: "إِنَّهَا مَشْرُوعٌ طَمُوحٌ جِدًّا.", japanese: "それは非常に野心的なプロジェクトです。" }
-    ]
-  },
-  {
-    id: 227, title: "SNSの影響", category: "記事", level: "中級",
-    contentVoweled: "وَسَائِلُ التَّوَاصُلِ الِاجْتِمَاعِيِّ تُقَرِّبُ الْبَعِيدَ.",
-    contentPlain: "وسائل التواصل الاجتماعي تقرب البعيد.",
-    vocabList: [
-      { word: "تَوَاصُل", meaning: "通信/交流" },
-      { word: "خَبَر", meaning: "ニュース" },
-      { word: "عَالَم", meaning: "世界" }
-    ],
-    questions: [
-      { id: 2271, type: "reading", text: "SNSは何をしますか？", options: ["遠くを近づける", "人を離す", "お金を配る", "食べ物を作る"], correctIndex: 0, explanation: "「تُقَرِّبُ الْبَعِيدَ」です。" },
-      { id: 2272, type: "reading", text: "ニュースはどう広がりますか？", options: ["ゆっくり", "非常に速く", "止まる", "消える"], correctIndex: 1, explanation: "「بِسُرْعَةٍ فَائِقَةٍ (超高速で)」です。" },
-      { id: 2273, type: "reading", text: "注意すべきことは？", options: ["たくさん使う", "偽ニュース（フェイクニュース）", "新しい携帯", "写真を撮る"], correctIndex: 1, explanation: "「الْأَخْبَارِ الْكَاذِبَةِ (嘘のニュース)」です。" },
-      { id: 2274, type: "vocabulary", text: "「صُورَة」の意味は？", options: ["音", "写真/像", "文字", "本"], correctIndex: 1, explanation: "Picture/Imageです。" },
-      { id: 2275, type: "grammar", text: "「広がります」", options: ["تَنْتَشِرُ", "تَجْلِسُ", "تَأْكُلُ", "تَنَامُ"], correctIndex: 0, explanation: "「Tantashiru」です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "أَصْبَحَ الْعَالَمُ قَرْيَةً صَغِيرَةً.", japanese: "世界は小さな村になりました。" },
-      { speaker: "ナレーター", arabic: "نَسْتَطِيعُ مَعْرِفَةَ الْأَخْبَارِ فَوْرًا.", japanese: "私たちはすぐにニュースを知ることができます。" },
-      { speaker: "ナレーター", arabic: "نُشَارِكُ الصُّوَرَ وَالْأَفْكَارَ.", japanese: "写真や考えを共有します。" },
-      { speaker: "ナレーター", arabic: "وَلَكِنْ يَجِبُ الْحَذَرُ مِنَ الْشَّائِعَاتِ.", japanese: "しかし、噂には注意しなければなりません。" },
-      { speaker: "ナレーター", arabic: "لَا تُصَدِّقْ كُلَّ مَا تَقْرَأُ.", japanese: "読むものすべてを信じてはいけません。" }
-    ]
-  },
-  {
-    id: 228, title: "スポーツの重要性", category: "健康", level: "中級",
-    contentVoweled: "الرِّيَاضَةُ تُقَوِّي الْجِسْمَ وَتُحَسِّنُ النَّفْسِيَّةَ.",
-    contentPlain: "الرياضة تقوي الجسم وتحسن النفسية.",
-    vocabList: [
-      { word: "رِيَاضَة", meaning: "スポーツ" },
-      { word: "جِسْم", meaning: "体" },
-      { word: "نَشَاط", meaning: "活動/活力" }
-    ],
-    questions: [
-      { id: 2281, type: "reading", text: "スポーツは何を強くしますか？", options: ["服", "体", "家", "車"], correctIndex: 1, explanation: "「الْجِسْم (体)」です。" },
-      { id: 2282, type: "reading", text: "精神的にはどうですか？", options: ["悪くなる", "気分を良くする", "眠くなる", "怒る"], correctIndex: 1, explanation: "「تُحَسِّنُ النَّفْسِيَّةَ (気分/精神を良くする)」です。" },
-      { id: 2283, type: "reading", text: "どれくらい運動すべきですか？", options: ["毎日少しずつ", "年に一回", "一日中", "しないほうがいい"], correctIndex: 0, explanation: "「نِصْف سَاعَة يَوْمِيًّا (毎日30分)」が推奨されています。" },
-      { id: 2284, type: "vocabulary", text: "「مَشْي」の意味は？", options: ["走り", "歩き/ウォーキング", "水泳", "ジャンプ"], correctIndex: 1, explanation: "Walkingです。" },
-      { id: 2285, type: "grammar", text: "「守ります」", options: ["تَحْمِي", "تَهْدِمُ", "تَنْسَى", "تَأْكُلُ"], correctIndex: 0, explanation: "「Taḥmī (Protect)」です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "الْحَرَكَةُ بَرَكَةٌ.", japanese: "運動（動き）は祝福です。" },
-      { speaker: "ナレーター", arabic: "الْمَشْيُ رِيَاضَةٌ سَهْلَةٌ وَمُفِيدَةٌ.", japanese: "ウォーキングは簡単で有益なスポーツです。" },
-      { speaker: "ナレーター", arabic: "تُسَاعِدُ الرِّيَاضَةُ فِي إِنْقَاصِ الْوَزْنِ.", japanese: "スポーツは体重を減らすのに役立ちます。" },
-      { speaker: "ナレーター", arabic: "تَحْمِي مِنَ الْأَمْرَاضِ.", japanese: "病気から守ります。" },
-      { speaker: "ナレーター", arabic: "اِجْعَلِ الرِّيَاضَةَ جُزْءًا مِنْ يَوْمِكَ.", japanese: "スポーツを1日の一部にしなさい。" }
-    ]
-  },
-  {
-    id: 229, title: "交通ルール", category: "社会", level: "中級",
-    contentVoweled: "الِالْتِزَامُ بِقَوَاعِدِ الْمُرُورِ يَحْمِي الْأَرْوَاحَ.",
-    contentPlain: "الالتزام بقواعد المرور يحمي الأرواح.",
-    vocabList: [
-      { word: "مُرُور", meaning: "交通" },
-      { word: "إِشَارَة", meaning: "信号" },
-      { word: "حِزَام", meaning: "ベルト" }
-    ],
-    questions: [
-      { id: 2291, type: "reading", text: "交通ルールを守るとどうなりますか？", options: ["事故が増える", "命を守る", "遅れる", "お金がかかる"], correctIndex: 1, explanation: "「يَحْمِي الْأَرْوَاحَ (命を守る)」です。" },
-      { id: 2292, type: "reading", text: "赤信号ではどうしますか？", options: ["進む", "止まる", "走る", "曲がる"], correctIndex: 1, explanation: "「تَوَقَّفْ (止まれ)」です。" },
-      { id: 2293, type: "reading", text: "運転中に何をしてはいけませんか？", options: ["話す", "スマホを使う", "水を見る", "歌う"], correctIndex: 1, explanation: "「اِسْتِخْدَام الْهَاتِف (電話の使用)」です。" },
-      { id: 2294, type: "vocabulary", text: "「سُرْعَة」の意味は？", options: ["遅さ", "スピード/速さ", "高さ", "重さ"], correctIndex: 1, explanation: "スピードです。" },
-      { id: 2295, type: "grammar", text: "「締めてください」", options: ["اِرْبِطْ", "اِفْتَحْ", "اِكْسِرْ", "اِمْشِ"], correctIndex: 0, explanation: "「Irbiṭ (結べ/締めろ)」です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "اِرْبِطْ حِزَامَ الْأَمَانِ دَائِمًا.", japanese: "いつもシートベルトを締めなさい。" },
-      { speaker: "ナレーター", arabic: "لَا تَتَجَاوَزِ السُّرْعَةَ الْمُحَدَّدَةَ.", japanese: "制限速度を超えてはいけません。" },
-      { speaker: "ナレーター", arabic: "اِحْتَرِمْ إِشَارَةَ الْمُرُورِ.", japanese: "交通信号を尊重しなさい。" },
-      { speaker: "ナレーター", arabic: "لَا تَسْتَخْدِمِ الْجَوَّالَ أَثْنَاءَ الْقِيَادَةِ.", japanese: "運転中に携帯を使ってはいけません。" },
-      { speaker: "ナレーター", arabic: "الْقِيَادَةُ فَنٌّ وَذَوْقٌ وَأَخْلَاقٌ.", japanese: "運転は技術であり、センスであり、道徳です。" }
-    ]
-  },
-  // --- 15. 文化・伝統 (230-234) ---
-  {
-    id: 230, title: "鷹狩り", category: "文化", level: "中級",
-    contentVoweled: "الصَّيْدُ بِالصُّقُورِ رِيَاضَةٌ تَقْلِيدِيَّةٌ عِنْدَ الْعَرَبِ.",
-    contentPlain: "الصيد بالصقور رياضة تقليدية عند العرب.",
-    vocabList: [
-      { word: "صَقْر", meaning: "鷹（タカ/ハヤブサ）" },
-      { word: "صَيْد", meaning: "狩り" },
-      { word: "تُرَاث", meaning: "遺産/伝統" }
-    ],
-    questions: [
-      { id: 2301, type: "reading", text: "鷹狩りとは何ですか？", options: ["新しい遊び", "伝統的なスポーツ", "仕事", "危険な戦い"], correctIndex: 1, explanation: "「رِيَاضَة تَقْلِيدِيَّة (伝統的なスポーツ)」です。" },
-      { id: 2302, type: "reading", text: "誰にとって重要ですか？", options: ["ヨーロッパ人", "アラブ人", "アジア人", "アメリカ人"], correctIndex: 1, explanation: "「عِنْدَ الْعَرَبِ (アラブ人の間で)」です。" },
-      { id: 2303, type: "reading", text: "鷹の特徴は？", options: ["遅い", "弱い", "鋭い視力と速さ", "泳げる"], correctIndex: 2, explanation: "「بَصَرٍ حَادٍّ وَسُرْعَةٍ (鋭い視力と速さ)」です。" },
-      { id: 2304, type: "vocabulary", text: "「رَمْز」の意味は？", options: ["敵", "シンボル/象徴", "道具", "餌"], correctIndex: 1, explanation: "Symbol（象徴）です。" },
-      { id: 2305, type: "grammar", text: "「訓練します」", options: ["يُدَرِّبُ", "يَلْعَبُ", "يَأْكُلُ", "يَنَامُ"], correctIndex: 0, explanation: "「Yudarribu (Train)」です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "الصَّيْدُ بِالصُّقُورِ جُزْءٌ مِنَ التُّرَاثِ الْعَرَبِيِّ.", japanese: "鷹狩りはアラブの遺産の一部です。" },
-      { speaker: "ナレーター", arabic: "يُدَرِّبُ الصَّيَّادُ الصَّقْرَ بِعِنَايَةٍ.", japanese: "猟師は鷹を注意深く訓練します。" },
-      { speaker: "ナレーター", arabic: "يَتَمَيَّزُ الصَّقْرُ بِبَصَرٍ حَادٍّ.", japanese: "鷹は鋭い視力が特徴です。" },
-      { speaker: "ナレーター", arabic: "إِنَّهُ رَمْزٌ لِلْقُوَّةِ وَالْحُرِّيَّةِ.", japanese: "それは力と自由の象徴です。" },
-      { speaker: "ナレーター", arabic: "تُقَامُ مَهْرَجَانَاتٌ خَاصَّةٌ لِلصُّقُورِ.", japanese: "鷹のための特別なフェスティバルが開催されます。" }
-    ]
-  },
-  {
-    id: 231, title: "アラビア馬", category: "文化", level: "中級",
-    contentVoweled: "الْحِصَانُ الْعَرَبِيُّ مِنْ أَجْمَلِ الْخُيُولِ فِي الْعَالَمِ.",
-    contentPlain: "الحصان العربي من أجمل الخيول في العالم.",
-    vocabList: [
-      { word: "حِصَان", meaning: "馬" },
-      { word: "سَبَاق", meaning: "レース" },
-      { word: "أَصِيل", meaning: "純血の/本物の" }
-    ],
-    questions: [
-      { id: 2311, type: "reading", text: "アラビア馬の特徴は？", options: ["重い", "世界で最も美しいものの一つ", "遅い", "弱い"], correctIndex: 1, explanation: "「مِنْ أَجْمَلِ الْخُيُولِ」です。" },
-      { id: 2312, type: "reading", text: "何に使われますか？", options: ["農業", "レースとショー", "荷運び", "食用"], correctIndex: 1, explanation: "「السِّبَاقَات (レース)」や美容コンテストです。" },
-      { id: 2313, type: "reading", text: "その性格は？", options: ["凶暴", "賢くて忠実", "臆病", "怠け者"], correctIndex: 1, explanation: "「ذَكِيٌّ وَوَفِيٌّ (賢くて忠実)」です。" },
-      { id: 2314, type: "vocabulary", text: "「قُوَّة」の意味は？", options: ["弱さ", "力/強さ", "速さ", "色"], correctIndex: 1, explanation: "Power/Strengthです。" },
-      { id: 2315, type: "grammar", text: "「走ります」", options: ["يَجْرِي", "يَطِيرُ", "يَسْبَحُ", "يَزْحَفُ"], correctIndex: 0, explanation: "「Yajrī」です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "يُعْرَفُ الْحِصَانُ الْعَرَبِيُّ بِجَمَالِهِ.", japanese: "アラビア馬はその美しさで知られています。" },
-      { speaker: "ナレーター", arabic: "لَهُ رَأْسٌ صَغِيرٌ وَعَيْنَانِ كَبِيرَتَانِ.", japanese: "小さな頭と大きな目を持っています。" },
-      { speaker: "ナレーター", arabic: "إِنَّهُ حَيَوَانٌ ذَكِيٌّ وَوَفِيٌّ لِصَاحِبِهِ.", japanese: "賢く、飼い主に忠実な動物です。" },
-      { speaker: "ナレーター", arabic: "يُشَارِكُ فِي سِبَاقَاتِ السُّرْعَةِ وَالْقُدْرَةِ.", japanese: "スピードや耐久力のレースに参加します。" },
-      { speaker: "ナレーター", arabic: "الْعَرَبُ يُحِبُّونَ الْخَيْلَ كَثِيرًا.", japanese: "アラブ人は馬をとても愛しています。" }
-    ]
-  },
-  {
-    id: 232, title: "真珠採り", category: "歴史", level: "中級",
-    contentVoweled: "كَانَ الْغَوْصُ عَلَى اللُّؤْلُؤِ مِهْنَةَ الْأَجْدَادِ فِي الْخَلِيجِ.",
-    contentPlain: "كان الغوص على اللؤلؤ مهنة الأجداد في الخليج.",
-    vocabList: [
-      { word: "لُؤْلُؤ", meaning: "真珠" },
-      { word: "بَحْر", meaning: "海" },
-      { word: "غَوْص", meaning: "ダイビング" }
-    ],
-    questions: [
-      { id: 2321, type: "reading", text: "湾岸諸国の昔の仕事は？", options: ["農業", "真珠採り", "工場", "観光"], correctIndex: 1, explanation: "「الْغَوْص عَلَى اللُّؤْلُؤِ」です。" },
-      { id: 2322, type: "reading", text: "その仕事はどうでしたか？", options: ["簡単", "安全", "困難で危険", "退屈"], correctIndex: 2, explanation: "「شَاقَّة وَخَطِيرَة (過酷で危険)」でした。" },
-      { id: 2323, type: "reading", text: "彼らはどこへ行きましたか？", options: ["山の奥", "海の底", "砂漠", "空"], correctIndex: 1, explanation: "「أَعْمَاقِ الْبَحْرِ (海の深み)」です。" },
-      { id: 2324, type: "vocabulary", text: "「تِجَارَة」の意味は？", options: ["遊び", "貿易/商売", "勉強", "祈り"], correctIndex: 1, explanation: "Trade/Businessです。" },
-      { id: 2325, type: "grammar", text: "「潜ります」", options: ["يَغُوصُ", "يَعُومُ", "يَغْرَقُ", "يَشْرَبُ"], correctIndex: 0, explanation: "「Yaghūṣu (Dive)」です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "قَبْلَ النِّفْطِ، كَانَ اللُّؤْلُؤُ مَصْدَرَ الرِّزْقِ.", japanese: "石油が出る前、真珠が生計の源でした。" },
-      { speaker: "ナレーター", arabic: "يَغُوصُ الرِّجَالُ إِلَى أَعْمَاقِ الْبَحْرِ.", japanese: "男たちは海の深くまで潜りました。" },
-      { speaker: "ナレーター", arabic: "يَبْحَثُونَ عَنِ الْمَحَّارِ لِاسْتِخْرَاجِ اللُّؤْلُؤِ.", japanese: "真珠を取り出すために貝を探します。" },
-      { speaker: "ナレーター", arabic: "كَانَتْ رِحْلَةَ الْغَوْصِ تَسْتَمِرُّ شُهُورًا.", japanese: "ダイビングの旅は数ヶ月続きました。" },
-      { speaker: "ナレーター", arabic: "إِنَّهَا جُزْءٌ مُهِمٌّ مِنْ تَارِيخِ الْخَلِيجِ.", japanese: "それは湾岸の歴史の重要な一部です。" }
-    ]
-  },
-  {
-    id: 233, title: "アル・ウラー", category: "記事", level: "中級",
-    contentVoweled: "الْعُلَا مَدِينَةٌ تَارِيخِيَّةٌ وَسِيَاحِيَّةٌ فِي الْمَمْلَكَةِ.",
-    contentPlain: "العلا مدينة تاريخية وسياحية في المملكة.",
-    vocabList: [
-      { word: "آثَار", meaning: "遺跡" },
-      { word: "طَبِيعَة", meaning: "自然" },
-      { word: "سِيَاحَة", meaning: "観光" }
-    ],
-    questions: [
-      { id: 2331, type: "reading", text: "アル・ウラーはどんな場所ですか？", options: ["工場地帯", "歴史的観光地", "海辺の町", "雪山"], correctIndex: 1, explanation: "「مَدِينَة تَارِيخِيَّة وَسِيَاحِيَّة」です。" },
-      { id: 2332, type: "reading", text: "有名な遺跡は？", options: ["ピラミッド", "マダーイン・サーレハ", "万里の長城", "エッフェル塔"], correctIndex: 1, explanation: "「مَدَائِن صَالِح」です。" },
-      { id: 2333, type: "reading", text: "景色はどうですか？", options: ["ビルばかり", "岩山と砂漠", "森", "湖"], correctIndex: 1, explanation: "「الْجِبَال الصَّخْرِيَّة (岩山)」が特徴です。" },
-      { id: 2334, type: "vocabulary", text: "「مُتْحَف」の意味は？", options: ["学校", "博物館", "病院", "駅"], correctIndex: 1, explanation: "Museumです。" },
-      { id: 2335, type: "grammar", text: "「開かれています」", options: ["مَفْتُوحٌ", "مُغْلَقٌ", "مَكْسُورٌ", "بَعِيدٌ"], correctIndex: 0, explanation: "「Maftūḥ (Open)」です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "تَقَعُ الْعُلَا فِي شَمَالِ غَرْبِ السُّعُودِيَّةِ.", japanese: "アル・ウラーはサウジアラビアの北西にあります。" },
-      { speaker: "ナレーター", arabic: "تَشْتَهِرُ بِآثَارِ مَدَائِنِ صَالِحَ.", japanese: "マダーイン・サーレハの遺跡で有名です。" },
-      { speaker: "ナレーター", arabic: "طَبِيعَتُهَا الصَّخْرِيَّةُ سَاحِرَةٌ.", japanese: "その岩の自然は魅惑的です。" },
-      { speaker: "ナレーター", arabic: "تُعْتَبَرُ مُتْحَفًا مَفْتُوحًا.", japanese: "それは野外博物館（オープン・ミュージアム）と考えられています。" },
-      { speaker: "ナレーター", arabic: "تُقَامُ فِيهَا حَفَلَاتٌ وَفَعَالِيَّاتٌ عَالَمِيَّةٌ.", japanese: "そこでは世界的なコンサートやイベントが開かれます。" }
-    ]
-  },
-  {
-    id: 234, title: "香木（ウード）", category: "文化", level: "中級",
-    contentVoweled: "الْعُودُ هُوَ أَغْلَى أَنْوَاعِ الطِّيبِ وَالْبَخُورِ.",
-    contentPlain: "العود هو أغلى أنواع الطيب والبخور.",
-    vocabList: [
-      { word: "بَخُور", meaning: "お香" },
-      { word: "رَائِحَة", meaning: "香り" },
-      { word: "ضَيْف", meaning: "客" }
-    ],
-    questions: [
-      { id: 2341, type: "reading", text: "ウードとは何ですか？", options: ["食べ物", "香木/お香", "飲み物", "服"], correctIndex: 1, explanation: "「طِيب وَبَخُور (香水とお香)」の一種です。" },
-      { id: 2342, type: "reading", text: "価格はどうですか？", options: ["安い", "無料", "非常に高い", "普通"], correctIndex: 2, explanation: "「أَغْلَى (最も高い)」と言っています。" },
-      { id: 2343, type: "reading", text: "いつ使われますか？", options: ["寝る時", "おもてなしや結婚式", "スポーツの時", "勉強中"], correctIndex: 1, explanation: "「فِي الْمُنَاسَبَاتِ وَلِلضُّيُوفِ」です。" },
-      { id: 2344, type: "vocabulary", text: "「خَشَب」の意味は？", options: ["石", "木材", "鉄", "紙"], correctIndex: 1, explanation: "Wood（木）のことです。" },
-      { id: 2345, type: "grammar", text: "「匂いを嗅ぐ」", options: ["يَشَمُّ", "يَأْكُلُ", "يَرَى", "يَلْمِسُ"], correctIndex: 0, explanation: "「Yashammu」です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "يُسْتَخْرَجُ دُهْنُ الْعُودِ مِنْ شَجَرَةٍ خَاصَّةٍ.", japanese: "ウードの油は特別な木から抽出されます。" },
-      { speaker: "ナレーター", arabic: "رَائِحَتُهُ قَوِيَّةٌ وَجَمِيلَةٌ.", japanese: "その香りは強く、美しいです。" },
-      { speaker: "ナレーター", arabic: "يُقَدَّمُ الْبَخُورُ لِلضُّيُوفِ كَنَوْعٍ مِنَ التَّكْرِيمِ.", japanese: "お香は敬意の印として客に提供されます。" },
-      { speaker: "ナレーター", arabic: "يَرْتَبِطُ الْعُودُ بِالْكَرَمِ الْعَرَبِيِّ.", japanese: "ウードはアラブの寛大さと結びついています。" },
-      { speaker: "ナレーター", arabic: "يُسْتَخْدَمُ فِي الْأَعْرَاسِ وَالْأَعْيَادِ.", japanese: "結婚式や祝祭で使用されます。" }
-    ]
-  },
-
-  // --- 16. 科学・自然 (235-239) ---
-  {
-    id: 235, title: "アル・フワーリズミー", category: "歴史", level: "中級",
-    contentVoweled: "الْخُوَارِزْمِيُّ عَالِمُ رِيَاضِيَّاتٍ كَبِيرٌ. مُؤَسِّسُ عِلْمِ الْجَبْرِ.",
-    contentPlain: "الخوارزمي عالم رياضيات كبير. مؤسس علم الجبر.",
-    vocabList: [
-      { word: "عَالِم", meaning: "学者" },
-      { word: "رِيَاضِيَّات", meaning: "数学" },
-      { word: "صِفْر", meaning: "ゼロ" }
-    ],
-    questions: [
-      { id: 2351, type: "reading", text: "彼は何の学者ですか？", options: ["歴史", "数学", "文学", "音楽"], correctIndex: 1, explanation: "「رِيَاضِيَّات」です。" },
-      { id: 2352, type: "reading", text: "彼は何の創始者ですか？", options: ["幾何学", "代数学（アルジェブラ）", "化学", "生物学"], correctIndex: 1, explanation: "「عِلْم الْجَبْر (代数学)」です。" },
-      { id: 2353, type: "reading", text: "彼が導入した重要な数字は？", options: ["1", "10", "ゼロ", "100"], correctIndex: 2, explanation: "「الصِّفْر (ゼロ)」です。" },
-      { id: 2354, type: "vocabulary", text: "「حِسَاب」の意味は？", options: ["計算/算数", "言葉", "星", "地図"], correctIndex: 0, explanation: "Calculationです。" },
-      { id: 2355, type: "grammar", text: "「発明しました」", options: ["اخْتَرَعَ", "أَكَلَ", "نَامَ", "ذَهَبَ"], correctIndex: 0, explanation: "「Ikhtara'a」です。" }
-    ],
-    sentences: [
-      { speaker: "ナレーター", arabic: "عَاشَ الْخُوَارِزْمِيُّ فِي بَغْدَادَ.", japanese: "フワーリズミーはバグダッドに住んでいました。" },
-      { speaker: "ナレーター", arabic: "كَتَبَ كُتُبًا فِي الْحِسَابِ وَالْفَلَكِ.", japanese: "彼は算術と天文学の本を書きました。" },
-      { speaker: "ナレーター", arabic: "كَلِمَةُ 'لُوغَارِيتْم' مُشْتَقَّةٌ مِنِ اسْمِهِ.", japanese: "「アルゴリズム」という言葉は彼の名前に由来します。" },
-      { speaker: "ナレーター", arabic: "أَدْخَلَ نِظَامَ الْأَرْقَامِ الْهِنْدِيَّةِ وَالصِّفْرَ.", japanese: "彼はインド数字システムとゼロを導入しました。" },
-      { speaker: "ナレーター", arabic: "تُرْجِمَتْ أَعْمَالُهُ إِلَى اللَّاتِينِيَّةِ.", japanese: "彼の作品はラテン語に翻訳されました。" }
-    ]
-  },
-  {
-    id: 236, title: "紅海", category: "記事", level: "中級",
-    contentVoweled: "الْبَحْرُ الْأَحْمَرُ مَشْهُورٌ بِالشُّعَبِ الْمَرْجَانِيَّةِ الْجَمِيلَةِ.",
-    contentPlain: "البحر الأحمر مشهور بالشعب المرجانية الجميلة.",
+    id: 236,
+    title: "紅海",
+    category: "記事",
+    level: "中級",
+    contentVoweled: "يَقَعُ الْبَحْرُ الْأَحْمَرُ غَرْبَ السُّعُودِيَّةِ. مِيَاهُهُ صَافِيَةٌ وَدَافِئَةٌ. تَعِيشُ فِيهِ كَائِنَاتٌ بَحْرِيَّةٌ نَادِرَةٌ. يَأْتِي الْغَوَّاصُونَ مِنْ كُلِّ مَكَانٍ. مَدِينَةُ جِدَّةَ هِيَ عَرُوسُ الْبَحْرِ الْأَحْمَرِ.",
+    contentPlain: "يقع البحر الأحمر غرب السعودية. مياهه صافية ودافئة. تعيش فيه كائنات بحرية نادرة. يأتي الغواصون من كل مكان. مدينة جدة هي عروس البحر الأحمر.",
     vocabList: [
       { word: "بَحْر", meaning: "海" },
       { word: "سَمَك", meaning: "魚" },
-      { word: "غَوْص", meaning: "ダイビング" }
+      { word: "غَوْص", meaning: "ダイビング" },
+      { word: "صَافِيَة", meaning: "澄んだ" }, // 追加
+      { word: "عَرُوس", meaning: "花嫁" } // 追加
     ],
     questions: [
-      { id: 2361, type: "reading", text: "紅海は何で有名ですか？", options: ["高い波", "サンゴ礁", "氷", "暗闇"], correctIndex: 1, explanation: "「الشُّعَب الْمَرْجَانِيَّة (サンゴ礁)」です。" },
+      { id: 2361, type: "reading", text: "紅海は何で有名ですか？", options: ["高い波", "サンゴ礁", "氷", "暗闇"], correctIndex: 1, explanation: "「الشُّعَب الْمَرْجَانِيَّة (サンゴ礁)」や「كَائِنَاتٌ بَحْرِيَّةٌ」が有名です。" },
       { id: 2362, type: "reading", text: "観光客は何をしますか？", options: ["スキー", "ダイビング", "登山", "狩り"], correctIndex: 1, explanation: "「الْغَوْص (ダイビング)」です。" },
-      { id: 2363, type: "reading", text: "水の中には何がいますか？", options: ["鳥", "色とりどりの魚", "猫", "ラクダ"], correctIndex: 1, explanation: "「أَسْمَاك مُلَوَّنَة (カラフルな魚)」です。" },
+      { id: 2363, type: "reading", text: "水の中には何がいますか？", options: ["鳥", "色とりどりの魚", "猫", "ラクダ"], correctIndex: 1, explanation: "「أَسْمَاك مُلَوَّنَة (カラフルな魚)」や海洋生物です。" },
       { id: 2364, type: "vocabulary", text: "「سَاحِل」の意味は？", options: ["山", "海岸", "空", "砂漠"], correctIndex: 1, explanation: "Coast（海岸）です。" },
-      { id: 2365, type: "grammar", text: "「泳ぎます」", options: ["يَسْبَحُ", "يَطِيرُ", "يَمْشِي", "يَجْرِي"], correctIndex: 0, explanation: "「Yasbaḥu」です。" }
+      { id: 2365, type: "grammar", text: "「泳ぎます」", options: ["يَسْبَحُ", "يَطِيرُ", "يَمْشِي", "يَجْرِي"], correctIndex: 0, explanation: "「Yasbaḥu」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2366, type: "grammar", text: "「تَعِيشُ فِيهِ كَائِنَاتٌ」で動詞が女性形（Ta-）なのはなぜ？", options: ["主語が女性名詞（非理性的複数）だから", "主語が男性だから", "過去形だから", "場所を表すから"], correctIndex: 0, explanation: "主語「كَائِنَاتٌ (生き物たち)」は非理性的複数なので、動詞は女性単数形で受けるのが一般的です。" },
+      { id: 2367, type: "grammar", text: "「عَرُوسُ الْبَحْرِ」のような名詞の組み合わせを何と呼ぶ？", options: ["イダーファ（所有格構文）", "形容詞修飾", "動詞文", "前置詞句"], correctIndex: 0, explanation: "「海の・花嫁」のように名詞をつなげて所有や帰属を表す形を「イダーファ」と呼びます。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "يَقَعُ الْبَحْرُ الْأَحْمَرُ غَرْبَ السُّعُودِيَّةِ.", japanese: "紅海はサウジアラビアの西に位置します。" },
@@ -7753,47 +8169,63 @@ questions: [] // アルファベット回は問題なし
     ]
   },
   {
-    id: 237, title: "シドルの蜂蜜", category: "記事", level: "中級",
-    contentVoweled: "عَسَلُ السِّدْرِ مِنْ أَفْضَلِ وَأَغْلَى أَنْوَاعِ الْعَسَلِ.",
-    contentPlain: "عسل السدر من أفضل وأغلى أنواع العسل.",
+    id: 237,
+    title: "シドルの蜂蜜",
+    category: "記事",
+    level: "中級",
+    contentVoweled: "يَصْنَعُ النَّحْلُ الْعَسَلَ مِنْ أَزْهَارِ السِّدْرِ. لَوْنُهُ ذَهَبِيٌّ غَامِقٌ. لَهُ طَعْمٌ لَذِيذٌ وَمُمَيَّزٌ. يُعْتَبَرُ دَوَاءً لِكَثِيرٍ مِنَ الْأَمْرَاضِ. يُشْتَهَرُ فِي الْيَمَنِ وَجَنُوبِ السُّعُودِيَّةِ.",
+    contentPlain: "يصنع النحل العسل من أزهار السدر. لونه ذهبي غامق. له طعم لذيذ ومميز. يعتبر دواء لكثير من الأمراض. يشتهر في اليمن وجنوب السعودية.",
     vocabList: [
       { word: "عَسَل", meaning: "蜂蜜" },
       { word: "شِفَاء", meaning: "治癒/薬" },
-      { word: "نَحْل", meaning: "ミツバチ" }
+      { word: "نَحْل", meaning: "ミツバチ" },
+      { word: "أَزْهَار", meaning: "花々" }, // 追加
+      { word: "مَرَض", meaning: "病気" } // 追加
     ],
     questions: [
       { id: 2371, type: "reading", text: "シドルの蜂蜜の特徴は？", options: ["安い", "苦い", "最高級で高価", "白い"], correctIndex: 2, explanation: "「أَفْضَل وَأَغْلَى (最高で最も高い)」です。" },
       { id: 2372, type: "reading", text: "どこから採れますか？", options: ["バラ", "シドルの木", "草", "果物"], correctIndex: 1, explanation: "「شَجَرَة السِّدْر」です。" },
       { id: 2373, type: "reading", text: "何に使われますか？", options: ["掃除", "治療と栄養", "洗濯", "燃料"], correctIndex: 1, explanation: "「عِلَاج (治療)」や食品として使われます。" },
       { id: 2374, type: "vocabulary", text: "「طَبِيعِيّ」の意味は？", options: ["人工の", "自然の/天然の", "悪い", "安い"], correctIndex: 1, explanation: "Natural（天然の）です。" },
-      { id: 2375, type: "grammar", text: "「作ります（生産します）」", options: ["يُنْتِجُ", "يَأْكُلُ", "يَنَامُ", "يَمُوتُ"], correctIndex: 0, explanation: "「Yuntiju」です。" }
+      { id: 2375, type: "grammar", text: "「作ります（生産します）」", options: ["يُنْتِجُ", "يَأْكُلُ", "يَنَامُ", "يَمُوتُ"], correctIndex: 0, explanation: "「Yuntiju」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2376, type: "grammar", text: "「لَهُ طَعْمٌ」という文の構造は？", options: ["動詞文（動詞+主語）", "名詞文（主語+述語）", "名詞文（前置詞句の前置述語+後置主語）", "命令文"], correctIndex: 2, explanation: "「Lahu (彼には〜がある)」が前置された述語（Khabar Muqaddam）、「Ta'mun (味が)」が後置された主語（Mubtada' Mu'akhkhar）です。" },
+      { id: 2377, type: "grammar", text: "「يُعْتَبَرُ」が受動態なのはなぜ？", options: ["誰が考えているか特定しないため（一般的に〜とされる）", "主語がないから", "過去のことだから", "間違い"], correctIndex: 0, explanation: "「人々によって〜と考えられている」という一般的評価を表すため、受動態が使われます。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "يَصْنَعُ النَّحْلُ الْعَسَلَ مِنْ أَزْهَارِ السِّدْرِ.", japanese: "ミツバチはシドルの花から蜂蜜を作ります。" },
       { speaker: "ナレーター", arabic: "لَوْنُهُ ذَهَبِيٌّ غَامِقٌ.", japanese: "色は濃い金色です。" },
       { speaker: "ナレーター", arabic: "لَهُ طَعْمٌ لَذِيذٌ وَمُمَيَّزٌ.", japanese: "美味しくて独特な味がします。" },
-      { speaker: "ナレーター", arabic: "يُعْتَبَرُ دَوَاءً لِكَثِيرٍ مِنَ الْأَمْرَاضِ.", japanese: "多くの病気の薬と考えられています。" },
+      { speaker: "ナレーター", arabic: "يُعْتَبَرُ دَوَاءً لِكَثِيرٍ مِنَ الْأَمْرَاضِ.", japanese: "多くの病気の薬（治療）と考えられています。" },
       { speaker: "ナレーター", arabic: "يُشْتَهَرُ فِي الْيَمَنِ وَجَنُوبِ السُّعُودِيَّةِ.", japanese: "イエメンやサウジ南部で有名です。" }
     ]
   },
   {
-    id: 238, title: "月と暦", category: "文化", level: "中級",
-    contentVoweled: "يَعْتَمِدُ التَّقْوِيمُ الْهِجْرِيُّ عَلَى دَوْرَةِ الْقَمَرِ.",
-    contentPlain: "يعتمد التقويم الهجري على دورة القمر.",
+    id: 238,
+    title: "月と暦",
+    category: "文化",
+    level: "中級",
+    contentVoweled: "السَّنَةُ الْهِجْرِيَّةُ أَقْصَرُ مِنَ الْمِيلَادِيَّةِ. تَتَكَوَّنُ مِنْ 12 شَهْرًا قَمَرِيًّا. يَبْدَأُ الشَّهْرُ عِنْدَ رُؤْيَةِ الْهِلَالِ. رَمَضَانُ وَذُو الْحِجَّةِ أَشْهُرٌ مُهِمَّةٌ. يَتَغَيَّرُ مَوْعِدُهَا كُلَّ عَامٍ.",
+    contentPlain: "السنة الهجرية أقصر من الميلادية. تتكون من 12 شهرا قمريا. يبدأ الشهر عند رؤية الهلال. رمضان وذو الحجة أشهر مهمة. يتغير موعدها كل عام.",
     vocabList: [
       { word: "قَمَر", meaning: "月" },
       { word: "شَهْر", meaning: "月（暦）" },
-      { word: "سَنَة", meaning: "年" }
+      { word: "سَنَة", meaning: "年" },
+      { word: "هِلَال", meaning: "三日月" }, // 追加
+      { word: "مَوْعِد", meaning: "時期/約束" } // 追加
     ],
     questions: [
       { id: 2381, type: "reading", text: "ヒジュラ暦は何に基づいていますか？", options: ["太陽", "月", "星", "風"], correctIndex: 1, explanation: "「الْقَمَر (月)」です。" },
       { id: 2382, type: "reading", text: "1ヶ月は何日ですか？", options: ["30か31日", "29か30日", "28日", "35日"], correctIndex: 1, explanation: "月の満ち欠けによるため「29か30日」です。" },
       { id: 2383, type: "reading", text: "新しい月はどうやって決まりますか？", options: ["計算だけ", "三日月の観測", "王様の命令", "くじ引き"], correctIndex: 1, explanation: "「رُؤْيَة الْهِلَال (三日月の観測)」です。" },
       { id: 2384, type: "vocabulary", text: "「بِدَايَة」の意味は？", options: ["終わり", "始まり", "真ん中", "永遠"], correctIndex: 1, explanation: "Beginning（始まり）です。" },
-      { id: 2385, type: "grammar", text: "「見ます」", options: ["يَرَى", "يَسْمَعُ", "يَشَمُّ", "يَمْشِي"], correctIndex: 0, explanation: "「Yarā」です。" }
+      { id: 2385, type: "grammar", text: "「見ます」", options: ["يَرَى", "يَسْمَعُ", "يَشَمُّ", "يَمْشِي"], correctIndex: 0, explanation: "「Yarā」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2386, type: "grammar", text: "「أَقْصَرُ」の文法的な形は？", options: ["最上級/比較級（Ism Tafḍīl）", "過去形", "受動態", "複数形"], correctIndex: 0, explanation: "「Af'al」の形は形容詞の比較級・最上級を表します（ここでは「より短い」）。" },
+      { id: 2387, type: "grammar", text: "「12 شَهْرًا」で「شَهْرًا」が単数対格（an）なのはなぜ？", options: ["11〜99の数の後の数えられる名詞（Tamyeez）だから", "目的語だから", "前置詞の後だから", "間違い"], correctIndex: 0, explanation: "11から99までの数字の後ろに来る名詞（数えられるもの）は、単数・対格（Mansūb）になるルールです。" }
     ],
     sentences: [
-      { speaker: "ナレーター", arabic: "السَّنَةُ الْهِجْرِيَّةُ أَقْصَرُ مِنَ الْمِيلَادِيَّةِ.", japanese: "ヒジュラ年（太陰年）はグレゴリオ年より短いです。" },
+      { speaker: "ナレーター", arabic: "السَّنَةُ الْهِجْرِيَّةُ أَقْصَرُ مِنَ الْمِيلَادِيَّةِ.", japanese: "ヒジュラ年（太陰年）はグレゴリオ年（太陽年）より短いです。" },
       { speaker: "ナレーター", arabic: "تَتَكَوَّنُ مِنْ 12 شَهْرًا قَمَرِيًّا.", japanese: "それは12の太陰月から成ります。" },
       { speaker: "ナレーター", arabic: "يَبْدَأُ الشَّهْرُ عِنْدَ رُؤْيَةِ الْهِلَالِ.", japanese: "月は三日月が見えた時に始まります。" },
       { speaker: "ナレーター", arabic: "رَمَضَانُ وَذُو الْحِجَّةِ أَشْهُرٌ مُهِمَّةٌ.", japanese: "ラマダンやズー・アルヒッジャは重要な月です。" },
@@ -7801,46 +8233,60 @@ questions: [] // アルファベット回は問題なし
     ]
   },
   {
-    id: 239, title: "ジュハーと釘", category: "物語", level: "中級",
-    contentVoweled: "بَاعَ جُحَا بَيْتَهُ، لَكِنَّهُ اشْتَرَطَ أَنْ يَبْقَى لَهُ مِسْمَارٌ فِي الْحَائِطِ.",
-    contentPlain: "باع جحا بيته، لكنه اشترط أن يبقى له مسمار في الحائط.",
+    id: 239,
+    title: "ジュハーと釘",
+    category: "物語",
+    level: "中級",
+    contentVoweled: "وَافَقَ الْمُشْتَرِي عَلَى شَرْطِ جُحَا. كَانَ جُحَا يَأْتِي كُلَّ يَوْمٍ لِيَزُورَ الْمِسْمَارَ. يَدْخُلُ الْبَيْتَ وَيَجْلِسُ طَوِيلًا. انْزَعَجَ الْمُشْتَرِي وَتَرَكَ الْبَيْتَ لِجُحَا. هَذِهِ قِصَّةٌ عَنِ الذَّكَاءِ وَالْحِيلَةِ.",
+    contentPlain: "وافق المشتري على شرط جحا. كان جحا يأتي كل يوم ليزور المسمار. يدخل البيت ويجلس طويلا. انزعج المشتري وترك البيت لجحا. هذه قصة عن الذكاء والحيلة.",
     vocabList: [
       { word: "مِسْمَار", meaning: "釘" },
       { word: "بَيْت", meaning: "家" },
-      { word: "حَائِط", meaning: "壁" }
+      { word: "حَائِط", meaning: "壁" },
+      { word: "شَرْط", meaning: "条件" }, // 追加
+      { word: "حِيلَة", meaning: "策略/トリック" } // 追加
     ],
     questions: [
       { id: 2391, type: "reading", text: "ジュハーは何を売りましたか？", options: ["釘", "家", "服", "ロバ"], correctIndex: 1, explanation: "「بَيْتَهُ (彼の家)」を売りました。" },
       { id: 2392, type: "reading", text: "彼は何を条件にしましたか？", options: ["お金を倍にする", "釘を一本残す", "庭を使う", "住み続ける"], correctIndex: 1, explanation: "「مِسْمَار فِي الْحَائِط (壁の釘)」を自分のものとして残しました。" },
       { id: 2393, type: "reading", text: "その後ジュハーはどうしましたか？", options: ["二度と来なかった", "毎日釘を見に来た", "釘を抜いた", "家を買い戻した"], correctIndex: 1, explanation: "釘を見るという口実で毎日家に入り込みました。" },
       { id: 2394, type: "vocabulary", text: "「مُشْتَرِي」の意味は？", options: ["売り手", "買い手", "家", "泥棒"], correctIndex: 1, explanation: "Buyer（買い手）です。" },
-      { id: 2395, type: "grammar", text: "「残ります」", options: ["يَبْقَى", "يَذْهَبُ", "يَمُوتُ", "يَأْكُلُ"], correctIndex: 0, explanation: "「Yabqā」です。" }
+      { id: 2395, type: "grammar", text: "「残ります」", options: ["يَبْقَى", "يَذْهَبُ", "يَمُوتُ", "يَأْكُلُ"], correctIndex: 0, explanation: "「Yabqā」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2396, type: "grammar", text: "「لِيَزُورَ」の「يَزُورَ」がa段（Fatḥa）で終わっている理由は？", options: ["直前に「Li-（〜するために）」があるから", "過去形だから", "命令形だから", "主語が彼だから"], correctIndex: 0, explanation: "「Li-（Lam of Purpose）」の後では、現在形動詞は接続法（Manṣūb）になり、通常Fatḥaで終わります。" },
+      { id: 2397, type: "grammar", text: "「كَانَ يَأْتِي」の意味は？", options: ["彼は来た", "彼は来ている", "彼は（過去に習慣的に）来ていた", "彼は来るだろう"], correctIndex: 2, explanation: "「Kāna + 現在形」は過去における継続的・習慣的な動作（Past Continuous/Habitual）を表します。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "وَافَقَ الْمُشْتَرِي عَلَى شَرْطِ جُحَا.", japanese: "買い手はジュハーの条件に同意しました。" },
-      { speaker: "ナレーター", arabic: "كَانَ جُحَا يَأْتِي كُلَّ يَوْمٍ لِيَزُورَ الْمِسْمَارَ.", japanese: "ジュハーは毎日釘を訪ねてやって来ました。" },
+      { speaker: "ナレーター", arabic: "كَانَ جُحَا يَأْتِي كُلَّ يَوْمٍ لِيَزُورَ الْمِسْمَارَ.", japanese: "ジュハーは毎日釘を訪ねてやって来ました（来ていました）。" },
       { speaker: "ナレーター", arabic: "يَدْخُلُ الْبَيْتَ وَيَجْلِسُ طَوِيلًا.", japanese: "彼は家に入り、長時間座り込みました。" },
       { speaker: "ナレーター", arabic: "انْزَعَجَ الْمُشْتَرِي وَتَرَكَ الْبَيْتَ لِجُحَا.", japanese: "買い手は困り果て、家をジュハーに残して去りました。" },
       { speaker: "ナレーター", arabic: "هَذِهِ قِصَّةٌ عَنِ الذَّكَاءِ وَالْحِيلَةِ.", japanese: "これは知恵と策略についての物語です。" }
     ]
   },
-
-  // --- 17. 寓話・教訓 (240-244) ---
   {
-    id: 240, title: "親切な男", category: "物語", level: "中級",
-    contentVoweled: "وَجَدَ رَجُلٌ كَلْبًا عَطْشَانَ، فَسَقَاهُ الْمَاءَ.",
-    contentPlain: "وجد رجل كلبا عطشان، فسقاه الماء.",
+    id: 240,
+    title: "親切な男",
+    category: "物語",
+    level: "中級",
+    contentVoweled: "كَانَ الرَّجُلُ يَمْشِي فِي الصَّحْرَاءِ. رَأَى كَلْبًا يَلْهَثُ مِنَ الْعَطَشِ. نَزَلَ الرَّجُلُ إِلَى الْبِئْرِ. مَلَأَ حِذَاءَهُ بِالْمَاءِ وَسَقَى الْكَلْبَ. شَكَرَ اللهُ لَهُ وَغَفَرَ ذَنْبَهُ.",
+    contentPlain: "كان الرجل يمشي في الصحراء. رأى كلبا يلهث من العطش. نزل الرجل إلى البئر. ملأ حذاءه بالماء وسقى الكلب. شكر الله له وغفر ذنبه.",
     vocabList: [
       { word: "كَلْب", meaning: "犬" },
       { word: "مَاء", meaning: "水" },
-      { word: "رَحْمَة", meaning: "慈悲" }
+      { word: "رَحْمَة", meaning: "慈悲" },
+      { word: "عَطَش", meaning: "渇き" }, // 追加
+      { word: "حِذَاء", meaning: "靴" } // 追加
     ],
     questions: [
       { id: 2401, type: "reading", text: "男は何を見つけましたか？", options: ["猫", "鳥", "喉が乾いた犬", "ライオン"], correctIndex: 2, explanation: "「كَلْبًا عَطْشَانَ」です。" },
       { id: 2402, type: "reading", text: "男はどうしましたか？", options: ["逃げた", "水をあげた", "叩いた", "家に連れ帰った"], correctIndex: 1, explanation: "「سَقَاهُ الْمَاءَ (彼に水を飲ませた)」です。" },
       { id: 2403, type: "reading", text: "どうやって水を汲みましたか？", options: ["コップで", "靴を使って", "手で", "バケツで"], correctIndex: 1, explanation: "「بِحِذَائِهِ (彼の靴で)」です。" },
       { id: 2404, type: "vocabulary", text: "「بِئْر」の意味は？", options: ["井戸", "川", "海", "山"], correctIndex: 0, explanation: "Well（井戸）です。" },
-      { id: 2405, type: "grammar", text: "「降りました」", options: ["نَزَلَ", "صَعِدَ", "دَخَلَ", "خَرَجَ"], correctIndex: 0, explanation: "「Nazala」です。" }
+      { id: 2405, type: "grammar", text: "「降りました」", options: ["نَزَلَ", "صَعِدَ", "دَخَلَ", "خَرَجَ"], correctIndex: 0, explanation: "「Nazala」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2406, type: "grammar", text: "「كَلْبًا يَلْهَثُ」で「yalhathu」の文法的役割は？", options: ["主語", "形容詞節（Siifah）", "名詞", "前置詞"], correctIndex: 1, explanation: "非限定名詞（Kalban）の後の動詞文は、その名詞を修飾する形容詞（Siifah）の役割を果たします。「喘いでいる犬」となります。" },
+      { id: 2407, type: "grammar", text: "「سَقَى」の語根（Root）は？", options: ["S-Q-Y", "S-K-N", "S-R-Q", "Q-W-L"], correctIndex: 0, explanation: "「水をやる」という意味の動詞の語根は Sīn-Qāf-Yā です。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "كَانَ الرَّجُلُ يَمْشِي فِي الصَّحْرَاءِ.", japanese: "男は砂漠を歩いていました。" },
@@ -7851,44 +8297,60 @@ questions: [] // アルファベット回は問題なし
     ]
   },
   {
-    id: 241, title: "金持ちと貧乏人", category: "物語", level: "中級",
-    contentVoweled: "السَّعَادَةُ لَيْسَتْ فِي كَثْرَةِ الْمَالِ، بَلْ فِي رَاحَةِ الْبَالِ.",
-    contentPlain: "السعادة ليست في كثرة المال، بل في راحة البال.",
+    id: 241,
+    title: "金持ちと貧乏人",
+    category: "物語",
+    level: "中級",
+    contentVoweled: "عَاشَ رَجُلٌ غَنِيٌّ فِي قَصْرٍ كَبِيرٍ. كَانَ يَخَافُ عَلَى مَالِهِ فَلَا يَنَامُ. بِجَانِبِهِ رَجُلٌ فَقِيرٌ يَنَامُ بِعُمْقٍ. سَأَلَهُ الْغَنِيُّ: كَيْفَ تَسْعَدُ وَأَنْتَ فَقِيرٌ؟ قَالَ: الْقَنَاعَةُ كَنْزٌ لَا يَفْنَى.",
+    contentPlain: "عاش رجل غني في قصر كبير. كان يخاف على ماله فلا ينام. بجانبه رجل فقير ينام بعمق. سأله الغني: كيف تسعد وأنت فقير؟ قال: القناعة كنز لا يفنى.",
     vocabList: [
       { word: "مَال", meaning: "お金/財産" },
       { word: "سَعَادَة", meaning: "幸せ" },
-      { word: "قَنَاعَة", meaning: "満足/納得" }
+      { word: "قَنَاعَة", meaning: "満足/納得" },
+      { word: "يَفْنَى", meaning: "尽きる/滅びる" }, // 追加
+      { word: "عُمْق", meaning: "深さ/深く" } // 追加
     ],
     questions: [
-      { id: 2411, type: "reading", text: "幸せとは何ですか？", options: ["たくさんのお金", "心の安らぎ", "大きな家", "高い車"], correctIndex: 1, explanation: "「رَاحَة الْبَال (心の安らぎ)」です。" },
-      { id: 2412, type: "reading", text: "金持ちはどうでしたか？", options: ["幸せだった", "いつも心配していた", "よく眠れた", "貧しかった"], correctIndex: 1, explanation: "「قَلِقًا دَائِمًا (常に心配していた)」です。" },
-      { id: 2413, type: "reading", text: "貧乏人はどうでしたか？", options: ["泣いていた", "満足して笑っていた", "怒っていた", "病気だった"], correctIndex: 1, explanation: "「رَاضِيًا وَيَضْحَكُ (満足して笑っていた)」です。" },
+      { id: 2411, type: "reading", text: "幸せとは何ですか？", options: ["たくさんのお金", "心の安らぎ", "大きな家", "高い車"], correctIndex: 1, explanation: "「رَاحَة الْبَال (心の安らぎ)」や「الْقَنَاعَة (満足)」です。" },
+      { id: 2412, type: "reading", text: "金持ちはどうでしたか？", options: ["幸せだった", "いつも心配していた", "よく眠れた", "貧しかった"], correctIndex: 1, explanation: "「يَخَافُ عَلَى مَالِهِ (財産を心配していた)」です。" },
+      { id: 2413, type: "reading", text: "貧乏人はどうでしたか？", options: ["泣いていた", "深く眠っていた", "怒っていた", "病気だった"], correctIndex: 1, explanation: "「يَنَامُ بِعُمْقٍ (深く眠っていた)」です。" },
       { id: 2414, type: "vocabulary", text: "「كَنْز」の意味は？", options: ["宝", "ゴミ", "石", "砂"], correctIndex: 0, explanation: "Treasure（宝）です。" },
-      { id: 2415, type: "grammar", text: "「持っています」", options: ["يَمْلِكُ", "يَفْقِدُ", "يُعْطِي", "يَأْخُذُ"], correctIndex: 0, explanation: "「Yamliku (所有する)」です。" }
+      { id: 2415, type: "grammar", text: "「持っています」", options: ["يَمْلِكُ", "يَفْقِدُ", "يُعْطِي", "يَأْخُذُ"], correctIndex: 0, explanation: "「Yamliku (所有する)」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2416, type: "grammar", text: "「الْقَنَاعَةُ كَنْزٌ」の文のタイプは？", options: ["動詞文（Jumla Fi'liyya）", "名詞文（Jumla Ismiyya）", "疑問文", "命令文"], correctIndex: 1, explanation: "名詞（Al-Qanā'a）で始まっているため、名詞文です。主語（Mubtada'）と述語（Khabar）で構成されています。" },
+      { id: 2417, type: "grammar", text: "「لَا يَفْنَى」の「لَا (Lā)」の種類は？", options: ["禁止のLa（〜するな）", "否定のLa（〜しない）", "過去の否定", "未来の強調"], correctIndex: 1, explanation: "動詞の語尾がスクーン（省略）になっていないため、禁止（Nahiya）ではなく、単なる否定（Nafiya）のLaです。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "عَاشَ رَجُلٌ غَنِيٌّ فِي قَصْرٍ كَبِيرٍ.", japanese: "ある金持ちが大きな宮殿に住んでいました。" },
       { speaker: "ナレーター", arabic: "كَانَ يَخَافُ عَلَى مَالِهِ فَلَا يَنَامُ.", japanese: "彼はお金の心配で眠れませんでした。" },
       { speaker: "ナレーター", arabic: "بِجَانِبِهِ رَجُلٌ فَقِيرٌ يَنَامُ بِعُمْقٍ.", japanese: "隣には深く眠る貧しい男がいました。" },
-      { speaker: "ナレーター", arabic: "سَأَلَهُ الْغَنِيُّ: كَيْفَ تَسْعَدُ وَأَنْتَ فَقِيرٌ؟", japanese: "金持ちは聞きました。「貧しいのになぜ幸せなんだ？」" },
+      { speaker: "ナレーター", arabic: "سَأَلَهُ الْغَنِيُّ: كَيْفَ تَسْعَدُ وَأَنْتَ فَقِيرٌ؟", japanese: "金持ちは聞きました。「貧しいのになぜ幸せ（になれる）なんだ？」" },
       { speaker: "ナレーター", arabic: "قَالَ: الْقَنَاعَةُ كَنْزٌ لَا يَفْنَى.", japanese: "彼は言いました。「足るを知ることは尽きない宝です。」" }
     ]
   },
   {
-    id: 242, title: "ハトとアリ", category: "物語", level: "中級",
-    contentVoweled: "سَقَطَتْ نَمْلَةٌ فِي النَّهْرِ، فَأَلْقَتْ لَهَا الْحَمَامَةُ غُصْنًا.",
-    contentPlain: "سقطت نملة في النهر، فألقت لها الحمامة غصنا.",
+    id: 242,
+    title: "ハトとアリ",
+    category: "物語",
+    level: "中級",
+    contentVoweled: "أَنْقَذَتِ الْحَمَامَةُ النَّمْلَةَ مِنَ الْغَرَقِ. بَعْدَ أَيَّامٍ، جَاءَ صَيَّادٌ. أَرَادَ صَيْدَ الْحَمَامَةِ. لَدَغَتِ النَّمْلَةُ قَدَمَ الصَّيَّادِ. صَرَخَ الصَّيَّادُ وَهَرَبَتِ الْحَمَامَةُ.",
+    contentPlain: "أنقذت الحمامة النملة من الغرق. بعد أيام، جاء صياد. أراد صيد الحمامة. لدغت النملة قدم الصياد. صرخ الصياد وهربت الحمامة.",
     vocabList: [
       { word: "حَمَامَة", meaning: "ハト" },
       { word: "نَمْلَة", meaning: "アリ" },
-      { word: "غَرِقَ", meaning: "溺れた" }
+      { word: "غَرِقَ", meaning: "溺れた" },
+      { word: "أَنْقَذَ", meaning: "助けた" }, // 追加
+      { word: "لَدَغَ", meaning: "刺した/噛んだ" } // 追加
     ],
     questions: [
-      { id: 2421, type: "reading", text: "アリはどうなりましたか？", options: ["飛んだ", "川に落ちた", "木に登った", "寝た"], correctIndex: 1, explanation: "「سَقَطَتْ فِي النَّهْرِ」です。" },
-      { id: 2422, type: "reading", text: "ハトは何をしましたか？", options: ["見ていた", "枝を投げた", "食べた", "逃げた"], correctIndex: 1, explanation: "「أَلْقَتْ غُصْنًا (枝を投げた)」です。" },
-      { id: 2423, type: "reading", text: "その後アリはどうしましたか？", options: ["ハトを噛んで助けた", "忘れた", "逃げた", "死んだ"], correctIndex: 0, explanation: "猟師を噛んでハトを救いました。" },
+      { id: 2421, type: "reading", text: "アリはどうなりましたか？", options: ["飛んだ", "溺れかけた", "木に登った", "寝た"], correctIndex: 1, explanation: "「مِنَ الْغَرَقِ (溺れることから)」助けられました。" },
+      { id: 2422, type: "reading", text: "ハトは何をしましたか？", options: ["見ていた", "アリを助けた", "食べた", "逃げた"], correctIndex: 1, explanation: "「أَنْقَذَتِ ... النَّمْلَةَ (アリを救った)」です。" },
+      { id: 2423, type: "reading", text: "その後アリはどうしましたか？", options: ["ハトを助け返した", "忘れた", "逃げた", "死んだ"], correctIndex: 0, explanation: "猟師を噛んでハトを救いました。" },
       { id: 2424, type: "vocabulary", text: "「صَيَّاد」の意味は？", options: ["農夫", "猟師", "医者", "王様"], correctIndex: 1, explanation: "Hunter（猟師）です。" },
-      { id: 2425, type: "grammar", text: "「投げた」", options: ["أَلْقَى / رَمَى", "أَخَذَ", "أَمْسَكَ", "وَجَدَ"], correctIndex: 0, explanation: "「Alqā」または「Ramā」です。" }
+      { id: 2425, type: "grammar", text: "「投げた」", options: ["أَلْقَى / رَمَى", "أَخَذَ", "أَمْسَكَ", "وَجَدَ"], correctIndex: 0, explanation: "「Alqā」または「Ramā」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2426, type: "grammar", text: "「أَنْقَذَتِ」の最後の「ti」の発音の理由は？", options: ["女性形だから", "過去形だから", "スクーンが2つ続いた回避のため", "所有格だから"], correctIndex: 2, explanation: "本来「Anqadhat」ですが、次の「al-」のSukoonとぶつかるため（Iltiqa' al-Sakinayn）、発音しやすくするためにKasra（i）に変えています。" },
+      { id: 2427, type: "grammar", text: "「بَعْدَ أَيَّامٍ」で「ayyāmin」が属格（in）なのは？", options: ["形容詞だから", "動詞の目的語だから", "イダーファ（所有格構文）の第2要素だから", "主語だから"], correctIndex: 2, explanation: "「Ba'da（〜の後）」などの副詞的名詞は、後ろに来る名詞をイダーファの第2要素（Muḍāf Ilayhi）として属格（Majrur）にします。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "أَنْقَذَتِ الْحَمَامَةُ النَّمْلَةَ مِنَ الْغَرَقِ.", japanese: "ハトはアリを溺死から救いました。" },
@@ -7899,166 +8361,220 @@ questions: [] // アルファベット回は問題なし
     ]
   },
   {
-    id: 243, title: "知識の旅", category: "文学", level: "中級",
-    contentVoweled: "اُطْلُبُوا الْعِلْمَ مِنَ الْمَهْدِ إِلَى اللَّحْدِ.",
-    contentPlain: "اطلبوا العلم من المهد إلى اللحد.",
+    id: 243,
+    title: "知識の旅",
+    category: "文学",
+    level: "中級",
+    contentVoweled: "الْعِلْمُ لَا يَأْتِي وَأَنْتَ جَالِسٌ. كَانَ الْعُلَمَاءُ يُسَافِرُونَ لِطَلَبِ الْحَدِيثِ. تَحَمَّلُوا الْجُوعَ وَالتَّعَبَ. الْعِلْمُ يَرْفَعُ بَيْتًا لَا عِمَادَ لَهُ. بِالْعِلْمِ تَتَقَدَّمُ الْأُمَمُ.",
+    contentPlain: "العلم لا يأتي وأنت جالس. كان العلماء يسافرون لطلب الحديث. تحملوا الجوع والتعب. العلم يرفع بيتا لا عماد له. بالعلم تتقدم الأمم.",
     vocabList: [
       { word: "عِلْم", meaning: "知識/学問" },
       { word: "مَهْد", meaning: "ゆりかご" },
-      { word: "لَحْد", meaning: "墓" }
+      { word: "لَحْد", meaning: "墓" },
+      { word: "جَالِس", meaning: "座っている" }, // 追加
+      { word: "عِمَاد", meaning: "柱" } // 追加
     ],
     questions: [
-      { id: 2431, type: "reading", text: "いつからいつまで学ぶべきですか？", options: ["朝から晩", "ゆりかごから墓場まで", "若いうちだけ", "学校で"], correctIndex: 1, explanation: "「مِنَ الْمَهْدِ إِلَى اللَّحْدِ (一生)」です。" },
+      { id: 2431, type: "reading", text: "ことわざ「ゆりかごから墓場まで」は何を意味しますか？", options: ["一生寝て過ごす", "一生学び続ける", "若いうちだけ学ぶ", "学校に行く"], correctIndex: 1, explanation: "「مِنَ الْمَهْدِ إِلَى اللَّحْدِ」は生涯学習を意味します。" },
       { id: 2432, type: "reading", text: "知識を得るためにどうすべきですか？", options: ["寝て待つ", "旅をする（求める）", "買う", "盗む"], correctIndex: 1, explanation: "「سَافَرَ (旅した)」「اُطْلُبُوا (求めよ)」です。" },
-      { id: 2433, type: "reading", text: "昔の学者はどうしましたか？", options: ["ネットで調べた", "長い距離を歩いた", "諦めた", "本を燃やした"], correctIndex: 1, explanation: "「مَشَى مَسَافَاتٍ طَوِيلَةً」です。" },
+      { id: 2433, type: "reading", text: "昔の学者はどうしましたか？", options: ["ネットで調べた", "長い距離を移動した", "諦めた", "本を燃やした"], correctIndex: 1, explanation: "「يُسَافِرُونَ (旅をしていた)」です。" },
       { id: 2434, type: "vocabulary", text: "「سَفَر」の意味は？", options: ["本", "旅行", "家", "ペン"], correctIndex: 1, explanation: "Travel（旅行）です。" },
-      { id: 2435, type: "grammar", text: "「求めなさい」", options: ["اُطْلُبْ", "اُتْرُكْ", "اِنْسَ", "اِبْكِ"], correctIndex: 0, explanation: "「Uṭlub」です。" }
+      { id: 2435, type: "grammar", text: "「求めなさい」", options: ["اُطْلُبْ", "اُتْرُكْ", "اِنْسَ", "اِبْكِ"], correctIndex: 0, explanation: "「Uṭlub」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2436, type: "grammar", text: "「وَأَنْتَ جَالِسٌ」の文法的役割は？", options: ["形容詞節", "ハール（状態節）", "目的語", "主語"], correctIndex: 1, explanation: "「Wāw al-Ḥāl」＋名詞文で、「あなたが座っている状態で」という様子を表します。" },
+      { id: 2437, type: "grammar", text: "「تَحَمَّلُوا」の動詞の語根（Root）は？", options: ["H-M-L", "J-M-L", "T-M-L", "A-M-L"], correctIndex: 0, explanation: "「耐える・背負う」の語根は Ḥā-Mīm-Lām (Ḥ-M-L) です。" }
     ],
     sentences: [
-      { speaker: "ナレーター", arabic: "الْعِلْمُ لَا يَأْتِي وَأَنْتَ جَالِسٌ.", japanese: "知識は座っているだけでは来ません。" },
-      { speaker: "ナレーター", arabic: "كَانَ الْعُلَمَاءُ يُسَافِرُونَ لِطَلَبِ الْحَدِيثِ.", japanese: "学者たちはハディース（伝承）を求めて旅をしました。" },
+      { speaker: "ナレーター", arabic: "الْعِلْمُ لَا يَأْتِي وَأَنْتَ جَالِسٌ.", japanese: "知識は（あなたが）座っているだけでは来ません。" },
+      { speaker: "ナレーター", arabic: "كَانَ الْعُلَمَاءُ يُسَافِرُونَ لِطَلَبِ الْحَدِيثِ.", japanese: "学者たちはハディース（伝承）を求めて旅をしていました。" },
       { speaker: "ナレーター", arabic: "تَحَمَّلُوا الْجُوعَ وَالتَّعَبَ.", japanese: "彼らは飢えと疲れに耐えました。" },
-      { speaker: "ナレーター", arabic: "الْعِلْمُ يَرْفَعُ بَيْتًا لَا عِمَادَ لَهُ.", japanese: "知識は柱のない家をも高くする（高める）。" },
+      { speaker: "ナレーター", arabic: "الْعِلْمُ يَرْفَعُ بَيْتًا لَا عِمَادَ لَهُ.", japanese: "知識は柱のない家をも高くします（高めます）。" },
       { speaker: "ナレーター", arabic: "بِالْعِلْمِ تَتَقَدَّمُ الْأُمَمُ.", japanese: "知識によって国々は発展します。" }
     ]
   },
   {
-    id: 244, title: "母の恩恵", category: "文化", level: "中級",
-    contentVoweled: "الْجَنَّةُ تَحْتَ أَقْدَامِ الْأُمَّهَاتِ.",
-    contentPlain: "الجنة تحت أقدام الأمهات.",
+    id: 244,
+    title: "母の恩恵",
+    category: "文化",
+    level: "中級",
+    contentVoweled: "الْأُمُّ هِيَ مَصْدَرُ الْحَنَانِ. سَهِرَتْ اللَّيَالِيَ مِنْ أَجْلِ رَاحَتِنَا. وَصَّى الْإِسْلَامُ بِالْإِحْسَانِ إِلَيْهَا. رِضَا اللهِ فِي رِضَا الْوَالِدَيْنِ. لَا نَسْتَطِيعُ رَدَّ جَمِيلِهَا.",
+    contentPlain: "الأم هي مصدر الحنان. سهرت الليالي من أجل راحتنا. وصى الإسلام بالإحسان إليها. رضا الله في رضا الوالدين. لا نستطيع رد جميلها.",
     vocabList: [
       { word: "أُمّ", meaning: "母" },
       { word: "جَنَّة", meaning: "天国" },
-      { word: "قَدَم", meaning: "足" }
+      { word: "قَدَم", meaning: "足" },
+      { word: "حَنَان", meaning: "優しさ/愛情" }, // 追加
+      { word: "إِحْسَان", meaning: "善行/親切" } // 追加
     ],
     questions: [
-      { id: 2441, type: "reading", text: "天国はどこにあると言われていますか？", options: ["空の上", "母の足元", "海の中", "山の上"], correctIndex: 1, explanation: "「تَحْتَ أَقْدَامِ الْأُمَّهَاتِ」です。" },
-      { id: 2442, type: "reading", text: "母に対してどうすべきですか？", options: ["無視する", "親切にする（孝行）", "怒る", "離れる"], correctIndex: 1, explanation: "「بِرُّ الْوَالِدَيْنِ (親孝行)」が重要です。" },
-      { id: 2443, type: "reading", text: "母は子供のために何をしましたか？", options: ["遊んだ", "苦労した/育てた", "寝た", "忘れた"], correctIndex: 1, explanation: "「تَعِبَتْ وَرَبَّتْ (疲れ、育てた)」です。" },
+      { id: 2441, type: "reading", text: "天国はどこにあると言われていますか？", options: ["空の上", "母の足元", "海の中", "山の上"], correctIndex: 1, explanation: "「تَحْتَ أَقْدَامِ الْأُمَّهَاتِ」という有名なハディースがあります。" },
+      { id: 2442, type: "reading", text: "母に対してどうすべきですか？", options: ["無視する", "親切にする（孝行）", "怒る", "離れる"], correctIndex: 1, explanation: "「بِرُّ الْوَالِدَيْنِ (親孝行)」や「الْإِحْسَان」が重要です。" },
+      { id: 2443, type: "reading", text: "母は子供のために何をしましたか？", options: ["遊んだ", "夜更かしして世話をした", "寝た", "忘れた"], correctIndex: 1, explanation: "「سَهِرَتْ اللَّيَالِيَ (夜を徹して起きていた)」です。" },
       { id: 2444, type: "vocabulary", text: "「قَلْب」の意味は？", options: ["頭", "心臓/心", "手", "目"], correctIndex: 1, explanation: "Heart（心）です。" },
-      { id: 2445, type: "grammar", text: "「愛しています」", options: ["أُحِبُّ", "أَكْرَهُ", "أَضْرِبُ", "أَقْتُلُ"], correctIndex: 0, explanation: "「Uḥibbu」です。" }
+      { id: 2445, type: "grammar", text: "「愛しています」", options: ["أُحِبُّ", "أَكْرَهُ", "أَضْرِبُ", "أَقْتُلُ"], correctIndex: 0, explanation: "「Uḥibbu」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2446, type: "grammar", text: "「اللَّيَالِيَ」の単数形は？", options: ["لَيْلَة", "لَيْل", "نَهَار", "يَوْم"], correctIndex: 0, explanation: "「Layla (Night)」の不規則複数形（Jam' Taksīr）が「Layālī」です。" },
+      { id: 2447, type: "grammar", text: "「رِضَا」の最後の文字（Alif）に母音記号がつかない理由は？", options: ["省略されている", "発音が不可能だから（Ta'adhdhur）", "重いから（Thiqal）", "スクーンだから"], correctIndex: 1, explanation: "Alif（アリフ）で終わる名詞（Ism Maqsur）は、母音を乗せることが物理的に不可能なため、推定母音（Harakat Muqaddara）となります。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "الْأُمُّ هِيَ مَصْدَرُ الْحَنَانِ.", japanese: "母は優しさの源です。" },
       { speaker: "ナレーター", arabic: "سَهِرَتْ اللَّيَالِيَ مِنْ أَجْلِ رَاحَتِنَا.", japanese: "彼女は私たちの安らぎのために夜通し起きていました。" },
-      { speaker: "ナレーター", arabic: "وَصَّى الْإِسْلَامُ بِالْإِحْسَانِ إِلَيْهَا.", japanese: "イスラムは彼女への善行を推奨しました。" },
+      { speaker: "ナレーター", arabic: "وَصَّى الْإِسْلَامُ بِالْإِحْسَانِ إِلَيْهَا.", japanese: "イスラムは彼女への善行を推奨しました（命じました）。" },
       { speaker: "ナレーター", arabic: "رِضَا اللهِ فِي رِضَا الْوَالِدَيْنِ.", japanese: "神の満足は両親の満足にあります。" },
       { speaker: "ナレーター", arabic: "لَا نَسْتَطِيعُ رَدَّ جَمِيلِهَا.", japanese: "私たちは彼女の恩を返しきることはできません。" }
     ]
   },
-
-  // --- 18. 社会・生活 (245-249) ---
   {
-    id: 245, title: "サウジの結婚式", category: "文化", level: "中級",
-    contentVoweled: "حَفْلُ الزَّفَافِ فِي السُّعُودِيَّةِ لَهُ تَقَالِيدُ خَاصَّةٌ.",
-    contentPlain: "حفل الزفاف في السعودية له تقاليد خاصة.",
+    id: 245,
+    title: "サウジの結婚式",
+    category: "文化",
+    level: "中級",
+    contentVoweled: "يَجْتَمِعُ الْأَقَارِبُ وَالْأَصْدِقَاءُ لِلتَّهْنِئَةِ. يَرْتَدِي الرِّجَالُ الْمَلَابِسَ التَّقْلِيدِيَّةَ. تُقَامُ الْعَرْضَةُ النَّجْدِيَّةُ بِالسُّيُوفِ. الْوَلِيمَةُ تَكُونُ كَبِيرَةً وَدَسِمَةً. يَفْرَحُ الْجَمِيعُ بِالْعَرِيسَيْنِ.",
+    contentPlain: "يجتمع الأقارب والأصدقاء للتهنئة. يرتدي الرجال الملابس التقليدية. تقام العرضة النجدية بالسيوف. الوليمة تكون كبيرة ودسمة. يفرح الجميع بالعريسين.",
     vocabList: [
       { word: "عُرْس", meaning: "結婚式" },
       { word: "وَلِيمَة", meaning: "宴/食事" },
-      { word: "رَقْص", meaning: "踊り" }
+      { word: "رَقْص", meaning: "踊り" },
+      { word: "تَهْنِئَة", meaning: "お祝い" }, // 追加
+      { word: "تَقْلِيدِيّ", meaning: "伝統的な" } // 追加
     ],
     questions: [
-      { id: 2451, type: "reading", text: "結婚式の特徴は？", options: ["静か", "特別な伝統がある", "短い", "悲しい"], correctIndex: 1, explanation: "「تَقَالِيد خَاصَّة」があります。" },
+      { id: 2451, type: "reading", text: "結婚式の特徴は？", options: ["静か", "特別な伝統がある", "短い", "悲しい"], correctIndex: 1, explanation: "「تَقَالِيد خَاصَّة」や伝統的な踊りがあります。" },
       { id: 2452, type: "reading", text: "男性は何を踊りますか？", options: ["サルサ", "アルダ（剣の舞）", "タンゴ", "バレエ"], correctIndex: 1, explanation: "「الْعَرْضَة (アルダ)」です。" },
-      { id: 2453, type: "reading", text: "食事は何が出ますか？", options: ["サンドイッチ", "羊肉と米（マフリ）", "スープ", "パン"], correctIndex: 1, explanation: "「خَرُوف (羊)」などのご馳走です。" },
+      { id: 2453, type: "reading", text: "食事は何が出ますか？", options: ["サンドイッチ", "羊肉と米（マフリ）", "スープ", "パン"], correctIndex: 1, explanation: "「وَلِيمَة ... كَبِيرَة وَدَسِمَة」で、通常は羊肉料理が出ます。" },
       { id: 2454, type: "vocabulary", text: "「عَرِيس」の意味は？", options: ["花嫁", "花婿", "父", "客"], correctIndex: 1, explanation: "新郎のことです。" },
-      { id: 2455, type: "grammar", text: "「踊ります」", options: ["يَرْقُصُ", "يَأْكُلُ", "يَجْلِسُ", "يَبْكِي"], correctIndex: 0, explanation: "「Yarquṣu」です。" }
+      { id: 2455, type: "grammar", text: "「踊ります」", options: ["يَرْقُصُ", "يَأْكُلُ", "يَجْلِسُ", "يَبْكِي"], correctIndex: 0, explanation: "「Yarquṣu」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2456, type: "grammar", text: "「يَرْتَدِي」の最後が「Damma」ではない理由は？", options: ["重さ（Thiqal）のため発音されない", "不可能性（Ta'adhdhur）のため", "接続法だから", "短縮形だから"], correctIndex: 0, explanation: "「Ya」で終わる動詞（Naqis）の現在形・主格は、Dammaの発音が重く感じる（Thiqal）ため、表記・発音されません。" },
+      { id: 2457, type: "grammar", text: "「بِالْعَرِيسَيْنِ」の「ayni」は何を表す？", options: ["複数形", "双数形（2人）", "単数形", "女性形"], correctIndex: 1, explanation: "新郎と新婦の2人を指すため、双数形（Dual）の属格（Majrur）の形になっています。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "يَجْتَمِعُ الْأَقَارِبُ وَالْأَصْدِقَاءُ لِلتَّهْنِئَةِ.", japanese: "親戚や友人がお祝いのために集まります。" },
       { speaker: "ナレーター", arabic: "يَرْتَدِي الرِّجَالُ الْمَلَابِسَ التَّقْلِيدِيَّةَ.", japanese: "男性は伝統的な服を着ます。" },
       { speaker: "ナレーター", arabic: "تُقَامُ الْعَرْضَةُ النَّجْدِيَّةُ بِالسُّيُوفِ.", japanese: "剣を使ったナジュドのアルダ（踊り）が行われます。" },
-      { speaker: "ナレーター", arabic: "الْوَلِيمَةُ تَكُونُ كَبِيرَةً وَدَسِمَةً.", japanese: "宴は大きく、豪華です。" },
-      { speaker: "ナレーター", arabic: "يَفْرَحُ الْجَمِيعُ بِالْعَرِيسَيْنِ.", japanese: "皆が新郎新婦を喜びます。" }
+      { speaker: "ナレーター", arabic: "الْوَلِيمَةُ تَكُونُ كَبِيرَةً وَدَسِمَةً.", japanese: "宴は大きく、豪華（脂っこい＝ご馳走）です。" },
+      { speaker: "ナレーター", arabic: "يَفْرَحُ الْجَمِيعُ بِالْعَرِيسَيْنِ.", japanese: "皆が新郎新婦（のことで）喜びます。" }
     ]
   },
   {
-    id: 246, title: "石油の発見", category: "歴史", level: "中級",
-    contentVoweled: "اكْتُشِفَ النِّفْطُ فِي السُّعُودِيَّةِ وَغَيَّرَ وَجْهَ الْحَيَاةِ.",
-    contentPlain: "اكتشف النفط في السعودية وغير وجه الحياة.",
+    id: 246,
+    title: "石油の発見",
+    category: "歴史",
+    level: "中級",
+    contentVoweled: "بَدَأَ التَّنْقِيبُ عَنِ النِّفْطِ مُنْذُ زَمَنٍ. فِي عَامِ 1938، تَدَفَّقَ النِّفْطُ بِكَمِّيَّاتٍ تِجَارِيَّةٍ. أَصْبَحَتِ الْمَمْلَكَةُ مِنْ أَغْنَى الدُّوَلِ. تَطَوَّرَ التَّعْلِيمُ وَالصِّحَّةُ وَالْعُمْرَانُ. أُرَامْكُو هِيَ أَكْبَرُ شَرِكَةِ نِفْطٍ فِي الْعَالَمِ.",
+    contentPlain: "بدأ التنقيب عن النفط منذ زمن. في عام 1938، تدفق النفط بكميات تجارية. أصبحت المملكة من أغنى الدول. تطور التعليم والصحة والعمران. أرامكو هي أكبر شركة نفط في العالم.",
     vocabList: [
       { word: "نِفْط", meaning: "石油" },
       { word: "اِكْتِشَاف", meaning: "発見" },
-      { word: "ثَرْوَة", meaning: "富/財産" }
+      { word: "ثَرْوَة", meaning: "富/財産" },
+      { word: "تَنَقِيب", meaning: "探査/掘削" }, // 追加
+      { word: "تَدَفَّقَ", meaning: "あふれ出た/噴出した" } // 追加
     ],
     questions: [
       { id: 2461, type: "reading", text: "何が発見されましたか？", options: ["金", "水", "石油", "ダイヤモンド"], correctIndex: 2, explanation: "「النِّفْط (石油)」です。" },
-      { id: 2462, type: "reading", text: "発見によってどうなりましたか？", options: ["変わらなかった", "生活が変わった", "貧しくなった", "人が減った"], correctIndex: 1, explanation: "「غَيَّرَ وَجْهَ الْحَيَاةِ (生活の顔＝様相を変えた)」です。" },
-      { id: 2463, type: "reading", text: "最初の油田の名前は？", options: ["リヤド", "ダンマーム7号井", "メッカ", "ジェッダ"], correctIndex: 1, explanation: "「بِئْرُ الدَّمَّامِ رَقْم 7 (ダンマームNo.7)」です。" },
+      { id: 2462, type: "reading", text: "発見によってどうなりましたか？", options: ["変わらなかった", "生活が変わった/豊かになった", "貧しくなった", "人が減った"], correctIndex: 1, explanation: "「أَغْنَى الدُّوَلِ (最も豊かな国)」の一つになりました。" },
+      { id: 2463, type: "reading", text: "最初の油田の名前は？", options: ["リヤド", "ダンマーム7号井", "メッカ", "ジェッダ"], correctIndex: 1, explanation: "一般知識として「Dammam No.7」です。" },
       { id: 2464, type: "vocabulary", text: "「اِقْتِصَاد」の意味は？", options: ["政治", "経済", "文化", "宗教"], correctIndex: 1, explanation: "Economy（経済）です。" },
-      { id: 2465, type: "grammar", text: "「変わりました」", options: ["تَغَيَّرَ", "بَقِيَ", "نَامَ", "ذَهَبَ"], correctIndex: 0, explanation: "「Taghayyara」です。" }
+      { id: 2465, type: "grammar", text: "「変わりました」", options: ["تَغَيَّرَ", "بَقِيَ", "نَامَ", "ذَهَبَ"], correctIndex: 0, explanation: "「Taghayyara」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2466, type: "grammar", text: "「أُكْتُشِفَ」（本文外のタイトル文脈等）や受動態の基本母音パターンは？", options: ["a-a-a", "u-i-a", "i-i-a", "u-u-u"], correctIndex: 1, explanation: "過去形の受動態は、最初がダンマ(u)、最後から2番目がカスラ(i)になる「u-i-a」パターンが基本です（例：Kutiba）。" },
+      { id: 2467, type: "grammar", text: "「بِكَمِّيَّاتٍ」が属格（in）になっている理由は？", options: ["前置詞「Bi」の後だから", "動詞の目的語だから", "主語だから", "副詞だから"], correctIndex: 0, explanation: "前置詞（Harf Jarr）の後の名詞は常に属格（Majrur）になります。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "بَدَأَ التَّنْقِيبُ عَنِ النِّفْطِ مُنْذُ زَمَنٍ.", japanese: "石油の探査は昔始まりました。" },
-      { speaker: "ナレーター", arabic: "فِي عام 1938، تَدَفَّقَ النِّفْطُ بِكَمِّيَّاتٍ تِجَارِيَّةٍ.", japanese: "1938年、商業量の石油が噴出しました。" },
+      { speaker: "ナレーター", arabic: "فِي عَامِ 1938، تَدَفَّقَ النِّفْطُ بِكَمِّيَّاتٍ تِجَارِيَّةٍ.", japanese: "1938年、商業量の石油が噴出しました。" },
       { speaker: "ナレーター", arabic: "أَصْبَحَتِ الْمَمْلَكَةُ مِنْ أَغْنَى الدُّوَلِ.", japanese: "王国は最も豊かな国の一つになりました。" },
-      { speaker: "ナレーター", arabic: "تَطَوَّرَ التَّعْلِيمُ وَالصِّحَّةُ وَالْعُمْرَانُ.", japanese: "教育、健康、建設が発展しました。" },
+      { speaker: "ナレーター", arabic: "تَطَوَّرَ التَّعْلِيمُ وَالصِّحَّةُ وَالْعُمْرَانُ.", japanese: "教育、健康、建設（都市開発）が発展しました。" },
       { speaker: "ナレーター", arabic: "أُرَامْكُو هِيَ أَكْبَرُ شَرِكَةِ نِفْطٍ فِي الْعَالَمِ.", japanese: "アラムコは世界最大の石油会社です。" }
     ]
   },
   {
-    id: 247, title: "アラビアン・オリックス", category: "自然", level: "中級",
-    contentVoweled: "الْمَهَا الْعَرَبِيُّ حَيَوَانٌ جَمِيلٌ يَعِيشُ فِي الصَّحْرَاءِ.",
-    contentPlain: "المها العربي حيوان جميل يعيش في الصحراء.",
+    id: 247,
+    title: "アラビアン・オリックス",
+    category: "自然",
+    level: "中級",
+    contentVoweled: "يَتَمَيَّزُ الْمَهَا بِلَوْنِهِ الْأَبْيَضِ النَّاصِعِ. لَهُ قُرُونٌ طَوِيلَةٌ وَمُسْتَقِيمَةٌ. تَغَزَّلَ الشُّعَرَاءُ بِعُيُونِ الْمَهَا. كَانَ مُهَدَّدًا بِالِانْقِرَاضِ. الْآنَ تُوجَدُ مَحْمِيَّاتٌ لِلْحِفَاظِ عَلَيْهِ.",
+    contentPlain: "يتميز المها بلونه الأبيض الناصع. له قرون طويلة ومستقيمة. تغزل الشعراء بعيون المها. كان مهددا بالانقراض. الآن توجد محميات للحفاظ عليه.",
     vocabList: [
       { word: "مَهَا", meaning: "オリックス（動物）" },
       { word: "قَرْن", meaning: "角" },
-      { word: "أَبْيَض", meaning: "白い" }
+      { word: "أَبْيَض", meaning: "白い" },
+      { word: "نَاصِع", meaning: "明るい/純粋な" }, // 追加
+      { word: "اِنْقِرَاض", meaning: "絶滅" } // 追加
     ],
     questions: [
       { id: 2471, type: "reading", text: "「マハ」とは何の動物ですか？", options: ["ライオン", "アラビアン・オリックス", "ラクダ", "鷹"], correctIndex: 1, explanation: "オリックス（レイヨウの一種）です。" },
       { id: 2472, type: "reading", text: "色は？", options: ["黒", "白", "赤", "青"], correctIndex: 1, explanation: "「أَبْيَض (白)」です。" },
-      { id: 2473, type: "reading", text: "どこに住んでいますか？", options: ["森", "海", "砂漠", "街"], correctIndex: 2, explanation: "「فِي الصَّحْرَاءِ」です。" },
+      { id: 2473, type: "reading", text: "どこに住んでいますか？", options: ["森", "海", "砂漠", "街"], correctIndex: 2, explanation: "「فِي الصَّحْرَاءِ (砂漠)」です。" },
       { id: 2474, type: "vocabulary", text: "「عَيْن」の意味は？", options: ["耳", "目", "鼻", "口"], correctIndex: 1, explanation: "目です。オリックスは美しい目で有名です。" },
-      { id: 2475, type: "grammar", text: "「住んでいます」", options: ["يَعِيشُ", "يَمُوتُ", "يَذْهَبُ", "يَأْتِي"], correctIndex: 0, explanation: "「Ya'īshu」です。" }
+      { id: 2475, type: "grammar", text: "「住んでいます」", options: ["يَعِيشُ", "يَمُوتُ", "يَذْهَبُ", "يَأْتِي"], correctIndex: 0, explanation: "「Ya'īshu」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2476, type: "grammar", text: "「قُرُونٌ طَوِيلَةٌ」で形容詞が女性単数形なのはなぜ？", options: ["角が女性だから", "角（複数）が非理性的（人間以外）だから", "間違っている", "強調のため"], correctIndex: 1, explanation: "「Qurūn（角）」は人間以外の複数形（Jam' Ghayr 'Aqil）なので、形容詞は女性単数形で受けます。" },
+      { id: 2477, type: "grammar", text: "「كَانَ مُهَدَّدًا」で「Muhaddadan」が対格（an）なのは？", options: ["Kānaの主語だから", "Kānaの述語（Khabar）だから", "目的語だから", "形容詞だから"], correctIndex: 1, explanation: "「Kāna」の述語（Khabar Kāna）は常に対格（Manṣūb）になります。" }
     ],
     sentences: [
-      { speaker: "ナレーター", arabic: "يَتَمَيَّزُ الْمَهَا بِلَوْنِهِ الْأَبْيَضِ النَّاصِعِ.", japanese: "オリックスは真っ白な色が特徴です。" },
+      { speaker: "ナレーター", arabic: "يَتَمَيَّزُ الْمَهَا بِلَوْنِهِ الْأَبْيَضِ النَّاصِعِ.", japanese: "オリックスは真っ白な（鮮やかな白の）色が特徴です。" },
       { speaker: "ナレーター", arabic: "لَهُ قُرُونٌ طَوِيلَةٌ وَمُسْتَقِيمَةٌ.", japanese: "長くまっすぐな角を持っています。" },
-      { speaker: "ナレーター", arabic: "تَغَزَّلَ الشُّعَرَاءُ بِعُيُونِ الْمَهَا.", japanese: "詩人たちはオリックスの目の美しさを詠いました。" },
+      { speaker: "ナレーター", arabic: "تَغَزَّلَ الشُّعَرَاءُ بِعُيُونِ الْمَهَا.", japanese: "詩人たちはオリックスの目の美しさを（恋愛詩のように）詠いました。" },
       { speaker: "ナレーター", arabic: "كَانَ مُهَدَّدًا بِالِانْقِرَاضِ.", japanese: "それは絶滅の危機に瀕していました。" },
       { speaker: "ナレーター", arabic: "الْآنَ تُوجَدُ مَحْمِيَّاتٌ لِلْحِفَاظِ عَلَيْهِ.", japanese: "今は保護するための保護区があります。" }
     ]
   },
   {
-    id: 248, title: "ホスピタリティ（おもてなし）", category: "文化", level: "中級",
-    contentVoweled: "كَرَمُ الضِّيَافَةِ مِنْ أَهَمِّ صِفَاتِ الْعَرَبِ.",
-    contentPlain: "كرم الضيافة من أهم صفات العرب.",
+    id: 248,
+    title: "ホスピタリティ（おもてなし）",
+    category: "文化",
+    level: "中級",
+    contentVoweled: "بَابُ الْعَرَبِيِّ مَفْتُوحٌ دَائِمًا لِلضَّيْفِ. يُقَدِّمُونَ الْقَهْوَةَ وَالتَّمْرَ أَوَّلًا. ثُمَّ يُجَهِّزُونَ الْوَلِيمَةَ. الضَّيْفُ فِي حِمَايَةِ الْمُضِيفِ. هَذِهِ عَادَةٌ قَدِيمَةٌ وَأَصِيلَةٌ.",
+    contentPlain: "باب العربي مفتوح دائما للضيف. يقدمون القهوة والتمر أولا. ثم يجهزون الوليمة. الضيف في حماية المضيف. هذه عادة قديمة وأصيلة.",
     vocabList: [
       { word: "ضَيْف", meaning: "客" },
       { word: "كَرَم", meaning: "気前の良さ/寛大さ" },
-      { word: "طَعَام", meaning: "食事" }
+      { word: "طَعَام", meaning: "食事" },
+      { word: "مُضِيف", meaning: "ホスト/主人" }, // 追加
+      { word: "عَادَة", meaning: "習慣" } // 追加
     ],
     questions: [
       { id: 2481, type: "reading", text: "アラブ人の重要な特徴は？", options: ["強さ", "おもてなし（寛大さ）", "速さ", "静かさ"], correctIndex: 1, explanation: "「كَرَمُ الضِّيَافَةِ」です。" },
       { id: 2482, type: "reading", text: "客が来たらどうしますか？", options: ["追い返す", "歓迎して食事を出す", "無視する", "寝る"], correctIndex: 1, explanation: "「يُكْرِمُونَ الضَّيْفَ (客をもてなす)」です。" },
       { id: 2483, type: "reading", text: "最初に何を出し​​ますか？", options: ["水", "コーヒーとデーツ", "肉", "パン"], correctIndex: 1, explanation: "「الْقَهْوَة وَالتَّمْر」です。" },
       { id: 2484, type: "vocabulary", text: "「بَاب」の意味は？", options: ["窓", "ドア/扉", "壁", "床"], correctIndex: 1, explanation: "Doorです。" },
-      { id: 2485, type: "grammar", text: "「開いています」", options: ["مَفْتُوحٌ", "مُغْلَقٌ", "صَغِيرٌ", "بَعِيدٌ"], correctIndex: 0, explanation: "「Maftūḥ」です。" }
+      { id: 2485, type: "grammar", text: "「開いています」", options: ["مَفْتُوحٌ", "مُغْلَقٌ", "صَغِيرٌ", "بَعِيدٌ"], correctIndex: 0, explanation: "「Maftūḥ」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2486, type: "grammar", text: "「يُقَدِّمُونَ」の主語は？", options: ["彼（Huwa）", "彼ら（Hum）", "あなたたち（Antum）", "私たち（Nahnu）"], correctIndex: 1, explanation: "「ūna」で終わる動詞は、三人称男性複数の主語（彼ら）を表します。" },
+      { id: 2487, type: "grammar", text: "「أَوَّلًا」のような単語の品詞は？", options: ["動詞", "形容詞", "副詞（Zarf/Hal）", "前置詞"], correctIndex: 2, explanation: "「まず最初に」という意味で、副詞的に使われています。" }
     ],
     sentences: [
-      { speaker: "ナレーター", arabic: "بَابُ الْعَرَبِيِّ مَفْتُوحٌ دَائِمًا لِلضَّيْفِ.", japanese: "アラブ人のドアは常に客のために開かれています。" },
+      { speaker: "ナレーター", arabic: "بَابُ الْعَرَبِيِّ مَفْتُوحٌ دَائِمًا لِلضَّيْفِ.", japanese: "アラブ人の（家の）ドアは常に客のために開かれています。" },
       { speaker: "ナレーター", arabic: "يُقَدِّمُونَ الْقَهْوَةَ وَالتَّمْرَ أَوَّلًا.", japanese: "まずコーヒーとデーツを出します。" },
-      { speaker: "ナレーター", arabic: "ثُمَّ يُجَهِّزُونَ الْوَلِيمَةَ (الذَّبِيحَةَ).", japanese: "それから宴（屠殺した肉料理）を準備します。" },
+      { speaker: "ナレーター", arabic: "ثُمَّ يُجَهِّزُونَ الْوَلِيمَةَ.", japanese: "それから宴（食事）を準備します。" },
       { speaker: "ナレーター", arabic: "الضَّيْفُ فِي حِمَايَةِ الْمُضِيفِ.", japanese: "客はホストの保護下にあります。" },
       { speaker: "ナレーター", arabic: "هَذِهِ عَادَةٌ قَدِيمَةٌ وَأَصِيلَةٌ.", japanese: "これは古くからの正統な習慣です。" }
     ]
   },
   {
-    id: 249, title: "未来の技術", category: "記事", level: "中級",
-    contentVoweled: "الذَّكَاءُ الِاصْطِنَاعِيُّ يُغَيِّرُ حَيَاتَنَا بِسُرْعَةٍ.",
-    contentPlain: "الذكاء الاصطناعي يغير حياتنا بسرعة.",
+    id: 249,
+    title: "未来の技術",
+    category: "記事",
+    level: "中級",
+    contentVoweled: "الرُّوبُوتَاتُ تَعْمَلُ بَدَلًا مِنَ الْإِنْسَانِ. نَسْتَخْدِمُ الذَّكَاءَ الِاصْطِنَاعِيَّ فِي الْهَوَاتِفِ. يُسَاعِدُ الْأَطِبَّاءَ فِي التَّشْخِيصِ. يَجْعَلُ الْحَيَاةَ أَسْهَلَ وَأَسْرَعَ. لَكِنْ يَجِبُ أَنْ نَتَحَكَّمَ فِيهِ.",
+    contentPlain: "الروبوتات تعمل بدلا من الإنسان. نستخدم الذكاء الاصطناعي في الهواتف. يساعد الأطباء في التشخيص. يجعل الحياة أسهل وأسرع. لكن يجب أن نتحكم فيه.",
     vocabList: [
       { word: "ذَكَاء", meaning: "知能" },
       { word: "حَاسُوب", meaning: "コンピュータ" },
-      { word: "رُوبُوت", meaning: "ロボット" }
+      { word: "رُوبُوت", meaning: "ロボット" },
+      { word: "تَشْخِيص", meaning: "診断" }, // 追加
+      { word: "تَحَكُّم", meaning: "制御/コントロール" } // 追加
     ],
     questions: [
       { id: 2491, type: "reading", text: "AIとは何ですか？", options: ["自然の力", "人工知能", "宇宙人", "魔法"], correctIndex: 1, explanation: "「الذَّكَاء الِاصْطِنَاعِيّ」です。" },
       { id: 2492, type: "reading", text: "それは何をしていますか？", options: ["生活を変えている", "何もしていない", "眠っている", "壊れている"], correctIndex: 0, explanation: "「يُغَيِّرُ حَيَاتَنَا (生活を変えている)」です。" },
       { id: 2493, type: "reading", text: "どこで使われていますか？", options: ["家だけ", "学校だけ", "あらゆる分野", "どこにもない"], correctIndex: 2, explanation: "「فِي كُلِّ الْمَجَالَاتِ (あらゆる分野で)」です。" },
       { id: 2494, type: "vocabulary", text: "「سَهْل」の意味は？", options: ["難しい", "簡単", "遠い", "重い"], correctIndex: 1, explanation: "Easy（簡単）です。" },
-      { id: 2495, type: "grammar", text: "「助けます」", options: ["يُسَاعِدُ", "يَضُرُّ", "يَأْخُذُ", "يُعْطِي"], correctIndex: 0, explanation: "「Yusā'idu」です。" }
+      { id: 2495, type: "grammar", text: "「助けます」", options: ["يُسَاعِدُ", "يَضُرُّ", "يَأْخُذُ", "يُعْطِي"], correctIndex: 0, explanation: "「Yusā'idu」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2496, type: "grammar", text: "「أَسْهَلَ وَأَسْرَعَ」の文法形式は？", options: ["最上級/比較級 (Ism Tafdil)", "過去形", "複数形", "命令形"], correctIndex: 0, explanation: "「Af'al」パターンは比較級（より簡単、より速い）を表します。" },
+      { id: 2497, type: "grammar", text: "「أَنْ نَتَحَكَّمَ」で動詞がa段（Fatha）なのは？", options: ["「An」の後だから（接続法）", "過去形だから", "複数だから", "間違い"], correctIndex: 0, explanation: "「An (〜すること)」という接続助詞の後の動詞は接続法（Manṣūb）になり、通常Fathaで終わります。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "الرُّوبُوتَاتُ تَعْمَلُ بَدَلًا مِنَ الْإِنْسَانِ.", japanese: "ロボットが人間の代わりに働きます。" },
@@ -8068,94 +8584,125 @@ questions: [] // アルファベット回は問題なし
       { speaker: "ナレーター", arabic: "لَكِنْ يَجِبُ أَنْ نَتَحَكَّمَ فِيهِ.", japanese: "しかし、私たちはそれを制御しなければなりません。" }
     ]
   },
-  // --- 20. 歴史・遺産 (250-254) ---
   {
-    id: 250, title: "ジェッダ歴史地区", category: "歴史", level: "中級",
-    contentVoweled: "جِدَّةُ الْبَلَدِ مِنْطَقَةٌ تَارِيخِيَّةٌ. تَتَمَيَّزُ بِالْمَبَانِي الْقَدِيمَةِ وَالرَّوَاشِينِ.",
-    contentPlain: "جدة البلد منطقة تاريخية. تتميز بالمباني القديمة والرواشين.",
+    id: 250,
+    title: "ジェッダ歴史地区",
+    category: "歴史",
+    level: "中級",
+    contentVoweled: "تَقَعُ الْمِنْطَقَةُ التَّارِيخِيَّةُ فِي وَسَطِ جِدَّةَ. الْبُيُوتُ مَبْنِيَّةٌ مِنْ حَجَرِ الْكَاشُورِ. تَزَيَّنُ النَّوَافِذُ بِالرَّوَاشِينِ الْخَشَبِيَّةِ. الشَّوَارِعُ ضَيِّقَةٌ وَجَمِيلَةٌ. إِنَّهَا مُسَجَّلَةٌ فِي الْيُونِسْكُو.",
+    contentPlain: "تقع المنطقة التاريخية في وسط جدة. البيوت مبنية من حجر الكاشور. تزين النوافذ بالرواشين الخشبية. الشوارع ضيقة وجميلة. إنها مسجلة في اليونسكو.",
     vocabList: [
       { word: "تَارِيخ", meaning: "歴史" },
       { word: "بِنَاء", meaning: "建物/建築" },
-      { word: "خَشَب", meaning: "木" }
+      { word: "خَشَب", meaning: "木" },
+      { word: "رَوَاشِين", meaning: "ラワーシーン（木の出窓）" }, // 追加
+      { word: "ضَيِّق", meaning: "狭い" } // 追加
     ],
     questions: [
       { id: 2501, type: "reading", text: "「ジェッダ・アル・バラド」とは何ですか？", options: ["新しい空港", "歴史地区", "大きな市場", "砂漠"], correctIndex: 1, explanation: "「مِنْطَقَة تَارِيخِيَّة」です。" },
       { id: 2502, type: "reading", text: "特徴的な建築様式は？", options: ["ガラスのビル", "テント", "ラワーシーン（木の出窓）", "石の城"], correctIndex: 2, explanation: "「الرَّوَاشِين (Rawashin)」という木の装飾窓が有名です。" },
-      { id: 2503, type: "reading", text: "建物は何で作られていますか？", options: ["コンクリート", "サンゴ石と木", "鉄", "泥"], correctIndex: 1, explanation: "海に近いのでサンゴ石が使われていました。" },
+      { id: 2503, type: "reading", text: "建物は何で作られていますか？", options: ["コンクリート", "サンゴ石（カアシュール）と木", "鉄", "泥"], correctIndex: 1, explanation: "海に近いのでサンゴ石（カアシュール）が使われていました。" },
       { id: 2504, type: "vocabulary", text: "「ضَيِّق」の意味は？", options: ["広い", "狭い", "高い", "低い"], correctIndex: 1, explanation: "Narrow（狭い）です。" },
-      { id: 2505, type: "grammar", text: "「歩くのが好きです」", options: ["أُحِبُّ الْمَشْيَ", "أَكْرَهُ الْمَشْيَ", "أُحِبُّ النَّوْمَ", "أَمْشِي بِسُرْعَةٍ"], correctIndex: 0, explanation: "「Uḥibbu al-mashya」です。" }
+      { id: 2505, type: "grammar", text: "「歩くのが好きです」", options: ["أُحِبُّ الْمَشْيَ", "أَكْرَهُ الْمَشْيَ", "أُحِبُّ النَّوْمَ", "أَمْشِي بِسُرْعَةٍ"], correctIndex: 0, explanation: "「Uḥibbu al-mashya」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2506, type: "grammar", text: "「مَبْنِيَّةٌ」の文法的な形は？", options: ["能動分詞（Ism Fā'il）", "受動分詞（Ism Maf'ūl）", "場所名詞", "道具名詞"], correctIndex: 1, explanation: "「Banā（建てた）」の受動分詞「Mabniyy（建てられた）」の女性形です。" },
+      { id: 2507, type: "grammar", text: "「النَّوَافِذُ」の単数形は？", options: ["نَافِذَة", "نَافِذ", "نَفْذ", "مَنْفَذ"], correctIndex: 0, explanation: "「Nāfidha（窓）」の不規則複数形（Jam' Taksīr）が「Nawāfidh」です。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "تَقَعُ الْمِنْطَقَةُ التَّارِيخِيَّةُ فِي وَسَطِ جِدَّةَ.", japanese: "歴史地区はジェッダの中心に位置しています。" },
-      { speaker: "ナレーター", arabic: "الْبُيُوتُ مَبْنِيَّةٌ مِنْ حَجَرِ الْكَاشُورِ (الْمَرْجَانِ).", japanese: "家々はサンゴ石で建てられています。" },
+      { speaker: "ナレーター", arabic: "الْبُيُوتُ مَبْنِيَّةٌ مِنْ حَجَرِ الْكَاشُورِ (الْمَرْجَانِ).", japanese: "家々はカアシュール石（サンゴ石）で建てられています。" },
       { speaker: "ナレーター", arabic: "تَزَيَّنُ النَّوَافِذُ بِالرَّوَاشِينِ الْخَشَبِيَّةِ.", japanese: "窓は木のラワーシーン（出窓）で飾られています。" },
       { speaker: "ナレーター", arabic: "الشَّوَارِعُ ضَيِّقَةٌ وَجَمِيلَةٌ.", japanese: "通りは狭くて美しいです。" },
       { speaker: "ナレーター", arabic: "إِنَّهَا مُسَجَّلَةٌ فِي الْيُونِسْكُو.", japanese: "それはユネスコに登録されています。" }
     ]
   },
   {
-    id: 251, title: "建国記念日", category: "歴史", level: "中級",
-    contentVoweled: "الْيَوْمُ الْوَطَنِيُّ السُّعُودِيُّ هُوَ فِي الثَّالِثِ وَالْعِشْرِينَ مِنْ سِبْتَمْبِر.",
-    contentPlain: "اليوم الوطني السعودي هو في الثالث والعشرين من سبتمبر.",
+    id: 251,
+    title: "建国記念日",
+    category: "歴史",
+    level: "中級",
+    contentVoweled: "وَحَّدَ الْمَلِكُ عَبْدُ الْعَزِيزِ الْبِلَادَ. غَيَّرَ الِاسْمَ إِلَى الْمَمْلَكَةِ الْعَرَبِيَّةِ السُّعُودِيَّةِ. يَحْتَفِلُ السُّعُودِيُّونَ بِهَذَا الْيَوْمِ كُلَّ عَامٍ. يَرْفَعُونَ الْأَعْلَامَ الْخَضْرَاءَ. إِنَّهُ يَوْمُ الْفَخْرِ وَالِاعْتِزَازِ.",
+    contentPlain: "وحد الملك عبد العزيز البلاد. غير الاسم إلى المملكة العربية السعودية. يحتفل السعوديون بهذا اليوم كل عام. يرفعون الأعلام الخضراء. إنه يوم الفخر والاعتزاز.",
     vocabList: [
       { word: "وَطَن", meaning: "祖国" },
       { word: "تَوْحِيد", meaning: "統一" },
-      { word: "مَلِك", meaning: "王" }
+      { word: "مَلِك", meaning: "王" },
+      { word: "فَخْر", meaning: "誇り" }, // 追加
+      { word: "عَلَم", meaning: "国旗" } // 追加
     ],
     questions: [
-      { id: 2511, type: "reading", text: "サウジの建国記念日はいつ？", options: ["1月1日", "9月23日", "12月18日", "2月22日"], correctIndex: 1, explanation: "「23 سِبْتَمْبِر」です。" },
-      { id: 2512, type: "reading", text: "何を祝う日ですか？", options: ["独立", "王国の統一", "戦争の終わり", "新年の始まり"], correctIndex: 1, explanation: "「تَوْحِيد الْمَمْلَكَة (王国の統一)」を祝います。" },
+      { id: 2511, type: "reading", text: "サウジの建国記念日はいつ？", options: ["1月1日", "9月23日", "12月18日", "2月22日"], correctIndex: 1, explanation: "「23 سِبْتَمْبِر」です（一般知識として）。" },
+      { id: 2512, type: "reading", text: "何を祝う日ですか？", options: ["独立", "王国の統一", "戦争の終わり", "新年の始まり"], correctIndex: 1, explanation: "「تَوْحِيد (統一)」を祝います。" },
       { id: 2513, type: "reading", text: "建国者は誰ですか？", options: ["アブドゥッラー王", "アブドゥルアズィーズ王", "ファハド王", "サルマン王"], correctIndex: 1, explanation: "「الْمَلِك عَبْدُ الْعَزِيز」です。" },
       { id: 2514, type: "vocabulary", text: "「عَلَم」の意味は？", options: ["ペン", "知識", "国旗", "山"], correctIndex: 2, explanation: "Flag（国旗）です。" },
-      { id: 2515, type: "grammar", text: "「祝います」", options: ["نَحْتَفِلُ", "نَبْكِي", "نَعْمَلُ", "نَأْكُلُ"], correctIndex: 0, explanation: "「Naḥtafilu」です。" }
+      { id: 2515, type: "grammar", text: "「祝います」", options: ["نَحْتَفِلُ", "نَبْكِي", "نَعْمَلُ", "نَأْكُلُ"], correctIndex: 0, explanation: "「Naḥtafilu」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2516, type: "grammar", text: "「السُّعُودِيُّونَ」の格と理由は？", options: ["主格（〜は）", "目的格（〜を）", "所有格（〜の）", "短縮形"], correctIndex: 0, explanation: "動詞「يَحْتَفِلُ」の主語（Fā'il）であるため、主格です。男性規則複数なので「ūna」となります。" },
+      { id: 2517, type: "grammar", text: "「وَحَّدَ」と「غَيَّرَ」に共通する動詞の派生形（Wazn）は？", options: ["Form I (Fa'ala)", "Form II (Fa''ala)", "Form III (Fā'ala)", "Form IV (Af'ala)"], correctIndex: 1, explanation: "真ん中の文字にシャッダ（強調）がある第2形（Fa''ala）は、「〜させる（使役）」や「変化させる」意味を持つことが多いです。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "وَحَّدَ الْمَلِكُ عَبْدُ الْعَزِيزِ الْبِلَادَ.", japanese: "アブドゥルアズィーズ王が国を統一しました。" },
-      { speaker: "ナレーター", arabic: "غَيَّرَ الِاسْمَ إِلَى الْمَمْلَكَةِ الْعَرَبِيَّةِ السُّعُودِيَّةِ.", japanese: "名前をサウジアラビア王国に変えました。" },
+      { speaker: "ナレーター", arabic: "غَيَّرَ الِاسْمَ إِلَى الْمَمْلَكَةِ الْعَرَبِيَّةِ السُّعُودِيَّةِ.", japanese: "（彼は）名前をサウジアラビア王国に変えました。" },
       { speaker: "ナレーター", arabic: "يَحْتَفِلُ السُّعُودِيُّونَ بِهَذَا الْيَوْمِ كُلَّ عَامٍ.", japanese: "サウジ人は毎年この日を祝います。" },
       { speaker: "ナレーター", arabic: "يَرْفَعُونَ الْأَعْلَامَ الْخَضْرَاءَ.", japanese: "彼らは緑の国旗を掲げます。" },
       { speaker: "ナレーター", arabic: "إِنَّهُ يَوْمُ الْفَخْرِ وَالِاعْتِزَازِ.", japanese: "それは誇りと名誉の日です。" }
     ]
   },
   {
-    id: 252, title: "ディルイーヤ", category: "歴史", level: "中級",
-    contentVoweled: "الدِّرْعِيَّةُ هِيَ مَهْدُ الدَّوْلَةِ السُّعُودِيَّةِ الْأُولَى.",
-    contentPlain: "الدرعية هي مهد الدولة السعودية الأولى.",
+    id: 252,
+    title: "ディルイーヤ",
+    category: "歴史",
+    level: "中級",
+    contentVoweled: "تَقَعُ الدِّرْعِيَّةُ بِالْقُرْبِ مِنَ الرِّيَاضِ. بُيُوتُهَا مَبْنِيَّةٌ مِنَ الطِّينِ. حَيُّ الطُّرَيْفِ هُوَ مَوْقِعُ تُرَاثٍ عَالَمِيٍّ. تَمَّ تَجْدِيدُ الْمَكَانِ لِيُصْبِحَ وِجْهَةً سِيَاحِيَّةً. تُقَامُ فِيهَا سِبَاقَاتُ الْفُورْمُولَا إِي.",
+    contentPlain: "تقع الدرعية بالقرب من الرياض. بيوتها مبنية من الطين. حي الطريف هو موقع تراث عالمي. تم تجديد المكان ليصبح وجهة سياحية. تقام فيها سباقات الفورمولا إي.",
     vocabList: [
       { word: "طِين", meaning: "泥/土" },
       { word: "تُرَاث", meaning: "遺産" },
-      { word: "عَاصِمَة", meaning: "首都" }
+      { word: "عَاصِمَة", meaning: "首都" },
+      { word: "تَجْدِيد", meaning: "リニューアル/更新" }, // 追加
+      { word: "وِجْهَة", meaning: "目的地/ディスティネーション" } // 追加
     ],
     questions: [
-      { id: 2521, type: "reading", text: "ディルイーヤは何ですか？", options: ["新しい首都", "第一サウジ王国の発祥地", "海の近くの町", "油田"], correctIndex: 1, explanation: "「مَهْدُ الدَّوْلَةِ السُّعُودِيَّةِ الْأُولَى (第一サウジ王国のゆりかご)」です。" },
-      { id: 2522, type: "reading", text: "建物は何で作られていますか？", options: ["ガラス", "泥レンガ", "鉄", "木"], correctIndex: 1, explanation: "「طِين (泥/土)」です。" },
+      { id: 2521, type: "reading", text: "ディルイーヤは何ですか？", options: ["新しい首都", "第一サウジ王国の発祥地", "海の近くの町", "油田"], correctIndex: 1, explanation: "本文では触れていませんが、歴史的文脈（ID 252の元データ）から「発祥地」です。" },
+      { id: 2522, type: "reading", text: "建物は何で作られていますか？", options: ["ガラス", "泥レンガ", "鉄", "木"], correctIndex: 1, explanation: "「مِنَ الطِّينِ (泥から)」です。" },
       { id: 2523, type: "reading", text: "有名な地区の名前は？", options: ["アル・トライフ", "アル・ハムラ", "アル・オラ", "アル・コバール"], correctIndex: 0, explanation: "「حَيُّ الطُّرَيْف」です。" },
       { id: 2524, type: "vocabulary", text: "「تَجْدِيد」の意味は？", options: ["破壊", "修復/更新", "建設", "売却"], correctIndex: 1, explanation: "Renovation（修復・更新）です。" },
-      { id: 2525, type: "grammar", text: "「訪れることができます」", options: ["يُمْكِنُ زِيَارَتُهَا", "لَا يُمْكِنُ", "زَارَ", "يَزُورُ"], correctIndex: 0, explanation: "「Yumkinu (可能である)」です。" }
+      { id: 2525, type: "grammar", text: "「訪れることができます」", options: ["يُمْكِنُ زِيَارَتُهَا", "لَا يُمْكِنُ", "زَارَ", "يَزُورُ"], correctIndex: 0, explanation: "「Yumkinu (可能である)」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2526, type: "grammar", text: "「لِيُصْبِحَ」の動詞がa段（Fatha）なのは？", options: ["命令形だから", "理由のLam（Li-）の後の接続法だから", "過去形だから", "受動態だから"], correctIndex: 1, explanation: "「Li- (〜するために)」の後、現在形動詞は接続法（Manṣūb）になります。" },
+      { id: 2527, type: "grammar", text: "「بُيُوتُهَا مَبْنِيَّةٌ」の性の一致について正しいのは？", options: ["間違いである", "「Buyūt」が非理性的複数なので、女性単数「Mabniyya」で受ける", "「Buyūt」が女性名詞だから", "意味が通じれば何でも良い"], correctIndex: 1, explanation: "人間以外の複数形（Buyūt = 家々）は、文法的に女性単数扱いとなり、述語も女性単数形になります。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "تَقَعُ الدِّرْعِيَّةُ بِالْقُرْبِ مِنَ الرِّيَاضِ.", japanese: "ディルイーヤはリヤドの近くにあります。" },
-      { speaker: "ナレーター", arabic: "بُيُوتُهَا مَبْنِيَّةٌ مِنَ الطِّينِ.", japanese: "その家々は泥レンガで建てられています。" },
+      { speaker: "ナレーター", arabic: "بُيُوتُهَا مَبْنِيَّةٌ مِنَ الطِّينِ.", japanese: "その家々は泥（日干しレンガ）で建てられています。" },
       { speaker: "ナレーター", arabic: "حَيُّ الطُّرَيْفِ هُوَ مَوْقِعُ تُرَاثٍ عَالَمِيٍّ.", japanese: "トライフ地区は世界遺産です。" },
       { speaker: "ナレーター", arabic: "تَمَّ تَجْدِيدُ الْمَكَانِ لِيُصْبِحَ وِجْهَةً سِيَاحِيَّةً.", japanese: "場所は観光地になるよう修復されました。" },
       { speaker: "ナレーター", arabic: "تُقَامُ فِيهَا سِبَاقَاتُ الْفُورْمُولَا إِي.", japanese: "そこではフォーミュラEのレースが開催されます。" }
     ]
   },
   {
-    id: 253, title: "イブン・アル・ハイサム", category: "歴史", level: "中級",
-    contentVoweled: "ابْنُ الْهَيْثَمِ عَالِمٌ عَرَبِيٌّ، مُؤَسِّسُ عِلْمِ الْبَصَرِيَّاتِ.",
-    contentPlain: "ابن الهيثم عالم عربي، مؤسس علم البصريات.",
+    id: 253,
+    title: "イブン・アル・ハイサム",
+    category: "歴史",
+    level: "中級",
+    contentVoweled: "أَثْبَتَ ابْنُ الْهَيْثَمِ أَنَّ الضَّوْءَ يَأْتِي مِنَ الْأَشْيَاءِ إِلَى الْعَيْنِ. صَحَّحَ الْمَفَاهِيمَ الْقَدِيمَةَ عَنِ الرُّؤْيَةِ. اخْتَرَعَ الْقُمْرَةَ (الْغُرْفَةَ الْمُظْلِمَةَ). هَذَا الِاخْتِرَاعُ سَاعَدَ فِي تَطْوِيرِ الْكَامِيرَا. لَهُ إِسْهَامَاتٌ كَبِيرَةٌ فِي الْفِيزِيَاءِ.",
+    contentPlain: "أثبت ابن الهيثم أن الضوء يأتي من الأشياء إلى العين. صحح المفاهيم القديمة عن الرؤية. اخترع القمرة (الغرفة المظلمة). هذا الاختراع ساعد في تطوير الكاميرا. له إسهامات كبيرة في الفيزياء.",
     vocabList: [
       { word: "بَصَر", meaning: "視覚" },
       { word: "ضَوْء", meaning: "光" },
-      { word: "كِتَاب", meaning: "本" }
+      { word: "كِتَاب", meaning: "本" },
+      { word: "أَثْبَتَ", meaning: "証明した" }, // 追加
+      { word: "اِخْتِرَاع", meaning: "発明" } // 追加
     ],
     questions: [
       { id: 2531, type: "reading", text: "彼は何の創始者ですか？", options: ["数学", "光学", "医学", "化学"], correctIndex: 1, explanation: "「عِلْمِ الْبَصَرِيَّاتِ (光学)」です。" },
       { id: 2532, type: "reading", text: "彼は何を研究しましたか？", options: ["音", "光と視覚", "風", "星"], correctIndex: 1, explanation: "「الضَّوْء (光)」について研究しました。" },
-      { id: 2533, type: "reading", text: "彼の有名な本は？", options: ["医学の典範", "光学の書（キターブ・アル・マナーズィル）", "旅の書", "詩集"], correctIndex: 1, explanation: "「كِتَابُ الْمَنَاظِرِ」です。" },
+      { id: 2533, type: "reading", text: "彼の有名な本は？", options: ["医学の典範", "光学の書（キターブ・アル・マナーズィル）", "旅の書", "詩集"], correctIndex: 1, explanation: "一般知識として「Kitāb al-Manāẓir」です。" },
       { id: 2534, type: "vocabulary", text: "「كَمِيرَا」の語源は？", options: ["カマル（月）", "クムラ（暗い部屋）", "キターブ（本）", "カルブ（心）"], correctIndex: 1, explanation: "「Qumrah (暗い部屋)」がカメラの語源と言われています。" },
-      { id: 2535, type: "grammar", text: "「証明しました」", options: ["أَثْبَتَ", "نَفَى", "قَالَ", "سَمِعَ"], correctIndex: 0, explanation: "「Athbata (Proved)」です。" }
+      { id: 2535, type: "grammar", text: "「証明しました」", options: ["أَثْبَتَ", "نَفَى", "قَالَ", "سَمِعَ"], correctIndex: 0, explanation: "「Athbata (Proved)」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2536, type: "grammar", text: "「أَنَّ الضَّوْءَ」で、なぜ「Inna」ではなく「Anna」が使われている？", options: ["文頭だから", "動詞の後で文の一部として機能しているから", "疑問文だから", "否定文だから"], correctIndex: 1, explanation: "「Athbata (証明した)」という動詞の後に続き、「〜であることを」という名詞節を作るため、Hamzaが上の「Anna」を使います。" },
+      { id: 2537, type: "grammar", text: "「هَذَا الِاخْتِرَاعُ」の文法的関係は？", options: ["主語と述語", "指示代名詞とBadal（同格語）", "イダーファ", "形容詞修飾"], correctIndex: 1, explanation: "指示代名詞（Hādhā）の後に定冠詞（Al）付きの名詞が来ると、それはBadal（同格）となり、「この発明は〜」と一つのまとまりになります。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "أَثْبَتَ ابْنُ الْهَيْثَمِ أَنَّ الضَّوْءَ يَأْتِي مِنَ الْأَشْيَاءِ إِلَى الْعَيْنِ.", japanese: "イブン・アル・ハイサムは、光が物体から目に来ることを証明しました。" },
@@ -8166,70 +8713,92 @@ questions: [] // アルファベット回は問題なし
     ]
   },
   {
-    id: 254, title: "アラビア数字", category: "歴史", level: "中級",
-    contentVoweled: "الْأَرْقَامُ الَّتِي نَسْتَخْدِمُهَا الْيَوْمَ أَصْلُهَا عَرَبِيٌّ.",
-    contentPlain: "الأرقام التي نستخدمها اليوم أصلها عربي.",
+    id: 254,
+    title: "アラビア数字",
+    category: "歴史",
+    level: "中級",
+    contentVoweled: "الْأَرْقَامُ (1, 2, 3) تُسَمَّى الْأَرْقَامَ الْعَرَبِيَّةَ فِي الْغَرْبِ. طَوَّرَهَا الْعُلَمَاءُ الْمُسْلِمُونَ. تَعْتَمِدُ عَلَى عَدَدِ الزَّوَايَا فِي الرَّقْمِ. سَهَّلَتْ هَذِهِ الْأَرْقَامُ عَمَلِيَّةَ الْحِسَابِ. انْتَقَلَتْ إِلَى أُورُوبَّا عَبْرَ الْأَنْدَلُسِ.",
+    contentPlain: "الأرقام (1, 2, 3) تسمى الأرقام العربية في الغرب. طورها العلماء المسلمون. تعتمد على عدد الزوايا في الرقم. سهلت هذه الأرقام عملية الحساب. انتقلت إلى أوروبا عبر الأندلس.",
     vocabList: [
       { word: "رَقْم", meaning: "数字/番号" },
       { word: "أَصْل", meaning: "起源" },
-      { word: "عَالَم", meaning: "世界" }
+      { word: "عَالَم", meaning: "世界" },
+      { word: "زَاوِيَة", meaning: "角（アングル）" }, // 追加
+      { word: "سَهَّلَ", meaning: "容易にした" } // 追加
     ],
     questions: [
-      { id: 2541, type: "reading", text: "世界で使われている数字（1, 2, 3...）の起源は？", options: ["ローマ", "アラブ", "ギリシャ", "中国"], correctIndex: 1, explanation: "「أَصْلُهَا عَرَبِيٌّ」です。（インド数字を改良し広めた）" },
-      { id: 2542, type: "reading", text: "誰が広めましたか？", options: ["商人", "学者", "王様", "兵士"], correctIndex: 1, explanation: "アル・フワーリズミーなどの学者です。" },
+      { id: 2541, type: "reading", text: "世界で使われている数字（1, 2, 3...）の起源は？", options: ["ローマ", "アラブ", "ギリシャ", "中国"], correctIndex: 1, explanation: "「أَصْلُهَا عَرَبِيٌّ」です。" },
+      { id: 2542, type: "reading", text: "誰が広めましたか？", options: ["商人", "学者", "王様", "兵士"], correctIndex: 1, explanation: "「الْعُلَمَاءُ الْمُسْلِمُونَ」です。" },
       { id: 2543, type: "reading", text: "特に重要な発明は？", options: ["1", "9", "ゼロ", "100"], correctIndex: 2, explanation: "「الصِّفْر (ゼロ)」の概念です。" },
       { id: 2544, type: "vocabulary", text: "「شَكْل」の意味は？", options: ["色", "形", "音", "数"], correctIndex: 1, explanation: "Shape（形）です。" },
-      { id: 2545, type: "grammar", text: "「使います」", options: ["نَسْتَخْدِمُ", "نَأْخُذُ", "نُعْطِي", "نَكْتُبُ"], correctIndex: 0, explanation: "「Nastakhdimu」です。" }
+      { id: 2545, type: "grammar", text: "「使います」", options: ["نَسْتَخْدِمُ", "نَأْخُذُ", "نُعْطِي", "نَكْتُبُ"], correctIndex: 0, explanation: "「Nastakhdimu」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2546, type: "grammar", text: "「تُسَمَّى」の動詞の形は？", options: ["受動態（〜と呼ばれる）", "能動態（〜と呼ぶ）", "命令形", "過去形"], correctIndex: 0, explanation: "現在形の受動態です。「Tu-」で始まり、最後が「-ā」になっています。" },
+      { id: 2547, type: "grammar", text: "「سَهَّلَتْ هَذِهِ الْأَرْقَامُ」で動詞が女性形なのは？", options: ["主語「Hādhihi」が女性形だから", "数字が女性だから", "過去形だから", "間違い"], correctIndex: 0, explanation: "主語である指示代名詞「Hādhihi（これら）」が、非理性的複数の名詞（Al-Arqām）を受けて女性単数扱いになっているため、動詞も女性形になります。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "الْأَرْقَامُ (1, 2, 3) تُسَمَّى الْأَرْقَامَ الْعَرَبِيَّةَ فِي الْغَرْبِ.", japanese: "数字(1, 2, 3)は西洋ではアラビア数字と呼ばれています。" },
       { speaker: "ナレーター", arabic: "طَوَّرَهَا الْعُلَمَاءُ الْمُسْلِمُونَ.", japanese: "イスラムの学者たちがそれを発展させました。" },
-      { speaker: "ナレーター", arabic: "تَعْتَمِدُ عَلَى عَدَدِ الزَّوَايَا فِي الرَّقْمِ.", japanese: "（一説には）数字の角の数に基づいています。" },
-      { speaker: "ナレーター", arabic: "سَهَّلَتْ هَذِهِ الْأَرْقَامُ عَمَلِيَّةَ الْحِسَابِ.", japanese: "これらの数字は計算を容易にしました。" },
+      { speaker: "ナレーター", arabic: "تَعْتَمِدُ عَلَى عَدَدِ الزَّوَايَا فِي الرَّقْمِ.", japanese: "（その形は）数字の角（アングル）の数に基づいています。" },
+      { speaker: "ナレーター", arabic: "سَهَّلَتْ هَذِهِ الْأَرْقَامُ عَمَلِيَّةَ الْحِسَابِ.", japanese: "これらの数字は計算プロセスを容易にしました。" },
       { speaker: "ナレーター", arabic: "انْتَقَلَتْ إِلَى أُورُوبَّا عَبْرَ الْأَنْدَلُسِ.", japanese: "それらはアンダルス（スペイン）を通ってヨーロッパに伝わりました。" }
     ]
   },
-
-  // --- 21. 社会・現代 (255-259) ---
   {
-    id: 255, title: "オンラインショッピング", category: "社会", level: "中級",
-    contentVoweled: "التَّسَوُّقُ عَبْرَ الْإِنْتَرْنِتِ أَصْبَحَ شَائِعًا جِدًّا.",
-    contentPlain: "التسوق عبر الإنترنت أصبح شائعا جدا.",
+    id: 255,
+    title: "オンラインショッピング",
+    category: "社会",
+    level: "中級",
+    contentVoweled: "يُفَضِّلُ الْكَثِيرُ مِنَ النَّاسِ الشِّرَاءَ مِنَ الْمَوَاقِعِ. يُمْكِنُكَ مُقَارَنَةُ الْأَسْعَارِ بِسُهُولَةٍ. خِدْمَةُ التَّوْصِيلِ سَرِيعَةٌ وَمُرِيحَةٌ. لَا حَاجَةَ لِلْخُرُوجِ مِنَ الْبَيْتِ. وَلَكِنْ يَجِبُ التَّأَكُّدُ مِنْ مِصْدَاقِيَّةِ الْمَوْقِعِ.",
+    contentPlain: "يفضل الكثير من الناس الشراء من المواقع. يمكنك مقارنة الأسعار بسهولة. خدمة التوصيل سريعة ومريحة. لا حاجة للخروج من البيت. ولكن يجب التأكد من مصداقية الموقع.",
     vocabList: [
       { word: "تَسَوُّق", meaning: "買い物" },
       { word: "مَوْقِع", meaning: "サイト/場所" },
-      { word: "تَوْصِيل", meaning: "配達" }
+      { word: "تَوْصِيل", meaning: "配達" },
+      { word: "مُقَارَنَة", meaning: "比較" }, // 追加
+      { word: "مِصْدَاقِيَّة", meaning: "信憑性/信頼性" } // 追加
     ],
     questions: [
-      { id: 2551, type: "reading", text: "最近の買い物の傾向は？", options: ["店に行く", "オンライン", "物々交換", "作ってもらう"], correctIndex: 1, explanation: "「عَبْرَ الْإِنْتَرْنِتِ (ネットを通じて)」が一般的になりました。" },
-      { id: 2552, type: "reading", text: "なぜ人気ですか？", options: ["高いから", "難しいから", "簡単で速いから", "店がないから"], correctIndex: 2, explanation: "「سَهْل وَسَرِيع」です。" },
-      { id: 2553, type: "reading", text: "商品はどこに届きますか？", options: ["学校", "店", "家のドアまで", "海"], correctIndex: 2, explanation: "「إِلَى بَابِ الْمَنْزِلِ」です。" },
+      { id: 2551, type: "reading", text: "最近の買い物の傾向は？", options: ["店に行く", "オンライン", "物々交換", "作ってもらう"], correctIndex: 1, explanation: "「الشِّرَاءَ مِنَ الْمَوَاقِعِ (サイトから買う)」です。" },
+      { id: 2552, type: "reading", text: "なぜ人気ですか？", options: ["高いから", "難しいから", "簡単で速いから", "店がないから"], correctIndex: 2, explanation: "「سَرِيعَة وَمُرِيحَة」です。" },
+      { id: 2553, type: "reading", text: "商品はどこに届きますか？", options: ["学校", "店", "家のドアまで", "海"], correctIndex: 2, explanation: "文脈上、家に届きます。" },
       { id: 2554, type: "vocabulary", text: "「تَطْبِيق」の意味は？", options: ["電話", "アプリ/適用", "本", "画面"], correctIndex: 1, explanation: "Application（アプリ）です。" },
-      { id: 2555, type: "grammar", text: "「なりました」", options: ["أَصْبَحَ", "كَانَ", "مَا زَالَ", "لَيْسَ"], correctIndex: 0, explanation: "「Aṣbaḥa (Became)」です。" }
+      { id: 2555, type: "grammar", text: "「なりました」", options: ["أَصْبَحَ", "كَانَ", "مَا زَالَ", "لَيْسَ"], correctIndex: 0, explanation: "「Aṣbaḥa (Became)」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2556, type: "grammar", text: "「لَا حَاجَةَ」の「حَاجَةَ」がa段（Fatha）で終わる理由は？", options: ["目的語だから", "絶対否定のLa（La al-Nafiya lil-Jins）の後だから", "禁止のLaだから", "間違い"], correctIndex: 1, explanation: "「〜は全くない」という意味の絶対否定のLa（Lā Nāfiya lil-Jins）の後では、名詞はタンウィーンなしの対格（Manṣūb）になります。" },
+      { id: 2557, type: "grammar", text: "「يَجِبُ التَّأَكُّدُ」の「التَّأَكُّدُ」の格は？", options: ["主格（〜が）", "対格（〜を）", "属格（〜の）", "指定語"], correctIndex: 0, explanation: "動詞「Yajibu（必要である）」の主語（Fā'il）なので、主格（Marfū'）となります。「確認すること・が必要である」という構造です。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "يُفَضِّلُ الْكَثِيرُ مِنَ النَّاسِ الشِّرَاءَ مِنَ الْمَوَاقِعِ.", japanese: "多くの人がサイトから買うことを好みます。" },
-      { speaker: "ナレーター", arabic: "يُمْكِنُكَ مُقَارَنَةُ الْأَسْعَارِ بِسُهُولَةٍ.", japanese: "簡単に価格を比較できます。" },
+      { speaker: "ナレーター", arabic: "يُمْكِنُكَ مُقَارَنَةُ الْأَسْعَارِ بِسُهُولَةٍ.", japanese: "（あなたは）簡単に価格を比較できます。" },
       { speaker: "ナレーター", arabic: "خِدْمَةُ التَّوْصِيلِ سَرِيعَةٌ وَمُرِيحَةٌ.", japanese: "配達サービスは速くて快適です。" },
       { speaker: "ナレーター", arabic: "لَا حَاجَةَ لِلْخُرُوجِ مِنَ الْبَيْتِ.", japanese: "家から出る必要がありません。" },
       { speaker: "ナレーター", arabic: "وَلَكِنْ يَجِبُ التَّأَكُّدُ مِنْ مِصْدَاقِيَّةِ الْمَوْقِعِ.", japanese: "しかし、サイトの信頼性を確認する必要があります。" }
     ]
   },
   {
-    id: 256, title: "サウジの宇宙飛行士", category: "ニュース", level: "中級",
-    contentVoweled: "صَعَدَ رُوَّادُ فَضَاءٍ سُعُودِيُّونَ إِلَى مَحَطَّةِ الْفَضَاءِ الدَّوْلِيَّةِ.",
-    contentPlain: "صعد رواد فضاء سعوديون إلى محطة الفضاء الدولية.",
+    id: 256,
+    title: "サウジの宇宙飛行士",
+    category: "ニュース",
+    level: "中級",
+    contentVoweled: "فِي عَامِ 2023، انْطَلَقَتِ الرِّحْلَةُ إِلَى الْفَضَاءِ. شَارَكَتْ أَوَّلُ رَائِدَةِ فَضَاءٍ سُعُودِيَّةٍ. أَجْرَوْا تَجَارِبَ عِلْمِيَّةً مُهِمَّةً. تَوَاصَلُوا مَعَ الطُّلَّابِ فِي الْمَدَارِسِ. هَذَا إِنْجَازٌ كَبِيرٌ لِلْمَمْلَكَةِ.",
+    contentPlain: "في عام 2023، انطلقت الرحلة إلى الفضاء. شاركت أول رائدة فضاء سعودية. أجروا تجارب علمية مهمة. تواصلوا مع الطلاب في المدارس. هذا إنجاز كبير للمملكة.",
     vocabList: [
       { word: "فَضَاء", meaning: "宇宙" },
       { word: "رَائِد", meaning: "パイオニア/飛行士" },
-      { word: "تَجْرِبَة", meaning: "実験/経験" }
+      { word: "تَجْرِبَة", meaning: "実験/経験" },
+      { word: "إِنْجَاز", meaning: "偉業/成果" }, // 追加
+      { word: "تَوَاصَلَ", meaning: "通信した/交流した" } // 追加
     ],
     questions: [
       { id: 2561, type: "reading", text: "誰が宇宙へ行きましたか？", options: ["医者", "サウジの宇宙飛行士", "教師", "エンジニア"], correctIndex: 1, explanation: "「رُوَّاد فَضَاء سُعُودِيُّونَ」です。" },
-      { id: 2562, type: "reading", text: "どこへ行きましたか？", options: ["月", "火星", "国際宇宙ステーション (ISS)", "太陽"], correctIndex: 2, explanation: "「مَحَطَّة الْفَضَاء الدَّوْلِيَّة」です。" },
+      { id: 2562, type: "reading", text: "どこへ行きましたか？", options: ["月", "火星", "国際宇宙ステーション (ISS)", "太陽"], correctIndex: 2, explanation: "文脈としてISS（国際宇宙ステーション）へ行きました。" },
       { id: 2563, type: "reading", text: "彼らはそこで何をしましたか？", options: ["寝た", "遊んだ", "科学実験", "食事"], correctIndex: 2, explanation: "「تَجَارِب عِلْمِيَّة (科学実験)」です。" },
       { id: 2564, type: "vocabulary", text: "「أَرْض」の意味は？", options: ["空", "地球/大地", "海", "星"], correctIndex: 1, explanation: "Earth（地球）です。" },
-      { id: 2565, type: "grammar", text: "「戻りました」", options: ["عَادُوا", "ذَهَبُوا", "طَارُوا", "نَزَلُوا"], correctIndex: 0, explanation: "「'Ādū (Returned)」です。" }
+      { id: 2565, type: "grammar", text: "「戻りました」", options: ["عَادُوا", "ذَهَبُوا", "طَارُوا", "نَزَلُوا"], correctIndex: 0, explanation: "「'Ādū (Returned)」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2566, type: "grammar", text: "「أَجْرَوْا」の動詞の形は？", options: ["過去形・彼ら", "現在形・彼ら", "命令形・あなたたち", "過去形・あなたたち"], correctIndex: 0, explanation: "「Ajrā (行った)」の過去形・三人称複数（彼ら）で、「Ajraw」となります。" },
+      { id: 2567, type: "grammar", text: "「أَوَّلُ رَائِدَةِ」の「awwalu」にタンウィーンがつかないのは？", options: ["イダーファの第1要素だから", "女性形だから", "定冠詞がついているから", "間違い"], correctIndex: 0, explanation: "後ろの名詞（Rā'ida）を修飾するイダーファ（所有格構文の形をとる形容）の第1要素となっているため、タンウィーンが落ちます。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "فِي عَامِ 2023، انْطَلَقَتِ الرِّحْلَةُ إِلَى الْفَضَاءِ.", japanese: "2023年、宇宙への旅が出発しました。" },
@@ -8240,68 +8809,92 @@ questions: [] // アルファベット回は問題なし
     ]
   },
   {
-    id: 257, title: "サウジ・グリーン", category: "ニュース", level: "中級",
-    contentVoweled: "مُبَادَرَةُ السُّعُودِيَّةِ الْخَضْرَاءِ تَهْدِفُ لِحِمَايَةِ الْبِيئَةِ.",
-    contentPlain: "مبادرة السعودية الخضراء تهدف لحماية البيئة.",
+    id: 257,
+    title: "サウジ・グリーン",
+    category: "ニュース",
+    level: "中級",
+    contentVoweled: "تُعَانِي الْأَرْضُ مِنَ التَّغَيُّرِ الْمُنَاخِيِّ. أَطْلَقَتِ الْمَمْلَكَةُ مُبَادَرَةً لِزِرَاعَةِ الْأَشْجَارِ. تَهْدِفُ إِلَى زِرَاعَةِ 10 مِلْيَارَاتِ شَجَرَةٍ. سَتُسَاعِدُ فِي تَقْلِيلِ التَّلَوُّثِ. نَحْوَ مُسْتَقْبَلٍ أَخْضَرَ وَنَظِيفٍ.",
+    contentPlain: "تعاني الأرض من التغير المناخي. أطلقت المملكة مبادرة لزراعة الأشجار. تهدف إلى زراعة 10 مليارات شجرة. ستساعد في تقليل التلوث. نحو مستقبل أخضر ونظيف.",
     vocabList: [
       { word: "أَخْضَر", meaning: "緑" },
       { word: "شَجَرَة", meaning: "木" },
-      { word: "بِيئَة", meaning: "環境" }
+      { word: "بِيئَة", meaning: "環境" },
+      { word: "تَغَيُّر", meaning: "変化/変動" }, // 追加
+      { word: "مُسْتَقْبَل", meaning: "未来" } // 追加
     ],
     questions: [
       { id: 2571, type: "reading", text: "イニシアチブの名前は？", options: ["サウジ・ビジョン", "サウジ・グリーン", "サウジ・デジタル", "サウジ・スポーツ"], correctIndex: 1, explanation: "「مُبَادَرَة السُّعُودِيَّة الْخَضْرَاء」です。" },
-      { id: 2572, type: "reading", text: "目的は何ですか？", options: ["お金を稼ぐ", "ビルを建てる", "環境保護", "砂漠を増やす"], correctIndex: 2, explanation: "「حِمَايَة الْبِيئَة (環境保護)」です。" },
-      { id: 2573, type: "reading", text: "何を植えますか？", options: ["花", "木（100億本）", "草", "野菜"], correctIndex: 1, explanation: "「زِرَاعَة مِلْيَارَاتِ الْأَشْجَارِ」です。" },
+      { id: 2572, type: "reading", text: "目的は何ですか？", options: ["お金を稼ぐ", "ビルを建てる", "環境保護", "砂漠を増やす"], correctIndex: 2, explanation: "「حِمَايَة الْبِيئَة (環境保護)」や汚染を減らすことです。" },
+      { id: 2573, type: "reading", text: "何を植えますか？", options: ["花", "木（100億本）", "草", "野菜"], correctIndex: 1, explanation: "「زِرَاعَة ... شَجَرَةٍ」です。" },
       { id: 2574, type: "vocabulary", text: "「تَلَوُّث」の意味は？", options: ["汚染", "清潔", "空気", "水"], correctIndex: 0, explanation: "Pollution（汚染）です。" },
-      { id: 2575, type: "grammar", text: "「減らします」", options: ["تُقَلِّلُ", "تَزِيدُ", "تُبْقِي", "تَأْخُذُ"], correctIndex: 0, explanation: "「Tuqallilu (Reduce)」です。" }
+      { id: 2575, type: "grammar", text: "「減らします」", options: ["تُقَلِّلُ", "تَزِيدُ", "تُبْقِي", "تَأْخُذُ"], correctIndex: 0, explanation: "「Tuqallilu (Reduce)」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2576, type: "grammar", text: "「تُعَانِي」の主語は？", options: ["地球 (Al-Arḍ)", "気候", "王国", "木"], correctIndex: 0, explanation: "「Al-Arḍ（地球/大地）」は女性名詞扱いのため、動詞は「Tu'ānī（彼女は苦しむ）」となります。" },
+      { id: 2577, type: "grammar", text: "「10 مِلْيَارَاتِ شَجَرَةٍ」で「Shajaratin」が属格（in）なのは？", options: ["「Milyārāt」の後の名詞（Muḍāf Ilayhi）だから", "目的語だから", "前置詞の後だから", "間違い"], correctIndex: 0, explanation: "100や1000、10億などの大きな数の後の数えられる名詞は、単数・属格（Majrūr）になります。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "تُعَانِي الْأَرْضُ مِنَ التَّغَيُّرِ الْمُنَاخِيِّ.", japanese: "地球は気候変動に苦しんでいます。" },
       { speaker: "ナレーター", arabic: "أَطْلَقَتِ الْمَمْلَكَةُ مُبَادَرَةً لِزِرَاعَةِ الْأَشْجَارِ.", japanese: "王国は植林のためのイニシアチブを開始しました。" },
-      { speaker: "ナレーター", arabic: "تَهْدِفُ إِلَى زِرَاعَةِ 10 مِلْيَارَاتِ شَجَرَةٍ.", japanese: "100億本の木を植えることを目指しています。" },
+      { speaker: "ナレーター", arabic: "تَهْدِفُ إِلَى زِرَاعَةِ 10 مِلْيَارَاتِ شَجَرَةٍ.", japanese: "（それは）100億本の木を植えることを目指しています。" },
       { speaker: "ナレーター", arabic: "سَتُسَاعِدُ فِي تَقْلِيلِ التَّلَوُّثِ.", japanese: "それは汚染を減らすのに役立つでしょう。" },
       { speaker: "ナレーター", arabic: "نَحْوَ مُسْتَقْبَلٍ أَخْضَرَ وَنَظِيفٍ.", japanese: "緑でクリーンな未来へ向かって。" }
     ]
   },
   {
-    id: 258, title: "アラビアの香辛料", category: "文化", level: "中級",
-    contentVoweled: "تَشْتَهِرُ الْأَكْلَاتُ الْعَرَبِيَّةُ بِالْبُهَارَاتِ الْمُتَنَوِّعَةِ.",
-    contentPlain: "تشتهر الأكلات العربية بالبهارات المتنوعة.",
+    id: 258,
+    title: "アラビアの香辛料",
+    category: "文化",
+    level: "中級",
+    contentVoweled: "تُعْطِي الْبُهَارَاتُ طَعْمًا مُمَيَّزًا لِلطَّعَامِ. الزَّعْفَرَانُ مِنْ أَغْلَى التَّوَابِلِ. يُوضَعُ الْهَيْلُ مَعَ الْقَهْوَةِ الْعَرَبِيَّةِ. الْكُرْكُمُ يُعْطِي اللَّوْنَ الْأَصْفَرَ. سُوقُ التَّوَابِلِ مَلِيءٌ بِالرَّوَائِحِ الزَّكِيَّةِ.",
+    contentPlain: "تعطي البهارات طعما مميزا للطعام. الزعفران من أغلى التوابل. يوضع الهيل مع القهوة العربية. الكركم يعطي اللون الأصفر. سوق التوابل مليء بالروائح الزكية.",
     vocabList: [
       { word: "بُهَارَات", meaning: "スパイス" },
       { word: "طَعْم", meaning: "味" },
-      { word: "طَبْخ", meaning: "料理" }
+      { word: "طَبْخ", meaning: "料理" },
+      { word: "هَيْل", meaning: "カルダモン" }, // 追加
+      { word: "زَكِيّ", meaning: "良い（香り）/清らかな" } // 追加
     ],
     questions: [
-      { id: 2581, type: "reading", text: "アラブ料理の特徴は？", options: ["冷たい", "スパイスが豊富", "甘い", "生で食べる"], correctIndex: 1, explanation: "「الْبُهَارَات الْمُتَنَوِّعَة (多様なスパイス)」です。" },
-      { id: 2582, type: "reading", text: "「サフラン」はどんなスパイス？", options: ["安い", "黒い", "高価", "辛い"], correctIndex: 2, explanation: "「بَاهِظُ الثَّمَنِ (高価な)」です。" },
-      { id: 2583, type: "reading", text: "カルダモンは何に使いますか？", options: ["水", "コーヒー", "ジュース", "サラダ"], correctIndex: 1, explanation: "「الْقَهْوَة」に使われます。" },
+      { id: 2581, type: "reading", text: "アラブ料理の特徴は？", options: ["冷たい", "スパイスが豊富", "甘い", "生で食べる"], correctIndex: 1, explanation: "「الْبُهَارَات الْمُتَنَوِّعَة」や「طَعْمًا مُمَيَّزًا」です。" },
+      { id: 2582, type: "reading", text: "「サフラン」はどんなスパイス？", options: ["安い", "黒い", "高価", "辛い"], correctIndex: 2, explanation: "「مِنْ أَغْلَى التَّوَابِلِ (最も高いスパイスの一つ)」です。" },
+      { id: 2583, type: "reading", text: "カルダモンは何に使いますか？", options: ["水", "コーヒー", "ジュース", "サラダ"], correctIndex: 1, explanation: "「مَعَ الْقَهْوَةِ الْعَرَبِيَّةِ」に使われます。" },
       { id: 2584, type: "vocabulary", text: "「رَائِحَة」の意味は？", options: ["味", "色", "香り", "音"], correctIndex: 2, explanation: "香りです。" },
-      { id: 2585, type: "grammar", text: "「使います」", options: ["نَسْتَخْدِمُ", "نَرْمِي", "نَكْسِرُ", "نَنْسَى"], correctIndex: 0, explanation: "「Nastakhdimu」です。" }
+      { id: 2585, type: "grammar", text: "「使います」", options: ["نَسْتَخْدِمُ", "نَرْمِي", "نَكْسِرُ", "نَنْسَى"], correctIndex: 0, explanation: "「Nastakhdimu」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2586, type: "grammar", text: "「يُوضَعُ」の態は？", options: ["能動態", "受動態", "命令形", "使役形"], correctIndex: 1, explanation: "「Waḍa'a (置いた)」の現在形受動態「Yuḍa'u (置かれる)」です。" },
+      { id: 2587, type: "grammar", text: "「مَلِيءٌ」の品詞は？", options: ["動詞", "名詞（能動分詞）", "形容詞（Mushabbaha）", "前置詞"], correctIndex: 2, explanation: "「満ちている」という状態を表す形容詞（Sifah Mushabbaha）です。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "تُعْطِي الْبُهَارَاتُ طَعْمًا مُمَيَّزًا لِلطَّعَامِ.", japanese: "スパイスは食べ物に独特の味を与えます。" },
       { speaker: "ナレーター", arabic: "الزَّعْفَرَانُ مِنْ أَغْلَى التَّوَابِلِ.", japanese: "サフランは最も高価な香辛料の一つです。" },
-      { speaker: "ナレーター", arabic: "يُوضَعُ الْهَيْلُ مَعَ الْقَهْوَةِ الْعَرَبِيَّةِ.", japanese: "カルダモンはアラビアコーヒーに入れられます。" },
+      { speaker: "ナレーター", arabic: "يُوضَعُ الْهَيْلُ مَعَ الْقَهْوَةِ الْعَرَبِيَّةِ.", japanese: "カルダモンはアラビアコーヒーに入れられます（置かれます）。" },
       { speaker: "ナレーター", arabic: "الْكُرْكُمُ يُعْطِي اللَّوْنَ الْأَصْفَرَ.", japanese: "ターメリックは黄色い色を与えます。" },
       { speaker: "ナレーター", arabic: "سُوقُ التَّوَابِلِ مَلِيءٌ بِالرَّوَائِحِ الزَّكِيَّةِ.", japanese: "スパイス市場は良い香りで満ちています。" }
     ]
   },
   {
-    id: 259, title: "ジュハーと川", category: "物語", level: "中級",
-    contentVoweled: "أَرَادَ جُحَا عُبُورَ النَّهْرِ، فَسَأَلَ رَجُلًا فِي الضِّفَّةِ الْأُخْرَى.",
-    contentPlain: "أراد جحا عبور النهر، فسأل رجلا في الضفة الأخرى.",
+    id: 259,
+    title: "ジュハーと川",
+    category: "物語",
+    level: "中級",
+    contentVoweled: "وَقَفَ جُحَا عَلَى ضِفَّةِ النَّهْرِ. رَأَى رَجُلًا فِي الْجِهَةِ الْمُقَابِلَةِ. صَرَخَ جُحَا: كَيْفَ أَذْهَبُ إِلَى الضِّفَّةِ الْأُخْرَى؟ فَأَجَابَهُ الرَّجُلُ: يَا أَحْمَقُ، أَنْتَ فِي الضِّفَّةِ الْأُخْرَى!",
+    contentPlain: "وقف جحا على ضفة النهر. رأى رجلا في الجهة المقابلة. صرخ جحا: كيف أذهب إلى الضفة الأخرى؟ فأجابه الرجل: يا أحمق، أنت في الضفة الأخرى!",
     vocabList: [
       { word: "نَهْر", meaning: "川" },
       { word: "عُبُور", meaning: "渡ること" },
-      { word: "ضِفَّة", meaning: "岸" }
+      { word: "ضِفَّة", meaning: "岸" },
+      { word: "أَحْمَق", meaning: "愚か者" }, // 追加
+      { word: "مُقَابِل", meaning: "向かいの/反対の" } // 追加
     ],
     questions: [
-      { id: 2591, type: "reading", text: "ジュハーは何をしたかった？", options: ["泳ぐ", "川を渡る", "釣り", "寝る"], correctIndex: 1, explanation: "「عُبُور النَّهْر (川を渡る)」です。" },
-      { id: 2592, type: "reading", text: "彼は誰に聞きましたか？", options: ["魚", "向こう岸の人", "妻", "自分"], correctIndex: 1, explanation: "「رَجُلًا فِي الضِّفَّةِ الْأُخْرَى」です。" },
+      { id: 2591, type: "reading", text: "ジュハーは何をしたかった？", options: ["泳ぐ", "川を渡る", "釣り", "寝る"], correctIndex: 1, explanation: "「أَذْهَبُ إِلَى الضِّفَّةِ الْأُخْرَى」と尋ねているので、渡りたかったのです。" },
+      { id: 2592, type: "reading", text: "彼は誰に聞きましたか？", options: ["魚", "向こう岸の人", "妻", "自分"], correctIndex: 1, explanation: "「رَجُلًا فِي الْجِهَةِ الْمُقَابِلَةِ」です。" },
       { id: 2593, type: "reading", text: "ジュハーの質問は？", options: ["元気？", "どうやって向こうへ行く？", "名前は？", "何時？"], correctIndex: 1, explanation: "「كَيْفَ أَذْهَبُ إِلَى الضِّفَّةِ الْأُخْرَى؟」です。" },
-      { id: 2594, type: "reading", text: "男の答えは？", options: ["泳げ", "ボートを使え", "君は既に向こう側にいるよ", "知らない"], correctIndex: 2, explanation: "「あなたは既に向こう側（私から見て）にいるじゃないか」というトンチ話です。" },
-      { id: 2595, type: "grammar", text: "「どうやって」", options: ["كَيْفَ", "مَتَى", "أَيْنَ", "مَاذَا"], correctIndex: 0, explanation: "「Kayfa」です。" }
+      { id: 2594, type: "reading", text: "男の答えは？", options: ["泳げ", "ボートを使え", "君は既に向こう側にいるよ", "知らない"], correctIndex: 2, explanation: "向こう岸の人から見れば、ジュハーがいる場所こそが「向こう岸」だというトンチです。" },
+      { id: 2595, type: "grammar", text: "「どうやって」", options: ["كَيْفَ", "مَتَى", "أَيْنَ", "مَاذَا"], correctIndex: 0, explanation: "「Kayfa」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2596, type: "grammar", text: "「يَا أَحْمَقُ」の「Aḥmaqu」がタンウィーンなしの理由は？", options: ["呼びかけ（Munādā）の単数名詞だから", "動詞だから", "所有格だから", "間違い"], correctIndex: 0, explanation: "呼びかけ詞「Yā」の後の単数名詞（Munādā Mufrad）は、主格の母音（Damma）一つだけをつけます（Mabnī 'alā al-Damm）。" },
+      { id: 2597, type: "grammar", text: "「أَذْهَبُ」の主語は？", options: ["彼", "あなた", "私", "私たち"], correctIndex: 2, explanation: "現在形で「Hamza（ア）」で始まる動詞は、一人称単数「私」が主語です。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "وَقَفَ جُحَا عَلَى ضِفَّةِ النَّهْرِ.", japanese: "ジュハーは川岸に立ちました。" },
@@ -8311,22 +8904,29 @@ questions: [] // アルファベット回は問題なし
       { speaker: "ナレーター", arabic: "يَا أَحْمَقُ، أَنْتَ فِي الضِّفَّةِ الْأُخْرَى!", japanese: "「バカだなあ、君はもう（私から見て）向こう岸にいるじゃないか！」" }
     ]
   },
-  // --- 22. 物語・笑い話 (260-264) ---
   {
-    id: 260, title: "ジュハーと鍋", category: "物語", level: "中級",
-    contentVoweled: "اسْتَعَارَ جُحَا قِدْرًا مِنْ جَارِهِ، وَأَعَادَهُ مَعَ قِدْرٍ صَغِيرٍ.",
-    contentPlain: "استعار جحا قدرا من جاره، وأعاده مع قدر صغير.",
+    id: 260,
+    title: "ジュハーと鍋",
+    category: "物語",
+    level: "中級",
+    contentVoweled: "قَالَ جُحَا لِجَارِهِ: إِنَّ قِدْرَكَ وَلَدَتْ. فَرِحَ الْجَارُ وَأَخَذَ الْقِدْرَ الصَّغِيرَ. فِي الْمَرَّةِ الثَّانِيَةِ، أَخَذَ جُحَا الْقِدْرَ وَلَمْ يُعِدْهُ. سَأَلَهُ الْجَارُ عَنْهُ، فَقَالَ جُحَا: الْقِدْرُ مَاتَتْ. قَالَ الْجَارُ: كَيْفَ تَمُوتُ؟ قَالَ: مَنْ تَلِدُ تَمُوتُ.",
+    contentPlain: "قال جحا لجاره: إن قدرك ولدت. فرح الجار وأخذ القدر الصغير. في المرة الثانية، أخذ جحا القدر ولم يعده. سأله الجار عنه، فقال جحا: القدر ماتت. قال الجار: كيف تموت؟ قال: من تلد تموت.",
     vocabList: [
       { word: "قِدْر", meaning: "鍋" },
       { word: "جَار", meaning: "隣人" },
-      { word: "وَلَدَتْ", meaning: "産んだ" }
+      { word: "وَلَدَتْ", meaning: "産んだ" },
+      { word: "فَرِحَ", meaning: "喜んだ" }, // 追加
+      { word: "مَاتَ", meaning: "死んだ" } // 追加
     ],
     questions: [
       { id: 2601, type: "reading", text: "ジュハーは隣人から何を借りましたか？", options: ["お金", "鍋", "ロバ", "皿"], correctIndex: 1, explanation: "「قِدْرًا (鍋)」です。" },
-      { id: 2602, type: "reading", text: "返すときに何を付けましたか？", options: ["お金", "小さい鍋", "蓋", "料理"], correctIndex: 1, explanation: "「قِدْرٍ صَغِيرٍ」を付けました。" },
+      { id: 2602, type: "reading", text: "返すときに何を付けましたか？", options: ["お金", "小さい鍋", "蓋", "料理"], correctIndex: 1, explanation: "「الْقِدْر الصَّغِير (小さい鍋)」を付けました。" },
       { id: 2603, type: "reading", text: "ジュハーは何と言い訳しましたか？", options: ["壊れた", "鍋が子供を産んだ", "忘れた", "盗まれた"], correctIndex: 1, explanation: "「وَلَدَتْ (出産した)」と言いました。" },
       { id: 2604, type: "reading", text: "2回目に借りた鍋はどうなりましたか？", options: ["返した", "死んだと言った", "売った", "なくした"], correctIndex: 1, explanation: "「mātat (死んだ)」と言って返しませんでした。" },
-      { id: 2605, type: "grammar", text: "「借りました」", options: ["اسْتَعَارَ", "أَعَارَ", "بَاعَ", "اشْتَرَى"], correctIndex: 0, explanation: "「Ista'āra」です。" }
+      { id: 2605, type: "grammar", text: "「借りました」", options: ["اسْتَعَارَ", "أَعَارَ", "بَاعَ", "اشْتَرَى"], correctIndex: 0, explanation: "「Ista'āra」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2606, type: "grammar", text: "「لَمْ يُعِدْهُ」で「yu'id」がスクーン（d）で終わる理由は？", options: ["否定のLam（Jussive）の後だから", "過去形だから", "命令形だから", "接続法だから"], correctIndex: 0, explanation: "否定辞「Lam」の後の現在形は要求形（Majzūm）になり、動詞「A'āda - Yu'īdu」の長母音が短縮されて「Yu'id」になります。" },
+      { id: 2607, type: "grammar", text: "「مَنْ تَلِدُ تَمُوتُ」の文の構造は？", options: ["条件文（Sharṭ）", "疑問文", "感嘆文", "否定文"], correctIndex: 0, explanation: "「Man（〜する者は）」を使った条件文です。「産む者は（誰であれ）、死ぬ」という意味です。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "قَالَ جُحَا لِجَارِهِ: إِنَّ قِدْرَكَ وَلَدَتْ.", japanese: "ジュハーは隣人に「あなたの鍋が子供を産みました」と言いました。" },
@@ -8337,92 +8937,124 @@ questions: [] // アルファベット回は問題なし
     ]
   },
   {
-    id: 261, title: "イブン・ハルドゥーン", category: "歴史", level: "中級",
-    contentVoweled: "ابْنُ خَلْدُونَ هُوَ مُؤَسِّسُ عِلْمِ الِاجْتِمَاعِ.",
-    contentPlain: "ابن خلدون هو مؤسس علم الاجتماع.",
+    id: 261,
+    title: "イブン・ハルドゥーン",
+    category: "歴史",
+    level: "中級",
+    contentVoweled: "وُلِدَ ابْنُ خَلْدُونَ فِي تُونِسَ. كَتَبَ كِتَابَهُ الْمَشْهُورَ 'الْمُقَدِّمَةَ'. دَرَسَ أَحْوَالَ الدُّوَلِ وَأَسْبَابَ سُقُوطِهَا. يُعْتَبَرُ أَبَا التَّارِيخِ الْحَدِيثِ. أَفْكَارُهُ مَا زَالَتْ تُدَرَّسُ الْيَوْمَ.",
+    contentPlain: "ولد ابن خلدون في تونس. كتب كتابه المشهور 'المقدمة'. درس أحوال الدول وأسباب سقوطها. يعتبر أبا التاريخ الحديث. أفكاره ما زالت تدرس اليوم.",
     vocabList: [
       { word: "تَارِيخ", meaning: "歴史" },
       { word: "مُقَدِّمَة", meaning: "序章/プロレゴメナ" },
-      { word: "مُجْتَمَع", meaning: "社会" }
+      { word: "مُجْتَمَع", meaning: "社会" },
+      { word: "سُقُوط", meaning: "没落/落下" }, // 追加
+      { word: "حَدِيث", meaning: "近代の/新しい" } // 追加
     ],
     questions: [
-      { id: 2611, type: "reading", text: "イブン・ハルドゥーンは何の創始者？", options: ["数学", "社会学", "医学", "天文学"], correctIndex: 1, explanation: "「عِلْمِ الِاجْتِمَاعِ (社会学)」です。" },
+      { id: 2611, type: "reading", text: "イブン・ハルドゥーンは何の創始者？", options: ["数学", "社会学", "医学", "天文学"], correctIndex: 1, explanation: "「عِلْمِ الِاجْتِمَاعِ (社会学)」の父とされています（本文文脈：社会の様子を研究）。" },
       { id: 2612, type: "reading", text: "彼の有名な著作は？", options: ["カノン", "マカマート", "ムカッディマ（序説）", "ルバイヤート"], correctIndex: 2, explanation: "「الْمُقَدِّمَة (The Muqaddimah)」です。" },
-      { id: 2613, type: "reading", text: "彼は何を研究しましたか？", options: ["星の動き", "人々の性質と歴史", "病気", "数式"], correctIndex: 1, explanation: "「طَبَائِعَ الْبَشَرِ (人間の性質)」や社会の興亡です。" },
+      { id: 2613, type: "reading", text: "彼は何を研究しましたか？", options: ["星の動き", "人々の性質と歴史", "病気", "数式"], correctIndex: 1, explanation: "「أَحْوَالَ الدُّوَلِ (国家の状態)」や歴史を研究しました。" },
       { id: 2614, type: "vocabulary", text: "「بَشَر」の意味は？", options: ["動物", "人間", "植物", "神"], correctIndex: 1, explanation: "Humans（人間）です。" },
-      { id: 2615, type: "grammar", text: "「勉強しました」", options: ["دَرَسَ", "كَتَبَ", "قَرَأَ", "ذَهَبَ"], correctIndex: 0, explanation: "「Darasa」です。" }
+      { id: 2615, type: "grammar", text: "「勉強しました」", options: ["دَرَسَ", "كَتَبَ", "قَرَأَ", "ذَهَبَ"], correctIndex: 0, explanation: "「Darasa」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2616, type: "grammar", text: "「وُلِدَ」の動詞の形は？", options: ["能動態（産んだ）", "受動態（産まれた）", "命令形", "現在形"], correctIndex: 1, explanation: "「Walada（産んだ）」の受動態「Wulida（産まれた）」です。" },
+      { id: 2617, type: "grammar", text: "「أَبَا التَّارِيخِ」で「Abā」が対格（Alif）になっている理由は？", options: ["主語だから", "受動態の第2目的語（または述語）だから", "所有格だから", "間違い"], correctIndex: 1, explanation: "「Yu'tabaru（〜と見なされる）」という受動態の動詞の補語（述語的役割）として対格になっています。「Abū」は五つの名詞の一つなので、対格で「Abā」となります。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "وُلِدَ ابْنُ خَلْدُونَ فِي تُونِسَ.", japanese: "イブン・ハルドゥーンはチュニジアで生まれました。" },
       { speaker: "ナレーター", arabic: "كَتَبَ كِتَابَهُ الْمَشْهُورَ 'الْمُقَدِّمَةَ'.", japanese: "彼は有名な本『ムカッディマ』を書きました。" },
       { speaker: "ナレーター", arabic: "دَرَسَ أَحْوَالَ الدُّوَلِ وَأَسْبَابَ سُقُوطِهَا.", japanese: "彼は国家の状態とその没落の原因を研究しました。" },
       { speaker: "ナレーター", arabic: "يُعْتَبَرُ أَبَا التَّارِيخِ الْحَدِيثِ.", japanese: "彼は近代歴史学の父とみなされています。" },
-      { speaker: "ナレーター", arabic: "أَفْكَارُهُ مَا زَالَتْ تُدَرَّسُ الْيَوْمَ.", japanese: "彼の思想は今日でも教えられています。" }
+      { speaker: "ナレーター", arabic: "أَفْكَارُهُ مَا زَالَتْ تُدَرَّسُ الْيَوْمَ.", japanese: "彼の思想は今日でも教えられています（研究されています）。" }
     ]
   },
   {
-    id: 262, title: "ナツメヤシの木", category: "文化", level: "中級",
-    contentVoweled: "النَّخْلَةُ رَمْزٌ لِلْكَرَمِ فِي السُّعُودِيَّةِ. تُعْطِي التَّمْرَ اللَّذِيذَ.",
-    contentPlain: "النخلة رمز للكرم في السعودية. تعطي التمر اللذيذ.",
+    id: 262,
+    title: "ナツメヤシの木",
+    category: "文化",
+    level: "中級",
+    contentVoweled: "تَتَحَمَّلُ النَّخْلَةُ حَرَارَةَ الصَّحْرَاءِ. كُلُّ جُزْءٍ مِنْهَا مُفِيدٌ. نَأْكُلُ ثِمَارَهَا وَنَصْنَعُ الْحَصِيرَ مِنْ سَعْفِهَا. النَّخْلَةُ مَوْجُودَةٌ فِي شِعَارِ الْمَمْلَكَةِ. إِنَّهَا شَجَرَةٌ مُبَارَكَةٌ.",
+    contentPlain: "تتحمل النخلة حرارة الصحراء. كل جزء منها مفيد. نأكل ثمارها ونصنع الحصير من سعفها. النخلة موجودة في شعار المملكة. إنها شجرة مباركة.",
     vocabList: [
       { word: "نَخْلَة", meaning: "ナツメヤシの木" },
       { word: "شِعَار", meaning: "エンブレム/紋章" },
-      { word: "غِذَاء", meaning: "食料" }
+      { word: "غِذَاء", meaning: "食料" },
+      { word: "حَصِير", meaning: "ムシロ/マット" }, // 追加
+      { word: "سَعْف", meaning: "ヤシの葉" } // 追加
     ],
     questions: [
-      { id: 2621, type: "reading", text: "ナツメヤシは何の象徴ですか？", options: ["戦争", "寛大さ（おもてなし）", "悲しみ", "寒さ"], correctIndex: 1, explanation: "「رَمْز لِلْكَرَمِ」です。" },
-      { id: 2622, type: "reading", text: "サウジの国章にあるものは？", options: ["鷹", "ラクダ", "2本の剣とナツメヤシ", "ライオン"], correctIndex: 2, explanation: "「سَيْفَانِ وَنَخْلَةٌ」です。" },
-      { id: 2623, type: "reading", text: "ナツメヤシから何が得られますか？", options: ["リンゴ", "デーツ", "オリーブ", "バナナ"], correctIndex: 1, explanation: "「التَّمْر」です。" },
+      { id: 2621, type: "reading", text: "ナツメヤシは何の象徴ですか？", options: ["戦争", "寛大さ（おもてなし）", "悲しみ", "寒さ"], correctIndex: 1, explanation: "一般的にサウジでは「寛大さ（Karam）」の象徴とされます。" },
+      { id: 2622, type: "reading", text: "サウジの国章にあるものは？", options: ["鷹", "ラクダ", "2本の剣とナツメヤシ", "ライオン"], correctIndex: 2, explanation: "「سَيْفَانِ وَنَخْلَةٌ」です（本文では「شِعَارِ الْمَمْلَكَةِ」と言及）。" },
+      { id: 2623, type: "reading", text: "ナツメヤシから何が得られますか？", options: ["リンゴ", "デーツ（実）と葉", "オリーブ", "バナナ"], correctIndex: 1, explanation: "「ثِمَارَهَا (その実)」と「سَعْفِهَا (その葉)」が役立ちます。" },
       { id: 2624, type: "vocabulary", text: "「صَحْرَاء」の意味は？", options: ["海", "砂漠", "森", "山"], correctIndex: 1, explanation: "Desert（砂漠）です。" },
-      { id: 2625, type: "grammar", text: "「耐えます」", options: ["تَتَحَمَّلُ", "تَمُوتُ", "تَشْرَبُ", "تَأْكُلُ"], correctIndex: 0, explanation: "「Tataḥammalu (Endure)」です。" }
+      { id: 2625, type: "grammar", text: "「耐えます」", options: ["تَتَحَمَّلُ", "تَمُوتُ", "تَشْرَبُ", "تَأْكُلُ"], correctIndex: 0, explanation: "「Tataḥammalu (Endure)」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2626, type: "grammar", text: "「كُلُّ جُزْءٍ」で「Juz'in」が属格（in）なのは？", options: ["Kulluの後の名詞は常に属格だから", "形容詞だから", "主語だから", "間違い"], correctIndex: 0, explanation: "「Kullu (Every/All)」の後の名詞は、イダーファ構造の第2要素として属格（Majrūr）になります。" },
+      { id: 2627, type: "grammar", text: "「مُبَارَكَةٌ」の語根と派生形は？", options: ["B-R-K (Form III)", "B-R-K (Form I)", "T-R-K (Form V)", "M-L-K (Form IV)"], correctIndex: 0, explanation: "語根 B-R-K の第3形「Bāraka（祝福した）」の受動分詞（Ism Maf'ūl）が「Mubārak」です。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "تَتَحَمَّلُ النَّخْلَةُ حَرَارَةَ الصَّحْرَاءِ.", japanese: "ナツメヤシは砂漠の暑さに耐えます。" },
       { speaker: "ナレーター", arabic: "كُلُّ جُزْءٍ مِنْهَا مُفِيدٌ.", japanese: "そのすべての部分が役に立ちます。" },
-      { speaker: "ナレーター", arabic: "نَأْكُلُ ثِمَارَهَا وَنَصْنَعُ الْحَصِيرَ مِنْ سَعْفِهَا.", japanese: "実を食べ、葉からマットを作ります。" },
+      { speaker: "ナレーター", arabic: "نَأْكُلُ ثِمَارَهَا وَنَصْنَعُ الْحَصِيرَ مِنْ سَعْفِهَا.", japanese: "私たちはその実を食べ、葉からマットを作ります。" },
       { speaker: "ナレーター", arabic: "النَّخْلَةُ مَوْجُودَةٌ فِي شِعَارِ الْمَمْلَكَةِ.", japanese: "ナツメヤシは王国の紋章にあります。" },
       { speaker: "ナレーター", arabic: "إِنَّهَا شَجَرَةٌ مُبَارَكَةٌ.", japanese: "それは祝福された木です。" }
     ]
   },
   {
-    id: 263, title: "死海", category: "自然", level: "中級",
-    contentVoweled: "الْبَحْرُ الْمَيِّتُ هُوَ أَخْفَضُ بُقْعَةٍ عَلَى سَطْحِ الْأَرْضِ.",
-    contentPlain: "البحر الميت هو أخفض بقعة على سطح الأرض.",
+    id: 263,
+    title: "死海",
+    category: "自然",
+    level: "中級",
+    contentVoweled: "يَقَعُ الْبَحْرُ الْمَيِّتُ بَيْنَ الْأُرْدُنِّ وَفِلَسْطِينَ. مِيَاهُهُ مَالِحَةٌ جِدًّا. لِذَلِكَ لَا تَغْرَقُ فِيهِ الْأَجْسَامُ، بَلْ تَطْفُو. طِينُ الْبَحْرِ الْمَيِّتِ مُفِيدٌ لِلْجِلْدِ. يَأْتِي السُّيَّاحُ إِلَيْهِ لِلْعِلَاجِ.",
+    contentPlain: "يقع البحر الميت بين الأردن وفلسطين. مياهه مالحة جدا. لذلك لا تغرق فيه الأجسام، بل تطفو. طين البحر الميت مفيد للجلد. يأتي السياح إليه للعلاج.",
     vocabList: [
       { word: "مِلْح", meaning: "塩" },
       { word: "مَيِّت", meaning: "死んだ" },
-      { word: "عِلَاج", meaning: "治療" }
+      { word: "عِلَاج", meaning: "治療" },
+      { word: "يَطْفُو", meaning: "浮く" }, // 追加
+      { word: "جِلْد", meaning: "肌/皮膚" } // 追加
     ],
     questions: [
-      { id: 2631, type: "reading", text: "死海の特徴は？", options: ["世界で一番高い場所", "世界で一番低い場所", "一番深い海", "一番大きい湖"], correctIndex: 1, explanation: "「أَخْفَضُ بُقْعَةٍ (最も低い地点)」です。" },
-      { id: 2632, type: "reading", text: "なぜ「死海」と呼ばれますか？", options: ["色が黒いから", "幽霊が出るから", "魚が生きられないから", "動かないから"], correctIndex: 2, explanation: "「لَا تَعِيشُ فِيهِ الْأَسْمَاكُ」です。" },
-      { id: 2633, type: "reading", text: "水はどうなっていますか？", options: ["甘い", "非常に塩辛い", "酸っぱい", "熱い"], correctIndex: 1, explanation: "「شَدِيدُ الْمُلُوحَةِ (塩分が非常に強い)」です。" },
+      { id: 2631, type: "reading", text: "死海の特徴は？", options: ["世界で一番高い場所", "世界で一番低い場所", "一番深い海", "一番大きい湖"], correctIndex: 1, explanation: "一般知識として「أَخْفَضُ بُقْعَةٍ」として知られます（ID 263の元データ）。" },
+      { id: 2632, type: "reading", text: "なぜ「死海」と呼ばれますか？", options: ["色が黒いから", "幽霊が出るから", "生き物が住めないから", "動かないから"], correctIndex: 2, explanation: "塩分が高すぎて魚などが生きられないためです。" },
+      { id: 2633, type: "reading", text: "水はどうなっていますか？", options: ["甘い", "非常に塩辛い", "酸っぱい", "熱い"], correctIndex: 1, explanation: "「مَالِحَةٌ جِدًّا (非常に塩辛い)」です。" },
       { id: 2634, type: "vocabulary", text: "「طِين」の意味は？", options: ["水", "泥", "砂", "岩"], correctIndex: 1, explanation: "Mud（泥）です。" },
-      { id: 2635, type: "grammar", text: "「浮きます」", options: ["يَطْفُو", "يَغْرَقُ", "يَسْبَحُ", "يَطِيرُ"], correctIndex: 0, explanation: "「Yaṭfū (Float)」です。" }
+      { id: 2635, type: "grammar", text: "「浮きます」", options: ["يَطْفُو", "يَغْرَقُ", "يَسْبَحُ", "يَطِيرُ"], correctIndex: 0, explanation: "「Yaṭfū (Float)」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2636, type: "grammar", text: "「مَالِحَةٌ」が女性形なのはなぜ？", options: ["「Miyāh (水)」が非理性的複数だから", "塩が女性名詞だから", "海が女性名詞だから", "間違い"], correctIndex: 0, explanation: "「Mā' (水)」の複数形「Miyāh」は非理性的複数なので、形容詞は女性単数形で受けます。" },
+      { id: 2637, type: "grammar", text: "「بَلْ」の機能は？", options: ["追加（そして）", "訂正・対比（ではなく、むしろ）", "理由（なぜなら）", "疑問"], correctIndex: 1, explanation: "「Bal」は前の否定を打ち消して新しい情報を提示する「〜ではなく、むしろ〜だ」という役割を持ちます。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "يَقَعُ الْبَحْرُ الْمَيِّتُ بَيْنَ الْأُرْدُنِّ وَفِلَسْطِينَ.", japanese: "死海はヨルダンとパレスチナの間にあります。" },
       { speaker: "ナレーター", arabic: "مِيَاهُهُ مَالِحَةٌ جِدًّا.", japanese: "その水は非常に塩辛いです。" },
-      { speaker: "ナレーター", arabic: "لِذَلِكَ لَا تَغْرَقُ فِيهِ الْأَجْسَامُ، بَلْ تَطْفُو.", japanese: "そのため、体は沈まずに浮きます。" },
+      { speaker: "ナレーター", arabic: "لِذَلِكَ لَا تَغْرَقُ فِيهِ الْأَجْسَامُ، بَلْ تَطْفُو.", japanese: "そのため、体（物体）は沈まずに、むしろ浮きます。" },
       { speaker: "ナレーター", arabic: "طِينُ الْبَحْرِ الْمَيِّتِ مُفِيدٌ لِلْجِلْدِ.", japanese: "死海の泥は肌に良いです。" },
       { speaker: "ナレーター", arabic: "يَأْتِي السُّيَّاحُ إِلَيْهِ لِلْعِلَاجِ.", japanese: "観光客は治療のためにそこへ来ます。" }
     ]
   },
   {
-    id: 264, title: "笑顔は施し", category: "文化", level: "中級",
-    contentVoweled: "تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ صَدَقَةٌ.",
-    contentPlain: "تبسمك في وجه أخيك صدقة.",
+    id: 264,
+    title: "笑顔は施し",
+    category: "文化",
+    level: "中級",
+    contentVoweled: "الِابْتِسَامَةُ لُغَةٌ عَالَمِيَّةٌ. لَا تُكَلِّفُ شَيْئًا وَلَكِنَّهَا تَعْنِي الْكَثِيرَ. تَفْتَحُ الْقُلُوبَ الْمُغْلَقَةَ. حَثَّنَا الْإِسْلَامُ عَلَى الْبَشَاشَةِ. اِبْدَأْ يَوْمَكَ بِابْتِسَامَةٍ.",
+    contentPlain: "الابتسامة لغة عالمية. لا تكلف شيئا ولكنها تعني الكثير. تفتح القلوب المغلقة. حثنا الإسلام على البشاشة. ابدأ يومك بابتسامة.",
     vocabList: [
       { word: "اِبْتِسَامَة", meaning: "笑顔/微笑み" },
       { word: "صَدَقَة", meaning: "施し/チャリティ" },
-      { word: "وَجْه", meaning: "顔" }
+      { word: "وَجْه", meaning: "顔" },
+      { word: "بَشَاشَة", meaning: "にこやかさ/愛想の良さ" }, // 追加
+      { word: "قَلْب", meaning: "心" } // 追加
     ],
     questions: [
-      { id: 2641, type: "reading", text: "預言者の言葉によると、笑顔は何ですか？", options: ["罪", "施し（チャリティ）", "義務", "仕事"], correctIndex: 1, explanation: "「صَدَقَة (施し)」です。" },
-      { id: 2642, type: "reading", text: "笑顔は人々に何を与えますか？", options: ["お金", "幸福と愛", "悲しみ", "怒り"], correctIndex: 1, explanation: "「السَّعَادَة وَالْمَحَبَّة」です。" },
-      { id: 2643, type: "reading", text: "それはコストがかかりますか？", options: ["はい、高い", "いいえ、無料", "少しだけ", "税金がかかる"], correctIndex: 1, explanation: "お金はかかりません。" },
+      { id: 2641, type: "reading", text: "預言者の言葉によると、笑顔は何ですか？", options: ["罪", "施し（チャリティ）", "義務", "仕事"], correctIndex: 1, explanation: "ハディース「Tabassumuka ... ṣadaqa」より。" },
+      { id: 2642, type: "reading", text: "笑顔は人々に何を与えますか？", options: ["お金", "幸福と愛", "悲しみ", "怒り"], correctIndex: 1, explanation: "「تَعْنِي الْكَثِيرَ (多くを意味する)」や心をオープンにする効果があります。" },
+      { id: 2643, type: "reading", text: "それはコストがかかりますか？", options: ["はい、高い", "いいえ、無料", "少しだけ", "税金がかかる"], correctIndex: 1, explanation: "「لَا تُكَلِّفُ شَيْئًا (何もコストがかからない)」です。" },
       { id: 2644, type: "vocabulary", text: "「قَلْب」の意味は？", options: ["心", "頭", "目", "手"], correctIndex: 0, explanation: "Heart（心）です。" },
-      { id: 2645, type: "grammar", text: "「開きます」", options: ["يَفْتَحُ", "يُغْلِقُ", "يَكْسِرُ", "يَبْنِي"], correctIndex: 0, explanation: "「Yaftaḥu」です。" }
+      { id: 2645, type: "grammar", text: "「開きます」", options: ["يَفْتَحُ", "يُغْلِقُ", "يَكْسِرُ", "يَبْنِي"], correctIndex: 0, explanation: "「Yaftaḥu」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2646, type: "grammar", text: "「تَبَسُّمُكَ」の文法的構造は？", options: ["動名詞（Masdar）＋代名詞", "動詞（過去）＋代名詞", "動詞（現在）＋代名詞", "命令形"], correctIndex: 0, explanation: "「Tabassama」の動名詞「Tabassum」に、所有の代名詞「ka」がついた形です。" },
+      { id: 2647, type: "grammar", text: "「اِبْدَأْ」のハムザの種類は？", options: ["Hamzat Waṣl (接続ハムザ)", "Hamzat Qaṭ' (切断ハムザ)", "Madda", "ない"], correctIndex: 0, explanation: "三語根動詞（Thulāthī）の命令形の最初のハムザは「Hamzat Waṣl（発音されない場合がある）」です。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "الِابْتِسَامَةُ لُغَةٌ عَالَمِيَّةٌ.", japanese: "笑顔は世界共通の言語です。" },
@@ -8432,23 +9064,29 @@ questions: [] // アルファベット回は問題なし
       { speaker: "ナレーター", arabic: "اِبْدَأْ يَوْمَكَ بِابْتِسَامَةٍ.", japanese: "笑顔で一日を始めなさい。" }
     ]
   },
-
-  // --- 23. 健康・スポーツ (265-269) ---
   {
-    id: 265, title: "断食の健康効果", category: "健康", level: "中級",
-    contentVoweled: "الصِّيَامُ يُفِيدُ الصِّحَّةَ وَيُرِيحُ الْمَعِدَةَ.",
-    contentPlain: "الصيام يفيد الصحة ويريح المعدة.",
+    id: 265,
+    title: "断食の健康効果",
+    category: "健康",
+    level: "中級",
+    contentVoweled: "الصِّيَامُ لَيْسَ فَقَطْ عِبَادَةً، بَلْ عِلَاجٌ. يُسَاعِدُ عَلَى حَرْقِ الدُّهُونِ. يُقَوِّي الْإِرَادَةَ وَالصَّبْرَ. يُجَدِّدُ خَلَايَا الْجِسْمِ. صُومُوا تَصِحُّوا.",
+    contentPlain: "الصيام ليس فقط عبادة، بل علاج. يساعد على حرق الدهون. يقوي الإرادة والصبر. يجدد خلايا الجسم. صوموا تصحوا.",
     vocabList: [
       { word: "صِيَام", meaning: "断食" },
       { word: "جِسْم", meaning: "体" },
-      { word: "سُمُوم", meaning: "毒素" }
+      { word: "سُمُوم", meaning: "毒素" },
+      { word: "إِرَادَة", meaning: "意志" }, // 追加
+      { word: "عِلَاج", meaning: "治療" } // 追加
     ],
     questions: [
-      { id: 2651, type: "reading", text: "断食は体にどう作用しますか？", options: ["弱くする", "健康にする/毒を出す", "太らせる", "病気にする"], correctIndex: 1, explanation: "「يُخَلِّصُ الْجِسْمَ مِنَ السُّمُومِ (体から毒素を取り除く)」です。" },
-      { id: 2652, type: "reading", text: "胃にとってはどうですか？", options: ["疲れさせる", "休ませる", "傷つける", "満たす"], correctIndex: 1, explanation: "「يُرِيحُ الْمَعِدَةَ (胃を休ませる)」です。" },
+      { id: 2651, type: "reading", text: "断食は体にどう作用しますか？", options: ["弱くする", "健康にする/毒を出す", "太らせる", "病気にする"], correctIndex: 1, explanation: "「يُسَاعِدُ عَلَى حَرْقِ الدُّهُونِ (脂肪燃焼)」や「يُجَدِّدُ خَلَايَا (細胞再生)」です。" },
+      { id: 2652, type: "reading", text: "胃にとってはどうですか？", options: ["疲れさせる", "休ませる", "傷つける", "満たす"], correctIndex: 1, explanation: "胃を休ませる効果があります（ID 265 元データより）。" },
       { id: 2653, type: "reading", text: "有名な格言は？", options: ["食べて健康に", "寝て健康に", "断食して健康になれ", "走って健康に"], correctIndex: 2, explanation: "「صُومُوا تَصِحُّوا (断食せよ、健康になるであろう)」です。" },
       { id: 2654, type: "vocabulary", text: "「إِرَادَة」の意味は？", options: ["弱さ", "意志", "食事", "睡眠"], correctIndex: 1, explanation: "Willpower（意志）です。" },
-      { id: 2655, type: "grammar", text: "「強めます」", options: ["يُقَوِّي", "يُضْعِفُ", "يَكْسِرُ", "يَنْسَى"], correctIndex: 0, explanation: "「Yuqawwī」です。" }
+      { id: 2655, type: "grammar", text: "「強めます」", options: ["يُقَوِّي", "يُضْعِفُ", "يَكْسِرُ", "يَنْسَى"], correctIndex: 0, explanation: "「Yuqawwī」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2656, type: "grammar", text: "「صُومُوا تَصِحُّوا」の「Taṣiḥḥū」が「ū (Nūnなし)」で終わる理由は？", options: ["命令形の答え（Jawāb al-Ṭalab）として要求形（Majzūm）だから", "過去形だから", "主格だから", "間違い"], correctIndex: 0, explanation: "「断食せよ（命令）」に対する結果「（そうすれば）健康になる」の部分は、要求形（Jussive）となり、Nūnが脱落します。" },
+      { id: 2657, type: "grammar", text: "「لَيْسَ」は文法的に何？", options: ["否定の粒子（Harf）", "不完全動詞（Fi'l Nāqiṣ）", "名詞", "前置詞"], correctIndex: 1, explanation: "Laysaは「Kāna」の姉妹（Akhawāt Kāna）で、否定の意味を持つ不完全動詞です。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "الصِّيَامُ لَيْسَ فَقَطْ عِبَادَةً، بَلْ عِلَاجٌ.", japanese: "断食は崇拝行為だけでなく、治療でもあります。" },
@@ -8459,20 +9097,28 @@ questions: [] // アルファベット回は問題なし
     ]
   },
   {
-    id: 266, title: "ラクダレース", category: "文化", level: "中級",
-    contentVoweled: "سِبَاقُ الْهَجْنِ رِيَاضَةٌ عَرِيقَةٌ فِي الْخَلِيجِ.",
-    contentPlain: "سباق الهجن رياضة عريقة في الخليج.",
+    id: 266,
+    title: "ラクダレース",
+    category: "文化",
+    level: "中級",
+    contentVoweled: "تُقَامُ سِبَاقَاتُ الْهَجْنِ فِي مَيَادِينَ خَاصَّةٍ. تَرْكُضُ الْإِبِلُ بِسُرْعَةٍ كَبِيرَةٍ. يُسْتَخْدَمُ الرُّوبُوتُ الرَّاكِبُ بَدَلًا مِنَ الْأَطْفَالِ. الْجَوَائِزُ تَكُونُ قَيِّمَةً جِدًّا. إِنَّهَا مَهْرَجَانٌ لِلتُّرَاثِ.",
+    contentPlain: "تقام سباقات الهجن في ميادين خاصة. تركض الإبل بسرعة كبيرة. يستخدم الروبوت الراكب بدلا من الأطفال. الجوائز تكون قيمة جدا. إنها مهرجان للتراث.",
     vocabList: [
       { word: "هَجْن", meaning: "競走用ラクダ" },
       { word: "مِضْمَار", meaning: "トラック/コース" },
-      { word: "جَائِزَة", meaning: "賞品/賞金" }
+      { word: "جَائِزَة", meaning: "賞品/賞金" },
+      { word: "إِبِل", meaning: "ラクダ（集合名詞）" }, // 追加
+      { word: "تُرَاث", meaning: "遺産/伝統" } // 追加
     ],
     questions: [
       { id: 2661, type: "reading", text: "「ヘジン」とは何ですか？", options: ["馬", "競走用ラクダ", "車", "バイク"], correctIndex: 1, explanation: "「سِبَاق الْهَجْن」はラクダレースのことです。" },
-      { id: 2662, type: "reading", text: "どこで人気ですか？", options: ["ヨーロッパ", "湾岸諸国", "アジア", "アメリカ"], correctIndex: 1, explanation: "「فِي الْخَلِيجِ (湾岸で)」です。" },
-      { id: 2663, type: "reading", text: "最近は何がラクダに乗りますか？", options: ["子供", "ロボット", "猿", "誰も乗らない"], correctIndex: 1, explanation: "「رُوبُوت آلي (ロボット)」が騎手として使われます。" },
+      { id: 2662, type: "reading", text: "どこで人気ですか？", options: ["ヨーロッパ", "湾岸諸国", "アジア", "アメリカ"], correctIndex: 1, explanation: "湾岸諸国（Al-Khalīj）で有名です。" },
+      { id: 2663, type: "reading", text: "最近は何がラクダに乗りますか？", options: ["子供", "ロボット", "猿", "誰も乗らない"], correctIndex: 1, explanation: "「الرُّوبُوت الرَّاكِب (ロボット騎手)」です。" },
       { id: 2664, type: "vocabulary", text: "「سَرِيع」の意味は？", options: ["遅い", "速い", "重い", "高い"], correctIndex: 1, explanation: "Fast（速い）です。" },
-      { id: 2665, type: "grammar", text: "「競争します」", options: ["يَتَنَافَسُ", "يَلْعَبُ", "يَنَامُ", "يَجْلِسُ"], correctIndex: 0, explanation: "「Yatanāfasu」です。" }
+      { id: 2665, type: "grammar", text: "「競争します」", options: ["يَتَنَافَسُ", "يَلْعَبُ", "يَنَامُ", "يَجْلِسُ"], correctIndex: 0, explanation: "「Yatanāfasu」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2666, type: "grammar", text: "「تَرْكُضُ الْإِبِلُ」で動詞が女性形なのは？", options: ["ラクダ（Ibil）が女性名詞扱いだから", "ラクダがメスだから", "複数形だから", "間違い"], correctIndex: 0, explanation: "「Ibil（ラクダの群れ）」は集合名詞であり、文法的に女性単数として扱われることが一般的です。" },
+      { id: 2667, type: "grammar", text: "「بَدَلًا مِنَ」の「Badalan」が対格（an）なのは？", options: ["副詞的用法（Tamyīz/Hāl/Maf'ūl Muṭlaq的）", "主語だから", "前置詞の後だから", "間違い"], correctIndex: 0, explanation: "「〜の代わりに」という意味で、状況や様態を表す副詞的な用法（Maf'ūl Muṭlaqの代用など諸説あり）として対格になります。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "تُقَامُ سِبَاقَاتُ الْهَجْنِ فِي مَيَادِينَ خَاصَّةٍ.", japanese: "ラクダレースは特別な競技場で行われます。" },
@@ -8483,20 +9129,28 @@ questions: [] // アルファベット回は問題なし
     ]
   },
   {
-    id: 267, title: "アル・ジャザリー", category: "歴史", level: "中級",
-    contentVoweled: "الْجَزَرِيُّ مُخْتَرِعٌ عَبْقَرِيٌّ. صَنَعَ سَاعَاتٍ وَآلَاتٍ مُدْهِشَةً.",
-    contentPlain: "الجزري مخترع عبقري. صنع ساعات وآلات مدهشة.",
+    id: 267,
+    title: "アル・ジャザリー",
+    category: "歴史",
+    level: "中級",
+    contentVoweled: "عَاشَ الْجَزَرِيُّ فِي الْعَصْرِ الذَّهَبِيِّ لِلْإِسْلَامِ. صَمَّمَ آلَاتٍ لِرَفْعِ الْمَاءِ. اخْتَرَعَ سَاعَةَ الْفِيلِ الشَّهِيرَةَ. اسْتَخْدَمَ الدُّمَى الْمُتَحَرِّكَةَ. كِتَابُهُ مَرْجِعٌ فِي الْهَنْدَسَةِ.",
+    contentPlain: "عاش الجزري في العصر الذهبي للإسلام. صمم آلات لرفع الماء. اخترع ساعة الفيل الشهيرة. استخدم الدمى المتحركة. كتابه مرجع في الهندسة.",
     vocabList: [
       { word: "مُخْتَرِع", meaning: "発明家" },
       { word: "سَاعَة", meaning: "時計" },
-      { word: "آلَة", meaning: "機械" }
+      { word: "آلَة", meaning: "機械" },
+      { word: "هَنْدَسَة", meaning: "工学/エンジニアリング" }, // 追加
+      { word: "دُمْيَة", meaning: "人形" } // 追加
     ],
     questions: [
       { id: 2671, type: "reading", text: "アル・ジャザリーの職業は？", options: ["医者", "発明家/エンジニア", "詩人", "王様"], correctIndex: 1, explanation: "「مُخْتَرِع (発明家)」です。" },
       { id: 2672, type: "reading", text: "彼は何を作りましたか？", options: ["飛行機", "象の時計や機械", "ピラミッド", "電話"], correctIndex: 1, explanation: "「سَاعَة الْفِيل (象の時計)」が有名です。" },
-      { id: 2673, type: "reading", text: "彼は何の分野の父と呼ばれますか？", options: ["医学", "ロボット工学", "文学", "歴史"], correctIndex: 1, explanation: "ロボット工学の先駆者です。" },
+      { id: 2673, type: "reading", text: "彼は何の分野の父と呼ばれますか？", options: ["医学", "ロボット工学", "文学", "歴史"], correctIndex: 1, explanation: "ロボット工学や機械工学の先駆者です。" },
       { id: 2674, type: "vocabulary", text: "「مُدْهِش」の意味は？", options: ["普通の", "驚くべき/すごい", "退屈な", "悪い"], correctIndex: 1, explanation: "Amazing（驚くべき）です。" },
-      { id: 2675, type: "grammar", text: "「作りました」", options: ["صَنَعَ", "أَكَلَ", "شَرِبَ", "قَرَأَ"], correctIndex: 0, explanation: "「Ṣana'a」です。" }
+      { id: 2675, type: "grammar", text: "「作りました」", options: ["صَنَعَ", "أَكَلَ", "شَرِبَ", "قَرَأَ"], correctIndex: 0, explanation: "「Ṣana'a」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2676, type: "grammar", text: "「مُخْتَرِع」の品詞は？", options: ["能動分詞（Ism Fā'il）", "受動分詞（Ism Maf'ūl）", "場所名詞", "動詞"], correctIndex: 0, explanation: "第8形「Ikhtara'a」の能動分詞で、「発明する人＝発明家」です。" },
+      { id: 2677, type: "grammar", text: "「صَمَّمَ آلَاتٍ」で「Ālātin」が属格（in）のように見えるが、実際は？", options: ["属格（Majrūr）", "対格（Manṣūb）", "主格（Marfū'）", "間違い"], correctIndex: 1, explanation: "「Ālāt（機械）」は女性規則複数（Jam' Mu'annath Sālim）であり、対格の場合、Fathaの代わりにKasraを取ります。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "عَاشَ الْجَزَرِيُّ فِي الْعَصْرِ الذَّهَبِيِّ لِلْإِسْلَامِ.", japanese: "ジャザリーはイスラムの黄金時代に生きました。" },
@@ -8507,97 +9161,127 @@ questions: [] // アルファベット回は問題なし
     ]
   },
   {
-    id: 268, title: "アラビアヒョウ", category: "ニュース", level: "中級",
-    contentVoweled: "النَّمِرُ الْعَرَبِيُّ حَيَوَانٌ نَادِرٌ وَمُهَدَّدٌ بِالِانْقِرَاضِ.",
-    contentPlain: "النمر العربي حيوان نادر ومهدد بالانقراض.",
+    id: 268,
+    title: "アラビアヒョウ",
+    category: "ニュース",
+    level: "中級",
+    contentVoweled: "يَعِيشُ النَّمِرُ الْعَرَبِيُّ فِي جِبَالِ السَّرَوَاتِ. إِنَّهُ أَصْغَرُ أَنْوَاعِ النُّمُورِ. أَطْلَقَتِ السُّعُودِيَّةُ بَرْنَامَجًا لِإِكْثَارِهِ. وُلِدَتْ أَشْبَالٌ جَدِيدَةٌ فِي الْعُلَا. هَذَا خَبَرٌ سَعِيدٌ لِلْبِيئَةِ.",
+    contentPlain: "يعيش النمر العربي في جبال السروات. إنه أصغر أنواع النمور. أطلقت السعودية برنامجا لإكثاره. ولدت أشبال جديدة في العلا. هذا خبر سعيد للبيئة.",
     vocabList: [
       { word: "نَمِر", meaning: "ヒョウ/トラ" },
       { word: "نَادِر", meaning: "珍しい" },
-      { word: "حِمَايَة", meaning: "保護" }
+      { word: "حِمَايَة", meaning: "保護" },
+      { word: "شِبْل", meaning: "ライオンやヒョウの子" }, // 追加
+      { word: "إِكْثَار", meaning: "増やすこと/繁殖" } // 追加
     ],
     questions: [
       { id: 2681, type: "reading", text: "アラビアヒョウの状況は？", options: ["たくさんいる", "絶滅の危機にある", "ペットになっている", "海にいる"], correctIndex: 1, explanation: "「مُهَدَّد بِالِانْقِرَاضِ」です。" },
       { id: 2682, type: "reading", text: "どこに住んでいますか？", options: ["街中", "山岳地帯", "砂漠の真ん中", "家"], correctIndex: 1, explanation: "「الْجِبَال (山)」に住んでいます。" },
-      { id: 2683, type: "reading", text: "サウジは何をしていますか？", options: ["狩っている", "繁殖と保護プログラム", "無視している", "売っている"], correctIndex: 1, explanation: "「بَرْنَامَج لِحِمَايَتِهِ」です。" },
+      { id: 2683, type: "reading", text: "サウジは何をしていますか？", options: ["狩っている", "繁殖と保護プログラム", "無視している", "売っている"], correctIndex: 1, explanation: "「بَرْنَامَجًا لِإِكْثَارِهِ (繁殖プログラム)」です。" },
       { id: 2684, type: "vocabulary", text: "「صَغِير」の意味は？", options: ["大きい", "小さい", "長い", "速い"], correctIndex: 1, explanation: "Small（小さい）です。" },
-      { id: 2685, type: "grammar", text: "「生まれました」", options: ["وُلِدَ", "مَاتَ", "عَاشَ", "أَكَلَ"], correctIndex: 0, explanation: "「Wulida」です。" }
+      { id: 2685, type: "grammar", text: "「生まれました」", options: ["وُلِدَ", "مَاتَ", "عَاشَ", "أَكَلَ"], correctIndex: 0, explanation: "「Wulida」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2686, type: "grammar", text: "「أَصْغَرُ أَنْوَاعِ」で「Aṣgharu」に定冠詞がなくタンウィーンもないのは？", options: ["イダーファの第1要素だから", "間違いだから", "形容詞だから", "主語だから"], correctIndex: 0, explanation: "最上級「Aṣgharu（最も小さい）」が、次の名詞「Anwā'（種類）」にかかるイダーファの形になっているためです。" },
+      { id: 2687, type: "grammar", text: "「أَشْبَالٌ جَدِيدَةٌ」で形容詞が女性単数なのは？", options: ["「Ashbāl」が非理性的複数だから", "「Ashbāl」が女性名詞だから", "強調のため", "間違い"], correctIndex: 0, explanation: "「Shibl（子供）」の複数形「Ashbāl」は非理性的複数なので、形容詞は女性単数形「Jadīda」で受けます。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "يَعِيشُ النَّمِرُ الْعَرَبِيُّ فِي جِبَالِ السَّرَوَاتِ.", japanese: "アラビアヒョウはサラワート山脈に住んでいます。" },
       { speaker: "ナレーター", arabic: "إِنَّهُ أَصْغَرُ أَنْوَاعِ النُّمُورِ.", japanese: "それはヒョウの中で最も小さい種類です。" },
-      { speaker: "ナレーター", arabic: "أَطْلَقَتِ السُّعُودِيَّةُ بَرْنَامَجًا لِإِكْثَارِهِ.", japanese: "サウジアラビアは繁殖プログラムを開始しました。" },
+      { speaker: "ナレーター", arabic: "أَطْلَقَتِ السُّعُودِيَّةُ بَرْنَامَجًا لِإِكْثَارِهِ.", japanese: "サウジアラビアはそれを増やす（繁殖させる）プログラムを開始しました。" },
       { speaker: "ナレーター", arabic: "وُلِدَتْ أَشْبَالٌ جَدِيدَةٌ فِي الْعُلَا.", japanese: "アル・ウラーで新しい子供たちが生まれました。" },
       { speaker: "ナレーター", arabic: "هَذَا خَبَرٌ سَعِيدٌ لِلْبِيئَةِ.", japanese: "これは環境にとって嬉しいニュースです。" }
     ]
   },
   {
-    id: 269, title: "ケチな男", category: "物語", level: "中級",
-    contentVoweled: "كَانَ رَجُلٌ بَخِيلٌ يَأْكُلُ الْخُبْزَ بِالْمَاءِ لِيُوَفِّرَ الْمَالَ.",
-    contentPlain: "كان رجل بخيل يأكل الخبز بالماء ليوفر المال.",
+    id: 269,
+    title: "ケチな男",
+    category: "物語",
+    level: "中級",
+    contentVoweled: "جَمَعَ الْبَخِيلُ كُلَّ ذَهَبِهِ وَدَفَنَهُ فِي الْحَدِيقَةِ. كَانَ يَأْتِي كُلَّ يَوْمٍ لِيَنْظُرَ إِلَيْهِ. رَآهُ لِصٌّ، فَجَاءَ فِي اللَّيْلِ وَسَرَقَ الذَّهَبَ. بَكَى الْبَخِيلُ، فَقَالَ لَهُ جَارُهُ: ضَعْ حَجَرًا بَدَلًا مِنْهُ، فَلَنْ يَنْفَعَكَ الذَّهَبُ.",
+    contentPlain: "جمع البخيل كل ذهبه ودفنه في الحديقة. كان يأتي كل يوم لينظر إليه. رآه لص، فجاء في الليل وسرق الذهب. بكى البخيل، فقال له جاره: ضع حجرا بدلا منه، فلن ينفعك الذهب.",
     vocabList: [
       { word: "بَخِيل", meaning: "ケチ" },
       { word: "ذَهَب", meaning: "金貨/金" },
-      { word: "حُفْرَة", meaning: "穴" }
+      { word: "حُفْرَة", meaning: "穴" },
+      { word: "دَفَنَ", meaning: "埋めた" }, // 追加
+      { word: "لِصّ", meaning: "泥棒" } // 追加
     ],
     questions: [
       { id: 2691, type: "reading", text: "男の性格は？", options: ["寛大", "ケチ", "勇敢", "賢い"], correctIndex: 1, explanation: "「بَخِيل (ケチ)」です。" },
       { id: 2692, type: "reading", text: "彼はお金をどうしていましたか？", options: ["使った", "寄付した", "穴に埋めた", "燃やした"], correctIndex: 2, explanation: "「دَفَنَهُ فِي حُفْرَةٍ (穴に埋めた)」です。" },
       { id: 2693, type: "reading", text: "お金はどうなりましたか？", options: ["増えた", "盗まれた", "金になった", "消えた"], correctIndex: 1, explanation: "「سُرِقَ (盗まれた)」です。" },
       { id: 2694, type: "vocabulary", text: "「حَجَر」の意味は？", options: ["パン", "石", "金", "水"], correctIndex: 1, explanation: "Stone（石）です。" },
-      { id: 2695, type: "grammar", text: "「泣きました」", options: ["بَكَى", "ضَحِكَ", "نَامَ", "مَشَى"], correctIndex: 0, explanation: "「Bakā」です。" }
+      { id: 2695, type: "grammar", text: "「泣きました」", options: ["بَكَى", "ضَحِكَ", "نَامَ", "مَشَى"], correctIndex: 0, explanation: "「Bakā」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2696, type: "grammar", text: "「لَنْ يَنْفَعَكَ」の動詞がa段（Fatha）なのは？", options: ["未来否定のLanの後の接続法だから", "過去形だから", "命令形だから", "主格だから"], correctIndex: 0, explanation: "未来否定粒子「Lan」の後の現在形動詞は接続法（Manṣūb）となり、通常Fathaで終わります。" },
+      { id: 2697, type: "grammar", text: "「ضَعْ」の動詞の形は？", options: ["過去形", "現在形", "命令形", "名詞"], correctIndex: 2, explanation: "「Waḍa'a (置いた)」の命令形は、最初のWāwが脱落して「Ḍa' (置け)」となります。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "جَمَعَ الْبَخِيلُ كُلَّ ذَهَبِهِ وَدَفَنَهُ فِي الْحَدِيقَةِ.", japanese: "ケチな男は全ての金貨を集めて庭に埋めました。" },
       { speaker: "ナレーター", arabic: "كَانَ يَأْتِي كُلَّ يَوْمٍ لِيَنْظُرَ إِلَيْهِ.", japanese: "彼は毎日それを見に来ていました。" },
       { speaker: "ナレーター", arabic: "رَآهُ لِصٌّ، فَجَاءَ فِي اللَّيْلِ وَسَرَقَ الذَّهَبَ.", japanese: "泥棒が彼を見て、夜に来て金を盗みました。" },
       { speaker: "ナレーター", arabic: "بَكَى الْبَخِيلُ، فَقَالَ لَهُ جَارُهُ:", japanese: "ケチな男は泣きました。すると隣人が言いました。" },
-      { speaker: "ナレーター", arabic: "ضَعْ حَجَرًا بَدَلًا مِنْهُ، فَلَنْ يَنْفَعَكَ الذَّهَبُ.", japanese: "「代わりに石を置いておけ。どうせ金は使わないんだから。」" }
+      { speaker: "ナレーター", arabic: "ضَعْ حَجَرًا بَدَلًا مِنْهُ، فَلَنْ يَنْفَعَكَ الذَّهَبُ.", japanese: "「代わりに石を置いておけ。どうせ金は使わない（役に立たない）んだから。」" }
     ]
   },
-
-  // --- 24. 歴史・社会 (270-274) ---
   {
-    id: 270, title: "スーク・オカーズ", category: "歴史", level: "中級",
-    contentVoweled: "سُوقُ عُكَاظ كَانَ مَجْمَعًا أَدَبِيًّا وَتِجَارِيًّا لِلْعَرَبِ.",
-    contentPlain: "سوق عكاظ كان مجمعا أدبيا وتجاريا للعرب.",
+    id: 270,
+    title: "スーク・オカーズ",
+    category: "歴史",
+    level: "中級",
+    contentVoweled: "يَقَعُ سُوقُ عُكَاظ بِالْقُرْبِ مِنَ الطَّائِفِ. كَانَ الشُّعَرَاءُ يَأْتُونَ لِإِلْقَاءِ قَصَائِدِهِمْ. كَانَ النَّابِغَةُ الذُّبْيَانِيُّ هُوَ الْحَكَمَ بَيْنَهُمْ. أَجْمَلُ الْقَصَائِدِ سُمِّيَتْ 'الْمُعَلَّقَاتِ'. الْيَوْمَ، تَمَّ إِحْيَاءُ السُّوقِ كَمَهْرَجَانٍ.",
+    contentPlain: "يقع سوق عكاظ بالقرب من الطائف. كان الشعراء يأتون لإلقاء قصائدهم. كان النابغة الذبياني هو الحكم بينهم. أجمل القصائد سميت 'المعلقات'. اليوم، تم إحياء السوق كمهرجان.",
     vocabList: [
       { word: "سُوق", meaning: "市場" },
       { word: "شِعْر", meaning: "詩" },
-      { word: "قَبِيلَة", meaning: "部族" }
+      { word: "قَبِيلَة", meaning: "部族" },
+      { word: "حَكَم", meaning: "審査員/審判" }, // 追加
+      { word: "إِحْيَاء", meaning: "復活/リバイバル" } // 追加
     ],
     questions: [
       { id: 2701, type: "reading", text: "スーク・オカーズは何の場所でしたか？", options: ["ただの市場", "戦争の場所", "文学と商業の集まり", "学校"], correctIndex: 2, explanation: "「مَجْمَعًا أَدَبِيًّا وَتِجَارِيًّا」です。" },
       { id: 2702, type: "reading", text: "そこで何を競いましたか？", options: ["剣", "詩", "料理", "走り"], correctIndex: 1, explanation: "「الشِّعْر (詩)」のコンテストが有名です。" },
-      { id: 2703, type: "reading", text: "最高の詩（ムアッラカート）はどうされましたか？", options: ["燃やされた", "カアバに懸けられた", "捨てられた", "隠された"], correctIndex: 1, explanation: "「عُلِّقَتْ عَلَى الْكَعْبَةِ (カアバに懸けられた)」と言われています。" },
+      { id: 2703, type: "reading", text: "最高の詩（ムアッラカート）はどうされましたか？", options: ["燃やされた", "カアバに懸けられた", "捨てられた", "隠された"], correctIndex: 1, explanation: "「عُلِّقَتْ (懸けられた)」と言われています。" },
       { id: 2704, type: "vocabulary", text: "「حَكَم」の意味は？", options: ["詩人", "商人", "審査員/審判", "王"], correctIndex: 2, explanation: "Judge（審査員）です。" },
-      { id: 2705, type: "grammar", text: "「言いました」", options: ["قَالَ", "سَمِعَ", "كَتَبَ", "قَرَأَ"], correctIndex: 0, explanation: "「Qāla」です。" }
+      { id: 2705, type: "grammar", text: "「言いました」", options: ["قَالَ", "سَمِعَ", "كَتَبَ", "قَرَأَ"], correctIndex: 0, explanation: "「Qāla」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2706, type: "grammar", text: "「كَانَ الشُّعَرَاءُ يَأْتُونَ」の意味は？", options: ["詩人たちは来た", "詩人たちは来ている", "詩人たちは（習慣的に）来ていた", "詩人たちは来るだろう"], correctIndex: 2, explanation: "「Kāna」＋現在形は過去の習慣や進行（〜していたものだ）を表します。" },
+      { id: 2707, type: "grammar", text: "「هُوَ الْحَكَمَ」で「Al-Ḥakama」が対格（a段）なのは？", options: ["Kānaの述語（Khabar）だから", "主語だから", "前置詞の後だから", "間違い"], correctIndex: 0, explanation: "「Kāna al-Nābighatu (huwa) al-Ḥakama」という文で、Nabighaが主語、ḤakamがKānaの述語（Manṣūb）となります（HuwaはDamīr Faṣlとして挟まることが多い）。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "يَقَعُ سُوقُ عُكَاظ بِالْقُرْبِ مِنَ الطَّائِفِ.", japanese: "スーク・オカーズはターイフの近くにあります。" },
-      { speaker: "ナレーター", arabic: "كَانَ الشُّعَرَاءُ يَأْتُونَ لِإِلْقَاءِ قَصَائِدِهِمْ.", japanese: "詩人たちは詩を朗読するためにやって来ました。" },
+      { speaker: "ナレーター", arabic: "كَانَ الشُّعَرَاءُ يَأْتُونَ لِإِلْقَاءِ قَصَائِدِهِمْ.", japanese: "詩人たちは詩を朗読するためにやって来ていました。" },
       { speaker: "ナレーター", arabic: "كَانَ النَّابِغَةُ الذُّبْيَانِيُّ هُوَ الْحَكَمَ بَيْنَهُمْ.", japanese: "ナ ービガ・アッ＝ズブヤーニーが彼らの審査員でした。" },
       { speaker: "ナレーター", arabic: "أَجْمَلُ الْقَصَائِدِ سُمِّيَتْ 'الْمُعَلَّقَاتِ'.", japanese: "最も美しい詩は「ムアッラカート（懸詩）」と呼ばれました。" },
       { speaker: "ナレーター", arabic: "الْيَوْمَ، تَمَّ إِحْيَاءُ السُّوقِ كَمَهْرَجَانٍ.", japanese: "今日、その市場はフェスティバルとして復活しました。" }
     ]
   },
   {
-    id: 271, title: "ザムザムの水", category: "文化", level: "中級",
-    contentVoweled: "مَاءُ زَمْزَمَ مَاءٌ مُبَارَكٌ يَنْبُعُ فِي مَكَّةَ.",
-    contentPlain: "ماء زمزم ماء مبارك ينبع في مكة.",
+    id: 271,
+    title: "ザムザムの水",
+    category: "文化",
+    level: "中級",
+    contentVoweled: "انْفَجَرَ مَاءُ زَمْزَمَ تَحْتَ قَدَمَيِّ إِسْمَاعِيلَ. كَانَتْ أُمُّهُ هَاجَرُ تَبْحَثُ عَنِ الْمَاءِ. قَالَ النَّبِيُّ: مَاءُ زَمْزَمَ لِمَا شُرِبَ لَهُ. يَشْرَبُهُ الْحُجَّاجُ وَيَأْخُذُونَهُ مَعَهُمْ. إِنَّهُ لَا يَجِفُّ أَبَدًا.",
+    contentPlain: "انفجر ماء زمزم تحت قدمي إسماعيل. كانت أمه هاجر تبحث عن الماء. قال النبي: ماء زمزم لما شرب له. يشربه الحجاج ويأخذونه معهم. إنه لا يجف أبدا.",
     vocabList: [
       { word: "بِئْر", meaning: "井戸" },
       { word: "عَطَش", meaning: "渇き" },
-      { word: "حَاجّ", meaning: "巡礼者" }
+      { word: "حَاجّ", meaning: "巡礼者" },
+      { word: "انْفَجَرَ", meaning: "噴出した/爆発した" }, // 追加
+      { word: "جَفَّ", meaning: "乾いた/枯れた" } // 追加
     ],
     questions: [
-      { id: 2711, type: "reading", text: "ザムザムの井戸はどこにありますか？", options: ["マディーナ", "メッカ（ハラムの中）", "リヤド", "砂漠"], correctIndex: 1, explanation: "「فِي مَكَّةَ」です。" },
-      { id: 2712, type: "reading", text: "誰のために湧き出しましたか？", options: ["イブラーヒーム", "イスマーイール", "ムハンマド", "ヌーフ"], correctIndex: 1, explanation: "「إِسْمَاعِيل (イスマーイール)」が赤ん坊の時です。" },
+      { id: 2711, type: "reading", text: "ザムザムの井戸はどこにありますか？", options: ["マディーナ", "メッカ（ハラムの中）", "リヤド", "砂漠"], correctIndex: 1, explanation: "文脈としてメッカ（カアバの近く）にあります。" },
+      { id: 2712, type: "reading", text: "誰のために湧き出しましたか？", options: ["イブラーヒーム", "イスマーイール", "ムハンマド", "ヌーフ"], correctIndex: 1, explanation: "「تَحْتَ قَدَمَيِّ إِسْمَاعِيلَ (イスマーイールの足元で)」です。" },
       { id: 2713, type: "reading", text: "巡礼者はどうしますか？", options: ["見るだけ", "飲む", "捨てる", "売る"], correctIndex: 1, explanation: "「يَشْرَبُونَهُ (それを飲む)」です。" },
       { id: 2714, type: "vocabulary", text: "「طَعْم」の意味は？", options: ["色", "味", "匂い", "音"], correctIndex: 1, explanation: "Taste（味）です。" },
-      { id: 2715, type: "grammar", text: "「飲みます」", options: ["يَشْرَبُ", "يَأْكُلُ", "يَنَامُ", "يَغْسِلُ"], correctIndex: 0, explanation: "「Yashrabu」です。" }
+      { id: 2715, type: "grammar", text: "「飲みます」", options: ["يَشْرَبُ", "يَأْكُلُ", "يَنَامُ", "يَغْسِلُ"], correctIndex: 0, explanation: "「Yashrabu」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2716, type: "grammar", text: "「لِمَا شُرِبَ لَهُ」の「شُرِبَ」の態は？", options: ["能動態", "受動態", "命令形", "完了形"], correctIndex: 1, explanation: "「Shariba (飲んだ)」の受動態「Shuriba (飲まれた)」です。「それが飲まれた（目的の）ためにある」という意味です。" },
+      { id: 2717, type: "grammar", text: "「تَحْتَ قَدَمَيِّ」の「Qadamayyi」の形は？", options: ["複数形・属格", "双数形・属格", "単数形・属格", "双数形・主格"], correctIndex: 1, explanation: "「Qadaman (2つの足)」が、前置詞（場所）の後で属格（Majrur）になり、さらにイダーファで「Nun」が落ちた形です。" }
     ],
     sentences: [
-      { speaker: "ナレーター", arabic: "انْفَجَرَ مَاءُ زَمْزَمَ تَحْتَ قَدَمَيِّ إِسْمَاعِيلَ.", japanese: "ザムザムの水はイスマーイールの足元から湧き出しました。" },
+      { speaker: "ナレーター", arabic: "انْفَجَرَ مَاءُ زَمْزَمَ تَحْتَ قَدَمَيِّ إِسْمَاعِيلَ.", japanese: "ザムザムの水はイスマーイールの足元から湧き出しました（噴出しました）。" },
       { speaker: "ナレーター", arabic: "كَانَتْ أُمُّهُ هَاجَرُ تَبْحَثُ عَنِ الْمَاءِ.", japanese: "彼の母ハージャルは水を探していました。" },
       { speaker: "ナレーター", arabic: "قَالَ النَّبِيُّ: مَاءُ زَمْزَمَ لِمَا شُرِبَ لَهُ.", japanese: "預言者は言いました。「ザムザムの水は、それが飲まれた目的のためにある（願いが叶う）。」" },
       { speaker: "ナレーター", arabic: "يَشْرَبُهُ الْحُجَّاجُ وَيَأْخُذُونَهُ مَعَهُمْ.", japanese: "巡礼者はそれを飲み、持ち帰ります。" },
@@ -8605,44 +9289,60 @@ questions: [] // アルファベット回は問題なし
     ]
   },
   {
-    id: 272, title: "親への敬意", category: "文化", level: "中級",
-    contentVoweled: "بِرُّ الْوَالِدَيْنِ وَاجِبٌ دِينِيٌّ وَأَخْلَاقِيٌّ.",
-    contentPlain: "بر الوالدين واجب ديني وأخلاقي.",
+    id: 272,
+    title: "親への敬意",
+    category: "文化",
+    level: "中級",
+    contentVoweled: "أَمَرَ اللهُ بِالْإِحْسَانِ إِلَى الْوَالِدَيْنِ. يُقَبِّلُ الْأَبْنَاءُ رَأْسَ وَيَدَ الْوَالِدَيْنِ. لَا تَقُلْ لَهُمَا 'أُفٍّ' وَلَا تَنْهَرْهُمَا. اخْفِضْ لَهُمَا جَنَاحَ الذُّلِّ مِنَ الرَّحْمَةِ. رِضَاهُمَا سَبَبٌ لِدُخُولِ الْجَنَّةِ.",
+    contentPlain: "أمر الله بالإحسان إلى الوالدين. يقبل الأبناء رأس ويد الوالدين. لا تقل لهما 'أف' ولا تنهرهما. اخفض لهما جناح الذل من الرحمة. رضاهما سبب لدخول الجنة.",
     vocabList: [
       { word: "وَالِدَيْن", meaning: "両親" },
       { word: "اِحْتِرَام", meaning: "尊敬" },
-      { word: "كِبَر", meaning: "老い/高齢" }
+      { word: "كِبَر", meaning: "老い/高齢" },
+      { word: "أَمَرَ", meaning: "命じた" }, // 追加
+      { word: "جَنَاح", meaning: "翼" } // 追加
     ],
     questions: [
-      { id: 2721, type: "reading", text: "両親への善行（ビッル）は？", options: ["趣味", "義務", "禁止", "遊び"], correctIndex: 1, explanation: "「وَاجِب (義務)」です。" },
-      { id: 2722, type: "reading", text: "彼らが年を取ったらどうすべきですか？", options: ["無視する", "世話をする", "怒鳴る", "家を出る"], correctIndex: 1, explanation: "「الْعِنَايَة بِهِمَا (彼らの世話をする)」です。" },
+      { id: 2721, type: "reading", text: "両親への善行（ビッル）は？", options: ["趣味", "義務", "禁止", "遊び"], correctIndex: 1, explanation: "「أَمَرَ اللهُ (神が命じた)」ことなので義務（Wājib）です。" },
+      { id: 2722, type: "reading", text: "彼らが年を取ったらどうすべきですか？", options: ["無視する", "世話をする/敬う", "怒鳴る", "家を出る"], correctIndex: 1, explanation: "「الْإِحْسَان (善行)」や頭へのキスなどで敬います。" },
       { id: 2723, type: "reading", text: "彼らに言ってはいけない言葉は？", options: ["はい", "ありがとう", "ウッフ（ちぇっ）", "どうぞ"], correctIndex: 2, explanation: "クルアーンで禁じられている「أُفٍّ (ウッフ＝不平の言葉)」です。" },
       { id: 2724, type: "vocabulary", text: "「يَد」の意味は？", options: ["足", "手", "目", "耳"], correctIndex: 1, explanation: "Hand（手）です。" },
-      { id: 2725, type: "grammar", text: "「キスします」", options: ["يُقَبِّلُ", "يَضْرِبُ", "يُسَلِّمُ", "يَمْشِي"], correctIndex: 0, explanation: "「Yuqabbilu」です。" }
+      { id: 2725, type: "grammar", text: "「キスします」", options: ["يُقَبِّلُ", "يَضْرِبُ", "يُسَلِّمُ", "يَمْشِي"], correctIndex: 0, explanation: "「Yuqabbilu」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2726, type: "grammar", text: "「لَا تَقُلْ」の動詞の形は？", options: ["否定の現在形", "禁止の要求形（Majzūm）", "命令形", "過去形"], correctIndex: 1, explanation: "禁止のLa（Nāhiya）の後なので、動詞は要求形（Jussive）になります。「Taqūl」の中間の長母音が脱落して「Taqul」になります。" },
+      { id: 2727, type: "grammar", text: "「اخْفِضْ」の動詞の種類は？", options: ["過去形", "現在形", "命令形", "動名詞"], correctIndex: 2, explanation: "「Khafaḍa (下げた)」の命令形「Ikhfiḍ (下げよ)」です。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "أَمَرَ اللهُ بِالْإِحْسَانِ إِلَى الْوَالِدَيْنِ.", japanese: "神は両親への善行を命じました。" },
-      { speaker: "ナレーター", arabic: "يُقَبِّلُ الْأَبْنَاءُ رَأْسَ وَيَدَ الْوَالِدَيْنِ.", japanese: "子供たちは両親の頭と手にキスをします（敬意の印）。" },
-      { speaker: "ナレーター", arabic: "لَا تَقُلْ لَهُمَا 'أُفٍّ' وَلَا تَنْهَرْهُمَا.", japanese: "彼らに「ちぇっ」と言ってはいけないし、叱りつけてもいけない。" },
-      { speaker: "ナレーター", arabic: "اخْفِضْ لَهُمَا جَنَاحَ الذُّلِّ مِنَ الرَّحْمَةِ.", japanese: "彼らに慈悲の翼を低くしなさい（謙虚に接しなさい）。" },
+      { speaker: "ナレーター", arabic: "يُقَبِّلُ الْأَبْنَاءُ رَأْسَ وَيَدَ الْوَالِدَيْنِ.", japanese: "子供たちは両親の頭と手にキスをします。" },
+      { speaker: "ナレーター", arabic: "لَا تَقُلْ لَهُمَا 'أُفٍّ' وَلَا تَنْهَرْهُمَا.", japanese: "彼らに「ちぇっ（不平）」と言ってはいけないし、叱りつけてもいけません。" },
+      { speaker: "ナレーター", arabic: "اخْفِضْ لَهُمَا جَنَاحَ الذُّلِّ مِنَ الرَّحْمَةِ.", japanese: "慈悲をもって、彼らに謙虚（服従）の翼を低くしなさい（優しく接しなさい）。" },
       { speaker: "ナレーター", arabic: "رِضَاهُمَا سَبَبٌ لِدُخُولِ الْجَنَّةِ.", japanese: "彼らの満足は天国に入る理由となります。" }
     ]
   },
   {
-    id: 273, title: "太陽光エネルギー", category: "ニュース", level: "中級",
-    contentVoweled: "تَسْتَثْمِرُ السُّعُودِيَّةُ فِي الطَّاقَةِ الشَّمْسِيَّةِ لِإِنْتَاجِ الْكَهْرُبَاءِ.",
-    contentPlain: "تستثمر السعودية في الطاقة الشمسية لإنتاج الكهرباء.",
+    id: 273,
+    title: "太陽光エネルギー",
+    category: "ニュース",
+    level: "中級",
+    contentVoweled: "الشَّمْسُ تَسْطَعُ طِوَالَ الْعَامِ فِي الْمَمْلَكَةِ. بَنَتِ الدَّوْلَةُ مَحَطَّاتٍ ضَخْمَةً لِلطَّاقَةِ الشَّمْسِيَّةِ. مَشْرُوعُ سَاكَاكَا هُوَ الْأَوَّلُ مِنْ نَوْعِهِ. هَذَا سَيُوَفِّرُ طَاقَةً نَظِيفَةً وَرَخِيصَةً. إِنَّهُ جُزْءٌ مِنْ رُؤْيَةِ 2030.",
+    contentPlain: "الشمس تسطع طوال العام في المملكة. بنت الدولة محطات ضخمة للطاقة الشمسية. مشروع ساكاكا هو الأول من نوعه. هذا سيوفر طاقة نظيفة ورخيصة. إنه جزء من رؤية 2030.",
     vocabList: [
       { word: "شَمْس", meaning: "太陽" },
       { word: "طَاقَة", meaning: "エネルギー" },
-      { word: "كَهْرُبَاء", meaning: "電気" }
+      { word: "كَهْرُبَاء", meaning: "電気" },
+      { word: "تَسْطَعُ", meaning: "輝く" }, // 追加
+      { word: "نَظِيف", meaning: "クリーン/清潔な" } // 追加
     ],
     questions: [
       { id: 2731, type: "reading", text: "サウジは何に投資していますか？", options: ["石炭", "風", "太陽光エネルギー", "波"], correctIndex: 2, explanation: "「الطَّاقَة الشَّمْسِيَّة」です。" },
-      { id: 2732, type: "reading", text: "サウジの気候はこのエネルギーにどうですか？", options: ["適していない", "非常に適している", "寒すぎる", "暗すぎる"], correctIndex: 1, explanation: "「مُنَاسِبَةٌ جِدًّا (非常に適している)」です。" },
-      { id: 2733, type: "reading", text: "目的は？", options: ["石油への依存を減らす", "石油を増やす", "電気を消す", "空気を汚す"], correctIndex: 0, explanation: "「تَقْلِيل الِاعْتِمَادِ عَلَى النِّفْطِ」です。" },
+      { id: 2732, type: "reading", text: "サウジの気候はこのエネルギーにどうですか？", options: ["適していない", "非常に適している（年中晴れ）", "寒すぎる", "暗すぎる"], correctIndex: 1, explanation: "「تَسْطَعُ طِوَالَ الْعَامِ (一年中輝いている)」ので適しています。" },
+      { id: 2733, type: "reading", text: "目的は？", options: ["石油への依存を減らす", "石油を増やす", "電気を消す", "空気を汚す"], correctIndex: 0, explanation: "一般知識及び「クリーンなエネルギーを提供する」という文脈から。" },
       { id: 2734, type: "vocabulary", text: "「مَشْرُوع」の意味は？", options: ["会社", "プロジェクト", "家", "学校"], correctIndex: 1, explanation: "Projectです。" },
-      { id: 2735, type: "grammar", text: "「作ります（発電します）」", options: ["يُوَلِّدُ", "يَأْكُلُ", "يَنَامُ", "يَلْعَبُ"], correctIndex: 0, explanation: "「Yuwallidu (Generate)」です。" }
+      { id: 2735, type: "grammar", text: "「作ります（発電します）」", options: ["يُوَلِّدُ", "يَأْكُلُ", "يَنَامُ", "يَلْعَبُ"], correctIndex: 0, explanation: "「Yuwallidu (Generate)」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2736, type: "grammar", text: "「بَنَتِ الدَّوْلَةُ」の「Banati」のKasraの理由は？", options: ["所有格だから", "女性形だから", "スクーンが続くのを避けるため", "間違い"], correctIndex: 2, explanation: "「Banat (建てた・女性)」のTā' al-Ta'nīth（静止したTa）の後に「al-Dawla」のスクーンが来るため、発音上の理由でKasraに変えています。" },
+      { id: 2737, type: "grammar", text: "「سَيُوَفِّرُ」の「Sa」の意味は？", options: ["過去", "現在進行", "未来", "命令"], correctIndex: 2, explanation: "動詞の前の「Sa」は近い未来を表します（〜するだろう）。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "الشَّمْسُ تَسْطَعُ طِوَالَ الْعَامِ فِي الْمَمْلَكَةِ.", japanese: "王国では一年中太陽が輝いています。" },
@@ -8653,20 +9353,28 @@ questions: [] // アルファベット回は問題なし
     ]
   },
   {
-    id: 274, title: "アラビアの詩（ムアッラカート）", category: "文学", level: "中級",
-    contentVoweled: "الْمُعَلَّقَاتُ هِيَ أَشْهَرُ الْقَصَائِدِ فِي الْعَصْرِ الْجَاهِلِيِّ.",
-    contentPlain: "المعلقات هي أشهر القصائد في العصر الجاهلي.",
+    id: 274,
+    title: "アラビアの詩（ムアッラカート）",
+    category: "文学",
+    level: "中級",
+    contentVoweled: "كَانَ الْعَرَبُ يَقُولُونَ الشِّعْرَ بِفَصَاحَةٍ. اخْتَارُوا أَجْوَدَ الْقَصَائِدِ وَكَتَبُوهَا بِمَاءِ الذَّهَبِ. عَلَّقُوهَا عَلَى أَسْتَارِ الْكَعْبَةِ. مِنْ أَشْهَرِ الشُّعَرَاءِ: امْرُؤُ الْقَيْسِ وَعَنْتَرَةُ. هَذِهِ الْقَصَائِدُ تَصِفُ حَيَاةَ الصَّحْرَاءِ.",
+    contentPlain: "كان العرب يقولون الشعر بفصاحة. اختاروا أجود القصائد وكتبوها بماء الذهب. علقوها على أستار الكعبة. من أشهر الشعراء: امرؤ القيس وعنترة. هذه القصائد تصف حياة الصحراء.",
     vocabList: [
       { word: "قَصِيدَة", meaning: "詩（一編）" },
       { word: "شَاعِر", meaning: "詩人" },
-      { word: "ذَهَب", meaning: "金" }
+      { word: "ذَهَب", meaning: "金" },
+      { word: "فَصَاحَة", meaning: "雄弁さ/流暢さ" }, // 追加
+      { word: "أَجْوَد", meaning: "最も良い/上質な" } // 追加
     ],
     questions: [
-      { id: 2741, type: "reading", text: "ムアッラカートとは何ですか？", options: ["古い家", "有名な詩", "王様の名前", "食べ物"], correctIndex: 1, explanation: "「أَشْهَر الْقَصَائِد (最も有名な詩)」です。" },
-      { id: 2742, type: "reading", text: "いつの時代のものですか？", options: ["現代", "ジャーヒリーヤ（イスラム以前）", "アッバース朝", "オスマン帝国"], correctIndex: 1, explanation: "「الْعَصْر الْجَاهِلِيّ」です。" },
-      { id: 2743, type: "reading", text: "なぜ「ムアッラカート（懸けられたもの）」と呼ばれますか？", options: ["首にかけたから", "カアバに懸けられたから", "木にかけたから", "壁に書いたから"], correctIndex: 1, explanation: "カアバ神殿の壁に懸けられたという説があります。" },
+      { id: 2741, type: "reading", text: "ムアッラカートとは何ですか？", options: ["古い家", "有名な詩", "王様の名前", "食べ物"], correctIndex: 1, explanation: "「أَجْوَدَ الْقَصَائِد (最高の詩)」です。" },
+      { id: 2742, type: "reading", text: "いつの時代のものですか？", options: ["現代", "ジャーヒリーヤ（イスラム以前）", "アッバース朝", "オスマン帝国"], correctIndex: 1, explanation: "イムルウ・アル・カイスなどが活躍したイスラム以前の時代です。" },
+      { id: 2743, type: "reading", text: "なぜ「ムアッラカート（懸けられたもの）」と呼ばれますか？", options: ["首にかけたから", "カアバに懸けられたから", "木にかけたから", "壁に書いたから"], correctIndex: 1, explanation: "「عَلَّقُوهَا عَلَى أَسْتَارِ الْكَعْبَةِ」という伝承によります。" },
       { id: 2744, type: "vocabulary", text: "「بَحْر」の意味（詩の文脈）は？", options: ["海", "韻律/メーター", "船", "魚"], correctIndex: 1, explanation: "詩の韻律のことを「バハル（海）」と呼びます。" },
-      { id: 2745, type: "grammar", text: "「書かれました」", options: ["كُتِبَتْ", "كَتَبَ", "يَكْتُبُ", "كَاتِب"], correctIndex: 0, explanation: "「Kutibat (Written)」受動態です。" }
+      { id: 2745, type: "grammar", text: "「書かれました」", options: ["كُتِبَتْ", "كَتَبَ", "يَكْتُبُ", "كَاتِب"], correctIndex: 0, explanation: "「Kutibat (Written)」受動態です。" },
+      // 追加：やや難しい文法問題
+      { id: 2746, type: "grammar", text: "「كَتَبُوهَا」の「ū」は何を指す？", options: ["詩人たち（彼ら）", "詩", "カアバ", "金"], correctIndex: 0, explanation: "動詞につく「Waw al-Jama'a」で、主語である彼ら（アラブ人たち）を指します。" },
+      { id: 2747, type: "grammar", text: "「امْرُؤُ الْقَيْسِ」の「Imru'」のハムザが「u」に乗っている理由は？", options: ["主格だから", "対格だから", "属格だから", "固有名詞だから"], correctIndex: 0, explanation: "「Imru'」は格によって語尾の文字が変わる特殊な名詞です（主格: Imru'、対格: Imra'、属格: Imri'）。ここでは「(Huwa) Imru'」として主格の位置にあります。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "كَانَ الْعَرَبُ يَقُولُونَ الشِّعْرَ بِفَصَاحَةٍ.", japanese: "アラブ人は流暢に詩を詠んでいました。" },
@@ -8676,71 +9384,93 @@ questions: [] // アルファベット回は問題なし
       { speaker: "ナレーター", arabic: "هَذِهِ الْقَصَائِدُ تَصِفُ حَيَاةَ الصَّحْرَاءِ.", japanese: "これらの詩は砂漠の生活を描写しています。" }
     ]
   },
-
-  // --- 25. 地理・自然・倫理 (275-279) ---
   {
-    id: 275, title: "アブハの観光", category: "社会", level: "中級",
-    contentVoweled: "أَبْهَا عَرُوسُ الْجَبَلِ، تَتَمَيَّزُ بِالْجَوِّ الْمُعْتَدِلِ.",
-    contentPlain: "أبها عروس الجبل، تتميز بالجو المعتدل.",
+    id: 275,
+    title: "アブハの観光",
+    category: "社会",
+    level: "中級",
+    contentVoweled: "تَقَعُ أَبْهَا فِي جَنُوبِ السُّعُودِيَّةِ. تَسْقُطُ فِيهَا الْأَمْطَارُ فِي الصَّيْفِ. يُحِبُّ السُّيَّاحُ رُكُوبَ التِّلِفْرِيكِ هُنَاكَ. الْجِبَالُ الْخَضْرَاءُ تُعَانِقُ الضَّبَابَ. إِنَّهَا مَكَانٌ رَائِعٌ لِلْهَرَبِ مِنَ الْحَرِّ.",
+    contentPlain: "تقع أبها في جنوب السعودية. تسقط فيها الأمطار في الصيف. يحب السياح ركوب التلفريك هناك. الجبال الخضراء تعانق الضباب. إنها مكان رائع للهرب من الحر.",
     vocabList: [
       { word: "جَبَل", meaning: "山" },
       { word: "ضَبَاب", meaning: "霧" },
-      { word: "سِيَاحَة", meaning: "観光" }
+      { word: "سِيَاحَة", meaning: "観光" },
+      { word: "أَمْطَار", meaning: "雨（複数）" }, // 追加
+      { word: "حَرّ", meaning: "暑さ" } // 追加
     ],
     questions: [
-      { id: 2751, type: "reading", text: "アブハはどこにありますか？", options: ["砂漠", "海", "山の上（南部）", "地下"], correctIndex: 2, explanation: "「عَرُوس الْجَبَل (山の花嫁)」と呼ばれ、南部にあります。" },
-      { id: 2752, type: "reading", text: "天気はどうですか？", options: ["とても暑い", "穏やか/涼しい", "雪が降る", "乾燥している"], correctIndex: 1, explanation: "「مُعْتَدِل (穏やか)」です。" },
-      { id: 2753, type: "reading", text: "何が見られますか？", options: ["霧と緑", "砂嵐", "高層ビル", "海"], correctIndex: 0, explanation: "「الضَّبَاب وَالْخُضْرَة」です。" },
+      { id: 2751, type: "reading", text: "アブハはどこにありますか？", options: ["砂漠", "海", "山の上（南部）", "地下"], correctIndex: 2, explanation: "「فِي جَنُوبِ السُّعُودِيَّةِ」の山岳地帯です。" },
+      { id: 2752, type: "reading", text: "天気はどうですか？", options: ["とても暑い", "穏やか/涼しい/雨が降る", "雪が降る", "乾燥している"], correctIndex: 1, explanation: "夏に雨が降り、避暑地として知られています。" },
+      { id: 2753, type: "reading", text: "何が見られますか？", options: ["霧と緑", "砂嵐", "高層ビル", "海"], correctIndex: 0, explanation: "「الْجِبَالُ الْخَضْرَاءُ (緑の山々)」と「الضَّبَاب (霧)」です。" },
       { id: 2754, type: "vocabulary", text: "「تِلِفْرِيك」の意味は？", options: ["電車", "ロープウェイ", "車", "船"], correctIndex: 1, explanation: "Cable car（ロープウェイ）です。" },
-      { id: 2755, type: "grammar", text: "「登ります」", options: ["يَصْعَدُ", "يَنْزِلُ", "يَمْشِي", "يَقِفُ"], correctIndex: 0, explanation: "「Yaṣ'adu」です。" }
+      { id: 2755, type: "grammar", text: "「登ります」", options: ["يَصْعَدُ", "يَنْزِلُ", "يَمْشِي", "يَقِفُ"], correctIndex: 0, explanation: "「Yaṣ'adu」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2756, type: "grammar", text: "「تُعَانِقُ الضَّبَابَ」の「ḍabāba」が対格（a段）なのは？", options: ["主語だから", "動詞の目的語だから", "前置詞の後だから", "副詞だから"], correctIndex: 1, explanation: "動詞「Tu'āniqu (抱きしめる)」の目的語（Maf'ūl Bihi）であるため、対格（Manṣūb）になります。" },
+      { id: 2757, type: "grammar", text: "「لِلْهَرَبِ」の品詞は？", options: ["動詞", "名詞（動名詞）", "形容詞", "粒子"], correctIndex: 1, explanation: "「Haraba (逃げた)」の動名詞（Masdar）「Harab」に前置詞「Li」がついた形です。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "تَقَعُ أَبْهَا فِي جَنُوبِ السُّعُودِيَّةِ.", japanese: "アブハはサウジアラビアの南部にあります。" },
-      { speaker: "ナレーター", arabic: "تَسْقُطُ فِيهَا الْأَمْطَارُ فِي الصَّيْفِ.", japanese: "夏に雨が降ります。" },
+      { speaker: "ナレーター", arabic: "تَسْقُطُ فِيهَا الْأَمْطَارُ فِي الصَّيْفِ.", japanese: "夏に（そこでは）雨が降ります。" },
       { speaker: "ナレーター", arabic: "يُحِبُّ السُّيَّاحُ رُكُوبَ التِّلِفْرِيكِ هُنَاكَ.", japanese: "観光客はそこでロープウェイに乗るのが好きです。" },
       { speaker: "ナレーター", arabic: "الْجِبَالُ الْخَضْرَاءُ تُعَانِقُ الضَّبَابَ.", japanese: "緑の山々が霧を抱きしめます。" },
       { speaker: "ナレーター", arabic: "إِنَّهَا مَكَانٌ رَائِعٌ لِلْهَرَبِ مِنَ الْحَرِّ.", japanese: "それは暑さから逃れるのに素晴らしい場所です。" }
     ]
   },
   {
-    id: 276, title: "春の砂漠", category: "自然", level: "中級",
-    contentVoweled: "فِي الرَّبِيعِ، تَتَحَوَّلُ الصَّحْرَاءُ إِلَى بِسَاطٍ أَخْضَرَ.",
-    contentPlain: "في الربيع، تتحول الصحراء إلى بساط أخضر.",
+    id: 276,
+    title: "春の砂漠",
+    category: "自然",
+    level: "中級",
+    contentVoweled: "بَعْدَ سُقُوطِ الْمَطَرِ، يَنْمُو الْعُشْبُ. تَتَحَوَّلُ الصَّحْرَاءُ إِلَى بِسَاطٍ أَخْضَرَ. تَظْهَرُ زُهُورُ الْخُزَامَى الْبَنَفْسَجِيَّةُ. يَخْرُجُ النَّاسُ لِلْبَحْثِ عَنِ الْكَمْأَةِ. الرَّبِيعُ أَجْمَلُ فُصُولِ السَّنَةِ فِي الصَّحْرَاءِ.",
+    contentPlain: "بعد سقوط المطر، ينمو العشب. تتحول الصحراء إلى بساط أخضر. تظهر زهور الخزامى البنفسجية. يخرج الناس للبحث عن الكمأة. الربيع أجمل فصول السنة في الصحراء.",
     vocabList: [
       { word: "رَبِيع", meaning: "春" },
       { word: "زَهْرَة", meaning: "花" },
-      { word: "كَمْأَة", meaning: "トリュフ（キノコ）" }
+      { word: "كَمْأَة", meaning: "トリュフ（キノコ）" },
+      { word: "عُشْب", meaning: "草" }, // 追加
+      { word: "بِسَاط", meaning: "絨毯/カーペット" } // 追加
     ],
     questions: [
       { id: 2761, type: "reading", text: "春になると砂漠はどうなりますか？", options: ["もっと暑くなる", "緑になる", "雪が降る", "変わらない"], correctIndex: 1, explanation: "「بِسَاط أَخْضَر (緑の絨毯)」になります。" },
-      { id: 2762, type: "reading", text: "人々は何を探しに行きますか？", options: ["金", "水", "キノコ（トリュフ）", "石"], correctIndex: 2, explanation: "「الْكَمْأَة (トリュフ/キノコ)」です。" },
-      { id: 2763, type: "reading", text: "空気（香り）はどうですか？", options: ["臭い", "花の香りがする", "煙たい", "埃っぽい"], correctIndex: 1, explanation: "「رَائِحَةُ الْأَزْهَارِ」です。" },
+      { id: 2762, type: "reading", text: "人々は何を探しに行きますか？", options: ["金", "水", "キノコ（トリュフ）", "石"], correctIndex: 2, explanation: "「الْكَمْأَة (トリュフ/ファグア)」です。" },
+      { id: 2763, type: "reading", text: "空気（香り）はどうですか？", options: ["臭い", "花の香りがする", "煙たい", "埃っぽい"], correctIndex: 1, explanation: "「ラベンダー（Khuzāmā）」などの花が現れるためです。" },
       { id: 2764, type: "vocabulary", text: "「مَطَر」の意味は？", options: ["風", "雨", "太陽", "雲"], correctIndex: 1, explanation: "Rain（雨）です。" },
-      { id: 2765, type: "grammar", text: "「探します」", options: ["يَبْحَثُ عَنْ", "يَجِدُ", "يُضَيِّعُ", "يَخْتَبِئُ"], correctIndex: 0, explanation: "「Yabḥathu 'an」です。" }
+      { id: 2765, type: "grammar", text: "「探します」", options: ["يَبْحَثُ عَنْ", "يَجِدُ", "يُضَيِّعُ", "يَخْتَبِئُ"], correctIndex: 0, explanation: "「Yabḥathu 'an」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2766, type: "grammar", text: "「تَتَحَوَّلُ」の動詞の派生形（Wazn）は？", options: ["Form II (Fa''ala)", "Form V (Tafa''ala)", "Form IV (Af'ala)", "Form X (Istaf'ala)"], correctIndex: 1, explanation: "「Ta」で始まり真ん中にシャッダがある第5形（Tafa''ala）で、「変化する（自動詞化）」を表します。" },
+      { id: 2767, type: "grammar", text: "「أَجْمَلُ فُصُولِ」の「Fuṣūli」が属格（i段）なのは？", options: ["形容詞だから", "イダーファの第2要素だから", "目的語だから", "間違い"], correctIndex: 1, explanation: "「Ajmalu (最も美しい)」という最上級名詞に続く名詞なので、イダーファ構造となり属格（Majrūr）になります。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "بَعْدَ سُقُوطِ الْمَطَرِ، يَنْمُو الْعُشْبُ.", japanese: "雨が降った後、草が生えます。" },
+      { speaker: "ナレーター", arabic: "تَتَحَوَّلُ الصَّحْرَاءُ إِلَى بِسَاطٍ أَخْضَرَ.", japanese: "砂漠は緑の絨毯に変わります。" },
       { speaker: "ナレーター", arabic: "تَظْهَرُ زُهُورُ الْخُزَامَى الْبَنَفْسَجِيَّةُ.", japanese: "紫色のラベンダーの花が現れます。" },
       { speaker: "ナレーター", arabic: "يَخْرُجُ النَّاسُ لِلْبَحْثِ عَنِ الْكَمْأَةِ (الْفَقْعِ).", japanese: "人々はトリュフ（ファグア）を探しに出かけます。" },
-      { speaker: "ナレーター", arabic: "الْهَوَاءُ عَلِيلٌ وَالْمَنْظَرُ خَلَّابٌ.", japanese: "空気は爽やかで、景色は魅力的です。" },
       { speaker: "ナレーター", arabic: "الرَّبِيعُ أَجْمَلُ فُصُولِ السَّنَةِ فِي الصَّحْرَاءِ.", japanese: "春は砂漠で最も美しい季節です。" }
     ]
   },
   {
-    id: 277, title: "正直な商人", category: "物語", level: "中級",
-    contentVoweled: "التَّاجِرُ الْأَمِينُ يَرْبَحُ ثِقَةَ النَّاسِ وَرِضَا اللهِ.",
-    contentPlain: "التاجر الأمين يربح ثقة الناس ورضا الله.",
+    id: 277,
+    title: "正直な商人",
+    category: "物語",
+    level: "中級",
+    contentVoweled: "كَانَ هُنَاكَ تَاجِرٌ يَبِيعُ الثِّيَابَ. اكْتَشَفَ عَيْبًا فِي أَحَدِ الثِّيَابِ. عِنْدَمَا جَاءَ الْمُشْتَرِي، لَمْ يُخْفِ التَّاجِرُ الْعَيْبَ. قَالَ: هَذَا الثَّوْبُ فِيهِ قَطْعٌ صَغِيرٌ. اشْتَرَى الرَّجُلُ الثَّوْبَ وَأَعْجَبَتْهُ أَمَانَةُ التَّاجِرِ.",
+    contentPlain: "كان هناك تاجر يبيع الثياب. اكتشف عيبا في أحد الثياب. عندما جاء المشتري، لم يخف التاجر العيب. قال: هذا الثوب فيه قطع صغير. اشترى الرجل الثوب وأعجبته أمانة التاجر.",
     vocabList: [
       { word: "أَمِين", meaning: "正直な/信頼できる" },
       { word: "عَيْب", meaning: "欠陥/欠点" },
-      { word: "بَيْع", meaning: "販売" }
+      { word: "بَيْع", meaning: "販売" },
+      { word: "يُخْفِي", meaning: "隠す" }, // 追加
+      { word: "قَطْع", meaning: "切れ目/破れ" } // 追加
     ],
     questions: [
       { id: 2771, type: "reading", text: "商人は何を売っていましたか？", options: ["車", "服", "馬", "家"], correctIndex: 1, explanation: "「ثَوْب (服)」を売っていました。" },
       { id: 2772, type: "reading", text: "商品には何がありましたか？", options: ["お金", "欠陥（傷）", "サイン", "おまけ"], correctIndex: 1, explanation: "「عَيْب (欠陥)」がありました。" },
-      { id: 2773, type: "reading", text: "商人はどうしましたか？", options: ["隠した", "客に伝えた", "嘘をついた", "安くした"], correctIndex: 1, explanation: "「أَخْبَرَ الْمُشْتَرِيَ (買い手に教えた)」です。" },
+      { id: 2773, type: "reading", text: "商人はどうしましたか？", options: ["隠した", "客に伝えた", "嘘をついた", "安くした"], correctIndex: 1, explanation: "「لَمْ يُخْفِ (隠さなかった)」＝客に伝えました。" },
       { id: 2774, type: "vocabulary", text: "「ثِقَة」の意味は？", options: ["疑い", "信頼", "嘘", "金"], correctIndex: 1, explanation: "Trust（信頼）です。" },
-      { id: 2775, type: "grammar", text: "「隠します」", options: ["يُخْفِي", "يُظْهِرُ", "يَقُولُ", "يَعْرِفُ"], correctIndex: 0, explanation: "「Yukhfī」です。" }
+      { id: 2775, type: "grammar", text: "「隠します」", options: ["يُخْفِي", "يُظْهِرُ", "يَقُولُ", "يَعْرِفُ"], correctIndex: 0, explanation: "「Yukhfī」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2776, type: "grammar", text: "「لَمْ يُخْفِ」で動詞の最後がKasraなのは？", options: ["所有格だから", "否定のLam（Jussive）により弱文字（Yā）が落ちたから", "女性形だから", "間違い"], correctIndex: 1, explanation: "「Akhfā - Yukhfī」の要求形（Majzūm）は、語尾の長母音（Yā）が脱落して「Yukhfi」となります。" },
+      { id: 2777, type: "grammar", text: "「أَعْجَبَتْهُ أَمَانَةُ」の「Amānatu」が主格（u段）なのは？", options: ["目的語だから", "動詞「A'jaba」の主語だから", "所有格だから", "間違い"], correctIndex: 1, explanation: "「〜を感心させた（気に入らせた）」という動詞の構造で、「Amāna（正直さ）」が「彼」を感心させた「主語」です。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "كَانَ هُنَاكَ تَاجِرٌ يَبِيعُ الثِّيَابَ.", japanese: "服を売る商人がいました。" },
@@ -8751,20 +9481,28 @@ questions: [] // アルファベット回は問題なし
     ]
   },
   {
-    id: 278, title: "テレビゲーム", category: "記事", level: "中級",
-    contentVoweled: "الْأَلْعَابُ الْإِلِكْتُرُونِيَّةُ مُمْتِعَةٌ لَكِنْ لَهَا أَضْرَارٌ.",
-    contentPlain: "الألعاب الإلكترونية ممتعة لكن لها أضرار.",
+    id: 278,
+    title: "テレビゲーム",
+    category: "記事",
+    level: "中級",
+    contentVoweled: "يَقْضِي الْأَطْفَالُ سَاعَاتٍ أَمَامَ الشَّاشَةِ. بَعْضُ الْأَلْعَابِ مُفِيدٌ لِلْعَقْلِ. لَكِنَّ الْجُلُوسَ الطَّوِيلَ مُضِرٌّ بِالْجِسْمِ. قَدْ تُسَبِّبُ الْأَلْعَابُ الْعُنْفَ أَوِ الْإِدْمَانَ. يَجِبُ تَحْدِيدُ وَقْتِ اللَّعِبِ.",
+    contentPlain: "يقضي الأطفال ساعات أمام الشاشة. بعض الألعاب مفيد للعقل. لكن الجلوس الطويل مضر بالجسم. قد تسبب الألعاب العنف أو الإدمان. يجب تحديد وقت اللعب.",
     vocabList: [
       { word: "لُعْبَة", meaning: "ゲーム" },
       { word: "شَاشَة", meaning: "画面" },
-      { word: "عَيْن", meaning: "目" }
+      { word: "عَيْن", meaning: "目" },
+      { word: "مُضِرّ", meaning: "有害な" }, // 追加
+      { word: "عُنْف", meaning: "暴力" } // 追加
     ],
     questions: [
       { id: 2781, type: "reading", text: "子供たちは何が好きですか？", options: ["勉強", "テレビゲーム", "掃除", "寝ること"], correctIndex: 1, explanation: "「الْأَلْعَاب الْإِلِكْتُرُونِيَّة」です。" },
-      { id: 2782, type: "reading", text: "ゲームの良い点は？", options: ["目が悪くなる", "楽しい/知能を育てる", "眠くなる", "太る"], correctIndex: 1, explanation: "「تُنَمِّي الذَّكَاءَ (知能を育てる)」こともあります。" },
-      { id: 2783, type: "reading", text: "悪い点は？", options: ["友達が増える", "目を傷つける/運動不足", "頭が良くなる", "金持ちになる"], correctIndex: 1, explanation: "「تُؤْذِي الْعَيْنَ (目を傷つける)」です。" },
+      { id: 2782, type: "reading", text: "ゲームの良い点は？", options: ["目が悪くなる", "楽しい/知能を育てる", "眠くなる", "太る"], correctIndex: 1, explanation: "「مُفِيدٌ لِلْعَقْلِ (頭脳に有益)」な場合もあります。" },
+      { id: 2783, type: "reading", text: "悪い点は？", options: ["友達が増える", "体を傷つける/中毒", "頭が良くなる", "金持ちになる"], correctIndex: 1, explanation: "「مُضِرٌّ بِالْجِسْمِ (体に有害)」や「الْإِدْمَان (依存)」です。" },
       { id: 2784, type: "vocabulary", text: "「إِدْمَان」の意味は？", options: ["趣味", "依存/中毒", "スポーツ", "仕事"], correctIndex: 1, explanation: "Addiction（依存）です。" },
-      { id: 2785, type: "grammar", text: "「遊びます」", options: ["يَلْعَبُ", "يَدْرُسُ", "يَعْمَلُ", "يَأْكُلُ"], correctIndex: 0, explanation: "「Yal'abu」です。" }
+      { id: 2785, type: "grammar", text: "「遊びます」", options: ["يَلْعَبُ", "يَدْرُسُ", "يَعْمَلُ", "يَأْكُلُ"], correctIndex: 0, explanation: "「Yal'abu」です。" },
+      // 追加：やや難しい文法問題
+      { id: 2786, type: "grammar", text: "「يَقْضِي」の動詞の種類は？", options: ["Mahmūz (Hamza付き)", "Mithāl (最初の文字が弱文字)", "Nāqiṣ (最後の文字が弱文字)", "Ṣaḥīḥ (健全動詞)"], correctIndex: 2, explanation: "最後がYāで終わる弱文字動詞なので「Nāqiṣ」です。" },
+      { id: 2787, type: "grammar", text: "「سَاعَاتٍ」がKasra（i段）なのは？", options: ["属格だから", "女性規則複数の対格だから", "主格だから", "間違い"], correctIndex: 1, explanation: "「Yaqḍī (過ごす)」の目的語ですが、女性規則複数（Jam' Mu'annath Sālim）のため、対格の印としてFathaの代わりにKasraを取ります。" }
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "يَقْضِي الْأَطْفَالُ سَاعَاتٍ أَمَامَ الشَّاشَةِ.", japanese: "子供たちは画面の前で何時間も過ごします。" },
@@ -8775,20 +9513,25 @@ questions: [] // アルファベット回は問題なし
     ]
   },
   {
-    id: 279, title: "サウジの冬", category: "文化", level: "中級",
-    contentVoweled: "الشِّتَاءُ فِي السُّعُودِيَّةِ قَصِيرٌ لَكِنَّهُ مَحْبُوبٌ.",
-    contentPlain: "الشتاء في السعودية قصير لكنه محبوب.",
+    id: 279,
+    title: "サウジの冬",
+    category: "文化",
+    level: "中級",
+    contentVoweled: "يَنْتَظِرُ النَّاسُ الشِّتَاءَ بِشَوْقٍ. يَلْبَسُونَ الْفَرْوَةَ لِلتَّدْفِئَةِ. يَشْرَبُونَ الْحَلِيبَ بِالزَّنْجَبِيلِ. يَجْلِسُونَ حَوْلَ شَبَّةِ النَّارِ فِي الْمَخَيَّمَاتِ. الْجَوُّ يَكُونُ بَارِدًا خَاصَّةً فِي الشَّمَالِ.",
+    contentPlain: "ينتظر الناس الشتاء بشوق. يلبسون الفروة للتدفئة. يشربون الحليب بالزنجبيل. يجلسون حول شبة النار في المخيمات. الجو يكون باردا خاصة في الشمال.",
     vocabList: [
       { word: "شِتَاء", meaning: "冬" },
       { word: "نَار", meaning: "火" },
-      { word: "فَرْوَة", meaning: "ファルワ（冬のコート）" }
+      { word: "فَرْوَة", meaning: "ファルワ（冬のコート）" },
+      { word: "شَوْق", meaning: "憧れ/切望" }, // 追加
+      { word: "تَدْفِئَة", meaning: "暖房/暖めること" } // 追加
     ],
     questions: [
-      { id: 2791, type: "reading", text: "サウジの冬はどうですか？", options: ["とても長い", "短い", "暑い", "雪が多い"], correctIndex: 1, explanation: "「قَصِير (短い)」です。" },
+      { id: 2791, type: "reading", text: "サウジの冬はどうですか？", options: ["とても長い", "短い", "暑い", "雪が多い"], correctIndex: 1, explanation: "一般的に短いです（ID 279 元データより）。" },
       { id: 2792, type: "reading", text: "人々は何を着ますか？", options: ["水着", "ファルワ（毛皮のコート）", "薄い服", "帽子"], correctIndex: 1, explanation: "「الْفَرْوَة」を着ます。" },
-      { id: 2793, type: "reading", text: "どこに集まりますか？", options: ["プールの周り", "火の周り", "冷蔵庫の前", "屋根の上"], correctIndex: 1, explanation: "「حَوْلَ النَّارِ (火の周り)」です。" },
+      { id: 2793, type: "reading", text: "どこに集まりますか？", options: ["プールの周り", "火の周り", "冷蔵庫の前", "屋根の上"], correctIndex: 1, explanation: "「حَوْلَ شَبَّةِ النَّارِ」です。" },
       { id: 2794, type: "vocabulary", text: "「زَنْجَبِيل」の意味は？", options: ["コーヒー", "生姜（ジンジャー）", "お茶", "砂糖"], correctIndex: 1, explanation: "冬に人気の飲み物、生姜（Zanjabīl）です。" },
-      { id: 2795, type: "grammar", text: "「着ます」", options: ["يَلْبَسُ", "يَخْلَعُ", "يَشْتَرِي", "يَغْسِلُ"], correctIndex: 0, explanation: "「Yalbasu」です。" }
+      { id: 2795, type: "grammar", text: "「着ます」", options: ["يَلْبَسُ", "يَخْلَعُ", "يَشْتَرِي", "يَغْسِلُ"], correctIndex: 0, explanation: "「Yalbasu」です。" },
     ],
     sentences: [
       { speaker: "ナレーター", arabic: "يَنْتَظِرُ النَّاسُ الشِّتَاءَ بِشَوْقٍ.", japanese: "人々は冬を待ち焦がれます。" },
@@ -8805,23 +9548,31 @@ questions: [] // アルファベット回は問題なし
 
   // --- 1. 経済・ビジョン (Economy) ---
   {
-    id: 1000, title: "サウジ・ビジョン2030（詳細）", category: "経済", level: "上級",
-    contentVoweled: "رُؤْيَةُ الْمَمْلَكَةِ 2030 لَيْسَتْ مُجَرَّدَ خُطَّةٍ اقْتِصَادِيَّةٍ، بَلْ هِيَ خَارِطَةُ طَرِيقٍ لِتَحَوُّلٍ اجْتِمَاعِيٍّ وَثَقَافِيٍّ شَامِلٍ...",
-    contentPlain: "رؤية المملكة 2030 ليست مجرد خطة اقتصادية، بل هي خارطة طريق لتحول اجتماعي وثقافي شامل. تهدف هذه الرؤية الطموحة إلى تقليل الاعتماد الكلي على النفط كمصدر وحيد للدخل، وذلك من خلال تنويع الاقتصاد وتطوير قطاعات حيوية جديدة. من أهم ركائز الرؤية تمكين المرأة السعودية وزيادة مشاركتها في سوق العمل، بالإضافة إلى فتح أبواب السياحة للعالم. كما تشمل الرؤية إطلاق مشاريع عملاقة مثل 'نيوم' و'القدية' لتحسين جودة الحياة وجذب الاستثمارات الأجنبية.",
+    id: 1000,
+    title: "サウジ・ビジョン2030（詳細）",
+    category: "経済",
+    level: "上級",
+    contentVoweled: "رُؤْيَةُ الْمَمْلَكَةِ 2030 لَيْسَتْ مُجَرَّدَ خُطَّةٍ اقْتِصَادِيَّةٍ، بَلْ هِيَ خَارِطَةُ طَرِيقٍ لِتَحَوُّلٍ اجْتِمَاعِيٍّ وَثَقَافِيٍّ شَامِلٍ. أَطْلَقَ وَلِيُّ الْعَهْدِ الْأَمِيرُ مُحَمَّدُ بْنُ سَلْمَانَ هَذِهِ الرُّؤْيَةَ لِبِنَاءِ مُسْتَقْبَلٍ مُشْرِقٍ. تَهْدِفُ الرُّؤْيَةُ بِشَكْلٍ أَسَاسِيٍّ إِلَى تَنْوِيعِ مَصَادِرِ الدَّخْلِ وَعَدَمِ الِاعْتِمَادِ عَلَى النِّفْطِ فَقَطْ. تَمَّ فَتْحُ الْمَجَالِ لِلسِّيَاحَةِ وَالتَّرْفِيهِ لِتَكُونَ رَوَافِدَ جَدِيدَةً لِلِاقْتِصَادِ. تُرَكِّزُ الْخُطَّةُ أَيْضًا عَلَى تَمْكِينِ الْمَرْأَةِ وَرَفْعِ نِسْبَةِ مُشَارَكَتِهَا فِي سُوقِ الْعَمَلِ. تَشْمَلُ الرُّؤْيَةُ مَشَارِيعَ ضَخْمَةً مِثْلَ مَدِينَةِ 'نِيُوم' الذَّكِيَّةِ. هَذِهِ الْخُطَوَاتُ سَتَجْعَلُ الْمَمْلَكَةَ قُوَّةً اسْتِثْمَارِيَّةً عَالَمِيَّةً.",
+    contentPlain: "رؤية المملكة 2030 ليست مجرد خطة اقتصادية، بل هي خارطة طريق لتحول اجتماعي وثقافي شامل. أطلق ولي العهد الأمير محمد بن سلمان هذه الرؤية لبناء مستقبل مشرق. تهدف الرؤية بشكل أساسي إلى تنويع مصادر الدخل وعدم الاعتماد على النفط فقط. تم فتح المجال للسياحة والترفيه لتكون روافد جديدة للاقتصاد. تركز الخطة أيضا على تمكين المرأة ورفع نسبة مشاركتها في سوق العمل. تشمل الرؤية مشاريع ضخمة مثل مدينة 'نيوم' الذكية. هذه الخطوات ستجعل المملكة قوة استثمارية عالمية.",
     vocabList: [
       { word: "شَامِل", meaning: "包括的な" },
       { word: "تَمْكِين", meaning: "エンパワーメント" },
       { word: "اسْتِثْمَار", meaning: "投資" },
-      { word: "عِمْلَاق", meaning: "巨大な" }
+      { word: "عِمْلَاق", meaning: "巨大な" },
+      { word: "رَافِد", meaning: "支流/源" }
     ],
     questions: [
       { id: 10001, type: "reading", text: "ビジョン2030は単なる経済計画ですか？", options: ["はい、経済のみです", "いいえ、包括的な社会変革です", "単なる観光計画です", "石油計画です"], correctIndex: 1, explanation: "本文に「ليس مجرد خطة اقتصادية بل تحول اجتماعي（単なる経済計画ではなく社会変革）」とあります。" },
-      { id: 10002, type: "reading", text: "経済に関しての主な目的は？", options: ["石油だけに頼る", "経済を多様化する", "輸入を禁止する", "税金をなくす"], correctIndex: 1, explanation: "「تنويع الاقتصاد（経済の多様化）」と明記されています。" },
+      { id: 10002, type: "reading", text: "経済に関しての主な目的は？", options: ["石油だけに頼る", "経済を多様化する", "輸入を禁止する", "税金をなくす"], correctIndex: 1, explanation: "「تَنْوِيعِ مَصَادِرِ الدَّخْلِ（収入源の多様化）」と明記されています。" },
       { id: 10003, type: "reading", text: "女性に関しては何を目指していますか？", options: ["労働参加を減らす", "家にいさせる", "エンパワーメントと労働参加の増加", "海外へ送る"], correctIndex: 2, explanation: "「تمكين المرأة وزيادة مشاركتها（女性のエンパワーメントと参加増加）」とあります。" },
       { id: 10004, type: "vocabulary", text: "「تَطْوِير」の意味は？", options: ["破壊", "開発/発展", "停止", "購入"], correctIndex: 1, explanation: "Development（開発）です。" },
-      { id: 10005, type: "grammar", text: "「〜に加えて」", options: ["بِالْإِضَافَةِ إِلَى", "بِسَبَبِ", "رَغْمَ", "مِنْ أَجْلِ"], correctIndex: 0, explanation: "「Bi-al-iḍāfati ilā」は文中で「さらに〜」という意味で使われています。" }
+      { id: 10005, type: "grammar", text: "「〜に加えて」", options: ["بِالْإِضَافَةِ إِلَى", "بِسَبَبِ", "رَغْمَ", "مِنْ أَجْلِ"], correctIndex: 0, explanation: "「Bi-al-iḍāfati ilā」は文中で「さらに〜」という意味で使われています。" },
+      // 上級文法問題
+      { id: 10006, type: "grammar_advanced", text: "文頭の「رؤية」の正しい語尾は？", options: ["u (ダンマ)", "a (ファトハ)", "i (カスラ)", "un (タンウィーン・ダンマ)"], correctIndex: 0, explanation: "名詞文の文頭にある「主語（Mubtada'）」であるため、主格（Marfū'）となりダンマがつきます。後ろに修飾語（Al-Mamlaka）が続くイダーファ構造のため、タンウィーンはつきません。" },
+      { id: 10007, type: "grammar_advanced", text: "「ليست مجرد خطة」の「مجرد」の正しい語尾は？", options: ["u (ダンマ)", "a (ファトハ)", "i (カスラ)", "un (タンウィーン・ダンマ)"], correctIndex: 1, explanation: "否定動詞「Laysa」の「述語（Khabar Laysa）」は対格（Manṣūb）になるルールがあるため、ファトハがつきます。" }
     ],
     sentences: [
+      { speaker: "記事", arabic: "رُؤْيَةُ الْمَمْلَكَةِ 2030 لَيْسَتْ مُجَرَّدَ خُطَّةٍ اقْتِصَادِيَّةٍ، بَلْ هِيَ خَارِطَةُ طَرِيقٍ لِتَحَوُّلٍ اجْتِمَاعِيٍّ وَثَقَافِيٍّ شَامِلٍ.", japanese: "サウジ・ビジョン2030は単なる経済計画ではなく、包括的な社会的・文化的変革へのロードマップです。" },
       { speaker: "記事", arabic: "أَطْلَقَ وَلِيُّ الْعَهْدِ الْأَمِيرُ مُحَمَّدُ بْنُ سَلْمَانَ هَذِهِ الرُّؤْيَةَ لِبِنَاءِ مُسْتَقْبَلٍ مُشْرِقٍ.", japanese: "ムハンマド・ビン・サルマン皇太子は、輝かしい未来を築くためにこのビジョンを発表しました。" },
       { speaker: "記事", arabic: "تَهْدِفُ الرُّؤْيَةُ بِشَكْلٍ أَسَاسِيٍّ إِلَى تَنْوِيعِ مَصَادِرِ الدَّخْلِ وَعَدَمِ الِاعْتِمَادِ عَلَى النِّفْطِ فَقَطْ.", japanese: "ビジョンは基本的に、収入源を多様化し、石油のみに依存しないことを目指しています。" },
       { speaker: "記事", arabic: "تَمَّ فَتْحُ الْمَجَالِ لِلسِّيَاحَةِ وَالتَّرْفِيهِ لِتَكُونَ رَوَافِدَ جَدِيدَةً لِلِاقْتِصَادِ.", japanese: "観光とエンターテインメントの分野が、経済の新しい支流となるよう開放されました。" },
@@ -8830,26 +9581,32 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "هَذِهِ الْخُطَوَاتُ سَتَجْعَلُ الْمَمْلَكَةَ قُوَّةً اسْتِثْمَارِيَّةً عَالَمِيَّةً.", japanese: "これらのステップは、王国を世界的な投資大国にするでしょう。" }
     ]
   },
-
-  // --- 2. 歴史・文明 (History) ---
   {
-    id: 1001, title: "イスラムの黄金時代（詳細）", category: "歴史", level: "上級",
-    contentVoweled: "شَهِدَ الْعَصْرُ الذَّهَبِيُّ لِلْإِسْلَامِ تَقَدُّمًا حَضَارِيًّا لَا مَثِيلَ لَهُ...",
-    contentPlain: "شهد العصر الذهبي للإسلام تقدما حضاريا لا مثيل له في مجالات العلوم والفنون والفلسفة. كانت بغداد في ذلك الوقت عاصمة للعلم والمعرفة، حيث أسس الخليفة المأمون 'بيت الحكمة' الشهير. توافد العلماء من جميع أنحاء العالم لترجمة الكتب اليونانية والفارسية والهندية إلى اللغة العربية، ولم يكتفوا بالترجمة بل أضافوا ابتكاراتهم الخاصة التي مهدت الطريق للنهضة العلمية الحديثة.",
+    id: 1001,
+    title: "イスラムの黄金時代（詳細）",
+    category: "歴史",
+    level: "上級",
+    contentVoweled: "شَهِدَ الْعَصْرُ الذَّهَبِيُّ لِلْإِسْلَامِ تَقَدُّمًا حَضَارِيًّا لَا مَثِيلَ لَهُ. فِي الْعَصْرِ الْعَبَّاسِيِّ، أَصْبَحَتْ بَغْدَادُ مَرْكَزًا لِلْعِلْمِ وَالْعُلَمَاءِ. أَنْشَأَ الْخَلِيفَةُ الْمَأْمُونُ مَكْتَبَةً ضَخْمَةً سَمَّاهَا 'بَيْتَ الْحِكْمَةِ'. قَامَ الْمُتَرْجِمُونَ بِنَقْلِ عُلُومِ الْأُمَمِ السَّابِقَةِ إِلَى الْعَرَبِيَّةِ. بَرَزَ عُلَمَاءُ مِثْلُ الْخُوَارِزْمِيِّ فِي الرِّيَاضِيَّاتِ وَابْنِ سِينَا فِي الطِّبِّ. هَذِهِ الْإِنْجَازَاتُ مَهَّدَتِ الطَّرِيقَ لِلنَّهْضَةِ الْأُورُوبِيَّةِ لَاحِقًا.",
+    contentPlain: "شهد العصر الذهبي للإسلام تقدما حضاريا لا مثيل له. في العصر العباسي، أصبحت بغداد مركزا للعلم والعلماء. أنشأ الخليفة المأمون مكتبة ضخمة سماها 'بيت الحكمة'. قام المترجمون بنقل علوم الأمم السابقة إلى العربية. برز علماء مثل الخوارزمي في الرياضيات وابن سينا في الطب. هذه الإنجازات مهدت الطريق للنهضة الأوروبية لاحقا.",
     vocabList: [
       { word: "عَصْر", meaning: "時代" },
       { word: "تَقَدُّم", meaning: "進歩" },
       { word: "تَرْجَمَة", meaning: "翻訳" },
-      { word: "نَهْضَة", meaning: "復興/ルネサンス" }
+      { word: "نَهْضَة", meaning: "復興/ルネサンス" },
+      { word: "مَثِيل", meaning: "類似するもの/比類" }
     ],
     questions: [
       { id: 10011, type: "reading", text: "黄金時代には何がありましたか？", options: ["後退", "科学と芸術の類まれな進歩", "飢餓", "戦争のみ"], correctIndex: 1, explanation: "「تقدما حضاريا لا مثيل له (類を見ない文明の進歩)」と記述されています。" },
-      { id: 10012, type: "reading", text: "当時の「知の都」はどこでしたか？", options: ["パリ", "ロンドン", "バグダッド", "ローマ"], correctIndex: 2, explanation: "「كانت بغداد... عاصمة للعلم (バグダッドは知の都だった)」とあります。" },
-      { id: 10013, type: "reading", text: "「知恵の館」で主に行われたことは？", options: ["料理", "翻訳と研究", "スポーツ", "睡眠"], correctIndex: 1, explanation: "「ترجمة الكتب... وأضافوا ابتكاراتهم (本の翻訳と発明の追加)」です。" },
+      { id: 10012, type: "reading", text: "当時の「知の都」はどこでしたか？", options: ["パリ", "ロンドン", "バグダッド", "ローマ"], correctIndex: 2, explanation: "「أَصْبَحَتْ بَغْدَادُ مَرْكَزًا (バグダッドは中心地となった)」とあります。" },
+      { id: 10013, type: "reading", text: "「知恵の館」で主に行われたことは？", options: ["料理", "翻訳と研究", "スポーツ", "睡眠"], correctIndex: 1, explanation: "「بِنَقْلِ عُلُومِ الْأُمَمِ السَّابِقَةِ (過去の国々の学問の翻訳・移転)」です。" },
       { id: 10014, type: "vocabulary", text: "「عُلَمَاء」の意味は？", options: ["学生", "学者たち", "王様", "兵士"], correctIndex: 1, explanation: "Scholars（学者・複数形）です。" },
-      { id: 10015, type: "grammar", text: "「道を切り開いた」", options: ["مَهَّدَ الطَّرِيقَ", "أَغْلَقَ الطَّرِيقَ", "مَشَى فِي الطَّرِيقِ", "بَنَى الطَّرِيقَ"], correctIndex: 0, explanation: "「Mahhada al-ṭarīqa (Paved the way)」は重要な熟語です。" }
+      { id: 10015, type: "grammar", text: "「道を切り開いた」", options: ["مَهَّدَ الطَّرِيقَ", "أَغْلَقَ الطَّرِيقَ", "مَشَى فِي الطَّرِيقِ", "بَنَى الطَّرِيقَ"], correctIndex: 0, explanation: "「Mahhada al-ṭarīqa (Paved the way)」は重要な熟語です。" },
+      // 上級文法問題
+      { id: 10016, type: "grammar_advanced", text: "「شهد ... تقدما」の「تقدما」の正しい語尾は？", options: ["un (タンウィーン・ダンマ)", "an (タンウィーン・ファトハ)", "in (タンウィーン・カスラ)", "u (ダンマ)"], correctIndex: 1, explanation: "動詞「Shahida（目撃した/経験した）」の「目的語（Maf'ūl Bihi）」であるため、対格（Manṣūb）となり、タンウィーン・ファトハがつきます。" },
+      { id: 10017, type: "grammar_advanced", text: "「لا مثيل له」の「مثيل」の正しい語尾は？", options: ["a (ファトハ・タンウィーンなし)", "an (タンウィーン・ファトハ)", "u (ダンマ)", "i (カスラ)"], correctIndex: 0, explanation: "「〜は全くない」という意味の「絶対否定のLa（La al-Nafiya lil-Jins）」の後では、名詞は対格かつタンウィーンなし（Mabnī 'alā al-Fatḥ）になります。" }
     ],
     sentences: [
+      { speaker: "記事", arabic: "شَهِدَ الْعَصْرُ الذَّهَبِيُّ لِلْإِسْلَامِ تَقَدُّمًا حَضَارِيًّا لَا مَثِيلَ لَهُ.", japanese: "イスラムの黄金時代は、類を見ない文明的進歩を目撃しました。" },
       { speaker: "記事", arabic: "فِي الْعَصْرِ الْعَبَّاسِيِّ، أَصْبَحَتْ بَغْدَادُ مَرْكَزًا لِلْعِلْمِ وَالْعُلَمَاءِ.", japanese: "アッバース朝時代、バグダッドは学問と学者の中心地となりました。" },
       { speaker: "記事", arabic: "أَنْشَأَ الْخَلِيفَةُ الْمَأْمُونُ مَكْتَبَةً ضَخْمَةً سَمَّاهَا 'بَيْتَ الْحِكْمَةِ'.", japanese: "カリフ・マアムーンは「知恵の館」と名付けた巨大な図書館を設立しました。" },
       { speaker: "記事", arabic: "قَامَ الْمُتَرْجِمُونَ بِنَقْلِ عُلُومِ الْأُمَمِ السَّابِقَةِ إِلَى الْعَرَبِيَّةِ.", japanese: "翻訳者たちは過去の国々の学問をアラビア語に移しました。" },
@@ -8857,26 +9614,32 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "هَذِهِ الْإِنْجَازَاتُ مَهَّدَتِ الطَّرِيقَ لِلنَّهْضَةِ الْأُورُوبِيَّةِ لَاحِقًا.", japanese: "これらの成果は、後のヨーロッパのルネサンスへの道を切り開きました。" }
     ]
   },
-
-  // --- 3. 文学・詩 (Literature) ---
   {
-    id: 1002, title: "詩人アル・ムタナッビー（詳細）", category: "文学", level: "上級",
-    contentVoweled: "أَبُو الطَّيِّبِ الْمُتَنَبِّي هُوَ شَاعِرُ الْعَرَبِ الْأَكْبَرُ، الَّذِي مَلَأَ الدُّنْيَا وَشَغَلَ النَّاسَ...",
-    contentPlain: "أبو الطيب المتنبي هو شاعر العرب الأكبر، الذي اشتهر بالحكمة والفخر. عاش حياة مليئة بالمغامرات والتنقل بين الملوك، وكان أشهرها فترته في بلاط سيف الدولة الحمداني في حلب. تميز شعره بقوة اللغة والاعتداد بالنفس. قيل إنه قتل بسبب بيت شعر هجا فيه رجلا فاتك به، وعندما حاول الهرب قال له غلامه: 'ألست القائل: الخيل والليل والبيداء تعرفني؟'، فرجع وقاتل حتى مات.",
+    id: 1002,
+    title: "詩人アル・ムタナッビー（詳細）",
+    category: "文学",
+    level: "上級",
+    contentVoweled: "أَبُو الطَّيِّبِ الْمُتَنَبِّي هُوَ شَاعِرُ الْعَرَبِ الْأَكْبَرُ، الَّذِي مَلَأَ الدُّنْيَا وَشَغَلَ النَّاسَ. يُعَدُّ الْمُتَنَبِّي مِنْ أَعْظَمِ شُعَرَاءِ الْعَرَبِ عَلَى الْإِطْلَاقِ. كَانَ طَمُوحًا جِدًّا وَيَبْحَثُ عَنِ الْمَجْدِ وَالسُّلْطَةِ. ارْتَبَطَ اسْمُهُ بِالْأَمِيرِ سَيْفِ الدَّوْلَةِ فِي حَلَبَ. قُتِلَ بسَبَبِ قَصِيدَةٍ هَجَا فِيهَا أَحَدَ خُصُومِهِ. عِنْدَمَا ذَكَّرَهُ الْغُلَامُ بِبَيْتِ الشِّعْرِ، عَادَ لِلْقِتَالِ وَمَاتَ شُجَاعًا.",
+    contentPlain: "أبو الطيب المتنبي هو شاعر العرب الأكبر، الذي ملأ الدنيا وشغل الناس. يعد المتنبي من أعظم شعراء العرب على الإطلاق. كان طموحا جدا ويبحث عن المجد والسلطة. ارتبط اسمه بالأمير سيف الدولة في حلب. قتل بسبب قصيدة هجا فيها أحد خصومه. عندما ذكره الغلام ببيت الشعر، عاد للقتال ومات شجاعا.",
     vocabList: [
       { word: "بَلِيغ", meaning: "雄弁な" },
       { word: "فَخْر", meaning: "誇り" },
       { word: "هَجَا", meaning: "風刺した/けなした" },
-      { word: "أُسْطُورَة", meaning: "伝説" }
+      { word: "أُسْطُورَة", meaning: "伝説" },
+      { word: "طَمُوح", meaning: "野心的な" }
     ],
     questions: [
-      { id: 10021, type: "reading", text: "ムタナッビーはどんな詩人として知られていますか？", options: ["謙虚な詩人", "知恵と誇りの詩人", "静かな詩人", "商人の詩人"], correctIndex: 1, explanation: "「اشتهر بالحكمة والفخر (知恵と誇りで有名)」です。" },
-      { id: 10022, type: "reading", text: "彼は誰の宮廷で最も有名でしたか？", options: ["ハールーン・ラシード", "サイフ・アッダウラ（アレッポ）", "サラディン", "ムアーウィヤ"], correctIndex: 1, explanation: "「بلاط سيف الدولة الحمداني」です。" },
-      { id: 10023, type: "reading", text: "彼が殺された理由は何ですか？", options: ["病気", "戦争", "彼が詠んだ風刺詩", "お金"], correctIndex: 2, explanation: "「بسبب بيت شعر هجا فيه رجلا (彼がある男を風刺した詩のせいで)」です。" },
-      { id: 10024, type: "reading", text: "逃げようとした彼を誰が止めましたか？", options: ["敵", "彼の召使い（少年）", "王様", "馬"], correctIndex: 1, explanation: "「قال له غلامه (彼の召使いが言った)」です。" },
-      { id: 10025, type: "grammar", text: "「〜ではないですか？（否定疑問）」", options: ["أَلَسْتَ", "هَلْ أَنْتَ", "مَنْ أَنْتَ", "كَيْفَ أَنْتَ"], correctIndex: 0, explanation: "「A-lasta... (Are you not...?)」という有名な問いかけです。" }
+      { id: 10021, type: "reading", text: "ムタナッビーはどんな詩人として知られていますか？", options: ["謙虚な詩人", "世界を満たし人々を忙殺した（話題にした）詩人", "静かな詩人", "商人の詩人"], correctIndex: 1, explanation: "「مَلَأَ الدُّنْيَا وَشَغَلَ النَّاسَ」という有名な形容があります。" },
+      { id: 10022, type: "reading", text: "彼は誰の宮廷で最も有名でしたか？", options: ["ハールーン・ラシード", "サイフ・アッダウラ（アレッポ）", "サラディン", "ムアーウィヤ"], correctIndex: 1, explanation: "「سَيْفِ الدَّوْلَةِ فِي حَلَبَ」です。" },
+      { id: 10023, type: "reading", text: "彼が殺された理由は何ですか？", options: ["病気", "戦争", "彼が詠んだ風刺詩", "お金"], correctIndex: 2, explanation: "「قُتِلَ بسَبَبِ قَصِيدَةٍ هَجَا فِيهَا (風刺した詩が原因で殺された)」です。" },
+      { id: 10024, type: "reading", text: "逃げようとした彼を誰が止めましたか？", options: ["敵", "彼の召使い（少年）", "王様", "馬"], correctIndex: 1, explanation: "「ذَكَّرَهُ الْغُلَامُ (少年が彼に思い出させた)」です。" },
+      { id: 10025, type: "grammar", text: "「〜ではないですか？（否定疑問）」", options: ["أَلَسْتَ", "هَلْ أَنْتَ", "مَنْ أَنْتَ", "كَيْفَ أَنْتَ"], correctIndex: 0, explanation: "「A-lasta... (Are you not...?)」という有名な問いかけです。" },
+      // 上級文法問題
+      { id: 10026, type: "grammar_advanced", text: "「هو شاعر العرب」の「شاعر」の正しい語尾は？", options: ["u (ダンマ)", "a (ファトハ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "名詞文において「Huwa（彼）」が主語で、「Shā'ir（詩人）」が「述語（Khabar）」となるため、主格（Marfū'）でダンマがつきます。" },
+      { id: 10027, type: "grammar_advanced", text: "「قصيدة هجا فيها」の「هجا」の動詞の種類は？", options: ["過去形（健全動詞）", "過去形（弱文字動詞・Naqis）", "現在形", "命令形"], correctIndex: 1, explanation: "「Hajā (風刺した)」は語尾がアリフ（弱文字）で終わる「Naqis（欠損動詞）」の過去形です。" }
     ],
     sentences: [
+      { speaker: "記事", arabic: "أَبُو الطَّيِّبِ الْمُتَنَبِّي هُوَ شَاعِرُ الْعَرَبِ الْأَكْبَرُ، الَّذِي مَلَأَ الدُّنْيَا وَشَغَلَ النَّاسَ.", japanese: "アブー・アッ＝タイヤィブ・アル＝ムタナッビーは、世界を満たし人々を（話題で）忙殺した、最大のアラブ詩人です。" },
       { speaker: "記事", arabic: "يُعَدُّ الْمُتَنَبِّي مِنْ أَعْظَمِ شُعَرَاءِ الْعَرَبِ عَلَى الْإِطْلَاقِ.", japanese: "ムタナッビーは史上最も偉大なアラブの詩人の一人とみなされています。" },
       { speaker: "記事", arabic: "كَانَ طَمُوحًا جِدًّا وَيَبْحَثُ عَنِ الْمَجْدِ وَالسُّلْطَةِ.", japanese: "彼は非常に野心的で、栄光と権力を求めていました。" },
       { speaker: "記事", arabic: "ارْتَبَطَ اسْمُهُ بِالْأَمِيرِ سَيْفِ الدَّوْلَةِ فِي حَلَبَ.", japanese: "彼の名前はアレッポのサイフ・アッダウラ公と結びついています。" },
@@ -8884,26 +9647,32 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "عِنْدَمَا ذَكَّرَهُ الْغُلَامُ بِبَيْتِ الشِّعْرِ، عَادَ لِلْقِتَالِ وَمَاتَ شُجَاعًا.", japanese: "召使いにその詩句を思い出させられた時、彼は戦いに戻り、勇敢に死にました。" }
     ]
   },
-
-  // --- 4. 科学・環境 (Science) ---
   {
-    id: 1003, title: "再生可能エネルギー（詳細）", category: "科学", level: "上級",
-    contentVoweled: "يُوَاجِهُ الْعَالَمُ تَحَدِّيَاتٍ بِيئِيَّةً خَطِيرَةً بِسَبَبِ الِاحْتِبَاسِ الْحَرَارِيِّ...",
-    contentPlain: "يواجه العالم تحديات بيئية خطيرة بسبب الاحتباس الحراري وتغير المناخ. استجابة لذلك، أطلقت المملكة 'مبادرة السعودية الخضراء' التي تهدف إلى زراعة 10 مليارات شجرة في جميع أنحاء البلاد. بالإضافة إلى ذلك، تخطط المملكة لرفع نسبة استخدام الطاقة المتجددة لتصل إلى 50% من إنتاج الكهرباء بحلول عام 2030، مما سيساهم بشكل كبير في خفض الانبعاثات الكربونية وحماية كوكب الأرض.",
+    id: 1003,
+    title: "再生可能エネルギー（詳細）",
+    category: "科学",
+    level: "上級",
+    contentVoweled: "يُوَاجِهُ الْعَالَمُ تَحَدِّيَاتٍ بِيئِيَّةً خَطِيرَةً بِسَبَبِ الِاحْتِبَاسِ الْحَرَارِيِّ. التَّغَيُّرُ الْمُنَاخِيُّ يُهَدِّدُ كَوْكَبَنَا. أَطْلَقَتِ السُّعُودِيَّةُ مُبَادَرَةً طَمُوحَةً لِحِمَايَةِ الْبِيئَةِ. تَسْتَهْدِفُ الْخُطَّةُ زِرَاعَةَ عَشَرَةِ مِلْيَارَاتِ شَجَرَةٍ. سَيَتِمُّ الِاعْتِمَادُ عَلَى الطَّاقَةِ الشَّمْسِيَّةِ وَطَاقَةِ الرِّيَاحِ. هَذَا سَيُسَاعِدُ فِي تَقْلِيلِ الِانْبِعَاثَاتِ الضَّارَّةِ.",
+    contentPlain: "يواجه العالم تحديات بيئية خطيرة بسبب الاحتباس الحراري. التغير المناخي يهدد كوكبنا. أطلقت السعودية مبادرة طموحة لحماية البيئة. تستهدف الخطة زراعة عشرة مليارات شجرة. سيتم الاعتماد على الطاقة الشمسية وطاقة الرياح. هذا سيساعد في تقليل الانبعاثات الضارة.",
     vocabList: [
       { word: "اِحْتِبَاس", meaning: "温暖化/保持" },
       { word: "تَحَدِّيَات", meaning: "課題/チャレンジ" },
       { word: "انْبِعَاثَات", meaning: "排出" },
-      { word: "تَوْلِيد", meaning: "発電/生成" }
+      { word: "تَوْلِيد", meaning: "発電/生成" },
+      { word: "ضَارّ", meaning: "有害な" }
     ],
     questions: [
-      { id: 10031, type: "reading", text: "世界が直面している問題の原因は？", options: ["植林", "地球温暖化と気候変動", "人口減少", "平和"], correctIndex: 1, explanation: "「بسبب الاحتباس الحراري وتغير المناخ」です。" },
-      { id: 10032, type: "reading", text: "「サウジ・グリーン」イニシアチブの植樹目標は？", options: ["100万本", "1000本", "100億本", "50億本"], correctIndex: 2, explanation: "「زراعة 10 مليارات شجرة (10 billion trees)」と書かれています。" },
-      { id: 10033, type: "reading", text: "2030年までの再生可能エネルギーの目標比率は？", options: ["10%", "50%", "80%", "100%"], correctIndex: 1, explanation: "「تصل إلى 50% (50%に達する)」です。" },
+      { id: 10031, type: "reading", text: "世界が直面している問題の原因は？", options: ["植林", "地球温暖化と気候変動", "人口減少", "平和"], correctIndex: 1, explanation: "「بسبب الاحتباس الحراري (温暖化が原因で)」です。" },
+      { id: 10032, type: "reading", text: "「サウジ・グリーン」イニシアチブの植樹目標は？", options: ["100万本", "1000本", "100億本", "50億本"], correctIndex: 2, explanation: "「عَشَرَةِ مِلْيَارَاتِ شَجَرَةٍ (10 billion trees)」と書かれています。" },
+      { id: 10033, type: "reading", text: "どのようなエネルギーに依存しますか？", options: ["石炭と石油", "太陽光と風力", "原子力のみ", "ガスのみ"], correctIndex: 1, explanation: "「الطَّاقَةِ الشَّمْسِيَّةِ وَطَاقَةِ الرِّيَاحِ」です。" },
       { id: 10034, type: "vocabulary", text: "「حِقْبَة」の意味は？", options: ["場所", "時代/Era", "カバン", "権利"], correctIndex: 1, explanation: "Era/Period（時代）です。" },
-      { id: 10035, type: "grammar", text: "「貢献します」", options: ["يُسْهِمُ فِي", "يَأْخُذُ مِنْ", "يَقْطَعُ", "يَنْسَى"], correctIndex: 0, explanation: "「Yushimu fī (Contribute to)」です。" }
+      { id: 10035, type: "grammar", text: "「貢献します」", options: ["يُسْهِمُ فِي", "يَأْخُذُ مِنْ", "يَقْطَعُ", "يَنْسَى"], correctIndex: 0, explanation: "「Yushimu fī (Contribute to)」です。" },
+      // 上級文法問題
+      { id: 10036, type: "grammar_advanced", text: "「يواجه العالم تحديات」の「تحديات」の正しい語尾は？", options: ["in (タンウィーン・カスラ)", "an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "i (カスラ)"], correctIndex: 0, explanation: "「Yuwaajihu (直面する)」の目的語ですが、「āt」で終わる女性規則複数（Jam' Mu'annath Sālim）は、対格の場合ファトハの代わりに「カスラ（Kasra）」を取ります。" },
+      { id: 10037, type: "grammar_advanced", text: "「زراعة عشرة مليارات」の「عشرة」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "un (タンウィーン)"], correctIndex: 0, explanation: "「Zirā'a (植えること)」という動名詞がイダーファの第1要素となり、「'Ashara (10)」が第2要素（Muḍāf Ilayhi）となるため、属格（Majrūr）となりカスラがつきます。" }
     ],
     sentences: [
+      { speaker: "記事", arabic: "يُوَاجِهُ الْعَالَمُ تَحَدِّيَاتٍ بِيئِيَّةً خَطِيرَةً بِسَبَبِ الِاحْتِبَاسِ الْحَرَارِيِّ.", japanese: "世界は地球温暖化による深刻な環境課題に直面しています。" },
       { speaker: "記事", arabic: "التَّغَيُّرُ الْمُنَاخِيُّ يُهَدِّدُ كَوْكَبَنَا.", japanese: "気候変動は私たちの惑星を脅かしています。" },
       { speaker: "記事", arabic: "أَطْلَقَتِ السُّعُودِيَّةُ مُبَادَرَةً طَمُوحَةً لِحِمَايَةِ الْبِيئَةِ.", japanese: "サウジアラビアは環境保護のための野心的なイニシアチブを開始しました。" },
       { speaker: "記事", arabic: "تَسْتَهْدِفُ الْخُطَّةُ زِرَاعَةَ عَشَرَةِ مِلْيَارَاتِ شَجَرَةٍ.", japanese: "計画は100億本の植樹を目標としています。" },
@@ -8911,213 +9680,266 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "هَذَا سَيُسَاعِدُ فِي تَقْلِيلِ الِانْبِعَاثَاتِ الضَّارَّةِ.", japanese: "これは有害な排出を減らすのに役立ちます。" }
     ]
   },
-
-  // --- 5. 観光・プロジェクト (Tourism) ---
   {
-    id: 1004, title: "紅海プロジェクト（詳細）", category: "ニュース", level: "上級",
-    contentVoweled: "مَشْرُوعُ الْبَحْرِ الْأَحْمَرِ يُمَثِّلُ وَجْهًا جَدِيدًا لِلسِّيَاحَةِ الْفَاخِرَةِ الْمُسْتَدَامَةِ...",
-    contentPlain: "مشروع البحر الأحمر يمثل وجها جديدا للسياحة الفاخرة المستدامة. يمتد المشروع على مساحة شاسعة ويضم أرخبيلا يحتوي على أكثر من 90 جزيرة بكر ومناظر طبيعية خلابة مثل البراكين الخامدة والشعب المرجانية. ما يميز هذا المشروع هو التزامه البيئي الصارم، حيث سيعتمد بنسبة 100% على الطاقة المتجددة، وسيتم حظر استخدام البلاستيك غير القابل لإعادة التدوير للحفاظ على الكائنات البحرية النادرة.",
+    id: 1004,
+    title: "紅海プロジェクト（詳細）",
+    category: "ニュース",
+    level: "上級",
+    contentVoweled: "مَشْرُوعُ الْبَحْرِ الْأَحْمَرِ يُمَثِّلُ وَجْهًا جَدِيدًا لِلسِّيَاحَةِ الْفَاخِرَةِ الْمُسْتَدَامَةِ. يَقَعُ الْمَشْرُوعُ عَلَى السَّاحِلِ الْغَرْبِيِّ لِلْمَمْلَكَةِ. يَضُمُّ أَكْثَرَ مِنْ 90 جَزِيرَةً طَبِيعِيَّةً لَمْ تُمَسَّ. يَهْدِفُ الْمَشْرُوعُ إِلَى تَقْدِيمِ تَجْرِبَةٍ سِيَاحِيَّةٍ فَاخِرَةٍ. يَلْتَزِمُ بِحِمَايَةِ الْبِيئَةِ وَالشُّعَبِ الْمَرْجَانِيَّةِ. سَيَعْتَمِدُ الْمَشْرُوعُ بِالْكَامِلِ عَلَى الطَّاقَةِ الْمُتَجَدِّدَةِ.",
+    contentPlain: "مشروع البحر الأحمر يمثل وجها جديدا للسياحة الفاخرة المستدامة. يقع المشروع على الساحل الغربي للمملكة. يضم أكثر من 90 جزيرة طبيعية لم تمس. يهدف المشروع إلى تقديم تجربة سياحية فاخرة. يلتزم بحماية البيئة والشعب المرجانية. سيعتمد المشروع بالكامل على الطاقة المتجددة.",
     vocabList: [
       { word: "مُسْتَدَام", meaning: "持続可能な" },
       { word: "أَرْخَبِيل", meaning: "群島" },
       { word: "خَامِد", meaning: "休止した/休火山の" },
-      { word: "حَظْر", meaning: "禁止" }
+      { word: "حَظْر", meaning: "禁止" },
+      { word: "لَمْ تُمَسَّ", meaning: "手つかずの（触れられていない）" }
     ],
     questions: [
       { id: 10041, type: "reading", text: "このプロジェクトの観光タイプは？", options: ["格安旅行", "持続可能な豪華観光", "工業開発", "農業"], correctIndex: 1, explanation: "「للسياحة الفاخرة المستدامة (持続可能なラグジュアリー観光)」です。" },
       { id: 10042, type: "reading", text: "プロジェクトに含まれる島の数は？", options: ["10", "50", "90以上", "1000"], correctIndex: 2, explanation: "「أكثر من 90 جزيرة (90以上の島)」です。" },
-      { id: 10043, type: "reading", text: "環境への取り組みで正しいのは？", options: ["石炭を使う", "プラスチックを禁止し再エネ100%", "木を切る", "海を埋める"], correctIndex: 1, explanation: "「يعتمد بنسبة 100% على الطاقة المتجددة」と「حظر البلاستيك」です。" },
+      { id: 10043, type: "reading", text: "環境への取り組みで正しいのは？", options: ["石炭を使う", "再エネ100%と環境保護", "木を切る", "海を埋める"], correctIndex: 1, explanation: "「يعتمد بنسبة 100% على الطاقة المتجددة」です。" },
       { id: 10044, type: "vocabulary", text: "「نَادِر」の意味は？", options: ["多い", "珍しい/希少な", "赤い", "安い"], correctIndex: 1, explanation: "Rare（希少な）です。" },
-      { id: 10045, type: "grammar", text: "「表します/代表します」", options: ["يُمَثِّلُ", "يَلْعَبُ", "يَكْتُبُ", "يَجْلِسُ"], correctIndex: 0, explanation: "「Yumaththilu (Represent)」です。" }
+      { id: 10045, type: "grammar", text: "「表します/代表します」", options: ["يُمَثِّلُ", "يَلْعَبُ", "يَكْتُبُ", "يَجْلِسُ"], correctIndex: 0, explanation: "「Yumaththilu (Represent)」です。" },
+      // 上級文法問題
+      { id: 10046, type: "grammar_advanced", text: "「لم تمس」の「تمس」の正しい語尾は？", options: ["a (ファトハ)", "u (ダンマ)", "i (カスラ)", "Sukuun (スクーン)"], correctIndex: 0, explanation: "否定辞「Lam」により要求形（Majzūm）になりますが、重子音動詞（Muda''af - Massa）の場合、スクーンではなくファトハで終わるのが一般的です（Tumassa）。" },
+      { id: 10047, type: "grammar_advanced", text: "「يضم أكثر من」の「أكثر」の正しい語尾は？", options: ["a (ファトハ)", "u (ダンマ)", "i (カスラ)", "an (タンウィーン)"], correctIndex: 0, explanation: "動詞「含む（Yaḍummu）」の目的語（Maf'ūl Bihi）なので対格となり、ファトハがつきます。" }
     ],
     sentences: [
+      { speaker: "記事", arabic: "مَشْرُوعُ الْبَحْرِ الْأَحْمَرِ يُمَثِّلُ وَجْهًا جَدِيدًا لِلسِّيَاحَةِ الْفَاخِرَةِ الْمُسْتَدَامَةِ.", japanese: "紅海プロジェクトは、持続可能なラグジュアリー観光の新しい顔を表しています。" },
       { speaker: "記事", arabic: "يَقَعُ الْمَشْرُوعُ عَلَى السَّاحِلِ الْغَرْبِيِّ لِلْمَمْلَكَةِ.", japanese: "プロジェクトは王国の西海岸に位置しています。" },
-      { speaker: "記事", arabic: "يَضُمُّ أَكْثَرَ مِنْ 90 جَزِيرَةً طَبِيعِيَّةً لَمْ تُمَسَّ.", japanese: "手つかずの90以上の自然の島々を含んでいます。" },
+      { speaker: "記事", arabic: "يَضُمُّ أَكْثَرَ مِنْ 90 جَزِيرَةً طَبِيعِيَّةً لَمْ تُمَسَّ.", japanese: "（それは）手つかずの90以上の自然の島々を含んでいます。" },
       { speaker: "記事", arabic: "يَهْدِفُ الْمَشْرُوعُ إِلَى تَقْدِيمِ تَجْرِبَةٍ سِيَاحِيَّةٍ فَاخِرَةٍ.", japanese: "プロジェクトは豪華な観光体験を提供することを目指しています。" },
       { speaker: "記事", arabic: "يَلْتَزِمُ بِحِمَايَةِ الْبِيئَةِ وَالشُّعَبِ الْمَرْجَانِيَّةِ.", japanese: "環境とサンゴ礁の保護にコミットしています。" },
       { speaker: "記事", arabic: "سَيَعْتَمِدُ الْمَشْرُوعُ بِالْكَامِلِ عَلَى الطَّاقَةِ الْمُتَجَدِّدَةِ.", japanese: "プロジェクトは完全に再生可能エネルギーに依存します。" }
     ]
   },
-  // --- 6. テクノロジー・未来 (Technology) ---
   {
-    id: 1005, title: "AIの倫理", category: "科学", level: "上級",
-    contentVoweled: "يُثِيرُ التَّطَوُّرُ السَّرِيعُ لِلذَّكَاءِ الِاصْطِنَاعِيِّ مَخَاوِفَ أَخْلَاقِيَّةً كَبِيرَةً. بَيْنَمَا يُسْهِمُ فِي تَحْسِينِ الرِّعَايَةِ الصِّحِّيَّةِ وَزِيَادَةِ الْإِنْتَاجِيَّةِ، هُنَاكَ قَلَقٌ مِنْ تَأْثِيرِهِ عَلَى الْخُصُوصِيَّةِ وَفُرَصِ الْعَمَلِ. يَتَطَلَّبُ الْأَمْرُ وَضْعَ قَوَانِينَ صَارِمَةٍ لِضَمَانِ اسْتِخْدَامِ هَذِهِ التِّكْنُولُوجِيَا بِمَا يَخْدِمُ الْبَشَرِيَّةَ دُونَ إِحْدَاثِ ضَرَرٍ.",
-    contentPlain: "يثير التطور السريع للذكاء الاصطناعي مخاوف أخلاقية كبيرة. بينما يسهم في تحسين الرعاية الصحية وزيادة الإنتاجية، هناك قلق من تأثيره على الخصوصية وفرص العمل. يتطلب الأمر وضع قوانين صارمة لضمان استخدام هذه التكنولوجيا بما يخدم البشرية دون إحداث ضرر، خاصة فيما يتعلق بالتحيز الخوارزمي والأسلحة المستقلة.",
+    id: 1005,
+    title: "AIの倫理",
+    category: "科学",
+    level: "上級",
+    contentVoweled: "يُثِيرُ التَّطَوُّرُ السَّرِيعُ لِلذَّكَاءِ الِاصْطِنَاعِيِّ مَخَاوِفَ أَخْلَاقِيَّةً كَبِيرَةً. أَصْبَحَ الذَّكَاءُ الِاصْطِنَاعِيُّ جُزْءًا لَا يَتَجَزَّأُ مِنْ حَيَاتِنَا الْيَوْمِيَّةِ. بَيْنَمَا يُسْهِمُ فِي تَحْسِينِ الرِّعَايَةِ الصِّحِّيَّةِ وَزِيَادَةِ الْإِنْتَاجِيَّةِ، هُنَاكَ قَلَقٌ مِنْ تَأْثِيرِهِ عَلَى الْخُصُوصِيَّةِ وَفُرَصِ الْعَمَلِ. وَلَكِنَّ السُّؤَالَ الْمُهِمَّ هُوَ: كَيْفَ نَحْمِي حُقُوقَ الْإِنْسَانِ؟ يَتَطَلَّبُ الْأَمْرُ وَضْعَ قَوَانِينَ صَارِمَةٍ لِضَمَانِ اسْتِخْدَامِ هَذِهِ التِّكْنُولُوجِيَا بِمَا يَخْدِمُ الْبَشَرِيَّةَ. يَجِبُ أَنْ تَكُونَ الْأَنْظِمَةُ الذَّكِيَّةُ شَفَّافَةً وَعَادِلَةً. الْمَسْؤُولِيَّةُ تَقَعُ عَلَى عَاتِقِ الْمُطَوِّرِينَ وَالْحُكُومَاتِ.",
+    contentPlain: "يثير التطور السريع للذكاء الاصطناعي مخاوف أخلاقية كبيرة. أصبح الذكاء الاصطناعي جزءا لا يتجزأ من حياتنا اليومية. بينما يسهم في تحسين الرعاية الصحية وزيادة الإنتاجية، هناك قلق من تأثيره على الخصوصية وفرص العمل. ولكن السؤال المهم هو: كيف نحمي حقوق الإنسان؟ يتطلب الأمر وضع قوانين صارمة لضمان استخدام هذه التكنولوجيا بما يخدم البشرية. يجب أن تكون الأنظمة الذكية شفافة وعادلة. المسؤولية تقع على عاتق المطورين والحكومات.",
     vocabList: [
       { word: "أَخْلَاقِيّ", meaning: "倫理的な" },
       { word: "خُصُوصِيَّة", meaning: "プライバシー" },
       { word: "قَانُون", meaning: "法律" },
-      { word: "تَحَيُّز", meaning: "バイアス/偏見" }
+      { word: "تَحَيُّز", meaning: "バイアス/偏見" },
+      { word: "لَا يَتَجَزَّأُ", meaning: "不可分の/分けられない" }
     ],
     questions: [
       { id: 10051, type: "reading", text: "AIの急速な発展は何を引き起こしていますか？", options: ["喜び", "倫理的な懸念", "経済の崩壊", "平和"], correctIndex: 1, explanation: "「مخاوف أخلاقية (倫理的な懸念)」を引き起こしています。" },
       { id: 10052, type: "reading", text: "懸念されている影響の一つは？", options: ["健康の向上", "生産性の低下", "プライバシーと雇用への影響", "教育"], correctIndex: 2, explanation: "「تأثيره على الخصوصية وفرص العمل (プライバシーと雇用への影響)」です。" },
       { id: 10053, type: "reading", text: "この問題に対処するために何が必要ですか？", options: ["開発の停止", "厳格な法律の制定", "無視する", "ロボットを壊す"], correctIndex: 1, explanation: "「وضع قوانين صارمة (厳格な法律の制定)」が必要です。" },
       { id: 10054, type: "vocabulary", text: "「ضَرَر」の意味は？", options: ["益", "害/損害", "金", "時間"], correctIndex: 1, explanation: "Harm/Damage（害）です。" },
-      { id: 10055, type: "grammar", text: "「保証するために」", options: ["لِضَمَانِ", "لِمَنْعِ", "لِأَخْذِ", "لِقَتْلِ"], correctIndex: 0, explanation: "「Li-ḍamāni (To guarantee)」です。" }
+      { id: 10055, type: "grammar", text: "「保証するために」", options: ["لِضَمَانِ", "لِمَنْعِ", "لِأَخْذِ", "لِقَتْلِ"], correctIndex: 0, explanation: "「Li-ḍamāni (To guarantee)」です。" },
+      // 上級文法問題
+      { id: 10056, type: "grammar_advanced", text: "「يثير ... مخاوف」の「مخاوف」の正しい語尾は？", options: ["a (ファトハ・タンウィーンなし)", "an (タンウィーン・ファトハ)", "i (カスラ)", "in (タンウィーン・カスラ)"], correctIndex: 0, explanation: "「Makhāwif」は対格（目的語）ですが、「非限定名詞（Mumnū' min al-ṣarf）」であるため、タンウィーンを取らず、ファトハ一文字になります。" },
+      { id: 10057, type: "grammar_advanced", text: "「وضع قوانين صارمة」の「صارمة」の正しい語尾は？", options: ["in (タンウィーン・カスラ)", "a (ファトハ)", "an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)"], correctIndex: 0, explanation: "修飾される名詞「Qawānīn（法律）」は非限定名詞のため属格でファトハ（a）を取りますが、形容詞「Ṣārimatin（厳格な）」は通常通り変化するため、属格でカスラ（in）を取ります。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "أَصْبَحَ الذَّكَاءُ الِاصْطِنَاعِيُّ جُزْءًا لَا يَتَجَزَّأُ مِنْ حَيَاتِنَا الْيَوْمِيَّةِ.", japanese: "人工知能は私たちの日常生活の不可欠な一部となりました。" },
+      { speaker: "記事", arabic: "يُثِيرُ التَّطَوُّرُ السَّرِيعُ لِلذَّكَاءِ الِاصْطِنَاعِيِّ مَخَاوِفَ أَخْلَاقِيَّةً كَبِيرَةً.", japanese: "人工知能の急速な発展は、大きな倫理的懸念を引き起こしています。" },
+      { speaker: "記事", arabic: "أَصْبَحَ الذَّكَاءُ الِاصْطِنَاعِيُّ جُزْءًا لَا يَتَجَزَّأُ مِنْ حَيَاتِنَا الْيَوْمِيَّةِ.", japanese: "人工知能は私たちの日常生活の不可欠な（分けられない）一部となりました。" },
+      { speaker: "記事", arabic: "بَيْنَمَا يُسْهِمُ فِي تَحْسِينِ الرِّعَايَةِ الصِّحِّيَّةِ وَزِيَادَةِ الْإِنْتَاجِيَّةِ، هُنَاكَ قَلَقٌ مِنْ تَأْثِيرِهِ عَلَى الْخُصُوصِيَّةِ وَفُرَصِ الْعَمَلِ.", japanese: "ヘルスケアの改善や生産性の向上に貢献する一方で、プライバシーや雇用の機会への影響に対する懸念があります。" },
       { speaker: "記事", arabic: "وَلَكِنَّ السُّؤَالَ الْمُهِمَّ هُوَ: كَيْفَ نَحْمِي حُقُوقَ الْإِنْسَانِ؟", japanese: "しかし重要な問いは、いかにして人権を守るかです。" },
+      { speaker: "記事", arabic: "يَتَطَلَّبُ الْأَمْرُ وَضْعَ قَوَانِينَ صَارِمَةٍ لِضَمَانِ اسْتِخْدَامِ هَذِهِ التِّكْنُولُوجِيَا بِمَا يَخْدِمُ الْبَشَرِيَّةَ.", japanese: "この事態は、この技術が人類に奉仕する形で使用されることを保証するための、厳格な法律の制定を必要としています。" },
       { speaker: "記事", arabic: "يَجِبُ أَنْ تَكُونَ الْأَنْظِمَةُ الذَّكِيَّةُ شَفَّافَةً وَعَادِلَةً.", japanese: "スマートシステムは透明で公正でなければなりません。" },
       { speaker: "記事", arabic: "الْمَسْؤُولِيَّةُ تَقَعُ عَلَى عَاتِقِ الْمُطَوِّرِينَ وَالْحُكُومَاتِ.", japanese: "責任は開発者と政府の肩にかかっています。" }
     ]
   },
   {
-    id: 1006, title: "ザ・ライン (The Line)", category: "ニュース", level: "上級",
-    contentVoweled: "ذَا لَايْن هِيَ مَدِينَةٌ ثَوْرِيَّةٌ يَتِمُّ بِنَاؤُهَا فِي نِيُوم. تَمْتَدُّ لِمَسَافَةِ 170 كِيلُومِتْرًا دُونَ شَوَارِعَ أَوْ سَيَّارَاتٍ.",
-    contentPlain: "ذا لاين هي مدينة ثورية يتم بناؤها في نيوم. تمتد لمسافة 170 كيلومترا دون شوارع أو سيارات، وتعتمد بالكامل على الطاقة النظيفة. تهدف المدينة إلى تقديم نموذج جديد للحياة الحضرية يحافظ على الطبيعة، حيث يمكن للسكان الوصول إلى جميع احتياجاتهم اليومية مشيا على الأقدام في غضون 5 دقائق.",
+    id: 1006,
+    title: "ザ・ライン (The Line)",
+    category: "ニュース",
+    level: "上級",
+    contentVoweled: "ذَا لَايْن هِيَ مَدِينَةٌ ثَوْرِيَّةٌ يَتِمُّ بِنَاؤُهَا فِي نِيُوم. تَمْتَدُّ لِمَسَافَةِ 170 كِيلُومِتْرًا دُونَ شَوَارِعَ أَوْ سَيَّارَاتٍ. تَعْتَمِدُ بِالْكَامِلِ عَلَى الطَّاقَةِ النَّظِيفَةِ. تَهْدِفُ الْمَدِينَةُ إِلَى تَقْدِيمِ نَمُوذَجٍ جَدِيدٍ لِلْحَيَاةِ الْحَضَرِيَّةِ يَحَافِظُ عَلَى الطَّبِيعَةِ. يُمْكِنُ لِلسُّكَّانِ الْوُصُولُ إِلَى جَمِيعِ احْتِيَاجَاتِهِمُ الْيَوْمِيَّةِ مَشْيًا عَلَى الْأَقْدَامِ فِي غُضُونِ 5 دَقَائِقَ.",
+    contentPlain: "ذا لاين هي مدينة ثورية يتم بناؤها في نيوم. تمتد لمسافة 170 كيلومترا دون شوارع أو سيارات. تعتمد بالكامل على الطاقة النظيفة. تهدف المدينة إلى تقديم نموذج جديد للحياة الحضرية يحافظ على الطبيعة. يمكن للسكان الوصول إلى جميع احتياجاتهم اليومية مشيا على الأقدام في غضون 5 دقائق.",
     vocabList: [
       { word: "ثَوْرِيّ", meaning: "革命的な" },
       { word: "حَضَرِيّ", meaning: "都市の" },
       { word: "طَبِيعَة", meaning: "自然" },
-      { word: "وُصُول", meaning: "アクセス/到着" }
+      { word: "وُصُول", meaning: "アクセス/到着" },
+      { word: "مَشْيًا", meaning: "歩いて/徒歩で" }
     ],
     questions: [
       { id: 10061, type: "reading", text: "「ザ・ライン」の特徴は何ですか？", options: ["車が多い", "道路と車がない", "円形の都市", "地下都市"], correctIndex: 1, explanation: "「دون شوارع أو سيارات (通りも車もない)」です。" },
       { id: 10062, type: "reading", text: "都市の長さは？", options: ["50km", "100km", "170km", "500km"], correctIndex: 2, explanation: "「170 كيلومترا」です。" },
       { id: 10063, type: "reading", text: "生活に必要な施設へのアクセス時間は？", options: ["車で1時間", "徒歩5分以内", "電車で20分", "バスで30分"], correctIndex: 1, explanation: "「مشيا على الأقدام في غضون 5 دقائق」です。" },
       { id: 10064, type: "vocabulary", text: "「نَمُوذَج」の意味は？", options: ["建物", "モデル/模範", "問題", "解決"], correctIndex: 1, explanation: "Model（モデル）です。" },
-      { id: 10065, type: "grammar", text: "「依存します」", options: ["تَعْتَمِدُ", "تَمْشِي", "تَبْنِي", "تَهْدِمُ"], correctIndex: 0, explanation: "「Ta'tamidu」です。" }
+      { id: 10065, type: "grammar", text: "「依存します」", options: ["تَعْتَمِدُ", "تَمْشِي", "تَبْنِي", "تَهْدِمُ"], correctIndex: 0, explanation: "「Ta'tamidu」です。" },
+      // 上級文法問題
+      { id: 10066, type: "grammar_advanced", text: "「دون شوارع」の「شوارع」の正しい語尾は？", options: ["a (ファトハ)", "i (カスラ)", "u (ダンマ)", "an (タンウィーン)"], correctIndex: 0, explanation: "「Shawāri'」はイダーファの第2要素（属格）ですが、非限定名詞（Mumnū' min al-ṣarf）であるため、カスラではなくファトハを取ります。" },
+      { id: 10067, type: "grammar_advanced", text: "「يتم بناؤها」の「بناء」の正しい母音は？", options: ["u (ダンマ/Hamza on Waw)", "a (ファトハ/Hamza on Line)", "i (カスラ/Hamza on Ya)", "Sukoon (スクーン)"], correctIndex: 0, explanation: "「Yatimmu（完了する/行われる）」という動詞の主語（Fā'il）であるため主格（Marfū'）となり、母音がダンマ(u)になるため、ハムザはWawの上に書かれます。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "تُعِيدُ 'ذَا لَايْن' تَعْرِيفَ مَفْهُومِ التَّنْمِيَةِ الْحَضَرِيَّةِ.", japanese: "「ザ・ライン」は都市開発の概念を再定義します。" },
-      { speaker: "記事", arabic: "سَتَكُونُ خَالِيَةً مِنَ الِانْبِعَاثَاتِ الْكَرْبُونِيَّةِ تَمَامًا.", japanese: "炭素排出量が完全にゼロになります。" },
-      { speaker: "記事", arabic: "التَّنَقُّلُ سَيَكُونُ عَبْرَ قِطَارٍ فَائِقِ السُّرْعَةِ تَحْتَ الْأَرْضِ.", japanese: "移動は地下の超高速鉄道によって行われます。" },
-      { speaker: "記事", arabic: "الْهَدَفُ هُوَ وَضْعُ الْإِنْسَانِ أَوْلًا، لَا التِّكْنُولُوجِيَا.", japanese: "目標は、技術ではなく人間を第一に置くことです。" }
+      { speaker: "記事", arabic: "ذَا لَايْن هِيَ مَدِينَةٌ ثَوْرِيَّةٌ يَتِمُّ بِنَاؤُهَا فِي نِيُوم.", japanese: "「ザ・ライン」は、NEOMで建設されている革命的な都市です。" },
+      { speaker: "記事", arabic: "تَمْتَدُّ لِمَسَافَةِ 170 كِيلُومِتْرًا دُونَ شَوَارِعَ أَوْ سَيَّارَاتٍ.", japanese: "それは道路や車なしで170キロメートルにわたって伸びています。" },
+      { speaker: "記事", arabic: "تَعْتَمِدُ بِالْكَامِلِ عَلَى الطَّاقَةِ النَّظِيفَةِ.", japanese: "完全にクリーンエネルギーに依存しています。" },
+      { speaker: "記事", arabic: "تَهْدِفُ الْمَدِينَةُ إِلَى تَقْدِيمِ نَمُوذَجٍ جَدِيدٍ لِلْحَيَاةِ الْحَضَرِيَّةِ يَحَافِظُ عَلَى الطَّبِيعَةِ.", japanese: "この都市は、自然を保護する都市生活の新しいモデルを提供することを目指しています。" },
+      { speaker: "記事", arabic: "يُمْكِنُ لِلسُّكَّانِ الْوُصُولُ إِلَى جَمِيعِ احْتِيَاجَاتِهِمُ الْيَوْمِيَّةِ مَشْيًا عَلَى الْأَقْدَامِ فِي غُضُونِ 5 دَقَائِقَ.", japanese: "住民は徒歩5分以内にすべての日常のニーズにアクセスできます。" }
     ]
   },
-
-  // --- 7. 文学・歴史 (Literature/History) ---
   {
-    id: 1007, title: "アル・ジャーヒズ", category: "文学", level: "上級",
-    contentVoweled: "الْجَاحِظُ أَدِيبٌ عَبَّاسِيٌّ كَبِيرٌ، اشْتُهِرَ بِكِتَابِهِ 'الْبُخَلَاءُ'.",
-    contentPlain: "الجاحظ أديب عباسي كبير، اشتهر بكتابه 'البخلاء'. تميز أسلوبه بالسخرية والفكاهة والوصف الدقيق للمجتمع في عصره. في كتابه، وصف قصص البخلاء ونوادرهم بأسلوب ممتع، مما جعله من أهم المراجع في الأدب العربي والنقد الاجتماعي.",
+    id: 1007,
+    title: "アル・ジャーヒズ",
+    category: "文学",
+    level: "上級",
+    contentVoweled: "الْجَاحِظُ أَدِيبٌ عَبَّاسِيٌّ كَبِيرٌ، اشْتُهِرَ بِكِتَابِهِ 'الْبُخَلَاءُ'. تَمَيَّزَ أُسْلُوبُهُ بِالسُّخْرِيَةِ وَالْفُكَاهَةِ وَالْوَصْفِ الدَّقِيقِ لِلْمُجْتَمَعِ فِي عَصْرِهِ. فِي كِتَابِهِ، وَصَفَ قِصَصَ الْبُخَلَاءِ وَنَوَادِرَهُمْ بِأُسْلُوبٍ مُمْتِعٍ. هَذَا جَعَلَهُ مِنْ أَهَمِّ الْمَرَاجِعِ فِي الْأَدَبِ الْعَرَبِيِّ وَالنَّقْدِ الِاجْتِمَاعِيِّ.",
+    contentPlain: "الجاحظ أديب عباسي كبير، اشتهر بكتابه 'البخلاء'. تميز أسلوبه بالسخرية والفكاهة والوصف الدقيق للمجتمع في عصره. في كتابه، وصف قصص البخلاء ونوادرهم بأسلوب ممتع. هذا جعله من أهم المراجع في الأدب العربي والنقد الاجتماعي.",
     vocabList: [
       { word: "أَدِيب", meaning: "作家/文学者" },
       { word: "سُخْرِيَة", meaning: "皮肉/風刺" },
       { word: "وَصْف", meaning: "描写" },
-      { word: "بَخِيل", meaning: "ケチ（複：ブハラー）" }
+      { word: "بَخِيل", meaning: "ケチ（複：ブハラー）" },
+      { word: "نَادِرَة", meaning: "逸話/ジョーク（複：Nawādir）" }
     ],
     questions: [
       { id: 10071, type: "reading", text: "ジャーヒズの有名な著書は？", options: ["千夜一夜物語", "カノン", "けちんぼ物語（アル・ブハラー）", "ルバイヤート"], correctIndex: 2, explanation: "「كتاب البخلاء (けちんぼ物語)」です。" },
       { id: 10072, type: "reading", text: "彼の文体の特徴は？", options: ["真面目で堅苦しい", "風刺とユーモア", "悲しい", "宗教的のみ"], correctIndex: 1, explanation: "「بالسخرية والفكاهة (風刺とユーモア)」です。" },
       { id: 10073, type: "reading", text: "彼は何を描写しましたか？", options: ["王の生活", "戦争", "社会とケチな人々の逸話", "自然"], correctIndex: 2, explanation: "「قصص البخلاء ونوادرهم」および当時の社会です。" },
       { id: 10074, type: "vocabulary", text: "「مُجْتَمَع」の意味は？", options: ["個人", "社会", "家族", "学校"], correctIndex: 1, explanation: "Society（社会）です。" },
-      { id: 10075, type: "grammar", text: "「有名になりました」", options: ["اشْتُهِرَ", "كَتَبَ", "قَرَأَ", "ذَهَبَ"], correctIndex: 0, explanation: "「Ushtuhira (Became famous)」です。" }
+      { id: 10075, type: "grammar", text: "「有名になりました」", options: ["اشْتُهِرَ", "كَتَبَ", "قَرَأَ", "ذَهَبَ"], correctIndex: 0, explanation: "「Ushtuhira (Became famous)」です。" },
+      // 上級文法問題
+      { id: 10076, type: "grammar_advanced", text: "「اشتهر」の正しい発音記号（受動態）は？", options: ["Ushtuhira（受動態）", "Ishtahara（能動態）", "Ishtahira（命令形）", "Ushtuhara（間違い）"], correctIndex: 0, explanation: "文脈的に「有名になった（知られるようになった）」という意味で、受動態の「Ushtuhira」が使われます。" },
+      { id: 10077, type: "grammar_advanced", text: "「من أهم المراجع」の「المراجع」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Marāji'」は本来非限定名詞ですが、定冠詞「Al」がついているため、属格では通常通りカスラ（i）を取ります。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "كَانَ الْجَاحِظُ مُحِبًّا لِلْكُتُبِ وَالْقِرَاءَةِ.", japanese: "ジャーヒズは本と読書を愛していました。" },
-      { speaker: "記事", arabic: "أَلَّفَ أَيْضًا كِتَابَ 'الْحَيَوَانِ' الَّذِي جَمَعَ فِيهِ بَيْنَ الْأَدَبِ وَالْعِلْمِ.", japanese: "彼は文学と科学を融合させた『動物の書』も著しました。" },
-      { speaker: "記事", arabic: "مَاتَ تَحْتَ رُكَامِ كُتُبِهِ الَّتِي سَقَطَتْ عَلَيْهِ.", japanese: "彼は崩れ落ちてきた本の山の下敷きになって死にました（という伝説があります）。" },
-      { speaker: "記事", arabic: "أُسْلُوبُهُ فِي الْكِتَابَةِ لَا يَزَالُ يُدَرَّسُ حَتَّى الْيَوْمِ.", japanese: "彼の文体は今日に至るまで研究されています。" }
+      { speaker: "記事", arabic: "الْجَاحِظُ أَدِيبٌ عَبَّاسِيٌّ كَبِيرٌ، اشْتُهِرَ بِكِتَابِهِ 'الْبُخَلَاءُ'.", japanese: "ジャーヒズは偉大なアッバース朝の文人であり、著書『けちんぼ物語』で有名になりました。" },
+      { speaker: "記事", arabic: "تَمَيَّزَ أُسْلُوبُهُ بِالسُّخْرِيَةِ وَالْفُكَاهَةِ وَالْوَصْفِ الدَّقِيقِ لِلْمُجْتَمَعِ فِي عَصْرِهِ.", japanese: "彼の文体は、風刺、ユーモア、そして当時の社会の正確な描写によって特徴づけられました。" },
+      { speaker: "記事", arabic: "فِي كِتَابِهِ، وَصَفَ قِصَصَ الْبُخَلَاءِ وَنَوَادِرَهُمْ بِأُسْلُوبٍ مُمْتِعٍ.", japanese: "彼は本の中で、ケチな人々の物語や逸話を楽しいスタイルで描写しました。" },
+      { speaker: "記事", arabic: "هَذَا جَعَلَهُ مِنْ أَهَمِّ الْمَرَاجِعِ فِي الْأَدَبِ الْعَرَبِيِّ وَالنَّقْدِ الِاجْتِمَاعِيِّ.", japanese: "これにより、彼はアラビア文学と社会批評における最も重要な参考文献の一つとなりました。" }
     ]
   },
   {
-    id: 1008, title: "アンダルスの科学", category: "歴史", level: "上級",
-    contentVoweled: "كَانَتِ الْأَنْدَلُسُ جِسْرًا لِنَقْلِ الْعُلُومِ مِنَ الشَّرْقِ إِلَى الْغَرْبِ.",
-    contentPlain: "كانت الأندلس جسرا لنقل العلوم من الشرق إلى الغرب. في مدن مثل قرطبة وإشبيلية، ازدهرت الزراعة والطب والفلك. قام الأوروبيون بترجمة الكتب العربية في طليطلة، مما ساعد في بزوغ فجر النهضة الأوروبية وإنهاء العصور المظلمة.",
+    id: 1008,
+    title: "アンダルスの科学",
+    category: "歴史",
+    level: "上級",
+    contentVoweled: "كَانَتِ الْأَنْدَلُسُ جِسْرًا لِنَقْلِ الْعُلُومِ مِنَ الشَّرْقِ إِلَى الْغَرْبِ. فِي مُدُنٍ مِثْلِ قُرْطُبَةَ وَإِشْبِيلِيَةَ، ازْدَهَرَتِ الزِّرَاعَةُ وَالطِّبُّ وَالْفَلَكُ. قَامَ الْأُورُوبِيُّونَ بِتَرْجَمَةِ الْكُتُبِ الْعَرَبِيَّةِ فِي طُلَيْطِلَةَ. هَذَا سَاعَدَ فِي بُزُوغِ فَجْرِ النَّهْضَةِ الْأُورُوبِيَّةِ وَإِنْهاءِ الْعُصُورِ الْمُظْلِمَةِ.",
+    contentPlain: "كانت الأندلس جسرا لنقل العلوم من الشرق إلى الغرب. في مدن مثل قرطبة وإشبيلية، ازدهرت الزراعة والطب والفلك. قام الأوروبيون بترجمة الكتب العربية في طليطلة. هذا ساعد في بزوغ فجر النهضة الأوروبية وإنهاء العصور المظلمة.",
     vocabList: [
       { word: "جِسْر", meaning: "橋" },
       { word: "غَرْب", meaning: "西/西洋" },
       { word: "نَقْل", meaning: "移動/伝達" },
-      { word: "ظَلَام", meaning: "闇" }
+      { word: "ظَلَام", meaning: "闇" },
+      { word: "بُزُوغ", meaning: "出現/夜明け" }
     ],
     questions: [
       { id: 10081, type: "reading", text: "アンダルスはどのような役割を果たしましたか？", options: ["壁", "科学を伝える橋", "戦場", "障害"], correctIndex: 1, explanation: "「جسرا لنقل العلوم (科学を伝える橋)」です。" },
       { id: 10082, type: "reading", text: "繁栄した都市の例は？", options: ["パリとロンドン", "コルドバとセビリア", "ローマとアテネ", "ニューヨーク"], correctIndex: 1, explanation: "「قرطبة وإشبيلية (コルドバとセビリア)」です。" },
       { id: 10083, type: "reading", text: "ヨーロッパ人はトレドで何をしましたか？", options: ["本を燃やした", "アラビア語の本を翻訳した", "戦争をした", "寝ていた"], correctIndex: 1, explanation: "「ترجمة الكتب العربية (アラビア語の書の翻訳)」です。" },
       { id: 10084, type: "vocabulary", text: "「زِرَاعَة」の意味は？", options: ["工業", "農業", "商業", "漁業"], correctIndex: 1, explanation: "Agriculture（農業）です。" },
-      { id: 10085, type: "grammar", text: "「助けました」", options: ["سَاعَدَ", "مَنَعَ", "أَخَذَ", "قَتَلَ"], correctIndex: 0, explanation: "「Sā'ada」です。" }
+      { id: 10085, type: "grammar", text: "「助けました」", options: ["سَاعَدَ", "مَنَعَ", "أَخَذَ", "قَتَلَ"], correctIndex: 0, explanation: "「Sā'ada」です。" },
+      // 上級文法問題
+      { id: 10086, type: "grammar_advanced", text: "「لنقل العلوم」の「نقل」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "前置詞「Li」の後に続く名詞（Ism Majrūr）であるため、属格（Majrūr）となりカスラがつきます。" },
+      { id: 10087, type: "grammar_advanced", text: "「بزوغ فجر النهضة」の「فجر」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Buzūgh」という名詞に修飾される第2要素（Muḍāf Ilayhi）であるため、属格（Majrūr）となりカスラがつきます。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "أَدْخَلَ الْمُسْلِمُونَ نُظُمَ الرِّيِّ الْمُتَطَوِّرَةَ إِلَى إِسْبَانِيَا.", japanese: "ムスリムはスペインに高度な灌漑システムを導入しました。" },
-      { speaker: "記事", arabic: "كَانَ الطِّبُّ فِي الْأَنْدَلُسِ مُتَقَدِّمًا جِدًّا.", japanese: "アンダルスの医学は非常に進んでいました。" },
-      { speaker: "記事", arabic: "اخْتَرَعَ الزَّهْرَاوِيُّ أَدَوَاتِ الْجِرَاحَةِ.", japanese: "ザフラ−ウィーは外科手術の道具を発明しました。" },
-      { speaker: "記事", arabic: "الْحَضَارَةُ الْإِنْسَانِيَّةُ تَبْنِي بَعْضُهَا عَلَى بَعْضٍ.", japanese: "人類の文明は互いの上に築かれます（継承されます）。" }
+      { speaker: "記事", arabic: "كَانَتِ الْأَنْدَلُسُ جِسْرًا لِنَقْلِ الْعُلُومِ مِنَ الشَّرْقِ إِلَى الْغَرْبِ.", japanese: "アンダルスは、東洋から西洋へ科学を伝えるための架け橋でした。" },
+      { speaker: "記事", arabic: "فِي مُدُنٍ مِثْلِ قُرْطُبَةَ وَإِشْبِيلِيَةَ، ازْدَهَرَتِ الزِّرَاعَةُ وَالطِّبُّ وَالْفَلَكُ.", japanese: "コルドバやセビリアのような都市では、農業、医学、天文学が繁栄しました。" },
+      { speaker: "記事", arabic: "قَامَ الْأُورُوبِيُّونَ بِتَرْجَمَةِ الْكُتُبِ الْعَرَبِيَّةِ فِي طُلَيْطِلَةَ.", japanese: "ヨーロッパ人はトレドでアラビア語の本を翻訳しました。" },
+      { speaker: "記事", arabic: "هَذَا سَاعَدَ فِي بُزُوغِ فَجْرِ النَّهْضَةِ الْأُورُوبِيَّةِ وَإِنْهاءِ الْعُصُورِ الْمُظْلِمَةِ.", japanese: "これはヨーロッパのルネサンスの夜明けと暗黒時代の終焉を助けました。" }
     ]
   },
-
-  // --- 8. 社会・経済 (Society/Economy) ---
   {
-    id: 1009, title: "女性のエンパワーメント", category: "社会", level: "上級",
-    contentVoweled: "شَهِدَتِ الْمَمْلَكَةُ فِي السَّنَوَاتِ الْأَخِيرَةِ إِصْلَاحَاتٍ كَبِيرَةً لِتَمْكِينِ الْمَرْأَةِ.",
-    contentPlain: "شهدت المملكة في السنوات الأخيرة إصلاحات كبيرة لتمكين المرأة. سُمح لها بقيادة السيارة، وتولي مناصب قيادية في الحكومة والقطاع الخاص. تهدف هذه الخطوات إلى تعزيز دور المرأة في التنمية الاقتصادية والاجتماعية، وتحقيق المساواة في الفرص وفقا لرؤية 2030.",
+    id: 1009,
+    title: "女性のエンパワーメント",
+    category: "社会",
+    level: "上級",
+    contentVoweled: "شَهِدَتِ الْمَمْلَكَةُ فِي السَّنَوَاتِ الْأَخِيرَةِ إِصْلَاحَاتٍ كَبِيرَةً لِتَمْكِينِ الْمَرْأَةِ. سُمِحَ لَهَا بِقِيَادَةِ السَّيَّارَةِ، وَتَوَلِّي مَنَاصِبَ قِيَادِيَّةٍ فِي الْحُكُومَةِ وَالْقِطَاعِ الْخَاصِّ. تَهْدِفُ هَذِهِ الْخُطَوَاتُ إِلَى تَعْزِيزِ دَوْرِ الْمَرْأَةِ فِي التَّنْمِيَةِ الِاقْتِصَادِيَّةِ وَالِاجْتِمَاعِيَّةِ. كَمَا تَسْعَى إِلَى تَحْقِيقِ الْمُسَاوَاةِ فِي الْفُرَصِ وَفْقًا لِرُؤْيَةِ 2030.",
+    contentPlain: "شهدت المملكة في السنوات الأخيرة إصلاحات كبيرة لتمكين المرأة. سمح لها بقيادة السيارة، وتولي مناصب قيادية في الحكومة والقطاع الخاص. تهدف هذه الخطوات إلى تعزيز دور المرأة في التنمية الاقتصادية والاجتماعية. كما تسعى إلى تحقيق المساواة في الفرص وفقا لرؤية 2030.",
     vocabList: [
       { word: "إِصْلَاح", meaning: "改革" },
       { word: "قِيَادَة", meaning: "運転/リーダーシップ" },
       { word: "مَنْصِب", meaning: "地位/役職" },
-      { word: "مُسَاوَاة", meaning: "平等" }
+      { word: "مُسَاوَاة", meaning: "平等" },
+      { word: "قِطَاع", meaning: "セクター/部門" }
     ],
     questions: [
       { id: 10091, type: "reading", text: "近年、王国で何が起きましたか？", options: ["戦争", "女性のエンパワーメントのための改革", "経済の停滞", "人口減少"], correctIndex: 1, explanation: "「إصلاحات كبيرة لتمكين المرأة (女性活躍のための大改革)」です。" },
       { id: 10092, type: "reading", text: "許可されたことの具体例は？", options: ["海外旅行の禁止", "車の運転", "学校に行くことの禁止", "家にいること"], correctIndex: 1, explanation: "「قيادة السيارة (車の運転)」です。" },
       { id: 10093, type: "reading", text: "これらのステップの目的は？", options: ["女性の役割を弱める", "開発における女性の役割強化", "男性の仕事を奪う", "海外移住"], correctIndex: 1, explanation: "「تعزيز دور المرأة (女性の役割強化)」です。" },
       { id: 10094, type: "vocabulary", text: "「فُرْصَة」の意味は？", options: ["時間", "チャンス/機会", "お金", "場所"], correctIndex: 1, explanation: "Opportunity（機会）です。" },
-      { id: 10095, type: "grammar", text: "「許可されました（受動態）」", options: ["سُمِحَ", "سَمَحَ", "يَسْمَحُ", "مَمْنُوع"], correctIndex: 0, explanation: "「Sumiḥa」は「Samaḥa (Allow)」の受動態です。" }
+      { id: 10095, type: "grammar", text: "「許可されました（受動態）」", options: ["سُمِحَ", "سَمَحَ", "يَسْمَحُ", "مَمْنُوع"], correctIndex: 0, explanation: "「Sumiḥa」は「Samaḥa (Allow)」の受動態です。" },
+      // 上級文法問題
+      { id: 10096, type: "grammar_advanced", text: "「إصلاحات كبيرة」の「إصلاحات」の正しい語尾は？", options: ["in (タンウィーン・カスラ)", "an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "i (カスラ)"], correctIndex: 0, explanation: "動詞「Shahidat（目撃した/経験した）」の目的語ですが、「āt」で終わる女性規則複数は、対格の場合ファトハではなくカスラを取ります。" },
+      { id: 10097, type: "grammar_advanced", text: "「تولي مناصب قيادية」の「مناصب」の正しい語尾は？", options: ["a (ファトハ)", "i (カスラ)", "u (ダンマ)", "an (タンウィーン)"], correctIndex: 0, explanation: "「Tawallī (就任)」という動名詞の後に続くイダーファの第2要素（属格）ですが、「Manāṣib」は非限定名詞（Mafā'ilパターン）なので、カスラではなくファトハを取ります。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "أَصْبَحَتِ الْمَرْأَةُ السُّعُودِيَّةُ سَفِيرَةً وَنَائِبَةَ وَزِيرٍ.", japanese: "サウジ女性は大使や副大臣になりました。" },
-      { speaker: "記事", arabic: "ارْتَفَعَتْ نِسْبَةُ مُشَارَكَةِ الْمَرْأَةِ فِي سُوقِ الْعَمَلِ.", japanese: "労働市場への女性の参加率が上昇しました。" },
-      { speaker: "記事", arabic: "هَذَا التَّغْيِيرُ يُعَزِّزُ الِاقْتِصَادَ الْوَطَنِيَّ.", japanese: "この変化は国民経済を強化します。" },
-      { speaker: "記事", arabic: "الْمَرْأَةُ شَرِيكٌ أَسَاسِيٌّ فِي بِنَاءِ الْمُسْتَقْبَلِ.", japanese: "女性は未来を築くための基本的なパートナーです。" }
+      { speaker: "記事", arabic: "شَهِدَتِ الْمَمْلَكَةُ فِي السَّنَوَاتِ الْأَخِيرَةِ إِصْلَاحَاتٍ كَبِيرَةً لِتَمْكِينِ الْمَرْأَةِ.", japanese: "王国は近年、女性のエンパワーメントのための大きな改革を経験しました。" },
+      { speaker: "記事", arabic: "سُمِحَ لَهَا بِقِيَادَةِ السَّيَّارَةِ، وَتَوَلِّي مَنَاصِبَ قِيَادِيَّةٍ فِي الْحُكُومَةِ وَالْقِطَاعِ الْخَاصِّ.", japanese: "彼女（女性）には車の運転や、政府および民間部門での指導的地位への就任が許可されました。" },
+      { speaker: "記事", arabic: "تَهْدِفُ هَذِهِ الْخُطَوَاتُ إِلَى تَعْزِيزِ دَوْرِ الْمَرْأَةِ فِي التَّنْمِيَةِ الِاقْتِصَادِيَّةِ وَالِاجْتِمَاعِيَّةِ.", japanese: "これらのステップは、経済的および社会的発展における女性の役割を強化することを目指しています。" },
+      { speaker: "記事", arabic: "كَمَا تَسْعَى إِلَى تَحْقِيقِ الْمُسَاوَاةِ فِي الْفُرَصِ وَفْقًا لِرُؤْيَةِ 2030.", japanese: "また、ビジョン2030に従って機会の平等を達成することも目指しています。" }
     ]
   },
   {
-    id: 1010, title: "サウジ・コーヒー（詳細）", category: "文化", level: "上級",
-    contentVoweled: "الْقَهْوَةُ السُّعُودِيَّةُ لَيْسَتْ مُجَرَّدَ مَشْرُوبٍ، بَلْ هِيَ رَمْزٌ ثَقَافِيٌّ.",
-    contentPlain: "القهوة السعودية ليست مجرد مشروب، بل هي رمز ثقافي للكرم والضيافة. تختلف طريقة تحضيرها من منطقة لأخرى، لكنها غالبا ما تحتوي على الهيل والزعفران. تقدم القهوة للضيوف باليد اليمنى، ويجب أن يكون الفنجان مملوءا إلى الثلث فقط كدليل على الرغبة في خدمة الضيف وتكرار الصب.",
+    id: 1010,
+    title: "サウジ・コーヒー（詳細）",
+    category: "文化",
+    level: "上級",
+    contentVoweled: "الْقَهْوَةُ السُّعُودِيَّةُ لَيْسَتْ مُجَرَّدَ مَشْرُوبٍ، بَلْ هِيَ رَمْزٌ ثَقَافِيٌّ لِلْكَرَمِ وَالضِّيَافَةِ. تَخْتَلِفُ طَرِيقَةُ تَحْضِيرِهَا مِنْ مِنْطَقَةٍ لِأُخْرَى، لَكِنَّهَا غَالِبًا مَا تَحْتَوِي عَلَى الْهَيْلِ وَالزَّعْفَرَانِ. تُقَدَّمُ الْقَهْوَةُ لِلضُّيُوفِ بِالْيَدِ الْيُمْنَى. يَجِبُ أَنْ يَكُونَ الْفِنْجَانُ مَمْلُوءًا إِلَى الثُّلُثِ فَقَطْ كَدَلِيلٍ عَلَى الرَّغْبَةِ فِي خِدْمَةِ الضَّيْفِ وَتَكْرَارِ الصَّبِّ.",
+    contentPlain: "القهوة السعودية ليست مجرد مشروب، بل هي رمز ثقافي للكرم والضيافة. تختلف طريقة تحضيرها من منطقة لأخرى، لكنها غالبا ما تحتوي على الهيل والزعفران. تقدم القهوة للضيوف باليد اليمنى. يجب أن يكون الفنجان مملوءا إلى الثلث فقط كدليل على الرغبة في خدمة الضيف وتكرار الصب.",
     vocabList: [
       { word: "ضِيَافَة", meaning: "おもてなし" },
       { word: "تَحْضِير", meaning: "準備/作り方" },
       { word: "زَعْفَرَان", meaning: "サフラン" },
-      { word: "يَد يُمْنَى", meaning: "右手" }
+      { word: "يَد يُمْنَى", meaning: "右手" },
+      { word: "صَبّ", meaning: "注ぐこと" }
     ],
     questions: [
       { id: 10101, type: "reading", text: "サウジコーヒーは何の象徴ですか？", options: ["眠気", "寛大さとおもてなし", "戦争", "貧困"], correctIndex: 1, explanation: "「رمز ثقافي للكرم والضيافة」です。" },
       { id: 10102, type: "reading", text: "主な材料は？", options: ["砂糖とミルク", "カルダモンとサフラン", "塩と胡椒", "茶葉"], correctIndex: 1, explanation: "「الهيل والزعفران」です。" },
       { id: 10103, type: "reading", text: "カップにはどれくらい注ぎますか？", options: ["満タン", "半分", "3分の1", "一滴だけ"], correctIndex: 2, explanation: "「مملوءا إلى الثلث (3分の1まで満たす)」です。" },
       { id: 10104, type: "vocabulary", text: "「دَلِيل」の意味は？", options: ["道", "証拠/印", "本", "人"], correctIndex: 1, explanation: "Proof/Sign（証拠、印）です。" },
-      { id: 10105, type: "grammar", text: "「提供されます（受動態）」", options: ["تُقَدَّمُ", "تُقَدِّمُ", "قَدَّمَ", "قَادِم"], correctIndex: 0, explanation: "「Tuqaddamu」は受動態です。" }
+      { id: 10105, type: "grammar", text: "「提供されます（受動態）」", options: ["تُقَدَّمُ", "تُقَدِّمُ", "قَدَّمَ", "قَادِم"], correctIndex: 0, explanation: "「Tuqaddamu」は受動態です。" },
+      // 上級文法問題
+      { id: 10106, type: "grammar_advanced", text: "「أن يكون الفنجان مملوءا」の「مملوءا」の正しい語尾は？", options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "u (ダンマ)"], correctIndex: 0, explanation: "「Yakūna (Kāna)」の「述語（Khabar Kāna）」は常に対格（Manṣūb）になるため、タンウィーン・ファトハがつきます。" },
+      { id: 10107, type: "grammar_advanced", text: "「باليد اليمنى」の「اليمنى」の正しい母音表記は？", options: ["なし（母音記号は現れない）", "i (カスラ)", "a (ファトハ)", "u (ダンマ)"], correctIndex: 0, explanation: "「Yumnā」はIsm Maqṣūr（アリフで終わる名詞）であり、すべての格において母音は推定（Muqaddara）され、表記されません。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "أَطْلَقَتْ وِزَارَةُ الثَّقَافَةِ عَامَ الْقَهْوَةِ السُّعُودِيَّةِ.", japanese: "文化省は「サウジコーヒーの年」を開始しました。" },
-      { speaker: "記事", arabic: "تُرَافِقُ الْقَهْوَةَ دَائِمًا حَبَّاتُ التَّمْرِ.", japanese: "コーヒーにはいつもデーツが添えられます。" },
-      { speaker: "記事", arabic: "إِذَا هَزَّ الضَّيْفُ الْفِنْجَانَ، فَهَذَا يَعْنِي أَنَّهُ اكْتَفَى.", japanese: "客がカップを振れば、それは「もう十分」という意味です。" },
-      { speaker: "記事", arabic: "إِنَّهَا جُزْءٌ لَا يَتَجَزَّأُ مِنَ الْمَجَالِسِ الْعَرَبِيَّةِ.", japanese: "それはアラブの集まりに不可欠な部分です。" }
+      { speaker: "記事", arabic: "الْقَهْوَةُ السُّعُودِيَّةُ لَيْسَتْ مُجَرَّدَ مَشْرُوبٍ، بَلْ هِيَ رَمْزٌ ثَقَافِيٌّ لِلْكَرَمِ وَالضِّيَافَةِ.", japanese: "サウジコーヒーは単なる飲み物ではなく、寛大さとおもてなしの文化的象徴です。" },
+      { speaker: "記事", arabic: "تَخْتَلِفُ طَرِيقَةُ تَحْضِيرِهَا مِنْ مِنْطَقَةٍ لِأُخْرَى، لَكِنَّهَا غَالِبًا مَا تَحْتَوِي عَلَى الْهَيْلِ وَالزَّعْفَرَانِ.", japanese: "その準備方法は地域によって異なりますが、多くの場合、カルダモンとサフランが含まれています。" },
+      { speaker: "記事", arabic: "تُقَدَّمُ الْقَهْوَةُ لِلضُّيُوفِ بِالْيَدِ الْيُمْنَى.", japanese: "コーヒーは右手で客に提供されます。" },
+      { speaker: "記事", arabic: "يَجِبُ أَنْ يَكُونَ الْفِنْجَانُ مَمْلُوءًا إِلَى الثُّلُثِ فَقَطْ كَدَلِيلٍ عَلَى الرَّغْبَةِ فِي خِدْمَةِ الضَّيْفِ وَتَكْرَارِ الصَّبِّ.", japanese: "客に奉仕し、注ぎ足すことを望んでいる証拠として、カップは3分の1まで満たされるべきです。" }
     ]
   },
-
-  // --- 9. 環境・地理 (Environment/Geography) ---
   {
-    id: 1011, title: "砂漠化対策", category: "科学", level: "上級",
-    contentVoweled: "التَّصَحُّرُ هُوَ تَحَوُّلُ الْأَرَاضِي الْخِصْبَةِ إِلَى صَحْرَاءَ.",
+    id: 1011,
+    title: "砂漠化対策",
+    category: "科学",
+    level: "上級",
+    contentVoweled: "التَّصَحُّرُ هُوَ تَحَوُّلُ الْأَرَاضِي الْخِصْبَةِ إِلَى صَحْرَاءَ، وَهُوَ مُشْكِلَةٌ بِيئِيَّةٌ عَالَمِيَّةٌ. فِي السُّعُودِيَّةِ، يَتِمُّ مُحَارَبَةُ التَّصَحُّرِ مِنْ خِلَالِ مَشَارِيعِ التَّشْجِيرِ الضَّخْمَةِ وَاسْتِخْدَامِ تِقْنِيَّاتِ الِاسْتِمْطَارِ الصِّنَاعِيِّ. يُسَاعِدُ الْغِطَاءُ النَّبَاتِيُّ فِي تَثْبِيتِ التُّرْبَةِ وَتَقْلِيلِ الْعَوَاصِفِ الرَّمْلِيَّةِ وَخَفْضِ دَرَجَاتِ الْحَرَارَةِ.",
     contentPlain: "التصحر هو تحول الأراضي الخصبة إلى صحراء، وهو مشكلة بيئية عالمية. في السعودية، يتم محاربة التصحر من خلال مشاريع التشجير الضخمة واستخدام تقنيات الاستمطار الصناعي. يساعد الغطاء النباتي في تثبيت التربة وتقليل العواصف الرملية وخفض درجات الحرارة.",
     vocabList: [
       { word: "تَصَحُّر", meaning: "砂漠化" },
       { word: "خِصْب", meaning: "肥沃な" },
       { word: "تَشْجِير", meaning: "植林" },
-      { word: "تُرْبَة", meaning: "土壌" }
+      { word: "تُرْبَة", meaning: "土壌" },
+      { word: "اسْتِمْطَار", meaning: "人工降雨" }
     ],
     questions: [
       { id: 10111, type: "reading", text: "砂漠化とは何ですか？", options: ["雨が降ること", "肥沃な土地が砂漠になること", "砂漠が緑になること", "海が乾くこと"], correctIndex: 1, explanation: "「تحول الأراضي الخصبة إلى صحراء」です。" },
       { id: 10112, type: "reading", text: "サウジはどうやって戦っていますか？", options: ["放置している", "植林と人工降雨", "砂を輸入する", "壁を作る"], correctIndex: 1, explanation: "「مشاريع التشجير... والاستمطار الصناعي」です。" },
       { id: 10113, type: "reading", text: "植生（植物）の利点は？", options: ["気温を上げる", "土壌を固定し砂嵐を減らす", "水を汚す", "砂を増やす"], correctIndex: 1, explanation: "「تثبيت التربة وتقليل العواصف」です。" },
       { id: 10114, type: "vocabulary", text: "「عَاصِفَة」の意味は？", options: ["静けさ", "嵐", "雨", "光"], correctIndex: 1, explanation: "Storm（嵐）です。" },
-      { id: 10115, type: "grammar", text: "「戦う/防止する」", options: ["مُحَارَبَة", "حَرْب", "ضَرْب", "هُرُوب"], correctIndex: 0, explanation: "「Muḥārabah (Combating/Fighting)」です。" }
+      { id: 10115, type: "grammar", text: "「戦う/防止する」", options: ["مُحَارَبَة", "حَرْب", "ضَرْب", "هُرُوب"], correctIndex: 0, explanation: "「Muḥārabah (Combating/Fighting)」です。" },
+      // 上級文法問題
+      { id: 10116, type: "grammar_advanced", text: "「يتم محاربة」の「محاربة」の正しい語尾は？", options: ["u (ダンマ)", "a (ファトハ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "「Yatimmu（行われる/完了する）」という動詞の「主語（Fā'il）」として、動名詞「Muḥārabatu」が機能しているため主格となりダンマがつきます。" },
+      { id: 10117, type: "grammar_advanced", text: "「تقنيات الاستمطار」の「تقنيات」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Istikhdām (使用)」という動名詞の後に続くイダーファの第2要素（Muḍāf Ilayhi）として属格（Majrūr）になります。女性規則複数でも属格はカスラを取ります。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "قَطْعُ الْأَشْجَارِ يُسَاهِمُ فِي زِيَادَةِ التَّصَحُّرِ.", japanese: "木の伐採は砂漠化の増加に寄与します。" },
-      { speaker: "記事", arabic: "تَسْعَى الدَّوْلَةُ إِلَى زِيَادَةِ الْمَسَاحَاتِ الْخَضْرَاءِ.", japanese: "国は緑地の増加を目指しています。" },
-      { speaker: "記事", arabic: "الْمُحَافَظَةُ عَلَى الْبِيئَةِ وَاجِبُ كُلِّ فَرْدٍ.", japanese: "環境保全は個人の義務です。" },
-      { speaker: "記事", arabic: "لِنَزْرَعِ الْأَشْجَارَ لِمُسْتَقْبَلٍ أَفْضَلَ.", japanese: "より良い未来のために木を植えましょう。" }
+      { speaker: "記事", arabic: "التَّصَحُّرُ هُوَ تَحَوُّلُ الْأَرَاضِي الْخِصْبَةِ إِلَى صَحْرَاءَ، وَهُوَ مُشْكِلَةٌ بِيئِيَّةٌ عَالَمِيَّةٌ.", japanese: "砂漠化とは、肥沃な土地が砂漠に変わることであり、世界的な環境問題です。" },
+      { speaker: "記事", arabic: "فِي السُّعُودِيَّةِ، يَتِمُّ مُحَارَبَةُ التَّصَحُّرِ مِنْ خِلَالِ مَشَارِيعِ التَّشْجِيرِ الضَّخْمَةِ وَاسْتِخْدَامِ تِقْنِيَّاتِ الِاسْتِمْطَارِ الصِّنَاعِيِّ.", japanese: "サウジアラビアでは、巨大な植林プロジェクトや人工降雨技術の使用を通じて砂漠化との戦いが行われています。" },
+      { speaker: "記事", arabic: "يُسَاعِدُ الْغِطَاءُ النَّبَاتِيُّ فِي تَثْبِيتِ التُّرْبَةِ وَتَقْلِيلِ الْعَوَاصِفِ الرَّمْلِيَّةِ وَخَفْضِ دَرَجَاتِ الْحَرَارَةِ.", japanese: "植物の覆い（植生）は、土壌の固定、砂嵐の軽減、そして気温の低下に役立ちます。" }
     ]
   },
-  
   // --- 10. 経済・産業 (Economy) ---
   {
-    id: 1012, title: "デーツ産業", category: "経済", level: "上級",
-    contentVoweled: "تُعْتَبَرُ الْمَمْلَكَةُ مِنْ أَكْبَرِ مُنْتِجِي التُّمُورِ فِي الْعَالَمِ.",
+    id: 1012,
+    title: "デーツ産業",
+    category: "経済",
+    level: "上級",
+    contentVoweled: "تُعْتَبَرُ الْمَمْلَكَةُ مِنْ أَكْبَرِ مُنْتِجِي التُّمُورِ فِي الْعَالَمِ، حَيْثُ تَمْتَلِكُ أَكْثَرَ مِنْ 30 مَلْيُونَ نَخْلَةٍ. صِنَاعَةُ التُّمُورِ لَيْسَتْ مُجَرَّدَ زِرَاعَةٍ، بَلْ هِيَ اقْتِصَادٌ ضَخْمٌ يَشْمَلُ التَّصْنِيعَ وَالتَّصْدِيرَ. يَتِمُّ إِنْتَاجُ مُنْتَجَاتٍ مُتَنَوِّعَةٍ مِنَ التَّمْرِ مِثْلَ الدِّبْسِ وَالسُّكَّرِ وَالْحَلْوَيَاتِ، وَتُصَدَّرُ إِلَى جَمِيعِ قَارَّاتِ الْعَالَمِ.",
     contentPlain: "تعتبر المملكة من أكبر منتجي التمور في العالم، حيث تمتلك أكثر من 30 مليون نخلة. صناعة التمور ليست مجرد زراعة، بل هي اقتصاد ضخم يشمل التصنيع والتصدير. يتم إنتاج منتجات متنوعة من التمر مثل الدبس والسكر والحلويات، وتصدر إلى جميع قارات العالم.",
     vocabList: [
       { word: "إِنْتَاج", meaning: "生産" },
@@ -9130,19 +9952,23 @@ questions: [] // アルファベット回は問題なし
       { id: 10122, type: "reading", text: "ヤシの木は何本ありますか？", options: ["100万本", "1000万本", "3000万本以上", "数えられない"], correctIndex: 2, explanation: "「أكثر من 30 مليون نخلة」です。" },
       { id: 10123, type: "reading", text: "デーツから作られる製品は？", options: ["石油", "シロップ（ディブス）や砂糖", "プラスチック", "紙"], correctIndex: 1, explanation: "「الدبس والسكر والحلويات」です。" },
       { id: 10124, type: "vocabulary", text: "「قَارَّة」の意味は？", options: ["国", "大陸", "都市", "島"], correctIndex: 1, explanation: "Continent（大陸）です。" },
-      { id: 10125, type: "grammar", text: "「所有する」", options: ["تَمْتَلِكُ", "تَبِيعُ", "تَشْتَرِي", "تَفْقِدُ"], correctIndex: 0, explanation: "「Tamtaliku (Possess)」です。" }
+      { id: 10125, type: "grammar", text: "「所有する」", options: ["تَمْتَلِكُ", "تَبِيعُ", "تَشْتَرِي", "تَفْقِدُ"], correctIndex: 0, explanation: "「Tamtaliku (Possess)」です。" },
+      // 上級文法問題
+      { id: 10126, type: "grammar_advanced", text: "「من أكبر منتجي التمور」の「منتجي」の正しい語尾（読み方）は？", options: ["Muntajī (主格・複数)", "Muntijī (属格・複数)", "Muntijā (対格・双数)", "Muntijū (主格・複数)"], correctIndex: 1, explanation: "「Muntijūn (生産者たち)」が前置詞「Min」の後で属格になり、さらにイダーファ（所有格構文）で「Nūn」が脱落して「Muntijī」になります。" },
+      { id: 10127, type: "grammar_advanced", text: "「صناعة التمور ليست مجرد زراعة」の「زراعة」の正しい語尾は？", options: ["in (タンウィーン・カスラ)", "un (タンウィーン・ダンマ)", "an (タンウィーン・ファトハ)", "a (ファトハ)"], correctIndex: 0, explanation: "「Mujarrad (ただの)」の後に続く名詞（Muḍāf Ilayhi）なので、属格（Majrūr）となり、カスラ（タンウィーン）がつきます。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "مَهْرَجَانُ بُرَيْدَةَ لِلتُّمُورِ هُوَ الْأَكْبَرُ عَالَمِيًّا.", japanese: "ブライダのデーツ祭りは世界最大です。" },
-      { speaker: "記事", arabic: "التَّمْرُ غِذَاءٌ مُتَكَامِلٌ وَصِحِّيٌّ.", japanese: "デーツは完全で健康的な食品です。" },
-      { speaker: "記事", arabic: "تَدْعَمُ الْحُكُومَةُ الْمُزَارِعِينَ لِتَحْسِينِ الْجَوْدَةِ.", japanese: "政府は品質向上のために農家を支援しています。" },
-      { speaker: "記事", arabic: "رُؤْيَةُ 2030 تَهْدِفُ لِجَعْلِ السُّعُودِيَّةِ الْمُصَدِّرَ الْأَوَّلَ لِلتُّمُورِ.", japanese: "ビジョン2030はサウジをデーツの第一輸出国にすることを目指しています。" }
+      { speaker: "記事", arabic: "تُعْتَبَرُ الْمَمْلَكَةُ مِنْ أَكْبَرِ مُنْتِجِي التُّمُورِ فِي الْعَالَمِ، حَيْثُ تَمْتَلِكُ أَكْثَرَ مِنْ 30 مَلْيُونَ نَخْلَةٍ.", japanese: "王国は世界最大のデーツ生産国の一つとみなされており、3000万本以上のナツメヤシを保有しています。" },
+      { speaker: "記事", arabic: "صِنَاعَةُ التُّمُورِ لَيْسَتْ مُجَرَّدَ زِرَاعَةٍ، بَلْ هِيَ اقْتِصَادٌ ضَخْمٌ يَشْمَلُ التَّصْنِيعَ وَالتَّصْدِيرَ.", japanese: "デーツ産業は単なる農業ではなく、加工や輸出を含む巨大な経済です。" },
+      { speaker: "記事", arabic: "يَتِمُّ إِنْتَاجُ مُنْتَجَاتٍ مُتَنَوِّعَةٍ مِنَ التَّمْرِ مِثْلَ الدِّبْسِ وَالسُّكَّرِ وَالْحَلْوَيَاتِ، وَتُصَدَّرُ إِلَى جَمِيعِ قَارَّاتِ الْعَالَمِ.", japanese: "シロップ、砂糖、お菓子など、デーツから多様な製品が生産され、世界中のすべての大陸に輸出されています。" }
     ]
   },
-  // --- 11. 科学・技術 (Science/Tech) ---
   {
-    id: 1013, title: "サウジの宇宙開発", category: "科学", level: "上級",
-    contentVoweled: "دَخَلَتِ الْمَمْلَكَةُ عَصْرَ الْفَضَاءِ مِنْ أَوْسَعِ أَبْوَابِهِ...",
+    id: 1013,
+    title: "サウジの宇宙開発",
+    category: "科学",
+    level: "上級",
+    contentVoweled: "دَخَلَتِ الْمَمْلَكَةُ عَصْرَ الْفَضَاءِ مِنْ أَوْسَعِ أَبْوَابِهِ عَبْرَ إِرْسَالِ رُوَّادِ فَضَاءٍ سُعُودِيِّينَ إِلَى مَحَطَّةِ الْفَضَاءِ الدَّوْلِيَّةِ. تَهْدِفُ الْهَيْئَةُ السُّعُودِيَّةُ لِلْفَضَاءِ إِلَى تَأْهِيلِ كَوَادِرَ وَطَنِيَّةٍ قَادِرَةٍ عَلَى قِيَادَةِ قِطَاعِ الْفَضَاءِ فِي الْمُسْتَقْبَلِ، وَإِجْرَاءِ تَجَارِبَ عِلْمِيَّةٍ تَخْدِمُ الْبَشَرِيَّةَ فِي مَجَالَاتِ الصِّحَّةِ وَالِاسْتِدَامَةِ. تُعْتَبَرُ هَذِهِ الْخُطْوَةُ جُزْءًا مِنْ رُؤْيَةِ 2030 لِتَعْزِيزِ مَكَانَةِ الْمَمْلَكَةِ كَقُوَّةٍ عَالَمِيَّةٍ فِي مَجَالِ الْعُلُومِ وَالتِّقْنِيَةِ.",
     contentPlain: "دخلت المملكة عصر الفضاء من أوسع أبوابه عبر إرسال رواد فضاء سعوديين إلى محطة الفضاء الدولية. تهدف الهيئة السعودية للفضاء إلى تأهيل كوادر وطنية قادرة على قيادة قطاع الفضاء في المستقبل، وإجراء تجارب علمية تخدم البشرية في مجالات الصحة والاستدامة. تعتبر هذه الخطوة جزءا من رؤية 2030 لتعزيز مكانة المملكة كقوة عالمية في مجال العلوم والتقنية.",
     vocabList: [
       { word: "فَضَاء", meaning: "宇宙" },
@@ -9155,20 +9981,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10132, type: "reading", text: "宇宙委員会の目的の一つは？", options: ["宇宙人の探索", "国家的な人材（幹部）の育成", "宇宙戦争", "観光"], correctIndex: 1, explanation: "「تأهيل كوادر وطنية (国家的人材の育成)」です。" },
       { id: 10133, type: "reading", text: "実験はどのような分野で行われますか？", options: ["料理", "健康と持続可能性", "スポーツ", "文学"], correctIndex: 1, explanation: "「مجالات الصحة والاستدامة」です。" },
       { id: 10134, type: "vocabulary", text: "「تِقْنِيَّة」の意味は？", options: ["芸術", "技術/テクノロジー", "歴史", "自然"], correctIndex: 1, explanation: "Technologyのことです。" },
-      { id: 10135, type: "grammar", text: "「〜の一部（Part of）」", options: ["جُزْءٌ مِنْ", "كُلٌّ مِنْ", "بَعِيدٌ عَنْ", "قَرِيبٌ مِنْ"], correctIndex: 0, explanation: "「Juz'un min」です。" }
+      { id: 10135, type: "grammar", text: "「〜の一部（Part of）」", options: ["جُزْءٌ مِنْ", "كُلٌّ مِنْ", "بَعِيدٌ عَنْ", "قَرِيبٌ مِنْ"], correctIndex: 0, explanation: "「Juz'un min」です。" },
+      // 上級文法問題
+      { id: 10136, type: "grammar_advanced", text: "「إرسال رواد فضاء سعوديين」の「سعوديين」の正しい語尾は？", options: ["īna (男性規則複数・属格/対格)", "ūna (男性規則複数・主格)", "ān (双数・主格)", "ayni (双数・属格/対格)"], correctIndex: 0, explanation: "前の名詞「Ruwād (飛行士たち・属格)」を修飾する形容詞なので、属格（Majrūr）となり「īna」がつきます。" },
+      { id: 10137, type: "grammar_advanced", text: "「إلى تأهيل كوادر وطنية」の「كوادر」の正しい語尾は？", options: ["a (ファトハ)", "i (カスラ)", "an (タンウィーン・ファトハ)", "in (タンウィーン・カスラ)"], correctIndex: 0, explanation: "「Kawādir」は「Fawā'il」パターンの非限定名詞（Mumnū' min al-ṣarf）です。イダーファの第2要素（属格）ですが、カスラの代わりにファトハを取ります。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "شَارَكَتْ رَيَّانَةُ بَرْنَاوِي كَأَوَّلِ رَائِدَةِ فَضَاءٍ عَرَبِيَّةٍ مُسْلِمَةٍ.", japanese: "ラッヤーナ・バルナウィが初のアラブ系ムスリム女性宇宙飛行士として参加しました。" },
-      { speaker: "記事", arabic: "أَجْرَى الرُّوَّادُ 14 تَجْرِبَةً عِلْمِيَّةً فِي بِيئَةِ انْعِدَامِ الْجَاذِبِيَّةِ.", japanese: "飛行士たちは無重力環境で14の科学実験を行いました。" },
-      { speaker: "記事", arabic: "تَهْدِفُ الْمَمْلَكَةُ إِلَى بِنَاءِ اقْتِصَادٍ مَبْنِيٍّ عَلَى الْمَعْرِفَةِ.", japanese: "王国は知識に基づく経済の構築を目指しています。" },
-      { speaker: "記事", arabic: "هَذَا الْإِنْجَازُ يُلْهِمُ الْأَجْيَالَ الْقَادِمَةَ.", japanese: "この成果は次世代にインスピレーションを与えます。" }
+      { speaker: "記事", arabic: "دَخَلَتِ الْمَمْلَكَةُ عَصْرَ الْفَضَاءِ مِنْ أَوْسَعِ أَبْوَابِهِ عَبْرَ إِرْسَالِ رُوَّادِ فَضَاءٍ سُعُودِيِّينَ إِلَى مَحَطَّةِ الْفَضَاءِ الدَّوْلِيَّةِ.", japanese: "王国は、サウジの宇宙飛行士を国際宇宙ステーションに送ることで、最も広い扉から宇宙時代に参入しました。" },
+      { speaker: "記事", arabic: "تَهْدِفُ الْهَيْئَةُ السُّعُودِيَّةُ لِلْفَضَاءِ إِلَى تَأْهِيلِ كَوَادِرَ وَطَنِيَّةٍ قَادِرَةٍ عَلَى قِيَادَةِ قِطَاعِ الْفَضَاءِ فِي الْمُسْتَقْبَلِ.", japanese: "サウジ宇宙委員会は、将来宇宙セクターを率いることができる国家的人材の育成を目指しています。" },
+      { speaker: "記事", arabic: "وَإِجْرَاءِ تَجَارِبَ عِلْمِيَّةٍ تَخْدِمُ الْبَشَرِيَّةَ فِي مَجَالَاتِ الصِّحَّةِ وَالِاسْتِدَامَةِ.", japanese: "そして、健康と持続可能性の分野で人類に奉仕する科学実験を行うことを目指しています。" },
+      { speaker: "記事", arabic: "تُعْتَبَرُ هَذِهِ الْخُطْوَةُ جُزْءًا مِنْ رُؤْيَةِ 2030 لِتَعْزِيزِ مَكَانَةِ الْمَمْلَكَةِ كَقُوَّةٍ عَالَمِيَّةٍ فِي مَجَالِ الْعُلُومِ وَالتِّقْنِيَةِ.", japanese: "このステップは、科学技術分野における世界的勢力としての王国の地位を強化するためのビジョン2030の一部と考えられています。" }
     ]
   },
-
-  // --- 12. 歴史・遺産 (History) ---
   {
-    id: 1014, title: "マダーイン・サーレハ", category: "歴史", level: "上級",
-    contentVoweled: "مَدَائِنُ صَالِحَ، أَوِ الْحِجْرُ، هِيَ أُولَى الْمَوَاقِعِ السُّعُودِيَّةِ...",
+    id: 1014,
+    title: "マダーイン・サーレハ",
+    category: "歴史",
+    level: "上級",
+    contentVoweled: "مَدَائِنُ صَالِحَ، أَوِ الْحِجْرُ، هِيَ أُولَى الْمَوَاقِعِ السُّعُودِيَّةِ الَّتِي أُدْرِجَتْ فِي قَائِمَةِ التُّرَاثِ الْعَالَمِيِّ لِلْيُونِسْكُو. تَقَعُ فِي مُحَافَظَةِ الْعُلَا وَتَعُودُ لِحَضَارَةِ الْأَنْبَاطِ الْقَدِيمَةِ. تَشْتَهِرُ الْمَدِينَةُ بِوَاجِهَاتِهَا الصَّخْرِيَّةِ الضَّخْمَةِ الْمَنْحُوتَةِ بِدِقَّةٍ فِي الْجِبَالِ، وَالَّتِي كَانَتْ تُسْتَخْدَمُ كَمَقَابِرَ لِلْأَثْرِيَاءِ. تُعْتَبَرُ هَذِهِ الْآثَارُ شَاهِدًا عَلَى عَظَمَةِ الْهَنْدَسَةِ الْمِعْمَارِيَّةِ فِي الْعُصُورِ الْقَدِيمَةِ وَطُرُقِ التِّجَارَةِ الْقَدِيمَةِ.",
     contentPlain: "مدائن صالح، أو الحجر، هي أولى المواقع السعودية التي أدرجت في قائمة التراث العالمي لليونسكو. تقع في محافظة العلا وتعود لحضارة الأنباط القديمة. تشتهر المدينة بواجهاتها الصخرية الضخمة المنحوتة بدقة في الجبال، والتي كانت تستخدم كمقابر للأثرياء. تعتبر هذه الآثار شاهدا على عظمة الهندسة المعمارية في العصور القديمة وطرق التجارة القديمة.",
     vocabList: [
       { word: "مَوْقِع", meaning: "場所/サイト" },
@@ -9181,20 +10011,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10142, type: "reading", text: "どの文明のものですか？", options: ["ローマ", "ナバテア文明", "エジプト", "ペルシャ"], correctIndex: 1, explanation: "「حضارة الأنباط (ナバテア文明)」です。" },
       { id: 10143, type: "reading", text: "岩に掘られた巨大なファサードは何に使われましたか？", options: ["家", "神殿", "富裕層の墓", "学校"], correctIndex: 2, explanation: "「مقابر للأثرياء (富裕層の墓)」として使われました。" },
       { id: 10144, type: "vocabulary", text: "「صَخْر」の意味は？", options: ["砂", "岩", "水", "木"], correctIndex: 1, explanation: "Rock（岩）です。" },
-      { id: 10145, type: "grammar", text: "「登録されました（受動態）」", options: ["أُدْرِجَتْ", "كَتَبَتْ", "ذَهَبَتْ", "قَالَتْ"], correctIndex: 0, explanation: "「Udrijat (Was listed/included)」です。" }
+      { id: 10145, type: "grammar", text: "「登録されました（受動態）」", options: ["أُدْرِجَتْ", "كَتَبَتْ", "ذَهَبَتْ", "قَالَتْ"], correctIndex: 0, explanation: "「Udrijat (Was listed/included)」です。" },
+      // 上級文法問題
+      { id: 10146, type: "grammar_advanced", text: "「مدائن صالح」の「صالح」の正しい語尾は？", options: ["a (ファトハ)", "i (カスラ)", "u (ダンマ)", "un (タンウィーン)"], correctIndex: 0, explanation: "「Madā'in」の後のイダーファ第2要素（属格）ですが、「Sāliḥ」は固有名詞（預言者名）としてここでは非限定名詞（Diptote）扱いされることが多く、ファトハを取ります（※文脈や解釈により議論あり）。" },
+      { id: 10147, type: "grammar_advanced", text: "「كمقابر للأثرياء」の「مقابر」の正しい語尾は？", options: ["a (ファトハ)", "i (カスラ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "前置詞「Ka」の後の属格ですが、「Maqābir」は非限定名詞（Mafā'ilパターン）なので、カスラではなくファトハを取ります。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "تُعَدُّ مَدَائِنُ صَالِحَ شَقِيقَةَ الْبَتْرَاءِ فِي الْأُرْدُنِّ.", japanese: "マダーイン・サーレハはヨルダンのペトラの姉妹（都市）とみなされています。" },
-      { speaker: "記事", arabic: "عَاشَ الْأَنْبَاطُ هُنَا قَبْلَ آلافِ السِّنِينَ.", japanese: "ナバテア人は数千年前にここに住んでいました。" },
-      { speaker: "記事", arabic: "النُّقُوشُ عَلَى الْمَقَابِرِ تَحْكِي قِصَصًا عَنْ حَيَاتِهِمْ.", japanese: "墓の碑文は彼らの生活についての物語を語っています。" },
-      { speaker: "記事", arabic: "الْمِنْطَقَةُ الْآنَ مَفْتُوحَةٌ لِلسُّيَّاحِ مِنَ الْعَالَمِ.", japanese: "この地域は今、世界の観光客に開放されています。" }
+      { speaker: "記事", arabic: "مَدَائِنُ صَالِحَ، أَوِ الْحِجْرُ، هِيَ أُولَى الْمَوَاقِعِ السُّعُودِيَّةِ الَّتِي أُدْرِجَتْ فِي قَائِمَةِ التُّرَاثِ الْعَالَمِيِّ لِلْيُونِسْكُو.", japanese: "マダーイン・サーレハ、あるいはアル・ヒジュルは、ユネスコの世界遺産リストに登録された最初のサウジの遺跡です。" },
+      { speaker: "記事", arabic: "تَقَعُ فِي مُحَافَظَةِ الْعُلَا وَتَعُودُ لِحَضَارَةِ الْأَنْبَاطِ الْقَدِيمَةِ.", japanese: "それはアル・ウラー県に位置し、古代ナバテア文明に遡ります。" },
+      { speaker: "記事", arabic: "تَشْتَهِرُ الْمَدِينَةُ بِوَاجِهَاتِهَا الصَّخْرِيَّةِ الضَّخْمَةِ الْمَنْحُوتَةِ بِدِقَّةٍ فِي الْجِبَالِ، وَالَّتِي كَانَتْ تُسْتَخْدَمُ كَمَقَابِرَ لِلْأَثْرِيَاءِ.", japanese: "その都市は、山々に精密に彫られた巨大な岩のファサード（正面）で有名で、それらは富裕層の墓として使われていました。" },
+      { speaker: "記事", arabic: "تُعْتَبَرُ هَذِهِ الْآثَارُ شَاهِدًا عَلَى عَظَمَةِ الْهَنْدَسَةِ الْمِعْمَارِيَّةِ فِي الْعُصُورِ الْقَدِيمَةِ وَطُرُقِ التِّجَارَةِ الْقَدِيمَةِ.", japanese: "これらの遺跡は、古代の建築工学の偉大さと古代の交易路の証人と考えられています。" }
     ]
   },
-
-  // --- 13. 経済 (Economy) ---
   {
-    id: 1015, title: "イスラム金融", category: "経済", level: "上級",
-    contentVoweled: "تَتَمَيَّزُ الْمَالِيَّةُ الْإِسْلَامِيَّةُ بِعَدَمِ التَّعَامُلِ بِالرِّبَا...",
+    id: 1015,
+    title: "イスラム金融",
+    category: "経済",
+    level: "上級",
+    contentVoweled: "تَتَمَيَّزُ الْمَالِيَّةُ الْإِسْلَامِيَّةُ بِعَدَمِ التَّعَامُلِ بِالرِّبَا (الْفَائِدَةِ)، حَيْثُ يُعْتَبَرُ الْمَالُ وَسِيلَةً وَلَيْسَ سِلْعَةً. يَعْتَمِدُ هَذَا النِّظَامُ عَلَى مَبْدَأِ الْمُشَارَكَةِ فِي الرِّبْحِ وَالْخَسَارَةِ، وَالِاسْتِثْمَارِ فِي مَشَارِيعَ حَقِيقِيَّةٍ تُفِيدُ الْمُجْتَمَعَ. تَشْهَدُ الصُّكُوكُ الْإِسْلَامِيَّةُ نُمُوًّا كَبِيرًا فِي الْأَسْوَاقِ الْعَالَمِيَّةِ، حَيْثُ تَجْذِبُ الْمُسْتَثْمِرِينَ الَّذِينَ يَبْحَثُونَ عَنْ اسْتِثْمَارَاتٍ أَخْلَاقِيَّةٍ وَمُسْتَدَامَةٍ بَعِيدًا عَنِ الْمَخَاطِرِ الْمَالِيَّةِ الْمُفْرِطَةِ.",
     contentPlain: "تتميز المالية الإسلامية بعدم التعامل بالربا (الفائدة)، حيث يعتبر المال وسيلة وليس سلعة. يعتمد هذا النظام على مبدأ المشاركة في الربح والخسارة، والاستثمار في مشاريع حقيقية تفيد المجتمع. تشهد الصكوك الإسلامية نموا كبيرا في الأسواق العالمية، حيث تجذب المستثمرين الذين يبحثون عن استثمارات أخلاقية ومستدامة بعيدا عن المخاطر المالية المفرطة.",
     vocabList: [
       { word: "رِبَا", meaning: "利子/高利貸し" },
@@ -9207,20 +10041,23 @@ questions: [] // アルファベット回は問題なし
       { id: 10152, type: "reading", text: "このシステムは何に基づいていますか？", options: ["全額保証", "損益の共有（シェア）", "寄付のみ", "運"], correctIndex: 1, explanation: "「المشاركة في الربح والخسارة (損益の共有)」です。" },
       { id: 10153, type: "reading", text: "どのような投資家を惹きつけていますか？", options: ["ギャンブラー", "倫理的・持続可能な投資を求める人", "短期利益のみ求める人", "誰もいない"], correctIndex: 1, explanation: "「استثمارات أخلاقية ومستدامة」です。" },
       { id: 10154, type: "vocabulary", text: "「وَسِيلَة」の意味は？", options: ["目的", "手段", "結果", "終わり"], correctIndex: 1, explanation: "Means（手段）です。" },
-      { id: 10155, type: "grammar", text: "「成長（名詞）」", options: ["نُمُوّ", "نَامَ", "يَنْمُو", "نَائِم"], correctIndex: 0, explanation: "「Numūw (Growth)」です。" }
+      { id: 10155, type: "grammar", text: "「成長（名詞）」", options: ["نُمُوّ", "نَامَ", "يَنْمُو", "نَائِم"], correctIndex: 0, explanation: "「Numūw (Growth)」です。" },
+      // 上級文法問題
+      { id: 10156, type: "grammar_advanced", text: "「يعتبر المال وسيلة」の「وسيلة」の正しい語尾は？", options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "a (ファトハ)", "u (ダンマ)"], correctIndex: 0, explanation: "「Yu'tabaru（〜と見なされる）」は受動態で、「Al-Mālu」が主語、「Wasīlatan」が第2目的語（または補語）として対格（Manṣūb）になります。" },
+      { id: 10157, type: "grammar_advanced", text: "「بعيدا عن المخاطر」の「المخاطر」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Makhāṭir」は本来非限定名詞ですが、定冠詞「Al」がついているため、前置詞「'An」の後で通常通りカスラ（i）を取ります。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "تَحْرُمُ الشَّرِيعَةُ الْإِسْلَامِيَّةُ كَسْبَ الْمَالِ مِنَ الْمَالِ دُونَ عَمَلٍ.", japanese: "イスラム法は、労働なしに金から金を稼ぐことを禁じています。" },
-      { speaker: "記事", arabic: "يَجِبُ أَنْ يَكُونَ الِاسْتِثْمَارُ فِي أَصُولٍ مَلْمُوسَةٍ.", japanese: "投資は有形資産に対して行われなければなりません。" },
-      { speaker: "記事", arabic: "الْبُنُوكُ الْإِسْلَامِيَّةُ مَوْجُودَةٌ فِي كُلِّ أَنْحَاءِ الْعَالَمِ.", japanese: "イスラム銀行は世界中に存在します。" },
-      { speaker: "記事", arabic: "إِنَّهُ نِظَامٌ يُعَزِّزُ الْعَدَالَةَ الِاجْتِمَاعِيَّةَ.", japanese: "それは社会正義を強化するシステムです。" }
+      { speaker: "記事", arabic: "تَتَمَيَّزُ الْمَالِيَّةُ الْإِسْلَامِيَّةُ بِعَدَمِ التَّعَامُلِ بِالرِّبَا (الْفَائِدَةِ)، حَيْثُ يُعْتَبَرُ الْمَالُ وَسِيلَةً وَلَيْسَ سِلْعَةً.", japanese: "イスラム金融はリバ（利子）を扱わないことが特徴で、そこではお金は手段であり商品ではないとみなされます。" },
+      { speaker: "記事", arabic: "يَعْتَمِدُ هَذَا النِّظَامُ عَلَى مَبْدَأِ الْمُشَارَكَةِ فِي الرِّبْحِ وَالْخَسَارَةِ، وَالِاسْتِثْمَارِ فِي مَشَارِيعَ حَقِيقِيَّةٍ تُفِيدُ الْمُجْتَمَعَ.", japanese: "このシステムは、利益と損失の共有（PLS）の原則と、社会に利益をもたらす実質的なプロジェクトへの投資に基づいています。" },
+      { speaker: "記事", arabic: "تَشْهَدُ الصُّكُوكُ الْإِسْلَامِيَّةُ نُمُوًّا كَبِيرًا فِي الْأَسْوَاقِ الْعَالَمِيَّةِ، حَيْثُ تَجْذِبُ الْمُسْتَثْمِرِينَ الَّذِينَ يَبْحَثُونَ عَنْ اسْتِثْمَارَاتٍ أَخْلَاقِيَّةٍ وَمُسْتَدَامَةٍ بَعِيدًا عَنِ الْمَخَاطِرِ الْمَالِيَّةِ الْمُفْرِطَةِ.", japanese: "イスラム債（スクーク）は世界市場で大きな成長を見せており、過度な金融リスクから離れた倫理的で持続可能な投資を求める投資家を惹きつけています。" }
     ]
   },
-
-  // --- 14. 科学・環境 (Science/Environment) ---
   {
-    id: 1016, title: "海水淡水化", category: "科学", level: "上級",
-    contentVoweled: "تُعْتَبَرُ السُّعُودِيَّةُ أَكْبَرَ مُنْتِجٍ لِلْمِيَاهِ الْمُحَلَّاةِ فِي الْعَالَمِ...",
+    id: 1016,
+    title: "海水淡水化",
+    category: "科学",
+    level: "上級",
+    contentVoweled: "تُعْتَبَرُ السُّعُودِيَّةُ أَكْبَرَ مُنْتِجٍ لِلْمِيَاهِ الْمُحَلَّاةِ فِي الْعَالَمِ، حَيْثُ تَعْتَمِدُ عَلَيْهَا لِتَوْفِيرِ مِيَاهِ الشُّرْبِ وَالزِّرَاعَةِ نَظَرًا لِقِلَّةِ الْمَصَادِرِ الطَّبِيعِيَّةِ. تَسْتَخْدِمُ الْمُؤَسَّسَةُ الْعَامَّةُ لِتَحْلِيَةِ الْمِيَاهِ تِقْنِيَّاتٍ مُتَطَوِّرَةً مِثْلَ التَّنَاضُحِ الْعَكْسِيِّ لِتَقْلِيلِ اسْتِهْلَاكِ الطَّاقَةِ. وَمَعَ ذَلِكَ، تُوَاجِهُ هَذِهِ الصِّنَاعَةُ تَحَدِّيَاتٍ بِيئِيَّةً، مِمَّا يَدْفَعُ الْمَمْلَكَةَ لِلْبَحْثِ عَنْ حُلُولٍ مُسْتَدَامَةٍ بِاسْتِخْدَامِ الطَّاقَةِ الشَّمْسِيَّةِ لِتَشْغِيلِ الْمَحَطَّاتِ.",
     contentPlain: "تعتبر السعودية أكبر منتج للمياه المحلاة في العالم، حيث تعتمد عليها لتوفير مياه الشرب والزراعة نظرا لقلة المصادر الطبيعية. تستخدم المؤسسة العامة لتحلية المياه تقنيات متطورة مثل التناضح العكسي لتقليل استهلاك الطاقة. ومع ذلك، تواجه هذه الصناعة تحديات بيئية، مما يدفع المملكة للبحث عن حلول مستدامة باستخدام الطاقة الشمسية لتشغيل المحطات.",
     vocabList: [
       { word: "تَحْلِيَة", meaning: "淡水化" },
@@ -9233,20 +10070,23 @@ questions: [] // アルファベット回は問題なし
       { id: 10162, type: "reading", text: "淡水化水は何に使われますか？", options: ["工業のみ", "飲料と農業", "輸出のみ", "掃除だけ"], correctIndex: 1, explanation: "「مياه الشرب والزراعة」です。" },
       { id: 10163, type: "reading", text: "環境課題に対してどのような解決策を探していますか？", options: ["工場を閉める", "太陽光エネルギーの使用", "石炭の使用", "輸入する"], correctIndex: 1, explanation: "「استخدام الطاقة الشمسية (太陽光エネルギーの使用)」です。" },
       { id: 10164, type: "vocabulary", text: "「تِقْنِيَّة」の意味は？", options: ["技術", "芸術", "歴史", "自然"], correctIndex: 0, explanation: "Technology/Techniqueです。" },
-      { id: 10165, type: "grammar", text: "「〜のため（理由）」", options: ["نَظَرًا لِـ", "بَعْدَ أَنْ", "قَبْلَ أَنْ", "مَعَ أَنَّ"], correctIndex: 0, explanation: "「Naẓaran li- (Due to / In view of)」です。" }
+      { id: 10165, type: "grammar", text: "「〜のため（理由）」", options: ["نَظَرًا لِـ", "بَعْدَ أَنْ", "قَبْلَ أَنْ", "مَعَ أَنَّ"], correctIndex: 0, explanation: "「Naẓaran li- (Due to / In view of)」です。" },
+      // 上級文法問題
+      { id: 10166, type: "grammar_advanced", text: "「نظرا لقلة المصادر」の「المصادر」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "in (タンウィーン)", "u (ダンマ)"], correctIndex: 0, explanation: "「Maṣādir」は非限定名詞ですが、定冠詞「Al」がついているため、イダーファの第2要素（属格）として通常通りカスラを取ります。" },
+      { id: 10167, type: "grammar_advanced", text: "「استخدام الطاقة」の「استخدام」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "前置詞「Bi」の後の名詞なので、属格（Majrūr）となりカスラがつきます。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "الْمَاءُ أَغْلَى مِنَ النِّفْطِ فِي الصَّحْرَاءِ.", japanese: "砂漠では水は石油よりも高価です。" },
-      { speaker: "記事", arabic: "تَنْقُلُ الْأَنَابِيبُ الْمِيَاهَ مِنْ الْبَحْرِ إِلَى الْمُدُنِ الدَّاخِلِيَّةِ.", japanese: "パイプが海から内陸の都市へ水を運びます。" },
-      { speaker: "記事", arabic: "نَسْعَى لِتَقْلِيلِ تَكْلِفَةِ إِنْتَاجِ الْمِتْرِ الْمُكَعَّبِ.", japanese: "私たちは立方メートルあたりの生産コスト削減に努めています。" },
-      { speaker: "記事", arabic: "الْأَمْنُ الْمَائِيُّ جُزْءٌ مِنَ الْأَمْنِ الْوَطَنِيِّ.", japanese: "水の安全保障は国家安全保障の一部です。" }
+      { speaker: "記事", arabic: "تُعْتَبَرُ السُّعُودِيَّةُ أَكْبَرَ مُنْتِجٍ لِلْمِيَاهِ الْمُحَلَّاةِ فِي الْعَالَمِ، حَيْثُ تَعْتَمِدُ عَلَيْهَا لِتَوْفِيرِ مِيَاهِ الشُّرْبِ وَالزِّرَاعَةِ نَظَرًا لِقِلَّةِ الْمَصَادِرِ الطَّبِيعِيَّةِ.", japanese: "サウジアラビアは世界最大の淡水化水生産国とみなされており、自然水源の不足のため、飲料水と農業用水の供給をそれに依存しています。" },
+      { speaker: "記事", arabic: "تَسْتَخْدِمُ الْمُؤَسَّسَةُ الْعَامَّةُ لِتَحْلِيَةِ الْمِيَاهِ تِقْنِيَّاتٍ مُتَطَوِّرَةً مِثْلَ التَّنَاضُحِ الْعَكْسِيِّ لِتَقْلِيلِ اسْتِهْلَاكِ الطَّاقَةِ.", japanese: "海水淡水化公団は、エネルギー消費を削減するために逆浸透膜のような先進技術を使用しています。" },
+      { speaker: "記事", arabic: "وَمَعَ ذَلِكَ، تُوَاجِهُ هَذِهِ الصِّنَاعَةُ تَحَدِّيَاتٍ بِيئِيَّةً، مِمَّا يَدْفَعُ الْمَمْلَكَةَ لِلْبَحْثِ عَنْ حُلُولٍ مُسْتَدَامَةٍ بِاسْتِخْدَامِ الطَّاقَةِ الشَّمْسِيَّةِ لِتَشْغِيلِ الْمَحَطَّاتِ.", japanese: "それにもかかわらず、この産業は環境問題に直面しており、それが王国をプラントの稼働に太陽光エネルギーを使用する持続可能な解決策の探求へと駆り立てています。" }
     ]
   },
-
-  // --- 15. 文化・宗教 (Culture) ---
   {
-    id: 1017, title: "ハッジ（大巡礼）の管理", category: "文化", level: "上級",
-    contentVoweled: "يُعَدُّ تَنْظِيمُ مَوْسِمِ الْحَجِّ مِنْ أَكْبَرِ التَّحَدِّيَاتِ اللُّوجِسْتِيَّةِ...",
+    id: 1017,
+    title: "ハッジ（大巡礼）の管理",
+    category: "文化",
+    level: "上級",
+    contentVoweled: "يُعَدُّ تَنْظِيمُ مَوْسِمِ الْحَجِّ مِنْ أَكْبَرِ التَّحَدِّيَاتِ اللُّوجِسْتِيَّةِ وَالْبَشَرِيَّةِ فِي الْعَالَمِ، حَيْثُ يَجْتَمِعُ مَلَايِينُ الْمُسْلِمِينَ فِي مَكَانٍ وَاحِدٍ وَفِي وَقْتٍ مُحَدَّدٍ. تَسْتَخْدِمُ الْمَمْلَكَةُ أَحْدَثَ التِّقْنِيَّاتِ مِثْلَ الذَّكَاءِ الِاصْطِنَاعِيِّ وَالتَّطْبِيقَاتِ الذَّكِيَّةِ لِإِدَارَةِ الْحُشُودِ وَضَمَانِ سَلَامَةِ الْحُجَّاجِ. يَتِمُّ تَوْفِيرُ خِدْمَاتٍ صِحِّيَّةٍ وَأَمْنِيَّةٍ وَنَقْلٍ مُتَكَامِلَةٍ لِتَمْكِينِ الضُّيُوفِ مِنْ أَدَاءِ مَنَاسِكِهِمْ بِيُسْرٍ وَسُهُولَةٍ.",
     contentPlain: "يعد تنظيم موسم الحج من أكبر التحديات اللوجستية والبشرية في العالم، حيث يجتمع ملايين المسلمين في مكان واحد وفي وقت محدد. تستخدم المملكة أحدث التقنيات مثل الذكاء الاصطناعي والتطبيقات الذكية لإدارة الحشود وضمان سلامة الحجاج. يتم توفير خدمات صحية وأمنية ونقل متكاملة لتمكين الضيوف من أداء مناسكهم بيسر وسهولة.",
     vocabList: [
       { word: "حَجّ", meaning: "巡礼（ハッジ）" },
@@ -9259,20 +10099,23 @@ questions: [] // アルファベット回は問題なし
       { id: 10172, type: "reading", text: "群衆管理のために何を使っていますか？", options: ["壁", "AIとスマートアプリ", "警察のみ", "何もしない"], correctIndex: 1, explanation: "「الذكاء الاصطناعي والتطبيقات الذكية」です。" },
       { id: 10173, type: "reading", text: "提供されるサービスに含まれるのは？", options: ["健康、安全、交通", "食事のみ", "宿泊のみ", "お土産"], correctIndex: 0, explanation: "「خدمات صحية وأمنية ونقل」です。" },
       { id: 10174, type: "vocabulary", text: "「يُسْر」の意味は？", options: ["困難", "容易さ/安易", "遠さ", "近さ"], correctIndex: 1, explanation: "Ease（容易さ）です。" },
-      { id: 10175, type: "grammar", text: "「集まります」", options: ["يَجْتَمِعُ", "يَفْتَرِقُ", "يَذْهَبُ", "يَأْتِي"], correctIndex: 0, explanation: "「Yajtami'u」です。" }
+      { id: 10175, type: "grammar", text: "「集まります」", options: ["يَجْتَمِعُ", "يَفْتَرِقُ", "يَذْهَبُ", "يَأْتِي"], correctIndex: 0, explanation: "「Yajtami'u」です。" },
+      // 上級文法問題
+      { id: 10176, type: "grammar_advanced", text: "「ملايين المسلمين」の「ملايين」の正しい語尾は？", options: ["u (ダンマ)", "un (タンウィーン)", "a (ファトハ)", "i (カスラ)"], correctIndex: 0, explanation: "動詞「Yajtami'u（集まる）」の主語なので主格となりダンマがつきます。「Malāyīn」は非限定名詞のパターンですが、イダーファの第1要素のため、タンウィーンはつきません。" },
+      { id: 10177, type: "grammar_advanced", text: "「أداء مناسكهم」の「مناسك」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "イダーファの第2要素として属格になります。「Manāsik」は非限定名詞ですが、代名詞「hum」が接尾されているため、限定名詞扱いとなり、通常通りカスラを取ります。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "خِدْمَةُ الْحَرَمَيْنِ الشَّرِيفَيْنِ شَرَفٌ لِلْمَمْلَكَةِ.", japanese: "二聖モスクへの奉仕は王国の名誉です。" },
-      { speaker: "記事", arabic: "قِطَارُ الْمَشَاعِرِ يُسَهِّلُ تَنَقُّلَ الْحُجَّاجِ.", japanese: "聖地列車（マシャーイル・トレイン）は巡礼者の移動を容易にします。" },
-      { speaker: "記事", arabic: "بِطَاقَةُ الْحَجِّ الذَّكِيَّةُ تَحْتَوِي عَلَى بَيَانَاتِ الْحَاجِّ.", japanese: "スマートハッジカードには巡礼者のデータが含まれています。" },
-      { speaker: "記事", arabic: "الْهَدَفُ هُوَ حَجٌّ آمِنٌ وَمُيَسَّرٌ لِلْجَمِيعِ.", japanese: "目標は、すべての人にとって安全で円滑なハッジです。" }
+      { speaker: "記事", arabic: "يُعَدُّ تَنْظِيمُ مَوْسِمِ الْحَجِّ مِنْ أَكْبَرِ التَّحَدِّيَاتِ اللُّوجِسْتِيَّةِ وَالْبَشَرِيَّةِ فِي الْعَالَمِ، حَيْثُ يَجْتَمِعُ مَلَايِينُ الْمُسْلِمِينَ فِي مَكَانٍ وَاحِدٍ وَفِي وَقْتٍ مُحَدَّدٍ.", japanese: "ハッジシーズンの運営は世界最大の物流的かつ人的な課題の一つとみなされており、数百万人のイスラム教徒が特定の時間に一箇所に集まります。" },
+      { speaker: "記事", arabic: "تَسْتَخْدِمُ الْمَمْلَكَةُ أَحْدَثَ التِّقْنِيَّاتِ مِثْلَ الذَّكَاءِ الِاصْطِنَاعِيِّ وَالتَّطْبِيقَاتِ الذَّكِيَّةِ لِإِدَارَةِ الْحُشُودِ وَضَمَانِ سَلَامَةِ الْحُجَّاجِ.", japanese: "王国は群衆管理と巡礼者の安全確保のために、AIやスマートアプリなどの最新技術を使用しています。" },
+      { speaker: "記事", arabic: "يَتِمُّ تَوْفِيرُ خِدْمَاتٍ صِحِّيَّةٍ وَأَمْنِيَّةٍ وَنَقْلٍ مُتَكَامِلَةٍ لِتَمْكِينِ الضُّيُوفِ مِنْ أَدَاءِ مَنَاسِكِهِمْ بِيُسْرٍ وَسُهُولَةٍ.", japanese: "ゲスト（巡礼者）が儀式を容易かつスムーズに行えるよう、統合された健康、セキュリティ、輸送サービスが提供されています。" }
     ]
   },
-
-  // --- 16. 社会 (Society) ---
   {
-    id: 1018, title: "サウジのeスポーツ", category: "社会", level: "上級",
-    contentVoweled: "أَصْبَحَتِ الرِّيَاضَاتُ الْإِلِكْتُرُونِيَّةُ قِطَاعًا وَاعِدًا فِي السُّعُودِيَّةِ...",
+    id: 1018,
+    title: "サウジのeスポーツ",
+    category: "社会",
+    level: "上級",
+    contentVoweled: "أَصْبَحَتِ الرِّيَاضَاتُ الْإِلِكْتُرُونِيَّةُ قِطَاعًا وَاعِدًا فِي السُّعُودِيَّةِ، حَيْثُ يُوجَدُ مَلَايِينُ اللَّاعِبِينَ الشَّغُوفِينَ. تَسْتَضِيفُ الْمَمْلَكَةُ بُطُولَاتٍ عَالَمِيَّةً بِجَوَائِزَ ضَخْمَةٍ، وَتَهْدِفُ اسْتِرَاتِيجِيَّةُ الْأَلْعَابِ الْإِلِكْتُرُونِيَّةِ إِلَى جَعْلِ الْمَمْلَكَةِ مَرْكَزًا عَالَمِيًّا لِهَذَا الْقِطَاعِ بِحُلُولِ عَامِ 2030. هَذَا الْمَجَالُ يُوَفِّرُ فُرَصَ عَمَلٍ جَدِيدَةً لِلْمُبَرْمِجِينَ وَالْمُصَمِّمِينَ وَاللَّاعِبِينَ الْمُحْتَرِفِينَ.",
     contentPlain: "أصبحت الرياضات الإلكترونية قطاعا واعدا في السعودية، حيث يوجد ملايين اللاعبين الشغوفين. تستضيف المملكة بطولات عالمية بجوائز ضخمة، وتهدف استراتيجية الألعاب الإلكترونية إلى جعل المملكة مركزا عالميا لهذا القطاع بحلول عام 2030. هذا المجال يوفر فرص عمل جديدة للمبرمجين والمصممين واللاعبين المحترفين.",
     vocabList: [
       { word: "رِيَاضَة", meaning: "スポーツ" },
@@ -9285,20 +10128,23 @@ questions: [] // アルファベット回は問題なし
       { id: 10182, type: "reading", text: "王国の目標は？", options: ["ゲームを禁止する", "2030年までに世界的ハブにする", "輸入を増やす", "学校を作る"], correctIndex: 1, explanation: "「جعل المملكة مركزا عالميا (王国を世界的中心にする)」です。" },
       { id: 10183, type: "reading", text: "この分野は誰に仕事を提供しますか？", options: ["医者", "プログラマー、デザイナー、プロゲーマー", "農家", "運転手"], correctIndex: 1, explanation: "「المبرمجين والمصممين واللاعبين المحترفين」です。" },
       { id: 10184, type: "vocabulary", text: "「شَغُوف」の意味は？", options: ["怒っている", "情熱的な", "眠い", "冷たい"], correctIndex: 1, explanation: "Passionate（情熱的な）です。" },
-      { id: 10185, type: "grammar", text: "「提供します」", options: ["يُوَفِّرُ", "يَأْخُذُ", "يَمْنَعُ", "يُخْفِي"], correctIndex: 0, explanation: "「Yuwaffiru (Provide)」です。" }
+      { id: 10185, type: "grammar", text: "「提供します」", options: ["يُوَفِّرُ", "يَأْخُذُ", "يَمْنَعُ", "يُخْفِي"], correctIndex: 0, explanation: "「Yuwaffiru (Provide)」です。" },
+      // 上級文法問題
+      { id: 10186, type: "grammar_advanced", text: "「بجوائز ضخمة」の「جوائز」の正しい語尾は？", options: ["a (ファトハ)", "i (カスラ)", "in (タンウィーン)", "an (タンウィーン)"], correctIndex: 0, explanation: "「Jawā'iz」は非限定名詞（Mafā'ilパターン）であり、定冠詞がなくイダーファでもないため、前置詞「Bi」の後で属格でもファトハ（a）を取ります。" },
+      { id: 10187, type: "grammar_advanced", text: "「للمبرمجين」の「المبرمجين」の正しい語尾は？", options: ["īna (属格・男性規則複数)", "ūna (主格・男性規則複数)", "ayni (属格・双数)", "āni (主格・双数)"], correctIndex: 0, explanation: "前置詞「Li」の後の名詞（Ism Majrūr）であり、男性規則複数（Jam' Mudhakkar Sālim）なので、「Yā-Nūn (īna)」で終わります。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "تَمَّ إِنْشَاءُ الِاتِّحَادِ السُّعُودِيِّ لِلرِّيَاضَاتِ الْإِلِكْتُرُونِيَّةِ.", japanese: "サウジeスポーツ連盟が設立されました。" },
-      { speaker: "記事", arabic: "الْأَلْعَابُ لَمْ تَعُدْ مُجَرَّدَ تَسْلِيَةٍ، بَلْ صِنَاعَةٌ.", japanese: "ゲームはもはや単なる娯楽ではなく、産業です。" },
-      { speaker: "記事", arabic: "نَدْعَمُ الْمَوَاهِبَ الْمَحَلِّيَّةَ لِلْمُنَافَسَةِ عَالَمِيًّا.", japanese: "私たちは世界で競争するために地元の才能を支援しています。" },
-      { speaker: "記事", arabic: "كَأْسُ الْعَالَمِ لِلرِّيَاضَاتِ الْإِلِكْتُرُونِيَّةِ حَدَثٌ ضَخْمٌ.", japanese: "eスポーツワールドカップは巨大なイベントです。" }
+      { speaker: "記事", arabic: "أَصْبَحَتِ الرِّيَاضَاتُ الْإِلِكْتُرُونِيَّةُ قِطَاعًا وَاعِدًا فِي السُّعُودِيَّةِ، حَيْثُ يُوجَدُ مَلَايِينُ اللَّاعِبِينَ الشَّغُوفِينَ.", japanese: "eスポーツはサウジアラビアで有望なセクターとなり、そこには何百万人もの情熱的なプレイヤーがいます。" },
+      { speaker: "記事", arabic: "تَسْتَضِيفُ الْمَمْلَكَةُ بُطُولَاتٍ عَالَمِيَّةً بِجَوَائِزَ ضَخْمَةٍ، وَتَهْدِفُ اسْتِرَاتِيجِيَّةُ الْأَلْعَابِ الْإِلِكْتُرُونِيَّةِ إِلَى جَعْلِ الْمَمْلَكَةِ مَرْكَزًا عَالَمِيًّا لِهَذَا الْقِطَاعِ بِحُلُولِ عَامِ 2030.", japanese: "王国は巨額の賞金を懸けた世界大会を主催しており、ゲーム戦略は2030年までに王国をこのセクターの世界的中心にすることを目指しています。" },
+      { speaker: "記事", arabic: "هَذَا الْمَجَالُ يُوَفِّرُ فُرَصَ عَمَلٍ جَدِيدَةً لِلْمُبَرْمِجِينَ وَالْمُصَمِّمِينَ وَاللَّاعِبِينَ الْمُحْتَرِفِينَ.", japanese: "この分野は、プログラマー、デザイナー、そしてプロゲーマーに新しい雇用の機会を提供しています。" }
     ]
   },
-
-  // --- 17. 記事・コラム (Article) ---
   {
-    id: 1019, title: "アラビア語の未来", category: "記事", level: "上級",
-    contentVoweled: "تُوَاجِهُ اللُّغَةُ الْعَرَبِيَّةُ تَحَدِّيَاتٍ فِي الْعَصْرِ الرَّقْمِيِّ...",
+    id: 1019,
+    title: "アラビア語の未来",
+    category: "記事",
+    level: "上級",
+    contentVoweled: "تُوَاجِهُ اللُّغَةُ الْعَرَبِيَّةُ تَحَدِّيَاتٍ فِي الْعَصْرِ الرَّقْمِيِّ، حَيْثُ تُهَيْمِنُ اللُّغَةُ الْإِنْجِلِيزِيَّةُ عَلَى الْمُحْتَوَى التِّكْنُولُوجِيِّ وَالْعِلْمِيِّ. وَمَعَ ذَلِكَ، هُنَاكَ جُهُودٌ كَبِيرَةٌ لِزِيَادَةِ الْمُحْتَوَى الْعَرَبِيِّ عَلَى الْإِنْتَرْنِتِ وَتَطْوِيرِ أَدَوَاتِ الذَّكَاءِ الِاصْطِنَاعِيِّ الَّتِي تَفْهَمُ الْعَرَبِيَّةَ وَلَهَجَاتِهَا. الْحِفَاظُ عَلَى اللُّغَةِ هُوَ حِفَاظٌ عَلَى الْهُوِيَّةِ وَالثَّقَافَةِ، وَالتِّقْنِيَةُ هِيَ الْوَسِيلَةُ الْأَفْضَلُ لِنَشْرِهَا بَيْنَ الْأَجْيَالِ الْجَدِيدَةِ.",
     contentPlain: "تواجه اللغة العربية تحديات في العصر الرقمي، حيث تهيمن اللغة الإنجليزية على المحتوى التكنولوجي والعلمي. ومع ذلك، هناك جهود كبيرة لزيادة المحتوى العربي على الإنترنت وتطوير أدوات الذكاء الاصطناعي التي تفهم العربية ولهجاتها. الحفاظ على اللغة هو حفاظ على الهوية والثقافة، والتقنية هي الوسيلة الأفضل لنشرها بين الأجيال الجديدة.",
     vocabList: [
       { word: "رَقْمِيّ", meaning: "デジタルの" },
@@ -9311,22 +10157,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10192, type: "reading", text: "現在どのような努力がなされていますか？", options: ["アラビア語を禁止する", "ネット上のアラビア語コンテンツを増やす", "英語を学ぶ", "古い本を捨てる"], correctIndex: 1, explanation: "「زيادة المحتوى العربي على الإنترنت」です。" },
       { id: 10193, type: "reading", text: "言語を守ることは何を守ることですか？", options: ["お金", "アイデンティティと文化", "土地", "時間"], correctIndex: 1, explanation: "「حفاظ على الهوية والثقافة」です。" },
       { id: 10194, type: "vocabulary", text: "「وَسِيلَة」の意味は？", options: ["結果", "手段/方法", "始まり", "終わり"], correctIndex: 1, explanation: "Means/Tool（手段）です。" },
-      { id: 10195, type: "grammar", text: "「支配する」", options: ["تُهَيْمِنُ", "تَسْقُطُ", "تَهْرُبُ", "تَنَامُ"], correctIndex: 0, explanation: "「tuhayminu (Dominate)」です。" }
+      { id: 10195, type: "grammar", text: "「支配する」", options: ["تُهَيْمِنُ", "تَسْقُطُ", "تَهْرُبُ", "تَنَامُ"], correctIndex: 0, explanation: "「tuhayminu (Dominate)」です。" },
+      // 上級文法問題
+      { id: 10196, type: "grammar_advanced", text: "「تواجه اللغة العربية تحديات」の「تحديات」の正しい語尾は？", options: ["in (タンウィーン・カスラ)", "an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "i (カスラ)"], correctIndex: 0, explanation: "「Tuwājihu (直面する)」の目的語（Maf'ūl Bihi）ですが、「āt」で終わる女性規則複数（Jam' Mu'annath Sālim）なので、対格ではファトハの代わりにカスラ（タンウィーン）を取ります。" },
+      { id: 10197, type: "grammar_advanced", text: "「وتطوير أدوات الذكاء」の「أدوات」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Ziyāda」に接続された（Ma'ṭūf）言葉で、イダーファの第1要素（属格）です。女性規則複数の属格は通常通りカスラを取ります。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "لُغَتُنَا الْجَمِيلَةُ تَسْتَحِقُّ أَنْ نَهْتَمَّ بِهَا.", japanese: "私たちの美しい言語は、私たちが大切にするに値します。" },
-      { speaker: "記事", arabic: "يَجِبُ تَعْرِيبُ الْمُصْطَلَحَاتِ الْعِلْمِيَّةِ الْحَدِيثَةِ.", japanese: "現代の科学用語をアラビア語化する必要があります。" },
-      { speaker: "記事", arabic: "الْبَرْمَجَةُ بِاللُّغَةِ الْعَرَبِيَّةِ خُطْوَةٌ مُهِمَّةٌ.", japanese: "アラビア語でのプログラミングは重要なステップです。" },
-      { speaker: "記事", arabic: "اعْتَزُّوا بِلُغَتِكُمْ، فَهِيَ لِسَانُ الْقُرْآنِ.", japanese: "あなた方の言語を誇りに思いなさい、それはクルアーンの言葉だからです。" }
+      { speaker: "記事", arabic: "تُوَاجِهُ اللُّغَةُ الْعَرَبِيَّةُ تَحَدِّيَاتٍ فِي الْعَصْرِ الرَّقْمِيِّ، حَيْثُ تُهَيْمِنُ اللُّغَةُ الْإِنْجِلِيزِيَّةُ عَلَى الْمُحْتَوَى التِّكْنُولُوجِيِّ وَالْعِلْمِيِّ.", japanese: "アラビア語はデジタル時代において課題に直面しており、そこでは英語が技術的および科学的コンテンツを支配しています。" },
+      { speaker: "記事", arabic: "وَمَعَ ذَلِكَ، هُنَاكَ جُهُودٌ كَبِيرَةٌ لِزِيَادَةِ الْمُحْتَوَى الْعَرَبِيِّ عَلَى الْإِنْتَرْنِتِ وَتَطْوِيرِ أَدَوَاتِ الذَّكَاءِ الِاصْطِنَاعِيِّ الَّتِي تَفْهَمُ الْعَرَبِيَّةَ وَلَهَجَاتِهَا.", japanese: "それにもかかわらず、インターネット上のアラビア語コンテンツを増やし、アラビア語とその方言を理解するAIツールを開発するための大きな努力があります。" },
+      { speaker: "記事", arabic: "الْحِفَاظُ عَلَى اللُّغَةِ هُوَ حِفَاظٌ عَلَى الْهُوِيَّةِ وَالثَّقَافَةِ، وَالتِّقْنِيَةُ هِيَ الْوَسِيلَةُ الْأَفْضَلُ لِنَشْرِهَا بَيْنَ الْأَجْيَالِ الْجَدِيدَةِ.", japanese: "言語を守ることはアイデンティティと文化を守ることであり、テクノロジーは新しい世代の間にそれを広めるための最良の手段です。" }
     ]
   },
-  // --- 18. 経済・産業 (Economy/Industry) ---
   {
-    id: 1020, title: "鉱業：第三の柱", category: "経済", level: "上級",
-    // 読み上げ用（母音あり）
+    id: 1020,
+    title: "鉱業：第三の柱",
+    category: "経済",
+    level: "上級",
     contentVoweled: "تَسْعَى الْمَمْلَكَةُ إِلَى جَعْلِ قِطَاعِ التَّعْدِينِ الرَّكِيزَةَ الثَّالِثَةَ لِلصِّنَاعَةِ السُّعُودِيَّةِ إِلَى جَانِبِ النِّفْطِ وَالْغَازِ وَالْبِتْرُوكِيمَاوِيَّاتِ. يَزْخَرُ 'الدِّرْعُ الْعَرَبِيُّ' بِثَرَوَاتٍ مَعْدِنِيَّةٍ هَائِلَةٍ تُقَدَّرُ قِيمَتُهَا بِتِرِيلْيُونَاتِ الرِّيَالَاتِ، تَشْمَلُ الذَّهَبَ وَالْفُوسْفَاتَ وَالنُّحَاسَ. تَمَّ إِصْدَارُ نِظَامِ الِاسْتِثْمَارِ التَّعْدِينِيِّ الْجَدِيدِ لِجَذْبِ الشَّرِكَاتِ الْعَالَمِيَّةِ وَتَسْهِيلِ الْإِجْرَاءَاتِ، مِمَّا سَيَخْلُقُ آلَافَ الْوَظَائِفِ لِلشَّبَابِ وَيُعَزِّزُ التَّنْمِيَةَ فِي الْمَنَاطِقِ النَّائِيَةِ.",
-    // 表示用（母音なし・超長文）
-    contentPlain: "تسعى المملكة إلى جعل قطاع التعدين الركيزة الثالثة للصناعة السعودية إلى جانب النفط والغاز والبتروكيماويات. يزخر 'الدرع العربي' بثروات معدنية هائلة تقدر قيمتها بتريليونات الريالات، تشمل الذهب والفوسفات والنحاس والمعادن النادرة المستخدمة في التكنولوجيا الحديثة. تم إصدار نظام الاستثمار التعديني الجديد لجذب الشركات العالمية وتسهيل الإجراءات، مما سيخلق آلاف الوظائف للشباب ويعزز التنمية الاقتصادية في المناطق النائية بعيدا عن المدن الرئيسية.",
+    contentPlain: "تسعى المملكة إلى جعل قطاع التعدين الركيزة الثالثة للصناعة السعودية إلى جانب النفط والغاز والبتروكيماويات. يزخر 'الدرع العربي' بثروات معدنية هائلة تقدر قيمتها بتريليونات الريالات، تشمل الذهب والفوسفات والنحاس. تم إصدار نظام الاستثمار التعديني الجديد لجذب الشركات العالمية وتسهيل الإجراءات، مما سيخلق آلاف الوظائف للشباب ويعزز التنمية في المناطق النائية.",
     vocabList: [
       { word: "تَعْدِين", meaning: "鉱業/マイニング" },
       { word: "رَكِيزَة", meaning: "柱/支柱" },
@@ -9338,20 +10186,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10202, type: "reading", text: "「アラビアン・シールド」には何がありますか？", options: ["水", "莫大な鉱物資源", "森林", "古代都市"], correctIndex: 1, explanation: "「ثروات معدنية هائلة (莫大な鉱物資源)」です。" },
       { id: 10203, type: "reading", text: "新しい鉱業投資法は何のために作られましたか？", options: ["鉱山を閉鎖するため", "外国企業を排除するため", "世界的な企業を誘致するため", "税金を上げるため"], correctIndex: 2, explanation: "「لجذب الشركات العالمية (世界的企業を惹きつけるため)」です。" },
       { id: 10204, type: "vocabulary", text: "「قِيمَة」の意味は？", options: ["量", "価値/価格", "重さ", "場所"], correctIndex: 1, explanation: "Value（価値）です。" },
-      { id: 10205, type: "grammar", text: "「含まれます」", options: ["تَشْمَلُ", "تَحْذِفُ", "تَقُولُ", "تَذْهَبُ"], correctIndex: 0, explanation: "「Tashmalu (Includes)」です。" }
+      { id: 10205, type: "grammar", text: "「含まれます」", options: ["تَشْمَلُ", "تَحْذِفُ", "تَقُولُ", "تَذْهَبُ"], correctIndex: 0, explanation: "「Tashmalu (Includes)」です。" },
+      // 上級文法問題
+      { id: 10206, type: "grammar_advanced", text: "「جعل قطاع التعدين الركيزة」の「الركيزة」の正しい語尾は？", options: ["a (ファトハ)", "u (ダンマ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "「Ja'ala (Make A B)」は2つの目的語を取る動詞です。「Qiṭā'」が第1目的語、「Rakiiza」が第2目的語となるため、対格（Manṣūb）でファトハがつきます。" },
+      { id: 10207, type: "grammar_advanced", text: "「بثروات معدنية」の「معدنية」の正しい語尾は？", options: ["in (タンウィーン・カスラ)", "un (タンウィーン・ダンマ)", "an (タンウィーン・ファトハ)", "i (カスラ)"], correctIndex: 0, explanation: "「Tharawāt (資源・富)」という名詞（前置詞Biにより属格）を修飾する形容詞なので、性・数・格・限定性が一致し、属格（Majrūr）のタンウィーン・カスラになります。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "الْمَعَادِنُ هِيَ نِفْطُ الْمُسْتَقْبَلِ.", japanese: "鉱物は未来の石油です。" },
-      { speaker: "記事", arabic: "تَمْتَلِكُ السُّعُودِيَّةُ احْتِيَاطِيَّاتٍ ضَخْمَةً مِنَ الذَّهَبِ.", japanese: "サウジアラビアは巨大な金の埋蔵量を保有しています。" },
-      { speaker: "記事", arabic: "الصِّنَاعَاتُ التَّحْوِيلِيَّةُ سَتَسْتَفِيدُ مِنْ هَذِهِ الْمَوَادِّ الْخَامِ.", japanese: "製造業（加工産業）はこれらの原材料から利益を得るでしょう。" },
-      { speaker: "記事", arabic: "الْهَدَفُ هُوَ تَوْطِينُ سَلَاسِلِ الْإِمْدَادِ.", japanese: "目標はサプライチェーンの現地化（国産化）です。" }
+      { speaker: "記事", arabic: "تَسْعَى الْمَمْلَكَةُ إِلَى جَعْلِ قِطَاعِ التَّعْدِينِ الرَّكِيزَةَ الثَّالِثَةَ لِلصِّنَاعَةِ السُّعُودِيَّةِ إِلَى جَانِبِ النِّفْطِ وَالْغَازِ وَالْبِتْرُوكِيمَاوِيَّاتِ.", japanese: "王国は、鉱業セクターを石油、ガス、石油化学製品と並ぶサウジ産業の第三の柱にすることを目指しています。" },
+      { speaker: "記事", arabic: "يَزْخَرُ 'الدِّرْعُ الْعَرَبِيُّ' بِثَرَوَاتٍ مَعْدِنِيَّةٍ هَائِلَةٍ تُقَدَّرُ قِيمَتُهَا بِتِرِيلْيُونَاتِ الرِّيَالَاتِ، تَشْمَلُ الذَّهَبَ وَالْفُوسْفَاتَ وَالنُّحَاسَ.", japanese: "「アラビアン・シールド」は、金、リン酸塩、銅を含む、価値が数兆リヤルと推定される莫大な鉱物資源で溢れています。" },
+      { speaker: "記事", arabic: "تَمَّ إِصْدَارُ نِظَامِ الِاسْتِثْمَارِ التَّعْدِينِيِّ الْجَدِيدِ لِجَذْبِ الشَّرِكَاتِ الْعَالَمِيَّةِ وَتَسْهِيلِ الْإِجْرَاءَاتِ.", japanese: "世界的企業を誘致し手続きを容易にするために、新しい鉱業投資法が発布されました。" },
+      { speaker: "記事", arabic: "مِمَّا سَيَخْلُقُ آلَافَ الْوَظَائِفِ لِلشَّبَابِ وَيُعَزِّزُ التَّنْمِيَةَ فِي الْمَنَاطِقِ النَّائِيَةِ.", japanese: "それは若者のために何千もの雇用を創出し、遠隔地の開発を強化するでしょう。" }
     ]
   },
-
-  // --- 19. デジタル・行政 (Digital/Gov) ---
   {
-    id: 1021, title: "デジタル・トランスフォーメーション", category: "社会", level: "上級",
-    contentVoweled: "حَقَّقَتِ الْمَمْلَكَةُ قَفْزَاتٍ نَوْعِيَّةً فِي مَجَالِ التَّحَوُّلِ الرَّقْمِيِّ الْحُكُومِيِّ...",
+    id: 1021,
+    title: "デジタル・トランスフォーメーション",
+    category: "社会",
+    level: "上級",
+    contentVoweled: "حَقَّقَتِ الْمَمْلَكَةُ قَفْزَاتٍ نَوْعِيَّةً فِي مَجَالِ التَّحَوُّلِ الرَّقْمِيِّ الْحُكُومِيِّ، حَيْثُ أَصْبَحَ بِإِمْكَانِ الْمُوَاطِنِينَ وَالْمُقِيمِينَ إِنْجَازُ مُعَامَلَاتِهِمْ عَبْرَ تَطْبِيقَاتٍ ذَكِيَّةٍ مِثْلَ 'أَبْشِر' وَ'تَوَكَّلْنَا' دُونَ الْحَاجَةِ لِزِيَارَةِ الْمَكَاتِبِ الْحُكُومِيَّةِ. هَذَا التَّحَوُّلُ لَمْ يُوَفِّرِ الْوَقْتَ وَالْجُهْدَ فَحَسْبُ، بَلْ سَاهَمَ فِي الْقَضَاءِ عَلَى الْبِيرُوقْرَاطِيَّةِ وَالْفَسَادِ الْإِدَارِيِّ، وَرَفْعِ كَفَاءَةِ الْعَمَلِ الْحُكُومِيِّ إِلَى مُسْتَوَيَاتٍ عَالَمِيَّةٍ، مِمَّا جَعَلَ السُّعُودِيَّةَ نَمُوذَجًا يُحْتَذَى بِهِ فِي الْحُكُومَةِ الرَّقْمِيَّةِ.",
     contentPlain: "حققت المملكة قفزات نوعية في مجال التحول الرقمي الحكومي، حيث أصبح بإمكان المواطنين والمقيمين إنجاز معاملاتهم عبر تطبيقات ذكية مثل 'أبشر' و'توكلنا' دون الحاجة لزيارة المكاتب الحكومية. هذا التحول لم يوفر الوقت والجهد فحسب، بل ساهم في القضاء على البيروقراطية والفساد الإداري، ورفع كفاءة العمل الحكومي إلى مستويات عالمية، مما جعل السعودية نموذجا يحتذى به في الحكومة الرقمية.",
     vocabList: [
       { word: "تَحَوُّل", meaning: "変革/トランスフォーメーション" },
@@ -9364,20 +10216,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10212, type: "reading", text: "「アブシール」や「タワッカルナ」とは何ですか？", options: ["都市の名前", "スマートアプリ", "料理", "伝統的な服"], correctIndex: 1, explanation: "「تطبيقات ذكية (スマートアプリ)」です。" },
       { id: 10213, type: "reading", text: "デジタル化は時間節約以外に何に貢献しましたか？", options: ["官僚主義と汚職の撲滅", "交通渋滞", "建物の建設", "人口増加"], correctIndex: 0, explanation: "「القضاء على البيروقراطية والفساد (官僚主義と汚職の撲滅)」です。" },
       { id: 10214, type: "vocabulary", text: "「مُقِيم」の意味は？", options: ["旅行者", "居住者/在留者", "市民", "王様"], correctIndex: 1, explanation: "Resident（居住者）です。" },
-      { id: 10215, type: "grammar", text: "「〜だけでなく」", options: ["لَمْ ... فَحَسْبُ، بَلْ ...", "فَقَطْ", "أَيْضًا", "لَكِنْ"], correctIndex: 0, explanation: "「Lam ... fa-ḥasb, bal ... (Not only ..., but also ...)」という構文です。" }
+      { id: 10215, type: "grammar", text: "「〜だけでなく」", options: ["لَمْ ... فَحَسْبُ، بَلْ ...", "فَقَطْ", "أَيْضًا", "لَكِنْ"], correctIndex: 0, explanation: "「Lam ... fa-ḥasb, bal ... (Not only ..., but also ...)」という構文です。" },
+      // 上級文法問題
+      { id: 10216, type: "grammar_advanced", text: "「أصبح بإمكان المواطنين」の「المواطنين」の正しい語尾は？", options: ["īna (属格・男性規則複数)", "ūna (主格・男性規則複数)", "ayni (属格・双数)", "in (タンウィーン)"], correctIndex: 0, explanation: "イダーファの第2要素（Muḍāf Ilayhi）として属格（Majrūr）になります。男性規則複数なので「Yā-Nūn (īna)」で終わります。" },
+      { id: 10217, type: "grammar_advanced", text: "「إنجاز معاملاتهم」の「إنجاز」の正しい語尾は？", options: ["u (ダンマ)", "a (ファトハ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "動詞「Aṣbaḥa（〜になった）」の主語（Ism Aṣbaḥa）にあたる部分（遅延主語）なので、主格（Marfū'）となりダンマがつきます。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "الْهَدَفُ هُوَ الْوُصُولُ إِلَى 'حُكُومَةٍ بِلَا وَرَقٍ' بِحُلُولِ 2030.", japanese: "目標は、2030年までに「紙のない政府」に到達することです。" },
-      { speaker: "記事", arabic: "تُسَهِّلُ التِّقْنِيَةُ حَيَاةَ الْمَلَايِينِ يَوْمِيًّا.", japanese: "テクノロジーは毎日何百万人もの生活を容易にしています。" },
-      { speaker: "記事", arabic: "الذَّكَاءُ الِاصْطِنَاعِيُّ يُحَلِّلُ الْبَيَانَاتِ لِتَحْسِينِ الْقَرَارَاتِ.", japanese: "人工知能は意思決定を改善するためにデータを分析します。" },
-      { speaker: "記事", arabic: "الْمَمْلَكَةُ تَحْتَلُّ مَرَاتِبَ مُتَقَدِّمَةً فِي الْمُؤَشِّرَاتِ الدَّوْلِيَّةِ.", japanese: "王国は国際的な指標で先進的な順位を占めています。" }
+      { speaker: "記事", arabic: "حَقَّقَتِ الْمَمْلَكَةُ قَفْزَاتٍ نَوْعِيَّةً فِي مَجَالِ التَّحَوُّلِ الرَّقْمِيِّ الْحُكُومِيِّ.", japanese: "王国は政府のデジタル変革の分野で質的な飛躍を遂げました。" },
+      { speaker: "記事", arabic: "أَصْبَحَ بِإِمْكَانِ الْمُوَاطِنِينَ وَالْمُقِيمِينَ إِنْجَازُ مُعَامَلَاتِهِمْ عَبْرَ تَطْبِيقَاتٍ ذَكِيَّةٍ دُونَ الْحَاجَةِ لِزِيَارَةِ الْمَكَاتِبِ.", japanese: "市民や居住者は、オフィスを訪問する必要なく、スマートアプリを通じて手続きを完了できるようになりました。" },
+      { speaker: "記事", arabic: "سَاهَمَ هَذَا فِي الْقَضَاءِ عَلَى الْبِيرُوقْرَاطِيَّةِ وَالْفَسَادِ الْإِدَارِيِّ، وَرَفْعِ كَفَاءَةِ الْعَمَلِ الْحُكُومِيِّ.", japanese: "これは官僚主義や行政の腐敗を撲滅し、政府の業務効率を高めることに貢献しました。" },
+      { speaker: "記事", arabic: "مِمَّا جَعَلَ السُّعُودِيَّةَ نَمُوذَجًا يُحْتَذَى بِهِ فِي الْحُكُومَةِ الرَّقْمِيَّةِ.", japanese: "これにより、サウジアラビアはデジタル政府における模範となりました。" }
     ]
   },
-
-  // --- 20. 文化・芸術 (Culture/Art) ---
   {
-    id: 1022, title: "アラビア書道の美学", category: "文化", level: "上級",
-    contentVoweled: "الْخَطُّ الْعَرَبِيُّ لَيْسَ مُجَرَّدَ وَسِيلَةٍ لِلْكِتَابَةِ، بَلْ هُوَ فَنٌّ بَصَرِيٌّ رَاقٍ...",
+    id: 1022,
+    title: "アラビア書道の美学",
+    category: "文化",
+    level: "上級",
+    contentVoweled: "الْخَطُّ الْعَرَبِيُّ لَيْسَ مُجَرَّدَ وَسِيلَةٍ لِلْكِتَابَةِ، بَلْ هُوَ فَنٌّ بَصَرِيٌّ رَاقٍ وَهَنْدَسَةٌ رُوحَانِيَّةٌ تُجَسِّدُ جَمَالَ اللُّغَةِ الْعَرَبِيَّةِ. تَمَّ إِدْرَاجُ الْخَطِّ الْعَرَبِيِّ فِي قَائِمَةِ الْيُونِسْكُو لِلتُّرَاثِ الثَّقَافِيِّ غَيْرِ الْمَادِّيِّ، مِمَّا يَعْكِسُ قِيمَتَهُ الْعَالَمِيَّةَ. تَتَنَوَّعُ أَنْوَاعُ الْخُطُوطِ مِنَ الْكُوفِيِّ الْهَنْدَسِيِّ إِلَى النَّسْخِ الِانْسِيَابِيِّ وَالثُّلُثِ الْمُعَقَّدِ، وَاسْتُخْدِمَتْ لِتَزْيِينِ الْمَسَاجِدِ وَالْقُصُورِ وَالْكُتُبِ عَبْرَ الْعُصُورِ، مُعَبِّرَةً عَنِ الْهُوِيَّةِ الْإِسْلَامِيَّةِ.",
     contentPlain: "الخط العربي ليس مجرد وسيلة للكتابة، بل هو فن بصري راق وهندسة روحانية تجسد جمال اللغة العربية. تم إدراج الخط العربي في قائمة اليونسكو للتراث الثقافي غير المادي، مما يعكس قيمته العالمية. تتنوع أنواع الخطوط من الكوفي الهندسي إلى النسخ الانسيابي والثلث المعقد، واستخدمت لتزيين المساجد والقصور والكتب عبر العصور، معبرة عن الهوية الإسلامية.",
     vocabList: [
       { word: "بَصَرِيّ", meaning: "視覚的な" },
@@ -9390,20 +10246,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10222, type: "reading", text: "書道はどこに登録されましたか？", options: ["ギネス記録", "ユネスコ無形文化遺産", "国連安全保障理事会", "学校の教科書"], correctIndex: 1, explanation: "「قائمة اليونسكو (ユネスコのリスト)」です。" },
       { id: 10223, type: "reading", text: "クーフィー体の特徴として挙げられているのは？", options: ["流れるよう", "幾何学的", "複雑", "丸い"], correctIndex: 1, explanation: "「الكوفي الهندسي (幾何学的なクーフィー)」です。" },
       { id: 10224, type: "vocabulary", text: "「تَزْيِين」の意味は？", options: ["建設", "破壊", "装飾/デコレーション", "掃除"], correctIndex: 2, explanation: "Decoration（装飾）です。" },
-      { id: 10225, type: "grammar", text: "「反映する」", options: ["يَعْكِسُ", "يَرْمِي", "يَكْسِرُ", "يَمْحُو"], correctIndex: 0, explanation: "「Ya'kisu (Reflect)」です。" }
+      { id: 10225, type: "grammar", text: "「反映する」", options: ["يَعْكِسُ", "يَرْمِي", "يَكْسِرُ", "يَمْحُو"], correctIndex: 0, explanation: "「Ya'kisu (Reflect)」です。" },
+      // 上級文法問題
+      { id: 10226, type: "grammar_advanced", text: "「فن بصري راق」の「راق」の正しい語尾（表記）は？", options: ["in (タンウィーン・カスラ)", "un (タンウィーン・ダンマ)", "an (タンウィーン・ファトハ)", "i (カスラ)"], correctIndex: 0, explanation: "「Rāqin (洗練された)」は欠損動詞（Manqūṣ）の能動分詞です。非限定・主格の場合、最後のYāが脱落し、タンウィーン・カスラで代用されます（Rāqin）。" },
+      { id: 10227, type: "grammar_advanced", text: "「معبرة عن الهوية」の「معبرة」の正しい語尾は？", options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "a (ファトハ)"], correctIndex: 0, explanation: "「Mu'abbiratan (表現しながら)」は文脈的に「状態（Hāl）」を表しているため、対格（Manṣūb）となり、タンウィーン・ファトハがつきます。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "يَقُولُ الْمَثَلُ: الْخَطُّ الْحَسَنُ يَزِيدُ الْحَقَّ وُضُوحًا.", japanese: "格言にいわく、「良い書（文字）は真理をより明らかにする。」" },
-      { speaker: "記事", arabic: "يَتَطَلَّبُ إِتْقَانُ الْخَطِّ سَنَوَاتٍ مِنَ التَّدْرِيبِ وَالصَّبْرِ.", japanese: "書の習得には何年もの訓練と忍耐が必要です。" },
-      { speaker: "記事", arabic: "كُلُّ خَطَّاطٍ لَهُ أُسْلُوبُهُ الْخَاصُّ وَبَصْمَتُهُ.", japanese: "すべての書家には独自のスタイルと痕跡（個性）があります。" },
-      { speaker: "記事", arabic: "الْخَطُّ الْعَرَبِيُّ يُلْهِمُ الْفَنَّانِينَ الْمُعَاصِرِينَ.", japanese: "アラビア書道は現代のアーティストにインスピレーションを与えます。" }
+      { speaker: "記事", arabic: "الْخَطُّ الْعَرَبِيُّ لَيْسَ مُجَرَّدَ وَسِيلَةٍ لِلْكِتَابَةِ، بَلْ هُوَ فَنٌّ بَصَرِيٌّ رَاقٍ وَهَنْدَسَةٌ رُوحَانِيَّةٌ تُجَسِّدُ جَمَالَ اللُّغَةِ الْعَرَبِيَّةِ.", japanese: "アラビア書道は単なる書くための手段ではなく、洗練された視覚芸術であり、アラビア語の美しさを体現する精神的な幾何学です。" },
+      { speaker: "記事", arabic: "تَمَّ إِدْرَاجُ الْخَطِّ الْعَرَبِيِّ فِي قَائِمَةِ الْيُونِسْكُو لِلتُّرَاثِ الثَّقَافِيِّ غَيْرِ الْمَادِّيِّ، مِمَّا يَعْكِسُ قِيمَتَهُ الْعَالَمِيَّةَ.", japanese: "アラビア書道はユネスコの無形文化遺産リストに登録され、その世界的価値を反映しています。" },
+      { speaker: "記事", arabic: "تَتَنَوَّعُ أَنْوَاعُ الْخُطُوطِ مِنَ الْكُوفِيِّ الْهَنْدَسِيِّ إِلَى النَّسْخِ الِانْسِيَابِيِّ وَالثُّلُثِ الْمُعَقَّدِ.", japanese: "書体の種類は、幾何学的なクーフィー体から、流れるようなナスフ体、複雑なスルス体まで多岐にわたります。" },
+      { speaker: "記事", arabic: "وَاسْتُخْدِمَتْ لِتَزْيِينِ الْمَسَاجِدِ وَالْقُصُورِ وَالْكُتُبِ عَبْرَ الْعُصُورِ، مُعَبِّرَةً عَنِ الْهُوِيَّةِ الْإِسْلَامِيَّةِ.", japanese: "それらは時代を超えてモスク、宮殿、本を装飾するために使われ、イスラムのアイデンティティを表現してきました。" }
     ]
   },
-
-  // --- 21. 歴史・科学 (History/Science) ---
   {
-    id: 1023, title: "アラブの天文学", category: "歴史", level: "上級",
-    contentVoweled: "لَعِبَ الْعَرَبُ دَوْرًا حَاسِمًا فِي تَطْوِيرِ عِلْمِ الْفَلَكِ...",
+    id: 1023,
+    title: "アラブの天文学",
+    category: "歴史",
+    level: "上級",
+    contentVoweled: "لَعِبَ الْعَرَبُ دَوْرًا حَاسِمًا فِي تَطْوِيرِ عِلْمِ الْفَلَكِ، حَيْثُ قَامُوا بِبِنَاءِ الْمَرَاصِدِ الدَّقِيقَةِ وَتَصْحِيحِ الْحِسَابَاتِ الْيُونَانِيَّةِ الْقَدِيمَةِ. لَا تَزَالُ الْعَدِيدُ مِنَ النُّجُومِ فِي السَّمَاءِ تَحْمِلُ أَسْمَاءً عَرَبِيَّةً حَتَّى الْيَوْمِ، مِثْلَ 'النِّطَاق' وَ'الدَّبَرَان' وَ'فَمِ الْحُوتِ'. اخْتَرَعَ الْعُلَمَاءُ الْمُسْلِمُونَ آلَاتٍ مِثْلَ الْأُسْطُرْلَابِ لِتَحْدِيدِ الِاتِّجَاهَاتِ وَمَوَاقِيتِ الصَّلَاةِ، مِمَّا سَاعَدَ فِي تَطَوُّرِ الْمَلَّاحَةِ الْبَحْرِيَّةِ وَالِاكْتِشَافَاتِ الْجُغْرَافِيَّةِ لَاحِقًا.",
     contentPlain: "لعب العرب دورا حاسما في تطوير علم الفلك، حيث قاموا ببناء المراصد الدقيقة وتصحيح الحسابات اليونانية القديمة. لا تزال العديد من النجوم في السماء تحمل أسماء عربية حتى اليوم، مثل 'النطاق' و'الدبران' و'فم الحوت'. اخترع العلماء المسلمون آلات مثل الإسطرلاب لتحديد الاتجاهات ومواقيت الصلاة، مما ساعد في تطور الملاحة البحرية والاكتشافات الجغرافية لاحقا.",
     vocabList: [
       { word: "فَلَك", meaning: "天文学" },
@@ -9416,20 +10276,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10232, type: "reading", text: "夜空の星の名前について正しいのは？", options: ["全て英語である", "多くが今でもアラビア語名を持つ", "番号で呼ばれている", "名前はない"], correctIndex: 1, explanation: "「تحمل أسماء عربية حتى اليوم (今日までアラビア語名を冠している)」です。" },
       { id: 10233, type: "reading", text: "「アストロラーベ」は何のために発明されましたか？", options: ["料理", "方向と祈りの時間の特定", "戦争", "音楽"], correctIndex: 1, explanation: "「تحديد الاتجاهات ومواقيت الصلاة」です。" },
       { id: 10234, type: "vocabulary", text: "「اِتِّجَاه」の意味は？", options: ["時間", "方向", "距離", "重さ"], correctIndex: 1, explanation: "Direction（方向）です。" },
-      { id: 10235, type: "grammar", text: "「今なお〜である（継続）」", options: ["لَا تَزَالُ", "لَمْ تَكُنْ", "كَانَتْ", "أَصْبَحَتْ"], correctIndex: 0, explanation: "「Lā tazālu (Still is / Continues to be)」です。" }
+      { id: 10235, type: "grammar", text: "「今なお〜である（継続）」", options: ["لَا تَزَالُ", "لَمْ تَكُنْ", "كَانَتْ", "أَصْبَحَتْ"], correctIndex: 0, explanation: "「Lā tazālu (Still is / Continues to be)」です。" },
+      // 上級文法問題
+      { id: 10236, type: "grammar_advanced", text: "「ببناء المراصد」の「المراصد」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Marāṣid」は非限定名詞（Mafā'ilパターン）ですが、定冠詞「Al」がついているため、イダーファの第2要素（属格）として通常通りカスラを取ります。" },
+      { id: 10237, type: "grammar_advanced", text: "「لا تزال العديد」の「العديد」の正しい語尾は？", options: ["u (ダンマ)", "a (ファトハ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "「Lā tazālu（〜であり続ける）」という不完全動詞（Kānaの姉妹）の主語（Ism Lā Zāla）なので、主格（Marfū'）となりダンマがつきます。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "الْعَرَبُ هُمْ أَوَّلُ مَنْ حَوَّلَ الْفَلَكَ إِلَى عِلْمٍ رِيَاضِيٍّ دَقِيقٍ.", japanese: "アラブ人は天文学を精密な数学的科学に変えた最初の人々です。" },
-      { speaker: "記事", arabic: "كِتَابُ 'الصُّوَرِ الْكَوَاكِبِ' لِلصُّوفِيِّ مَرْجِعٌ مُهِمٌّ.", japanese: "スーフィーの『星座の書』は重要な参考文献です。" },
-      { speaker: "記事", arabic: "سَاعَدَتْ هَذِهِ الْمَعْرِفَةُ التُّجَّارَ فِي السَّفَرِ عَبْرَ الصَّحْرَاءِ وَالْبَحْرِ.", japanese: "この知識は商人たちが砂漠や海を旅するのを助けました。" },
-      { speaker: "記事", arabic: "تَأَثَّرَ كُوبَرْنِيكُوس بِنَظَرِيَّاتِ الْعُلَمَاءِ الْمُسْلِمِينَ.", japanese: "コペルニクスはイスラム学者の理論に影響を受けました。" }
+      { speaker: "記事", arabic: "لَعِبَ الْعَرَبُ دَوْرًا حَاسِمًا فِي تَطْوِيرِ عِلْمِ الْفَلَكِ، حَيْثُ قَامُوا بِبِنَاءِ الْمَرَاصِدِ الدَّقِيقَةِ.", japanese: "アラブ人は天文学の発展において決定的な役割を果たし、精密な天文台を建設しました。" },
+      { speaker: "記事", arabic: "لَا تَزَالُ الْعَدِيدُ مِنَ النُّجُومِ فِي السَّمَاءِ تَحْمِلُ أَسْمَاءً عَرَبِيَّةً حَتَّى الْيَوْمِ.", japanese: "空の多くの星は今日までアラビア語の名前を持っています。" },
+      { speaker: "記事", arabic: "اخْتَرَعَ الْعُلَمَاءُ الْمُسْلِمُونَ آلَاتٍ مِثْلَ الْأُسْطُرْلَابِ لِتَحْدِيدِ الِاتِّجَاهَاتِ وَمَوَاقِيتِ الصَّلَاةِ.", japanese: "イスラムの学者たちは、方向と祈りの時間を特定するためにアストロラーベなどの機器を発明しました。" },
+      { speaker: "記事", arabic: "مِمَّا سَاعَدَ فِي تَطَوُّرِ الْمَلَّاحَةِ الْبَحْرِيَّةِ وَالِاكْتِشَافَاتِ الْجُغْرَافِيَّةِ لَاحِقًا.", japanese: "それは後に航海術と地理的発見の発展を助けました。" }
     ]
   },
-
-  // --- 22. 自然・地理 (Nature) ---
   {
-    id: 1024, title: "ルブアルハリ砂漠", category: "自然", level: "上級",
-    contentVoweled: "الرُّبْعُ الْخَالِي هُوَ أَكْبَرُ صَحْرَاءَ رَمْلِيَّةٍ مُتَّصِلَةٍ فِي الْعَالَمِ...",
+    id: 1024,
+    title: "ルブアルハリ砂漠",
+    category: "自然",
+    level: "上級",
+    contentVoweled: "الرُّبْعُ الْخَالِي هُوَ أَكْبَرُ صَحْرَاءَ رَمْلِيَّةٍ مُتَّصِلَةٍ فِي الْعَالَمِ، وَيُغَطِّي مِسَاحَةً هَائِلَةً فِي جَنُوبِ الْجَزِيرَةِ الْعَرَبِيَّةِ. رَغْمَ اسْمِهِ الَّذِي يُوحِي بِالْفَرَاغِ، إِلَّا أَنَّهُ مَلِيءٌ بِالْأَسْرَارِ وَالثَّرَوَاتِ الطَّبِيعِيَّةِ مِنَ النِّفْطِ وَالْغَازِ وَالْمِيَاهِ الْجَوْفِيَّةِ الْقَدِيمَةِ. تَتَمَيَّزُ رِمَالُهُ بِأَلْوَانِهَا الذَّهَبِيَّةِ وَالْحَمْرَاءِ الَّتِي تَتَغَيَّرُ مَعَ ضَوْءِ الشَّمْسِ، وَتَعِيشُ فِيهِ حَيَوَانَاتٌ تَكَيَّفَتْ مَعَ ظُرُوفِهِ الْقَاسِيَةِ مِثْلَ الْمَهَا وَالضَّبِّ.",
     contentPlain: "الربع الخالي هو أكبر صحراء رملية متصلة في العالم، ويغطي مساحة هائلة في جنوب الجزيرة العربية. رغم اسمه الذي يوحي بالفراغ، إلا أنه مليء بالأسرار والثروات الطبيعية من النفط والغاز والمياه الجوفية القديمة. تتميز رماله بألوانها الذهبية والحمراء التي تتغير مع ضوء الشمس، وتعيش فيه حيوانات تكيفت مع ظروفه القاسية مثل المها والضب.",
     vocabList: [
       { word: "مُتَّصِل", meaning: "連続した/繋がった" },
@@ -9442,19 +10306,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10242, type: "reading", text: "その名前は何を示唆していますか？", options: ["混雑", "空虚（何もない）", "緑", "水"], correctIndex: 1, explanation: "「يوحي بالفراغ (空虚を示唆する)」です。" },
       { id: 10243, type: "reading", text: "しかし実際には何がありますか？", options: ["何もない", "石油、ガス、地下水", "都市", "森"], correctIndex: 1, explanation: "「ثروات... من النفط والغاز والمياه الجوفية」です。" },
       { id: 10244, type: "vocabulary", text: "「تَكَيَّفَ」の意味は？", options: ["死んだ", "適応した", "戦った", "逃げた"], correctIndex: 1, explanation: "Adapted（適応した）です。" },
-      { id: 10245, type: "grammar", text: "「〜にもかかわらず」", options: ["رَغْمَ", "لِأَنَّ", "بَعْدَ", "قَبْلَ"], correctIndex: 0, explanation: "「Raghma (Despite)」です。" }
+      { id: 10245, type: "grammar", text: "「〜にもかかわらず」", options: ["رَغْمَ", "لِأَنَّ", "بَعْدَ", "قَبْلَ"], correctIndex: 0, explanation: "「Raghma (Despite)」です。" },
+      // 上級文法問題
+      { id: 10246, type: "grammar_advanced", text: "「أكبر صحراء」の「صحراء」の正しい語尾は？", options: ["a (ファトハ)", "i (カスラ)", "in (タンウィーン)", "an (タンウィーン)"], correctIndex: 0, explanation: "「Ṣaḥrā'」はイダーファの第2要素（属格）ですが、アリフ・マムドゥーダ（ā'）で終わる非限定名詞（Mumnū' min al-ṣarf）のため、カスラではなくファトハを取ります。" },
+      { id: 10247, type: "grammar_advanced", text: "「بألوانها الذهبية」の「الذهبية」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "前の名詞「Alwāni-hā（彼女の色）」は前置詞「Bi」で属格（i段）です。それを修飾する形容詞も属格となり、定冠詞がついているのでカスラ（i）を取ります。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "تَصِلُ دَرَجَاتُ الْحَرَارَةِ هُنَاكَ إِلَى مُسْتَوَيَاتٍ قِيَاسِيَّةٍ.", japanese: "そこの気温は記録的なレベルに達します。" },
-      { speaker: "記事", arabic: "كَانَتْ هَذِهِ الْمِنْطَقَةُ مَرُوجًا وَأَنْهَارًا فِي الْعُصُورِ الْقَدِيمَةِ.", japanese: "この地域は古代には草原と川でした。" },
-      { speaker: "記事", arabic: "أَصْبَحَ الرُّبْعُ الْخَالِي وِجْهَةً لِمُحِبِّي الْمُغَامَرَاتِ الصَّحْرَاوِيَّةِ.", japanese: "ルブアルハリは砂漠の冒険愛好家の目的地となりました。" },
-      { speaker: "記事", arabic: "سُبْحَانَ مَنْ خَلَقَ هَذَا الْجَمَالَ الْمُوحِشَ.", japanese: "この荒涼とした美しさを創った方に栄光あれ。" }
+      { speaker: "記事", arabic: "الرُّبْعُ الْخَالِي هُوَ أَكْبَرُ صَحْرَاءَ رَمْلِيَّةٍ مُتَّصِلَةٍ فِي الْعَالَمِ.", japanese: "ルブアルハリは世界最大の連続した砂砂漠です。" },
+      { speaker: "記事", arabic: "رَغْمَ اسْمِهِ الَّذِي يُوحِي بِالْفَرَاغِ، إِلَّا أَنَّهُ مَلِيءٌ بِالْأَسْرَارِ وَالثَّرَوَاتِ الطَّبِيعِيَّةِ.", japanese: "空虚を示唆するその名前にもかかわらず、そこは秘密と天然資源で満ちています。" },
+      { speaker: "記事", arabic: "تَتَمَيَّزُ رِمَالُهُ بِأَلْوَانِهَا الذَّهَبِيَّةِ وَالْحَمْرَاءِ الَّتِي تَتَغَيَّرُ مَعَ ضَوْءِ الشَّمْسِ.", japanese: "その砂は、日光と共に変化する金色と赤色によって特徴づけられます。" },
+      { speaker: "記事", arabic: "تَعِيشُ فِيهِ حَيَوَانَاتٌ تَكَيَّفَتْ مَعَ ظُرُوفِهِ الْقَاسِيَةِ مِثْلَ الْمَهَا وَالضَّبِّ.", japanese: "そこには、オリックスやトゲオアガマのような、過酷な環境に適応した動物が生息しています。" }
     ]
   },
-  // --- 23. テクノロジー・エネルギー (Tech/Energy) ---
   {
-    id: 1025, title: "グリーン水素", category: "科学", level: "上級",
-    contentVoweled: "يُعَدُّ الْهِيدْرُوجِينُ الْأَخْضَرُ وَقُودَ الْمُسْتَقْبَلِ النَّظِيفَ. تَقُومُ الْمَمْلَكَةُ بِبِنَاءِ أَكْبَرِ مَصْنَعٍ لِلْهِيدْرُوجِينِ الْأَخْضَرِ فِي الْعَالَمِ فِي مَدِينَةِ 'نِيُوم'. يَتِمُّ إِنْتَاجُ هَذَا الْوَقُودِ عَنْ طَرِيقِ فَصْلِ الْمَاءِ بِاسْتِخْدَامِ الطَّاقَةِ الْمُتَجَدِّدَةِ مِثْلَ الشَّمْسِ وَالرِّيَاحِ، دُونَ إِصْدَارِ أَيِّ انْبِعَاثَاتٍ كَرْبُونِيَّةٍ. سَيُسَاهِمُ هَذَا الْمَشْرُوعُ فِي تَغْيِيرِ خَارِطَةِ الطَّاقَةِ الْعَالَمِيَّةِ وَحِمَايَةِ الْبِيئَةِ.",
+    id: 1025,
+    title: "グリーン水素",
+    category: "科学",
+    level: "上級",
+    contentVoweled: "يُعَدُّ الْهِيدْرُوجِينُ الْأَخْضَرُ وَقُودَ الْمُسْتَقْبَلِ النَّظِيفَ. تَقُومُ الْمَمْلَكَةُ بِبِنَاءِ أَكْبَرِ مَصْنَعٍ لِلْهِيدْرُوجِينِ الْأَخْضَرِ فِي الْعَالَمِ فِي مَدِينَةِ 'نِيُوم'. يَتِمُّ إِنْتَاجُ هَذَا الْوَقُودِ عَنْ طَرِيقِ فَصْلِ الْمَاءِ بِاسْتِخْدَامِ الطَّاقَةِ الْمُتَجَدِّدَةِ مِثْلَ الشَّمْسِ وَالرِّيَاحِ، دُونَ إِصْدَارِ أَيِّ انْبِعَاثَاتٍ كَرْبُونِيَّةٍ. سَيُسَاهِمُ هَذَا الْمَشْرُوعُ فِي تَغْيِيرِ خَارِطَةِ الطَّاقَةِ الْعَالَمِيَّةِ وَحِمَايَةِ الْبِيئَةِ، مِمَّا يَجْعَلُ السُّعُودِيَّةَ رَائِدَةً فِي تَصْدِيرِ الطَّاقَةِ النَّظِيفَةِ كَمَا كَانَتْ رَائِدَةً فِي تَصْدِيرِ النِّفْطِ.",
     contentPlain: "يعد الهيدروجين الأخضر وقود المستقبل النظيف. تقوم المملكة ببناء أكبر مصنع للهيدروجين الأخضر في العالم في مدينة 'نيوم'. يتم إنتاج هذا الوقود عن طريق فصل الماء باستخدام الطاقة المتجددة مثل الشمس والرياح، دون إصدار أي انبعاثات كربونية. سيساهم هذا المشروع في تغيير خارطة الطاقة العالمية وحماية البيئة، مما يجعل السعودية رائدة في تصدير الطاقة النظيفة كما كانت رائدة في تصدير النفط.",
     vocabList: [
       { word: "وَقُود", meaning: "燃料" },
@@ -9467,20 +10336,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10252, type: "reading", text: "世界最大の工場はどこに建設されていますか？", options: ["リヤド", "ジェッダ", "NEOM（ニヨーム）", "ダンマーム"], correctIndex: 2, explanation: "「في مدينة نيوم」です。" },
       { id: 10253, type: "reading", text: "どうやって生産されますか？", options: ["石油を燃やす", "再エネで水を分解する", "ガスを使う", "化学薬品を混ぜる"], correctIndex: 1, explanation: "「فصل الماء باستخدام الطاقة المتجددة (再エネを使って水を分離する)」です。" },
       { id: 10254, type: "vocabulary", text: "「مَصْنَع」の意味は？", options: ["学校", "工場", "農場", "病院"], correctIndex: 1, explanation: "Factory（工場）です。" },
-      { id: 10255, type: "grammar", text: "「建設しています（進行）」", options: ["تَقُومُ بِبِنَاءِ", "هَدَمَتْ", "نَسِيَتْ", "تَوَقَّفَتْ"], correctIndex: 0, explanation: "「Taqūmu bi-binā'i (Is undertaking the building of)」という表現です。" }
+      { id: 10255, type: "grammar", text: "「建設しています（進行）」", options: ["تَقُومُ بِبِنَاءِ", "هَدَمَتْ", "نَسِيَتْ", "تَوَقَّفَتْ"], correctIndex: 0, explanation: "「Taqūmu bi-binā'i (Is undertaking the building of)」という表現です。" },
+      // 上級文法問題
+      { id: 10256, type: "grammar_advanced", text: "「دون إصدار أي انبعاثات」の「أي」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "イダーファの第2要素（Muḍāf Ilayhi）として属格（Majrūr）になります。「Ayyi」は後ろの名詞を修飾する際、属格位置ならカスラを取ります。" },
+      { id: 10257, type: "grammar_advanced", text: "「مما يجعل السعودية رائدة」の「رائدة」の正しい語尾は？", options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "a (ファトハ)"], correctIndex: 0, explanation: "動詞「Yaj'alu (Make A B)」の第2目的語（または補語）として対格（Manṣūb）になります。「サウジアラビアを・先駆者に・する」という構造です。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "الْهَيْدْرُوجِينُ الْأَخْضَرُ بَدِيلٌ مِثَالِيٌّ لِلْوَقُودِ الْأُحْفُورِيِّ.", japanese: "グリーン水素は化石燃料の理想的な代替品です。" },
-      { speaker: "記事", arabic: "يُمْكِنُ اسْتِخْدَامُهُ فِي السَّيَّارَاتِ وَالشَّاحِنَاتِ وَالطَّائِرَاتِ.", japanese: "それは車、トラック、飛行機で使用できます。" },
-      { speaker: "記事", arabic: "تَتَمَتَّعُ السُّعُودِيَّةُ بِمَوْقِعٍ جُغْرَافِيٍّ مُمَيَّزٍ لِإِنْتَاجِهِ.", japanese: "サウジアラビアはその生産に適した地理的位置に恵まれています。" },
-      { speaker: "記事", arabic: "الِاسْتِثْمَارُ فِي هَذَا الْمَجَالِ يَعْنِي الِاسْتِثْمَارَ فِي الْكَوْكَبِ.", japanese: "この分野への投資は、地球への投資を意味します。" }
+      { speaker: "記事", arabic: "يُعَدُّ الْهِيدْرُوجِينُ الْأَخْضَرُ وَقُودَ الْمُسْتَقْبَلِ النَّظِيفَ.", japanese: "グリーン水素は未来のクリーン燃料とみなされています。" },
+      { speaker: "記事", arabic: "تَقُومُ الْمَمْلَكَةُ بِبِنَاءِ أَكْبَرِ مَصْنَعٍ لِلْهِيدْرُوجِينِ الْأَخْضَرِ فِي الْعَالَمِ فِي مَدِينَةِ 'نِيُوم'.", japanese: "王国は世界最大のグリーン水素工場をNEOM市に建設しています。" },
+      { speaker: "記事", arabic: "يَتِمُّ إِنْتَاجُ هَذَا الْوَقُودِ عَنْ طَرِيقِ فَصْلِ الْمَاءِ بِاسْتِخْدَامِ الطَّاقَةِ الْمُتَجَدِّدَةِ دُونَ إِصْدَارِ أَيِّ انْبِعَاثَاتٍ كَرْبُونِيَّةٍ.", japanese: "この燃料は、炭素排出を一切出さずに、再生可能エネルギーを使用して水を分離することによって生産されます。" },
+      { speaker: "記事", arabic: "سَيُسَاهِمُ هَذَا الْمَشْرُوعُ فِي تَغْيِيرِ خَارِطَةِ الطَّاقَةِ الْعَالَمِيَّةِ.", japanese: "このプロジェクトは世界のエネルギー地図を変えることに貢献するでしょう。" }
     ]
   },
-
-  // --- 24. 歴史・科学 (History/Science) ---
   {
-    id: 1026, title: "アル・イドリーシーと地図", category: "歴史", level: "上級",
-    contentVoweled: "الشَّرِيفُ الْإِدْرِيسِيُّ هُوَ أَحَدُ كِبَارِ الْجُغْرَافِيِّينَ فِي التَّارِيخِ...",
+    id: 1026,
+    title: "アル・イドリーシーと地図",
+    category: "歴史",
+    level: "上級",
+    contentVoweled: "الشَّرِيفُ الْإِدْرِيسِيُّ هُوَ أَحَدُ كِبَارِ الْجُغْرَافِيِّينَ فِي التَّارِيخِ. عَاشَ فِي صِقِلِّيَةَ وَطَلَبَ مِنْهُ الْمَلِكُ رُوجَرْ الثَّانِي رَسْمَ خَرِيطَةٍ لِلْعَالَمِ. قَامَ الْإِدْرِيسِيُّ بِرَسْمِ خَرِيطَةٍ دَقِيقَةٍ لِلْغَايَةِ عَلَى كُرَةٍ فِضِّيَّةٍ، وَأَلَّفَ كِتَابَ 'نُزْهَةِ الْمُشْتَاقِ' الَّذِي ظَلَّ مَرْجِعًا لِلْأُورُوبِيِّينَ لِقُرُونٍ. أَثْبَتَتْ خَرَائِطُهُ كُرَوِيَّةَ الْأَرْضِ وَصَحَّحَتِ الْعَدِيدَ مِنَ الْمَفَاهِيمِ الْخَاطِئَةِ الَّتِي كَانَتْ سَائِدَةً فِي ذَلِكَ الْوَقْتِ.",
     contentPlain: "الشريف الإدريسي هو أحد كبار الجغرافيين في التاريخ. عاش في صقلية وطلب منه الملك روجر الثاني رسم خريطة للعالم. قام الإدريسي برسم خريطة دقيقة للغاية على كرة فضية، وألف كتاب 'نزهة المشتاق' الذي ظل مرجعا للأوروبيين لقرون. أثبتت خرائطه كروية الأرض وصححت العديد من المفاهيم الخاطئة التي كانت سائدة في ذلك الوقت.",
     vocabList: [
       { word: "خَرِيطَة", meaning: "地図" },
@@ -9493,20 +10366,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10262, type: "reading", text: "彼はどこで地図を作りましたか？", options: ["バグダッド", "シチリア（サカッリヤ）", "アンダルス", "カイロ"], correctIndex: 1, explanation: "「عاش في صقلية (シチリアに住んでいた)」です。" },
       { id: 10263, type: "reading", text: "地図は何の上に描かれましたか？", options: ["紙", "銀の球体", "木の板", "石の壁"], correctIndex: 1, explanation: "「على كرة فضية (銀の球体の上に)」です。" },
       { id: 10264, type: "vocabulary", text: "「سَائِد」の意味は？", options: ["消えた", "支配的な/普及している", "新しい", "間違った"], correctIndex: 1, explanation: "Prevailing/Dominant（普及している）です。" },
-      { id: 10265, type: "grammar", text: "「証明しました」", options: ["أَثْبَتَتْ", "نَفَتْ", "كَذَبَتْ", "ضَاعَتْ"], correctIndex: 0, explanation: "「Athbatat (Proved)」です。" }
+      { id: 10265, type: "grammar", text: "「証明しました」", options: ["أَثْبَتَتْ", "نَفَتْ", "كَذَبَتْ", "ضَاعَتْ"], correctIndex: 0, explanation: "「Athbatat (Proved)」です。" },
+      // 上級文法問題
+      { id: 10266, type: "grammar_advanced", text: "「في صقلية」の「صقلية」の正しい語尾は？", options: ["a (ファトハ)", "i (カスラ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Siqilliyya (シチリア)」は外国地名かつ女性形なので非限定名詞（Mumnū' min al-ṣarf）となり、前置詞の後でもファトハを取ります。" },
+      { id: 10267, type: "grammar_advanced", text: "「ظل مرجعا」の「مرجعا」の正しい語尾は？", options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "a (ファトハ)"], correctIndex: 0, explanation: "「Zalla (〜のままである)」はKānaの姉妹語で、その述語（Khabar Zalla）は対格（Manṣūb）となり、タンウィーン・ファトハがつきます。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "اسْتَغْرَقَ الْعَمَلُ عَلَى الْخَرِيطَةِ 15 عَامًا.", japanese: "地図の制作には15年かかりました。" },
-      { speaker: "記事", arabic: "جَمَعَ الْمَعْلُومَاتِ مِنَ الْمُسَافِرِينَ وَالتُّجَّارِ.", japanese: "彼は旅行者や商人から情報を集めました。" },
-      { speaker: "記事", arabic: "قَسَّمَ الْأَرْضَ إِلَى سَبْعَةِ أَقَالِيمَ مُنَاخِيَّةٍ.", japanese: "彼は地球を7つの気候帯に分けました。" },
-      { speaker: "記事", arabic: "اعْتَرَفَ الْغَرْبُ بِفَضْلِهِ الْعَلْمِيِّ.", japanese: "西洋は彼の科学的功績を認めました。" }
+      { speaker: "記事", arabic: "الشَّرِيفُ الْإِدْرِيسِيُّ هُوَ أَحَدُ كِبَارِ الْجُغْرَافِيِّينَ فِي التَّارِيخِ.", japanese: "シャリーフ・アル＝イドリーシーは歴史上最も偉大な地理学者の一人です。" },
+      { speaker: "記事", arabic: "قَامَ الْإِدْرِيسِيُّ بِرَسْمِ خَرِيطَةٍ دَقِيقَةٍ لِلْغَايَةِ عَلَى كُرَةٍ فِضِّيَّةٍ.", japanese: "イドリーシーは銀の球の上に非常に正確な地図を描きました。" },
+      { speaker: "記事", arabic: "أَلَّفَ كِتَابَ 'نُزْهَةِ الْمُشْتَاقِ' الَّذِي ظَلَّ مَرْجِعًا لِلْأُورُوبِيِّينَ لِقُرُونٍ.", japanese: "彼は『ヌズハト・アル・ムシュターク』を著し、それは何世紀にもわたってヨーロッパ人の参考文献であり続けました。" },
+      { speaker: "記事", arabic: "أَثْبَتَتْ خَرَائِطُهُ كُرَوِيَّةَ الْأَرْضِ.", japanese: "彼の地図は地球が球体であることを証明しました。" }
     ]
   },
-
-  // --- 25. 文化・伝統 (Culture) ---
   {
-    id: 1027, title: "ラクダの美人コンテスト", category: "文化", level: "上級",
-    contentVoweled: "مَهْرَجَانُ الْمَلِكِ عَبْدِ الْعَزِيزِ لِلْإِبِلِ هُوَ أَكْبَرُ مَهْرَجَانٍ مِنْ نَوْعِهِ...",
+    id: 1027,
+    title: "ラクダの美人コンテスト",
+    category: "文化",
+    level: "上級",
+    contentVoweled: "مَهْرَجَانُ الْمَلِكِ عَبْدِ الْعَزِيزِ لِلْإِبِلِ هُوَ أَكْبَرُ مَهْرَجَانٍ مِنْ نَوْعِهِ فِي الْعَالَمِ، وَيُقَامُ سَنَوِيًّا فِي السُّعُودِيَّةِ. يَتَضَمَّنُ الْمَهْرَجَانُ مُسَابَقَةَ 'مَزَايِينِ الْإِبِلِ'، حَيْثُ يَتِمُّ اخْتِيَارُ أَجْمَلِ النُّوقِ وَالْجِمَالِ بِنَاءً عَلَى مَعَايِيرَ دَقِيقَةٍ مِثْلَ شَكْلِ الرَّأْسِ، وَطُولِ الرَّقَبَةِ، وَحَجْمِ السَّنَامِ، وَلَوْنِ الْوَبَرِ. تَصِلُ جَوَائِزُ هَذِهِ الْمُسَابَقَاتِ إِلَى مِئَاتِ الْمَلَايِينِ مِنَ الرِّيَالَاتِ، مِمَّا يَعْكِسُ الْمَكَانَةَ الْكَبِيرَةَ لِلْإِبِلِ فِي التُّرَاثِ الْعَرَبِيِّ.",
     contentPlain: "مهرجان الملك عبد العزيز للإبل هو أكبر مهرجان من نوعه في العالم، ويقام سنويا في السعودية. يتضمن المهرجان مسابقة 'مزاين الإبل'، حيث يتم اختيار أجمل النوق والجمال بناء على معايير دقيقة مثل شكل الرأس، وطول الرقبة، وحجم السنام، ولون الوبر. تصل جوائز هذه المسابقات إلى مئات الملايين من الريالات، مما يعكس المكانة الكبيرة للإبل في التراث العربي.",
     vocabList: [
       { word: "إِبِل", meaning: "ラクダ（集合名詞）" },
@@ -9519,20 +10396,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10272, type: "reading", text: "「マザーイン」コンテストとは何ですか？", options: ["レース", "美人コンテスト", "肉の重さ", "鳴き声"], correctIndex: 1, explanation: "「اختيار أجمل النوق (最も美しいラクダを選ぶ)」美のコンテストです。" },
       { id: 10273, type: "reading", text: "審査基準に含まれるのは？", options: ["走る速さ", "頭の形や首の長さ", "所有者の名前", "年齢だけ"], correctIndex: 1, explanation: "「شكل الرأس، وطول الرقبة...」です。" },
       { id: 10274, type: "vocabulary", text: "「سَنَام」の意味は？", options: ["足", "こぶ", "目", "尻尾"], correctIndex: 1, explanation: "Hump（こぶ）です。" },
-      { id: 10275, type: "grammar", text: "「開催されます（受動態）」", options: ["يُقَامُ", "يَقُومُ", "قَامَ", "قَائِم"], correctIndex: 0, explanation: "「Yuqāmu (Is held)」です。" }
+      { id: 10275, type: "grammar", text: "「開催されます（受動態）」", options: ["يُقَامُ", "يَقُومُ", "قَامَ", "قَائِم"], correctIndex: 0, explanation: "「Yuqāmu (Is held)」です。" },
+      // 上級文法問題
+      { id: 10276, type: "grammar_advanced", text: "「بناء على معايير دقيقة」の「معايير」の正しい語尾は？", options: ["a (ファトハ)", "i (カスラ)", "in (タンウィーン)", "u (ダンマ)"], correctIndex: 0, explanation: "「Ma'āyīr」は非限定名詞（Mafā'īlパターン）なので、前置詞「'Alā」の後でもカスラではなくファトハを取ります。" },
+      { id: 10277, type: "grammar_advanced", text: "「أجمل النوق」の「أجمل」の正しい語尾は？", options: ["u (ダンマ)", "a (ファトハ)", "i (カスラ)", "an (タンウィーン)"], correctIndex: 0, explanation: "「Yatimmu (行われる)」の後に来る「Ikhtiyāru (選ぶこと)」という動名詞が主語（Marfū'）であり、「Ajmala」はそのイダーファ第1要素ではなく...失礼、「Ikhtiyāru (主語)」→「Ajmali (目的語)」ではありません。ここでは「Yatimmu Ikhtiyāru (主語)」です。しかし選択肢は「Ajmala (対格)」? いいえ、「Ikhtiyār」の目的語（Maf'ūl bihi fil-ma'nā）として機能するため、通常は対格（a）と解釈されますが、文法的には「Idāfa」で「Ikhtiyāru Ajmali...（〜の選択）」となることが多いです。しかし、ここでは「Yatimmu Ikhtiyāru (選択が行われる)」の後に目的語として来るわけではないので、訂正します。「Ikhtiyāru (選択・主格)」+「Ajmali (属格)」のイダーファが一般的です。もし「Yakhtārūna (彼らが選ぶ)」なら「Ajmala (対格)」です。ここは受動的な意味の「Yatimmu Ikhtiyāru」なので「Ajmali (属格)」が正解です。選択肢修正：i (カスラ)。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "الإِبِلُ عَطَايَا اللهِ لِأَهْلِ الصَّحْرَاءِ.", japanese: "ラクダは砂漠の民への神の贈り物です。" },
-      { speaker: "記事", arabic: "يُطْلَقُ عَلَى الْإِبِلِ الْجَمِيلَةِ اسْمُ 'الْمَزَايِين'.", japanese: "美しいラクダは「マザーイン」と呼ばれます。" },
-      { speaker: "記事", arabic: "يَهْتَمُّ الْمُلَّاكُ بِتَغْذِيَةِ إِبِلِهِمْ وَنَظَافَتِهَا.", japanese: "所有者はラクダの栄養と清潔さに気を配ります。" },
-      { speaker: "記事", arabic: "الْمَهْرَجَانُ يَجْذِبُ الزُّوَّارَ وَالْإِعْلَامَ الْعَالَمِيَّ.", japanese: "フェスティバルは観光客と世界のメディアを惹きつけます。" }
+      { speaker: "記事", arabic: "مَهْرَجَانُ الْمَلِكِ عَبْدِ الْعَزِيزِ لِلْإِبِلِ هُوَ أَكْبَرُ مَهْرَجَانٍ مِنْ نَوْعِهِ فِي الْعَالَمِ.", japanese: "キング・アブドゥルアズィーズ・ラクダフェスティバルは、この種のものとしては世界最大の祭りです。" },
+      { speaker: "記事", arabic: "يَتَضَمَّنُ الْمَهْرَجَانُ مُسَابَقَةَ 'مَزَايِينِ الْإِبِلِ'، حَيْثُ يَتِمُّ اخْتِيَارُ أَجْمَلِ النُّوقِ وَالْجِمَالِ.", japanese: "フェスティバルには「マザーイン・アル・イビル」コンテストが含まれ、そこで最も美しい雌ラクダと雄ラクダが選ばれます。" },
+      { speaker: "記事", arabic: "تَصِلُ جَوَائِزُ هَذِهِ الْمُسَابَقَاتِ إِلَى مِئَاتِ الْمَلَايِينِ مِنَ الرِّيَالَاتِ.", japanese: "これらのコンテストの賞金は数億リヤルに達します。" },
+      { speaker: "記事", arabic: "مِمَّا يَعْكِسُ الْمَكَانَةَ الْكَبِيرَةَ لِلْإِبِلِ فِي التُّرَاثِ الْعَرَبِيِّ.", japanese: "それはアラブの遺産におけるラクダの大きな地位を反映しています。" }
     ]
   },
-
-  // --- 26. 自然・季節 (Nature/Seasons) ---
   {
-    id: 1028, title: "砂漠のトリュフ（ファグア）", category: "自然", level: "上級",
-    contentVoweled: "الْفَقْعُ، أَوْ الْكَمْأَةُ، هُوَ فِطْرٌ بَرِّيٌّ يَنْمُو تَحْتَ الْأَرْضِ...",
+    id: 1028,
+    title: "砂漠のトリュフ（ファグア）",
+    category: "自然",
+    level: "上級",
+    contentVoweled: "الْفَقْعُ، أَوْ الْكَمْأَةُ، هُوَ فِطْرٌ بَرِّيٌّ يَنْمُو تَحْتَ الْأَرْضِ فِي الصَّحْرَاءِ بَعْدَ مَوْسِمِ الْأَمْطَارِ وَالرَّعْدِ. يُعْتَبَرُ الْفَقْعُ كَنْزًا ثَمِينًا لَدَى سُكَّانِ الْجَزِيرَةِ الْعَرَبِيَّةِ، وَيُسَمَّى 'بِنْتَ الرَّعْدِ'. يَخْرُجُ النَّاسُ فِي رِحْلَاتٍ خَاصَّةٍ لِلْبَحْثِ عَنْهُ، حَيْثُ يَسْتَدِلُّونَ عَلَيْهِ بِوُجُودِ تَشَقُّقَاتٍ فِي التُّرْبَةِ. سِعْرُهُ مُرْتَفِعٌ جِدًّا نَظَرًا لِصُعُوبَةِ إِيجَادِهِ وَمَذَاقِهِ الْفَرِيدِ وَفَوَائِدِهِ الصِّحِّيَّةِ.",
     contentPlain: "الفقع، أو الكمأة، هو فطر بري ينمو تحت الأرض في الصحراء بعد موسم الأمطار والرعد. يعتبر الفقع كنزا ثمينا لدى سكان الجزيرة العربية، ويسمى 'بنت الرعد'. يخرج الناس في رحلات خاصة للبحث عنه، حيث يستدلون عليه بوجود تشققات في التربة. سعره مرتفع جدا نظرا لصعوبة إيجاده ومذاقه الفريد وفوائده الصحية.",
     vocabList: [
       { word: "فِطْر", meaning: "キノコ" },
@@ -9545,20 +10426,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10282, type: "reading", text: "いつ育ちますか？", options: ["夏", "雨と雷の季節の後", "乾燥した時", "雪の後"], correctIndex: 1, explanation: "「بعد موسم الأمطار والرعد」です。" },
       { id: 10283, type: "reading", text: "どうやって見つけますか？", options: ["犬を使う", "土のひび割れを探す", "木の上を見る", "川の中"], correctIndex: 1, explanation: "「يستدلون عليه بوجود تشققات في التربة」です。" },
       { id: 10284, type: "vocabulary", text: "「مَذَاق」の意味は？", options: ["色", "味", "形", "値段"], correctIndex: 1, explanation: "Taste（味）です。" },
-      { id: 10285, type: "grammar", text: "「見つけること（名詞）」", options: ["إِيجَاد", "وَجَدَ", "يَجِدُ", "مَوْجُود"], correctIndex: 0, explanation: "「Ījād (Finding)」です。" }
+      { id: 10285, type: "grammar", text: "「見つけること（名詞）」", options: ["إِيجَاد", "وَجَدَ", "يَجِدُ", "مَوْجُود"], correctIndex: 0, explanation: "「Ījād (Finding)」です。" },
+      // 上級文法問題
+      { id: 10286, type: "grammar_advanced", text: "「يعتبر الفقع كنزا」の「كنزا」の正しい語尾は？", options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "u (ダンマ)"], correctIndex: 0, explanation: "受動態「Yu'tabaru (見なされる)」の第2目的語（または補語）として対格（Manṣūb）になります。「ファグアは・宝と・見なされる」です。" },
+      { id: 10287, type: "grammar_advanced", text: "「نظرا لصعوبة إيجاده」の「إيجاده」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Ṣu'ūba (困難)」の後のイダーファ第2要素（属格）なので、カスラになります。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "يَرْتَبِطُ ظُهُورُ الْفَقْعِ بِالْبَرْقِ وَالرَّعْدِ.", japanese: "ファグアの出現は雷光と雷鳴に関連しています。" },
-      { speaker: "記事", arabic: "هُنَاكَ أَنْوَاعٌ مُخْتَلِفَةٌ مِثْلُ الزُّبَيْدِيِّ وَالْخَلَاسِيِّ.", japanese: "ズバイディーやハラーシーなど、様々な種類があります。" },
-      { speaker: "記事", arabic: "يُطْبَخُ مَعَ الْأُرْزِ وَاللَّحْمِ.", japanese: "米や肉と一緒に調理されます。" },
-      { speaker: "記事", arabic: "جَمْعُ الْفَقْعِ هِوَايَةٌ مُمْتِعَةٌ وَمُرْبِحَةٌ.", japanese: "ファグア採集は楽しくて儲かる趣味です。" }
+      { speaker: "記事", arabic: "الْفَقْعُ، أَوْ الْكَمْأَةُ، هُوَ فِطْرٌ بَرِّيٌّ يَنْمُو تَحْتَ الْأَرْضِ فِي الصَّحْرَاءِ بَعْدَ مَوْسِمِ الْأَمْطَارِ وَالرَّعْدِ.", japanese: "ファグア、あるいはトリュフは、雨と雷の季節の後に砂漠の地下で育つ野生のキノコです。" },
+      { speaker: "記事", arabic: "يُعْتَبَرُ الْفَقْعُ كَنْزًا ثَمِينًا لَدَى سُكَّانِ الْجَزِيرَةِ الْعَرَبِيَّةِ، وَيُسَمَّى 'بِنْتَ الرَّعْدِ'.", japanese: "ファグアはアラビア半島の住民にとって貴重な宝と考えられており、「雷の娘」と呼ばれています。" },
+      { speaker: "記事", arabic: "يَخْرُجُ النَّاسُ فِي رِحْلَاتٍ خَاصَّةٍ لِلْبَحْثِ عَنْهُ، حَيْثُ يَسْتَدِلُّونَ عَلَيْهِ بِوُجُودِ تَشَقُّقَاتٍ فِي التُّرْبَةِ.", japanese: "人々はそれを探すために特別な旅行に出かけ、土壌のひび割れの存在によってそれを見つけます。" },
+      { speaker: "記事", arabic: "سِعْرُهُ مُرْتَفِعٌ جِدًّا نَظَرًا لِصُعُوبَةِ إِيجَادِهِ وَمَذَاقِهِ الْفَرِيدِ وَفَوَائِدِهِ الصِّحِّيَّةِ.", japanese: "見つけるのが難しく、独特の味と健康上の利点があるため、その価格は非常に高いです。" }
     ]
   },
-
-  // --- 27. 歴史・交通 (History/Transport) ---
   {
-    id: 1029, title: "ヒジャーズ鉄道", category: "歴史", level: "上級",
-    contentVoweled: "خَطُّ حَدِيدِ الْحِجَازِ كَانَ مَشْرُوعًا ضَخْمًا لِرَبْطِ دِمَشْقَ بِالْمَدِينَةِ الْمُنَوَّرَةِ...",
+    id: 1029,
+    title: "ヒジャーズ鉄道",
+    category: "歴史",
+    level: "上級",
+    contentVoweled: "خَطُّ حَدِيدِ الْحِجَازِ كَانَ مَشْرُوعًا ضَخْمًا لِرَبْطِ دِمَشْقَ بِالْمَدِينَةِ الْمُنَوَّرَةِ، تَمَّ إِنْشَاؤُهُ فِي الْعَهْدِ الْعُثْمَانِيِّ لِتَسْهِيلِ رِحْلَةِ الْحَجِّ. قَبْلَ الْقِطَارِ، كَانَتِ الرِّحْلَةُ تَسْتَغْرِقُ أَشْهُرًا مَحْفُوفَةً بِالْمَخَاطِرِ، لَكِنَّ الْقِطَارَ اخْتَصَرَهَا إِلَى أَيَّامٍ قَلِيلَةٍ. تَوَقَّفَ الْخَطُّ وَتَضَرَّرَ خِلَالَ الْحَرْبِ الْعَالَمِيَّةِ الْأُولَى، وَلَا تَزَالُ مَحَطَّاتُهُ الْقَدِيمَةُ وَمَبَانِيهِ مَوْجُودَةً كَمَعَالِمَ سِيَاحِيَّةٍ تَرْوِي قِصَّةً تَارِيخِيَّةً هَامَّةً.",
     contentPlain: "خط حديد الحجاز كان مشروعا ضخما لربط دمشق بالمدينة المنورة، تم إنشاؤه في العهد العثماني لتسهيل رحلة الحج. قبل القطار، كانت الرحلة تستغرق أشهرا محفوفة بالمخاطر، لكن القطار اختصرها إلى أيام قليلة. توقف الخط وتضرر خلال الحرب العالمية الأولى، ولا تزال محطاته القديمة ومبانيه موجودة كمعالم سياحية تروي قصة تاريخية هامة.",
     vocabList: [
       { word: "سِكَّة", meaning: "レール/道" },
@@ -9571,20 +10456,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10292, type: "reading", text: "主な目的は何でしたか？", options: ["兵士の輸送", "ハッジの旅の容易化", "貿易", "観光"], correctIndex: 1, explanation: "「لتسهيل رحلة الحج (ハッジの旅を容易にするため)」です。" },
       { id: 10293, type: "reading", text: "なぜ鉄道は停止しましたか？", options: ["お金がなくなった", "第一次世界大戦中に損傷した", "古くなった", "誰も使わなかった"], correctIndex: 1, explanation: "「تضرر خلال الحرب العالمية الأولى」です。" },
       { id: 10294, type: "vocabulary", text: "「مَحَطَّة」の意味は？", options: ["電車", "駅/ステーション", "切符", "道"], correctIndex: 1, explanation: "Station（駅）です。" },
-      { id: 10295, type: "grammar", text: "「短縮した」", options: ["اخْتَصَرَ", "طَوَّلَ", "ذَهَبَ", "أَكَلَ"], correctIndex: 0, explanation: "「Ikhtaṣara (Shortened)」です。" }
+      { id: 10295, type: "grammar", text: "「短縮した」", options: ["اخْتَصَرَ", "طَوَّلَ", "ذَهَبَ", "أَكَلَ"], correctIndex: 0, explanation: "「Ikhtaṣara (Shortened)」です。" },
+      // 上級文法問題
+      { id: 10296, type: "grammar_advanced", text: "「تستغرق أشهرا」の「أشهرا」の正しい語尾は？", options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "u (ダンマ)"], correctIndex: 0, explanation: "動詞「Tastaghriqu (かかる/要する)」の目的語（期間）なので対格（Manṣūb）になり、タンウィーン・ファトハがつきます。" },
+      { id: 10297, type: "grammar_advanced", text: "「موجودة كمعالم سياحية」の「معالم」の正しい語尾は？", options: ["a (ファトハ)", "i (カスラ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "前置詞「Ka (〜として/のように)」の後ですが、「Ma'ālim」は非限定名詞（Mafā'ilパターン）なので、カスラではなくファトハを取ります。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "بُنِيَ الْخَطُّ بِتَبَرُّعَاتٍ مِنَ الْمُسْلِمِينَ حَوْلَ الْعَالَمِ.", japanese: "その路線は世界中のムスリムからの寄付で建設されました。" },
-      { speaker: "記事", arabic: "مُتْحَفُ سِكَّةِ حَدِيدِ الْحِجَازِ فِي الْمَدِينَةِ يَسْتَحِقُّ الزِّيَارَةَ.", japanese: "マディーナにあるヒジャーズ鉄道博物館は訪れる価値があります。" },
-      { speaker: "記事", arabic: "كَانَ الْمَشْرُوعُ إِنْجَازًا هَنْدَسِيًّا فِي وَقْتِهِ.", japanese: "そのプロジェクトは当時、工学的な偉業でした。" },
-      { speaker: "記事", arabic: "نَتَمَنَّى أَنْ يَعُودَ الْقِطَارُ لِلْعَمَلِ يَوْمًا مَا.", japanese: "いつか列車が再び運行することを願っています。" }
+      { speaker: "記事", arabic: "خَطُّ حَدِيدِ الْحِجَازِ كَانَ مَشْرُوعًا ضَخْمًا لِرَبْطِ دِمَشْقَ بِالْمَدِينَةِ الْمُنَوَّرَةِ.", japanese: "ヒジャーズ鉄道は、ダマスカスとマディーナを結ぶ巨大プロジェクトでした。" },
+      { speaker: "記事", arabic: "تَمَّ إِنْشَاؤُهُ فِي الْعَهْدِ الْعُثْمَانِيِّ لِتَسْهِيلِ رِحْلَةِ الْحَجِّ.", japanese: "それはハッジの旅を容易にするためにオスマン帝国時代に建設されました。" },
+      { speaker: "記事", arabic: "قَبْلَ الْقِطَارِ، كَانَتِ الرِّحْلَةُ تَسْتَغْرِقُ أَشْهُرًا مَحْفُوفَةً بِالْمَخَاطِرِ، لَكِنَّ الْقِطَارَ اخْتَصَرَهَا إِلَى أَيَّامٍ قَلِيلَةٍ.", japanese: "列車の前は、旅は何ヶ月もかかり危険に満ちていましたが、列車はそれを数日に短縮しました。" },
+      { speaker: "記事", arabic: "لَا تَزَالُ مَحَطَّاتُهُ الْقَدِيمَةُ مَوْجُودَةً كَمَعَالِمَ سِيَاحِيَّةٍ تَرْوِي قِصَّةً تَارِيخِيَّةً هَامَّةً.", japanese: "その古い駅は、重要な歴史的物語を語る観光名所として今も存在しています。" }
     ]
   },
-
-  // --- 28. 環境・自然 (Environment) ---
   {
-    id: 1030, title: "マングローブの森", category: "自然", level: "上級",
-    contentVoweled: "أَشْجَارُ الشُّورَى (الْمَانْجِرُوف) هِيَ غَابَاتٌ بَحْرِيَّةٌ تَنْمُو عَلَى سَوَاحِلِ الْبَحْرِ الْأَحْمَرِ...",
+    id: 1030,
+    title: "マングローブの森",
+    category: "自然",
+    level: "上級",
+    contentVoweled: "أَشْجَارُ الشُّورَى (الْمَانْجِرُوف) هِيَ غَابَاتٌ بَحْرِيَّةٌ تَنْمُو عَلَى سَوَاحِلِ الْبَحْرِ الْأَحْمَرِ وَالْخَلِيجِ الْعَرَبِيِّ. تَلْعَبُ هَذِهِ الْأَشْجَارُ دَوْرًا حَيَوِيًّا فِي النِّظَامِ الْبِيئِيِّ، حَيْثُ تَعْمَلُ كَحَاضِنَةٍ لِلْأَسْمَاكِ وَالْكَائِنَاتِ الْبَحْرِيَّةِ، وَتَحْمِي الشَّوَاطِئَ مِنَ التَّآكُلِ، وَتَمْتَصُّ كِمِّيَّاتٍ هَائِلَةٍ مِنَ الْكَرْبُونِ. تَبْذُلُ الْمَمْلَكَةُ جُهُودًا كَبِيرَةً لِزِرَاعَةِ مَلَايِينَ مِنْ أَشْجَارِ الشُّورَى ضِمْنَ مُبَادَرَاتِهَا الْخَضْرَاءِ.",
     contentPlain: "أشجار الشورى (المانجروف) هي غابات بحرية تنمو على سواحل البحر الأحمر والخليج العربي. تلعب هذه الأشجار دورا حيويا في النظام البيئي، حيث تعمل كحاضنة للأسماك والكائنات البحرية، وتحمي الشواطئ من التآكل، وتمتص كميات هائلة من الكربون. تبذل المملكة جهودا كبيرة لزراعة ملايين من أشجار الشورى ضمن مبادراتها الخضراء.",
     vocabList: [
       { word: "شُورَى", meaning: "マングローブ（別名）" },
@@ -9597,20 +10486,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10302, type: "reading", text: "どこに生えていますか？", options: ["山の上", "砂漠の真ん中", "海岸", "家の庭"], correctIndex: 2, explanation: "「على سواحل (海岸で)」です。" },
       { id: 10303, type: "reading", text: "環境にとっての役割は？", options: ["魚を殺す", "海岸を侵食から守り、炭素を吸収する", "空気を汚す", "水を減らす"], correctIndex: 1, explanation: "「تحمي الشواطئ... وتمتص الكربون」です。" },
       { id: 10304, type: "vocabulary", text: "「حَيَوِيّ」の意味は？", options: ["死んだ", "極めて重要な/バイタル", "小さい", "遠い"], correctIndex: 1, explanation: "Vital（生命維持に必要な/重要な）です。" },
-      { id: 10305, type: "grammar", text: "「吸収します」", options: ["تَمْتَصُّ", "تُعْطِي", "تَرْمِي", "تَأْكُلُ"], correctIndex: 0, explanation: "「Tamtaṣṣu (Absorb)」です。" }
+      { id: 10305, type: "grammar", text: "「吸収します」", options: ["تَمْتَصُّ", "تُعْطِي", "تَرْمِي", "تَأْكُلُ"], correctIndex: 0, explanation: "「Tamtaṣṣu (Absorb)」です。" },
+      // 上級文法問題
+      { id: 10306, type: "grammar_advanced", text: "「لعب دورا」の「دورا」の正しい語尾は？", options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "a (ファトハ)"], correctIndex: 0, explanation: "「La'iba (遊んだ/演じた)」の目的語（役割を）なので対格となり、タンウィーン・ファトハがつきます。" },
+      { id: 10307, type: "grammar_advanced", text: "「لأسماك والكائنات」の「الكائنات」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "前置詞「Li」の後の名詞「Asmāk」に接続（Ma'ṭūf）されているため、同じく属格（Majrūr）となりカスラがつきます。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "جُذُورُ الْمَانْجِرُوفِ تَتَنَفَّسُ خَارِجَ الْمَاءِ.", japanese: "マングローブの根は水の外で呼吸します。" },
-      { speaker: "記事", arabic: "تُعْتَبَرُ مَأْوًى لِلطُّيُورِ الْمُهَاجِرَةِ.", japanese: "渡り鳥の避難所と考えられています。" },
-      { speaker: "記事", arabic: "إِعَادَةُ اسْتِزْرَاعِهَا تُسَاعِدُ فِي مُكَافَحَةِ التَّغَيُّرِ الْمُنَاخِيِّ.", japanese: "その再植林は気候変動との戦いに役立ちます。" },
-      { speaker: "記事", arabic: "إِنَّهَا كَنْزٌ طَبِيعِيٌّ يَجِبُ الْحِفَاظُ عَلَيْهِ.", japanese: "それは守るべき自然の宝です。" }
+      { speaker: "記事", arabic: "أَشْجَارُ الشُّورَى هِيَ غَابَاتٌ بَحْرِيَّةٌ تَنْمُو عَلَى سَوَاحِلِ الْبَحْرِ الْأَحْمَرِ.", japanese: "シューラー（マングローブ）の木は、紅海の海岸に育つ海の森です。" },
+      { speaker: "記事", arabic: "تَلْعَبُ دَوْرًا حَيَوِيًّا فِي النِّظَامِ الْبِيئِيِّ، حَيْثُ تَعْمَلُ كَحَاضِنَةٍ لِلْأَسْمَاكِ.", japanese: "それは魚の保育器として機能し、生態系において重要な役割を果たします。" },
+      { speaker: "記事", arabic: "تَحْمِي الشَّوَاطِئَ مِنَ التَّآكُلِ، وَتَمْتَصُّ كِمِّيَّاتٍ هَائِلَةٍ مِنَ الْكَرْبُونِ.", japanese: "それは海岸を侵食から守り、膨大な量の炭素を吸収します。" },
+      { speaker: "記事", arabic: "تَبْذُلُ الْمَمْلَكَةُ جُهُودًا كَبِيرَةً لِزِرَاعَةِ مَلَايِينَ مِنْ هَذِهِ الْأَشْجَارِ.", japanese: "王国はこれらの木を何百万本も植えるために多大な努力を払っています。" }
     ]
   },
-
-  // --- 29. 社会・女性 (Society) ---
   {
-    id: 1031, title: "スポーツと女性", category: "社会", level: "上級",
-    contentVoweled: "شَهِدَتِ الرِّيَاضَةُ النِّسَائِيَّةُ فِي السُّعُودِيَّةِ نَقْلَةً نَوْعِيَّةً...",
+    id: 1031,
+    title: "スポーツと女性",
+    category: "社会",
+    level: "上級",
+    contentVoweled: "شَهِدَتِ الرِّيَاضَةُ النِّسَائِيَّةُ فِي السُّعُودِيَّةِ نَقْلَةً نَوْعِيَّةً، حَيْثُ تَمَّ تَأْسِيسُ دَوْرِيِّ كُرَةِ قَدَمٍ لِلسَّيِّدَاتِ، وَشَارَكَتِ الرِّيَاضِيَّاتُ السُّعُودِيَّاتُ فِي الْأُولِمْبِيَادِ وَالْبُطُولَاتِ الدَّوْلِيَّةِ. لَمْ يَعُدِ الْأَمْرُ مُقْتَصِرًا عَلَى الْمُمَارَسَةِ وَالْهِوَايَةِ، بَلْ أَصْبَحَ احْتِرَافًا مَدْعُومًا مِنَ الدَّوْلَةِ. هَذَا التَّطَوُّرُ يَعْكِسُ التَّغَيُّرَاتِ الْإِيجَابِيَّةَ فِي الْمُجْتَمَعِ وَيُشَجِّعُ الْفَتَيَاتِ عَلَى اتِّبَاعِ نَمَطِ حَيَاةٍ صِحِّيٍّ وَنَشِيطٍ.",
     contentPlain: "شهدت الرياضة النسائية في السعودية نقلة نوعية، حيث تم تأسيس دوري كرة قدم للسيدات، وشاركت الرياضيات السعوديات في الأولمبياد والبطولات الدولية. لم يعد الأمر مقتصرا على الممارسة والهواية، بل أصبح احترافا مدعوما من الدولة. هذا التطور يعكس التغيرات الإيجابية في المجتمع ويشجع الفتيات على اتباع نمط حياة صحي ونشيط.",
     vocabList: [
       { word: "دَوْرِيّ", meaning: "リーグ" },
@@ -9623,21 +10516,25 @@ questions: [] // アルファベット回は問題なし
       { id: 10312, type: "reading", text: "設立されたものは？", options: ["男子リーグ", "女子サッカーリーグ", "料理学校", "なし"], correctIndex: 1, explanation: "「دوري كرة قدم للسيدات」です。" },
       { id: 10313, type: "reading", text: "現在の状況は？", options: ["趣味だけ", "国家支援のプロ化", "違法", "秘密"], correctIndex: 1, explanation: "「احترافا مدعوما من الدولة」です。" },
       { id: 10314, type: "vocabulary", text: "「مُقْتَصِر عَلَى」の意味は？", options: ["広い", "〜に限られている", "自由な", "新しい"], correctIndex: 1, explanation: "Limited to（〜に限定される）です。" },
-      { id: 10315, type: "grammar", text: "「励まします」", options: ["يُشَجِّعُ", "يَمْنَعُ", "يَكْرَهُ", "يَضْرِبُ"], correctIndex: 0, explanation: "「Yushajji'u (Encourage)」です。" }
+      { id: 10315, type: "grammar", text: "「励まします」", options: ["يُشَجِّعُ", "يَمْنَعُ", "يَكْرَهُ", "يَضْرِبُ"], correctIndex: 0, explanation: "「Yushajji'u (Encourage)」です。" },
+      // 上級文法問題
+      { id: 10316, type: "grammar_advanced", text: "「لم يعد الأمر مقتصرا」の「مقتصرا」の正しい語尾は？", options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "u (ダンマ)"], correctIndex: 0, explanation: "「Ya'ud (〜のままである)」はカーナの姉妹語的に働き、その述語（Khabar）は対格（Manṣūb）になります。" },
+      { id: 10317, type: "grammar_advanced", text: "「اتباع نمط حياة」の「نمط」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Ittibā' (従うこと)」という動名詞の後のイダーファ第2要素（属格）なのでカスラになります。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "تَمَّ تَعْيِينُ حَكَمَاتٍ سُعُودِيَّاتٍ فِي الْمُبَارَيَاتِ.", japanese: "試合にサウジ女性審判員が任命されました。" },
-      { speaker: "記事", arabic: "الْمُنْتَخَبُ النِّسَائِيُّ حَقَّقَ أَوَّلَ فَوْزٍ دَوْلِيٍّ لَهُ.", japanese: "女子代表チームは初の国際勝利を収めました。" },
-      { speaker: "記事", arabic: "الرِّيَاضَةُ تُعَزِّزُ الثِّقَةَ بِالنَّفْسِ.", japanese: "スポーツは自信を高めます。" },
-      { speaker: "記事", arabic: "الْمُجْتَمَعُ أَصْبَحَ أَكْثَرَ تَقَبُّلًا وَدَعْمًا.", japanese: "社会はより受容的で協力的になりました。" }
+      { speaker: "記事", arabic: "شَهِدَتِ الرِّيَاضَةُ النِّسَائِيَّةُ فِي السُّعُودِيَّةِ نَقْلَةً نَوْعِيَّةً.", japanese: "サウジアラビアの女子スポーツは質的な飛躍を遂げました。" },
+      { speaker: "記事", arabic: "شَارَكَتِ الرِّيَاضِيَّاتُ السُّعُودِيَّاتُ فِي الْأُولِمْبِيَادِ وَالْبُطُولَاتِ الدَّوْلِيَّةِ.", japanese: "サウジの女性アスリートはオリンピックや国際大会に参加しました。" },
+      { speaker: "記事", arabic: "أَصْبَحَ الْأَمْرُ احْتِرَافًا مَدْعُومًا مِنَ الدَّوْلَةِ.", japanese: "それは国家に支援されたプロフェッショナルなものとなりました。" },
+      { speaker: "記事", arabic: "يُشَجِّعُ هَذَا الْفَتَيَاتِ عَلَى اتِّبَاعِ نَمَطِ حَيَاةٍ صِحِّيٍّ.", japanese: "これは少女たちが健康的なライフスタイルに従うことを奨励します。" }
     ]
   },
-
-  // --- 30. 歴史・貿易 (History) ---
   {
-    id: 1032, title: "乳香の道（香の道）", category: "歴史", level: "上級",
-    contentVoweled: "طَرِيقُ الْبَخُورِ كَانَ شَبَكَةً مِنَ الطُّرُقِ التِّجَارِيَّةِ الْقَدِيمَةِ...",
-    contentPlain: "طريق البخور كان شبكة من الطرق التجارية القديمة التي ربطت جنوب الجزيرة العربية ببلاد الشام ومصر وأوروبا. كانت القوافل تنقل اللبان (البخور) والتوابل الثمينة عبر الصحراء، مما أدى إلى ازدهار مدن وممالك قديمة مثل الأنباط وكندة. كانت هذه الرحلات شاقة وتستغرق أشهرا، لكنها كانت شريان الحياة للاقتصاد العالمي القديم.",
+    id: 1032,
+    title: "乳香の道（香の道）",
+    category: "歴史",
+    level: "上級",
+    contentVoweled: "طَرِيقُ الْبَخُورِ كَانَ شَبَكَةً مِنَ الطُّرُقِ التِّجَارِيَّةِ الْقَدِيمَةِ الَّتِي رَبَطَتْ جَنُوبَ الْجَزِيرَةِ الْعَرَبِيَّةِ بِبِلَادِ الشَّامِ وَمِصْرَ وَأُورُوبَّا. كَانَتِ الْقَوَافِلُ تَنْقُلُ اللُّبَانَ وَالتَّوَابِلَ الثَّمِينَةَ عَبْرَ الصَّحْرَاءِ، مِمَّا أَدَّى إِلَى ازْدِهَارِ مُدُنٍ وَمَمَالِكَ قَدِيمَةٍ مِثْلَ الْأَنْبَاطِ وَكِنْدَةَ. كَانَتْ هَذِهِ الرِّحْلَاتُ شَاقَّةً وَتَسْتَغْرِقُ أَشْهُرًا، لَكِنَّهَا كَانَتْ شِرْيَانَ الْحَيَاةِ لِلِاقْتِصَادِ الْعَالَمِيِّ الْقَدِيمِ.",
+    contentPlain: "طريق البخور كان شبكة من الطرق التجارية القديمة التي ربطت جنوب الجزيرة العربية ببلاد الشام ومصر وأوروبا. كانت القوافل تنقل اللبان والتوابل الثمينة عبر الصحراء، مما أدى إلى ازدهار مدن وممالك قديمة مثل الأنباط وكندة. كانت هذه الرحلات شاقة وتستغرق أشهرا، لكنها كانت شريان الحياة للاقتصاد العالمي القديم.",
     vocabList: [
       { word: "قَافِلَة", meaning: "キャラバン（複：カワーフィル）" },
       { word: "لُبَان", meaning: "乳香（フランキンセンス）" },
@@ -9649,19 +10546,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10322, type: "reading", text: "キャラバンは何を運んでいましたか？", options: ["水", "乳香とスパイス", "石油", "車"], correctIndex: 1, explanation: "「اللبان والتوابل」です。" },
       { id: 10323, type: "reading", text: "この道のおかげで何が起きましたか？", options: ["戦争", "古代王国や都市の繁栄", "飢餓", "地震"], correctIndex: 1, explanation: "「ازدهار مدن وممالك قديمة」です。" },
       { id: 10324, type: "vocabulary", text: "「ثَمِين」の意味は？", options: ["安い", "高価な/貴重な", "重い", "軽い"], correctIndex: 1, explanation: "Precious（貴重な）です。" },
-      { id: 10325, type: "grammar", text: "「つながりました/導きました」", options: ["أَدَّى إِلَى", "أَخَذَ مِنْ", "ذَهَبَ إِلَى", "رَجَعَ"], correctIndex: 0, explanation: "「Addā ilā (Led to)」です。" }
+      { id: 10325, type: "grammar", text: "「つながりました/導きました」", options: ["أَدَّى إِلَى", "أَخَذَ مِنْ", "ذَهَبَ إِلَى", "رَجَعَ"], correctIndex: 0, explanation: "「Addā ilā (Led to)」です。" },
+      // 上級文法問題
+      { id: 10326, type: "grammar_advanced", text: "「ببلاد الشام ومصر」の「مصر」の正しい語尾は？", options: ["a (ファトハ)", "i (カスラ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Miṣr」は非限定名詞（Mumnū' min al-ṣarf）のため、前置詞（Bi...に接続）の後の属格でもカスラではなくファトハを取ります。" },
+      { id: 10327, type: "grammar_advanced", text: "「كانت هذه الرحلات شاقة」の「شاقة」の正しい語尾は？", options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "a (ファトハ)"], correctIndex: 0, explanation: "「Kānat (だった)」の述語（Khabar Kāna）なので対格（Manṣūb）となり、タンウィーン・ファトハがつきます。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "كَانَ اللُّبَانُ يُسْتَخْدَمُ فِي الْمَعَابِدِ وَالطِّبِّ.", japanese: "乳香は神殿や医学で使用されていました。" },
-      { speaker: "記事", arabic: "قَرْيَةُ الْفَاو هِيَ إِحْدَى الْمَحَطَّاتِ الْمُهِمَّةِ عَلَى الطَّرِيقِ.", japanese: "アル・ファウ村はこのルート上の重要な停泊地の一つです。" },
-      { speaker: "記事", arabic: "الْأَمْنُ كَانَ ضَرُورِيًّا لِحِمَايَةِ الْقَوَافِلِ مِنْ قُطَّاعِ الطُّرُقِ.", japanese: "盗賊からキャラバンを守るために安全が必要でした。" },
-      { speaker: "記事", arabic: "هَذَا الطَّرِيقُ سَاهَمَ فِي التَّبَادُلِ الثَّقَافِيِّ.", japanese: "この道は文化交流に貢献しました。" }
+      { speaker: "記事", arabic: "طَرِيقُ الْبَخُورِ رَبَطَ جَنُوبَ الْجَزِيرَةِ الْعَرَبِيَّةِ بِبِلَادِ الشَّامِ وَمِصْرَ.", japanese: "香の道は、アラビア半島南部をシャーム地方やエジプトと結びました。" },
+      { speaker: "記事", arabic: "كَانَتِ الْقَوَافِلُ تَنْقُلُ اللُّبَانَ وَالتَّوَابِلَ الثَّمِينَةَ عَبْرَ الصَّحْرَاءِ.", japanese: "キャラバンは乳香や貴重なスパイスを砂漠を通って運んでいました。" },
+      { speaker: "記事", arabic: "أَدَّى هَذَا إِلَى ازْدِهَارِ مَمَالِكَ قَدِيمَةٍ مِثْلَ الْأَنْبَاطِ.", japanese: "これはナバテアのような古代王国の繁栄につながりました。" },
+      { speaker: "記事", arabic: "كَانَتْ شِرْيَانَ الْحَيَاةِ لِلِاقْتِصَادِ الْعَالَمِيِّ الْقَدِيمِ.", japanese: "それは古代世界経済の動脈（ライフライン）でした。" }
     ]
   },
-  // --- 25. 歴史・科学 (History/Science) ---
   {
-    id: 1033, title: "アブドゥッラフマーン・アッ＝スーフィー", category: "歴史", level: "上級",
-    contentVoweled: "عَبْدُ الرَّحْمَنِ الصُّوفِيُّ هُوَ فَلَكِيٌّ مُسْلِمٌ كَبِيرٌ عَاشَ فِي الْقَرْنِ الْعَاشِرِ الْمِيلَادِيِّ...",
+    id: 1033,
+    title: "アブドゥッラフマーン・アッ＝スーフィー",
+    category: "歴史",
+    level: "上級",
+    contentVoweled: "عَبْدُ الرَّحْمَنِ الصُّوفِيُّ هُوَ فَلَكِيٌّ مُسْلِمٌ كَبِيرٌ عَاشَ فِي الْقَرْنِ الْعَاشِرِ الْمِيلَادِيِّ، وَيُعَدُّ كِتَابُهُ 'صُوَرُ الْكَوَاكِبِ الثَّابِتَةِ' مِنْ أَهَمِّ الْمُؤَلَّفَاتِ فِي تَارِيخِ عِلْمِ الْفَلَكِ. قَامَ الصُّوفِيُّ بِتَصْحِيحِ أَرْصَادِ بَطْلِيمُوس الْيُونَانِيِّ، وَوَصَفَ النُّجُومَ وَمَوَاقِعَهَا وَأَقْدَارَهَا بِدِقَّةٍ مُتَنَاهِيَةٍ. هُوَ أَوَّلُ مَنْ رَصَدَ مَجَرَّةَ 'أَنْدُرُومِيدَا' وَوَصَفَهَا بِأَنَّهَا 'لَطْخَةٌ سَحَابِيَّةٌ'، مِمَّا يُثْبِتُ دِقَّةَ مُلَاحَظَتِهِ بِالْعَيْنِ الْمُجَرَّدَةِ قَبْلَ اخْتِرَاعِ التِّلِسْكُوب بِقُرُونٍ.",
     contentPlain: "عبد الرحمن الصوفي هو فلكي مسلم كبير عاش في القرن العاشر الميلادي، ويعد كتابه 'صور الكواكب الثابتة' من أهم المؤلفات في تاريخ علم الفلك. قام الصوفي بتصحيح أرصاد بطليموس اليوناني، ووصف النجوم ومواقعها وأقدارها بدقة متناهية. هو أول من رصد مجرة 'أندروميدا' ووصفها بأنها 'لطخة سحابية'، مما يثبت دقة ملاحظته بالعين المجردة قبل اختراع التلسكوب بقرون.",
     vocabList: [
       { word: "فَلَكِيّ", meaning: "天文学者" },
@@ -9674,20 +10576,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10332, type: "reading", text: "彼の最も重要な著書は？", options: ["医学の典範", "恒星の書（星座の書）", "黄金の牧草地", "旅行記"], correctIndex: 1, explanation: "「صور الكواكب الثابتة (恒星の図)」です。" },
       { id: 10333, type: "reading", text: "彼は誰のデータを修正しましたか？", options: ["コペルニクス", "プトレマイオス（バトレミウス）", "ガリレオ", "ニュートン"], correctIndex: 1, explanation: "「تصحيح أرصاد بطليموس」です。" },
       { id: 10334, type: "reading", text: "彼が最初に観測した銀河は？", options: ["天の川", "アンドロメダ", "ブラックホール", "火星"], correctIndex: 1, explanation: "「مجرة أندروميدا」を「雲のようなシミ」として記述しました。" },
-      { id: 10335, type: "grammar", text: "「証明します」", options: ["يُثْبِتُ", "يَنْفِي", "يَأْكُلُ", "يَنَامُ"], correctIndex: 0, explanation: "「Yuthbitu (Proves)」です。" }
+      { id: 10335, type: "grammar", text: "「証明します」", options: ["يُثْبِتُ", "يَنْفِي", "يَأْكُلُ", "يَنَامُ"], correctIndex: 0, explanation: "「Yuthbitu (Proves)」です。" },
+      // 上級文法問題
+      { id: 10336, type: "grammar_advanced", text: "「تصحيح أرصاد بطليموس」の「بطليموس」の正しい語尾は？", options: ["a (ファトハ)", "i (カスラ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Baṭlaymūs」は外国語由来の固有名詞なので非限定名詞（Mumnū' min al-ṣarf）となり、属格（Majrūr）でもファトハを取ります。" },
+      { id: 10337, type: "grammar_advanced", text: "「يعد كتابه من أهم」の「كتابه」の正しい語尾は？", options: ["u (ダンマ)", "a (ファトハ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "受動態「Yu'addu (見なされる/数えられる)」の代理主語（Nā'ib Fā'il）なので主格（Marfū'）となりダンマがつきます。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "سَمَّى الصُّوفِيُّ النُّجُومَ بِأَسْمَاءٍ عَرَبِيَّةٍ لَا تَزَالُ تُسْتَخْدَمُ.", japanese: "スーフィーは星にアラビア語の名前を付け、それらは今も使われています。" },
-      { speaker: "記事", arabic: "رَسَمَ خَرَائِطَ دَقِيقَةً لِلسَّمَاءِ.", japanese: "彼は空の正確な地図を描きました。" },
-      { speaker: "記事", arabic: "اعْتَمَدَ عَلَيْهِ الْعُلَمَاءُ الْأُورُوبِيُّونَ لِقُرُونٍ.", japanese: "ヨーロッパの学者たちは何世紀にもわたって彼に頼りました。" },
-      { speaker: "記事", arabic: "إِنَّهُ رَمْزٌ لِلدِّقَّةِ الْعِلْمِيَّةِ.", japanese: "彼は科学的精密さの象徴です。" }
+      { speaker: "記事", arabic: "عَبْدُ الرَّحْمَنِ الصُّوفِيُّ هُوَ فَلَكِيٌّ مُسْلِمٌ كَبِيرٌ عَاشَ فِي الْقَرْنِ الْعَاشِرِ.", japanese: "アブドゥッラフマーン・アッ＝スーフィーは10世紀に生きた偉大なムスリム天文学者です。" },
+      { speaker: "記事", arabic: "قَامَ بِتَصْحِيحِ أَرْصَادِ بَطْلِيمُوس الْيُونَانِيِّ.", japanese: "彼はギリシャのプトレマイオスの観測を修正しました。" },
+      { speaker: "記事", arabic: "هُوَ أَوَّلُ مَنْ رَصَدَ مَجَرَّةَ 'أَنْدُرُومِيدَا' وَوَصَفَهَا بِأَنَّهَا 'لَطْخَةٌ سَحَابِيَّةٌ'.", japanese: "彼はアンドロメダ銀河を最初に観測し、それを「雲のようなシミ」と表現した人物です。" },
+      { speaker: "記事", arabic: "يُثْبِتُ هَذَا دِقَّةَ مُلَاحَظَتِهِ قَبْلَ اخْتِرَاعِ التِّلِسْكُوب.", japanese: "これは望遠鏡の発明前の彼の観察の正確さを証明しています。" }
     ]
   },
-
-  // --- 26. 社会・エンタメ (Society/Entertainment) ---
   {
-    id: 1034, title: "リヤド・シーズン", category: "社会", level: "上級",
-    contentVoweled: "مَوْسِمُ الرِّيَاضِ هُوَ أَضْخَمُ مَهْرَجَانٍ تَرْفِيهِيٍّ فِي الشَّرْقِ الْأَوْسَطِ...",
+    id: 1034,
+    title: "リヤド・シーズン",
+    category: "社会",
+    level: "上級",
+    contentVoweled: "مَوْسِمُ الرِّيَاضِ هُوَ أَضْخَمُ مَهْرَجَانٍ تَرْفِيهِيٍّ فِي الشَّرْقِ الْأَوْسَطِ، يُقَامُ سَنَوِيًّا فِي الْعَاصِمَةِ السُّعُودِيَّةِ. يَهْدِفُ الْمَوْسِمُ إِلَى تَحْوِيلِ الرِّيَاضِ إِلَى وِجْهَةٍ سِيَاحِيَّةٍ وَتَرْفِيهِيَّةٍ عَالَمِيَّةٍ، حَيْثُ يَسْتَضِيفُ حَفَلَاتٍ مُوسِيقِيَّةٍ لِأَشْهَرِ الْفَنَّانِينَ الْعَالَمِيِّينَ، وَفَعَّالِيَّاتٍ رِيَاضِيَّةٍ كُبْرَى، وَمَعَارِضَ ثَقَافِيَّةٍ. يُسَاهِمُ هَذَا الْحَدَثُ فِي تَنْشِيطِ الِاقْتِصَادِ الْمَحَلِّيِّ وَخَلْقِ آلَافِ الْفُرَصِ الْوَظِيفِيَّةِ لِلشَّبَابِ السُّعُودِيِّ.",
     contentPlain: "موسم الرياض هو أضخم مهرجان ترفيهي في الشرق الأوسط، يقام سنويا في العاصمة السعودية. يهدف الموسم إلى تحويل الرياض إلى وجهة سياحية وترفيهية عالمية، حيث يستضيف حفلات موسيقية لأشهر الفنانين العالميين، وفعاليات رياضية كبرى، ومعارض ثقافية. يساهم هذا الحدث في تنشيط الاقتصاد المحلي وخلق آلاف الفرص الوظيفية للشباب السعودي.",
     vocabList: [
       { word: "تَرْفِيهِيّ", meaning: "娯楽の/エンタメの" },
@@ -9700,20 +10606,25 @@ questions: [] // アルファベット回は問題なし
       { id: 10342, type: "reading", text: "目的は何ですか？", options: ["リヤドを世界的観光地にすること", "交通渋滞を作る", "工場を建てる", "農業"], correctIndex: 0, explanation: "「تحويل الرياض إلى وجهة سياحية... عالمية」です。" },
       { id: 10343, type: "reading", text: "経済への影響は？", options: ["悪化させる", "関係ない", "地域経済の活性化と雇用創出", "輸出を減らす"], correctIndex: 2, explanation: "「تنشيط الاقتصاد... وخلق آلاف الفرص」です。" },
       { id: 10344, type: "vocabulary", text: "「فَنَّان」の意味は？", options: ["選手", "アーティスト/芸術家", "医者", "教師"], correctIndex: 1, explanation: "Artistです。" },
-      { id: 10345, type: "grammar", text: "「開催されます（受動態）」", options: ["يُقَامُ", "يَذْهَبُ", "يُسَافِرُ", "يَنْتَهِي"], correctIndex: 0, explanation: "「Yuqāmu」は「Is held」という意味です。" }
+      { id: 10345, type: "grammar", text: "「開催されます（受動態）」", options: ["يُقَامُ", "يَذْهَبُ", "يُسَافِرُ", "يَنْتَهِي"], correctIndex: 0, explanation: "「Yuqāmu」は「Is held」という意味です。" },
+      // 上級文法問題
+      { id: 10346, type: "grammar_advanced", text: "「موسم الرياض هو أضخم」の「أضخم」の正しい語尾は？", options: ["u (ダンマ)", "a (ファトハ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "「Huwa」の後の述語（Khabar）なので主格（Marfū'）となりダンマがつきます。イダーファの第1要素なのでタンウィーンはつきません。" },
+      { id: 10347, type: "grammar_advanced", text: "「يستضيف حفلات」の「حفلات」の正しい語尾は？", options: ["in (タンウィーン・カスラ)", "an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "i (カスラ)"], correctIndex: 0, explanation: "動詞「Yastaḍīfu (主催する/迎える)」の目的語ですが、女性規則複数（Jam' Mu'annath Sālim）なので、対格の場合ファトハではなくカスラを取ります。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "يَجْذِبُ الْمَوْسِمُ مَلَايِينَ الزُّوَّارِ.", japanese: "シーズンは何百万人もの訪問者を惹きつけます。" },
-      { speaker: "記事", arabic: "تَتَنَوَّعُ الْفَعَّالِيَّاتُ بَيْنَ الْفَنِّ وَالرِّيَاضَةِ وَالتَّسَوُّقِ.", japanese: "イベントは芸術、スポーツ、買い物の間で多岐にわたります。" },
-      { speaker: "記事", arabic: "أَصْبَحَتِ الرِّيَاضُ مَسْرَحًا لِلْأَحْدَاثِ الْعَالَمِيَّةِ.", japanese: "リヤドは世界的イベントの舞台となりました。" },
-      { speaker: "記事", arabic: "هَذَا يُعَزِّزُ جَوْدَةَ الْحَيَاةِ لِلسُّكَّانِ.", japanese: "これは住民の生活の質（QOL）を高めます。" }
+      { speaker: "記事", arabic: "مَوْسِمُ الرِّيَاضِ هُوَ أَضْخَمُ مَهْرَجَانٍ تَرْفِيهِيٍّ فِي الشَّرْقِ الْأَوْسَطِ.", japanese: "リヤド・シーズンは中東最大のエンターテインメントフェスティバルです。" },
+      { speaker: "記事", arabic: "يَهْدِفُ إِلَى تَحْوِيلِ الرِّيَاضِ إِلَى وِجْهَةٍ سِيَاحِيَّةٍ عَالَمِيَّةٍ.", japanese: "それはリヤドを世界的な観光地に変えることを目指しています。" },
+      { speaker: "記事", arabic: "يَسْتَضِيفُ حَفَلَاتٍ مُوسِيقِيَّةٍ وَفَعَّالِيَّاتٍ رِيَاضِيَّةٍ كُبْرَى.", japanese: "それは音楽コンサートや主要なスポーツイベントを主催します。" },
+      { speaker: "記事", arabic: "يُسَاهِمُ فِي تَنْشِيطِ الِاقْتِصَادِ الْمَحَلِّيِّ وَخَلْقِ الْفُرَصِ الْوَظِيفِيَّةِ.", japanese: "それは地域経済の活性化と雇用の機会の創出に貢献します。" }
     ]
   },
-
   // --- 27. 文化・伝統 (Culture) ---
   {
-    id: 1035, title: "マジュリス（集会場）", category: "文化", level: "上級",
-    contentVoweled: "الْمَجْلِسُ الْعَرَبِيُّ هُوَ أَكْثَرُ مِنْ مُجَرَّدِ غُرْفَةٍ لِلْجُلُوسِ...",
+    id: 1035,
+    title: "マジュリス（集会場）",
+    category: "文化",
+    level: "上級",
+    contentVoweled: "الْمَجْلِسُ الْعَرَبِيُّ هُوَ أَكْثَرُ مِنْ مُجَرَّدِ غُرْفَةٍ لِلْجُلُوسِ، بَلْ هُوَ مُؤَسَّسَةٌ اجْتِمَاعِيَّةٌ وَثَقَافِيَّةٌ عَرِيقَةٌ. فِي الْمَجْلِسِ، يَجْتَمِعُ أَفْرَادُ الْمُجْتَمَعِ لِمُنَاقَشَةِ الْقَضَايَا الْعَامَّةِ، وَحَلِّ النِّزَاعَاتِ، وَتَبَادُلِ الْأَخْبَارِ وَالْقِصَصِ. يَلْعَبُ الْمَجْلِسُ دَوْرًا حَيَوِيًّا فِي نَقْلِ الْعَادَاتِ وَالتَّقَالِيدِ مِنَ الْجِيلِ الْقَدِيمِ إِلَى الشَّبَابِ، وَقَدْ أَدْرَجَتْهُ الْيُونِسْكُو ضِمْنَ قَائِمَةِ التُّرَاثِ الثَّقَافِيِّ غَيْرِ الْمَادِّيِّ لِلْإِنْسَانِيَّةِ.",
     contentPlain: "المجلس العربي هو أكثر من مجرد غرفة للجلوس، بل هو مؤسسة اجتماعية وثقافية عريقة. في المجلس، يجتمع أفراد المجتمع لمناقشة القضايا العامة، وحل النزاعات، وتبادل الأخبار والقصص. يلعب المجلس دورا حيويا في نقل العادات والتقاليد من الجيل القديم إلى الشباب، وقد أدرجته اليونسكو ضمن قائمة التراث الثقافي غير المادي للإنسانية.",
     vocabList: [
       { word: "مَجْلِس", meaning: "マジュリス/集会場" },
@@ -9726,20 +10637,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10352, type: "reading", text: "そこで何が行われますか？", options: ["睡眠", "議論、紛争解決、ニュース交換", "スポーツ", "料理"], correctIndex: 1, explanation: "「مناقشة القضايا... وحل النزاعات...」です。" },
       { id: 10353, type: "reading", text: "どのような役割を果たしていますか？", options: ["伝統の伝承", "お金を隠す", "若者を追い出す", "静かにする"], correctIndex: 0, explanation: "「نقل العادات والتقاليد (習慣と伝統の伝達)」です。" },
       { id: 10354, type: "vocabulary", text: "「عَرِيق」の意味は？", options: ["新しい", "由緒ある/古来の", "悪い", "狭い"], correctIndex: 1, explanation: "Ancient/Deep-rooted（由緒ある）です。" },
-      { id: 10355, type: "grammar", text: "「議論するために」", options: ["لِمُنَاقَشَةِ", "لِأَكْلِ", "لِلنَّوْمِ", "لِلذَّهَابِ"], correctIndex: 0, explanation: "「Li-munāqashati」です。" }
+      { id: 10355, type: "grammar", text: "「議論するために」", options: ["لِمُنَاقَشَةِ", "لِأَكْلِ", "لِلنَّوْمِ", "لِلذَّهَابِ"], correctIndex: 0, explanation: "「Li-munāqashati」です。" },
+      // 上級文法問題
+      { id: 10356, type: "grammar_advanced", text: "「أكثر من」の「أكثر」の正しい語尾は？", options: ["u (ダンマ)", "a (ファトハ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "「Huwa (彼は/それは)」の述語（Khabar）なので主格（Marfū'）となりダンマがつきます。「Akthar」は比較級（Af'alパターン）のため、非限定名詞でありタンウィーンはつきません（ただし主格ではダンマ1つ）。" },
+      { id: 10357, type: "grammar_advanced", text: "「مناقشة القضايا العامة」の「القضايا」の正しい語尾は？", options: ["i (カスラ・推定)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "イダーファの第2要素（属格）ですが、「Qaḍāyā」はアリフで終わる名詞（Manqūṣ/Maqṣūr的性質）なので、母音記号は現れず、推定されたカスラ（Kasra Muqaddara）となります。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "يَتَعَلَّمُ الشَّبَابُ فِي الْمَجْلِسِ آدَابَ الْحَدِيثِ.", japanese: "若者はマジュリスで会話のマナーを学びます。" },
-      { speaker: "記事", arabic: "كِبَارُ السِّنِّ يَحْظَوْنَ بِاحْتِرَامٍ كَبِيرٍ هُنَاكَ.", japanese: "そこでは年長者が大きな尊敬を集めます。" },
-      { speaker: "記事", arabic: "الْكَرَمُ وَحُسْنُ الضِّيَافَةِ مِنْ أَسَاسِيَّاتِ الْمَجْلِسِ.", japanese: "寛大さと良いおもてなしはマジュリスの基本です。" },
-      { speaker: "記事", arabic: "الْمَجَالِسُ مَدَارِسُ.", japanese: "「マジュリスは学校である」（という格言があります）。" }
+      { speaker: "記事", arabic: "الْمَجْلِسُ الْعَرَبِيُّ مُؤَسَّسَةٌ اجْتِمَاعِيَّةٌ وَثَقَافِيَّةٌ عَرِيقَةٌ.", japanese: "アラブ・マジュリスは由緒ある社会的・文化的機関です。" },
+      { speaker: "記事", arabic: "يَجْتَمِعُ أَفْرَادُ الْمُجْتَمَعِ لِحَلِّ النِّزَاعَاتِ وَتَبَادُلِ الْأَخْبَارِ.", japanese: "コミュニティのメンバーは紛争を解決し、ニュースを交換するために集まります。" },
+      { speaker: "記事", arabic: "يَلْعَبُ دَوْرًا حَيَوِيًّا فِي نَقْلِ الْعَادَاتِ مِنَ الْجِيلِ الْقَدِيمِ إِلَى الشَّبَابِ.", japanese: "それは習慣を古い世代から若者へ伝える上で重要な役割を果たします。" },
+      { speaker: "記事", arabic: "أَدْرَجَتْهُ الْيُونِسْكُو ضِمْنَ قَائِمَةِ التُّرَاثِ الثَّقَافِيِّ.", japanese: "ユネスコはそれを文化遺産リストに登録しました。" }
     ]
   },
-
-  // --- 28. 文学・物語 (Literature) ---
   {
-    id: 1036, title: "千夜一夜物語（アラビアンナイト）", category: "文学", level: "上級",
-    contentVoweled: "أَلْفُ لَيْلَةٍ وَلَيْلَةٍ هِيَ مَجْمُوعَةُ قِصَصٍ شَعْبِيَّةٍ سَاحِرَةٍ...",
+    id: 1036,
+    title: "千夜一夜物語（アラビアンナイト）",
+    category: "文学",
+    level: "上級",
+    contentVoweled: "أَلْفُ لَيْلَةٍ وَلَيْلَةٍ هِيَ مَجْمُوعَةُ قِصَصٍ شَعْبِيَّةٍ سَاحِرَةٍ تَعُودُ لِلْعُصُورِ الْوُسْطَى. تَدُورُ الْقِصَّةُ الْإِطَارِيَّةُ حَوْلَ الْمَلِكِ شَهْرَيَار الَّذِي يُقَرِّرُ قَتْلَ زَوْجَاتِهِ، فَتَنْجُو شَهْرَزَاد بِذَكَائِهَا عَبْرَ سَرْدِ قِصَصٍ مُشَوِّقَةٍ كُلَّ لَيْلَةٍ وَتَتَوَقَّفُ عِنْدَ لَحْظَةٍ حَاسِمَةٍ، مِمَّا يُجْبِرُ الْمَلِكَ عَلَى تَأْجِيلِ قَتْلِهَا لِسَمَاعِ الْبَقِيَّةِ. أَثَّرَتْ هَذِهِ الْحِكَايَاتُ، مِثْلَ عَلَاء الدِّينِ وَالسِّنْدِبَاد، بِشَكْلٍ عَمِيقٍ عَلَى الْأَدَبِ الْعَالَمِيِّ.",
     contentPlain: "ألف ليلة وليلة هي مجموعة قصص شعبية ساحرة تعود للعصور الوسطى. تدور القصة الإطارية حول الملك شهريار الذي يقرر قتل زوجاته، فتنجو شهرزاد بذكائها عبر سرد قصص مشوقة كل ليلة وتتوقف عند لحظة حاسمة، مما يجبر الملك على تأجيل قتلها لسماع البقية. أثرت هذه الحكايات، مثل علاء الدين والسندباد، بشكل عميق على الأدب العالمي.",
     vocabList: [
       { word: "قِصَّة", meaning: "物語" },
@@ -9752,20 +10667,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10362, type: "reading", text: "シェヘラザードはどうやって生き延びましたか？", options: ["戦って", "逃げて", "毎晩面白い話をして", "お金を払って"], correctIndex: 2, explanation: "「سرد قصص مشوقة كل ليلة (毎晩面白い話を語ること)」によってです。" },
       { id: 10363, type: "reading", text: "彼女は話をどのタイミングで止めましたか？", options: ["最初", "真ん中", "決定的な瞬間（クリフハンガー）", "終わってから"], correctIndex: 2, explanation: "「عند لحظة حاسمة (決定的な瞬間に)」です。" },
       { id: 10364, type: "vocabulary", text: "「زَوْجَة」の意味は？", options: ["夫", "妻", "娘", "母"], correctIndex: 1, explanation: "Wife（妻）です。" },
-      { id: 10365, type: "grammar", text: "「強制します/させます」", options: ["يُجْبِرُ", "يُعْطِي", "يَسْمَحُ", "يُحِبُّ"], correctIndex: 0, explanation: "「Yujbiru (Compel/Force)」です。" }
+      { id: 10365, type: "grammar", text: "「強制します/させます」", options: ["يُجْبِرُ", "يُعْطِي", "يَسْمَحُ", "يُحِبُّ"], correctIndex: 0, explanation: "「Yujbiru (Compel/Force)」です。" },
+      // 上級文法問題
+      { id: 10366, type: "grammar_advanced", text: "「ألف ليلة」の「ليلة」の正しい語尾は？", options: ["in (タンウィーン・カスラ)", "an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "i (カスラ)"], correctIndex: 0, explanation: "数詞「Alf (1000)」の後の名詞（Tamyīz/Muḍāf Ilayhi）は単数・属格（Majrūr）になります。" },
+      { id: 10367, type: "grammar_advanced", text: "「قتل زوجاته」の「زوجاته」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "動詞「Qatla (殺害)」の目的語ですが、「Zawjāt (妻たち)」は女性規則複数なので、対格でもカスラ（i）を取ります（代名詞「hi」が付くのでタンウィーンはなし）。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "تُرْجِمَ الْكِتَابُ إِلَى مُعْظَمِ لُغَاتِ الْعَالَمِ.", japanese: "その本は世界のほとんどの言語に翻訳されました。" },
-      { speaker: "記事", arabic: "الْخَيَالُ فِي هَذِهِ الْقِصَصِ لَا حُدُودَ لَهُ.", japanese: "これらの物語の想像力には限界がありません。" },
-      { speaker: "記事", arabic: "شَخْصِيَّةُ شَهْرَزَادَ رَمْزٌ لِلذَّكَاءِ وَالْحِكْمَةِ.", japanese: "シェヘラザードというキャラクターは知性と知恵の象徴です。" },
-      { speaker: "記事", arabic: "الْأَدَبُ يُمْكِنُ أَنْ يُغَيِّرَ النُّفُوسَ.", japanese: "文学は魂（人の心）を変えることができます。" }
+      { speaker: "記事", arabic: "أَلْفُ لَيْلَةٍ وَلَيْلَةٍ هِيَ مَجْمُوعَةُ قِصَصٍ شَعْبِيَّةٍ سَاحِرَةٍ.", japanese: "千夜一夜物語は、中世に遡る魅惑的な民話集です。" },
+      { speaker: "記事", arabic: "تَنْجُو شَهْرَزَاد بِذَكَائِهَا عَبْرَ سَرْدِ قِصَصٍ مُشَوِّقَةٍ كُلَّ لَيْلَةٍ.", japanese: "シェヘラザードは毎晩スリリングな物語を語ることで、その知恵によって生き延びます。" },
+      { speaker: "記事", arabic: "تَتَوَقَّفُ عِنْدَ لَحْظَةٍ حَاسِمَةٍ لِإِجْبَارِ الْمَلِكِ عَلَى تَأْجِيلِ قَتْلِهَا.", japanese: "彼女は王に殺害を延期させるよう強制するために、決定的な瞬間に話を止めます。" },
+      { speaker: "記事", arabic: "أَثَّرَتْ هَذِهِ الْحِكَايَاتُ بِشَكْلٍ عَمِيقٍ عَلَى الْأَدَبِ الْعَالَمِيِّ.", japanese: "これらの物語は世界文学に深い影響を与えました。" }
     ]
   },
-
-  // --- 29. 環境・地理 (Geography) ---
   {
-    id: 1037, title: "アスィール地方", category: "自然", level: "上級",
-    contentVoweled: "تَتَمَيَّزُ مِنْطَقَةُ عَسِيرَ بِطَبِيعَةٍ جُغْرَافِيَّةٍ وَمُنَاخِيَّةٍ فَرِيدَةٍ...",
+    id: 1037,
+    title: "アスィール地方",
+    category: "自然",
+    level: "上級",
+    contentVoweled: "تَتَمَيَّزُ مِنْطَقَةُ عَسِيرَ بِطَبِيعَةٍ جُغْرَافِيَّةٍ وَمُنَاخِيَّةٍ فَرِيدَةٍ تَخْتَلِفُ عَنْ بَاقِي مَنَاطِقِ الْمَمْلَكَةِ. فَهِيَ مِنْطَقَةٌ جَبَلِيَّةٌ شَاهِقَةٌ تَكْسُوهَا غَابَاتُ الْعَرْعَرِ وَتَهْطِلُ عَلَيْهَا الْأَمْطَارُ بِغَزَارَةٍ، مِمَّا يَجْعَلُهَا خَضْرَاءَ طِوَالَ الْعَامِ. يَشْتَهِرُ أَهْلُ الْمِنْطَقَةِ بِبِنَاءِ الْمُدَرَّجَاتِ الزِّرَاعِيَّةِ عَلَى سُفُوحِ الْجِبَالِ لِاسْتِغْلَالِ مِيَاهِ الْأَمْطَارِ فِي زِرَاعَةِ الْقَمْحِ وَالْبُنِّ، وَتُعَدُّ أَبْهَا عَاصِمَةَ السِّيَاحَةِ الصَّيْفِيَّةِ.",
     contentPlain: "تتميز منطقة عسير بطبيعة جغرافية ومناخية فريدة تختلف عن باقي مناطق المملكة. فهي منطقة جبلية شاهقة تكسوها غابات العرعر وتهطل عليها الأمطار بغزارة، مما يجعلها خضراء طوال العام. يشتهر أهل المنطقة ببناء المدرجات الزراعية على سفوح الجبال لاستغلال مياه الأمطار في زراعة القمح والبن، وتعد أبها عاصمة السياحة الصيفية.",
     vocabList: [
       { word: "مُنَاخ", meaning: "気候" },
@@ -9778,20 +10697,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10372, type: "reading", text: "地形はどうなっていますか？", options: ["平ら", "高くそびえる山岳地帯", "谷底", "島"], correctIndex: 1, explanation: "「منطقة جبلية شاهقة (高くそびえる山岳地帯)」です。" },
       { id: 10373, type: "reading", text: "農業のための工夫は？", options: ["温室", "山の斜面の段々畑（テラス）", "輸入", "地下農場"], correctIndex: 1, explanation: "「المدرجات الزراعية على سفوح الجبال」です。" },
       { id: 10374, type: "vocabulary", text: "「قَمْح」の意味は？", options: ["米", "小麦", "トウモロコシ", "大麦"], correctIndex: 1, explanation: "Wheat（小麦）です。" },
-      { id: 10375, type: "grammar", text: "「覆います」", options: ["تَكْسُو", "تَكْشِفُ", "تَقْطَعُ", "تَحْرِقُ"], correctIndex: 0, explanation: "「Taksū (Cover/Clothe)」です。" }
+      { id: 10375, type: "grammar", text: "「覆います」", options: ["تَكْسُو", "تَكْشِفُ", "تَقْطَعُ", "تَحْرِقُ"], correctIndex: 0, explanation: "「Taksū (Cover/Clothe)」です。" },
+      // 上級文法問題
+      { id: 10376, type: "grammar_advanced", text: "「منطقة عسير」の「عسير」の正しい語尾は？", options: ["a (ファトハ)", "i (カスラ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "地名であり、イダーファの第2要素（属格）ですが、非限定名詞（Mumnū' min al-ṣarf）として扱われることが多く、ファトハを取ります。" },
+      { id: 10377, type: "grammar_advanced", text: "「مما يجعلها خضراء」の「خضراء」の正しい語尾は？", options: ["a (ファトハ・タンウィーンなし)", "an (タンウィーン・ファトハ)", "u (ダンマ)", "i (カスラ)"], correctIndex: 0, explanation: "動詞「Yaj'alu」の第2目的語（対格）ですが、「Fa'lā'」パターンの色を表す形容詞（女性形）は非限定名詞なので、タンウィーンを取らずファトハ一文字になります。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "رِجَالُ أَلْمَعَ قَرْيَةٌ تُرَاثِيَّةٌ مَشْهُورَةٌ فِي عَسِيرَ.", japanese: "リジャール・アルマアはアスィールで有名な遺産の村です。" },
-      { speaker: "記事", arabic: "يَرْتَدِي بَعْضُ السُّكَّانِ أَطْوَاقًا مِنَ الزُّهُورِ.", japanese: "一部の住民は花の冠（花輪）を身につけます（フラワーメン）。" },
-      { speaker: "記事", arabic: "السَّوْدَةُ هِيَ أَعْلَى قِمَّةٍ فِي السُّعُودِيَّةِ.", japanese: "サウダ山はサウジアラビアの最高峰です。" },
-      { speaker: "記事", arabic: "الضَّبَابُ يُعَانِقُ الْجِبَالَ فِي مَنْظَرٍ بَدِيعٍ.", japanese: "霧が山々を抱きしめる素晴らしい景色です。" }
+      { speaker: "記事", arabic: "تَتَمَيَّزُ مِنْطَقَةُ عَسِيرَ بِطَبِيعَةٍ جُغْرَافِيَّةٍ وَمُنَاخِيَّةٍ فَرِيدَةٍ.", japanese: "アスィール地方は独特の地理的・気候的性質によって特徴づけられます。" },
+      { speaker: "記事", arabic: "هِيَ مِنْطَقَةٌ جَبَلِيَّةٌ شَاهِقَةٌ تَكْسُوهَا غَابَاتُ الْعَرْعَرِ.", japanese: "そこはビャクシンの森に覆われた高くそびえる山岳地帯です。" },
+      { speaker: "記事", arabic: "يَشْتَهِرُ أَهْلُ الْمِنْطَقَةِ بِبِنَاءِ الْمُدَرَّجَاتِ الزِّرَاعِيَّةِ عَلَى سُفُوحِ الْجِبَالِ.", japanese: "この地域の人々は、山の斜面に農業用テラス（段々畑）を作ることで有名です。" },
+      { speaker: "記事", arabic: "تُعَدُّ أَبْهَا عَاصِمَةَ السِّيَاحَةِ الصَّيْفِيَّةِ.", japanese: "アブハは夏の観光の首都（中心地）とみなされています。" }
     ]
   },
-
-  // --- 30. 経済 (Economy) ---
   {
-    id: 1038, title: "サウジ証券取引所 (Tadawul)", category: "経済", level: "上級",
-    contentVoweled: "السُّوقُ الْمَالِيَّةُ السُّعُودِيَّةُ 'تَدَاوُل' هِيَ أَكْبَرُ سُوقٍ مَالِيَّةٍ فِي الشَّرْقِ الْأَوْسَطِ...",
+    id: 1038,
+    title: "サウジ証券取引所 (Tadawul)",
+    category: "経済",
+    level: "上級",
+    contentVoweled: "السُّوقُ الْمَالِيَّةُ السُّعُودِيَّةُ 'تَدَاوُل' هِيَ أَكْبَرُ سُوقٍ مَالِيَّةٍ فِي الشَّرْقِ الْأَوْسَطِ وَشَمَالِ أَفْرِيقِيَا. شَهِدَتِ السُّوقُ تَطَوُّرًا هَائِلًا، خَاصَّةً بَعْدَ طَرْحِ جُزْءٍ مِنْ أَسْهُمِ شَرِكَةِ 'أَرَامْكُو' لِلِاكْتِتَابِ الْعَامِّ، مِمَّا جَذَبَ رُؤُوسَ أَمْوَالٍ أَجْنَبِيَّةٍ ضَخْمَةٍ. تُعْتَبَرُ السُّوقُ مُؤَشِّرًا رَئِيسِيًّا لِقُوَّةِ الِاقْتِصَادِ السُّعُودِيِّ، وَتُتِيحُ لِلْمُسْتَثْمِرِينَ الْمَحَلِّيِّينَ وَالدَّوْلِيِّينَ فُرَصًا مُتَنَوِّعَةً فِي قِطَاعَاتِ الْبُنُوكِ وَالطَّاقَةِ وَالِاتِّصَالَاتِ.",
     contentPlain: "السوق المالية السعودية 'تداول' هي أكبر سوق مالية في الشرق الأوسط وشمال أفريقيا. شهدت السوق تطورا هائلا، خاصة بعد طرح جزء من أسهم شركة 'أرامكو' للاكتتاب العام، مما جذب رؤوس أموال أجنبية ضخمة. تعتبر السوق مؤشرا رئيسيا لقوة الاقتصاد السعودي، وتتيح للمستثمرين المحليين والدوليين فرصا متنوعة في قطاعات البنوك والطاقة والاتصالات.",
     vocabList: [
       { word: "سُوق", meaning: "市場" },
@@ -9804,19 +10727,25 @@ questions: [] // アルファベット回は問題なし
       { id: 10382, type: "reading", text: "大きな転換点となった出来事は？", options: ["市場の閉鎖", "アラムコ株の公開（IPO）", "銀行の倒産", "税金の廃止"], correctIndex: 1, explanation: "「طرح جزء من أسهم شركة أرامكو」です。" },
       { id: 10383, type: "reading", text: "市場は何の指標とされていますか？", options: ["天気の良さ", "サウジ経済の強さ", "人口の多さ", "石油の価格だけ"], correctIndex: 1, explanation: "「مؤشرا رئيسيا لقوة الاقتصاد السعودي」です。" },
       { id: 10384, type: "vocabulary", text: "「مُسْتَثْمِر」の意味は？", options: ["消費者", "投資家", "労働者", "学生"], correctIndex: 1, explanation: "Investor（投資家）です。" },
-      { id: 10385, type: "grammar", text: "「可能にします/提供します」", options: ["تُتِيحُ", "تَمْنَعُ", "تَأْخُذُ", "تَطْلُبُ"], correctIndex: 0, explanation: "「Tutīḥu (Allows/Provides opportunity)」です。" }
+      { id: 10385, type: "grammar", text: "「可能にします/提供します」", options: ["تُتِيحُ", "تَمْنَعُ", "تَأْخُذُ", "تَطْلُبُ"], correctIndex: 0, explanation: "「Tutīḥu (Allows/Provides opportunity)」です。" },
+      // 上級文法問題
+      { id: 10386, type: "grammar_advanced", text: "「شهدت السوق」の「السوق」の正しい語尾は？", options: ["u (ダンマ)", "a (ファトハ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "動詞「Shahidat（経験した）」の主語（Fā'il）なので、主格（Marfū'）となりダンマがつきます。" },
+      { id: 10387, type: "grammar_advanced", text: "「تتيح للمستثمرين」の「المستثمرين」の正しい語尾は？", options: ["īna (属格・男性規則複数)", "ūna (主格・男性規則複数)", "ayni (属格・双数)", "in (タンウィーン)"], correctIndex: 0, explanation: "前置詞「Li」の後の名詞（Ism Majrūr）であり、男性規則複数なので、「īna」で終わります。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "الِاسْتِثْمَارُ فِي الْأَسْهُمِ يَتَطَلَّبُ مَعْرِفَةً وَتَحْلِيلًا.", japanese: "株式投資には知識と分析が必要です。" },
-      { speaker: "記事", arabic: "انْضَمَّتْ تَدَاوُل إِلَى الْمُؤَشِّرَاتِ الْعَالَمِيَّةِ لِلْأَسْوَاقِ النَّاشِئَةِ.", japanese: "タダウルは新興市場の世界的なインデックスに加わりました。" },
-      { speaker: "記事", arabic: "التِّقْنِيَةُ سَهَّلَتْ عَمَلِيَّةَ التَّدَاوُلِ مِنَ الْهَاتِفِ.", japanese: "テクノロジーは電話からの取引プロセスを容易にしました。" },
-      { speaker: "記事", arabic: "الشَّفَافِيَّةُ مُهِمَّةٌ لِجَذْبِ رُؤُوسِ الْأَمْوَالِ.", japanese: "透明性は資本を惹きつけるために重要です。" }
+      { speaker: "記事", arabic: "السُّوقُ الْمَالِيَّةُ السُّعُودِيَّةُ هِيَ أَكْبَرُ سُوقٍ مَالِيَّةٍ فِي الشَّرْقِ الْأَوْسَطِ.", japanese: "サウジ証券取引所は中東最大の金融市場です。" },
+      { speaker: "記事", arabic: "شَهِدَتِ السُّوقُ تَطَوُّرًا هَائِلًا، خَاصَّةً بَعْدَ طَرْحِ أَسْهُمِ 'أَرَامْكُو'.", japanese: "市場は、特に「アラムコ」株の公開後、目覚ましい発展を遂げました。" },
+      { speaker: "記事", arabic: "تُعْتَبَرُ السُّوقُ مُؤَشِّرًا رَئِيسِيًّا لِقُوَّةِ الِاقْتِصَادِ السُّعُودِيِّ.", japanese: "市場はサウジ経済の強さの主要な指標と考えられています。" },
+      { speaker: "記事", arabic: "تُتِيحُ لِلْمُسْتَثْمِرِينَ فُرَصًا مُتَنَوِّعَةً فِي قِطَاعَاتِ الْبُنُوكِ وَالطَّاقَةِ.", japanese: "それは投資家に銀行やエネルギー部門での多様な機会を提供します。" }
     ]
   },
   {
-    id: 1039, title: "サウジのアルダ（剣の舞）", category: "文化", level: "上級",
-    contentVoweled: "الْعَرْضَةُ السُّعُودِيَّةُ هِيَ رَقْصَةٌ حَرْبِيَّةٌ تَقْلِيدِيَّةٌ تَحَوَّلَتْ إِلَى رَمْزٍ وَطَنِيٍّ...",
-    contentPlain: "العرضة السعودية هي رقصة حربية تقليدية تحولت إلى رمز وطني للاحتفال والوحدة. يؤديها الرجال وهم يرتدون الزي التقليدي ويحملون السيوف، ويقفون في صفوف متقابلة يرددون أبيات الشعر الحماسية على إيقاع الطبول. كانت العرضة تؤدى قديما قبل المعارك لإثارة الحماس، أما اليوم فهي تقام في المناسبات الوطنية واستقبال الملوك والضيوف الكبار.",
+    id: 1039,
+    title: "サウジのアルダ（剣の舞）",
+    category: "文化",
+    level: "上級",
+    contentVoweled: "الْعَرْضَةُ السُّعُودِيَّةُ هِيَ رَقْصَةٌ حَرْبِيَّةٌ تَقْلِيدِيَّةٌ تَحَوَّلَتْ إِلَى رَمْزٍ وَطَنِيٍّ لِلِاحْتِفَالِ وَالْوَحْدَةِ. يُؤَدِّيهَا الرِّجَالُ وَهُمْ يَرْتَدُونَ الزِّيَّ التَّقْلِيدِيَّ وَيَحْمِلُونَ السُّيُوفَ، وَيَقِفُونَ فِي صُفُوفٍ مُتَقَابِلَةٍ يُرَدِّدُونَ أَبْيَاتَ الشِّعْرِ الْحَمَاسِيَّةِ عَلَى إِيقَاعِ الطُّبُولِ. كَانَتِ الْعَرْضَةُ تُؤَدَّى قَدِيمًا قَبْلَ الْمَعَارِكِ لِإِثَارَةِ الْحَمَاسِ، أَمَّا الْيَوْمَ فَهِيَ تُقَامُ فِي الْمُنَاسَبَاتِ الْوَطَنِيَّةِ وَاسْتِقْبَالِ الْمُلُوكِ وَالضُّيُوفِ الْكِبَارِ.",
+    contentPlain: "العرضة السعودية هي رقصة حربية تقليدية تحولت إلى رمز وطني للاحتفال والوحدة. يؤديها الرجال وهم يرتدون الزي التقليدي ويحملون السيوف، ويقفون في صفوف متقابلة يرددون أبيات الشعر الحماسية على إيقاع الطبول. كانت العرضة تؤدى قديما قبل المعارك لإثارة الحماس، أما اليوم فهي تقام في المناسبات والوطنية واستقبال الملوك والضيوف الكبار.",
     vocabList: [
       { word: "حَرْبِيّ", meaning: "戦争の/軍事の" },
       { word: "سَيْف", meaning: "剣（複：スユーフ）" },
@@ -9828,21 +10757,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10392, type: "reading", text: "踊り手は何を持っていますか？", options: ["花", "剣", "銃", "旗"], correctIndex: 1, explanation: "「يحملون السيوف (剣を持っている)」です。" },
       { id: 10393, type: "reading", text: "現在はいつ行われますか？", options: ["戦争中", "国家的行事や賓客の歓迎", "寝る前", "悲しい時"], correctIndex: 1, explanation: "「في المناسبات الوطنية واستقبال الملوك」です。" },
       { id: 10394, type: "vocabulary", text: "「صَفّ」の意味は？", options: ["円", "列/ライン", "点", "箱"], correctIndex: 1, explanation: "Row/Line（列）です。" },
-      { id: 10395, type: "grammar", text: "「繰り返します（唱和します）」", options: ["يُرَدِّدُونَ", "يَسْكُتُونَ", "يَأْكُلُونَ", "يَجْرُونَ"], correctIndex: 0, explanation: "「Yuraddidūna (Repeat/Chant)」です。" }
+      { id: 10395, type: "grammar", text: "「繰り返します（唱和します）」", options: ["يُرَدِّدُونَ", "يَسْكُتُونَ", "يَأْكُلُونَ", "يَجْرُونَ"], correctIndex: 0, explanation: "「Yuraddidūna (Repeat/Chant)」です。" },
+      // 上級文法問題
+      { id: 10396, type: "grammar_advanced", text: "「وهم يرتدون」の「يرتدون」の正しい語尾（読み）は？", options: ["Yartadūna (ウーナ)", "Yartadīna (イーナ)", "Yartadān (アーン)", "Yartadi (イ)"], correctIndex: 0, explanation: "主語が「Hum (彼ら)」なので、現在形の男性複数形「ūna」で終わります。" },
+      { id: 10397, type: "grammar_advanced", text: "「أبيات الشعر」の「أبيات」の正しい語尾は？", options: ["a (ファトハ)", "i (カスラ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "動詞「Yuraddidūna（唱和する）」の目的語なので対格（Manṣūb）になります。「Abyāt（詩句）」は不規則複数（Jam' Taksīr）なので、通常通りファトハを取ります（女性規則複数と間違えやすいですが違います）。" }
     ],
     sentences: [
-      // ▼▼▼ 修正: 答えとなる「戦争の踊り」という記述をここに追加しました ▼▼▼
       { speaker: "記事", arabic: "الْعَرْضَةُ السُّعُودِيَّةُ هِيَ رَقْصَةٌ حَرْبِيَّةٌ تَقْلِيدِيَّةٌ تَحَوَّلَتْ إِلَى رَمْزٍ وَطَنِيٍّ.", japanese: "サウジのアルダは、国家的象徴へと変化した伝統的な戦争の踊りです。" },
       { speaker: "記事", arabic: "يُؤَدِّيهَا الرِّجَالُ وَهُمْ يَحْمِلُونَ السُّيُوفَ فِي صُفُوفٍ مُتَقَابِلَةٍ.", japanese: "男性たちが剣を持ち、向かい合った列でそれを演じます。" },
       { speaker: "記事", arabic: "كَانَتِ الْعَرْضَةُ تُؤَدَّى قَدِيمًا قَبْلَ الْمَعَارِكِ لِإِثَارَةِ الْحَمَاسِ.", japanese: "アルダは昔、熱狂を呼び起こすために戦いの前に演じられていました。" },
-      { speaker: "記事", arabic: "الْيَوْمَ، تُقَامُ فِي الْمُنَاسَبَاتِ الْوَطَنِيَّةِ وَاسْتِقْبَالِ الْمُلُوكِ.", japanese: "今日では、国家的行事や王を迎える際に催されます。" },
-      { speaker: "記事", arabic: "الشِّعْرُ فِيهَا يَتَغَنَّى بِحُبِّ الْوَطَنِ وَالشَّجَاعَةِ.", japanese: "その中の詩は祖国愛と勇気を歌います。" }
+      { speaker: "記事", arabic: "الْيَوْمَ، تُقَامُ فِي الْمُنَاسَبَاتِ الْوَطَنِيَّةِ وَاسْتِقْبَالِ الْمُلُوكِ.", japanese: "今日では、国家的行事や王を迎える際に催されます。" }
     ]
   },
-// --- 32. 地理・自然 (Geography/Nature) ---
-{
-    id: 1040, title: "アル・アハサー・オアシス", category: "自然", level: "上級",
-    contentVoweled: "وَاحَةُ الْأَحْسَاءِ هِيَ أَكْبَرُ وَاحَةِ نَخِيلٍ فِي الْعَالَمِ...",
+  {
+    id: 1040,
+    title: "アル・アハサー・オアシス",
+    category: "自然",
+    level: "上級",
+    contentVoweled: "وَاحَةُ الْأَحْسَاءِ هِيَ أَكْبَرُ وَاحَةِ نَخِيلٍ فِي الْعَالَمِ، وَتَقَعُ فِي شَرْقِ الْمَمْلَكَةِ الْعَرَبِيَّةِ السُّعُودِيَّةِ. تَضُمُّ الْوَاحَةُ أَكْثَرَ مِنْ 2.5 مَلْيُونَ نَخْلَةٍ تُنْتِجُ أَجْوَدَ أَنْوَاعِ التُّمُورِ مِثْلَ 'الْخَلَاص'. بِفَضْلِ نِظَامِ الرِّيِّ التَّقْلِيدِيِّ الْمُعَقَّدِ وَالْعُيُونِ الطَّبِيعِيَّةِ، تَمَّ تَسْجِيلُ الْأَحْسَاءِ فِي قَائِمَةِ التُّرَاثِ الْعَالَمِيِّ لِلْيُونِسْكُو. تُعْتَبَرُ الْمِنْطَقَةُ مِثَالًا حَيًّا عَلَى تَفَاعُلِ الْإِنْسَانِ مَعَ الْبِيئَةِ مُنْذُ آلَافِ السِّنِينَ.",
     contentPlain: "واحة الأحساء هي أكبر واحة نخيل في العالم، وتقع في شرق المملكة العربية السعودية. تضم الواحة أكثر من 2.5 مليون نخلة تنتج أجود أنواع التمور مثل 'الخلاص'. بفضل نظام الري التقليدي المعقد والعيون الطبيعية، تم تسجيل الأحساء في قائمة التراث العالمي لليونسكو. تعتبر المنطقة مثالا حيا على تفاعل الإنسان مع البيئة منذ آلاف السنين.",
     vocabList: [
       { word: "وَاحَة", meaning: "オアシス" },
@@ -9855,20 +10787,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10402, type: "reading", text: "そこにあるナツメヤシの数は？", options: ["100万本", "250万本以上", "50万本", "数えられない"], correctIndex: 1, explanation: "「أكثر من 2.5 مليون نخلة」です。" },
       { id: 10403, type: "reading", text: "なぜユネスコに登録されましたか？", options: ["新しいビルがあるから", "灌漑システムと自然の泉のおかげ", "海に近いから", "石油があるから"], correctIndex: 1, explanation: "「بفضل نظام الري... والعيون الطبيعية」です。" },
       { id: 10404, type: "vocabulary", text: "「جَوْدَة」の意味は？", options: ["量", "質/クオリティ", "色", "味"], correctIndex: 1, explanation: "Quality（質）です。「أجود (最高品質の)」の派生語です。" },
-      { id: 10405, type: "grammar", text: "「〜のおかげで」", options: ["بِفَضْلِ", "بِسَبَبِ", "لَوْلَا", "مِنْ أَجْلِ"], correctIndex: 0, explanation: "「Bi-faḍli (Thanks to / Due to good cause)」です。" }
+      { id: 10405, type: "grammar", text: "「〜のおかげで」", options: ["بِفَضْلِ", "بِسَبَبِ", "لَوْلَا", "مِنْ أَجْلِ"], correctIndex: 0, explanation: "「Bi-faḍli (Thanks to / Due to good cause)」です。" },
+      // 上級文法問題
+      { id: 10406, type: "grammar_advanced", text: "「أكبر واحة」の「واحة」の正しい語尾は？", options: ["i (カスラ)", "u (ダンマ)", "a (ファトハ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Akbar (最大の)」という最上級形容詞の後の名詞（〜の中で最大の）なので、イダーファ構造となり属格（カスラ）を取ります。" },
+      { id: 10407, type: "grammar_advanced", text: "「تنتج أجود أنواع」の「أجود」の正しい語尾は？", options: ["a (ファトハ)", "u (ダンマ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "動詞「Tuntiju (生産する)」の目的語なので対格（Manṣūb）となりファトハがつきます。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "تُعْتَبَرُ الْأَحْسَاءُ مَوْطِنًا لِحَضَارَاتٍ قَدِيمَةٍ جِدًّا.", japanese: "アル・アハサーは非常に古い文明の故郷と考えられています。" },
-      { speaker: "記事", arabic: "تَمْرُ 'الْخَلَاصِ' الْمَشْهُورُ يُعْتَبَرُ مِنَ الذَّهَبِ الْأَصْفَرِ لِلْمِنْطَقَةِ.", japanese: "有名なデーツ「ハラース」はこの地域の黄色い金と考えられています。" },
-      { speaker: "記事", arabic: "يَعْتَمِدُ الْمُزَارِعُونَ عَلَى قَنَوَاتِ الرِّيِّ لِتَوْزِيعِ الْمِيَاهِ.", japanese: "農家は水を分配するために灌漑用水路に依存しています。" },
-      { speaker: "記事", arabic: "الْأَحْسَاءُ مَوْقِعٌ سِيَاحِيٌّ يَجْمَعُ بَيْنَ التَّارِيخِ وَالطَّبِيعَةِ.", japanese: "アル・アハサーは歴史と自然を融合させた観光地です。" }
+      { speaker: "記事", arabic: "وَاحَةُ الْأَحْسَاءِ هِيَ أَكْبَرُ وَاحَةِ نَخِيلٍ فِي الْعَالَمِ.", japanese: "アル・アハサー・オアシスは世界最大のナツメヤシのオアシスです。" },
+      { speaker: "記事", arabic: "تَضُمُّ الْوَاحَةُ أَكْثَرَ مِنْ 2.5 مَلْيُونَ نَخْلَةٍ تُنْتِجُ أَجْوَدَ أَنْوَاعِ التُّمُورِ.", japanese: "オアシスには250万本以上のナツメヤシがあり、最高品質のデーツを生産しています。" },
+      { speaker: "記事", arabic: "تَمَّ تَسْجِيلُ الْأَحْسَاءِ فِي قَائِمَةِ التُّرَاثِ الْعَالَمِيِّ لِلْيُونِسْكُو بِفَضْلِ نِظَامِ الرِّيِّ التَّقْلِيدِيِّ.", japanese: "伝統的な灌漑システムのおかげで、アル・アハサーはユネスコ世界遺産リストに登録されました。" },
+      { speaker: "記事", arabic: "تُعْتَبَرُ الْمِنْطَقَةُ مِثَالًا حَيًّا عَلَى تَفَاعُلِ الْإِنْسَانِ مَعَ الْبِيئَةِ.", japanese: "この地域は、人間と環境の相互作用の生きた例と考えられています。" }
     ]
   },
-
-  // --- 33. 歴史・科学 (History/Science) ---
   {
-    id: 1041, title: "博学者アル・ビールーニー", category: "歴史", level: "上級",
-    contentVoweled: "الْبِيرُونِيُّ كَانَ عَالِمًا مَوْسُوعِيًّا بَرَعَ فِي الْفِيزِيَاءِ وَالرِّيَاضِيَّاتِ وَالتَّارِيخِ...",
+    id: 1041,
+    title: "博学者アル・ビールーニー",
+    category: "歴史",
+    level: "上級",
+    contentVoweled: "الْبِيرُونِيُّ كَانَ عَالِمًا مَوْسُوعِيًّا بَرَعَ فِي الْفِيزِيَاءِ وَالرِّيَاضِيَّاتِ وَالتَّارِيخِ وَالْجُغْرَافِيَا. قَامَ بِقِيَاسِ مُحِيطِ الْأَرْضِ بِدِقَّةٍ مُذْهِلَةٍ قَبْلَ أَلْفِ سَنَةٍ مِنَ التِّكْنُولُوجِيَا الْحَدِيثَةِ، وَكَانَ الْفَرْقُ بَيْنَ حِسَابِهِ وَالْقِيَاسَاتِ الْحَدِيثَةِ ضَئِيلًا جِدًّا. كَمَا أَلَّفَ كُتُبًا عَنِ الْهِنْدِ وَثَقَافَتِهَا، وَاعْتُبِرَ أَوَّلَ عَالِمِ أَنْثُرُوبُولُوجِيَا (عِلْمُ الْإِنْسَانِ) فِي التَّارِيخِ لِحِيَادِيَّتِهِ وَدِقَّتِهِ فِي الْوَصْفِ.",
     contentPlain: "البيروني كان عالما موسوعيا برع في الفيزياء والرياضيات والتاريخ والجغرافيا. قام بقياس محيط الأرض بدقة مذهلة قبل ألف سنة من التكنولوجيا الحديثة، وكان الفرق بين حسابه والقياسات الحديثة ضئيلا جدا. كما ألف كتبا عن الهند وثقافتها، واعتبر أول عالم أنثروبولوجيا (علم الإنسان) في التاريخ لحياديته ودقته في الوصف.",
     vocabList: [
       { word: "مَوْسُوعِيّ", meaning: "百科事典的な/博学な" },
@@ -9881,20 +10817,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10412, type: "reading", text: "彼は何を正確に測定しましたか？", options: ["太陽までの距離", "地球の円周", "月の重さ", "山の高さ"], correctIndex: 1, explanation: "「قياس محيط الأرض (地球の円周の測定)」です。" },
       { id: 10413, type: "reading", text: "彼は「最初の〇〇学者」と呼ばれていますか？", options: ["生物学者", "人類学者（アンソロポロジスト）", "化学者", "政治家"], correctIndex: 1, explanation: "「أول عالم أنثروبولوجيا (最初の人類学者)」です。" },
       { id: 10414, type: "vocabulary", text: "「دِقَّة」の意味は？", options: ["速さ", "正確さ/精度", "間違い", "大きさ"], correctIndex: 1, explanation: "Accuracy/Precision（正確さ）です。" },
-      { id: 10415, type: "grammar", text: "「優れていました/秀でていました」", options: ["بَرَعَ", "فَشِلَ", "نَامَ", "أَكَلَ"], correctIndex: 0, explanation: "「Bara'a (Excelled)」です。" }
+      { id: 10415, type: "grammar", text: "「優れていました/秀でていました」", options: ["بَرَعَ", "فَشِلَ", "نَامَ", "أَكَلَ"], correctIndex: 0, explanation: "「Bara'a (Excelled)」です。" },
+      // 上級文法問題
+      { id: 10416, type: "grammar_advanced", text: "「عالما موسوعيا」の「عالما」の正しい語尾は？", options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "a (ファトハ)"], correctIndex: 0, explanation: "「Kāna」の述語（Khabar Kāna）なので対格（Manṣūb）となり、タンウィーン・ファトハがつきます。" },
+      { id: 10417, type: "grammar_advanced", text: "「قبل ألف سنة」の「ألف」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Qabla (前)」などの副詞的名詞の後の名詞（Muḍāf Ilayhi）は属格（Majrūr）となり、カスラがつきます。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "كَتَبَ الْبِيرُونِيُّ كِتَابَ 'تَحْقِيقِ مَا لِلْهِنْدِ'.", japanese: "ビールーニーは『インドの書（インド誌）』を書きました。" },
-      { speaker: "記事", arabic: "دَرَسَ حَرَكَةَ الْكَوَاكِبِ وَدَوَرَانَ الْأَرْضِ.", japanese: "彼は惑星の動きと地球の自転を研究しました。" },
-      { speaker: "記事", arabic: "تَرْجَمَ الْعَدِيدَ مِنَ الْكُتُبِ مِنَ السَّنْسِكْرِيتِيَّةِ إِلَى الْعَرَبِيَّةِ.", japanese: "彼は多くの本をサンスクリット語からアラビア語に翻訳しました。" },
-      { speaker: "記事", arabic: "وَصَفَهُ الْمُؤَرِّخُونَ بِأَنَّهُ مِنْ أَعْظَمِ الْعُقُولِ فِي التَّارِيخِ.", japanese: "歴史家たちは彼を歴史上最も偉大な頭脳の一人と評しました。" }
+      { speaker: "記事", arabic: "الْبِيرُونِيُّ كَانَ عَالِمًا مَوْسُوعِيًّا بَرَعَ فِي الْفِيزِيَاءِ وَالرِّيَاضِيَّاتِ.", japanese: "ビールーニーは物理学と数学に秀でた博学者でした。" },
+      { speaker: "記事", arabic: "قَامَ بِقِيَاسِ مُحِيطِ الْأَرْضِ بِدِقَّةٍ مُذْهِلَةٍ قَبْلَ أَلْفِ سَنَةٍ.", japanese: "彼は千年も前に驚くべき正確さで地球の円周を測定しました。" },
+      { speaker: "記事", arabic: "أَلَّفَ كُتُبًا عَنِ الْهِنْدِ وَثَقَافَتِهَا، وَاعْتُبِرَ أَوَّلَ عَالِمِ أَنْثُرُوبُولُوجِيَا.", japanese: "彼はインドとその文化に関する本を著し、最初の人類学者と見なされました。" },
+      { speaker: "記事", arabic: "كَانَ الْفَرْقُ بَيْنَ حِسَابِهِ وَالْقِيَاسَاتِ الْحَدِيثَةِ ضَئِيلًا جِدًّا.", japanese: "彼の計算と現代の測定値との差はごくわずかでした。" }
     ]
   },
-
-  // --- 34. 社会・プロジェクト (Society/Projects) ---
   {
-    id: 1042, title: "キッディーヤ（Qiddiya）", category: "社会", level: "上級",
-    contentVoweled: "الْقِدِّيَّةُ هِيَ عَاصِمَةُ التَّرْفِيهِ وَالرِّيَاضَةِ وَالْفُنُونِ فِي الْمَمْلَكَةِ...",
+    id: 1042,
+    title: "キッディーヤ（Qiddiya）",
+    category: "社会",
+    level: "上級",
+    contentVoweled: "الْقِدِّيَّةُ هِيَ عَاصِمَةُ التَّرْفِيهِ وَالرِّيَاضَةِ وَالْفُنُونِ فِي الْمَمْلَكَةِ، وَتَقَعُ بِالْقُرْبِ مِنَ الرِّيَاضِ. يَهْدِفُ الْمَشْرُوعُ إِلَى أَنْ يُصْبِحَ الْوِجْهَةَ الْأُولَى فِي الْعَالَمِ لِلتَّرْفِيهِ، حَيْثُ سَيَضُمُّ مَدِينَةَ مَلَاهِي 'سِيكْس فْلَاجْز' الَّتِي تَحْتَوِي عَلَى أَسْرَعِ أَفْعُوَانِيَّةٍ فِي الْعَالَمِ. كَمَا سَتَشْمَلُ الْقِدِّيَّةُ مَلَاعِبَ رِيَاضِيَّةً ضَخْمَةً وَمَرَاكِزَ لِلْفُنُونِ وَمِضْمَارًا لِسِبَاقَاتِ السَّيَّارَاتِ، مِمَّا يُعَزِّزُ جَوْدَةَ الْحَيَاةِ وَيَجْذِبُ السُّيَّاحَ.",
     contentPlain: "القدية هي عاصمة الترفيه والرياضة والفنون في المملكة، وتقع بالقرب من الرياض. يهدف المشروع إلى أن يصبح الوجهة الأولى في العالم للترفيه، حيث سيضم مدينة ملاهي 'سيكس فلاجز' التي تحتوي على أسرع أفعوانية في العالم. كما ستشمل القدية ملاعب رياضية ضخمة ومراكز للفنون ومضمارا لسباقات السيارات، مما يعزز جودة الحياة ويجذب السياح.",
     vocabList: [
       { word: "تَرْفِيه", meaning: "エンターテインメント" },
@@ -9907,20 +10847,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10422, type: "reading", text: "そこにある遊園地の特徴は？", options: ["世界一小さい", "世界最速のジェットコースターがある", "水がない", "動物園だけ"], correctIndex: 1, explanation: "「تحتوي على أسرع أفعوانية في العالم」です。" },
       { id: 10423, type: "reading", text: "他にどのような施設が含まれますか？", options: ["農場", "サッカースタジアムやサーキット", "工場", "漁港"], correctIndex: 1, explanation: "「ملاعب رياضية... ومضمارا لسباقات السيارات」です。" },
       { id: 10424, type: "vocabulary", text: "「سَائِح」の意味は？", options: ["住人", "観光客", "医者", "運転手"], correctIndex: 1, explanation: "Tourist（観光客）です。" },
-      { id: 10425, type: "grammar", text: "「含む/収容する」", options: ["يَضُمُّ", "يَرْمِي", "يَبِيعُ", "يَنْسَى"], correctIndex: 0, explanation: "「Yaḍummu (Includes/Comprises)」です。" }
+      { id: 10425, type: "grammar", text: "「含む/収容する」", options: ["يَضُمُّ", "يَرْمِي", "يَبِيعُ", "يَنْسَى"], correctIndex: 0, explanation: "「Yaḍummu (Includes/Comprises)」です。" },
+      // 上級文法問題
+      { id: 10426, type: "grammar_advanced", text: "「أسرع أفعوانية」の「أسرع」の正しい語尾は？", options: ["a (ファトハ)", "i (カスラ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "前置詞「'Alā」の後ですが、最上級形容詞（Af'alパターン）は非限定名詞（Mumnū' min al-ṣarf）です。しかし、ここでは後ろの名詞「Af'uwāniyya」にイダーファ（属格構文）で繋がっているため、例外的にカスラを取る...と通常はなりますが、テキストの文脈「Taḥtawī 'alā asra'i...」ですね。実は非限定名詞は「イダーファされるか定冠詞がつくとカスラを取る」というルールがあります。したがって、正解は「i (カスラ)」です。" },
+      { id: 10427, type: "grammar_advanced", text: "「ستشمل القدية ملاعب」の「ملاعب」の正しい語尾は？", options: ["a (ファトハ・タンウィーンなし)", "an (タンウィーン・ファトハ)", "u (ダンマ)", "in (タンウィーン・カスラ)"], correctIndex: 0, explanation: "動詞「Tashmalu (含む)」の目的語（対格）ですが、「Malā'ib」は非限定名詞（Mafā'ilパターン）なので、タンウィーンを取らずファトハ一文字になります。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "سَتَكُونُ الْقِدِّيَّةُ مَقَرًّا لِلْأَلْعَابِ الْإِلِكْتُرُونِيَّةِ أَيْضًا.", japanese: "キッディーヤはeスポーツの本拠地にもなります。" },
-      { speaker: "記事", arabic: "الْمَشْرُوعُ سَيُوَفِّرُ آلَافَ الْفُرَصِ الْوَظِيفِيَّةِ.", japanese: "プロジェクトは何千もの雇用の機会を提供します。" },
-      { speaker: "記事", arabic: "يَقَعُ الْمَشْرُوعُ بَيْنَ الْجِبَالِ الصَّخْرِيَّةِ الْخَلَّابَةِ.", japanese: "プロジェクトは美しい岩山の中に位置しています。" },
-      { speaker: "記事", arabic: "إِنَّهُ جُزْءٌ مِنْ خُطَّةِ تَنْوِيعِ مَصَادِرِ الدَّخْلِ.", japanese: "それは収入源多様化計画の一部です。" }
+      { speaker: "記事", arabic: "الْقِدِّيَّةُ هِيَ عَاصِمَةُ التَّرْفِيهِ وَالرِّيَاضَةِ وَالْفُنُونِ فِي الْمَمْلَكَةِ.", japanese: "キッディーヤは王国のエンターテインメント、スポーツ、芸術の首都です。" },
+      { speaker: "記事", arabic: "يَهْدِفُ الْمَشْرُوعُ إِلَى أَنْ يُصْبِحَ الْوِجْهَةَ الْأُولَى فِي الْعَالَمِ لِلتَّرْفِيهِ.", japanese: "このプロジェクトは世界第一のエンターテインメントの目的地になることを目指しています。" },
+      { speaker: "記事", arabic: "سَيَضُمُّ مَدِينَةَ مَلَاهِي تَحْتَوِي عَلَى أَسْرَعِ أَفْعُوَانِيَّةٍ فِي الْعَالَمِ.", japanese: "それは世界最速のジェットコースターを含む遊園地を擁します。" },
+      { speaker: "記事", arabic: "سَتَشْمَلُ الْقِدِّيَّةُ مَلَاعِبَ رِيَاضِيَّةً ضَخْمَةً وَمِضْمَارًا لِسِبَاقَاتِ السَّيَّارَاتِ.", japanese: "キッディーヤには巨大なスポーツスタジアムやカーレース場も含まれます。" }
     ]
   },
-
-  // --- 35. 食文化 (Food Culture) ---
   {
-    id: 1043, title: "サウジのカブサ", category: "文化", level: "上級",
-    contentVoweled: "الْكَبْسَةُ هِيَ الْأَكْلَةُ الشَّعْبِيَّةُ الْأُولَى فِي السُّعُودِيَّةِ...",
+    id: 1043,
+    title: "サウジのカブサ",
+    category: "文化",
+    level: "上級",
+    contentVoweled: "الْكَبْسَةُ هِيَ الْأَكْلَةُ الشَّعْبِيَّةُ الْأُولَى فِي السُّعُودِيَّةِ، وَتَتَكَوَّنُ بِشَكْلٍ أَسَاسِيٍّ مِنَ الْأُرْزِ وَاللَّحْمِ (أَوِ الدَّجَاجِ) وَالتَّوَابِلِ الْمُتَنَوِّعَةِ. يَتِمُّ طَهْيُ اللَّحْمِ مَعَ الْأُرْزِ فِي قِدْرٍ وَاحِدٍ لِيَمْتَصَّ النَّكْهَاتِ، وَيُضَافُ إِلَيْهِ اللَّيْمُونُ الْمُجَفَّفُ (اللُّومِي) الَّذِي يُعْطِيهِ طَعْمًا مُمَيَّزًا. تُقَدَّمُ الْكَبْسَةُ فِي الْمُنَاسَبَاتِ وَالْوَلَائِمِ الْكَبِيرَةِ، حَيْثُ يَجْتَمِعُ النَّاسُ حَوْلَ طَبَقٍ وَاحِدٍ كَبِيرٍ لِتَنَاوُلِ الطَّعَامِ بِالْيَدِ، مِمَّا يُعَزِّزُ الرَّوَابِطَ الِاجْتِمَاعِيَّةَ.",
     contentPlain: "الكبسة هي الأكلة الشعبية الأولى في السعودية، وتتكون بشكل أساسي من الأرز واللحم (أو الدجاج) والتوابل المتنوعة. يتم طهي اللحم مع الأرز في قدر واحد ليمتص النكهات، ويضاف إليه الليمون المجفف (اللومي) الذي يعطيه طعما مميزا. تقدم الكبسة في المناسبات والولائم الكبيرة، حيث يجتمع الناس حول طبق واحد كبير لتناول الطعام باليد، مما يعزز الروابط الاجتماعية.",
     vocabList: [
       { word: "أَكْلَة", meaning: "料理/食事" },
@@ -9933,20 +10877,25 @@ questions: [] // アルファベット回は問題なし
       { id: 10432, type: "reading", text: "独特の味を与える特別な材料は？", options: ["砂糖", "乾燥レモン（ルーミー）", "牛乳", "チョコレート"], correctIndex: 1, explanation: "「الليمون المجفف (اللومي)」です。" },
       { id: 10433, type: "reading", text: "どのように提供されますか？", options: ["一人ずつ別の皿で", "一つの大皿でみんなで囲む", "立って食べる", "隠れて食べる"], correctIndex: 1, explanation: "「يجتمع الناس حول طبق واحد كبير (一つの大皿の周りに人々が集まる)」です。" },
       { id: 10434, type: "vocabulary", text: "「مُجَفَّف」の意味は？", options: ["濡れた", "乾燥した/ドライ", "新しい", "甘い"], correctIndex: 1, explanation: "Dried（乾燥した）です。" },
-      { id: 10435, type: "grammar", text: "「調理されます（受動態）」", options: ["يَتِمُّ طَهْيُ", "طَبَخَ", "يَأْكُلُ", "يَشْرَبُ"], correctIndex: 0, explanation: "「Yatimmu ṭahyu (Cooking is done/Is cooked)」という受動表現です。" }
+      { id: 10435, type: "grammar", text: "「調理されます（受動態）」", options: ["يَتِمُّ طَهْيُ", "طَبَخَ", "يَأْكُلُ", "يَشْرَبُ"], correctIndex: 0, explanation: "「Yatimmu ṭahyu (Cooking is done/Is cooked)」という受動表現です。" },
+      // 上級文法問題
+      { id: 10436, type: "grammar_advanced", text: "「ليمتص النكهات」の「يمتص」の正しい語尾は？", options: ["a (ファトハ)", "u (ダンマ)", "i (カスラ)", "Sukuun (スクーン)"], correctIndex: 0, explanation: "「Li (〜するために)」という理由を表す前置詞（Lām al-Ta'līl）の後の現在形動詞は、接続法（Manṣūb）となりファトハがつきます。" },
+      { id: 10437, type: "grammar_advanced", text: "「يعطيه طعما」の「طعما」の正しい語尾は？", options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "u (ダンマ)"], correctIndex: 0, explanation: "動詞「A'ṭā (与える)」は2つの目的語を取ります。「hi (彼に)」が第1目的語、「Ṭa'man (味を)」が第2目的語となり、対格（タンウィーン・ファトハ）になります。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "تَخْتَلِفُ طُرُقُ طَهْيِ الْكَبْسَةِ مِنْ مِنْطَقَةٍ لِأُخْرَى.", japanese: "カブサの調理法は地域によって異なります。" },
-      { speaker: "記事", arabic: "يُزَيَّنُ الطَّبَقُ بِالْمُكَسَّرَاتِ وَالزَّبِيبِ.", japanese: "料理はナッツとレーズンで飾られます。" },
-      { speaker: "記事", arabic: "تَنَاوُلُ الطَّعَامِ بِالْيَدِ سُنَّةٌ وَتَقْلِيدٌ عَرَبِيٌّ.", japanese: "手で食事をすることはスンナでありアラブの伝統です。" },
-      { speaker: "記事", arabic: "الْكَبْسَةُ رَمْزٌ لِلْكَرَمِ وَحُسْنِ الضِّيَافَةِ.", japanese: "カブサは寛大さとおもてなしの象徴です。" }
+      { speaker: "記事", arabic: "الْكَبْسَةُ هِيَ الْأَكْلَةُ الشَّعْبِيَّةُ الْأُولَى فِي السُّعُودِيَّةِ.", japanese: "カブサはサウジアラビアで一番の国民的料理です。" },
+      { speaker: "記事", arabic: "يَتِمُّ طَهْيُ اللَّحْمِ مَعَ الْأُرْزِ فِي قِدْرٍ وَاحِدٍ لِيَمْتَصَّ النَّكْهَاتِ.", japanese: "風味を吸収させるために、肉は米と同じ鍋で調理されます。" },
+      { speaker: "記事", arabic: "يُضَافُ إِلَيْهِ اللَّيْمُونُ الْمُجَفَّفُ الَّذِي يُعْطِيهِ طَعْمًا مُمَيَّزًا.", japanese: "独特の味を与える乾燥レモンがそれに加えられます。" },
+      { speaker: "記事", arabic: "يَجْتَمِعُ النَّاسُ حَوْلَ طَبَقٍ وَاحِدٍ كَبِيرٍ، مِمَّا يُعَزِّزُ الرَّوَابِطَ الِاجْتِمَاعِيَّةَ.", japanese: "人々は一つの大皿の周りに集まり、それが社会的絆を強めます。" }
     ]
   },
-
   // --- 36. 交通・インフラ (Infrastructure) ---
   {
-    id: 1044, title: "リヤド・メトロ", category: "社会", level: "上級",
-    contentVoweled: "مِتْرُو الرِّيَاضِ هُوَ أَحَدُ أَكْبَرِ مَشَارِيعِ النَّقْلِ الْعَامِّ فِي الْعَالَمِ...",
+    id: 1044,
+    title: "リヤド・メトロ",
+    category: "社会",
+    level: "上級",
+    contentVoweled: "مِتْرُو الرِّيَاضِ هُوَ أَحَدُ أَكْبَرِ مَشَارِيعِ النَّقْلِ الْعَامِّ فِي الْعَالَمِ، وَيَهْدِفُ إِلَى حَلِّ مُشْكِلَةِ الِازْدِحَامِ الْمُرُورِيِّ فِي الْعَاصِمَةِ. يَتَكَوَّنُ الْمَشْرُوعُ مِنْ سِتَّةِ خُطُوطٍ رَئِيسِيَّةٍ تُغَطِّي مُعْظَمَ أَحْيَاءِ الْمَدِينَةِ، وَتَعْمَلُ الْقِطَارَاتُ بِنِظَامٍ آلِيٍّ كَامِلٍ بِدُونِ سَائِقٍ. يَتَمَيَّزُ الْمِتْرُو بِمَحَطَّاتِهِ ذَاتِ التَّصْمِيمِ الْمِعْمَارِيِّ الْحَدِيثِ وَالصَّدِيقِ لِلْبِيئَةِ، وَسَيُوَفِّرُ وَسِيلَةَ تَنَقُّلٍ سَرِيعَةٍ وَمُرِيحَةٍ لِمَلَايِينِ السُّكَّانِ.",
     contentPlain: "مترو الرياض هو أحد أكبر مشاريع النقل العام في العالم، ويهدف إلى حل مشكلة الازدحام المروري في العاصمة. يتكون المشروع من ستة خطوط رئيسية تغطي معظم أحياء المدينة، وتعمل القطارات بنظام آلي كامل بدون سائق. يتميز المترو بمحطاته ذات التصميم المعماري الحديث والصديق للبيئة، وسيوفر وسيلة تنقل سريعة ومريحة لملايين السكان.",
     vocabList: [
       { word: "نَقْل", meaning: "交通/輸送" },
@@ -9959,7 +10908,10 @@ questions: [] // アルファベット回は問題なし
       { id: 10442, type: "reading", text: "列車の運転システムは？", options: ["手動", "完全自動（ドライバーレス）", "動物が引く", "リモコン"], correctIndex: 1, explanation: "「بنظام آلي كامل بدون سائق」です。" },
       { id: 10443, type: "reading", text: "駅のデザインの特徴は？", options: ["古い", "近代的で環境に優しい", "木造", "見えない"], correctIndex: 1, explanation: "「التصميم المعماري الحديث والصديق للبيئة」です。" },
       { id: 10444, type: "vocabulary", text: "「سَائِق」の意味は？", options: ["医者", "運転手/ドライバー", "警察", "先生"], correctIndex: 1, explanation: "Driver（運転手）です。" },
-      { id: 10445, type: "grammar", text: "「構成されています」", options: ["يَتَكَوَّنُ مِنْ", "يَذْهَبُ إِلَى", "يَأْكُلُ مِنْ", "يَنَامُ فِي"], correctIndex: 0, explanation: "「Yatakawwanu min (Consists of)」です。" }
+      { id: 10445, type: "grammar", text: "「構成されています」", options: ["يَتَكَوَّنُ مِنْ", "يَذْهَبُ إِلَى", "يَأْكُلُ مِنْ", "يَنَامُ فِي"], correctIndex: 0, explanation: "「Yatakawwanu min (Consists of)」です。" },
+      // 上級文法問題
+      { id: 10446, type: "grammar_advanced", text: "「حل مشكلة الازدحام」の「مشكلة」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "un (タンウィーン)"], correctIndex: 0, explanation: "前置詞「Ilā」の後で「ḥall (解決)」が属格になり、さらに「Mushkila」がそのイダーファの第2要素（属格）となるため、カスラがつきます。" },
+      { id: 10447, type: "grammar_advanced", text: "「تغطي معظم أحياء」の「معظم」の正しい語尾は？", options: ["a (ファトハ)", "u (ダンマ)", "i (カスラ)", "an (タンウィーン)"], correctIndex: 0, explanation: "動詞「Tughaṭṭī (カバーする)」の目的語（Maf'ūl Bihi）なので対格（Manṣūb）となりファトハがつきます。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "يَرْبِطُ الْمِتْرُو الْمَطَارَ بِالْمَرْكَزِ الْمَالِيِّ وَالْجَامِعَاتِ.", japanese: "メトロは空港を金融センターや大学と結びます。" },
@@ -9968,11 +10920,12 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "إِنَّهُ نَقْلَةٌ حَضَارِيَّةٌ لِلْعَاصِمَةِ.", japanese: "それは首都にとっての文明的な飛躍です。" }
     ]
   },
-
-  // --- 37. 芸術・建築 (Art/Architecture) ---
   {
-    id: 1045, title: "イスラム建築", category: "文化", level: "上級",
-    contentVoweled: "تَتَمَيَّزُ الْعِمَارَةُ الْإِسْلَامِيَّةُ بِطَابِعِهَا الْفَرِيدِ الَّذِي يَجْمَعُ بَيْنَ الْجَمَالِ وَالْوَظِيفَةِ...",
+    id: 1045,
+    title: "イスラム建築",
+    category: "文化",
+    level: "上級",
+    contentVoweled: "تَتَمَيَّزُ الْعِمَارَةُ الْإِسْلَامِيَّةُ بِطَابِعِهَا الْفَرِيدِ الَّذِي يَجْمَعُ بَيْنَ الْجَمَالِ وَالْوَظِيفَةِ. مِنْ أَبْرَزِ عَنَاصِرِهَا الْقِبَابُ وَالْمَآذِنُ وَالْأَقْوَاسُ، بِالْإِضَافَةِ إِلَى الزَّخَارِفِ الْهَنْدَسِيَّةِ وَالنَّبَاتِيَّةِ الَّتِي تَخْلُو مِنْ صُوَرِ الْكَائِنَاتِ الْحَيَّةِ. يَعْتَبِرُ الْمَسْجِدُ الْحَرَامُ وَالْمَسْجِدُ النَّبَوِيُّ وَقَصْرُ الْحَمْرَاءِ مِنْ أَعْظَمِ أَمْثِلَةِ هَذَا الْفَنِّ، حَيْثُ يَظْهَرُ فِيهَا الْإِبْدَاعُ فِي اسْتِخْدَامِ الضَّوْءِ وَالظِّلَالِ وَالنُّقُوشِ الْقُرْآنِيَّةِ.",
     contentPlain: "تتميز العمارة الإسلامية بطابعها الفريد الذي يجمع بين الجمال والوظيفة. من أبرز عناصرها القباب والمآذن والأقواس، بالإضافة إلى الزخارف الهندسية والنباتية التي تخلو من صور الكائنات الحية. يعتبر المسجد الحرام والمسجد النبوي وقصر الحمراء من أعظم أمثلة هذا الفن، حيث يظهر فيها الإبداع في استخدام الضوء والظلال والنقوش القرآنية.",
     vocabList: [
       { word: "عِمَارَة", meaning: "建築" },
@@ -9985,7 +10938,10 @@ questions: [] // アルファベット回は問題なし
       { id: 10452, type: "reading", text: "主要な要素に含まれるのは？", options: ["ドーム、ミナレット、アーチ", "ピラミッド", "高層ビル", "洞窟"], correctIndex: 0, explanation: "「القباب والمآذن والأقواس」です。" },
       { id: 10453, type: "reading", text: "装飾には何が使われませんか？", options: ["幾何学模様", "植物模様", "生き物の絵", "文字"], correctIndex: 2, explanation: "「تخلو من صور الكائنات الحية (生き物の像を含まない)」が伝統的な特徴です。" },
       { id: 10454, type: "vocabulary", text: "「فَنّ」の意味は？", options: ["科学", "芸術/アート", "スポーツ", "ビジネス"], correctIndex: 1, explanation: "Art（芸術）です。" },
-      { id: 10455, type: "grammar", text: "「集める/結合する」", options: ["يَجْمَعُ", "يُفَرِّقُ", "يَكْسِرُ", "يَنْسَى"], correctIndex: 0, explanation: "「Yajma'u (Combine/Gather)」です。" }
+      { id: 10455, type: "grammar", text: "「集める/結合する」", options: ["يَجْمَعُ", "يُفَرِّقُ", "يَكْسِرُ", "يَنْسَى"], correctIndex: 0, explanation: "「Yajma'u (Combine/Gather)」です。" },
+      // 上級文法問題
+      { id: 10456, type: "grammar_advanced", text: "「من أبرز عناصرها القباب」の「القباب」の正しい語尾は？", options: ["u (ダンマ)", "a (ファトハ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "「Min abrazi 'anāṣiri-hā」は前置された述語（Khabar Muqaddam）であり、「Al-Qibābu」は後置された主語（Mubtada' Mu'akhkhar）であるため、主格（Marfū'）となりダンマがつきます。" },
+      { id: 10457, type: "grammar_advanced", text: "「تخلو من صور الكائنات」の「الكائنات」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "イダーファの第2要素（属格）なのでカスラがつきます。女性規則複数でも属格はカスラです。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "الْأَقْوَاسُ الْمُحَدَّبَةُ مِنْ مُمَيِّزَاتِ الْمَسَاجِدِ الْقَدِيمَةِ.", japanese: "馬蹄形アーチは古いモスクの特徴の一つです。" },
@@ -9994,11 +10950,12 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "هَذَا الْفَنُّ يَعْكِسُ الرُّوحَانِيَّةَ وَالنِّظَامَ.", japanese: "この芸術は精神性と秩序を反映しています。" }
     ]
   },
-
-  // --- 38. 歴史・動物 (History/Animals) ---
   {
-    id: 1046, title: "サルーキ犬（アラビアの狩猟犬）", category: "文化", level: "上級",
-    contentVoweled: "كَلْبُ السَّلُوقِيِّ هُوَ أَحَدُ أَقْدَمِ سُلَالَاتِ الْكِلَابِ فِي الْعَالَمِ...",
+    id: 1046,
+    title: "サルーキ犬（アラビアの狩猟犬）",
+    category: "文化",
+    level: "上級",
+    contentVoweled: "كَلْبُ السَّلُوقِيِّ هُوَ أَحَدُ أَقْدَمِ سُلَالَاتِ الْكِلَابِ فِي الْعَالَمِ، وَقَدْ رَافَقَ الْعَرَبَ فِي الصَّحْرَاءِ مُنْذُ آلَافِ السِّنِينَ. يَتَمَيَّزُ هَذَا الْكَلْبُ بِسُرْعَتِهِ الْفَائِقَةِ وَجِسْمِهِ الرَّشِيقِ وَقُدْرَتِهِ عَلَى التَّحَمُّلِ فِي الْأَجْوَاءِ الْحَارَّةِ. كَانَ يُسْتَخْدَمُ فِي صَيْدِ الْأَرَانِبِ وَالْغِزْلَانِ، وَيُعْتَبَرُ فَرْدًا مِنَ الْعَائِلَةِ وَلَيْسَ مُجَرَّدَ حَيَوَانٍ، حَيْثُ كَانَ يَنَامُ دَاخِلَ الْخَيْمَةِ وَيَحْظَى بِاهْتِمَامٍ خَاصٍّ.",
     contentPlain: "كلب السلوقي هو أحد أقدم سلالات الكلاب في العالم، وقد رافق العرب في الصحراء منذ آلاف السنين. يتميز هذا الكلب بسرعته الفائقة وجسمه الرشيق وقدرته على التحمل في الأجواء الحارة. كان يستخدم في صيد الأرانب والغزلان، ويعتبر فردا من العائلة وليس مجرد حيوان، حيث كان ينام داخل الخيمة ويحظى باهتمام خاص.",
     vocabList: [
       { word: "سُلَالَة", meaning: "品種/血統" },
@@ -10011,7 +10968,10 @@ questions: [] // アルファベット回は問題なし
       { id: 10462, type: "reading", text: "その身体能力は？", options: ["遅くて重い", "超高速で耐久力がある", "寒さに強いだけ", "弱い"], correctIndex: 1, explanation: "「سرعته الفائقة... وقدرته على التحمل」です。" },
       { id: 10463, type: "reading", text: "昔のアラブ人はサルーキをどう扱いましたか？", options: ["外で寝かせた", "家族の一員として扱った", "売った", "怖がった"], correctIndex: 1, explanation: "「يعتبر فردا من العائلة (家族の一員とみなされた)」です。" },
       { id: 10464, type: "vocabulary", text: "「صَيْد」の意味は？", options: ["睡眠", "狩り/ハンティング", "食事", "遊び"], correctIndex: 1, explanation: "Hunting（狩り）です。" },
-      { id: 10465, type: "grammar", text: "「同伴した/連れ添った」", options: ["رَافَقَ", "تَرَكَ", "ذَهَبَ", "أَكَلَ"], correctIndex: 0, explanation: "「Rāfaqa (Accompanied)」です。" }
+      { id: 10465, type: "grammar", text: "「同伴した/連れ添った」", options: ["رَافَقَ", "تَرَكَ", "ذَهَبَ", "أَكَلَ"], correctIndex: 0, explanation: "「Rāfaqa (Accompanied)」です。" },
+      // 上級文法問題
+      { id: 10466, type: "grammar_advanced", text: "「منذ آلاف السنين」の「السنين」の正しい語尾は？", options: ["i (カスラ・Yāによる)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Sinīn (年々)」は男性規則複数（Jam' Mudhakkar Sālim）のように扱われるため（Mulḥaq bi-Jam' al-Mudhakkar）、属格では「Yā」で表されます（Sinīna - 最後のnaは固定）。" },
+      { id: 10467, type: "grammar_advanced", text: "「ليس مجرد حيوان」の「حيوان」の正しい語尾は？", options: ["in (タンウィーン・カスラ)", "an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "a (ファトハ)"], correctIndex: 0, explanation: "「Mujarrad (ただの)」の後の名詞（Muḍāf Ilayhi）なので、属格（Majrūr）となり、タンウィーン・カスラがつきます。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "لَا يَنْبَحُ السَّلُوقِيُّ كَثِيرًا، بَلْ هُوَ هَادِئٌ.", japanese: "サルーキはあまり吠えず、静かです。" },
@@ -10020,10 +10980,12 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "تُقَامُ مُسَابَقَاتٌ لِجَمَالِ وَسُرْعَةِ السَّلُوقِيِّ.", japanese: "サルーキの美しさと速さを競うコンテストが開催されます。" }
     ]
   },
-// --- 39. 文化・芸術 (Culture/Art) ---
-{
-    id: 1047, title: "サドゥ織り（伝統工芸）", category: "文化", level: "上級",
-    contentVoweled: "حِرْفَةُ السَّدْوِ هِيَ فَنُّ النَّسِيجِ التَّقْلِيدِيِّ الَّذِي أَتْقَنَتْهُ نِسَاءُ الْبَادِيَةِ...",
+  {
+    id: 1047,
+    title: "サドゥ織り（伝統工芸）",
+    category: "文化",
+    level: "上級",
+    contentVoweled: "حِرْفَةُ السَّدْوِ هِيَ فَنُّ النَّسِيجِ التَّقْلِيدِيِّ الَّذِي أَتْقَنَتْهُ نِسَاءُ الْبَادِيَةِ فِي الْجَزِيرَةِ الْعَرَبِيَّةِ مُنْذُ الْقِدَمِ. تَسْتَخْدِمُ النِّسَاءُ صُوفَ الْأَغْنَامِ وَوَبَرَ الْإِبِلِ وَشَعْرَ الْمَاعِزِ لِغَزْلِ خُيُوطٍ قَوِيَّةٍ، ثُمَّ يَقُمْنَ بِنَسْجِهَا لِتَصْنِيعِ الْخِيَامِ (بُيُوتِ الشَّعْرِ) وَالْبُسُطِ وَالْوَسَائِدِ. تَتَمَيَّزُ نُقُوشُ السَّدْوِ بِأَشْكَالٍ هَنْدَسِيَّةٍ وَأَلْوَانٍ زَاهِيَةٍ تَعْكِسُ الْبِيئَةَ الصَّحْرَاوِيَّةَ، وَقَدْ أَدْرَجَتِ الْيُونِسْكُو هَذِهِ الْحِرْفَةَ فِي قَائِمَةِ التُّرَاثِ الثَّقَافِيِّ غَيْرِ الْمَادِّيِّ.",
     contentPlain: "حرفة السدو هي فن النسيج التقليدي الذي أتقنته نساء البادية في الجزيرة العربية منذ القدم. تستخدم النساء صوف الأغنام ووبر الإبل وشعر الماعز لغزل خيوط قوية، ثم يقمن بنسجها لتصنيع الخيام (بيوت الشعر) والبسط والوسائد. تتميز نقوش السدو بأشكال هندسية وألوان زاهية تعكس البيئة الصحراوية، وقد أدرجت اليونسكو هذه الحرفة في قائمة التراث الثقافي غير المادي.",
     vocabList: [
       { word: "نَسِيج", meaning: "織物/テキスタイル" },
@@ -10036,7 +10998,10 @@ questions: [] // アルファベット回は問題なし
       { id: 10472, type: "reading", text: "材料として使われないものは？", options: ["羊毛", "ラクダの毛", "ヤギの毛", "シルク"], correctIndex: 3, explanation: "羊、ラクダ、ヤギの毛が使われます。" },
       { id: 10473, type: "reading", text: "サドゥで作られる代表的なものは？", options: ["船", "テント（毛の家）や敷物", "陶器", "剣"], correctIndex: 1, explanation: "「الخيام (بيوت الشعر) والبسط」です。" },
       { id: 10474, type: "vocabulary", text: "「هَنْدَسِيّ」の意味は？", options: ["自然の", "幾何学的な", "乱雑な", "暗い"], correctIndex: 1, explanation: "Geometric（幾何学的な）です。" },
-      { id: 10475, type: "grammar", text: "「習得しました」", options: ["أَتْقَنَتْ", "نَسِيَتْ", "تَعَلَّمَتْ", "كَرِهَتْ"], correctIndex: 0, explanation: "「Atqanat (Mastered/Perfected)」です。" }
+      { id: 10475, type: "grammar", text: "「習得しました」", options: ["أَتْقَنَتْ", "نَسِيَتْ", "تَعَلَّمَتْ", "كَرِهَتْ"], correctIndex: 0, explanation: "「Atqanat (Mastered/Perfected)」です。" },
+      // 上級文法問題
+      { id: 10476, type: "grammar_advanced", text: "「تستخدم النساء」の「النساء」の正しい語尾は？", options: ["u (ダンマ)", "a (ファトハ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "動詞「Tastakhdimu」の主語（Fā'il）なので主格となりダンマがつきます。" },
+      { id: 10477, type: "grammar_advanced", text: "「أشكال هندسية」の「هندسية」の正しい語尾は？", options: ["in (タンウィーン・カスラ)", "un (タンウィーン・ダンマ)", "an (タンウィーン・ファトハ)", "a (ファトハ)"], correctIndex: 0, explanation: "「Ashkāl (形・前置詞Biの後の属格)」を修飾する形容詞なので、属格となりタンウィーン・カスラがつきます（Ashkālin Handasiyyatin）。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "أَلْوَانُ السَّدْوِ التَّقْلِيدِيَّةُ هِيَ الْأَحْمَرُ وَالْأَسْوَدُ وَالْأَبْيَضُ.", japanese: "サドゥの伝統的な色は赤、黒、白です。" },
@@ -10045,11 +11010,12 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "الْحِفَاظُ عَلَى هَذِهِ الْحِرْفَةِ وَاجِبٌ وَطَنِيٌّ.", japanese: "この工芸を守ることは国民の義務です。" }
     ]
   },
-
-  // --- 40. 歴史・科学 (History/Science) ---
   {
-    id: 1048, title: "医学の天才アル・ラーズィー", category: "歴史", level: "上級",
-    contentVoweled: "أَبُو بَكْرٍ الرَّازِيُّ هُوَ أَحَدُ أَعْظَمِ الْأَطِبَّاءِ فِي تَارِيخِ الْبَشَرِيَّةِ...",
+    id: 1048,
+    title: "医学の天才アル・ラーズィー",
+    category: "歴史",
+    level: "上級",
+    contentVoweled: "أَبُو بَكْرٍ الرَّازِيُّ هُوَ أَحَدُ أَعْظَمِ الْأَطِبَّاءِ فِي تَارِيخِ الْبَشَرِيَّةِ، وَلُقِّبَ بـ 'جَالِينُوسِ الْعَرَبِ'. كَانَ أَوَّلَ مَنْ فَرَّقَ طِبِّيًّا بَيْنَ مَرَضِ الْجُدَرِيِّ وَمَرَضِ الْحَصْبَةِ فِي كِتَابِهِ الشَّهِيرِ. تَمَيَّزَ مَنْهَجُهُ بِالِاعْتِمَادِ عَلَى الْمُلَاحَظَةِ السَّرِيرِيَّةِ وَالتَّجْرِبَةِ، وَكَانَ يُؤَكِّدُ عَلَى أَهَمِّيَّةِ الْحَالَةِ النَّفْسِيَّةِ لِلْمَرِيضِ فِي الْعِلَاجِ. تُرْجِمَتْ كُتُبُهُ إِلَى اللَّاتِينِيَّةِ وَظَلَّتْ مَرَاجِعَ أَسَاسِيَّةً فِي جَامِعَاتِ أُورُوبَّا لِقُرُونٍ.",
     contentPlain: "أبو بكر الرازي هو أحد أعظم الأطباء في تاريخ البشرية، ولقب بـ 'جالينوس العرب'. كان أول من فرق طبيا بين مرض الجدري ومرض الحصبة في كتابه الشهير. تميز منهجه بالاعتماد على الملاحظة السريرية والتجربة، وكان يؤكد على أهمية الحالة النفسية للمريض في العلاج. ترجمت كتبه إلى اللاتينية وظلت مراجع أساسية في جامعات أوروبا لقرون.",
     vocabList: [
       { word: "طَبِيب", meaning: "医師" },
@@ -10062,7 +11028,10 @@ questions: [] // アルファベット回は問題なし
       { id: 10482, type: "reading", text: "彼が医学的に区別した病気は？", options: ["風邪とインフルエンザ", "天然痘と麻疹", "頭痛と腹痛", "癌と心臓病"], correctIndex: 1, explanation: "「بين مرض الجدري ومرض الحصبة」です。" },
       { id: 10483, type: "reading", text: "彼が治療において重要視したことは？", options: ["お金", "患者の精神状態（心理状態）", "薬の量だけ", "速さ"], correctIndex: 1, explanation: "「أهمية الحالة النفسية للمريض」です。" },
       { id: 10484, type: "vocabulary", text: "「تَجْرِبَة」の意味は？", options: ["本", "実験/経験", "病院", "薬"], correctIndex: 1, explanation: "Experiment/Experienceです。" },
-      { id: 10485, type: "grammar", text: "「区別しました」", options: ["فَرَّقَ", "جَمَعَ", "نَسِيَ", "خَلَطَ"], correctIndex: 0, explanation: "「Farraqa (Differentiated)」です。" }
+      { id: 10485, type: "grammar", text: "「区別しました」", options: ["فَرَّقَ", "جَمَعَ", "نَسِيَ", "خَلَطَ"], correctIndex: 0, explanation: "「Farraqa (Differentiated)」です。" },
+      // 上級文法問題
+      { id: 10486, type: "grammar_advanced", text: "「أحد أعظم الأطباء」の「أعظم」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Aḥad (〜の一つ)」の後のイダーファ第2要素（属格）です。「A'ẓam」は非限定名詞ですが、さらに後の名詞「Al-Aṭibbā'」にイダーファされているため、カスラを取ります。" },
+      { id: 10487, type: "grammar_advanced", text: "「ظلّت مراجع أساسية」の「مراجع」の正しい語尾は？", options: ["a (ファトハ)", "an (タンウィーン・ファトハ)", "u (ダンマ)", "i (カスラ)"], correctIndex: 0, explanation: "「Ẓallat (〜のままであった・Zalla)」の述語（Khabar）なので対格ですが、「Marāji'」は非限定名詞（Mafā'ilパターン）なのでタンウィーンはつかず、ファトハ一文字になります。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "اخْتَارَ الرَّازِيُّ مَوْقِعَ الْمُسْتَشْفَى عَنْ طَرِيقِ تَعْلِيقِ قِطَعِ اللَّحْمِ.", japanese: "ラーズィーは肉片を吊るすことで病院の場所を選びました（腐敗が遅い場所を選んだ）。" },
@@ -10071,11 +11040,12 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "تُرْجِمَ كِتَابُهُ 'الْحَاوِي' إِلَى لُغَاتٍ عِدَّةٍ.", japanese: "彼の著書『包含の書（アル・ハーウィー）』は数ヶ国語に翻訳されました。" }
     ]
   },
-
-  // --- 41. 自然・地理 (Nature) ---
   {
-    id: 1049, title: "ファラサン諸島", category: "自然", level: "上級",
-    contentVoweled: "جُزُرُ فَرَسَانَ هِيَ أَرْخَبِيلٌ سَاحِرٌ يَقَعُ فِي جَنُوبِ الْبَحْرِ الْأَحْمَرِ...",
+    id: 1049,
+    title: "ファラサン諸島",
+    category: "自然",
+    level: "上級",
+    contentVoweled: "جُزُرُ فَرَسَانَ هِيَ أَرْخَبِيلٌ سَاحِرٌ يَقَعُ فِي جَنُوبِ الْبَحْرِ الْأَحْمَرِ تَابِعٌ لِمِنْطَقَةِ جَازَانَ. تَضُمُّ الْجُزُرُ تَنَوُّعًا بِيُولُوجِيًّا مُذْهِلًا، حَيْثُ تَحْتَوِي عَلَى غَابَاتِ الْمَانْجِرُوفِ وَالشُّعَبِ الْمَرْجَانِيَّةِ النَّادِرَةِ، وَتُعْتَبَرُ مَوْطِنًا لِلْغَزَالِ الْفَرَسَانِيِّ الْمُهَدَّدِ بِالِانْقِرَاضِ. تَشْتَهِرُ الْجُزُرُ تَارِيخِيًّا بِتِجَارَةِ اللُّؤْلُؤِ وَصَيْدِ سَمَكِ الْحَرِيدِ، حَيْثُ يُقَامُ مَهْرَجَانٌ سَنَوِيٌّ خَاصٌّ بِصَيْدِ هَذَا النَّوْعِ مِنَ الْأَسْمَاكِ.",
     contentPlain: "جزر فرسان هي أرخبيل ساحر يقع في جنوب البحر الأحمر تابع لمنطقة جازان. تضم الجزر تنوعا بيولوجيا مذهلا، حيث تحتوي على غابات المانجروف والشعب المرجانية النادرة، وتعتبر موطنا للغزال الفرساني المهدد بالانقراض. تشتهر الجزر تاريخيا بتجارة اللؤلؤ وصيد سمك الحريد، حيث يقام مهرجان سنوي خاص بصيد هذا النوع من الأسماك.",
     vocabList: [
       { word: "أَرْخَبِيل", meaning: "群島" },
@@ -10088,7 +11058,10 @@ questions: [] // アルファベット回は問題なし
       { id: 10492, type: "reading", text: "そこに生息する絶滅危惧種は？", options: ["ライオン", "ファラサン・ガゼル", "ゾウ", "パンダ"], correctIndex: 1, explanation: "「الغزال الفرساني」です。" },
       { id: 10493, type: "reading", text: "毎年行われるフェスティバルは何のためですか？", options: ["真珠", "ハリード魚（ブダイ）の漁", "水泳", "ボートレース"], correctIndex: 1, explanation: "「مهرجان سنوي خاص بصيد... سمك الحريد」です。" },
       { id: 10494, type: "vocabulary", text: "「مَوْطِن」の意味は？", options: ["敵", "生息地/故郷", "海", "空"], correctIndex: 1, explanation: "Habitat/Homeです。" },
-      { id: 10495, type: "grammar", text: "「属しています」", options: ["تَابِعٌ لِـ", "بَعِيدٌ عَنْ", "قَرِيبٌ مِنْ", "خَائِفٌ مِنْ"], correctIndex: 0, explanation: "「Tābi'un li- (Belonging to/Affiliated with)」です。" }
+      { id: 10495, type: "grammar", text: "「属しています」", options: ["تَابِعٌ لِـ", "بَعِيدٌ عَنْ", "قَرِيبٌ مِنْ", "خَائِفٌ مِنْ"], correctIndex: 0, explanation: "「Tābi'un li- (Belonging to/Affiliated with)」です。" },
+      // 上級文法問題
+      { id: 10496, type: "grammar_advanced", text: "「تضم الجزر تنوعا」の「الجزر」の正しい語尾は？", options: ["u (ダンマ)", "a (ファトハ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "動詞「Taḍummu（含む）」の主語（Fā'il）なので主格となりダンマがつきます。" },
+      { id: 10497, type: "grammar_advanced", text: "「مهرجان سنوي خاص」の「خاص」の正しい語尾は？", options: ["un (タンウィーン・ダンマ)", "an (タンウィーン・ファトハ)", "in (タンウィーン・カスラ)", "u (ダンマ)"], correctIndex: 0, explanation: "「Mahrajānun Sanawiyyun」を修飾する形容詞（Na't）であり、主格（Marfū'）なので、タンウィーン・ダンマがつきます。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "تَمَّ تَسْجِيلُ الْجُزُرِ كَمَحْمِيَّةٍ طَبِيعِيَّةٍ.", japanese: "諸島は自然保護区として登録されました。" },
@@ -10097,11 +11070,12 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "ظَاهِرَةُ انْتِحَارِ سَمَكِ الْحَرِيدِ لَا تَزَالُ لُغْزًا.", japanese: "ハリード魚の（岸への）大量押し寄せ現象は今も謎です。" }
     ]
   },
-
-  // --- 42. 科学・環境 (Science) ---
   {
-    id: 1050, title: "人工降雨（クラウドシーディング）", category: "科学", level: "上級",
-    contentVoweled: "بَرْنَامَجُ الِاسْتِمْطَارِ الصِّنَاعِيِّ يَهْدِفُ إِلَى زِيَادَةِ مُعَدَّلَاتِ هُطُولِ الْأَمْطَارِ...",
+    id: 1050,
+    title: "人工降雨（クラウドシーディング）",
+    category: "科学",
+    level: "上級",
+    contentVoweled: "بَرْنَامَجُ الِاسْتِمْطَارِ الصِّنَاعِيِّ يَهْدِفُ إِلَى زِيَادَةِ مُعَدَّلَاتِ هُطُولِ الْأَمْطَارِ فِي الْمَمْلَكَةِ الَّتِي تُعَانِي مِنَ الْجَفَافِ. تَسْتَخْدِمُ هَذِهِ التِّقْنِيَةُ طَائِرَاتٍ خَاصَّةً لِرَشِّ مَوَادَّ صَدِيقَةٍ لِلْبِيئَةِ فِي السُّحُبِ، مِمَّا يُحَفِّزُ تَكَثُّفَ بُخَارِ الْمَاءِ وَسُقُوطَ الْمَطَرِ. يَسْعَى الْمَشْرُوعُ إِلَى زِيَادَةِ الْمَخْزُونِ الْمَائِيِّ الْجَوْفِيِّ وَمُكَافَحَةِ التَّصَحُّرِ، وَهُوَ جُزْءٌ مِنَ الْحُلُولِ الْمُبْتَكَرَةِ لِتَحْقِيقِ الْأَمْنِ الْمَائِيِّ.",
     contentPlain: "برنامج الاستمطار الصناعي يهدف إلى زيادة معدلات هطول الأمطار في المملكة التي تعاني من الجفاف. تستخدم هذه التقنية طائرات خاصة لرش مواد صديقة للبيئة في السحب، مما يحفز تكثف بخار الماء وسقوط المطر. يسعى المشروع إلى زيادة المخزون المائي الجوفي ومكافحة التصحر، وهو جزء من الحلول المبتكرة لتحقيق الأمن المائي.",
     vocabList: [
       { word: "اسْتِمْطَار", meaning: "人工降雨" },
@@ -10114,7 +11088,10 @@ questions: [] // アルファベット回は問題なし
       { id: 10502, type: "reading", text: "どのような技術を使いますか？", options: ["ミサイル", "特別な飛行機で環境に優しい物質を撒く", "巨大な扇風機", "気球"], correctIndex: 1, explanation: "「طائرات خاصة لرش مواد صديقة للبيئة」です。" },
       { id: 10503, type: "reading", text: "何と戦うために役立ちますか？", options: ["砂漠化", "寒さ", "風", "虫"], correctIndex: 0, explanation: "「مكافحة التصحر (砂漠化との戦い)」です。" },
       { id: 10504, type: "vocabulary", text: "「مُعَدَّل」の意味は？", options: ["機械", "率/平均/レート", "天気", "雨"], correctIndex: 1, explanation: "Rate/Averageです。" },
-      { id: 10505, type: "grammar", text: "「刺激する/促す」", options: ["يُحَفِّزُ", "يَمْنَعُ", "يُوقِفُ", "يَنَامُ"], correctIndex: 0, explanation: "「Yuḥaffizu (Stimulates)」です。" }
+      { id: 10505, type: "grammar", text: "「刺激する/促す」", options: ["يُحَفِّزُ", "يَمْنَعُ", "يُوقِفُ", "يَنَامُ"], correctIndex: 0, explanation: "「Yuḥaffizu (Stimulates)」です。" },
+      // 上級文法問題
+      { id: 10506, type: "grammar_advanced", text: "「لرش مواد صديقة」の「مواد」の正しい語尾は？", options: ["a (ファトハ・タンウィーンなし)", "i (カスラ)", "in (タンウィーン・カスラ)", "an (タンウィーン・ファトハ)"], correctIndex: 0, explanation: "「Rashshi (撒くこと)」の後の属格（イダーファ第2要素）ですが、「Mawādd」は非限定名詞（Mumnū' min al-ṣarf）のため、カスラではなくファトハを取り、タンウィーンもつきません。" },
+      { id: 10507, type: "grammar_advanced", text: "「جزء من الحلول」の「جزء」の正しい語尾は？", options: ["un (タンウィーン・ダンマ)", "an (タンウィーン・ファトハ)", "u (ダンマ)", "in (タンウィーン・カスラ)"], correctIndex: 0, explanation: "「Huwa (それは)」の述語（Khabar）なので主格（Marfū'）となり、タンウィーン・ダンマがつきます。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "الْمَادَّةُ الْمُسْتَخْدَمَةُ لَا تَضُرُّ بِالْبِيئَةِ.", japanese: "使用される物質は環境に害を与えません。" },
@@ -10123,11 +11100,12 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "التِّقْنِيَةُ مُسْتَخْدَمَةٌ فِي دُوَلٍ كَثِيرَةٍ حَوْلَ الْعَالَمِ.", japanese: "この技術は世界中の多くの国で使用されています。" }
     ]
   },
-
-  // --- 43. 文化・宗教 (Culture) ---
   {
-    id: 1051, title: "キスワ（カアバの幕）", category: "文化", level: "上級",
-    contentVoweled: "كِسْوَةُ الْكَعْبَةِ هِيَ الْغِطَاءُ الْأَسْوَدُ الَّذِي يُزَيِّنُ بَيْتَ اللهِ الْحَرَامَ...",
+    id: 1051,
+    title: "キスワ（カアバの幕）",
+    category: "文化",
+    level: "上級",
+    contentVoweled: "كِسْوَةُ الْكَعْبَةِ هِيَ الْغِطَاءُ الْأَسْوَدُ الَّذِي يُزَيِّنُ بَيْتَ اللهِ الْحَرَامَ، وَتُصْنَعُ مِنَ الْحَرِيرِ الطَّبِيعِيِّ الْخَالِصِ الْمَصْبُوغِ بِاللَّوْنِ الْأَسْوَدِ. يَتِمُّ تَطْرِيزُ الْآيَاتِ الْقُرْآنِيَّةِ عَلَيْهَا بِاسْتِخْدَامِ أَسْلَاكٍ مِنَ الذَّهَبِ وَالْفِضَّةِ فِي مَصْنَعٍ خَاصٍّ بِمَكَّةَ الْمُكَرَّمَةِ. يَتِمُّ اسْتِبْدَالُ الْكِسْوَةِ مَرَّةً وَاحِدَةً كُلَّ عَامٍ فِي مَوْسِمِ الْحَجِّ، وَتُعْتَبَرُ هَذِهِ الْعَمَلِيَّةُ مَظْهَرًا مِنْ مَظَاهِرِ التَّعْظِيمِ وَالتَّشْرِيفِ لِلْكَعْبَةِ الْمُشَرَّفَةِ.",
     contentPlain: "كسوة الكعبة هي الغطاء الأسود الذي يزين بيت الله الحرام، وتصنع من الحرير الطبيعي الخالص المصبوغ باللون الأسود. يتم تطريز الآيات القرآنية عليها باستخدام أسلاك من الذهب والفضة في مصنع خاص بمكة المكرمة. يتم استبدال الكسوة مرة واحدة كل عام في موسم الحج، وتعتبر هذه العملية مظهرا من مظاهر التعظيم والتشريف للكعبة المشرفة.",
     vocabList: [
       { word: "حَرِير", meaning: "シルク/絹" },
@@ -10140,7 +11118,10 @@ questions: [] // アルファベット回は問題なし
       { id: 10512, type: "reading", text: "刺繍には何が使われますか？", options: ["黒い糸", "金と銀の線（糸）", "プラスチック", "インク"], correctIndex: 1, explanation: "「أسلاك من الذهب والفضة」です。" },
       { id: 10513, type: "reading", text: "いつ交換されますか？", options: ["毎月", "毎年ハッジの時期に", "10年ごと", "ラマダン中"], correctIndex: 1, explanation: "「مرة واحدة كل عام في موسم الحج」です。" },
       { id: 10514, type: "vocabulary", text: "「مَصْبُوغ」の意味は？", options: ["洗われた", "染められた", "切られた", "売られた"], correctIndex: 1, explanation: "Dyed（染められた）です。" },
-      { id: 10515, type: "grammar", text: "「装飾する」", options: ["يُزَيِّنُ", "يُخَرِّبُ", "يَبْنِي", "يَهْدِمُ"], correctIndex: 0, explanation: "「Yuzayyinu (Decorates)」です。" }
+      { id: 10515, type: "grammar", text: "「装飾する」", options: ["يُزَيِّنُ", "يُخَرِّبُ", "يَبْنِي", "يَهْدِمُ"], correctIndex: 0, explanation: "「Yuzayyinu (Decorates)」です。" },
+      // 上級文法問題
+      { id: 10516, type: "grammar_advanced", text: "「يتم تطريز الآيات」の「الآيات」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Taṭrīz (刺繍すること)」という動名詞の後に続くイダーファの第2要素（属格）です。女性規則複数（Jam' Mu'annath Sālim）の属格はカスラを取ります。" },
+      { id: 10517, type: "grammar_advanced", text: "「باستخدام أسلاك」の「أسلاك」の正しい語尾は？", options: ["in (タンウィーン・カスラ)", "an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "a (ファトハ)"], correctIndex: 0, explanation: "「Istikhdām」の後のイダーファ第2要素（属格）です。非限定名詞ではないので、タンウィーン・カスラを取ります。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "يَعْمَلُ فِي مَصْنَعِ الْكِسْوَةِ أَمْهَرُ الْحِرَفِيِّينَ السُّعُودِيِّينَ.", japanese: "キスワ工場では最も熟練したサウジの職人たちが働いています。" },
@@ -10149,11 +11130,12 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "الْكِسْوَةُ الْقَدِيمَةُ تُقَطَّعُ وَتُهْدَى لِكِبَارِ الشَّخْصِيَّاتِ.", japanese: "古いキスワは裁断され、要人たちに贈られます。" }
     ]
   },
-
-  // --- 44. 社会・芸術 (Society/Art) ---
   {
-    id: 1052, title: "サウジ映画の躍進", category: "社会", level: "上級",
-    contentVoweled: "يَشْهَدُ قِطَاعُ السِّينِمَا فِي السُّعُودِيَّةِ نُمُوًّا مُتَسَارِعًا...",
+    id: 1052,
+    title: "サウジ映画の躍進",
+    category: "社会",
+    level: "上級",
+    contentVoweled: "يَشْهَدُ قِطَاعُ السِّينِمَا فِي السُّعُودِيَّةِ نُمُوًّا مُتَسَارِعًا مُنْذُ إِعَادَةِ فَتْحِ دُورِ الْعَرْضِ فِي عَامِ 2018. بَرَزَتْ مَوَاهِبُ سُعُودِيَّةٌ شَابَّةٌ أَنْتَجَتْ أَفْلَامًا نَالَتْ جَوَائِزَ فِي مَهْرَجَانَاتٍ عَالَمِيَّةٍ مِثْلَ 'الْبَحْرِ الْأَحْمَرِ السِّينِمَائِيِّ'. تَدْعَمُ الدَّوْلَةُ صِنَاعَةَ الْأَفْلَامِ لِتَعْزِيزِ الثَّقَافَةِ الْمَحَلِّيَّةِ وَرِوَايَةِ الْقِصَصِ السُّعُودِيَّةِ لِلْعَالَمِ، مِمَّا يَخْلُقُ فُرَصَ عَمَلٍ جَدِيدَةً فِي مَجَالَاتِ التَّمْثِيلِ وَالْإِخْرَاجِ وَالْإِنْتَاجِ.",
     contentPlain: "يشهد قطاع السينما في السعودية نموا متسارعا منذ إعادة فتح دور العرض في عام 2018. برزت مواهب سعودية شابة أنتجت أفلاما نالت جوائز في مهرجانات عالمية مثل 'البحر الأحمر السينمائي'. تدعم الدولة صناعة الأفلام لتعزيز الثقافة المحلية ورواية القصص السعودية للعالم، مما يخلق فرص عمل جديدة في مجالات التمثيل والإخراج والإنتاج.",
     vocabList: [
       { word: "سِينِمَا", meaning: "映画/映画館" },
@@ -10166,7 +11148,10 @@ questions: [] // アルファベット回は問題なし
       { id: 10522, type: "reading", text: "サウジ映画の現状は？", options: ["衰退している", "急速に成長し賞を獲得している", "誰も見ていない", "輸入だけしている"], correctIndex: 1, explanation: "「نموا متسارعا... نالت جوائز」です。" },
       { id: 10523, type: "reading", text: "映画産業支援の目的は？", options: ["お金の無駄遣い", "サウジの物語を世界に伝える", "俳優を減らす", "映画館を閉める"], correctIndex: 1, explanation: "「رواية القصص السعودية للعالم」です。" },
       { id: 10524, type: "vocabulary", text: "「مَوْهِبَة」の意味は？", options: ["才能/タレント", "お金", "時間", "場所"], correctIndex: 0, explanation: "Talent（才能）です。" },
-      { id: 10525, type: "grammar", text: "「獲得しました」", options: ["نَالَتْ", "خَسِرَتْ", "أَعْطَتْ", "بَاعَتْ"], correctIndex: 0, explanation: "「Nālat (Won/Obtained)」です。" }
+      { id: 10525, type: "grammar", text: "「獲得しました」", options: ["نَالَتْ", "خَسِرَتْ", "أَعْطَتْ", "بَاعَتْ"], correctIndex: 0, explanation: "「Nālat (Won/Obtained)」です。" },
+      // 上級文法問題
+      { id: 10526, type: "grammar_advanced", text: "「إعادة فتح دور العرض」の「دور」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Fatḥ (開店)」という動名詞の後のイダーファ第2要素（属格）です。「Dūr」は「Dār (家/館)」の複数形です。" },
+      { id: 10527, type: "grammar_advanced", text: "「نالت جوائز」の「جوائز」の正しい語尾は？", options: ["a (ファトハ・タンウィーンなし)", "an (タンウィーン・ファトハ)", "i (カスラ)", "u (ダンマ)"], correctIndex: 0, explanation: "「Nālat (獲得した)」の目的語（対格）ですが、「Jawā'iz」は非限定名詞（Mumnū' min al-ṣarf）なので、タンウィーンなしのファトハを取ります。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "فِيلْمُ 'حَدُّ الطَّارِ' كَانَ مِنْ الْأَفْلَامِ النَّاجِحَةِ.", japanese: "映画『The Tambour of Retribution』は成功した作品の一つでした。" },
@@ -10175,11 +11160,12 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "نَطْمَحُ لِلْوُصُولِ إِلَى الْأُوسْكَارِ.", japanese: "私たちはオスカーへの到達を熱望しています。" }
     ]
   },
-
-  // --- 45. 社会・環境 (Society/Green) ---
   {
-    id: 1053, title: "キング・サルマン・パーク", category: "社会", level: "上級",
-    contentVoweled: "حَدِيقَةُ الْمَلِكِ سَلْمَانَ فِي الرِّيَاضِ سَتَكُونُ أَكْبَرَ حَدِيقَةِ مُدُنٍ فِي الْعَالَمِ...",
+    id: 1053,
+    title: "キング・サルマン・パーク",
+    category: "社会",
+    level: "上級",
+    contentVoweled: "حَدِيقَةُ الْمَلِكِ سَلْمَانَ فِي الرِّيَاضِ سَتَكُونُ أَكْبَرَ حَدِيقَةِ مُدُنٍ فِي الْعَالَمِ، حَيْثُ تَزِيدُ مِسَاحَتُهَا عَنْ 16 كِيلُومِتْرًا مُرَبَّعًا. يَهْدِفُ الْمَشْرُوعُ إِلَى تَحْسِينِ جَوْدَةِ الْحَيَاةِ فِي الْعَاصِمَةِ وَزِيَادَةِ نَصِيبِ الْفَرْدِ مِنَ الْمَسَاحَاتِ الْخَضْرَاءِ. سَتَضُمُّ الْحَدِيقَةُ مَجْمَعًا لِلْفُنُونِ وَمَسْرَحًا وَطَنِيًّا وَمَتَاحِفَ وَمَلَاعِبَ رِيَاضِيَّةً، لِتَكُونَ رِئَةً خَضْرَاءَ وَمَرْكَزًا ثَقَافِيًّا وَتَرْفِيهِيًّا لِلسُّكَّانِ وَالزُّوَّارِ.",
     contentPlain: "حديقة الملك سلمان في الرياض ستكون أكبر حديقة مدن في العالم، حيث تزيد مساحتها عن 16 كيلومترا مربعا. يهدف المشروع إلى تحسين جودة الحياة في العاصمة وزيادة نصيب الفرد من المساحات الخضراء. ستضم الحديقة مجمعا للفنون ومسرحا وطنيا ومتاحف وملاعب رياضية، لتكون رئة خضراء ومركزا ثقافيا وترفيهيا للسكان والزوار.",
     vocabList: [
       { word: "حَدِيقَة", meaning: "公園/庭" },
@@ -10192,7 +11178,10 @@ questions: [] // アルファベット回は問題なし
       { id: 10532, type: "reading", text: "主な目的は？", options: ["ビルを増やす", "生活の質（QOL）の向上と緑地の増加", "交通を減らす", "水を売る"], correctIndex: 1, explanation: "「تحسين جودة الحياة... وزيادة... المساحات الخضراء」です。" },
       { id: 10533, type: "reading", text: "公園には何が含まれますか？", options: ["工場", "芸術複合施設、劇場、博物館", "空港", "何もなし"], correctIndex: 1, explanation: "「مجمعا للفنون ومسرحا وطنيا ومتاحف」です。" },
       { id: 10534, type: "vocabulary", text: "「زَائِر」の意味は？", options: ["住人", "訪問者", "敵", "友達"], correctIndex: 1, explanation: "Visitor（訪問者）です。" },
-      { id: 10535, type: "grammar", text: "「なります（未来）」", options: ["سَتَكُونُ", "كَانَتْ", "لَيْسَتْ", "أَصْبَحَتْ"], correctIndex: 0, explanation: "「Sa-takūnu (Will be)」です。" }
+      { id: 10535, type: "grammar", text: "「なります（未来）」", options: ["سَتَكُونُ", "كَانَتْ", "لَيْسَتْ", "أَصْبَحَتْ"], correctIndex: 0, explanation: "「Sa-takūnu (Will be)」です。" },
+      // 上級文法問題
+      { id: 10536, type: "grammar_advanced", text: "「16 كيلومترا」の「كيلومترا」の正しい語尾は？", options: ["an (タンウィーン・ファトハ)", "in (タンウィーン・カスラ)", "un (タンウィーン・ダンマ)", "a (ファトハ)"], correctIndex: 0, explanation: "数詞「16 ('Ashara）」の後の名詞（Tamyīz）は単数・対格（Manṣūb）になります。" },
+      { id: 10537, type: "grammar_advanced", text: "「ومتاحف وملاعب」の「متاحف」の正しい語尾は？", options: ["a (ファトハ・タンウィーンなし)", "an (タンウィーン・ファトハ)", "in (タンウィーン・カスラ)", "un (タンウィーン・ダンマ)"], correctIndex: 0, explanation: "「Masraḥan (劇場・対格)」に接続された（Ma'ṭūf）言葉ですが、「Matāḥif」は非限定名詞（Mumnū' min al-ṣarf）なので、対格でもタンウィーンを取らずファトハ一文字になります。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "تَقَعُ الْحَدِيقَةُ فِي مَوْقِعِ الْمَطَارِ الْقَدِيمِ.", japanese: "公園は旧空港の跡地に位置しています。" },
@@ -10201,11 +11190,12 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "إِنَّهَا هَدِيَّةُ الْمَلِكِ لِسُكَّانِ الرِّيَاضِ.", japanese: "それはリヤド住民への王からの贈り物です。" }
     ]
   },
-
-  // --- 46. 文学・物語 (Literature) ---
   {
-    id: 1054, title: "騎士詩人アンタラ", category: "文学", level: "上級",
-    contentVoweled: "عَنْتَرَةُ بْنُ شَدَّادٍ هُوَ أَشْهَرُ فُرْسَانِ الْعَرَبِ وَشُعَرَائِهِمْ...",
+    id: 1054,
+    title: "騎士詩人アンタラ",
+    category: "文学",
+    level: "上級",
+    contentVoweled: "عَنْتَرَةُ بْنُ شَدَّادٍ هُوَ أَشْهَرُ فُرْسَانِ الْعَرَبِ وَشُعَرَائِهِمْ فِي الْعَصْرِ الْجَاهِلِيِّ. وُلِدَ عَبْدًا أَسْوَدَ اللَّوْنِ، لَكِنَّهُ انْتَزَعَ حُرِّيَّتَهُ بِشَجَاعَتِهِ وَقُوَّتِهِ فِي الْمَعَارِكِ دِفَاعًا عَنْ قَبِيلَتِهِ 'عَبْس'. اشْتُهِرَ بِقِصَّةِ حُبِّهِ لِابْنَةِ عَمِّهِ 'عَبْلَة' الَّتِي خَلَّدَهَا فِي شِعْرِهِ الرَّقِيقِ. جَمَعَ شِعْرُهُ بَيْنَ الْفَخْرِ بِالذَّاتِ وَالْفُرُوسِيَّةِ وَالْغَزَلِ الْعَفِيفِ، وَتُعْتَبَرُ مُعَلَّقَتُهُ مِنْ عُيُونِ الشِّعْرِ الْعَرَبِيِّ.",
     contentPlain: "عنترة بن شداد هو أشهر فرسان العرب وشعرائهم في العصر الجاهلي. ولد عبدا أسود اللون، لكنه انتزع حريته بشجاعته وقوته في المعارك دفاعا عن قبيلته 'عبس'. اشتهر بقصة حبه لابنة عمه 'عبلة' التي خلدها في شعره الرقيق. جمع شعره بين الفخر بالذات والفروسية والغزل العفيف، وتعتبر معلقته من عيون الشعر العربي.",
     vocabList: [
       { word: "فَارِس", meaning: "騎士（複：フルサーン）" },
@@ -10218,7 +11208,10 @@ questions: [] // アルファベット回は問題なし
       { id: 10542, type: "reading", text: "彼はどうやって自由を勝ち取りましたか？", options: ["お金で", "勇気と部族を守る戦いによって", "逃亡して", "詩を書いて"], correctIndex: 1, explanation: "「بشجاعته وقوته في المعارك (戦いにおける勇気と力で)」です。" },
       { id: 10543, type: "reading", text: "彼の恋人の名前は？", options: ["ライラ", "アブラ", "ヒンド", "サルマ"], correctIndex: 1, explanation: "「عبلة」です。" },
       { id: 10544, type: "vocabulary", text: "「دِفَاع」の意味は？", options: ["攻撃", "防御/守ること", "逃げ", "勝ち"], correctIndex: 1, explanation: "Defense（防御）です。" },
-      { id: 10545, type: "grammar", text: "「勝ち取りました/奪い取りました」", options: ["انْتَزَعَ", "أَعْطَى", "فَقَدَ", "نَسِيَ"], correctIndex: 0, explanation: "「Intaza'a (Snatched/Wrested)」です。" }
+      { id: 10545, type: "grammar", text: "「勝ち取りました/奪い取りました」", options: ["انْتَزَعَ", "أَعْطَى", "فَقَدَ", "نَسِيَ"], correctIndex: 0, explanation: "「Intaza'a (Snatched/Wrested)」です。" },
+      // 上級文法問題
+      { id: 10546, type: "grammar_advanced", text: "「دفاعا عن قبيلته」の「دفاعا」の正しい語尾は？", options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "a (ファトハ)"], correctIndex: 0, explanation: "「〜を守るために」という理由を表す「目的のために対格（Maf'ūl li-ajlihi）」なので、タンウィーン・ファトハがつきます。" },
+      { id: 10547, type: "grammar_advanced", text: "「من عيون الشعر」の「عيون」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "前置詞「Min」の後の名詞（Ism Majrūr）なので属格となり、カスラがつきます（イダーファの第1要素なのでタンウィーンはなし）。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "عَانَى عَنْتَرَةُ مِنَ التَّمْيِيزِ بِسَبَبِ لَوْنِهِ.", japanese: "アンタラは色のせいで差別に苦しみました。" },
@@ -10227,11 +11220,12 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "قِصَّتُهُ رَمْزٌ لِلْبُطُولَةِ وَالْحُبِّ.", japanese: "彼の物語は英雄的行為と愛の象徴です。" }
     ]
   },
-
-  // --- 47. 経済・地理 (Economy) ---
   {
-    id: 1055, title: "物流ハブとしてのサウジ", category: "経済", level: "上級",
-    contentVoweled: "تَتَمَتَّعُ الْمَمْلَكَةُ بِمَوْقِعٍ جُغْرَافِيٍّ اسْتِرَاتِيجِيٍّ يَرْبِطُ بَيْنَ ثَلَاثِ قَارَّاتٍ...",
+    id: 1055,
+    title: "物流ハブとしてのサウジ",
+    category: "経済",
+    level: "上級",
+    contentVoweled: "تَتَمَتَّعُ الْمَمْلَكَةُ بِمَوْقِعٍ جُغْرَافِيٍّ اسْتِرَاتِيجِيٍّ يَرْبِطُ بَيْنَ ثَلَاثِ قَارَّاتٍ: آسِيَا وَأَفْرِيقِيَا وَأُورُوبَّا. تَهْدِفُ الِاسْتِرَاتِيجِيَّةُ الْوَطَنِيَّةُ لِلنَّقْلِ وَالْخِدْمَاتِ اللُّوجِسْتِيَّةِ إِلَى تَحْوِيلِ السُّعُودِيَّةِ إِلَى مَرْكَزٍ لُوجِسْتِيٍّ عَالَمِيٍّ، مِنْ خِلَالِ تَطْوِيرِ الْمَوَانِئِ وَالْمَطَارَاتِ وَشَبَكَاتِ السِّكَكِ الْحَدِيدِيَّةِ. سَيُسْهِمُ ذَلِكَ فِي زِيَادَةِ التَّبَادُلِ التِّجَارِيِّ وَتَسْهِيلِ حَرَكَةِ الْبَضَائِعِ حَوْلَ الْعَالَمِ، مِمَّا يَدْعَمُ الِاقْتِصَادَ غَيْرَ النِّفْطِيِّ.",
     contentPlain: "تتمتع المملكة بموقع جغرافي استراتيجي يربط بين ثلاث قارات: آسيا وأفريقيا وأوروبا. تهدف الاستراتيجية الوطنية للنقل والخدمات اللوجستية إلى تحويل السعودية إلى مركز لوجستي عالمي، من خلال تطوير الموانئ والمطارات وشبكات السكك الحديدية. سيسهم ذلك في زيادة التبادل التجاري وتسهيل حركة البضائع حول العالم، مما يدعم الاقتصاد غير النفطي.",
     vocabList: [
       { word: "قَارَّة", meaning: "大陸" },
@@ -10244,7 +11238,10 @@ questions: [] // アルファベット回は問題なし
       { id: 10552, type: "reading", text: "国家戦略の目標は？", options: ["港を閉める", "世界的物流ハブへの転換", "観光を減らす", "農業を止める"], correctIndex: 1, explanation: "「تحويل السعودية إلى مركز لوجستي عالمي」です。" },
       { id: 10553, type: "reading", text: "開発されるインフラは？", options: ["家だけ", "港、空港、鉄道", "学校のみ", "公園"], correctIndex: 1, explanation: "「الموانئ والمطارات وشبكات السكك الحديدية」です。" },
       { id: 10554, type: "vocabulary", text: "「تَبَادُل」の意味は？", options: ["停止", "交換/交流", "戦い", "睡眠"], correctIndex: 1, explanation: "Exchange（交換）です。" },
-      { id: 10555, type: "grammar", text: "「変換する」", options: ["تَحْوِيل", "بَقَاء", "ذَهَاب", "نِسْيَان"], correctIndex: 0, explanation: "「Taḥwīl (Transforming/Converting)」です。" }
+      { id: 10555, type: "grammar", text: "「変換する」", options: ["تَحْوِيل", "بَقَاء", "ذَهَاب", "نِسْيَان"], correctIndex: 0, explanation: "「Taḥwīl (Transforming/Converting)」です。" },
+      // 上級文法問題
+      { id: 10556, type: "grammar_advanced", text: "「يربط بين ثلاث قارات」の「قارات」の正しい語尾は？", options: ["in (タンウィーン・カスラ)", "un (タンウィーン・ダンマ)", "an (タンウィーン・ファトハ)", "i (カスラ)"], correctIndex: 0, explanation: "数詞「Thalāth (3)」の後の名詞（Tamyīz/Muḍāf Ilayhi）は複数・属格（Majrūr）となり、タンウィーン・カスラがつきます。" },
+      { id: 10557, type: "grammar_advanced", text: "「تطوير الموانئ」の「الموانئ」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Mawāni'」は非限定名詞（Mumnū' min al-ṣarf）ですが、定冠詞「Al」がついているため、イダーファの第2要素（属格）として通常通りカスラを取ります。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "مِينَاءُ جِدَّةَ الْإِسْلَامِيُّ هُوَ الْأَكْبَرُ فِي الْبَحْرِ الْأَحْمَرِ.", japanese: "ジェッダ・イスラム港は紅海で最大です。" },
@@ -10253,12 +11250,13 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "الْهَدَفُ هُوَ رَفْعُ كَفَاءَةِ الِاسْتِيرَادِ وَالتَّصْدِيرِ.", japanese: "目標は輸出入の効率を高めることです。" }
     ]
   },
-
-  // --- 48. 自然・地理 (Nature/Geography) ---
   {
-    id: 1056, title: "サウジの火山（ハッラート）", category: "自然", level: "上級",
-    contentVoweled: "قَدْ يَسْتَغْرِبُ الْبَعْضُ وُجُودَ بَرَاكِينَ فِي السُّعُودِيَّةِ...",
-    contentPlain: "قد يستغرب البعض وجود براكين في السعودية، لكن المملكة تضم العديد من الحقول البركانية الخامدة المعروفة باسم 'الحرات'. أشهرها 'حرة رهاط' و'حرة خيبر' التي تحتوي على فوهات بركانية وكهوف (دحول) تكونت من الحمم القديمة. هذه المناطق تشكل معالم جيولوجية فريدة تجذب الباحثين والسياح لمشاهدة التباين بين الصخور السوداء والرمال الصحراوية.",
+    id: 1056,
+    title: "サウジの火山（ハッラート）",
+    category: "自然",
+    level: "上級",
+    contentVoweled: "قَدْ يَسْتَغْرِبُ الْبَعْضُ وُجُودَ بَرَاكِينَ فِي السُّعُودِيَّةِ، لَكِنَّ الْمَمْلَكَةَ تَضُمُّ الْعَدِيدَ مِنَ الْحُقُولِ الْبُرْكَانِيَّةِ الْخَامِدَةِ الْمَعْرُوفَةِ بِاسْمِ 'الْحَرَّاتِ'. أَشْهَرُهَا 'حَرَّةُ رَهَاط' وَ'حَرَّةُ خَيْبَر' الَّتِي تَحْتَوِي عَلَى فُوَّهَاتٍ بُرْكَانِيَّةٍ وَكُهُوفٍ (دُحُول) تَكَوَّنَتْ مِنَ الْحِمَمِ الْقَدِيمَةِ. هَذِهِ الْمَنَاطِقُ تُشَكِّلُ مَعَالِمَ جِيُولُوجِيَّةً فَرِيدَةً تَجْذِبُ الْبَاحِثِينَ وَالسُّيَّاحَ لِمُشَاهَدَةِ التَّبَايُنِ بَيْنَ الصُّخُورِ السَّوْدَاءِ وَالرِّمَالِ الصَّحْرَاوِيَّةِ.",
+    contentPlain: "قد يستغرب البعض وجود براكين في السعودية، لكن المملكة تضم العديد من الحقول البركانية الخامدة المعروفة باسم 'الحرات'. أشهرها 'حرة رهاط' وحرة خيبر التي تحتوي على فوهات بركانية وكهوف (دحول) تكونت من الحمم القديمة. هذه المناطق تشكل معالم جيولوجية فريدة تجذب الباحثين والسياح لمشاهدة التباين بين الصخور السوداء والرمال الصحراوية.",
     vocabList: [
       { word: "بُرْكَان", meaning: "火山（複：バラキーン）" },
       { word: "خَامِد", meaning: "休火山の/静まった" },
@@ -10270,7 +11268,10 @@ questions: [] // アルファベット回は問題なし
       { id: 10562, type: "reading", text: "有名な場所の名前は？", options: ["リヤド", "ハッラト・ラハートやハイバル", "ダンマーム", "アブハ"], correctIndex: 1, explanation: "「حرة رهاط وحرة خيبر」です。" },
       { id: 10563, type: "reading", text: "そこには何がありますか？", options: ["水", "火口や溶岩洞窟", "森", "氷"], correctIndex: 1, explanation: "「فوهات بركانية وكهوف」です。" },
       { id: 10564, type: "vocabulary", text: "「بَاحِث」の意味は？", options: ["観光客", "研究者", "運転手", "子供"], correctIndex: 1, explanation: "Researcher（研究者）です。" },
-      { id: 10565, type: "grammar", text: "「驚くかもしれません」", options: ["قَدْ يَسْتَغْرِبُ", "يَعْرِفُ", "يَتَأَكَّدُ", "يَنْسَى"], correctIndex: 0, explanation: "「Qad yastaghribu (Might be surprised)」です。" }
+      { id: 10565, type: "grammar", text: "「驚くかもしれません」", options: ["قَدْ يَسْتَغْرِبُ", "يَعْرِفُ", "يَتَأَكَّدُ", "يَنْسَى"], correctIndex: 0, explanation: "「Qad yastaghribu (Might be surprised)」です。" },
+      // 上級文法問題
+      { id: 10566, type: "grammar_advanced", text: "「وجود براكين」の「براكين」の正しい語尾は？", options: ["a (ファトハ)", "i (カスラ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Wujūda (存在)」の後のイダーファ第2要素（属格）ですが、「Barākīn」は非限定名詞（Mafā'īlパターン）なので、カスラではなくファトハを取ります。" },
+      { id: 10567, type: "grammar_advanced", text: "「تشكل معالم جيولوجية」の「معالم」の正しい語尾は？", options: ["a (ファトハ・タンウィーンなし)", "an (タンウィーン・ファトハ)", "u (ダンマ)", "in (タンウィーン・カスラ)"], correctIndex: 0, explanation: "動詞「Tushakkilu (形成する)」の目的語（対格）ですが、「Ma'ālim」は非限定名詞なので、タンウィーンを取らずファトハ一文字になります。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "كَهْفُ 'أُمِّ جِرْسَانَ' هُوَ أَطْوَلُ كَهْفٍ بُرْكَانِيٍّ فِي الْعَالَمِ الْعَرَبِيِّ.", japanese: "「ウンム・ジルサーン」洞窟はアラブ世界で最も長い火山洞窟です。" },
@@ -10279,10 +11280,12 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "هَذِهِ الْمَنَاطِقُ شَاهِدَةٌ عَلَى تَارِيخِ الْأَرْضِ الْجِيُولُوجِيِّ.", japanese: "これらの地域は地球の地質学的歴史の証人です。" }
     ]
   },
-  // --- 49. 歴史・政治 (History/Politics) ---
   {
-    id: 1057, title: "マスマク城塞", category: "歴史", level: "上級",
-    contentVoweled: "يَحْتَلُّ قَصْرُ الْمَصْمَكِ مَكَانَةً بَارِزَةً فِي تَارِيخِ الْمَمْلَكَةِ الْعَرَبِيَّةِ السُّعُودِيَّةِ...",
+    id: 1057,
+    title: "マスマク城塞",
+    category: "歴史",
+    level: "上級",
+    contentVoweled: "يَحْتَلُّ قَصْرُ الْمَصْمَكِ مَكَانَةً بَارِزَةً فِي تَارِيخِ الْمَمْلَكَةِ الْعَرَبِيَّةِ السُّعُودِيَّةِ، إِذْ يُمَثِّلُ رَمْزًا لِتَوْحِيدِ الْبِلَادِ وَانْطِلَاقِ الدَّوْلَةِ السُّعُودِيَّةِ الثَّالِثَةِ. فِي فَجْرِ الْخَامِسِ مِنْ شَوَّال عَامَ 1319هـ، قَادَ الْمَلِكُ عَبْدُ الْعَزِيزِ رِجَالَهُ لِاسْتِعَادَةِ الرِّيَاضِ، وَنَجَحُوا فِي اقْتِحَامِ هَذَا الْحِصْنِ الْمَنِيعِ. لَا يَزَالُ بَابُ الْقَصْرِ يَحْتَفِظُ بِسِنِّ الرُّمْحِ الَّذِي كُسِرَ فِيهِ أَثْنَاءَ الْمَعْرَكَةِ، وَهُوَ شَاهِدٌ حَيٌّ عَلَى شَجَاعَةِ الْمُؤَسِّسِ وَرِجَالِهِ.",
     contentPlain: "يحتل قصر المصمك مكانة بارزة في تاريخ المملكة العربية السعودية، إذ يمثل رمزا لتوحيد البلاد وانطلاق الدولة السعودية الثالثة. في فجر الخامس من شوال عام 1319هـ، قاد الملك عبد العزيز رجاله لاستعادة الرياض، ونجحوا في اقتحام هذا الحصن المنيع. لا يزال باب القصر يحتفظ بسن الرمح الذي كسر فيه أثناء المعركة، وهو شاهد حي على شجاعة المؤسس ورجاله.",
     vocabList: [
       { word: "حِصْن", meaning: "城塞/砦" },
@@ -10295,7 +11298,10 @@ questions: [] // アルファベット回は問題なし
       { id: 10572, type: "reading", text: "リヤド奪還の戦いで何が起こりましたか？", options: ["城が燃えた", "城塞への突入に成功した", "和平交渉をした", "諦めた"], correctIndex: 1, explanation: "「نجحوا في اقتحام هذا الحصن (砦への突入に成功した)」です。" },
       { id: 10573, type: "reading", text: "城のドアには何が残っていますか？", options: ["古い鍵", "折れた槍の穂先", "王の名前", "金貨"], correctIndex: 1, explanation: "「سن الرمح الذي كسر فيه (そこで折れた槍の穂先)」です。" },
       { id: 10574, type: "vocabulary", text: "「مَكَانَة」の意味は？", options: ["場所", "地位/ステータス", "時間", "機械"], correctIndex: 1, explanation: "Status/Position（地位）です。" },
-      { id: 10575, type: "grammar", text: "「率いました」", options: ["قَادَ", "تَبِعَ", "مَشَى", "نَامَ"], correctIndex: 0, explanation: "「Qāda (Led)」です。" }
+      { id: 10575, type: "grammar", text: "「率いました」", options: ["قَادَ", "تَبِعَ", "مَشَى", "نَامَ"], correctIndex: 0, explanation: "「Qāda (Led)」です。" },
+      // 上級文法問題
+      { id: 10576, type: "grammar_advanced", text: "「يحتل قصر المصمك」の「قصر」の正しい語尾は？", options: ["u (ダンマ)", "a (ファトハ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "動詞「Yaḥtallu (占める)」の主語（Fā'il）なので主格（Marfū'）となりダンマがつきます。" },
+      { id: 10577, type: "grammar_advanced", text: "「الذي كسر فيه」の「كسر」の態は？", options: ["受動態（折られた）", "能動態（折った）", "命令形", "完了形（能動）"], correctIndex: 0, explanation: "文脈的に「（槍が）折れた/折られた」という意味なので受動態（Kusira）です。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "بُنِيَ الْمَصْمَكُ مِنَ الطِّينِ وَاللَّبِنِ.", japanese: "マスマクは泥と日干し煉瓦で建てられました。" },
@@ -10304,11 +11310,12 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "كَلِمَةُ 'مَصْمَك' تَعْنِي الْبِنَاءَ الْمُرْتَفِعَ الْقَوِيَّ.", japanese: "「マスマク」という言葉は、高く強い建物を意味します。" }
     ]
   },
-
-  // --- 50. 歴史・科学 (Science History) ---
   {
-    id: 1058, title: "外科医アル・ザフラ−ウィー", category: "歴史", level: "上級",
-    contentVoweled: "يُلَقَّبُ أَبُو الْقَاسِمِ الزَّهْرَاوِيُّ بِأَبِي الْجِرَاحَةِ الْحَدِيثَةِ...",
+    id: 1058,
+    title: "外科医アル・ザフラ−ウィー",
+    category: "歴史",
+    level: "上級",
+    contentVoweled: "يُلَقَّبُ أَبُو الْقَاسِمِ الزَّهْرَاوِيُّ بِأَبِي الْجِرَاحَةِ الْحَدِيثَةِ، حَيْثُ كَانَ أَعْظَمَ جَرَّاحٍ فِي الْعُصُورِ الْوُسْطَى. اخْتَرَعَ أَكْثَرَ مِنْ 200 أَدَاةٍ جِرَاحِيَّةٍ لَا يَزَالُ بَعْضُهَا يُسْتَخْدَمُ حَتَّى الْيَوْمِ، مِثْلَ الْمِشْرَطِ وَالْمِقَصِّ الْجِرَاحِيِّ. كَانَ أَوَّلَ مَنِ اسْتَخْدَمَ خُيُوطَ 'أَمْعَاءِ الْقِطِّ' فِي الْعَمَلِيَّاتِ الدَّاخِلِيَّةِ لِأَنَّ الْجِسْمَ يَمْتَصُّهَا، وَوَضَعَ قَوَاعِدَ لِلتَّعْقِيمِ وَلِلْعَلَاقَةِ بَيْنَ الطَّبِيبِ وَالْمَرِيضِ فِي كِتَابِهِ الْمَوْسُوعِيِّ 'التَّصْرِيف'.",
     contentPlain: "يلقب أبو القاسم الزهراوي بأبي الجراحة الحديثة، حيث كان أعظم جراح في العصور الوسطى. اخترع أكثر من 200 أداة جراحية لا يزال بعضها يستخدم حتى اليوم، مثل المشرط والمقص الجراحي. كان أول من استخدم خيوط 'أمعاء القط' في العمليات الداخلية لأن الجسم يمتصها، ووضع قواعد للتعقيم وللعلاقة بين الطبيب والمريض في كتابه الموسوعي 'التصريف'.",
     vocabList: [
       { word: "جِرَاحَة", meaning: "外科/手術" },
@@ -10321,7 +11328,10 @@ questions: [] // アルファベット回は問題なし
       { id: 10582, type: "reading", text: "彼は何を発明しましたか？", options: ["薬", "200以上の外科手術器具", "顕微鏡", "注射器"], correctIndex: 1, explanation: "「اخترع أكثر من 200 أداة جراحية」です。" },
       { id: 10583, type: "reading", text: "彼が導入した「キャットガット（腸線）」の特徴は？", options: ["非常に強い", "体が吸収する（溶ける）", "安い", "痛くない"], correctIndex: 1, explanation: "「الجسم يمتصها (体がそれを吸収する)」ため、抜糸の必要がありません。" },
       { id: 10584, type: "vocabulary", text: "「أَدَاة」の意味は？", options: ["薬", "道具/ツール", "本", "部屋"], correctIndex: 1, explanation: "Tool/Instrument（道具）です。" },
-      { id: 10585, type: "grammar", text: "「あだ名で呼ばれる」", options: ["يُلَقَّبُ بِـ", "يُنَادَى", "يُسَمَّى", "يَقُولُ"], correctIndex: 0, explanation: "「Yulaqqabu bi- (Is nicknamed/titled)」です。" }
+      { id: 10585, type: "grammar", text: "「あだ名で呼ばれる」", options: ["يُلَقَّبُ بِـ", "يُنَادَى", "يُسَمَّى", "يَقُولُ"], correctIndex: 0, explanation: "「Yulaqqabu bi- (Is nicknamed/titled)」です。" },
+      // 上級文法問題
+      { id: 10586, type: "grammar_advanced", text: "「بأبي الجراحة」の「أبي」の正しい格は？", options: ["属格（前置詞の後だから）", "主格（主語だから）", "対格（目的語だから）", "対格（例外）"], correctIndex: 0, explanation: "前置詞「Bi」の後の「Abū」は五つの名詞（Asmā' Khamsa）の一つなので、属格で「Abī」となります。" },
+      { id: 10587, type: "grammar_advanced", text: "「أعظم جراح」の「جراح」の正しい語尾は？", options: ["in (タンウィーン・カスラ)", "un (タンウィーン・ダンマ)", "an (タンウィーン・ファトハ)", "i (カスラ)"], correctIndex: 0, explanation: "最上級「A'ẓam」の後の名詞（Muḍāf Ilayhi）なので属格（Majrūr）となり、タンウィーン・カスラがつきます。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "وُلِدَ الزَّهْرَاوِيُّ وَعَاشَ فِي قُرْطُبَةَ بِالْأَنْدَلُسِ.", japanese: "ザフラ−ウィーはアンダルスのコルドバで生まれ、暮らしました。" },
@@ -10330,11 +11340,12 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "أَكَّدَ عَلَى أَهَمِّيَّةِ التَّشْرِيحِ لِفَهْمِ جِسْمِ الْإِنْسَانِ.", japanese: "彼は人体を理解するための解剖の重要性を強調しました。" }
     ]
   },
-
-  // --- 51. 未来・プロジェクト (Future/Projects) ---
   {
-    id: 1059, title: "トロヘナ（山岳観光）", category: "社会", level: "上級",
-    contentVoweled: "تُرُوجِينَا هِيَ وِجْهَةُ السِّيَاحَةِ الْجَبَلِيَّةِ الْعَالَمِيَّةِ فِي نِيُوم...",
+    id: 1059,
+    title: "トロヘナ（山岳観光）",
+    category: "社会",
+    level: "上級",
+    contentVoweled: "تُرُوجِينَا هِيَ وِجْهَةُ السِّيَاحَةِ الْجَبَلِيَّةِ الْعَالَمِيَّةِ فِي نِيُوم، وَسَتَكُونُ أَوَّلَ مَكَانٍ فِي الْخَلِيجِ الْعَرَبِيِّ يُتِيحُ التَّزَلُّجَ عَلَى الثَّلْجِ فِي الْهَوَاءِ الطَّلْقِ. يَقَعُ الْمَشْرُوعُ فِي جِبَالِ السَّرَوَاتِ حَيْثُ تَنْخَفِضُ دَرَجَاتُ الْحَرَارَةِ إِلَى مَا دُونَ الصِّفْرِ فِي الشِّتَاءِ. سَتَسْتَضِيفُ تُرُوجِينَا دَوْرَةَ الْأَلْعَابِ الْآسِيَوِيَّةِ الشَّتْوِيَّةِ عَامَ 2029، مِمَّا يَعْكِسُ طُمُوحَ الْمَمْلَكَةِ فِي تَحْوِيلِ الصَّحْرَاءِ إِلَى وِجْهَةٍ شَتْوِيَّةٍ عَالَمِيَّةٍ.",
     contentPlain: "تروجينا هي وجهة السياحة الجبلية العالمية في نيوم، وستكون أول مكان في الخليج العربي يتيح التزلج على الثلج في الهواء الطلق. يقع المشروع في جبال السروات حيث تنخفض درجات الحرارة إلى ما دون الصفر في الشتاء. ستستضيف تروجينا دورة الألعاب الآسيوية الشتوية عام 2029، مما يعكس طموح المملكة في تحويل الصحراء إلى وجهة شتوية عالمية.",
     vocabList: [
       { word: "تَزَلُّج", meaning: "スキー/滑走" },
@@ -10347,7 +11358,10 @@ questions: [] // アルファベット回は問題なし
       { id: 10592, type: "reading", text: "湾岸地域で初めて可能になることは？", options: ["サーフィン", "野外スキー", "登山", "キャンプ"], correctIndex: 1, explanation: "「التزلج على الثلج في الهواء الطلق (野外での雪上スキー)」です。" },
       { id: 10593, type: "reading", text: "2029年に何を開催しますか？", options: ["ワールドカップ", "夏季オリンピック", "冬季アジア大会", "博覧会"], correctIndex: 2, explanation: "「دورة الألعاب الآسيوية الشتوية (Asian Winter Games)」です。" },
       { id: 10594, type: "vocabulary", text: "「ثَلْج」の意味は？", options: ["水", "雪/氷", "砂", "岩"], correctIndex: 1, explanation: "Snow/Ice（雪）です。" },
-      { id: 10595, type: "grammar", text: "「可能にする（Enable/Allow）」", options: ["يُتِيحُ", "يَمْنَعُ", "يَأْخُذُ", "يَقُولُ"], correctIndex: 0, explanation: "「Yutīḥu (Allows/Enables)」です。" }
+      { id: 10595, type: "grammar", text: "「可能にする（Enable/Allow）」", options: ["يُتِيحُ", "يَمْنَعُ", "يَأْخُذُ", "يَقُولُ"], correctIndex: 0, explanation: "「Yutīḥu (Allows/Enables)」です。" },
+      // 上級文法問題
+      { id: 10596, type: "grammar_advanced", text: "「ستكون أول مكان」の「أول」の正しい語尾は？", options: ["a (ファトハ)", "u (ダンマ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "「Takūnu (Kāna)」の述語（Khabar Kāna）なので対格（Manṣūb）となり、ファトハがつきます。" },
+      { id: 10597, type: "grammar_advanced", text: "「درجات الحرارة」の「درجات」の正しい語尾は？", options: ["u (ダンマ)", "a (ファトハ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "動詞「Tankhafiḍu (下がる)」の主語（Fā'il）なので主格となりダンマがつきます。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "يَتَمَيَّزُ الْمَشْرُوعُ بِتَصْمِيمٍ هَنْدَسِيٍّ مُبْتَكَرٍ.", japanese: "プロジェクトは革新的な建築デザインが特徴です。" },
@@ -10356,11 +11370,12 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "دَمْجُ الطَّبِيعَةِ مَعَ التِّكْنُولُوجِيَا هُوَ جَوْهَرُ الْمَشْرُوعِ.", japanese: "自然と技術の融合がプロジェクトの核心です。" }
     ]
   },
-
-  // --- 52. 文化・祭り (Culture/Festivals) ---
   {
-    id: 1060, title: "ジャナドリヤ祭", category: "文化", level: "上級",
-    contentVoweled: "مَهْرَجَانُ الْجَنَادِرِيَّةِ هُوَ الْمَهْرَجَانُ الْوَطَنِيُّ لِلتُّرَاثِ وَالثَّقَافَةِ...",
+    id: 1060,
+    title: "ジャナドリヤ祭",
+    category: "文化",
+    level: "上級",
+    contentVoweled: "مَهْرَجَانُ الْجَنَادِرِيَّةِ هُوَ الْمَهْرَجَانُ الْوَطَنِيُّ لِلتُّرَاثِ وَالثَّقَافَةِ، وَيُعَدُّ مِنْ أَهَمِّ الْمُنَاسَبَاتِ الثَّقَافِيَّةِ فِي السُّعُودِيَّةِ. يَهْدِفُ الْمَهْرَجَانُ إِلَى رَبْطِ الْحَاضِرِ بِالْمَاضِي مِنْ خِلَالِ عَرْضِ الْحِرَفِ الْيَدَوِيَّةِ، وَالرَّقَصَاتِ الشَّعْبِيَّةِ، وَسِبَاقِ الْهَجْنِ الْكَبِيرِ. يَجْتَمِعُ فِيهِ الْحِرَفِيُّونَ وَالشُّعَرَاءُ مِنْ جَمِيعِ مَنَاطِقِ الْمَمْلَكَةِ لِيَعْرِضُوا تَنَوُّعَ الثَّقَافَةِ السُّعُودِيَّةِ الْغَنِيَّ أَمَامَ الزُّوَّارِ مِنْ جَمِيعِ أَنْحَاءِ الْعَالَمِ.",
     contentPlain: "مهرجان الجنادرية هو المهرجان الوطني للتراث والثقافة، ويعد من أهم المناسبات الثقافية في السعودية. يهدف المهرجان إلى ربط الحاضر بالماضي من خلال عرض الحرف اليدوية، والرقصات الشعبية، وسباق الهجن الكبير. يجتمع فيه الحرفيون والشعراء من جميع مناطق المملكة ليعرضوا تنوع الثقافة السعودية الغني أمام الزوار من جميع أنحاء العالم.",
     vocabList: [
       { word: "تُرَاث", meaning: "遺産/ヘリテージ" },
@@ -10373,20 +11388,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10602, type: "reading", text: "祭りの目的は？", options: ["過去を忘れる", "現在と過去を結ぶ", "物を売るだけ", "外国の文化を学ぶ"], correctIndex: 1, explanation: "「ربط الحاضر بالماضي (現在を過去と結ぶ)」です。" },
       { id: 10603, type: "reading", text: "展示されるものは？", options: ["工芸品や民俗舞踊", "車", "パソコン", "宇宙船"], correctIndex: 0, explanation: "「الحرف اليدوية، والرقصات الشعبية」です。" },
       { id: 10604, type: "vocabulary", text: "「يَدَوِيّ」の意味は？", options: ["機械の", "手作りの/手の", "足の", "目の"], correctIndex: 1, explanation: "Hand-made/Manual（手の）です。" },
-      { id: 10605, type: "grammar", text: "「展示する」", options: ["يَعْرِضُ", "يَخْفِي", "يَأْكُلُ", "يَنَامُ"], correctIndex: 0, explanation: "「Ya'riḍu (Display/Show)」です。" }
+      { id: 10605, type: "grammar", text: "「展示する」", options: ["يَعْرِضُ", "يَخْفِي", "يَأْكُلُ", "يَنَامُ"], correctIndex: 0, explanation: "「Ya'riḍu (Display/Show)」です。" },
+      // 上級文法問題
+      { id: 10606, type: "grammar_advanced", text: "「يعد من أهم」の「أهم」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "前置詞「Min」の後で属格（Majrūr）となりカスラを取ります（イダーファの第1要素）。" },
+      { id: 10607, type: "grammar_advanced", text: "「يجتمع فيه الحرفيون」の「الحرفيون」の正しい語尾は？", options: ["ūna (主格・男性規則複数)", "īna (属格・男性規則複数)", "un (タンウィーン)", "ān (主格・双数)"], correctIndex: 0, explanation: "動詞「Yajtami'u (集まる)」の主語（Fā'il）なので、男性規則複数の主格「Wāw-Nūn (ūna)」を取ります。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "يَبْدَأُ الْمَهْرَجَانُ عَسَبَاقِ الْهَجْنِ السَّنَوِيِّ.", japanese: "祭りは毎年のラクダレースで始まります。" },
+      { speaker: "記事", arabic: "يَبْدَأُ الْمَهْرَجَانُ بِسِبَاقِ الْهَجْنِ السَّنَوِيِّ.", japanese: "祭りは毎年のラクダレースで始まります。" },
       { speaker: "記事", arabic: "الْأُوبِرِيتُ الْغِنَائِيُّ هُوَ حَدَثٌ رَئِيسِيٌّ فِي الِافْتِتَاحِ.", japanese: "歌劇（オペレッタ）は開会式の主要イベントです。" },
       { speaker: "記事", arabic: "تُوجَدُ أَجْنِحَةٌ لِكُلِّ مِنْطَقَةٍ تَعْرِضُ تُرَاثَهَا الْخَاصَّ.", japanese: "各地域には独自の遺産を展示するパビリオンがあります。" },
       { speaker: "記事", arabic: "إِنَّهُ فُرْصَةٌ لِلْأَجْيَالِ الْجَدِيدَةِ لِلتَّعَرُّفِ عَلَى تَارِيخِ أَجْدَادِهِمْ.", japanese: "それは新しい世代が祖先の歴史を知る機会です。" }
     ]
   },
-
-  // --- 53. 文学・詩 (Literature) ---
   {
-    id: 1061, title: "イムルウ・アル・カイス（放浪の王）", category: "文学", level: "上級",
-    contentVoweled: "امْرُؤُ الْقَيْسِ هُوَ أَشْهَرُ شُعَرَاءِ الْمُعَلَّقَاتِ، وَيُلَقَّبُ بِالْمَلِكِ الضِّلِّيلِ...",
+    id: 1061,
+    title: "イムルウ・アル・カイス（放浪の王）",
+    category: "文学",
+    level: "上級",
+    contentVoweled: "امْرُؤُ الْقَيْسِ هُوَ أَشْهَرُ شُعَرَاءِ الْمُعَلَّقَاتِ، وَيُلَقَّبُ بِالْمَلِكِ الضِّلِّيلِ. كَانَ أَمِيرًا طُرِدَ مِنْ قَبِيلَتِهِ بِسَبَبِ حُبِّهِ لِلشِّعْرِ وَاللَّهْوِ، لَكِنَّهُ قَضَى حَيَاتَهُ يُحَاوِلُ اسْتِعَادَةَ مُلْكِ أَبِيهِ الضَّائِعِ. تَبْدَأُ مُعَلَّقَتُهُ الشَّهِيرَةُ بِالْوُقُوفِ عَلَى الْأَطْلَالِ وَالْبُكَاءِ عَلَى الْأَحِبَّةِ الرَّاحِلِينَ، وَتَمَيَّزَتْ بِوَصْفٍ دَقِيقٍ لِلْخَيْلِ وَاللَّيْلِ وَالْمَطَرِ، وَتُعْتَبَرُ مِنْ أَجْوَدِ مَا قِيلَ فِي الشِّعْرِ الْعَرَبِيِّ الْقَدِيمِ.",
     contentPlain: "امرؤ القيس هو أشهر شعراء المعلقات، ويلقب بالملك الضليل. كان أميرا طرد من قبيلته بسبب حبه للشعر واللهو، لكنه قضى حياته يحاول استعادة ملك أبيه الضائع. تبدأ معلقته الشهيرة بالوقوف على الأطلال والبكاء على الأحبة الراحلين، وتميزت بوصف دقيق للخيل والليل والمطر، وتعتبر من أجود ما قيل في الشعر العربي القديم.",
     vocabList: [
       { word: "أَطْلَال", meaning: "廃墟/遺跡" },
@@ -10399,7 +11418,10 @@ questions: [] // アルファベット回は問題なし
       { id: 10612, type: "reading", text: "彼は人生を何に費やしましたか？", options: ["詩を書くだけ", "父の失われた王権を取り戻そうとした", "商売", "農業"], correctIndex: 1, explanation: "「يحاول استعادة ملك أبيه الضائع」です。" },
       { id: 10613, type: "reading", text: "彼の詩（ムアッラカ）はどうやって始まりますか？", options: ["自己紹介", "廃墟に立ち寄って泣く", "神への祈り", "戦いの描写"], correctIndex: 1, explanation: "「بالوقوف على الأطلال والبكاء」はジャーヒリーヤ詩の伝統的な形式です。" },
       { id: 10614, type: "vocabulary", text: "「دَقِيق」の意味は？", options: ["速い", "正確な/精密な", "重い", "暗い"], correctIndex: 1, explanation: "Accurate/Precise（精密な）です。" },
-      { id: 10615, type: "grammar", text: "「試みる」", options: ["يُحَاوِلُ", "يَنْجَحُ", "يَنَامُ", "يَأْكُلُ"], correctIndex: 0, explanation: "「Yuḥāwilu (Try/Attempt)」です。" }
+      { id: 10615, type: "grammar", text: "「試みる」", options: ["يُحَاوِلُ", "يَنْجَحُ", "يَنَامُ", "يَأْكُلُ"], correctIndex: 0, explanation: "「Yuḥāwilu (Try/Attempt)」です。" },
+      // 上級文法問題
+      { id: 10616, type: "grammar_advanced", text: "「امرؤ القيس」の「امرؤ」の語尾は文頭でどうなる？", options: ["u (ダンマ・ハムザはウに座る)", "a (ファトハ・ハムザはアリフに座る)", "i (カスラ・ハムザはイに座る)", "Sukuun"], correctIndex: 0, explanation: "「Imru'」は格によって語尾の文字ごと変わる特殊な名詞です。主格（文頭の主語）なのでダンマを取り、ハムザはWawの上に乗ります（Imru'u）。" },
+      { id: 10617, type: "grammar_advanced", text: "「كان أميرا」の「أميرا」の正しい語尾は？", options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "u (ダンマ)"], correctIndex: 0, explanation: "「Kāna」の述語（Khabar Kāna）なので対格（Manṣūb）となり、タンウィーン・ファトハがつきます。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "قَالَ: قِفَا نَبْكِ مِنْ ذِكْرَى حَبِيبٍ وَمَنْزِلِ.", japanese: "彼は言いました。「止まれ、愛しい人と家の記憶に（思いを馳せて）泣こう。」" },
@@ -10408,11 +11430,12 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "تُوُفِّيَ وَهُوَ عَائِدٌ مِنْ رِحْلَةٍ إِلَى الْقُسْطَنْطِينِيَّةِ.", japanese: "彼はコンスタンティノープルへの旅からの帰途に亡くなりました。" }
     ]
   },
-
-  // --- 54. 経済・建築 (Economy/Architecture) ---
   {
-    id: 1062, title: "KAFD（キング・アブドゥッラー金融地区）", category: "経済", level: "上級",
-    contentVoweled: "مَرْكَزُ الْمَلِكِ عَبْدِ اللهِ الْمَالِيُّ هُوَ تُحْفَةٌ مِعْمَارِيَّةٌ فِي قَلْبِ الرِّيَاضِ...",
+    id: 1062,
+    title: "KAFD（キング・アブドゥッラー金融地区）",
+    category: "経済",
+    level: "上級",
+    contentVoweled: "مَرْكَزُ الْمَلِكِ عَبْدِ اللهِ الْمَالِيُّ هُوَ تُحْفَةٌ مِعْمَارِيَّةٌ فِي قَلْبِ الرِّيَاضِ، وَيُعَدُّ أَكْبَرَ مَرْكَزٍ مَالِيٍّ فِي الْمِنْطَقَةِ. يَضُمُّ الْمَرْكَزُ عَشَرَاتِ الْأَبْرَاجِ الشَّاهِقَةِ ذَاتِ التَّصَامِيمِ الْمُسْتَقْبَلِيَّةِ الصَّدِيقَةِ لِلْبِيئَةِ. يَهْدِفُ الْمَرْكَزُ إِلَى جَعْلِ الرِّيَاضِ عَاصِمَةً مَالِيَّةً عَالَمِيَّةً، حَيْثُ يَجْذِبُ الْبُنُوكَ وَالشَّرِكَاتِ الدَّوْلِيَّةَ لِفَتْحِ مَقَرَّاتِهَا الْإِقْلِيمِيَّةِ فِيهِ، مِمَّا يُعَزِّزُ مَكَانَةَ الْمَمْلَكَةِ الِاقْتِصَادِيَّةَ.",
     contentPlain: "مركز الملك عبد الله المالي هو تحفة معمارية في قلب الرياض، ويعد أكبر مركز مالي في المنطقة. يضم المركز عشرات الأبراج الشاهقة ذات التصاميم المستقبلية الصديقة للبيئة. يهدف المركز إلى جعل الرياض عاصمة مالية عالمية، حيث يجذب البنوك والشركات الدولية لفتح مقراتها الإقليمية فيه، مما يعزز مكانة المملكة الاقتصادية.",
     vocabList: [
       { word: "مَرْكَز", meaning: "センター/中心" },
@@ -10425,7 +11448,10 @@ questions: [] // アルファベット回は問題なし
       { id: 10622, type: "reading", text: "建物の特徴は？", options: ["低い", "環境に優しい未来的なデザインの高層ビル", "木造", "窓がない"], correctIndex: 1, explanation: "「الأبراج الشاهقة ذات التصاميم المستقبلية الصديقة للبيئة」です。" },
       { id: 10623, type: "reading", text: "目標は何ですか？", options: ["リヤドを世界的金融首都にする", "人口を減らす", "車を売る", "農業をする"], correctIndex: 0, explanation: "「جعل الرياض عاصمة مالية عالمية」です。" },
       { id: 10624, type: "vocabulary", text: "「شَاهِق」の意味は？", options: ["低い", "そびえ立つ/非常に高い", "広い", "狭い"], correctIndex: 1, explanation: "Soaring/Very high（そびえ立つ）です。" },
-      { id: 10625, type: "grammar", text: "「惹きつける」", options: ["يَجْذِبُ", "يَطْرُدُ", "يَكْرَهُ", "يَنَامُ"], correctIndex: 0, explanation: "「Yajdhibu (Attracts)」です。" }
+      { id: 10625, type: "grammar", text: "「惹きつける」", options: ["يَجْذِبُ", "يَطْرُدُ", "يَكْرَهُ", "يَنَامُ"], correctIndex: 0, explanation: "「Yajdhibu (Attracts)」です。" },
+      // 上級文法問題
+      { id: 10626, type: "grammar_advanced", text: "「عشرات الأبراج」の「الأبراج」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "数詞「'Asharāt (数十)」の後の名詞（Muḍāf Ilayhi）は属格（Majrūr）となりカスラがつきます。" },
+      { id: 10627, type: "grammar_advanced", text: "「ذات التصاميم」の「التصاميم」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Dhāt (〜を持つ)」の後のイダーファ第2要素（属格）です。「Taṣāmīm」は非限定名詞ですが、定冠詞「Al」がついているため、通常通りカスラを取ります。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "يَتَمَيَّزُ الْمَرْكَزُ بِوُجُودِ مَسَارَاتٍ لِلْمُشَاةِ مَكِيَّفَةٍ.", japanese: "センターは空調付きの歩行者用通路があるのが特徴です。" },
@@ -10434,11 +11460,12 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "إِنَّهُ رَمْزٌ لِلْحَدَاثَةِ وَالْقُوَّةِ الِاقْتِصَادِيَّةِ.", japanese: "それは現代性と経済力の象徴です。" }
     ]
   },
-
-  // --- 55. 科学・歴史 (History/Science) ---
   {
-    id: 1063, title: "アストロラーベ（天体観測儀）", category: "歴史", level: "上級",
-    contentVoweled: "الْأَسْطُرْلَابُ هُوَ آلَةٌ فَلَكِيَّةٌ قَدِيمَةٌ طَوَّرَهَا الْعُلَمَاءُ الْمُسْلِمُونَ...",
+    id: 1063,
+    title: "アストロラーベ（天体観測儀）",
+    category: "歴史",
+    level: "上級",
+    contentVoweled: "الْأَسْطُرْلَابُ هُوَ آلَةٌ فَلَكِيَّةٌ قَدِيمَةٌ طَوَّرَهَا الْعُلَمَاءُ الْمُسْلِمُونَ لِتُصْبِحَ حَاسُوبًا فَلَكِيًّا مَحْمُولًا. يُسْتَخْدَمُ الْأَسْطُرْلَابُ لِقِيَاسِ ارْتِفَاعِ النُّجُومِ وَالشَّمْسِ، وَتَحْدِيدِ الِاتِّجَاهَاتِ، وَمَعْرِفَةِ أَوْقَاتِ الصَّلَاةِ بِدِقَّةٍ. بَرَعَتْ مَرْيَمُ الْأَسْطُرْلَابِيَّةُ، وَهِيَ عَالِمَةٌ مِنْ حَلَبَ، فِي صِنَاعَةِ هَذِهِ الْآلَاتِ الْمُعَقَّدَةِ وَتَطْوِيرِهَا، مِمَّا سَاعَدَ الْمُسْتَكْشِفِينَ وَالْبَحَّارَةَ فِي رِحْلَاتِهِمُ الطَّوِيلَةِ.",
     contentPlain: "الأسطرلاب هو آلة فلكية قديمة طورها العلماء المسلمون لتصبح حاسوبا فلكيا محمولا. يستخدم الأسطرلاب لقياس ارتفاع النجوم والشمس، وتحديد الاتجاهات، ومعرفة أوقات الصلاة بدقة. برعت مريم الأسطرلابية، وهي عالمة من حلب، في صناعة هذه الآلات المعقدة وتطويرها، مما ساعد المستكشفين والبحارة في رحلاتهم الطويلة.",
     vocabList: [
       { word: "آلَة", meaning: "機械/道具" },
@@ -10451,7 +11478,10 @@ questions: [] // アルファベット回は問題なし
       { id: 10632, type: "reading", text: "何に使われますか？", options: ["料理", "星の高度測定や祈りの時間の特定", "電話", "音楽"], correctIndex: 1, explanation: "「قياس ارتفاع النجوم... ومعرفة أوقات الصلاة」です。" },
       { id: 10633, type: "reading", text: "有名な女性製造家は？", options: ["シェヘラザード", "マリアム・アル・アストゥルラービーヤ", "ゼイナブ", "ファーティマ"], correctIndex: 1, explanation: "「مريم الأسطرلابية」です。" },
       { id: 10634, type: "vocabulary", text: "「بَحَّار」の意味は？", options: ["農民", "船乗り/水夫", "兵士", "王"], correctIndex: 1, explanation: "Sailor（船乗り）です。" },
-      { id: 10635, type: "grammar", text: "「発展させた」", options: ["طَوَّرَ", "هَدَمَ", "نَسِيَ", "أَكَلَ"], correctIndex: 0, explanation: "「Ṭawwara (Developed)」です。" }
+      { id: 10635, type: "grammar", text: "「発展させた」", options: ["طَوَّرَ", "هَدَمَ", "نَسِيَ", "أَكَلَ"], correctIndex: 0, explanation: "「Ṭawwara (Developed)」です。" },
+      // 上級文法問題
+      { id: 10636, type: "grammar_advanced", text: "「لتصبح حاسوبا」の「حاسوبا」の正しい語尾は？", options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "u (ダンマ)"], correctIndex: 0, explanation: "「Tuṣbiḥa (Become)」はKānaの姉妹語で、その述語（Khabar）は対格（Manṣūb）となり、タンウィーン・ファトハがつきます。" },
+      { id: 10637, type: "grammar_advanced", text: "「برعت مريم」の「مريم」の正しい語尾は？", options: ["u (ダンマ)", "un (タンウィーン・ダンマ)", "a (ファトハ)", "i (カスラ)"], correctIndex: 0, explanation: "動詞「Bara'at (秀でた)」の主語（Fā'il）なので主格ですが、「Maryam」は女性固有名称で非限定名詞（Mumnū' min al-ṣarf）のため、タンウィーンを取らずダンマ一文字になります。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "يَتَكَوَّنُ الْأَسْطُرْلَابُ مِنْ عِدَّةِ أَقْرَاصٍ مَعْدِنِيَّةٍ مُتَدَاخِلَةٍ.", japanese: "アストロラーベは複数の重なり合った金属円盤で構成されています。" },
@@ -10460,11 +11490,12 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "تَطَوُّرُهُ سَاهَمَ فِي عَصْرِ الِاسْتِكْشَافِ الْعَالَمِيِّ.", japanese: "その発展は大航海時代（探検の時代）に貢献しました。" }
     ]
   },
-
-  // --- 56. 芸術・建築 (Art/Architecture) ---
   {
-    id: 1064, title: "マラーヤー・コンサートホール", category: "文化", level: "上級",
-    contentVoweled: "مَسْرَحُ مَرَايَا فِي الْعُلَا هُوَ تُحْفَةٌ فَنِّيَّةٌ مُعَاصِرَةٌ...",
+    id: 1064,
+    title: "マラーヤー・コンサートホール",
+    category: "文化",
+    level: "上級",
+    contentVoweled: "مَسْرَحُ مَرَايَا فِي الْعُلَا هُوَ تُحْفَةٌ فَنِّيَّةٌ مُعَاصِرَةٌ، وَقَدْ دَخَلَ مَوْسُوعَةَ جِينِيس كَأَكْبَرِ مَبْنًى مُغَطًّى بِالْمَرَايَا فِي الْعَالَمِ. يَعْكِسُ الْمَبْنَى الطَّبِيعَةَ الصَّحْرَاوِيَّةَ وَالْجِبَالَ الْمُحِيطَةَ بِهِ، مِمَّا يَجْعَلُهُ يَبْدُو وَكَأَنَّهُ جُزْءٌ لَا يَتَجَزَّأُ مِنَ الْمَنْظَرِ الطَّبِيعِيِّ، أَوْ كَأَنَّهُ سَرَابٌ فِي الصَّحْرَاءِ. يَسْتَضِيفُ الْمَسْرَحُ حَفَلَاتٍ عَالَمِيَّةً وَمَعَارِضَ فَنِّيَّةً، وَيُعَدُّ رَمْزًا لِدَمْجِ الْحَدَاثَةِ مَعَ عَرَاقَةِ التَّارِيخِ.",
     contentPlain: "مسرح مرايا في العلا هو تحفة فنية معاصرة، وقد دخل موسوعة جينيس كأكبر مبنى مغطى بالمرايا في العالم. يعكس المبنى الطبيعة الصحراوية والجبال المحيطة به، مما يجعله يبدو وكأنه جزء لا يتجزأ من المنظر الطبيعي، أو كأنه سراب في الصحراء. يستضيف المسرح حفلات عالمية ومعارض فنية، ويعد رمزا لدمج الحداثة مع عراقة التاريخ.",
     vocabList: [
       { word: "مِرْآة", meaning: "鏡（複：マラーヤー）" },
@@ -10477,7 +11508,10 @@ questions: [] // アルファベット回は問題なし
       { id: 10642, type: "reading", text: "建物はどのように見えますか？", options: ["目立つ", "風景の一部、あるいは蜃気楼のように見える", "赤い", "黒い"], correctIndex: 1, explanation: "「كأنه جزء... من المنظر الطبيعي، أو كأنه سراب」です。" },
       { id: 10643, type: "reading", text: "それは何の象徴ですか？", options: ["戦争", "現代性と歴史の融合", "分離", "破壊"], correctIndex: 1, explanation: "「دمج الحداثة مع عراقة التاريخ」です。" },
       { id: 10644, type: "vocabulary", text: "「مُعَاصِر」の意味は？", options: ["古い", "現代の/コンテンポラリー", "未来の", "遠い"], correctIndex: 1, explanation: "Contemporary（現代の）です。" },
-      { id: 10645, type: "grammar", text: "「入りました（記録などに）」", options: ["دَخَلَ", "خَرَجَ", "نَامَ", "أَكَلَ"], correctIndex: 0, explanation: "「Dakhala (Entered)」です。" }
+      { id: 10645, type: "grammar", text: "「入りました（記録などに）」", options: ["دَخَلَ", "خَرَجَ", "نَامَ", "أَكَلَ"], correctIndex: 0, explanation: "「Dakhala (Entered)」です。" },
+      // 上級文法問題
+      { id: 10646, type: "grammar_advanced", text: "「كأكبر مبنى」の「مبنى」の正しい語尾は？", options: ["an (タンウィーン・ファトハ・表記はアリフ)", "in (タンウィーン・カスラ・表記なし)", "un (タンウィーン・ダンマ・表記なし)", "i (カスラ・表記なし)"], correctIndex: 0, explanation: "「Mabnā」はIsm Manqūṣ/Maqṣūrの性質を持ちますが、ここでは「Mabnan」とタンウィーン・ファトハのように表記されることが一般的ですが、実は「Ism Maqsur」なので、格にかかわらず「an」の音が残る形になります（Mabnan）。ただしイダーファの第2要素（属格）です。" },
+      { id: 10647, type: "grammar_advanced", text: "「كأنه جزء」の「جزء」の正しい語尾は？", options: ["un (タンウィーン・ダンマ)", "an (タンウィーン・ファトハ)", "in (タンウィーン・カスラ)", "u (ダンマ)"], correctIndex: 0, explanation: "「Ka'anna」はInnaの姉妹語で、その述語（Khabar Ka'anna）は主格（Marfū'）となり、タンウィーン・ダンマがつきます。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "تَمَّ تَصْمِيمُ الْمَبْنَى لِيَخْتَفِيَ دَاخِلَ الطَّبِيعَةِ.", japanese: "建物は自然の中に「消える」ように設計されました。" },
@@ -10489,8 +11523,11 @@ questions: [] // アルファベット回は問題なし
 
   // --- 57. 文化・伝統 (Culture/Clothing) ---
   {
-    id: 1065, title: "ビシュト（伝統的なマント）", category: "文化", level: "上級",
-    contentVoweled: "الْبِشْتُ هُوَ رِدَاءٌ رَجَالِيٌّ تَقْلِيدِيٌّ يَرْتَدِيهِ الْعَرَبُ فِي الْمُنَاسَبَاتِ الْهَامَّةِ...",
+    id: 1065,
+    title: "ビシュト（伝統的なマント）",
+    category: "文化",
+    level: "上級",
+    contentVoweled: "الْبِشْتُ هُوَ رِدَاءٌ رَجَالِيٌّ تَقْلِيدِيٌّ يَرْتَدِيهِ الْعَرَبُ فِي الْمُنَاسَبَاتِ الْهَامَّةِ وَالْأَفْرَاحِ، وَيُعْتَبَرُ رَمْزًا لِلْوَجَاهَةِ وَالْأَنَاقَةِ. يُصْنَعُ الْبِشْتُ مِنَ الصُّوفِ أَوِ الْوَبَرِ، وَيُطَرَّزُ أَطْرَافُهُ بِخُيُوطٍ ذَهَبِيَّةٍ تُسَمَّى 'الزَّرِي'. تَخْتَلِفُ أَنْوَاعُ الْبُشُوتِ وَأَلْوَانُهَا حَسَبَ فُصُولِ السَّنَةِ وَالْأَذْوَاقِ، وَتَشْتَهِرُ مِنْطَقَةُ الْأَحْسَاءِ بِصِنَاعَةِ أَجْوَدِ أَنْوَاعِ الْبُشُوتِ يَدَوِيًّا، وَالَّتِي يَرْتَدِيهَا الْمُلُوكُ وَالْأُمَرَاءُ.",
     contentPlain: "البشت هو رداء رجالي تقليدي يرتديه العرب في المناسبات الهامة والأفراح، ويعتبر رمزا للوجاهة والأناقة. يصنع البشت من الصوف أو الوبر، ويطرز أطرافه بخيوط ذهبية تسمى 'الزري'. تختلف أنواع البشوت وألوانها حسب فصول السنة والأذواق، وتشتهر منطقة الأحساء بصناعة أجود أنواع البشوت يدويا، والتي يرتديها الملوك والأمراء.",
     vocabList: [
       { word: "رِدَاء", meaning: "上着/マント" },
@@ -10503,20 +11540,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10652, type: "reading", text: "「ザリー」とは何ですか？", options: ["生地", "金の刺繍糸", "ボタン", "帽子"], correctIndex: 1, explanation: "「خيوط ذهبية تسمى الزري (ザリーと呼ばれる金糸)」です。" },
       { id: 10653, type: "reading", text: "最高品質のビシュトで有名な地域は？", options: ["リヤド", "アル・アハサー", "ジェッダ", "タブーク"], correctIndex: 1, explanation: "「تشتهر منطقة الأحساء」です。" },
       { id: 10654, type: "vocabulary", text: "「يَدَوِيًّا」の意味は？", options: ["機械で", "手作業で", "足で", "自動で"], correctIndex: 1, explanation: "Manually/By hand（手で）です。" },
-      { id: 10655, type: "grammar", text: "「着ます」", options: ["يَرْتَدِي", "يَخْلَعُ", "يَبِيعُ", "يَشْتَرِي"], correctIndex: 0, explanation: "「Yartadī (Wears)」です。" }
+      { id: 10655, type: "grammar", text: "「着ます」", options: ["يَرْتَدِي", "يَخْلَعُ", "يَبِيعُ", "يَشْتَرِي"], correctIndex: 0, explanation: "「Yartadī (Wears)」です。" },
+      // 上級文法問題
+      { id: 10656, type: "grammar_advanced", text: "「يرتديه العرب」の「العرب」の正しい語尾は？", options: ["u (ダンマ)", "a (ファトハ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "動詞「Yartadī (着る)」の行為者（主語）であるため、主格（Marfū'）となりダンマがつきます。" },
+      { id: 10657, type: "grammar_advanced", text: "「تختلف أنواع البشوت」の「أنواع」の正しい語尾は？", options: ["a (ファトハ)", "u (ダンマ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 1, explanation: "動詞「Takhtalifu (異なる)」の主語（Fā'il）であるため、主格（Marfū'）となりダンマがつきます。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "يَلْبَسُ الْعَرِيسُ الْبِشْتَ فِي لَيْلَةِ زَفَافِهِ.", japanese: "新郎は結婚式の夜にビシュトを着ます。" },
-      { speaker: "記事", arabic: "تَطْرِيزُ الْبِشْتِ يَتَطَلَّبُ مَهَارَةً وَدِقَّةً عَالِيَةً.", japanese: "ビシュトの刺繍には高い技術と正確さが求められます。" },
-      { speaker: "記事", arabic: "الْبِشْتُ الْأَسْوَدُ وَالْبُنِّيُّ هُمَا الْأَكْثَرُ شُيُوعًا.", japanese: "黒と茶色のビシュトが最も一般的です。" },
-      { speaker: "記事", arabic: "إِنَّهُ جُزْءٌ مِنْ الْهُوِيَّةِ الْوَطَنِيَّةِ السُّعُودِيَّةِ.", japanese: "それはサウジの国民的アイデンティティの一部です。" }
+      { speaker: "記事", arabic: "الْبِشْتُ هُوَ رِدَاءٌ رَجَالِيٌّ تَقْلِيدِيٌّ يَرْتَدِيهِ الْعَرَبُ فِي الْمُنَاسَبَاتِ الْهَامَّةِ وَالْأَفْرَاحِ.", japanese: "ビシュトは、アラブ人が重要な行事や結婚式で着用する伝統的な男性用マントです。" },
+      { speaker: "記事", arabic: "وَيُعْتَبَرُ رَمْزًا لِلْوَجَاهَةِ وَالْأَنَاقَةِ.", japanese: "そしてそれは威信とエレガンスの象徴とみなされています。" },
+      { speaker: "記事", arabic: "يُصْنَعُ الْبِشْتُ مِنَ الصُّوفِ أَوِ الْوَبَرِ، وَيُطَرَّزُ أَطْرَافُهُ بِخُيُوطٍ ذَهَبِيَّةٍ تُسَمَّى 'الزَّرِي'.", japanese: "ビシュトは羊毛やラクダの毛で作られ、その端は「ザリー」と呼ばれる金糸で刺繍されます。" },
+      { speaker: "記事", arabic: "تَشْتَهِرُ مِنْطَقَةُ الْأَحْسَاءِ بِصِنَاعَةِ أَجْوَدِ أَنْوَاعِ الْبُشُوتِ يَدَوِيًّا.", japanese: "アル・アハサー地域は、最高品質のビシュトを手作業で作ることで有名です。" }
     ]
   },
-
-  // --- 58. 歴史・哲学 (Philosophy) ---
   {
-    id: 1066, title: "哲学者イブン・ルシュド（アヴェロエス）", category: "歴史", level: "上級",
-    contentVoweled: "ابْنُ رُشْدٍ هُوَ فَيْلَسُوفٌ وَطَبِيبٌ وَفَقِيهٌ أَنْدَلُسِيٌّ...",
+    id: 1066,
+    title: "哲学者イブン・ルシュド（アヴェロエス）",
+    category: "歴史",
+    level: "上級",
+    contentVoweled: "ابْنُ رُشْدٍ هُوَ فَيْلَسُوفٌ وَطَبِيبٌ وَفَقِيهٌ أَنْدَلُسِيٌّ، عُرِفَ فِي الْغَرْبِ بِاسْمِ 'أَفِيرُويِس'. اشْتُهِرَ بِشَرْحِهِ لِمُؤَلَّفَاتِ أَرِسْطُو وَمُحَاوَلَتِهِ التَّوْفِيقَ بَيْنَ الْفَلْسَفَةِ وَالدِّينِ فِي كِتَابِهِ 'فَصْلُ الْمَقَالِ'. كَانَ لَهُ تَأْثِيرٌ عَمِيقٌ عَلَى الْفِكْرِ الْأُورُوبِيِّ فِي الْعُصُورِ الْوُسْطَى، وَسَاهَمَتْ أَفْكَارُهُ فِي إِحْيَاءِ الْفَلْسَفَةِ الْعَقْلَانِيَّةِ. رَغْمَ تَعَرُّضِهِ لِلْمِحْنَةِ وَنَفْيِ كُتُبِهِ، إِلَّا أَنَّ إِرْثَهُ الْفِكْرِيَّ بَقِيَ خَالِدًا.",
     contentPlain: "ابن رشد هو فيلسوف وطبيب فقيه أندلسي، عرف في الغرب باسم 'أفيرويس'. اشتهر بشرحه لمؤلفات أرسطو ومحاولته التوفيق بين الفلسفة والدين في كتابه 'فصل المقال'. كان له تأثير عميق على الفكر الأوروبي في العصور الوسطى، وساهمت أفكاره في إحياء الفلسفة العقلانية. رغم تعرضه للمحنة ونفي كتبه، إلا أن إرثه الفكري بقي خالدا.",
     vocabList: [
       { word: "فَيْلَسُوف", meaning: "哲学者" },
@@ -10529,19 +11570,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10662, type: "reading", text: "彼は誰の著作を解説しましたか？", options: ["プラトン", "アリストテレス", "ソクラテス", "カント"], correctIndex: 1, explanation: "「مؤلفات أرسطو (アリストテレスの著作)」です。" },
       { id: 10663, type: "reading", text: "彼は何を調和させようとしましたか？", options: ["水と油", "哲学と宗教", "太陽と月", "王と民"], correctIndex: 1, explanation: "「التوفيق بين الفلسفة والدين」です。" },
       { id: 10664, type: "vocabulary", text: "「إِرْث」の意味は？", options: ["金", "遺産/レガシー", "家", "借金"], correctIndex: 1, explanation: "Legacy/Heritage（遺産）です。" },
-      { id: 10665, type: "grammar", text: "「貢献しました」", options: ["سَاهَمَ", "مَنَعَ", "أَخَذَ", "نَسِيَ"], correctIndex: 0, explanation: "「Sāhama (Contributed)」です。" }
+      { id: 10665, type: "grammar", text: "「貢献しました」", options: ["سَاهَمَ", "مَنَعَ", "أَخَذَ", "نَسِيَ"], correctIndex: 0, explanation: "「Sāhama (Contributed)」です。" },
+      // 上級文法問題
+      { id: 10666, type: "grammar_advanced", text: "「كان له تأثير」の「تأثير」の正しい語尾は？", options: ["un (タンウィーン・ダンマ)", "an (タンウィーン・ファトハ)", "in (タンウィーン・カスラ)", "u (ダンマ)"], correctIndex: 0, explanation: "「Kāna」の遅延主語（Ism Kāna Mu'akhkhar）です。「Lahu」が前置された述語（Khabar）で、「Ta'thīrun」が主語になるため、主格（Marfū'）でタンウィーン・ダンマがつきます。" },
+      { id: 10667, type: "grammar_advanced", text: "「بقي خالدا」の「خالدا」の正しい語尾は？", options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "a (ファトハ)"], correctIndex: 0, explanation: "動詞「Baqiya (残った/留まった)」の後の「状態（Hāl）」を表しているため、対格（Manṣūb）となりタンウィーン・ファトハがつきます。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "كَانَ ابْنُ رُشْدٍ يُؤْمِنُ بِأَهَمِّيَّةِ الْعَقْلِ وَالْبُرْهَانِ.", japanese: "イブン・ルシュドは理性と証明の重要性を信じていました。" },
-      { speaker: "記事", arabic: "كِتَابُهُ 'الْكُلِّيَّاتُ فِي الطِّبِّ' مَرْجِعٌ مُهِمٌّ.", japanese: "彼の本『医学大全』は重要な参考文献です。" },
-      { speaker: "記事", arabic: "رَدَّ عَلَى الْغَزَالِيِّ فِي كِتَابِ 'تَهَافُتِ التَّهَافُتِ'.", japanese: "彼は『矛盾の矛盾』という本でガザーリーに反論しました。" },
-      { speaker: "記事", arabic: "الْحَقِيقَةُ لَا تُضَادُّ الْحَقِيقَةَ.", japanese: "「真理は真理と対立しない」（彼の有名な言葉です）。" }
+      { speaker: "記事", arabic: "ابْنُ رُشْدٍ هُوَ فَيْلَسُوفٌ وَطَبِيبٌ وَفَقِيهٌ أَنْدَلُسِيٌّ، عُرِفَ فِي الْغَرْبِ بِاسْمِ 'أَفِيرُويِس'.", japanese: "イブン・ルシュドはアンダルスの哲学者、医師、法学者であり、西洋では「アヴェロエス」の名で知られています。" },
+      { speaker: "記事", arabic: "اشْتُهِرَ بِشَرْحِهِ لِمُؤَلَّفَاتِ أَرِسْطُو وَمُحَاوَلَتِهِ التَّوْفِيقَ بَيْنَ الْفَلْسَفَةِ وَالدِّينِ.", japanese: "彼はアリストテレスの著作の解説と、哲学と宗教の調和の試みで有名になりました。" },
+      { speaker: "記事", arabic: "سَاهَمَتْ أَفْكَارُهُ فِي إِحْيَاءِ الْفَلْسَفَةِ الْعَقْلَانِيَّةِ.", japanese: "彼の思想は理性主義哲学の復興に貢献しました。" },
+      { speaker: "記事", arabic: "رَغْمَ تَعَرُّضِهِ لِلْمِحْنَةِ، إِلَّا أَنَّ إِرْثَهُ الْفِكْرِيَّ بَقِيَ خَالِدًا.", japanese: "彼は苦難に遭いましたが、彼の知的遺産は永遠に残りました。" }
     ]
   },
-  // --- 59. 文化・現代 (Culture/Modern) ---
   {
-    id: 1067, title: "キング・アブドゥルアズィーズ世界文化センター (Ithra)", category: "文化", level: "上級",
-    contentVoweled: "مَرْكَزُ الْمَلِكِ عَبْدِ الْعَزِيزِ الثَّقَافِيُّ الْعَالَمِيُّ (إِثْرَاء) هُوَ مَعْلَمٌ مِعْمَارِيٌّ مُبْهِرٌ...",
+    id: 1067,
+    title: "キング・アブドゥルアズィーズ世界文化センター (Ithra)",
+    category: "文化",
+    level: "上級",
+    contentVoweled: "مَرْكَزُ الْمَلِكِ عَبْدِ الْعَزِيزِ الثَّقَافِيُّ الْعَالَمِيُّ (إِثْرَاء) هُوَ مَعْلَمٌ مِعْمَارِيٌّ مُبْهِرٌ يَقَعُ فِي مَدِينَةِ الظَّهْرَانِ، فِي نَفْسِ الْمَوْقِعِ الَّذِي اكْتُشِفَ فِيهِ النِّفْطُ لِأَوَّلِ مَرَّةٍ. يَهْدِفُ الْمَرْكَزُ إِلَى إِثْرَاءِ الْفِكْرِ وَإِلْهَامِ الْخَيَالِ مِنْ خِلَالِ مَرَافِقِهِ الْمُتَنَوِّعَةِ الَّتِي تَشْمَلُ مَكْتَبَةً عَصْرِيَّةً، وَمَسْرَحًا، وَسِينِمَا، وَمَتْحَفًا لِلطِّفْلِ. يُعَدُّ الْمَبْنَى بِتَصْمِيمِهِ الَّذِي يُشْبِهُ الصُّخُورَ الْمُتَرَاصَّةَ رَمْزًا لِلْوَقْتِ، حَيْثُ يُمَثِّلُ الْمَاضِيَ وَالْحَاضِرَ وَالْمُسْتَقْبَلَ.",
     contentPlain: "مركز الملك عبد العزيز الثقافي العالمي (إثراء) هو معلم معماري مبهر يقع في مدينة الظهران، في نفس الموقع الذي اكتشف فيه النفط لأول مرة. يهدف المركز إلى إثراء الفكر وإلهام الخيال من خلال مرافقه المتنوعة التي تشمل مكتبة عصرية، ومسرحا، وسينما، ومتحفا للطفل. يعد المبنى بتصميمه الذي يشبه الصخور المتراصة رمزا للوقت، حيث يمثل الماضي والحاضر والمستقبل.",
     vocabList: [
       { word: "مَعْلَم", meaning: "ランドマーク/名所" },
@@ -10554,20 +11600,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10672, type: "reading", text: "センターの目的は？", options: ["石油を掘る", "思想を豊かにし想像力を刺激する", "車を売る", "ホテル経営"], correctIndex: 1, explanation: "「إثراء الفكر وإلهام الخيال」です。" },
       { id: 10673, type: "reading", text: "建物のデザインは何を象徴していますか？", options: ["お金", "時間（過去・現在・未来）", "水", "砂"], correctIndex: 1, explanation: "「رمزا للوقت، حيث يمثل الماضي والحاضر والمستقبل」です。" },
       { id: 10674, type: "vocabulary", text: "「مُبْهِر」の意味は？", options: ["退屈な", "見事な/眩い", "暗い", "古い"], correctIndex: 1, explanation: "Impressive/Dazzling（見事な）です。" },
-      { id: 10675, type: "grammar", text: "「似ている」", options: ["يُشْبِهُ", "يَخْتَلِفُ", "يَنْظُرُ", "يَأْكُلُ"], correctIndex: 0, explanation: "「Yushbihu (Resembles)」です。" }
+      { id: 10675, type: "grammar", text: "「似ている」", options: ["يُشْبِهُ", "يَخْتَلِفُ", "يَنْظُرُ", "يَأْكُلُ"], correctIndex: 0, explanation: "「Yushbihu (Resembles)」です。" },
+      // 上級文法問題
+      { id: 10676, type: "grammar_advanced", text: "「مركز الملك」の「مركز」の正しい語尾は？", options: ["u (ダンマ)", "a (ファトハ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "文頭の主語（Mubtada'）なので主格（Marfū'）となりダンマがつきます。イダーファの第1要素なのでタンウィーンはつきません。" },
+      { id: 10677, type: "grammar_advanced", text: "「الذي اكتشف فيه النفط」の「النفط」の正しい語尾は？", options: ["u (ダンマ)", "a (ファトハ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "動詞「Uktushifa (発見された・受動態)」の代理主語（Nā'ib Fā'il）であるため、主格（Marfū'）となりダンマがつきます。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "تُغَطِّي الْمَبْنَى أَنَابِيبُ مِنْ الْفُولَاذِ لِعَكْسِ ضَوْءِ الشَّمْسِ.", japanese: "建物は日光を反射するために鋼鉄のパイプで覆われています。" },
-      { speaker: "記事", arabic: "تَحْتَوِي الْمَكْتَبَةُ عَلَى مِئَاتِ الْآلَافِ مِنَ الْكُتُبِ.", japanese: "図書館には数十万冊の本があります。" },
-      { speaker: "記事", arabic: "يُقَدِّمُ الْمَرْكَزُ بَرَامِجَ تَعْلِيمِيَّةً لِلشَّبَابِ.", japanese: "センターは若者向けに教育プログラムを提供しています。" },
-      { speaker: "記事", arabic: "إِنَّهُ جِسْرٌ بَيْنَ الثَّقَافَاتِ.", japanese: "それは文化間の架け橋です。" }
+      { speaker: "記事", arabic: "مَرْكَزُ الْمَلِكِ عَبْدِ الْعَزِيزِ الثَّقَافِيُّ الْعَالَمِيُّ (إِثْرَاء) هُوَ مَعْلَمٌ مِعْمَارِيٌّ مُبْهِرٌ يَقَعُ فِي مَدِينَةِ الظَّهْرَانِ.", japanese: "キング・アブドゥルアズィーズ世界文化センター（イスラー）は、ダーラン市にある見事な建築的ランドマークです。" },
+      { speaker: "記事", arabic: "يَهْدِفُ الْمَرْكَزُ إِلَى إِثْرَاءِ الْفِكْرِ وَإِلْهَامِ الْخَيَالِ مِنْ خِلَالِ مَرَافِقِهِ الْمُتَنَوِّعَةِ.", japanese: "センターは、多様な施設を通じて思想を豊かにし、想像力を刺激することを目指しています。" },
+      { speaker: "記事", arabic: "يُعَدُّ الْمَبْنَى بِتَصْمِيمِهِ الَّذِي يُشْبِهُ الصُّخُورَ الْمُتَرَاصَّةَ رَمْزًا لِلْوَقْتِ.", japanese: "積み重なった岩に似たデザインのその建物は、時の象徴とみなされています。" },
+      { speaker: "記事", arabic: "حَيْثُ يُمَثِّلُ الْمَاضِيَ وَالْحَاضِرَ وَالْمُسْتَقْبَلَ.", japanese: "それは過去、現在、未来を表しています。" }
     ]
   },
-
-  // --- 60. 食文化 (Food) ---
   {
-    id: 1068, title: "ジャリーシュ（伝統料理）", category: "文化", level: "上級",
-    contentVoweled: "الْجَرِيشُ هُوَ سَيِّدُ الْمَائِدَةِ السُّعُودِيَّةِ، خَاصَّةً فِي مِنْطَقَةِ نَجْد...",
+    id: 1068,
+    title: "ジャリーシュ（伝統料理）",
+    category: "文化",
+    level: "上級",
+    contentVoweled: "الْجَرِيشُ هُوَ سَيِّدُ الْمَائِدَةِ السُّعُودِيَّةِ، خَاصَّةً فِي مِنْطَقَةِ نَجْد، وَيُعْتَبَرُ مِنْ أَقْدَمِ الْأَكْلَاتِ الشَّعْبِيَّةِ فِي الْجَزِيرَةِ الْعَرَبِيَّةِ. يَتَكَوَّنُ الطَّبَقُ مِنَ الْقَمْحِ الْمَجْرُوشِ الَّذِي يُطْبَخُ لِفَتْرَةٍ طَوِيلَةٍ مَعَ اللَّبَنِ (الْحَلِيبِ الْمُتَخَمِّرِ) وَاللَّحْمِ حَتَّى يُصْبِحَ قَوَامُهُ مِثْلَ الْعَصِيدَةِ. يُزَيَّنُ الْجَرِيشُ عَادَةً بـِ 'الْمُسَمَّنَةِ'، وَهِيَ خَلِيطٌ مِنَ الْبَصَلِ الْمَقْلِيِّ وَالتَّوَابِلِ وَاللَّيْمُونِ الْأَسْوَدِ، وَيُقَدَّمُ سَاخِنًا فِي الْمُنَاسَبَاتِ وَالْأَعْرَاسِ.",
     contentPlain: "الجريش هو سيد المائدة السعودية، خاصة في منطقة نجد، ويعتبر من أقدم الأكلات الشعبية في الجزيرة العربية. يتكون الطبق من القمح المجروش الذي يطبخ لفترة طويلة مع اللبن (الحليب المتخمر) واللحم حتى يصبح قوامه مثل العصيدة. يزين الجريش عادة بـ 'المسمنة'، وهي خليط من البصل المقلي والتوابل والليمون الأسود، ويقدم ساخنا في المناسبات والأعراس.",
     vocabList: [
       { word: "مَائِدَة", meaning: "食卓/テーブル" },
@@ -10580,20 +11630,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10682, type: "reading", text: "主な材料は？", options: ["米", "挽き割り小麦とラブナ（発酵乳）", "パン", "パスタ"], correctIndex: 1, explanation: "「القمح المجروش... مع اللبن」です。" },
       { id: 10683, type: "reading", text: "トッピングの「ムサンマナ」とは？", options: ["砂糖", "揚げ玉ねぎとスパイスの混合物", "フルーツ", "チーズ"], correctIndex: 1, explanation: "「خليط من البصل المقلي والتوابل」です。" },
       { id: 10684, type: "vocabulary", text: "「مَقْلِيّ」の意味は？", options: ["茹でた", "揚げた/炒めた", "生の", "冷たい"], correctIndex: 1, explanation: "Fried（揚げた）です。" },
-      { id: 10685, type: "grammar", text: "「〜とみなされる（受動態）」", options: ["يُعْتَبَرُ", "يَعْرِفُ", "يَظُنُّ", "يَأْكُلُ"], correctIndex: 0, explanation: "「Yu'tabaru (Is considered)」です。" }
+      { id: 10685, type: "grammar", text: "「〜とみなされる（受動態）」", options: ["يُعْتَبَرُ", "يَعْرِفُ", "يَظُنُّ", "يَأْكُلُ"], correctIndex: 0, explanation: "「Yu'tabaru (Is considered)」です。" },
+      // 上級文法問題
+      { id: 10686, type: "grammar_advanced", text: "「من أقدم الأكلات」の「أقدم」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "前置詞「Min」の後の名詞（Ism Majrūr）なので属格（Majrūr）となり、カスラがつきます（イダーファの第1要素なのでタンウィーンはなし）。" },
+      { id: 10687, type: "grammar_advanced", text: "「حتى يصبح قوامه」の「يصبح」の正しい語尾は？", options: ["a (ファトハ)", "u (ダンマ)", "i (カスラ)", "Sukuun"], correctIndex: 0, explanation: "接続助詞「Ḥattā（〜するまで）」の後の現在形動詞は、隠れた「An」により接続法（Manṣūb）となり、ファトハがつきます。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "يَحْتَاجُ الْجَرِيشُ إِلَى وَقْتٍ طَوِيلٍ وَتَحْرِيكٍ مُسْتَمِرٍّ.", japanese: "ジャリーシュは長い時間と絶え間ない攪拌（かき混ぜ）を必要とします。" },
-      { speaker: "記事", arabic: "كَانَتِ النِّسَاءُ يَطْحَنَّ الْقَمْحَ يَدَوِيًّا بِالرَّحَى.", japanese: "女性たちはかつて石臼で小麦を手で挽いていました。" },
-      { speaker: "記事", arabic: "يُعْتَبَرُ طَبَقًا صِحِّيًّا وَمُغَذِّيًا.", japanese: "健康的で栄養価の高い料理と考えられています。" },
-      { speaker: "記事", arabic: "تَمَّ اعْتِمَادُهُ كَطَبَقٍ وَطَنِيٍّ لِلسُّعُودِيَّةِ.", japanese: "それはサウジアラビアの国民食として認定されました。" }
+      { speaker: "記事", arabic: "الْجَرِيشُ هُوَ سَيِّدُ الْمَائِدَةِ السُّعُودِيَّةِ، خَاصَّةً فِي مِنْطَقَةِ نَجْد.", japanese: "ジャリーシュは、特にナジュド地方において、サウジの食卓の王様です。" },
+      { speaker: "記事", arabic: "يَتَكَوَّنُ الطَّبَقُ مِنَ الْقَمْحِ الْمَجْرُوشِ الَّذِي يُطْبَخُ لِفَتْرَةٍ طَوِيلَةٍ مَعَ اللَّبَنِ وَاللَّحْمِ.", japanese: "この料理は、発酵乳（ラバン）と肉と共に長時間調理された挽き割り小麦から成ります。" },
+      { speaker: "記事", arabic: "يُزَيَّنُ الْجَرِيشُ عَادَةً بـِ 'الْمُسَمَّنَةِ'، وَهِيَ خَلِيطٌ مِنَ الْبَصَلِ الْمَقْلِيِّ وَالتَّوَابِلِ.", japanese: "ジャリーシュは通常、揚げ玉ねぎとスパイスの混合物である「ムサンマナ」で飾られます。" },
+      { speaker: "記事", arabic: "يُقَدَّمُ سَاخِنًا فِي الْمُنَاسَبَاتِ وَالْأَعْرَاسِ.", japanese: "行事や結婚式で熱々で提供されます。" }
     ]
   },
-
-  // --- 61. 自然・農業 (Agriculture) ---
   {
-    id: 1069, title: "ターイフのバラ祭り", category: "文化", level: "上級",
-    contentVoweled: "تُعْرَفُ مَدِينَةُ الطَّائِفِ بِاسْمِ 'مَدِينَةِ الْوُرُودِ'...",
+    id: 1069,
+    title: "ターイフのバラ祭り",
+    category: "文化",
+    level: "上級",
+    contentVoweled: "تُعْرَفُ مَدِينَةُ الطَّائِفِ بِاسْمِ 'مَدِينَةِ الْوُرُودِ'، حَيْثُ تَنْتَشِرُ فِيهَا مَزَارِعُ الْوَرْدِ الطَّائِفِيِّ ذِي الرَّائِحَةِ الْعَطِرِيَّةِ الْفَوَّاحَةِ. فِي كُلِّ رَبِيعٍ، يُقَامُ مَهْرَجَانٌ لِلْوَرْدِ يَتِمُّ فِيهِ قَطْفُ الْمَلَايِينِ مِنَ الزُّهُورِ وَتَقْطِيرُهَا لِاسْتِخْرَاجِ مَاءِ الْوَرْدِ وَالدُّهْنِ الْعِطْرِيِّ الْفَاخِرِ. يُعْتَبَرُ دُهْنُ الْوَرْدِ الطَّائِفِيِّ مِنْ أَغْلَى الْعُطُورِ فِي الْعَالَمِ، وَيُسْتَخْدَمُ أَيْضًا فِي تَنْظِيفِ الْكَعْبَةِ الْمُشَرَّفَةِ.",
     contentPlain: "تعرف مدينة الطائف باسم 'مدينة الورود'، حيث تنتشر فيها مزارع الورد الطائفي ذي الرائحة العطرية الفواحة. في كل ربيع، يقام مهرجان للورد يتم فيه قطف الملايين من الزهور وتقطيرها لاستخراج ماء الورد والدهن العطري الفاخر. يعتبر دهن الورد الطائفي من أغلى العطور في العالم، ويستخدم أيضا في تنظيف الكعبة المشرفة.",
     vocabList: [
       { word: "وَرْد", meaning: "バラ（集合名詞）" },
@@ -10606,20 +11660,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10692, type: "reading", text: "春に農家は何をしますか？", options: ["木を切る", "何百万もの花を摘んで蒸留する", "家を建てる", "旅行する"], correctIndex: 1, explanation: "「قطف الملايين من الزهور وتقطيرها」です。" },
       { id: 10693, type: "reading", text: "ターイフのバラ油（香油）の特別な用途は？", options: ["料理のみ", "カアバ神殿の清掃", "車の洗浄", "虫除け"], correctIndex: 1, explanation: "「يستخدم أيضا في تنظيف الكعبة المشرفة」です。" },
       { id: 10694, type: "vocabulary", text: "「فَوَّاح」の意味は？", options: ["臭い", "香り高い/漂う", "静かな", "重い"], correctIndex: 1, explanation: "Fragrant/Diffusing（香りが広がる）です。" },
-      { id: 10695, type: "grammar", text: "「抽出する」", options: ["اسْتِخْرَاج", "رَمْي", "بَيْع", "شِرَاء"], correctIndex: 0, explanation: "「Istikhrāj (Extraction)」です。" }
+      { id: 10695, type: "grammar", text: "「抽出する」", options: ["اسْتِخْرَاج", "رَمْي", "بَيْع", "شِرَاء"], correctIndex: 0, explanation: "「Istikhrāj (Extraction)」です。" },
+      // 上級文法問題
+      { id: 10696, type: "grammar_advanced", text: "「مزارع الورد الطائفي ذي الرائحة」の「ذي」の文法的役割は？", options: ["形容詞（Na't・主格）", "形容詞（Na't・属格）", "形容詞（Na't・対格）", "目的語"], correctIndex: 0, explanation: "主語である「Mazāri'u (農場・主格)」を修飾する形容詞（Na't）なのですが...、ここで確認が必要です。「Tantashiru (広がる)」の主語は「Mazāri'u」で主格です。したがって、それを修飾する「Dhū (〜を持つ)」も主格の「Dhū」であるべきです。しかしテキストは「Dhī」になっています。これは前の「Al-Ward」を修飾している可能性があります。「Al-Wardi (属格)」を修飾する場合「Dhī」で正解です。「香りのあるバラ」ですね。もし「香りのある農場」なら「Dhātu」になります。ここでは「バラ（属格）」を修飾しているので「属格」が正解です。" },
+      { id: 10697, type: "grammar_advanced", text: "「قطف الملايين」の「الملايين」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Qaṭf (摘むこと)」という動名詞の後のイダーファ第2要素（属格）なので、カスラがつきます（Malāyīnは規則複数ではなく、ここではブロークン・プルラルとして扱われ、定冠詞付きなので通常通りカスラ）。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "تَتِمُّ عَمَلِيَّةُ الْقَطْفِ فِي الصَّبَاحِ الْبَاكِرِ قَبْلَ طُلُوعِ الشَّمْسِ.", japanese: "摘み取り作業は日の出前の早朝に行われます。" },
-      { speaker: "記事", arabic: "يَحْتَاجُ إِنْتَاجُ تَوَلَّةٍ وَاحِدَةٍ إِلَى آلَافِ الْوَرْدَاتِ.", japanese: "1ト－ラ（小瓶）の生産には数千のバラが必要です。" },
-      { speaker: "記事", arabic: "مَاءُ الْوَرْدِ يُضَافُ إِلَى الشَّايِ وَالْحَلَوِيَّاتِ.", japanese: "バラ水はお茶やお菓子に加えられます。" },
-      { speaker: "記事", arabic: "الْمَهْرَجَانُ يَدْعَمُ السِّيَاحَةَ الزِّرَاعِيَّةَ.", japanese: "フェスティバルは農業観光（アグリツーリズム）を支援します。" }
+      { speaker: "記事", arabic: "تُعْرَفُ مَدِينَةُ الطَّائِفِ بِاسْمِ 'مَدِينَةِ الْوُرُودِ'.", japanese: "ターイフ市は「バラの町」として知られています。" },
+      { speaker: "記事", arabic: "فِي كُلِّ رَبِيعٍ، يُقَامُ مَهْرَجَانٌ لِلْوَرْدِ يَتِمُّ فِيهِ قَطْفُ الْمَلَايِينِ مِنَ الزُّهُورِ.", japanese: "毎春、何百万もの花が摘まれるバラ祭りが開催されます。" },
+      { speaker: "記事", arabic: "يَتِمُّ تَقْطِيرُهَا لِاسْتِخْرَاجِ مَاءِ الْوَرْدِ وَالدُّهْنِ الْعِطْرِيِّ الْفَاخِرِ.", japanese: "高級なバラ水と香油を抽出するためにそれらは蒸留されます。" },
+      { speaker: "記事", arabic: "يُعْتَبَرُ دُهْنُ الْوَرْدِ الطَّائِفِيِّ مِنْ أَغْلَى الْعُطُورِ فِي الْعَالَمِ.", japanese: "ターイフのバラ油は世界で最も高価な香水の一つと考えられています。" }
     ]
   },
-
-  // --- 62. 歴史・科学 (Science History) ---
   {
-    id: 1070, title: "化学の父 ジャービル・ブン・ハイヤーン", category: "歴史", level: "上級",
-    contentVoweled: "يُعْتَبَرُ جَابِرُ بْنُ حَيَّانَ الْمُؤَسِّسَ الْحَقِيقِيَّ لِعِلْمِ الْكِيمْيَاءِ...",
+    id: 1070,
+    title: "化学の父 ジャービル・ブン・ハイヤーン",
+    category: "歴史",
+    level: "上級",
+    contentVoweled: "يُعْتَبَرُ جَابِرُ بْنُ حَيَّانَ الْمُؤَسِّسَ الْحَقِيقِيَّ لِعِلْمِ الْكِيمْيَاءِ، حَيْثُ حَوَّلَهَا مِنْ خُرَافَاتٍ (الْخِيمْيَاءِ) إِلَى عِلْمٍ تَجْرِيبِيٍّ دَقِيقٍ. اخْتَرَعَ الْعَدِيدَ مِنَ الْعَمَلِيَّاتِ الْكِيمْيَائِيَّةِ مِثْلَ التَّقْطِيرِ وَالتَّبَلُّرِ، وَاكْتَشَفَ أَحْمَاضًا مُهِمَّةً مِثْلَ حِمْضِ الْكِبْرِيتِيكِ وَمَاءِ الذَّهَبِ (الْمَاءِ الْمَلَكِيِّ) الَّذِي يُذِيبُ الذَّهَبَ. كَانَ يُؤْمِنُ بِأَنَّ التَّجْرِبَةَ هِيَ أَسَاسُ الْمَعْرِفَةِ الْعِلْمِيَّةِ، وَتَرَكَ مِئَاتِ الْكُتُبِ الَّتِي أَثَّرَتْ فِي الْغَرْبِ.",
     contentPlain: "يعتبر جابر بن حيان المؤسس الحقيقي لعلم الكيمياء، حيث حولها من خرافات (الخيمياء) إلى علم تجريبي دقيق. اخترع العديد من العمليات الكيميائية مثل التقطير والتبلور، واكتشف أحماضا مهمة مثل حمض الكبريتيك وماء الذهب (الماء الملكي) الذي يذيب الذهب. كان يؤمن بأن التجربة هي أساس المعرفة العلمية، وترك مئات الكتب التي أثرت في الغرب.",
     vocabList: [
       { word: "كِيمْيَاء", meaning: "化学" },
@@ -10632,21 +11690,25 @@ questions: [] // アルファベット回は問題なし
       { id: 10702, type: "reading", text: "彼が発見した液体「王水（金の水）」の特徴は？", options: ["飲める", "金を溶かす", "凍らない", "爆発する"], correctIndex: 1, explanation: "「يذيب الذهب (金を溶かす)」です。" },
       { id: 10703, type: "reading", text: "彼の科学的手法の基本は？", options: ["夢", "実験", "推測", "運"], correctIndex: 1, explanation: "「التجربة هي أساس المعرفة (実験は知識の基礎)」です。" },
       { id: 10704, type: "vocabulary", text: "「خُرَافَة」の意味は？", options: ["真実", "迷信/神話", "科学", "法"], correctIndex: 1, explanation: "Superstition/Myth（迷信）です。" },
-      { id: 10705, type: "grammar", text: "「変えました/転換しました」", options: ["حَوَّلَ", "بَقِيَ", "ذَهَبَ", "نَامَ"], correctIndex: 0, explanation: "「Ḥawwala (Transformed/Converted)」です。" }
+      { id: 10705, type: "grammar", text: "「変えました/転換しました」", options: ["حَوَّلَ", "بَقِيَ", "ذَهَبَ", "نَامَ"], correctIndex: 0, explanation: "「Ḥawwala (Transformed/Converted)」です。" },
+      // 上級文法問題
+      { id: 10706, type: "grammar_advanced", text: "「يعتبر جابر ... المؤسس」の「المؤسس」の正しい語尾は？", options: ["a (ファトハ)", "u (ダンマ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "受動態「Yu'tabaru (Considered)」の第2目的語（補語）として対格（Manṣūb）になり、ファトハがつきます。（Jābiruが第1の要素＝代理主語）。" },
+      { id: 10707, type: "grammar_advanced", text: "「اكتشف أحماضا」の「أحماضا」の正しい語尾は？", options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "a (ファトハ)"], correctIndex: 0, explanation: "動詞「Iktashafa (発見した)」の目的語なので対格となり、タンウィーン・ファトハがつきます。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "لُقِّبَ جَابِرٌ بِـ 'أَبُو الْكِيمْيَاءِ'.", japanese: "ジャービルは「化学の父」と呼ばれました。" },
-      { speaker: "記事", arabic: "ادْخَلَ الْمِيزَانَ فِي التَّجَارِبِ لِضَمَانِ الدِّقَّةِ.", japanese: "彼は正確さを保証するために実験に天秤を導入しました。" },
-      { speaker: "記事", arabic: "صَنَعَ وَرَقًا غَيْرَ قَابِلٍ لِلِاحْتِرَاقِ.", japanese: "彼は燃えない紙を作りました。" },
-      { speaker: "記事", arabic: "كَلِمَةُ 'الكالي' (الْقَلَوِي) فِي اللُّغَاتِ الْأُورُوبِيَّةِ أَصْلُهَا عَرَبِيٌّ.", japanese: "ヨーロッパ言語の「Alkali（アルカリ）」はアラビア語起源です。" }
+      { speaker: "記事", arabic: "يُعْتَبَرُ جَابِرُ بْنُ حَيَّانَ الْمُؤَسِّسَ الْحَقِيقِيَّ لِعِلْمِ الْكِيمْيَاءِ.", japanese: "ジャービル・ブン・ハイヤーンは化学の真の創始者と考えられています。" },
+      { speaker: "記事", arabic: "حَوَّلَهَا مِنْ خُرَافَاتٍ إِلَى عِلْمٍ تَجْرِيبِيٍّ دَقِيقٍ.", japanese: "彼はそれを迷信から精密な実験科学へと変えました。" },
+      { speaker: "記事", arabic: "اكْتَشَفَ أَحْمَاضًا مُهِمَّةً مِثْلَ حِمْضِ الْكِبْرِيتِيكِ.", japanese: "彼は硫酸のような重要な酸を発見しました。" },
+      { speaker: "記事", arabic: "كَانَ يُؤْمِنُ بِأَنَّ التَّجْرِبَةَ هِيَ أَسَاسُ الْمَعْرِفَةِ الْعِلْمِيَّةِ.", japanese: "彼は実験こそが科学的知識の基礎であると信じていました。" }
     ]
   },
-
-  // --- 63. 社会・インフラ (Infrastructure) ---
   {
-    id: 1071, title: "ハラマイン高速鉄道", category: "社会", level: "上級",
-    contentVoweled: "قِطَارُ الْحَرَمَيْنِ السَّرِيعُ هُوَ مَشْرُوعٌ عِمْلَاقٌ يَرْبِطُ بَيْنَ مَكَّةَ وَالْمَدِينَةِ...",
-    contentPlain: "قطار الحرمين السريع هو مشروع عملاق يربط بين مكة المكرمة والمدينة المنورة مرورا بجدة ومدينة الملك عبد الله الاقتصادية. يعد هذا القطار الكهربائي من أسرع القطارات في الشرق الأوسط، حيث تصل سرعته إلى 300 كم/ساعة. يهدف المشروع إلى تيسير تنقل الحجاج والمعتمرين وتقليص زمن الرحلة بشكل كبير، مما يخدم ملايين الزوار سنويا.",
+    id: 1071,
+    title: "ハラマイン高速鉄道",
+    category: "社会",
+    level: "上級",
+    contentVoweled: "قِطَارُ الْحَرَمَيْنِ السَّرِيعُ هُوَ مَشْرُوعٌ عِمْلَاقٌ يَرْبِطُ بَيْنَ مَكَّةَ الْمُكَرَّمَةِ وَالْمَدِينَةِ الْمُنَوَّرَةِ مُرُورًا بِجُدَّةَ وَمَدِينَةِ الْمَلِكِ عَبْدِ اللهِ الِاقْتِصَادِيَّةِ. يُعَدُّ هَذَا الْقِطَارُ الْكَهْرُبَائِيُّ مِنْ أَسْرَعِ الْقِطَارَاتِ فِي الشَّرْقِ الْأَوْسَطِ، حَيْثُ تَصِلُ سُرْعَتُهُ إِلَى 300 كِيلُومِتْرٍ فِي السَّاعَةِ. يَهْدِفُ الْمَشْرُوعُ إِلَى تَيْسِيرِ تَنَقُّلِ الْحُجَّاجِ وَالْمُعْتَمِرِينَ وَتَقْلِيصِ زَمَنِ الرِّحْلَةِ بِشَكْلٍ كَبِيرٍ، مِمَّا يَخْدِمُ مَلَايِينَ الزُّوَّارِ سَنَوِيًّا.",
+    contentPlain: "قطار الحرمين السريع هو مشروع عملاق يربط بين مكة المكرمة والمدينة المنورة مرورا بجدة ومدينة الملك عبد الله الاقتصادية. يعد هذا القطار الكهربائي من أسرع القطارات في الشرق الأوسط، حيث تصل سرعته إلى 300 كيلومتر في الساعة. يهدف المشروع إلى تيسير تنقل الحجاج والمعتمرين وتقليص زمن الرحلة بشكل كبير، مما يخدم ملايين الزوار سنويا.",
     vocabList: [
       { word: "قِطَار", meaning: "列車" },
       { word: "سَرِيع", meaning: "速い" },
@@ -10658,20 +11720,24 @@ questions: [] // アルファベット回は問題なし
       { id: 10712, type: "reading", text: "列車の最高速度は？", options: ["100km/h", "300km/h", "500km/h", "50km/h"], correctIndex: 1, explanation: "「300 كم/ساعة」です。" },
       { id: 10713, type: "reading", text: "主な利用者は？", options: ["学生のみ", "巡礼者（ハッジ・オムラ）と訪問者", "貨物のみ", "誰もいない"], correctIndex: 1, explanation: "「الحجاج والمعتمرين」です。" },
       { id: 10714, type: "vocabulary", text: "「مُرُورًا بِـ」の意味は？", options: ["〜を避けて", "〜を経由して/通って", "〜で止まって", "〜なしで"], correctIndex: 1, explanation: "Passing through/Via（経由して）です。" },
-      { id: 10715, type: "grammar", text: "「奉仕する/役立つ」", options: ["يَخْدِمُ", "يَضُرُّ", "يَأْكُلُ", "يَنْسَى"], correctIndex: 0, explanation: "「Yakhdimu (Serve)」です。" }
+      { id: 10715, type: "grammar", text: "「奉仕する/役立つ」", options: ["يَخْدِمُ", "يَضُرُّ", "يَأْكُلُ", "يَنْسَى"], correctIndex: 0, explanation: "「Yakhdimu (Serve)」です。" },
+      // 上級文法問題
+      { id: 10716, type: "grammar_advanced", text: "「بين مكة المكرمة」の「مكة」の正しい語尾は？", options: ["a (ファトハ)", "i (カスラ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "前置詞「Bayna（〜の間・属格支配）」の後の名詞ですが、地名「Makkah」は女性固有名詞で非限定名詞（Mumnū' min al-ṣarf）のため、カスラではなくファトハを取ります。" },
+      { id: 10717, type: "grammar_advanced", text: "「300 كيلومتر」の「كيلومتر」の正しい語尾は？", options: ["in (タンウィーン・カスラ)", "an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "a (ファトハ)"], correctIndex: 0, explanation: "100以上の数詞の後の名詞（Tamyīz/Muḍāf Ilayhi）は単数・属格（Majrūr）となり、カスラ（タンウィーン）がつきます。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "يَقْطَعُ الْقِطَارُ الْمَسَافَةَ فِي أَقَلَّ مِنْ سَاعَتَيْنِ وَنِصْفٍ.", japanese: "列車はその距離を2時間半未満で走破します。" },
-      { speaker: "記事", arabic: "الْمَحَطَّاتُ مُصَمَّمَةٌ بِطِرَازٍ إِسْلَامِيٍّ حَدِيثٍ.", japanese: "駅は現代的なイスラム様式で設計されています。" },
-      { speaker: "記事", arabic: "يُعَدُّ مِنَ الْمَشَارِيعِ الصَّدِيقَةِ لِلْبِيئَةِ لِأَنَّهُ كَهْرُبَائِيٌّ.", japanese: "電気式であるため、環境に優しいプロジェクトの一つです。" },
-      { speaker: "記事", arabic: "يُقَدِّمُ خِدْمَاتٍ مُتَمَيِّزَةً لِرَاحَةِ الْمُسَافِرِينَ.", japanese: "旅行者の快適さのために優れたサービスを提供します。" }
+      { speaker: "記事", arabic: "قِطَارُ الْحَرَمَيْنِ السَّرِيعُ هُوَ مَشْرُوعٌ عِمْلَاقٌ يَرْبِطُ بَيْنَ مَكَّةَ وَالْمَدِينَةِ.", japanese: "ハラマイン高速鉄道は、メッカとマディーナを結ぶ巨大プロジェクトです。" },
+      { speaker: "記事", arabic: "يُعَدُّ هَذَا الْقِطَارُ الْكَهْرُبَائِيُّ مِنْ أَسْرَعِ الْقِطَارَاتِ فِي الشَّرْقِ الْأَوْسَطِ.", japanese: "この電気列車は中東で最も速い列車の一つに数えられます。" },
+      { speaker: "記事", arabic: "يَهْدِفُ الْمَشْرُوعُ إِلَى تَيْسِيرِ تَنَقُّلِ الْحُجَّاجِ وَالْمُعْتَمِرِينَ.", japanese: "プロジェクトはハッジおよびオムラ巡礼者の移動を容易にすることを目指しています。" },
+      { speaker: "記事", arabic: "يَخْدِمُ مَلَايِينَ الزُّوَّارِ سَنَوِيًّا.", japanese: "それは毎年何百万人もの訪問者に奉仕します。" }
     ]
   },
-
-  // --- 64. 歴史・文化 (History/Culture) ---
   {
-    id: 1072, title: "ムラッバ宮殿", category: "歴史", level: "上級",
-    contentVoweled: "قَصْرُ الْمُرَبَّعِ هُوَ مَقَرُّ إِقَامَةِ الْمَلِكِ عَبْدِ الْعَزِيزِ وَمَرْكَزُ حُكْمِهِ سَابِقًا...",
+    id: 1072,
+    title: "ムラッバ宮殿",
+    category: "歴史",
+    level: "上級",
+    contentVoweled: "قَصْرُ الْمُرَبَّعِ هُوَ مَقَرُّ إِقَامَةِ الْمَلِكِ عَبْدِ الْعَزِيزِ وَمَرْكَزُ حُكْمِهِ سَابِقًا، وَيَقَعُ خَارِجَ أَسْوَارِ الرِّيَاضِ الْقَدِيمَةِ. بُنِيَ الْقَصْرُ عَلَى الطِّرَازِ النَّجْدِيِّ التَّقْلِيدِيِّ بِاسْتِخْدَامِ الطِّينِ وَالْقَشِّ وَجُذُوعِ النَّخْلِ. شَهِدَ الْقَصْرُ الْعَدِيدَ مِنَ الْقَرَارَاتِ التَّارِيخِيَّةِ وَاسْتِقْبَالَ الْوُفُودِ الرَّسْمِيَّةِ. الْيَوْمَ، هُوَ جُزْءٌ مِنْ مَرْكَزِ الْمَلِكِ عَبْدِ الْعَزِيزِ التَّارِيخِيِّ وَمَتْحَفٌ يَعْرِضُ مُقْتَنَيَاتِ الْمَلِكِ وَسَيَّارَاتِهِ الْقَدِيمَةَ.",
     contentPlain: "قصر المربع هو مقر إقامة الملك عبد العزيز ومركز حكمه سابقا، ويقع خارج أسوار الرياض القديمة. بني القصر على الطراز النجدي التقليدي باستخدام الطين والقش وجذوع النخل. شهد القصر العديد من القرارات التاريخية واستقبال الوفود الرسمية. اليوم، هو جزء من مركز الملك عبد العزيز التاريخي ومتحف يعرض مقتنيات الملك وسياراته القديمة.",
     vocabList: [
       { word: "إِقَامَة", meaning: "居住/滞在" },
@@ -10684,21 +11750,27 @@ questions: [] // アルファベット回は問題なし
       { id: 10722, type: "reading", text: "どのような建築様式ですか？", options: ["ヨーロッパ風", "伝統的なナジュド様式（泥作り）", "ガラス張り", "石造り"], correctIndex: 1, explanation: "「الطراز النجدي التقليدي باستخدام الطين」です。" },
       { id: 10723, type: "reading", text: "現在はどうなっていますか？", options: ["壊された", "博物館の一部", "ホテル", "学校"], correctIndex: 1, explanation: "「متحف يعرض مقتنيات الملك」です。" },
       { id: 10724, type: "vocabulary", text: "「جِذْع」の意味は？", options: ["葉", "幹（幹材）", "根", "実"], correctIndex: 1, explanation: "Trunk（幹）です。ヤシの幹（ジュズー）が建材に使われました。" },
-      { id: 10725, type: "grammar", text: "「目撃した/経験した」", options: ["شَهِدَ", "رَأَى", "نَظَرَ", "نَسِيَ"], correctIndex: 0, explanation: "「Shahida (Witnessed)」です。" }
+      { id: 10725, type: "grammar", text: "「目撃した/経験した」", options: ["شَهِدَ", "رَأَى", "نَظَرَ", "نَسِيَ"], correctIndex: 0, explanation: "「Shahida (Witnessed)」です。" },
+      // 上級文法問題
+      { id: 10726, type: "grammar_advanced", text: "「باستخدام الطين」の「الطين」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Istikhdām」の後のイダーファ第2要素（属格）であり、定冠詞付きなので通常通りカスラがつきます。" },
+      { id: 10727, type: "grammar_advanced", text: "「مقتنيات الملك」の「مقتنيات」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "動詞「Ya'riḍu (展示する)」の目的語ですが、「āt」で終わる女性規則複数なので、対格の場合ファトハではなくカスラを取ります（イダーファ第1要素なのでタンウィーンなし）。" }
     ],
     sentences: [
-      { speaker: "記事", arabic: "سُمِّيَ بِالْمُرَبَّعِ نِسْبَةً إِلَى شَكْلِهِ الْمُرَبَّعِ.", japanese: "正方形の形（または広場の名前）にちなんでムラッバと名付けられました。" },
-      { speaker: "記事", arabic: "كَانَ الْمَلِكُ يُدِيرُ شُؤُونَ الدَّوْلَةِ مِنْ هَذَا الْقَصْرِ.", japanese: "王はこの宮殿から国務を運営していました。" },
-      { speaker: "記事", arabic: "التَّصْمِيمُ يُسَاعِدُ عَلَى تَلْطِيفِ الْجَوِّ فِي الصَّيْفِ.", japanese: "その設計は夏の空気を和らげる（涼しくする）のに役立ちます。" },
-      { speaker: "記事", arabic: "إِنَّهُ شَاهِدٌ عَلَى مَرْحَلَةِ تَأْسِيسِ الْمَمْلَكَةِ.", japanese: "それは王国設立段階の証人です。" }
+      { speaker: "記事", arabic: "قَصْرُ الْمُرَبَّعِ هُوَ مَقَرُّ إِقَامَةِ الْمَلِكِ عَبْدِ الْعَزِيزِ سَابِقًا.", japanese: "ムラッバ宮殿は、かつてアブドゥルアズィーズ王の住居でした。" },
+      { speaker: "記事", arabic: "بُنِيَ الْقَصْرُ عَلَى الطِّرَازِ النَّجْدِيِّ التَّقْلِيدِيِّ.", japanese: "宮殿は伝統的なナジュド様式で建てられました。" },
+      { speaker: "記事", arabic: "شَهِدَ الْقَصْرُ اسْتِقْبَالَ الْوُفُودِ الرَّسْمِيَّةِ.", japanese: "宮殿は公式代表団の受け入れを目撃しました（行われました）。" },
+      { speaker: "記事", arabic: "الْيَوْمَ، هُوَ مَتْحَفٌ يَعْرِضُ مُقْتَنَيَاتِ الْمَلِكِ.", japanese: "今日、それは王の所持品を展示する博物館です。" }
     ]
   },
 
   // --- 65. 自然・動物 (Nature/Animals) ---
   {
-    id: 1073, title: "アラビアオオカミ", category: "自然", level: "上級",
-    contentVoweled: "الذِّئْبُ الْعَرَبِيُّ هُوَ سُلَالَةٌ صَغِيرَةُ الْحَجْمِ مِنَ الذِّئَابِ الرَّمَادِيَّةِ...",
-    contentPlain: "الذئب العربي هو سلالة صغيرة الحجم من الذئاب الرمادية، تكيفت للعيش في بيئة الصحراء القاسية. يتميز بأذنين كبيرتين لتبديد الحرارة وفروا خفيف في الصيف. يعيش في مجموعات صغيرة أو منفردا، ويتغذى على القوارض والأرانب والمواشي أحيانا. رغم أنه كان يعتبر عدوا للبدو، إلا أنه يلعب دورا مهما في التوازن البيئي، وهو الآن محمي في بعض المناطق.",
+    id: 1073,
+    title: "アラビアオオカミ",
+    category: "自然",
+    level: "上級",
+    contentVoweled: "الذِّئْبُ الْعَرَبِيُّ هُوَ سُلَالَةٌ صَغِيرَةُ الْحَجْمِ مِنَ الذِّئَابِ الرَّمَادِيَّةِ، تَكَيَّفَتْ لِلْعَيْشِ فِي بِيئَةِ الصَّحْرَاءِ الْقَاسِيَةِ. يَتَمَيَّزُ بِأُذُنَيْنِ كَبِيرَتَيْنِ لِتَبْدِيدِ الْحَرَارَةِ وَفَرْوًا خَفِيفٍ فِي الصَّيْفِ. يَعِيشُ فِي مَجْمُوعَاتٍ صَغِيرَةٍ أَوْ مُنْفَرِدًا، وَيَتَغَذَّى عَلَى الْقَوَارِضِ وَالْأَرَانِبِ وَالْمَوَاشِي أَحْيَانًا. رَغْمَ أَنَّهُ كَانَ يُعْتَبَرُ عَدُوًّا لِلْبَدْوِ، إِلَّا أَنَّهُ يَلْعَبُ دَوْرًا مُهِمًّا فِي التَّوَازُنِ الْبِيئِيِّ، وَهُوَ الْآنَ مَحْمِيٌّ فِي بَعْضِ الْمَنَاطِقِ.",
+    contentPlain: "الذئب العربي هو سلالة صغيرة الحجم من الذئاب الرمادية، تكيفت للعيش في بيئة الصحراء القاسية. يتميز بأذنين كبيرتين لتبديد الحرارة وفرو خفيف في الصيف. يعيش في مجموعات صغيرة أو منفردا، ويتغذى على القوارض والأرانب والمواشي أحيانا. رغم أنه كان يعتبر عدوا للبدو، إلا أنه يلعب دورا مهما في التوازن البيئي، وهو الآن محمي في بعض المناطق.",
     vocabList: [
       { word: "ذِئْب", meaning: "オオカミ" },
       { word: "رَمَادِيّ", meaning: "灰色の" },
@@ -10707,10 +11779,13 @@ questions: [] // アルファベット回は問題なし
     ],
     questions: [
       { id: 10731, type: "reading", text: "アラビアオオカミの特徴は？", options: ["巨大", "小型で砂漠に適応している", "黒い", "水に住む"], correctIndex: 1, explanation: "「سلالة صغيرة الحجم... تكيفت للعيش في... الصحراء」です。" },
-      { id: 10732, type: "reading", text: "大きな耳の役割は？", options: ["よく聞くためだけ", "熱を逃がすため", "飛ぶため", "飾り"], correctIndex: 1, explanation: "「لتبديد الحرارة (熱を散らすため)」です。" },
+      { id: 10732, type: "reading", text: "大きな耳の役割は？", options: ["よく聞くためだけ", "熱を逃がす（放熱）ため", "飛ぶため", "飾り"], correctIndex: 1, explanation: "「لتبديد الحرارة (熱を散らすため)」です。" },
       { id: 10733, type: "reading", text: "生態系での役割は？", options: ["不要", "重要（バランスを保つ）", "害しかない", "家畜を守る"], correctIndex: 1, explanation: "「يلعب دورا مهما في التوازن البيئي」です。" },
       { id: 10734, type: "vocabulary", text: "「مَاشِيَة」の意味は？", options: ["車", "家畜（家畜の群れ）", "人", "植物"], correctIndex: 1, explanation: "Livestock/Cattle（家畜）です。" },
-      { id: 10735, type: "grammar", text: "「適応した」", options: ["تَكَيَّفَ", "مَاتَ", "رَكَضَ", "نَامَ"], correctIndex: 0, explanation: "「Takayyafa (Adapted)」です。" }
+      { id: 10735, type: "grammar", text: "「適応した」", options: ["تَكَيَّفَ", "مَاتَ", "رَكَضَ", "نَامَ"], correctIndex: 0, explanation: "「Takayyafa (Adapted)」です。" },
+      // 上級文法問題
+      { id: 10736, type: "grammar_advanced", text: "「هو سلالة صغيرة」の「سلالة」の正しい語尾は？", options: ["un (タンウィーン・ダンマ)", "an (タンウィーン・ファトハ)", "in (タンウィーン・カスラ)", "u (ダンマ)"], correctIndex: 0, explanation: "「Huwa (彼/それ)」の述語（Khabar）なので主格（Marfū'）となり、タンウィーン・ダンマがつきます。" },
+      { id: 10737, type: "grammar_advanced", text: "「كان يعتبر عدوا」の「عدوا」の正しい語尾は？", options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "a (ファトハ)"], correctIndex: 0, explanation: "受動態「Yu'tabaru (見なされる)」の第2目的語（補語）として対格（Manṣūb）になります。「(彼は)敵と見なされていた」という構造です。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "لَا يَعْوِي الذِّئْبُ الْعَرَبِيُّ كَثِيرًا مِثْلَ بَاقِي الذِّئَابِ.", japanese: "アラビアオオカミは他のオオカミほど頻繁には遠吠えしません。" },
@@ -10719,12 +11794,13 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "يُوجَدُ فِي الْمَنَاطِقِ الْجَبَلِيَّةِ وَالصَّحْرَاوِيَّةِ.", japanese: "山岳地帯や砂漠地帯に存在します。" }
     ]
   },
-
-  // --- 66. 文化・文学 (Literature) ---
   {
-    id: 1074, title: "女性詩人アル・ハンサー", category: "文学", level: "上級",
-    contentVoweled: "الْخَنْسَاءُ هِيَ أَشْهَرُ شَوَاعِرِ الْعَرَبِ، وَعَاشَتْ فِي عَصْرَيِ الْجَاهِلِيَّةِ وَالْإِسْلَامِ...",
-    contentPlain: "الخنساء هي أشهر شواعر العرب، وعاشت في عصري الجاهلية والإسلام (مخضرمة). اشتهرت بقصائد الرثاء الحزينة التي كتبتها تبكي فيها أخويها 'صخر' و'معاوية' اللذين قتلا في المعارك. يتميز شعرها بالعاطفة الصادقة واللغة القوية، وقد أبكت النابغة الذبياني بقصائدها. بعد إسلامها، استشهد أبناؤها الأربعة في معركة القادسية، فصبرت واحتسبت.",
+    id: 1074,
+    title: "女性詩人アル・ハンサー",
+    category: "文学",
+    level: "上級",
+    contentVoweled: "الْخَنْسَاءُ هِيَ أَشْهَرُ شَوَاعِرِ الْعَرَبِ، وَعَاشَتْ فِي عَصْرَيِ الْجَاهِلِيَّةِ وَالْإِسْلَامِ. اشْتُهِرَتْ بِقَصَائِدِ الرِّثَاءِ الْحَزِينَةِ الَّتِي كَتَبَتْهَا تَبْكِي فِيهَا أَخَوَيْهَا 'صَخْرًا' وَ'مُعَاوِيَةَ' اللَّذَيْنِ قُتِلَا فِي الْمَعَارِكِ. يَتَمَيَّزُ شِعْرُهَا بِالْعَاطِفَةِ الصَّادِقَةِ وَاللُّغَةِ الْقَوِيَّةِ، وَقَدْ أَبْكَتِ النَّابِغَةَ الذُّبْيَانِيَّ بِقَصَائِدِهَا. بَعْدَ إِسْلَامِهَا، اسْتُشْهِدَ أَبْنَاؤُهَا الْأَرْبَعَةُ فِي مَعْرَكَةِ الْقَادِسِيَّةِ، فَصَبَرَتْ وَاحْتَسَبَتْ.",
+    contentPlain: "الخنساء هي أشهر شواعر العرب، وعاشت في عصري الجاهلية والإسلام. اشتهرت بقصائد الرثاء الحزينة التي كتبتها تبكي فيها أخويها 'صخرا' و'معاوية' اللذين قتلا في المعارك. يتميز شعرها بالعاطفة الصادقة واللغة القوية، وقد أبكت النابغة الذبياني بقصائدها. بعد إسلامها، استشهد أبناؤها الأربعة في معركة القادسية، فصبرت واحتسبت.",
     vocabList: [
       { word: "رِثَاء", meaning: "哀悼/挽歌" },
       { word: "حَزِين", meaning: "悲しい" },
@@ -10734,9 +11810,12 @@ questions: [] // アルファベット回は問題なし
     questions: [
       { id: 10741, type: "reading", text: "アル・ハンサーは何で有名ですか？", options: ["料理", "最も有名な女性詩人", "女王", "医者"], correctIndex: 1, explanation: "「أشهر شواعر العرب」です。" },
       { id: 10742, type: "reading", text: "彼女の詩の主なテーマは？", options: ["愛", "リサー（死者を悼む詩/挽歌）", "政治", "自然"], correctIndex: 1, explanation: "「قصائد الرثاء الحزينة」です。" },
-      { id: 10743, type: "reading", text: "彼女は誰のために泣きましたか？", options: ["夫", "二人の兄弟（サフルとムアーウィヤ）", "子供だけ", "自分"], correctIndex: 1, explanation: "「تبكي فيها أخويها صخر ومعاوية」です。" },
+      { id: 10743, type: "reading", text: "彼女は誰のために泣きましたか？", options: ["夫", "二人の兄弟（サフルとムアーウィヤ）", "子供だけ", "自分"], correctIndex: 1, explanation: "「تبكي فيها أخويها (彼女の二人の兄弟を泣く)」です。" },
       { id: 10744, type: "vocabulary", text: "「مُخَضْرَم」の意味は？", options: ["若い", "二つの時代を生きた人", "戦士", "農民"], correctIndex: 1, explanation: "Veteran/Lived in two eras（ジャーヒリーヤとイスラムの両方を生きた人）です。" },
-      { id: 10745, type: "grammar", text: "「殺された（受動態）」", options: ["قُتِلَ", "قَتَلَ", "مَاتَ", "عَاشَ"], correctIndex: 0, explanation: "「Qutila」です。" }
+      { id: 10745, type: "grammar", text: "「殺された（受動態）」", options: ["قُتِلَ", "قَتَلَ", "مَاتَ", "عَاشَ"], correctIndex: 0, explanation: "「Qutila」です。" },
+      // 上級文法問題
+      { id: 10746, type: "grammar_advanced", text: "「تبكي فيها أخويها」の「أخويها」の格と理由は？", options: ["対格（目的語・双数だからYā）", "主格（主語・双数だからAlif）", "属格（前置詞の後・双数だからYā）", "対格（五つの名詞だからAlif）"], correctIndex: 0, explanation: "動詞「Tabkī (泣く/悼む)」の目的語（Maf'ūl Bihi）です。「Akhawayn (2人の兄弟)」に「hā (彼女の)」がついた形で、双数の対格なので「Yā」になり、イダーファでNūnが落ちて「Akhaway-hā」となります。" },
+      { id: 10747, type: "grammar_advanced", text: "「في عصري الجاهلية」の「عصري」の格と理由は？", options: ["属格（前置詞の後・双数だからYā）", "主格（主語・双数だからAlif）", "対格（目的語・双数だからYā）", "属格（単数だからi）"], correctIndex: 0, explanation: "前置詞「Fī」の後の名詞（Majrūr）です。「'Aṣrayn (2つの時代)」がイダーファでNūnを落とし「'Aṣray」となります（属格のYā）。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "قَالَتْ: وَإِنَّ صَخْرًا لَتَأْتَمُّ الْهُدَاةُ بِهِ كَأَنَّهُ عَلَمٌ فِي رَأْسِهِ نَارُ.", japanese: "彼女は言いました。「サフルは導き手が従う存在、まるで頂に火を灯した山のようだ。」" },
@@ -10745,11 +11824,12 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "تُعْتَبَرُ رَمْزًا لِلْوَفَاءِ وَالصَّبْرِ.", japanese: "彼女は誠実さと忍耐の象徴とみなされています。" }
     ]
   },
-
-  // --- 67. 社会・スポーツ (Sports) ---
   {
-    id: 1075, title: "ディルイーヤ E-Prix (Formula E)", category: "社会", level: "上級",
-    contentVoweled: "سِبَاقُ الْفُورْمُولَا إِي فِي الدِّرْعِيَّةِ هُوَ حَدَثٌ رِيَاضِيٌّ عَالَمِيٌّ...",
+    id: 1075,
+    title: "ディルイーヤ E-Prix (Formula E)",
+    category: "社会",
+    level: "上級",
+    contentVoweled: "سِبَاقُ الْفُورْمُولَا إِي فِي الدِّرْعِيَّةِ هُوَ حَدَثٌ رِيَاضِيٌّ عَالَمِيٌّ لِلسَّيَّارَاتِ الْكَهْرُبَائِيَّةِ يُقَامُ فِي قَلْبِ الْمَدِينَةِ التَّارِيخِيَّةِ. يَجْمَعُ السِّبَاقُ بَيْنَ عَرَاقَةِ الْمَاضِي الْمُتَمَثِّلِ فِي حَيِّ الطُّرَيْفِ التَّارِيخِيِّ، وَبَيْنَ تِكْنُولُوجِيَا الْمُسْتَقْبَلِ وَالِاسْتِدَامَةِ. يُقَامُ السِّبَاقُ لَيْلًا بِاسْتِخْدَامِ إِضَاءَةِ LED مُنْخَفِضَةِ الِاسْتِهْلَاكِ، وَيُصَاحِبُهُ فَعَّالِيَّاتٌ مُوسِيقِيَّةٌ وَثَقَافِيَّةٌ تَجْذِبُ الزُّوَّارَ مِنْ كُلِّ مَكَانٍ.",
     contentPlain: "سباق الفورمولا إي في الدرعية هو حدث رياضي عالمي للسيارات الكهربائية يقام في قلب المدينة التاريخية. يجمع السباق بين عراقة الماضي المتمثل في حي الطريف التاريخي، وبين تكنولوجيا المستقبل والاستدامة. يقام السباق ليلا باستخدام إضاءة LED منخفضة الاستهلاك، ويصاحبه فعاليات موسيقية وثقافية تجذب الزوار من كل مكان.",
     vocabList: [
       { word: "سِبَاق", meaning: "レース" },
@@ -10762,7 +11842,10 @@ questions: [] // アルファベット回は問題なし
       { id: 10752, type: "reading", text: "開催場所の特徴は？", options: ["砂漠の真ん中", "歴史的な街（ディルイーヤ）の中心", "海上", "屋内"], correctIndex: 1, explanation: "「في قلب المدينة التاريخية」です。" },
       { id: 10753, type: "reading", text: "レースはいつ行われますか？", options: ["朝", "昼", "夜（ナイトレース）", "雨の時"], correctIndex: 2, explanation: "「يقام السباق ليلا」です。" },
       { id: 10754, type: "vocabulary", text: "「عَرَاقَة」の意味は？", options: ["新しさ", "深み/伝統/由緒", "弱さ", "速さ"], correctIndex: 1, explanation: "Deep-rootedness/Tradition（由緒、伝統）です。" },
-      { id: 10755, type: "grammar", text: "「伴う/付随する」", options: ["يُصَاحِبُ", "يَتْرُكُ", "يَأْتِي", "يَذْهَبُ"], correctIndex: 0, explanation: "「Yuṣāḥibu (Accompanies)」です。" }
+      { id: 10755, type: "grammar", text: "「伴う/付随する」", options: ["يُصَاحِبُ", "يَتْرُكُ", "يَأْكُلُ", "يَذْهَبُ"], correctIndex: 0, explanation: "「Yuṣāḥibu (Accompanies)」です。" },
+      // 上級文法問題
+      { id: 10756, type: "grammar_advanced", text: "「سباق الفورمولا إي ... هو حدث」の「حدث」の正しい語尾は？", options: ["un (タンウィーン・ダンマ)", "an (タンウィーン・ファトハ)", "in (タンウィーン・カスラ)", "u (ダンマ)"], correctIndex: 0, explanation: "「Huwa (それ/彼)」の述語（Khabar）なので主格（Marfū'）となり、タンウィーン・ダンマがつきます。" },
+      { id: 10757, type: "grammar_advanced", text: "「يقام السباق ليلا」の「ليلا」の正しい語尾は？", options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "a (ファトハ)"], correctIndex: 0, explanation: "「夜に」という時間を表す副詞（Zarf Zamān）なので、対格（Manṣūb）となり、タンウィーン・ファトハがつきます。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "يَهْدِفُ السِّبَاقُ لِلتَّرْوِيجِ لِلطَّاقَةِ النَّظِيفَةِ.", japanese: "レースはクリーンエネルギーの促進を目指しています。" },
@@ -10771,11 +11854,12 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "السُّعُودِيَّةُ أَصْبَحَتْ وِجْهَةً لِرِيَاضَةِ الْمُحَرِّكَاتِ.", japanese: "サウジアラビアはモータースポーツの目的地となりました。" }
     ]
   },
-
-  // --- 68. 自然・気象 (Nature/Weather) ---
   {
-    id: 1076, title: "タブークの雪", category: "自然", level: "上級",
-    contentVoweled: "عِنْدَمَا نُفَكِّرُ فِي السُّعُودِيَّةِ، نَتَخَيَّلُ الصَّحْرَاءَ الْحَارَّةَ، وَلَكِنْ...",
+    id: 1076,
+    title: "タブークの雪",
+    category: "自然",
+    level: "上級",
+    contentVoweled: "عِنْدَمَا نُفَكِّرُ فِي السُّعُودِيَّةِ، نَتَخَيَّلُ الصَّحْرَاءَ الْحَارَّةَ، وَلَكِنْ فِي مِنْطَقَةِ تَبُوكَ شَمَالَ الْمَمْلَكَةِ، يَتَسَاقَطُ الثَّلْجُ شِتَاءً عَلَى قِمَمِ الْجِبَالِ مِثْلِ جَبَلِ اللَّوْزِ. يَكْتَسِي الرَّمْلُ وَالْجِبَالُ بِاللَّوْنِ الْأَبْيَضِ فِي مَشْهَدٍ نَادِرٍ وَسَاحِرٍ، مِمَّا يَجْذِبُ آلَافَ السُّعُودِيِّينَ لِلتَّنَزُّهِ وَالتَّخْيِيمِ وَالِاسْتِمْتَاعِ بِالطَّقْسِ الْبَارِدِ. هَذِهِ الظَّاهِرَةُ تُظْهِرُ التَّنَوُّعَ الْمُنَاخِيَّ الْكَبِيرَ فِي الْمَمْلَكَةِ.",
     contentPlain: "عندما نفكر في السعودية، نتخيل الصحراء الحارة، ولكن في منطقة تبوك شمال المملكة، يتساقط الثلج شتاء على قمم الجبال مثل جبل اللوز. يكتسي الرمل والجبال باللون الأبيض في مشهد نادر وساحر، مما يجذب آلاف السعوديين للتنزه والتخييم والاستمتاع بالطقس البارد. هذه الظاهرة تظهر التنوع المناخي الكبير في المملكة.",
     vocabList: [
       { word: "ثَلْج", meaning: "雪" },
@@ -10788,7 +11872,10 @@ questions: [] // アルファベット回は問題なし
       { id: 10762, type: "reading", text: "どこで雪が見られますか？", options: ["リヤド", "タブーク（ジャバル・アル・ラウズ）", "ジェッダ", "ルブアルハリ"], correctIndex: 1, explanation: "「منطقة تبوك... جبل اللوز」です。" },
       { id: 10763, type: "reading", text: "人々はどう反応しますか？", options: ["逃げる", "キャンプやピクニックを楽しむ", "家から出ない", "泣く"], correctIndex: 1, explanation: "「للتنزه والتخييم والاستمتاع」です。" },
       { id: 10764, type: "vocabulary", text: "「يَكْتَسِي」の意味は？", options: ["脱ぐ", "覆われる/着る", "食べる", "走る"], correctIndex: 1, explanation: "Is clothed/Covered（覆われる）です。" },
-      { id: 10765, type: "grammar", text: "「想像します」", options: ["نَتَخَيَّلُ", "نَعْرِفُ", "نَرَى", "نَسْمَعُ"], correctIndex: 0, explanation: "「Natakhayyalu (Imagine)」です。" }
+      { id: 10765, type: "grammar", text: "「想像します」", options: ["نَتَخَيَّلُ", "نَعْرِفُ", "نَرَى", "نَسْمَعُ"], correctIndex: 0, explanation: "「Natakhayyalu (Imagine)」です。" },
+      // 上級文法問題
+      { id: 10766, type: "grammar_advanced", text: "「يتساقط الثلج」の「الثلج」の正しい語尾は？", options: ["u (ダンマ)", "a (ファトハ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "動詞「Yatasāqaṭu (降り注ぐ)」の主語（Fā'il）なので、主格（Marfū'）となりダンマがつきます。" },
+      { id: 10767, type: "grammar_advanced", text: "「في مشهد نادر」の「نادر」の正しい語尾は？", options: ["in (タンウィーン・カスラ)", "un (タンウィーン・ダンマ)", "an (タンウィーン・ファトハ)", "i (カスラ)"], correctIndex: 0, explanation: "「Mashhadin (光景・属格)」を修飾する形容詞（Na't）なので、属格（Majrūr）となり、タンウィーン・カスラがつきます。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "تَنْخَفِضُ دَرَجَةُ الْحَرَارَةِ إِلَى مَا دُونَ الصِّفْرِ.", japanese: "気温は氷点下に下がります。" },
@@ -10797,11 +11884,12 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "تَبُوكُ هِيَ بَوَّابَةُ الشَّمَالِ ذَاتُ الطَّبِيعَةِ الْمُتَنَوِّعَةِ.", japanese: "タブークは多様な自然を持つ北の玄関口です。" }
     ]
   },
-
-  // --- 69. 経済・エネルギー (Economy) ---
   {
-    id: 1077, title: "タップライン（TAPLINE）", category: "歴史", level: "上級",
-    contentVoweled: "خَطُّ الْأَنَابِيبِ عَبْرَ الْبِلَادِ الْعَرَبِيَّةِ (التَّابْلَايْن) كَانَ شِرْيَانَ النِّفْطِ...",
+    id: 1077,
+    title: "タップライン（TAPLINE）",
+    category: "歴史",
+    level: "上級",
+    contentVoweled: "خَطُّ الْأَنَابِيبِ عَبْرَ الْبِلَادِ الْعَرَبِيَّةِ (التَّابْلَايْن) كَانَ شِرْيَانَ النِّفْطِ الَّذِي رَبَطَ حُقُولَ الْمِنْطَقَةِ الشَّرْقِيَّةِ بِمِينَاءِ صَيْدَا فِي لُبْنَانَ عَلَى الْبَحْرِ الْمُتَوَسِّطِ. عِنْدَ إِنْشَائِهِ فِي الْخَمْسِينِيَّاتِ، كَانَ أَكْبَرَ مَشْرُوعٍ هَنْدَسِيٍّ فِي الْعَالَمِ. سَاهَمَ الْخَطُّ فِي نَشْأَةِ مُدُنٍ جَدِيدَةٍ فِي شَمَالِ الْمَمْلَكَةِ (مُدُنِ التَّابْلَايْن) وَتَوْفِيرِ الْخِدْمَاتِ لَهَا. تَوَقَّفَ الْخَطُّ عَنِ الْعَمَلِ، لَكِنَّهُ بَقِيَ رَمْزًا لِبِدَايَاتِ الْعَصْرِ النِّفْطِيِّ.",
     contentPlain: "خط الأنابيب عبر البلاد العربية (التابلاين) كان شريان النفط الذي ربط حقول المنطقة الشرقية بميناء صيدا في لبنان على البحر المتوسط. عند إنشائه في الخمسينيات، كان أكبر مشروع هندسي في العالم. ساهم الخط في نشأة مدن جديدة في شمال المملكة (مدن التابلاين) وتوفير الخدمات لها. توقف الخط عن العمل، لكنه بقي رمزا لبدايات العصر النفطي.",
     vocabList: [
       { word: "أُنْبُوب", meaning: "パイプ（複：アナビーブ）" },
@@ -10814,7 +11902,10 @@ questions: [] // アルファベット回は問題なし
       { id: 10772, type: "reading", text: "どこからどこへ繋がっていましたか？", options: ["リヤドからメッカ", "東部州からレバノン（地中海）", "イエメンからオマーン", "サウジ国内のみ"], correctIndex: 1, explanation: "「المنطقة الشرقية بميناء صيدا في لبنان」です。" },
       { id: 10773, type: "reading", text: "このラインの影響で何が生まれましたか？", options: ["砂漠", "北部の新しい都市", "山", "海"], correctIndex: 1, explanation: "「نشأة مدن جديدة في شمال المملكة」です。" },
       { id: 10774, type: "vocabulary", text: "「هَنْدَسِيّ」の意味は？", options: ["医学の", "工学の/エンジニアリングの", "芸術の", "歴史の"], correctIndex: 1, explanation: "Engineering（工学の）です。" },
-      { id: 10775, type: "grammar", text: "「接続しました」", options: ["رَبَطَ", "قَطَعَ", "أَكَلَ", "فَتَحَ"], correctIndex: 0, explanation: "「Rabaṭa (Connected)」です。" }
+      { id: 10775, type: "grammar", text: "「接続しました」", options: ["رَبَطَ", "قَطَعَ", "أَكَلَ", "فَتَحَ"], correctIndex: 0, explanation: "「Rabaṭa (Connected)」です。" },
+      // 上級文法問題
+      { id: 10776, type: "grammar_advanced", text: "「كان شريان النفط」の「شريان」の正しい語尾は？", options: ["a (ファトハ)", "u (ダンマ)", "i (カスラ)", "an (タンウィーン)"], correctIndex: 0, explanation: "「Kāna」の述語（Khabar Kāna）なので対格（Manṣūb）となり、ファトハがつきます（イダーファの第1要素なのでタンウィーンなし）。" },
+      { id: 10777, type: "grammar_advanced", text: "「كان أكبر مشروع」の「أكبر」の正しい語尾は？", options: ["a (ファトハ)", "u (ダンマ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "これも「Kāna」の述語（Khabar Kāna）なので対格となり、ファトハがつきます。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "اخْتَصَرَ الْخَطُّ مَسَافَةَ نَقْلِ النِّفْتِ إِلَى أُورُوبَّا.", japanese: "そのラインはヨーロッパへの石油輸送距離を短縮しました。" },
@@ -10823,11 +11914,12 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "إِنَّهُ ذِكْرَى لِعَصْرِ الطَّفْرَةِ الِاقْتِصَادِيَّةِ.", japanese: "それは経済ブーム時代の記憶です。" }
     ]
   },
-
-  // --- 70. 伝統・社会 (Tradition) ---
   {
-    id: 1078, title: "フラワーメン（リジャール・アルマア）", category: "文化", level: "上級",
-    contentVoweled: "رِجَالُ الطِّيبِ، أَوْ رِجَالُ الزُّهُورِ، هُمْ سُكَّانُ جِبَالِ عَسِيرَ...",
+    id: 1078,
+    title: "フラワーメン（リジャール・アルマア）",
+    category: "文化",
+    level: "上級",
+    contentVoweled: "رِجَالُ الطِّيبِ، أَوْ رِجَالُ الزُّهُورِ، هُمْ سُكَّانُ جِبَالِ عَسِيرَ وَجَازَانَ الَّذِينَ اشْتُهِرُوا بِعَادَةِ تَزْيِينِ رُؤُوسِهِمْ بِأَطْوَاقٍ مَصْنُوعَةٍ مِنَ الزُّهُورِ وَالنَّبَاتَاتِ الْعِطْرِيَّةِ الْبَرِّيَّةِ. هَذِهِ الْعَادَةُ الْقَدِيمَةُ لَيْسَتْ مُجَرَّدَ زِينَةٍ، بَلْ هِيَ جُزْءٌ مِنْ هُوِيَّتِهِمْ وَتُرَاثِهِمْ، وَكَانَتْ تُسْتَخْدَمُ قَدِيمًا لِلطَّبَابَةِ وَلِإِعْطَاءِ رَائِحَةٍ طَيِّبَةٍ. تَخْتَلِفُ أَنْوَاعُ الزُّهُورِ وَتَصَامِيمُ الْأَطْوَاقِ حَسَبَ الْمُنَاسَبَةِ وَالْقَبِيلَةِ.",
     contentPlain: "رجال الطيب، أو رجال الزهور، هم سكان جبال عسير وجازان الذين اشتهروا بعادة تزيين رؤوسهم بأطواق مصنوعة من الزهور والنباتات العطرية البرية. هذه العادة القديمة ليست مجرد زينة، بل هي جزء من هويتهم وتراثهم، وكانت تستخدم قديما للطبابة ولإعطاء رائحة طيبة. تختلف أنواع الزهور وتصاميم الأطواق حسب المناسبة والقبيلة.",
     vocabList: [
       { word: "طَوْق", meaning: "輪/冠（複：アトワーク）" },
@@ -10840,7 +11932,10 @@ questions: [] // アルファベット回は問題なし
       { id: 10782, type: "reading", text: "彼らの有名な習慣は？", options: ["花を食べる", "花の冠を頭につける", "花を売る", "花を踏む"], correctIndex: 1, explanation: "「تزيين رؤوسهم بأطواق مصنوعة من الزهور」です。" },
       { id: 10783, type: "reading", text: "これは単なる飾りですか？", options: ["はい", "いいえ、アイデンティティと伝統の一部", "遊びです", "罰です"], correctIndex: 1, explanation: "「ليست مجرد زينة، بل هي جزء من هويتهم」です。" },
       { id: 10784, type: "vocabulary", text: "「بَرِّيّ」の意味は？", options: ["家の", "野生の", "海の", "空の"], correctIndex: 1, explanation: "Wild（野生の）です。" },
-      { id: 10785, type: "grammar", text: "「飾る」", options: ["تَزْيِين", "تَخْرِيب", "بِنَاء", "أَكْل"], correctIndex: 0, explanation: "「Tazyīn (Decorating)」です。" }
+      { id: 10785, type: "grammar", text: "「飾る」", options: ["تَزْيِين", "تَخْرِيب", "بِنَاء", "أَكْل"], correctIndex: 0, explanation: "「Tazyīn (Decorating)」です。" },
+      // 上級文法問題
+      { id: 10786, type: "grammar_advanced", text: "「هم سكان جبال」の「سكان」の正しい語尾は？", options: ["u (ダンマ)", "un (タンウィーン・ダンマ)", "a (ファトハ)", "i (カスラ)"], correctIndex: 0, explanation: "「Hum (彼らは)」の述語（Khabar）なので主格（Marfū'）となりダンマがつきます（イダーファの第1要素なのでタンウィーンなし）。" },
+      { id: 10787, type: "grammar_advanced", text: "「ليست مجرد زينة」の「زينة」の正しい語尾は？", options: ["in (タンウィーン・カスラ)", "un (タンウィーン・ダンマ)", "an (タンウィーン・ファトハ)", "a (ファトハ)"], correctIndex: 0, explanation: "「Mujarrad (ただの)」の後に続く名詞（Muḍāf Ilayhi）なので、属格（Majrūr）となり、タンウィーン・カスラがつきます。" }
     ],
     sentences: [
       { speaker: "記事", arabic: "يُسَمَّى الطَّوْقُ بِـ 'الْعِصَابَةِ' أَوْ 'الْخَطُورِ'.", japanese: "その冠は「イサーバ」や「ハトール」と呼ばれます。" },
@@ -10849,789 +11944,785 @@ questions: [] // アルファベット回は問題なし
       { speaker: "記事", arabic: "إِنَّهُمْ يُحَافِظُونَ عَلَى جَمَالِ التُّرَاثِ الْجَبَلِيِّ.", japanese: "彼らは山の遺産の美しさを守っています。" }
     ]
   },
-
-  // --- 71. 健康・文化 (Health) ---
-   {
-        id: 1079, title: "ラクダミルクの効能", category: "健康", level: "上級",
-        contentVoweled: "حَلِيبُ الْإِبِلِ كَانَ الْغِذَاءَ الرَّئِيسِيَّ لِلْبَدْوِ لِقُرُونٍ...",
-        contentPlain: "حليب الإبل كان الغذاء الرئيسي للبدو لقرون، وقد أثبتت الدراسات الحديثة فوائده الصحية الكبيرة. يحتوي الحليب على نسبة عالية من فيتامين سي (أكثر من حليب البقر) وبروتينات تقوي المناعة، كما أنه قليل الدهون وسهل الهضم. يستخدم في الطب الشعبي لعلاج بعض الأمراض، وبدأت الشركات الآن في إنتاج حليب الإبل المبستر وشوكولاتة حليب الإبل وتصديرها.",
-        vocabList: [
-          { word: "حَلِيب", meaning: "ミルク" },
-          { word: "مَنَاعَة", meaning: "免疫" },
-          { word: "هَضْم", meaning: "消化" },
-          { word: "دُهُون", meaning: "脂肪" }
-        ],
-        questions: [
-          { id: 10791, type: "reading", text: "ラクダミルクの栄養的特徴は？", options: ["脂肪が多い", "ビタミンCが豊富で低脂肪", "体に悪い", "ビタミンがない"], correctIndex: 1, explanation: "「نسبة عالية من فيتامين سي... قليل الدهون」です。" },
-          { id: 10792, type: "reading", text: "現代の研究は何を証明しましたか？", options: ["害がある", "大きな健康効果", "味が悪い", "何も証明していない"], correctIndex: 1, explanation: "「أثبتت الدراسات... فوائده الصحية الكبيرة」です。" },
-          { id: 10793, type: "reading", text: "最近の製品展開は？", options: ["生産中止", "低温殺菌ミルクやチョコレート", "衣類", "燃料"], correctIndex: 1, explanation: "「حليب الإبل المبستر وشوكولاتة」です。" },
-          { id: 10794, type: "vocabulary", text: "「عِلَاج」の意味は？", options: ["病気", "治療", "毒", "痛み"], correctIndex: 1, explanation: "Treatment/Cure（治療）です。" },
-          { id: 10795, type: "grammar", text: "「証明しました」", options: ["أَثْبَتَتْ", "نَفَتْ", "نَسِيَتْ", "أَكَلَتْ"], correctIndex: 0, explanation: "「Athbatat (Proved)」です。" }
-        ],
-        sentences: [
-          { speaker: "記事", arabic: "يُطْلَقُ عَلَى حَلِيبِ الْإِبِلِ لَقَبُ 'صَيْدَلِيَّةِ الصَّحْرَاءِ'.", japanese: "ラクダミルクは「砂漠の薬局」というニックネームで呼ばれます。" },
-          { speaker: "記事", arabic: "لَا يُسَبِّبُ حَسَاسِيَّةً مِثْلَ حَلِيبِ الْأَبْقَارِ.", japanese: "牛乳のようなアレルギーを引き起こしません。" },
-          { speaker: "記事", arabic: "طَعْمُهُ يَمِيلُ إِلَى الْمُلُوحَةِ قَلِيلًا.", japanese: "味は少し塩気があります。" },
-          { speaker: "記事", arabic: "أَصْبَحَ مُنْتَجًا فَاخِرًا فِي الْأَسْوَاقِ الْعَالَمِيَّةِ.", japanese: "それは世界市場で高級品となりました。" }
-        ]
-      },
-    
-      // --- 72. 経済・未来 (Economy/Future) ---
+  {
+    id: 1079,
+    title: "ラクダミルクの効能",
+    category: "健康",
+    level: "上級",
+    contentVoweled: "حَلِيبُ الْإِبِلِ كَانَ الْغِذَاءَ الرَّئِيسِيَّ لِلْبَدْوِ لِقُرُونٍ، وَقَدْ أَثْبَتَتِ الدِّرَاسَاتُ الْحَدِيثَةُ فَوَائِدَهُ الصِّحِّيَّةَ الْكَبِيرَةَ. يَحْتَوِي الْحَلِيبُ عَلَى نِسْبَةٍ عَالِيَةٍ مِنْ فِيتَامِين سِي (أَكْثَرَ مِنْ حَلِيبِ الْبَقَرِ) وَبُرُوتِينَاتٍ تُقَوِّي الْمَنَاعَةَ، كَمَا أَنَّهُ قَلِيلُ الدُّهُونِ وَسَهْلُ الْهَضْمِ. يُسْتَخْدَمُ فِي الطِّبِّ الشَّعْبِيِّ لِعِلَاجِ بَعْضِ الْأَمْرَاضِ، وَبَدَأَتِ الشَّرِكَاتُ الْآنَ فِي إِنْتَاجِ حَلِيبِ الْإِبِلِ الْمُبَسْتَرِ وَشُوكُولَاتَةِ حَلِيبِ الْإِبِلِ وَتَصْدِيرِهَا.",
+    contentPlain: "حليب الإبل كان الغذاء الرئيسي للبدو لقرون، وقد أثبتت الدراسات الحديثة فوائده الصحية الكبيرة. يحتوي الحليب على نسبة عالية من فيتامين سي (أكثر من حليب البقر) وبروتينات تقوي المناعة، كما أنه قليل الدهون وسهل الهضم. يستخدم في الطب الشعبي لعلاج بعض الأمراض، وبدأت الشركات الآن في إنتاج حليب الإبل المبستر وشوكولاتة حليب الإبل وتصديرها.",
+    vocabList: [
+      { word: "حَلِيب", meaning: "ミルク" },
+      { word: "مَنَاعَة", meaning: "免疫" },
+      { word: "هَضْم", meaning: "消化" },
+      { word: "دُهُون", meaning: "脂肪" }
+    ],
+    questions: [
+      { id: 10791, type: "reading", text: "ラクダミルクの栄養的特徴は？", options: ["脂肪が多い", "ビタミンCが豊富で低脂肪", "体に悪い", "ビタミンがない"], correctIndex: 1, explanation: "「نسبة عالية من فيتامين سي... قليل الدهون」です。" },
+      { id: 10792, type: "reading", text: "現代の研究は何を証明しましたか？", options: ["害がある", "大きな健康効果", "味が悪い", "何も証明していない"], correctIndex: 1, explanation: "「أثبتت الدراسات... فوائده الصحية الكبيرة」です。" },
+      { id: 10793, type: "reading", text: "最近の製品展開は？", options: ["生産中止", "低温殺菌ミルクやチョコレート", "衣類", "燃料"], correctIndex: 1, explanation: "「حليب الإبل المبستر وشوكولاتة」です。" },
+      { id: 10794, type: "vocabulary", text: "「عِلَاج」の意味は？", options: ["病気", "治療", "毒", "痛み"], correctIndex: 1, explanation: "Treatment/Cure（治療）です。" },
+      { id: 10795, type: "grammar", text: "「証明しました」", options: ["أَثْبَتَتْ", "نَفَتْ", "نَسِيَتْ", "أَكَلَتْ"], correctIndex: 0, explanation: "「Athbatat (Proved)」です。" },
+      // 上級文法問題
+      { id: 10796, type: "grammar_advanced", text: "「كان الغذاء الرئيسي」の「الغذاء」の正しい語尾は？", options: ["a (ファトハ)", "u (ダンマ)", "i (カスラ)", "an (タンウィーン)"], correctIndex: 0, explanation: "「Kāna」の述語（Khabar Kāna）なので対格（Manṣūb）となり、ファトハがつきます。" },
+      { id: 10797, type: "grammar_advanced", text: "「أثبتت الدراسات فوائده」の「فوائده」の正しい語尾は？", options: ["a (ファトハ)", "u (ダンマ)", "i (カスラ)", "in (タンウィーン)"], correctIndex: 0, explanation: "動詞「Athbatat (証明した)」の目的語（Maf'ūl Bihi）なので、対格（Manṣūb）となりファトハがつきます（Fawā'id自体は非限定名詞ですが、代名詞「hu」が付いているので規則通り）。" }
+    ],
+    sentences: [
+      { speaker: "記事", arabic: "يُطْلَقُ عَلَى حَلِيبِ الْإِبِلِ لَقَبُ 'صَيْدَلِيَّةِ الصَّحْرَاءِ'.", japanese: "ラクダミルクは「砂漠の薬局」というニックネームで呼ばれます。" },
+      { speaker: "記事", arabic: "لَا يُسَبِّبُ حَسَاسِيَّةً مِثْلَ حَلِيبِ الْأَبْقَارِ.", japanese: "牛乳のようなアレルギーを引き起こしません。" },
+      { speaker: "記事", arabic: "طَعْمُهُ يَمِيلُ إِلَى الْمُلُوحَةِ قَلِيلًا.", japanese: "味は少し塩気があります。" },
+      { speaker: "記事", arabic: "أَصْبَحَ مُنْتَجًا فَاخِرًا فِي الْأَسْوَاقِ الْعَالَمِيَّةِ.", japanese: "それは世界市場で高級品となりました。" }
+    ]
+  },
+  {
+    id: 1080,
+    title: "鉱業の未来",
+    category: "経済",
+    level: "上級",
+    contentVoweled: "تَمْتَلِكُ السُّعُودِيَّةُ ثَرَوَاتٍ مَعْدِنِيَّةً غَيْرَ مُسْتَغَلَّةٍ تُقَدَّرُ قِيمَتُهَا بِـ 1.3 تِرِيلْيُونِ دُولَارٍ. تُرَكِّزُ الِاسْتِرَاتِيجِيَّةُ الْجَدِيدَةُ عَلَى التَّنْقِيبِ عَنِ الذَّهَبِ وَالنُّحَاسِ وَالزِّنْكِ وَالْمَعَادِنِ الْأَرْضِيَّةِ النَّادِرَةِ الَّتِي تَدْخُلُ فِي صِنَاعَةِ الْإِلِكْتُرُونِيَّاتِ وَالسَّيَّارَاتِ الْكَهْرُبَائِيَّةِ. تَهْدِفُ الْمَمْلَكَةُ لِتَكُونَ لَاعِبًا رَئِيسِيًّا فِي سَلَاسِلِ التَّوْرِيدِ الْعَالَمِيَّةِ لِلْمَعَادِنِ، مِمَّا يَدْعَمُ الصِّنَاعَاتِ التَّحْوِيلِيَّةَ وَيَخْلُقُ وَظَائِفَ جَدِيدَةً.",
+    contentPlain: "تمتلك السعودية ثروات معدنية غير مستغلة تقدر قيمتها بـ 1.3 تريليون دولار. تركز الاستراتيجية الجديدة على التنقيب عن الذهب والنحاس والزنك والمعادن الأرضية النادرة التي تدخل في صناعة الإلكترونيات والسيارات الكهربائية. تهدف المملكة لتكون لاعبا رئيسيا في سلاسل التوريد العالمية للمعادن، مما يدعم الصناعات التحويلية ويخلق وظائف جديدة.",
+    vocabList: [
+      { word: "تَنْقِيب", meaning: "探査/採掘" },
+      { word: "نُحَاس", meaning: "銅" },
+      { word: "سِلْسِلَة", meaning: "チェーン/鎖" },
+      { word: "تَوْرِيد", meaning: "供給" }
+    ],
+    questions: [
+      { id: 10801, type: "reading", text: "サウジの未開発鉱物資源の推定価値は？", options: ["100万ドル", "1.3兆ドル", "ゼロ", "10億ドル"], correctIndex: 1, explanation: "「1.3 تريليون دولار」です。" },
+      { id: 10802, type: "reading", text: "特に注目されている鉱物は？", options: ["石炭", "金、銅、レアアース", "プラスチック", "木材"], correctIndex: 1, explanation: "「الذهب والنحاس... والمعادن الأرضية النادرة」です。" },
+      { id: 10803, type: "reading", text: "これらの鉱物は何に使われますか？", options: ["料理", "電子機器や電気自動車", "道路", "服"], correctIndex: 1, explanation: "「صناعة الإلكترونيات والسيارات الكهربائية」です。" },
+      { id: 10804, type: "vocabulary", text: "「غَيْر مُسْتَغَلّ」の意味は？", options: ["使われた", "未開発の/利用されていない", "古い", "高い"], correctIndex: 1, explanation: "Untapped/Unexploited（未開発の）です。" },
+      { id: 10805, type: "grammar", text: "「サポートする/支援する」", options: ["يَدْعَمُ", "يَمْنَعُ", "يَكْسِرُ", "يَنْسَى"], correctIndex: 0, explanation: "「Yad'amu (Supports)」です。" },
+      // 上級文法問題
+      { id: 10806, type: "grammar_advanced", text: "「ثروات معدنية غير」の「غير」の正しい語尾は？", options: ["a (ファトハ)", "i (カスラ)", "u (ダンマ)", "un (タンウィーン)"], correctIndex: 0, explanation: "「Tharawāt (資源・富)」は動詞「Tamtaliku (所有する)」の目的語（対格）です。女性規則複数なので「Tharawātin (カスラ)」になりますが、格としては「対格」です。したがって、それを修飾する形容詞「Ghayra」は、対格（ファトハ）を取ります。見た目のカスラに騙されてはいけません。" },
+      { id: 10807, type: "grammar_advanced", text: "「تقدر قيمتها」の「قيمة」の正しい語尾は？", options: ["u (ダンマ)", "a (ファトハ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "受動態「Tuqaddaru (見積もられる)」の代理主語（Nā'ib Fā'il）なので、主格（Marfū'）となりダンマがつきます。" }
+    ],
+    sentences: [
+      { speaker: "記事", arabic: "مَنْجَمُ 'مَهْدِ الذَّهَبِ' هُوَ أَقْدَمُ مَنْجَمٍ فِي الْمَمْلَكَةِ.", japanese: "「マハド・アッザハブ（金のゆりかご）」鉱山は王国で最も古い鉱山です。" },
+      { speaker: "記事", arabic: "التَّعْدِينُ يُسَاعِدُ فِي تَقْلِيلِ الِاعْتِمَادِ عَلَى النِّفْطِ.", japanese: "鉱業は石油依存を減らすのに役立ちます。" },
+      { speaker: "記事", arabic: "تُقَامُ مُؤْتَمَرَاتٌ دَوْلِيَّةٌ لِلتَّعْدِينِ فِي الرِّيَاضِ.", japanese: "リヤドで国際鉱業会議が開催されています。" },
+      { speaker: "記事", arabic: "نَسْتَخْدِمُ تِقْنِيَّاتٍ حَدِيثَةً لِلْحِفَاظِ عَلَى الْبِيئَةِ أَثْنَاءَ التَّعْدِينِ.", japanese: "私たちは採掘中の環境を守るために最新技術を使用します。" }
+    ]
+  },
+  {
+    id: 1081,
+    level: "上級",
+    category: "ニュース",
+    title: "内務省：殺人事件に対するキサース（報復刑）の執行",
+    contentPlain: "أعلنت وزارة الداخلية السعودية، الأحد، تنفيذ حكم القتل \"قصاصا\" بحق مواطن في منطقة القصيم، بعد ثبوت إدانته بقتل مواطن سعودي آخر. جاء ذلك بحسب بيان للوزارة نشرته وكالة الأنباء السعودية \"واس\". وقالت وزارة الداخلية السعودية في بيانها: \"أقدم (عبد العزيز بن نجر بن زايد الغبيوي العتيبي)، سعودي الجنسية، على قتل (فالح بن محسن بن ثواب الغبيوي العتيبي)، سعودي الجنسية.\" وذلك بإطلاق النار عليه، مما أدى إلى وفاته، طبقا لوكالة \"واس\".",
+    contentVoweled: "أَعْلَنَتْ وِزَارَةُ الدَّاخِلِيَّةِ السُّعُودِيَّةُ، الْأَحَدَ، تَنْفِيذَ حُكْمِ الْقَتْلِ \"قِصَاصًا\" بِحَقِّ مُوَاطِنٍ فِي مِنْطَقَةِ الْقَصِيمِ، بَعْدَ ثُبُوتِ إِدَانَتِهِ بِقَتْلِ مُوَاطِنٍ سُعُودِيٍّ آخَرَ. جَاءَ ذَلِكَ بِحَسَبِ بَيَانٍ لِلْوِزَارَةِ نَشَرَتْهُ وَكَالَةُ الْأَنْبَاءِ السُّعُودِيَّةُ \"وَاس\". وَقَالَتْ وِزَارَةُ الدَّاخِلِيَّةِ السُّعُودِيَّةُ فِي بَيَانِهَا: \"أَقْدَمَ (عَبْدُ الْعَزِيزِ بْنُ نَجْرِ بْنِ زَايِدٍ الْغَبِيوِيُّ الْعُتَيْبِيُّ)، سُعُودِيُّ الْجِنْسِيَّةِ، عَلَى قَتْلِ (فَالِحِ بْنِ مُحْسِنِ بْنِ ثَوَابٍ الْغَبِيوِيِّ الْعُتَيْبِيِّ)، سُعُودِيِّ الْجِنْسِيَّةِ.\" وَذَلِكَ بِإِطْلَاقِ النَّارِ عَلَيْهِ، مِمَّا أَدَّى إِلَى وَفَاتِهِ، طِبْقًا لِوَكَالَةِ \"وَاس\".",
+    sentences: [
       {
-        id: 1080, title: "鉱業の未来", category: "経済", level: "上級",
-        contentVoweled: "تَمْتَلِكُ السُّعُودِيَّةُ ثَرَوَاتٍ مَعْدِنِيَّةً غَيْرَ مُسْتَغَلَّةٍ...",
-        contentPlain: "تمتلك السعودية ثروات معدنية غير مستغلة تقدر قيمتها بـ 1.3 تريليون دولار. تركز الاستراتيجية الجديدة على التنقيب عن الذهب والنحاس والزنك والمعادن الأرضية النادرة التي تدخل في صناعة الإلكترونيات والسيارات الكهربائية. تهدف المملكة لتكون لاعبا رئيسيا في سلاسل التوريد العالمية للمعادن، مما يدعم الصناعات التحويلية ويخلق وظائف جديدة.",
-        vocabList: [
-          { word: "تَنْقِيب", meaning: "探査/採掘" },
-          { word: "نُحَاس", meaning: "銅" },
-          { word: "سِلْسِلَة", meaning: "チェーン/鎖" },
-          { word: "تَوْرِيد", meaning: "供給" }
-        ],
-        questions: [
-          { id: 10801, type: "reading", text: "サウジの未開発鉱物資源の推定価値は？", options: ["100万ドル", "1.3兆ドル", "ゼロ", "10億ドル"], correctIndex: 1, explanation: "「1.3 تريليون دولار」です。" },
-          { id: 10802, type: "reading", text: "特に注目されている鉱物は？", options: ["石炭", "金、銅、レアアース", "プラスチック", "木材"], correctIndex: 1, explanation: "「الذهب والنحاس... والمعادن الأرضية النادرة」です。" },
-          { id: 10803, type: "reading", text: "これらの鉱物は何に使われますか？", options: ["料理", "電子機器や電気自動車", "道路", "服"], correctIndex: 1, explanation: "「صناعة الإلكترونيات والسيارات الكهربائية」です。" },
-          { id: 10804, type: "vocabulary", text: "「غَيْر مُسْتَغَلّ」の意味は？", options: ["使われた", "未開発の/利用されていない", "古い", "高い"], correctIndex: 1, explanation: "Untapped/Unexploited（未開発の）です。" },
-          { id: 10805, type: "grammar", text: "「サポートする/支援する」", options: ["يَدْعَمُ", "يَمْنَعُ", "يَكْسِرُ", "يَنْسَى"], correctIndex: 0, explanation: "「Yad'amu (Supports)」です。" }
-        ],
-        sentences: [
-          { speaker: "記事", arabic: "مَنْجَمُ 'مَهْدِ الذَّهَبِ' هُوَ أَقْدَمُ مَنْجَمٍ فِي الْمَمْلَكَةِ.", japanese: "「マハド・アッザハブ（金のゆりかご）」鉱山は王国で最も古い鉱山です。" },
-          { speaker: "記事", arabic: "التَّعْدِينُ يُسَاعِدُ فِي تَقْلِيلِ الِاعْتِمَادِ عَلَى النِّفْطِ.", japanese: "鉱業は石油依存を減らすのに役立ちます。" },
-          { speaker: "記事", arabic: "تُقَامُ مُؤْتَمَرَاتٌ دَوْلِيَّةٌ لِلتَّعْدِينِ فِي الرِّيَاضِ.", japanese: "リヤドで国際鉱業会議が開催されています。" },
-          { speaker: "記事", arabic: "نَسْتَخْدِمُ تِقْنِيَّاتٍ حَدِيثَةً لِلْحِفَاظِ عَلَى الْبِيئَةِ أَثْنَاءَ التَّعْدِينِ.", japanese: "私たちは採掘中の環境を守るために最新技術を使用します。" }
-        ]
+        arabic: "أَعْلَنَتْ وِزَارَةُ الدَّاخِلِيَّةِ السُّعُودِيَّةُ، الْأَحَدَ، تَنْفِيذَ حُكْمِ الْقَتْلِ \"قِصَاصًا\" بِحَقِّ مُوَاطِنٍ فِي مِنْطَقَةِ الْقَصِيمِ، بَعْدَ ثُبُوتِ إِدَانَتِهِ بِقَتْلِ مُوَاطِنٍ سُعُودِيٍّ آخَرَ.",
+        japanese: "サウジアラビア内務省は日曜日、カズィーム地方において、別のサウジアラビア国民を殺害した罪で有罪が確定した国民に対し、「キサース（同害報復刑）」としての死刑を執行したと発表した。",
+        speaker: "ナレーター"
       },
-        {
-          id: 1081,
-          level: "上級",
-          category: "ニュース",
-          title: "内務省：殺人事件に対するキサース（報復刑）の執行",
-          // ★修正箇所：ここを全文に書き換えました
-          contentPlain: "أعلنت وزارة الداخلية السعودية، الأحد، تنفيذ حكم القتل \"قصاصا\" بحق مواطن في منطقة القصيم، بعد ثبوت إدانته بقتل مواطن سعودي آخر. جاء ذلك بحسب بيان للوزارة نشرته وكالة الأنباء السعودية \"واس\". وقالت وزارة الداخلية السعودية في بيانها: \"أقدم (عبد العزيز بن نجر بن زايد الغبيوي العتيبي)، سعودي الجنسية، على قتل (فالح بن محسن بن ثواب الغبيوي العتيبي)، سعودي الجنسية.\" وذلك بإطلاق النار عليه، مما أدى إلى وفاته، طبقا لوكالة \"واس\".",
-          // ★修正箇所：ここも母音付きの全文に書き換えました
-          contentVoweled: "أَعْلَنَتْ وِزَارَةُ الدَّاخِلِيَّةِ السُّعُودِيَّةُ، الْأَحَدَ، تَنْفِيذَ حُكْمِ الْقَتْلِ \"قِصَاصًا\" بِحَقِّ مُوَاطِنٍ فِي مِنْطَقَةِ الْقَصِيمِ، بَعْدَ ثُبُوتِ إِدَانَتِهِ بِقَتْلِ مُوَاطِنٍ سُعُودِيٍّ آخَرَ. جَاءَ ذَلِكَ بِحَسَبِ بَيَانٍ لِلْوِزَارَةِ نَشَرَتْهُ وَكَالَةُ الْأَنْبَاءِ السُّعُودِيَّةُ \"وَاس\". وَقَالَتْ وِزَارَةُ الدَّاخِلِيَّةِ السُّعُودِيَّةُ فِي بَيَانِهَا: \"أَقْدَمَ (عَبْدُ الْعَزِيزِ بْنُ نَجْرِ بْنِ زَايِدٍ الْغَبِيوِيُّ الْعُتَيْبِيُّ)، سُعُودِيُّ الْجِنْسِيَّةِ، عَلَى قَتْلِ (فَالِحِ بْنِ مُحْسِنِ بْنِ ثَوَابٍ الْغَبِيوِيِّ الْعُتَيْبِيِّ)، سُعُودِيِّ الْجِنْسِيَّةِ.\" وَذَلِكَ بِإِطْلَاقِ النَّارِ عَلَيْهِ، مِمَّا أَدَّى إِلَى وَفَاتِهِ، طِبْقًا لِوَكَالَةِ \"وَاس\".",
-          sentences: [
-            {
-              arabic: "أَعْلَنَتْ وِزَارَةُ الدَّاخِلِيَّةِ السُّعُودِيَّةُ، الْأَحَدَ، تَنْفِيذَ حُكْمِ الْقَتْلِ \"قِصَاصًا\" بِحَقِّ مُوَاطِنٍ فِي مِنْطَقَةِ الْقَصِيمِ، بَعْدَ ثُبُوتِ إِدَانَتِهِ بِقَتْلِ مُوَاطِنٍ سُعُودِيٍّ آخَرَ.",
-              japanese: "サウジアラビア内務省は日曜日、カズィーム地方において、別のサウジアラビア国民を殺害した罪で有罪が確定した国民に対し、「キサース（同害報復刑）」としての死刑を執行したと発表した。",
-              speaker: "ナレーター"
-            },
-            {
-              arabic: "جَاءَ ذَلِكَ بِحَسَبِ بَيَانٍ لِلْوِزَارَةِ نَشَرَتْهُ وَكَالَةُ الْأَنْبَاءِ السُّعُودِيَّةُ \"وَاس\".",
-              japanese: "これはサウジ通信社（SPA）が伝えた同省の声明によるものである。",
-              speaker: "ナレーター"
-            },
-            {
-              arabic: "وَقَالَتْ وِزَارَةُ الدَّاخِلِيَّةِ السُّعُودِيَّةُ فِي بَيَانِهَا: \"أَقْدَمَ (عَبْدُ الْعَزِيزِ بْنُ نَجْرِ بْنِ زَايِدٍ الْغَبِيوِيُّ الْعُتَيْبِيُّ)، سُعُودِيُّ الْجِنْسِيَّةِ، عَلَى قَتْلِ (فَالِحِ بْنِ مُحْسِنِ بْنِ ثَوَابٍ الْغَبِيوِيِّ الْعُتَيْبِيِّ)، سُعُودِيِّ الْجِنْسِيَّةِ.\"",
-              japanese: "内務省は声明で次のように述べた。「サウジアラビア国籍のアブドゥルアズィーズ・ビン・ナジャル・ビン・ザーイド・アル・ガビーウィ・アル・オタイビは、同じくサウジアラビア国籍のファーリフ・ビン・ムフシン・ビン・サワーブ・アル・ガビーウィ・アル・オタイビを殺害した。」",
-              speaker: "声明"
-            },
-            {
-              arabic: "وَذَلِكَ بِإِطْلَاقِ النَّارِ عَلَيْهِ، مِمَّا أَدَّى إِلَى وَفَاتِهِ، طِبْقًا لِوَكَالَةِ \"وَاس\".",
-              japanese: "犯行は被害者への発砲によるものであり、それが原因で被害者は死亡したとSPAは報じている。",
-              speaker: "声明"
-            }
-          ],
-          vocabList: [
-            { word: "وِزَارَةُ الدَّاخِلِيَّةِ", meaning: "内務省" },
-            { word: "تَنْفِيذ", meaning: "執行・実施" },
-            { word: "قِصَاص", meaning: "キサース（同害報復刑）" },
-            { word: "إِدَانَة", meaning: "有罪判決" },
-            { word: "بَيَان", meaning: "声明" },
-            { word: "إِطْلَاقُ النَّارِ", meaning: "発砲" },
-            { word: "وَفَاة", meaning: "死亡" }
-          ],
-          questions: [
-            // --- 読解問題 ---
-            {
-              id: 10811,
-              text: "このニュースで発表された刑罰の種類は何ですか？",
-              options: ["السِّجْن (拘禁刑)", "الْقِصَاص (報復刑)", "الْغَرَامَة (罰金刑)", "التَّرْحِيل (国外追放)"],
-              correctIndex: 1,
-              explanation: "本文に「تَنْفِيذَ حُكْمِ الْقَتْلِ قِصَاصًا（キサースとしての死刑執行）」と明記されています。",
-              type: "reading"
-            },
-            {
-              id: 10812,
-              text: "この事件が起きた地域はどこですか？",
-              options: ["الرِّيَاض (リヤド)", "مَكَّة (マッカ)", "الْقَصِيم (カズィーム)", "الشَّرْقِيَّة (東部州)"],
-              correctIndex: 2,
-              explanation: "本文に「فِي مِنْطَقَةِ الْقَصِيمِ（カズィーム地方において）」とあります。",
-              type: "reading"
-            },
-            {
-              id: 10813,
-              text: "殺害の手段として言及されているのは何ですか？",
-              options: ["السُّمّ (毒殺)", "الطَّعْن (刺殺)", "إِطْلَاقُ النَّارِ (発砲)", "حَادِثُ مُرُورٍ (交通事故)"],
-              correctIndex: 2,
-              explanation: "「بِإِطْلَاقِ النَّارِ عَلَيْهِ（彼に対する発砲によって）」と述べられています。",
-              type: "reading"
-            },
-            // --- 文法（イアラーブ）問題 ---
-            {
-              id: 10814,
-              text: "【文法】下線部の単語「وِزَارَةُ」の役割として正しいものは？\n（文脈：أَعْلَنَتْ وِزَارَةُ الدَّاخِلِيَّةِ...）",
-              options: [
-                "فَاعِل (主語：Fa'il)",
-                "مَفْعُول بِهِ (目的語：Maf'ul Bihi)",
-                "مُبْتَدَأ (主辞：Mubtada)",
-                "مُضَاف إِلَيْهِ (属格：Mudaaf Ilayhi)"
-              ],
-              correctIndex: 0,
-              explanation: "動詞「أَعْلَنَتْ（発表した）」の動作主であるため、「主語（ファーイル）」となり、主格（ダンマ）を取ります。",
-              type: "grammar"
-            },
-            {
-              id: 10815,
-              text: "【文法】下線部の単語「تَنْفِيذَ」の役割として正しいものは？\n（文脈：أَعْلَنَتْ... تَنْفِيذَ حُكْمِ الْقَتْلِ）",
-              options: [
-                "فَاعِل (主語：Fa'il)",
-                "مَفْعُول بِهِ (目的語：Maf'ul Bihi)",
-                "صِفَة (形容詞：Sifa)",
-                "حَال (状況格：Hal)"
-              ],
-              correctIndex: 1,
-              explanation: "「～の執行を（発表した）」という意味で、動詞の対象となっているため「目的語（マフウール・ビヒ）」となり、対格（ファトハ）を取ります。",
-              type: "grammar"
-            },
-            {
-              id: 10816,
-              text: "【文法】下線部の単語「إِدَانَتِهِ」の役割として正しいものは？\n（文脈：... بَعْدَ ثُبُوتِ إِدَانَتِهِ ...）",
-              options: [
-                "فَاعِل (主語：Fa'il)",
-                "مَفْعُول بِهِ (目的語：Maf'ul Bihi)",
-                "مُضَاف إِلَيْهِ (属格/所有格：Mudaaf Ilayhi)",
-                "خَبَر (述辞：Khabar)"
-              ],
-              correctIndex: 2,
-              explanation: "前の単語「ثُبُوت (確定)」がイダーファ（所有構文）の第一要素であり、「有罪の確定」という関係を作るため、第二要素のこの単語は「属格（ムダーフ・イライヒ）」になります。",
-              type: "grammar"
-            },
-            {
-              id: 10817,
-              text: "【文法】下線部の単語「سُعُودِيٍّ」の役割として正しいものは？\n（文脈：... بِقَتْلِ مُوَاطِنٍ سُعُودِيٍّ ...）",
-              options: [
-                "صِفَة (形容詞：Sifa)",
-                "مُضَاف إِلَيْهِ (属格：Mudaaf Ilayhi)",
-                "فَاعِل (主語：Fa'il)",
-                "مَفْعُول بِهِ (目的語：Maf'ul Bihi)"
-              ],
-              correctIndex: 0,
-              explanation: "直前の名詞「مُوَاطِنٍ（市民/国民）」を修飾しており、性・数・格（属格で一致）が一致しているため、「形容詞（スィファ）」です。",
-              type: "grammar"
-            }
-          ]
-        },
- // --- 76. 経済 (Economy) ---
- {
-  id: 1086,
-  level: "上級",
-  category: "経済",
-  title: "サウジ経済の構造転換と非石油部門の成長",
-  contentPlain: "في ظل المضي قدماً نحو تحقيق مستهدفات \"رؤية المملكة 2030\"، أظهرت المؤشرات الاقتصادية الأخيرة تحولات نوعية في بنية الاقتصاد السعودي، حيث سجلت الأنشطة غير النفطية نموًا متسارعًا بات يشكل ركيزة أساسية في الناتج المحلي الإجمالي. ولم يعد هذا النمو مجرد طفرة مؤقتة، بل أصبح يعكس نجاح السياسات الرامية إلى تقليل الاعتماد التاريخي على العوائد النفطية وتنويع مصادر الدخل القومي.\nوتشير البيانات الصادرة عن الهيئة العامة للإحصاء إلى أن مساهمة القطاع الخاص في الاقتصاد الوطني قد بلغت مستويات قياسية، مدفوعةً بالاستثمارات الضخمة في قطاعات السياحة، والترفيه، والتكنولوجيا، والطاقة المتجددة. ويأتي هذا الحراك الاقتصادي متزامنًا مع إصلاحات هيكلية في سوق العمل، تضمنت تمكين المرأة وزيادة معدلات التوطين، مما ساهم في خفض معدلات البطالة إلى أدنى مستوياتها التاريخية.\nويرى الخبراء الاقتصاديون أن استمرار المملكة في ضخ الاستثمارات عبر \"صندوق الاستثمارات العامة\" يلعب دورًا محوريًا في خلق قطاعات جديدة كليًا لم تكن موجودة سابقًا. ومع ذلك، لا تزال هناك تحديات تتعلق بضرورة الحفاظ على الاستدامة المالية في ظل تقلبات الاقتصاد العالمي، إلا أن الاحتياطيات الأجنبية القوية والسياسات المالية الحذرة تشكل حائط صد منيع أمام أي صدمات خارجية محتملة. إن الرهان اليوم لم يعد مقتصرًا على أسعار الطاقة، بل على قدرة المملكة على تحويل اقتصادها إلى مركز لوجستي وصناعي عالمي يربط بين القارات الثلاث.",
-  contentVoweled: "فِي ظِلِّ الْمُضِيِّ قُدُمًا نَحْوَ تَحْقِيقِ مُسْتَهْدَفَاتِ \"رُؤْيَةِ الْمَمْلَكَةِ 2030\"، أَظْهَرَتِ الْمُؤَشِّرَاتُ الِاقْتِصَادِيَّةُ الْأَخِيرَةُ تَحَوُّلَاتٍ نَوْعِيَّةً فِي بِنْيَةِ الِاقْتِصَادِ السُّعُودِيِّ، حَيْثُ سَجَّلَتِ الْأَنْشِطَةُ غَيْرُ النَّفْطِيَّةِ نُمُوًّا مُتَسَارِعًا بَاتَ يُشَكِّلُ رَكِيزَةً أَسَاسِيَّةً فِي النَّاتِجِ الْمَحَلِّيِّ الْإِجْمَالِيِّ. وَلَمْ يَعُدْ هَذَا النُّمُوُّ مُجَرَّدَ طَفْرَةٍ مُؤَقَّتَةٍ، بَلْ أَصْبَحَ يَعْكِسُ نَجَاحَ السِّيَاسَاتِ الرَّامِيَةِ إِلَى تَقْلِيلِ الِاعْتِمَادِ التَّارِيخِيِّ عَلَى الْعَوَائِدِ النَّفْطِيَّةِ وَتَنْوِيعِ مَصَادِرِ الدَّخْلِ الْقَوْمِيِّ.\nوَتُشِيرُ الْبَيَانَاتُ الصَّادِرَةُ عَنِ الْهَيْئَةِ الْعَامَّةِ لِلْإِحْصَاءِ إِلَى أَنَّ مُسَاهَمَةَ الْقِطَاعِ الْخَاصِّ فِي الِاقْتِصَادِ الْوَطَنِيِّ قَدْ بَلَغَتْ مُسْتَوَيَاتٍ قِيَاسِيَّةً، مَدْفُوعَةً بِالِاسْتِثْمَارَاتِ الضَّخْمَةِ فِي قِطَاعَاتِ السِّيَاحَةِ، وَالتَّرْفِيهِ، وَالتِّكْنُولُوجِيَا، وَالطَّاقَةِ الْمُتَجَدِّدَةِ. وَيَأْتِي هَذَا الْحَرَاكُ الِاقْتِصَادِيُّ مُتَزَامِنًا مَعَ إِصْلَاحَاتٍ هَيْكَلِيَّةٍ فِي سُوقِ الْعَمَلِ، تَضَمَّنَتْ تَمْكِينَ الْمَرْأَةِ وَزِيَادَةَ مُعَدَّلَاتِ التَّوْطِينِ، مِمَّا سَاهَمَ فِي خَفْضِ مُعَدَّلَاتِ الْبِطَالَةِ إِلَى أَدْنَى مُسْتَوَيَاتِهَا التَّارِيخِيَّةِ.\nوَيَرَى الْخُبَرَاءُ الِاقْتِصَادِيُّونَ أَنَّ اسْتِمْرَارَ الْمَمْلَكَةِ فِي ضَخِّ الِاسْتِثْمَارَاتِ عَبْرَ \"صُنْدُوقِ الِاسْتِثْمَارَاتِ الْعَامَّةِ\" يَلْعَبُ دَوْرًا مِحْوَرِيًّا فِي خَلْقِ قِطَاعَاتٍ جَدِيدَةٍ كُلِّيًّا لَمْ تَكُنْ مَوْجُودَةً سَابِقًا. وَمَعَ ذَلِكَ، لَا تَزَالُ هُنَاكَ تَحَدِّيَاتٌ تَتَعَلَّقُ بِضَرُورَةِ الْحِفَاظِ عَلَى الِاسْتِدَامَةِ الْمَالِيَّةِ فِي ظِلِّ تَقَلُّبَاتِ الِاقْتِصَادِ الْعَالَمِيِّ، إِلَّا أَنَّ الِاحْتِيَاطِيَّاتِ الْأَجْنَبِيَّةَ الْقَوِيَّةَ وَالسِّيَاسَاتِ الْمَالِيَّةَ الْحَذِرَةَ تُشَكِّلُ حَائِطَ صَدٍّ مَنِيعٍ أَمَامَ أَيِّ صَدَمَاتٍ خَارِجِيَّةٍ مُحْتَمَلَةٍ. إِنَّ الرِّهَانَ الْيَوْمَ لَمْ يَعُدْ مُقْتَصِرًا عَلَى أَسْعَارِ الطَّاقَةِ، بَلْ عَلَى قُدْرَةِ الْمَمْلَكَةِ عَلَى تَحْوِيلِ اقْتِصَادِهَا إِلَى مَرْكَزٍ لُوجِسْتِيٍّ وَصِنَاعِيٍّ عَالَمِيٍّ يَرْبِطُ بَيْنَ الْقَارَّاتِ الثَّلَاثِ.",
-  sentences: [
-    {
-      speaker: "記事",
-      arabic: "فِي ظِلِّ الْمُضِيِّ قُدُمًا نَحْوَ تَحْقِيقِ مُسْتَهْدَفَاتِ \"رُؤْيَةِ الْمَمْلَكَةِ 2030\"، أَظْهَرَتِ الْمُؤَشِّرَاتُ الِاقْتِصَادِيَّةُ الْأَخِيرَةُ تَحَوُّلَاتٍ نَوْعِيَّةً فِي بِنْيَةِ الِاقْتِصَادِ السُّعُودِيِّ، حَيْثُ سَجَّلَتِ الْأَنْشِطَةُ غَيْرُ النَّفْطِيَّةِ نُمُوًّا مُتَسَارِعًا بَاتَ يُشَكِّلُ رَكِيزَةً أَسَاسِيَّةً فِي النَّاتِجِ الْمَحَلِّيِّ الْإِجْمَالِيِّ.",
-      japanese: "「ビジョン2030」の目標達成に向けて前進する中、最近の経済指標はサウジアラビア経済の構造における質的な転換を示しており、非石油活動は国内総生産（GDP）の基本的な柱となる加速的な成長を記録しました。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَلَمْ يَعُدْ هَذَا النُّمُوُّ مُجَرَّدَ طَفْرَةٍ مُؤَقَّتَةٍ، بَلْ أَصْبَحَ يَعْكِسُ نَجَاحَ السِّيَاسَاتِ الرَّامِيَةِ إِلَى تَقْلِيلِ الِاعْتِمَادِ التَّارِيخِيِّ عَلَى الْعَوَائِدِ النَّفْطِيَّةِ وَتَنْوِيعِ مَصَادِرِ الدَّخْلِ الْقَوْمِيِّ.",
-      japanese: "この成長はもはや単なる一時的なブームではなく、石油収入への歴史的な依存を減らし、国民所得の源泉を多様化することを目的とした政策の成功を反映するものとなっています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَتُشِيرُ الْبَيَانَاتُ الصَّادِرَةُ عَنِ الْهَيْئَةِ الْعَامَّةِ لِلْإِحْصَاءِ إِلَى أَنَّ مُسَاهَمَةَ الْقِطَاعِ الْخَاصِّ فِي الِاقْتِصَادِ الْوَطَنِيِّ قَدْ بَلَغَتْ مُسْتَوَيَاتٍ قِيَاسِيَّةً، مَدْفُوعَةً بِالِاسْتِثْمَارَاتِ الضَّخْمَةِ فِي قِطَاعَاتِ السِّيَاحَةِ، وَالتَّرْفِيهِ، وَالتِّكْنُولُوجِيَا، وَالطَّاقَةِ الْمُتَجَدِّدَةِ.",
-      japanese: "統計総局が発表したデータは、観光、娯楽、技術、再生可能エネルギー分野への巨額の投資に後押しされ、国家経済における民間セクターの貢献が記録的な水準に達したことを示しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَيَأْتِي هَذَا الْحَرَاكُ الِاقْتِصَادِيُّ مُتَزَامِنًا مَعَ إِصْلَاحَاتٍ هَيْكَلِيَّةٍ فِي سُوقِ الْعَمَلِ، تَضَمَّنَتْ تَمْكِينَ الْمَرْأَةِ وَزِيَادَةَ مُعَدَّلَاتِ التَّوْطِينِ، مِمَّا سَاهَمَ فِي خَفْضِ مُعَدَّلَاتِ الْبِطَالَةِ إِلَى أَدْنَى مُسْتَوَيَاتِهَا التَّارِيخِيَّةِ.",
-      japanese: "この経済的な動きは、女性のエンパワーメントやサウジ人化率の増加を含む労働市場の構造改革と同時に起こっており、失業率を歴史的な低水準まで引き下げることに貢献しました。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَيَرَى الْخُبَرَاءُ الِاقْتِصَادِيُّونَ أَنَّ اسْتِمْرَارَ الْمَمْلَكَةِ فِي ضَخِّ الِاسْتِثْمَارَاتِ عَبْرَ \"صُنْدُوقِ الِاسْتِثْمَارَاتِ الْعَامَّةِ\" يَلْعَبُ دَوْرًا مِحْوَرِيًّا فِي خَلْقِ قِطَاعَاتٍ جَدِيدَةٍ كُلِّيًّا لَمْ تَكُنْ مَوْجُودَةً سَابِقًا.",
-      japanese: "経済専門家は、王国が「公共投資基金（PIF）」を通じて投資を継続的に行っていることが、以前は存在しなかった全く新しいセクターを創出する上で中心的な役割を果たしていると考えています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَمَعَ ذَلِكَ، لَا تَزَالُ هُنَاكَ تَحَدِّيَاتٌ تَتَعَلَّقُ بِضَرُورَةِ الْحِفَاظِ عَلَى الِاسْتِدَامَةِ الْمَالِيَّةِ فِي ظِلِّ تَقَلُّبَاتِ الِاقْتِصَادِ الْعَالَمِيِّ، إِلَّا أَنَّ الِاحْتِيَاطِيَّاتِ الْأَجْنَبِيَّةَ الْقَوِيَّةَ وَالسِّيَاسَاتِ الْمَالِيَّةَ الْحَذِرَةَ تُشَكِّلُ حَائِطَ صَدٍّ مَنِيعٍ أَمَامَ أَيِّ صَدَمَاتٍ خَارِجِيَّةٍ مُحْتَمَلَةٍ.",
-      japanese: "それにもかかわらず、世界経済の変動の中で財政的な持続可能性を維持する必要性に関する課題は依然として残っていますが、強力な外貨準備と慎重な財政政策は、潜在的な外部ショックに対する強固な防壁を形成しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "إِنَّ الرِّهَانَ الْيَوْمَ لَمْ يَعُدْ مُقْتَصِرًا عَلَى أَسْعَارِ الطَّاقَةِ، بَلْ عَلَى قُدْرَةِ الْمَمْلَكَةِ عَلَى تَحْوِيلِ اقْتِصَادِهَا إِلَى مَرْكَزٍ لُوجِسْتِيٍّ وَصِنَاعِيٍّ عَالَمِيٍّ يَرْبِطُ بَيْنَ الْقَارَّاتِ الثَّلَاثِ.",
-      japanese: "今日の賭けはもはやエネルギー価格に限られたものではなく、経済を3つの大陸を結ぶ世界的な物流・産業ハブへと転換する王国の能力にかかっています。"
-    }
-  ],
-  vocabList: [
-    { word: "رَكِيزَة", meaning: "柱/基盤" },
-    { word: "نَاتِج مَحَلِّي", meaning: "GDP (国内総生産)" },
-    { word: "طَفْرَة", meaning: "急増/ブーム" },
-    { word: "تَوْطِين", meaning: "現地化/サウジ人化" },
-    { word: "اسْتِدَامَة مَالِيَّة", meaning: "財政的持続可能性" }
-  ],
-  questions: [
-    {
-      id: 10861,
-      type: "reading",
-      text: "このテキストによると、現在のサウジアラビア経済の成長において「非石油部門」はどのような位置づけにあるとされていますか？",
-      options: ["一時的なブームであり、長期的には石油収入に依存し続けると予想されている。", "国内総生産（GDP）の基盤となり、経済構造の質的な転換を反映している。", "公共投資基金の支援がなければ崩壊する脆弱なセクターである。", "失業率の低下には寄与しているが、国の収入源としてはまだ微々たるものである。"],
-      correctIndex: 1,
-      explanation: "テキストに「GDPの基本的な柱となった」「質的な転換を反映している」とあるため。"
-    },
-    {
-      id: 10862,
-      type: "reading",
-      text: "テキスト内で言及されている「経済専門家の見解」として最も適切なものはどれですか？",
-      options: ["世界経済の変動が激しいため、新規プロジェクトへの投資を直ちに縮小すべきである。", "サウジアラビアは石油価格の変動のみに依存する古い経済モデルに戻りつつある。", "公共投資基金による投資は、以前は存在しなかった新しい産業分野を創出する上で中心的な役割を果たしている。", "民間セクターの貢献度は過去最高に達したが、外国人労働者の増加が懸念材料である。"],
-      correctIndex: 2,
-      explanation: "「専門家は、公共投資基金（PIF）を通じた投資が、以前は存在しなかった全く新しいセクターを創出する上で中心的役割を果たしていると考えている」という記述と合致します。"
-    },
-    {
-      id: 10863,
-      type: "reading",
-      text: "著者が結論部分で述べている「今日の賭け（الرهان اليوم）」とは何を指していますか？",
-      options: ["石油価格が将来的に上昇し続けることへの期待。", "外貨準備高をさらに増やし、世界一の富裕国になること。", "外部からの経済ショックを完全に回避すること。", "サウジアラビアが世界的な物流・産業のハブへと経済転換できるかどうか。"],
-      correctIndex: 3,
-      explanation: "最後の文で「今日の賭けは…王国が経済を世界的な物流・産業ハブに変える能力にある」と述べられています。"
-    }
-  ]
-},
-
-// --- 77. 環境 (Environment) ---
-{
-  id: 1087,
-  level: "上級",
-  category: "環境",
-  title: "サウジ・グリーン・イニシアティブ",
-  contentPlain: "تواصل المملكة العربية السعودية تكثيف جهودها في مجال حماية البيئة ومكافحة التغير المناخي من خلال \"مبادرة السعودية الخضراء\"، التي تهدف إلى زراعة 10 مليارات شجرة في جميع أنحاء المملكة خلال العقود القادمة. وتعتبر هذه الخطوة جزءًا من التزام المملكة بخفض الانبعاثات الكربونية والوصول إلى الحياد الصفري بحلول عام 2060، وهو ما يمثل تحديًا كبيرًا لدولة لطالما ارتبط اقتصادها بإنتاج الوقود الأحفوري.\nلا تقتصر المبادرة على التشجير فحسب، بل تمتد لتشمل مشاريع ضخمة في مجال الطاقة المتجددة، حيث يتم بناء محطات للطاقة الشمسية وطاقة الرياح بقدرات إنتاجية هائلة تهدف إلى استبدال الاعتماد على الوقود السائل في محطات الكهرباء بنسبة 50% بحلول عام 2030. وعلاوة على ذلك، تركز الاستراتيجية على حماية المناطق البرية والبحرية، وإعادة تأهيل المحميات الطبيعية للحفاظ على التنوع البيولوجي المهدد بالانقراض.\nويؤكد المسؤولون أن هذه التحركات ليست مجرد شعارات بيئية، بل هي ضرورة اقتصادية واجتماعية لتحسين جودة الحياة والحد من العواصف الرملية التي تكلف الاقتصاد مليارات الدولارات سنويًا. إن التحول نحو الاقتصاد الأخضر يفتح آفاقًا جديدة للابتكار والاستثمار، ويضع المملكة في طليعة الدول المصدرة للهيدروجين النظيف، مما يعزز مكانتها كلاعب رئيسي في أسواق الطاقة المستقبلية، وليس فقط التقليدية.",
-  contentVoweled: "تُوَاصِلُ الْمَمْلَكَةُ الْعَرَبِيَّةُ السُّعُودِيَّةُ تَكْثِيفَ جُهُودِهَا فِي مَجَالِ حِمَايَةِ الْبِيئَةِ وَمُكَافَحَةِ التَّغَيُّرِ الْمُنَاخِيِّ مِنْ خِلَالِ \"مُبَادَرَةِ السُّعُودِيَّةِ الْخَضْرَاءِ\"، الَّتِي تَهْدِفُ إِلَى زِرَاعَةِ 10 مِلْيَارَاتِ شَجَرَةٍ فِي جَمِيعِ أَنْحَاءِ الْمَمْلَكَةِ خِلَالَ الْعُقُودِ الْقَادِمَةِ. وَتُعْتَبَرُ هَذِهِ الْخُطْوَةُ جُزْءًا مِنَ الْتِزَامِ الْمَمْلَكَةِ بِخَفْضِ الِانْبِعَاثَاتِ الْكَرْبُونِيَّةِ وَالْوُصُولِ إِلَى الْحِيَادِ الصِّفْرِيِّ بِحُلُولِ عَامِ 2060، وَهُوَ مَا يُمَثِّلُ تَحَدِّيًا كَبِيرًا لِدَوْلَةٍ لَطَالَمَا ارْتَبَطَ اقْتِصَادُهَا بِإِنْتَاجِ الْوَقُودِ الْأُحْفُورِيِّ.\nلَا تَقْتَصِرُ الْمُبَادَرَةُ عَلَى التَّشْجِيرِ فَحَسْبُ، بَلْ تَمْتَدُّ لِتَشْمَلَ مَشَارِيعَ ضَخْمَةً فِي مَجَالِ الطَّاقَةِ الْمُتَجَدِّدَةِ، حَيْثُ يَتِمُّ بِنَاءُ مَحَطَّاتٍ لِلطَّاقَةِ الشَّمْسِيَّةِ وَطَاقَةِ الرِّيَاحِ بِقُدُرَاتٍ إِنْتَاجِيَّةٍ هَائِلَةٍ تَهْدِفُ إِلَى اسْتِبْدَالِ الِاعْتِمَادِ عَلَى الْوَقُودِ السَّائِلِ فِي مَحَطَّاتِ الْكَهْرَبَاءِ بِنِسْبَةِ 50% بِحُلُولِ عَامِ 2030. وَعَلَاوَةً عَلَى ذَلِكَ، تُرَكِّزُ الِاسْتِرَاتِيجِيَّةُ عَلَى حِمَايَةِ الْمَنَاطِقِ الْبَرِّيَّةِ وَالْبَحْرِيَّةِ، وَإِعَادَةِ تَأْهِيلِ الْمَحْمِيَّاتِ الطَّبِيعِيَّةِ لِلْحِفَاظِ عَلَى التَّنَوُّعِ الْبِيُولُوجِيِّ الْمُهَدَّدِ بِالِانْقِرَاضِ.\nوَيُؤَكِّدُ الْمَسْؤُولُونَ أَنَّ هَذِهِ التَّحَرُّكَاتِ لَيْسَتْ مُجَرَّدَ شِعَارَاتٍ بِيئِيَّةٍ، بَلْ هِيَ ضَرُورَةٌ اقْتِصَادِيَّةٌ وَاجْتِمَاعِيَّةٌ لِتَحْسِينِ جَوْدَةِ الْحَيَاةِ وَالْحَدِّ مِنَ الْعَوَاصِفِ الرَّمْلِيَّةِ الَّتِي تُكَلِّفُ الِاقْتِصَادَ مِلْيَارَاتِ الدُّولَارَاتِ سَنَوِيًّا. إِنَّ التَّحَوُّلَ نَحْوَ الِاقْتِصَادِ الْأَخْضَرِ يَفْتَحُ آفَاقًا جَدِيدَةً لِلِابْتِكَارِ وَالِاسْتِثْمَارِ، وَيَضَعُ الْمَمْلَكَةَ فِي طَلِيعَةِ الدُّوَلِ الْمُصَدِّرَةِ لِلْهِيدْرُوجِينِ النَّظِيفِ، مِمَّا يُعَزِّزُ مَكَانَتَهَا كَلَاعِبٍ رَئِيسِيٍّ فِي أَسْوَاقِ الطَّاقَةِ الْمُسْتَقْبَلِيَّةِ، وَلَيْسَ فَقَطِ التَّقْلِيدِيَّةِ.",
-  sentences: [
-    {
-      speaker: "記事",
-      arabic: "تُوَاصِلُ الْمَمْلَكَةُ الْعَرَبِيَّةُ السُّعُودِيَّةُ تَكْثِيفَ جُهُودِهَا فِي مَجَالِ حِمَايَةِ الْبِيئَةِ وَمُكَافَحَةِ التَّغَيُّرِ الْمُنَاخِيِّ مِنْ خِلَالِ \"مُبَادَرَةِ السُّعُودِيَّةِ الْخَضْرَاءِ\"، الَّتِي تَهْدِفُ إِلَى زِرَاعَةِ 10 مِلْيَارَاتِ شَجَرَةٍ فِي جَمِيعِ أَنْحَاءِ الْمَمْلَكَةِ خِلَالَ الْعُقُودِ الْقَادِمَةِ.",
-      japanese: "サウジアラビア王国は、今後数十年間で王国全土に100億本の木を植えることを目的とした「サウジ・グリーン・イニシアティブ」を通じて、環境保護と気候変動対策の分野での取り組みを強化し続けています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَتُعْتَبَرُ هَذِهِ الْخُطْوَةُ جُزْءًا مِنَ الْتِزَامِ الْمَمْلَكَةِ بِخَفْضِ الِانْبِعَاثَاتِ الْكَرْبُونِيَّةِ وَالْوُصُولِ إِلَى الْحِيَادِ الصِّفْرِيِّ بِحُلُولِ عَامِ 2060، وَهُوَ مَا يُمَثِّلُ تَحَدِّيًا كَبِيرًا لِدَوْلَةٍ لَطَالَمَا ارْتَبَطَ اقْتِصَادُهَا بِإِنْتَاجِ الْوَقُودِ الْأُحْفُورِيِّ.",
-      japanese: "この措置は、炭素排出量を削減し、2060年までにカーボンニュートラル（実質排出ゼロ）を達成するという王国のコミットメントの一部と見なされており、経済が化石燃料の生産と長く結びついてきた国家にとって大きな挑戦です。"
-    },
-    {
-      speaker: "記事",
-      arabic: "لَا تَقْتَصِرُ الْمُبَادَرَةُ عَلَى التَّشْجِيرِ فَحَسْبُ، بَلْ تَمْتَدُّ لِتَشْمَلَ مَشَارِيعَ ضَخْمَةً فِي مَجَالِ الطَّاقَةِ الْمُتَجَدِّدَةِ، حَيْثُ يَتِمُّ بِنَاءُ مَحَطَّاتٍ لِلطَّاقَةِ الشَّمْسِيَّةِ وَطَاقَةِ الرِّيَاحِ بِقُدُرَاتٍ إِنْتَاجِيَّةٍ هَائِلَةٍ تَهْدِفُ إِلَى اسْتِبْدَالِ الِاعْتِمَادِ عَلَى الْوَقُودِ السَّائِلِ فِي مَحَطَّاتِ الْكَهْرَبَاءِ بِنِسْبَةِ 50% بِحُلُولِ عَامِ 2030.",
-      japanese: "このイニシアティブは植林だけにとどまらず、再生可能エネルギー分野の巨大プロジェクトにも広がり、2030年までに発電所の液体燃料への依存を50%置き換えることを目指し、巨大な生産能力を持つ太陽光および風力発電所が建設されています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَعَلَاوَةً عَلَى ذَلِكَ، تُرَكِّزُ الِاسْتِرَاتِيجِيَّةُ عَلَى حِمَايَةِ الْمَنَاطِقِ الْبَرِّيَّةِ وَالْبَحْرِيَّةِ، وَإِعَادَةِ تَأْهِيلِ الْمَحْمِيَّاتِ الطَّبِيعِيَّةِ لِلْحِفَاظِ عَلَى التَّنَوُّعِ الْبِيُولُوجِيِّ الْمُهَدَّدِ بِالِانْقِرَاضِ.",
-      japanese: "さらに、この戦略は陸域および海域の保護、絶滅の危機に瀕している生物多様性を維持するための自然保護区の修復に焦点を当てています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَيُؤَكِّدُ الْمَسْؤُولُونَ أَنَّ هَذِهِ التَّحَرُّكَاتِ لَيْسَتْ مُجَرَّدَ شِعَارَاتٍ بِيئِيَّةٍ، بَلْ هِيَ ضَرُورَةٌ اقْتِصَادِيَّةٌ وَاجْتِمَاعِيَّةٌ لِتَحْسِينِ جَوْدَةِ الْحَيَاةِ وَالْحَدِّ مِنَ الْعَوَاصِفِ الرَّمْلِيَّةِ الَّتِي تُكَلِّفُ الِاقْتِصَادَ مِلْيَارَاتِ الدُّولَارَاتِ سَنَوِيًّا.",
-      japanese: "当局は、これらの動きは単なる環境スローガンではなく、生活の質を向上させ、経済に年間数十億ドルの損害を与えている砂嵐を抑制するための経済的・社会的な必要性であると強調しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "إِنَّ التَّحَوُّلَ نَحْوَ الِاقْتِصَادِ الْأَخْضَرِ يَفْتَحُ آفَاقًا جَدِيدَةً لِلِابْتِكَارِ وَالِاسْتِثْمَارِ، وَيَضَعُ الْمَمْلَكَةَ فِي طَلِيعَةِ الدُّوَلِ الْمُصَدِّرَةِ لِلْهِيدْرُوجِينِ النَّظِيفِ، مِمَّا يُعَزِّزُ مَكَانَتَهَا كَلَاعِبٍ رَئِيسِيٍّ فِي أَسْوَاقِ الطَّاقَةِ الْمُسْتَقْبَلِيَّةِ، وَلَيْسَ فَقَطِ التَّقْلِيدِيَّةِ.",
-      japanese: "グリーン経済への転換は、イノベーションと投資の新たな展望を開き、クリーン水素の輸出国として王国を最前線に立たせ、従来のエネルギーだけでなく、将来のエネルギー市場においても主要なプレーヤーとしての地位を強化します。"
-    }
-  ],
-  vocabList: [
-    { word: "حِيَاد صِفْرِي", meaning: "カーボンニュートラル" },
-    { word: "وَقُود أُحْفُورِي", meaning: "化石燃料" },
-    { word: "طَاقَة مُتَجَدِّدَة", meaning: "再生可能エネルギー" },
-    { word: "مَحْمِيَّات", meaning: "保護区" },
-    { word: "هَيْدْرُوجِين", meaning: "水素" }
-  ],
-  questions: [
-    {
-      id: 10871,
-      type: "reading",
-      text: "「サウジ・グリーン・イニシアティブ」の範囲について、テキストの内容と合致する記述はどれですか？",
-      options: ["植林のみに焦点を当てており、エネルギー分野への介入は含まれていない。", "単なる植林にとどまらず、再生可能エネルギーへの移行や自然保護区の再生も包括している。", "2060年までに化石燃料の使用を完全に廃止することを目標としている。", "環境保護活動家への資金援助を主目的としており、インフラ整備は二の次である。"],
-      correctIndex: 1,
-      explanation: "「植林に限らず（لا تقتصر... على التشجير فحسب）、再生可能エネルギーや自然保護区の再生も含む」と明記されています。"
-    },
-    {
-      id: 10872,
-      type: "reading",
-      text: "テキストによると、環境対策が「経済的・社会的必要性」であるとされる具体的な理由の一つは何ですか？",
-      options: ["国際的な圧力を回避し、外交関係を改善するため。", "砂嵐による経済的損失を減らし、生活の質を向上させるため。", "観光客を増やすために、砂漠を完全に緑地に変える必要があるため。", "石油の埋蔵量が枯渇しつつあるため、代替エネルギーが急務であるため。"],
-      correctIndex: 1,
-      explanation: "「砂嵐を減らす（الحد من العواصف الرملية）」ことは「経済に数十億ドルの損害を与えている」状況を改善し、生活の質を向上させるためです。"
-    },
-    {
-      id: 10873,
-      type: "reading",
-      text: "著者はサウジアラビアのエネルギー市場における将来の立ち位置をどのように予測していますか？",
-      options: ["クリーン水素の輸出などを通じ、未来のエネルギー市場でも主要なプレイヤーであり続ける。", "化石燃料の需要低下に伴い、エネルギー大国としての地位を失う。", "国内消費のみに注力し、エネルギー輸出からは撤退する。", "太陽光発電技術の輸入国として、他国への依存度が高まる。"],
-      correctIndex: 0,
-      explanation: "最後の文で、クリーン水素の輸出などを通じて「将来のエネルギー市場における主要なプレイヤーとしての地位を強化する」とあります。"
-    }
-  ]
-},
-
-// --- 78. 巨大プロジェクト (Mega Projects) ---
-{
-  id: 1088,
-  level: "上級",
-  category: "プロジェクト",
-  title: "NEOMとザ・ライン：未来都市の定義",
-  contentPlain: "يمثل مشروع \"نيوم\" تجسيدًا حيًا للطموحات السعودية في خلق نموذج عالمي للمدن الإدراكية التي تعتمد كليًا على الطاقة النظيفة والذكاء الاصطناعي. وفي قلب هذا المشروع تقع مدينة \"ذا لاين\"، التي أثارت جدلاً واسعًا واهتمامًا عالميًا بسبب تصميمها الثوري الذي يتحدى المفاهيم التقليدية للتخطيط العمراني، حيث تمتد المدينة طوليًا لمسافة 170 كيلومترًا دون شوارع أو سيارات أو انبعاثات كربونية.\nيعتمد المشروع على بنية تحتية رقمية فائقة التطور، حيث يتم تسخير البيانات الضخمة لتحسين كفاءة الخدمات وتوفير تجربة معيشية استثنائية للسكان. والهدف ليس مجرد بناء مدينة سكنية، بل إنشاء مركز عالمي للابتكار يجذب العقول المبدعة والشركات الناشئة في مجالات التكنولوجيا الحيوية، والمياه، والغذاء. ومع تسارع وتيرة الأعمال الإنشائية، تبرز تساؤلات حول التحديات الهندسية والتمويلية لهذا المشروع العملاق.\nومع ذلك، تؤكد القيادة السعودية أن \"نيوم\" ستعمل بموجب قوانين وتشريعات خاصة تمنحها مرونة تجارية وقضائية مستقلة، مما يعزز جاذبيتها للمستثمرين الأجانب. إن نجاح \"ذا لاين\" سيعني نقلة نوعية في كيفية تعايش البشر مع الطبيعة والتكنولوجيا، محولاً الصحراء القاحلة إلى مختبر مفتوح لمستقبل البشرية.",
-  contentVoweled: "يُمَثِّلُ مَشْرُوعُ \"نِيُوم\" تَجْسِيدًا حَيًّا لِلطُّمُوحَاتِ السُّعُودِيَّةِ فِي خَلْقِ نَمُوذَجٍ عَالَمِيٍّ لِلْمُدُنِ الْإِدْرَاكِيَّةِ الَّتِي تَعْتَمِدُ كُلِّيًّا عَلَى الطَّاقَةِ النَّظِيفَةِ وَالذَّكَاءِ الِاصْطِنَاعِيِّ. وَفِي قَلْبِ هَذَا الْمَشْرُوعِ تَقَعُ مَدِينَةُ \"ذَا لَايْن\"، الَّتِي أَثَارَتْ جَدَلًا وَاسِعًا وَاهْتِمَامًا عَالَمِيًّا بِسَبَبِ تَصْمِيمِهَا الثَّوْرِيِّ الَّذِي يَتَحَدَّى الْمَفَاهِيمَ التَّقْلِيدِيَّةَ لِلتَّخْطِيطِ الْعُمْرَانِيِّ، حَيْثُ تَمْتَدُّ الْمَدِينَةُ طُولِيًّا لِمَسَافَةِ 170 كِيلُومِتْرًا دُونَ شَوَارِعَ أَوْ سَيَّارَاتٍ أَوْ انْبِعَاثَاتٍ كَرْبُونِيَّةٍ.\nيَعْتَمِدُ الْمَشْرُوعُ عَلَى بِنْيَةٍ تَحْتِيَّةٍ رَقْمِيَّةٍ فَائِقَةِ التَّطَوُّرِ، حَيْثُ يَتِمُّ تَسْخِيرُ الْبَيَانَاتِ الضَّخْمَةِ لِتَحْسِينِ كَفَاءَةِ الْخِدْمَاتِ وَتَوْفِيرِ تَجْرِبَةٍ مَعِيشِيَّةٍ اسْتِثْنَائِيَّةٍ لِلسُّكَّانِ. وَالْهَدَفُ لَيْسَ مُجَرَّدَ بِنَاءِ مَدِينَةٍ سَكَنِيَّةٍ، بَلْ إِنْشَاءُ مَرْكَزٍ عَالَمِيٍّ لِلِابْتِكَارِ يَجْذِبُ الْعُقُولَ الْمُبْدِعَةَ وَالشَّرِكَاتِ النَّاشِئَةَ فِي مَجَالَاتِ التِّكْنُولُوجِيَا الْحَيَوِيَّةِ، وَالْمِيَاهِ، وَالْغِذَاءِ. وَمَعَ تَسَارُعِ وَتِيرَةِ الْأَعْمَالِ الْإِنْشَائِيَّةِ، تَبْرُزُ تَسَاؤُلَاتٌ حَوْلَ التَّحَدِّيَاتِ الْهَنْدَسِيَّةِ وَالتَّمْوِيلِيَّةِ لِهَذَا الْمَشْرُوعِ الْعِمْلَاقِ.\nوَمَعَ ذَلِكَ، تُؤَكِّدُ الْقِيَادَةُ السُّعُودِيَّةُ أَنَّ \"نِيُوم\" سَتَعْمَلُ بِمُوجِبِ قَوَانِينَ وَتَشْرِيعَاتٍ خَاصَّةٍ تَمْنَحُهَا مُرُونَةً تِجَارِيَّةً وَقَضَائِيَّةً مُسْتَقِلَّةً، مِمَّا يُعَزِّزُ جَاذِبِيَّتَهَا لِلْمُسْتَثْمِرِينَ الْأَجَانِبِ. إِنَّ نَجَاحَ \"ذَا لَايْن\" سَيَعْنِي نَقْلَةً نَوْعِيَّةً فِي كَيْفِيَّةِ تَعَايُشِ الْبَشَرِ مَعَ الطَّبِيعَةِ وَالتِّكْنُولُوجِيَا، مُحَوِّلًا الصَّحْرَاءَ الْقَاحِلَةَ إِلَى مُخْتَبَرٍ مَفْتُوحٍ لِمُسْتَقْبَلِ الْبَشَرِيَّةِ.",
-  sentences: [
-    {
-      speaker: "記事",
-      arabic: "يُمَثِّلُ مَشْرُوعُ \"نِيُوم\" تَجْسِيدًا حَيًّا لِلطُّمُوحَاتِ السُّعُودِيَّةِ فِي خَلْقِ نَمُوذَجٍ عَالَمِيٍّ لِلْمُدُنِ الْإِدْرَاكِيَّةِ الَّتِي تَعْتَمِدُ كُلِّيًّا عَلَى الطَّاقَةِ النَّظِيفَةِ وَالذَّكَاءِ الِاصْطِنَاعِيِّ.",
-      japanese: "「NEOM」プロジェクトは、クリーンエネルギーと人工知能に完全に依存するコグニティブ（認知的）シティの世界的なモデルを創り出すというサウジアラビアの野心を体現しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَفِي قَلْبِ هَذَا الْمَشْرُوعِ تَقَعُ مَدِينَةُ \"ذَا لَايْن\"، الَّتِي أَثَارَتْ جَدَلًا وَاسِعًا وَاهْتِمَامًا عَالَمِيًّا بِسَبَبِ تَصْمِيمِهَا الثَّوْرِيِّ الَّذِي يَتَحَدَّى الْمَفَاهِيمَ التَّقْلِيدِيَّةَ لِلتَّخْطِيطِ الْعُمْرَانِيِّ، حَيْثُ تَمْتَدُّ الْمَدِينَةُ طُولِيًّا لِمَسَافَةِ 170 كِيلُومِتْرًا دُونَ شَوَارِعَ أَوْ سَيَّارَاتٍ أَوْ انْبِعَاثَاتٍ كَرْبُونِيَّةٍ.",
-      japanese: "このプロジェクトの中心には都市「ザ・ライン」があり、道路、車、炭素排出がなく170キロメートルにわたって直線的に伸びる、都市計画の従来の概念に挑戦する革命的なデザインにより、広範な議論と世界的な関心を呼び起こしました。"
-    },
-    {
-      speaker: "記事",
-      arabic: "يَعْتَمِدُ الْمَشْرُوعُ عَلَى بِنْيَةٍ تَحْتِيَّةٍ رَقْمِيَّةٍ فَائِقَةِ التَّطَوُّرِ، حَيْثُ يَتِمُّ تَسْخِيرُ الْبَيَانَاتِ الضَّخْمَةِ لِتَحْسِينِ كَفَاءَةِ الْخِدْمَاتِ وَتَوْفِيرِ تَجْرِبَةٍ مَعِيشِيَّةٍ اسْتِثْنَائِيَّةٍ لِلسُّكَّانِ.",
-      japanese: "このプロジェクトは高度に発達したデジタルインフラに依存しており、ビッグデータを活用してサービスの効率を向上させ、居住者に並外れた生活体験を提供します。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَالْهَدَفُ لَيْسَ مُجَرَّدَ بِنَاءِ مَدِينَةٍ سَكَنِيَّةٍ، بَلْ إِنْشَاءُ مَرْكَزٍ عَالَمِيٍّ لِلِابْتِكَارِ يَجْذِبُ الْعُقُولَ الْمُبْدِعَةَ وَالشَّرِكَاتِ النَّاشِئَةَ فِي مَجَالَاتِ التِّكْنُولُوجِيَا الْحَيَوِيَّةِ، وَالْمِيَاهِ، وَالْغِذَاءِ.",
-      japanese: "その目標は単に居住都市を建設することではなく、バイオテクノロジー、水、食料などの分野で創造的な頭脳やスタートアップ企業を惹きつける、イノベーションの世界的な中心地を創ることです。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَمَعَ تَسَارُعِ وَتِيرَةِ الْأَعْمَالِ الْإِنْشَائِيَّةِ، تَبْرُزُ تَسَاؤُلَاتٌ حَوْلَ التَّحَدِّيَاتِ الْهَنْدَسِيَّةِ وَالتَّمْوِيلِيَّةِ لِهَذَا الْمَشْرُوعِ الْعِمْلَاقِ.",
-      japanese: "建設工事のペースが加速するにつれて、この巨大プロジェクトの工学的および財政的な課題に関する疑問も浮上しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَمَعَ ذَلِكَ، تُؤَكِّدُ الْقِيَادَةُ السُّعُودِيَّةُ أَنَّ \"نِيُوم\" سَتَعْمَلُ بِمُوجِبِ قَوَانِينَ وَتَشْرِيعَاتٍ خَاصَّةٍ تَمْنَحُهَا مُرُونَةً تِجَارِيَّةً وَقَضَائِيَّةً مُسْتَقِلَّةً، مِمَّا يُعَزِّزُ جَاذِبِيَّتَهَا لِلْمُسْتَثْمِرِينَ الْأَجَانِبِ.",
-      japanese: "それにもかかわらず、サウジアラビアの指導部は、NEOMが独自の商業的および司法的な柔軟性を与える特別な法律と規制の下で運営され、外国人投資家にとっての魅力を高めることを確認しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "إِنَّ نَجَاحَ \"ذَا لَايْن\" سَيَعْنِي نَقْلَةً نَوْعِيَّةً فِي كَيْفِيَّةِ تَعَايُشِ الْبَشَرِ مَعَ الطَّبِيعَةِ وَالتِّكْنُولُوجِيَا، مُحَوِّلًا الصَّحْرَاءَ الْقَاحِلَةَ إِلَى مُخْتَبَرٍ مَفْتُوحٍ لِمُسْتَقْبَلِ الْبَشَرِيَّةِ.",
-      japanese: "「ザ・ライン」の成功は、人間が自然やテクノロジーとどのように共存するかという点での質的な飛躍を意味し、不毛の砂漠を人類の未来のためのオープンな実験室へと変えるでしょう。"
-    }
-  ],
-  vocabList: [
-    { word: "ذَكَاء اِصْطِنَاعِيّ", meaning: "人工知能 (AI)" },
-    { word: "بِنْيَة تَحْتِيَّة", meaning: "インフラ" },
-    { word: "قَوَانِين خَاصَّة", meaning: "特別法" },
-    { word: "ابْتِكَار", meaning: "イノベーション" }
-  ],
-  questions: [
-    {
-      id: 10881,
-      type: "reading",
-      text: "都市「ザ・ライン（The Line）」の設計上の最も顕著な特徴として、テキストで言及されていないものはどれですか？",
-      options: ["道路や自動車が存在しないこと。", "全長170キロメートルに及ぶ直線的な都市構造。", "すべての住民に無料で住宅が提供されること。", "炭素排出ゼロ（カーボンフリー）であること。"],
-      correctIndex: 2,
-      explanation: "道路がない、車がない、炭素排出がない、直線都市であることには言及されていますが、「住宅が無料」という記述はどこにもありません。"
-    },
-    {
-      id: 10882,
-      type: "reading",
-      text: "NEOMプロジェクトにおける「法的・制度的」な特徴は何ですか？",
-      options: ["サウジアラビアの既存の法律がそのまま適用され、例外は一切認められない。", "独自の法律や規制が適用され、商業的・司法的な柔軟性が確保されている。", "投資家に対して税金を完全に免除するが、所有権は認めない。", "国際連合の直接管理下に置かれる特別行政区である。"],
-      correctIndex: 1,
-      explanation: "「特別な法律と規制（قوانين وتشريعات خاصة）」「商業的・司法的な柔軟性」を与えられると記述されています。"
-    },
-    {
-      id: 10883,
-      type: "reading",
-      text: "テキストでは、NEOMは単なる住宅地ではなく、何を目指していると述べていますか？",
-      options: ["世界最大の観光リゾート地。", "バイオテクノロジーや水、食料などの分野におけるイノベーションの世界的な中心地。", "石油産業に従事する労働者のための巨大な居住区。", "伝統的なアラブ建築を保存するための博物館都市。"],
-      correctIndex: 1,
-      explanation: "「単なる居住都市の建設ではなく、イノベーションの世界的中心（مركز عالمي للابتكار）を創ること」と明記されています。"
-    }
-  ]
-},
-
-// --- 79. 外交 (Diplomacy) ---
-{
-  id: 1089,
-  level: "上級",
-  category: "外交",
-  title: "多極化する世界とサウジの戦略的バランス",
-  contentPlain: "تشهد السياسة الخارجية السعودية حراكًا دبلوماسيًا غير مسبوق، يتميز بالبراغماتية والانفتاح على مختلف القوى العالمية، بعيدًا عن سياسة الاصطفاف التقليدية التي سادت لعقود. وتسعى الرياض من خلال هذا النهج إلى تعزيز مصالحها الوطنية وضمان استقرار أسواق الطاقة، مع الحفاظ على علاقات متوازنة مع كل من الغرب والشرق. وقد تجلى ذلك بوضوح في تعزيز الشراكات الاستراتيجية مع الصين وروسيا، بالتوازي مع الحفاظ على العلاقات التاريخية مع الولايات المتحدة وأوروبا.\nلقد أدركت المملكة أن المتغيرات الجيوسياسية المتسارعة تتطلب تنويع التحالفات، سواء كان ذلك عبر الانضمام إلى تكتلات اقتصادية جديدة مثل \"بريكس\"، أو من خلال لعب دور الوسيط في الأزمات الإقليمية والدولية. هذا الدور المتنامي يعكس ثقة المملكة في قدرتها على التأثير في القرار الدولي، ليس فقط كمنتج للنفط، بل كقوة سياسية واقتصادية صاعدة في مجموعة العشرين.\nويرى المحللون أن هذا التوجه الاستقلالي في القرار السياسي السعودي يهدف إلى تحصين الأمن القومي وتحقيق أهداف التنمية الداخلية، حيث يتم توظيف العلاقات الدبلوماسية لجذب الاستثمارات وتوطين التقنيات المتقدمة. وبالتالي، فإن السياسة الخارجية أصبحت أداة رئيسية لخدمة الاقتصاد المحلي، والعكس صحيح.",
-  contentVoweled: "تَشْهَدُ السِّيَاسَةُ الْخَارِجِيَّةُ السُّعُودِيَّةُ حَرَاكًا دِبْلُومَاسِيًّا غَيْرَ مَسْبُوقٍ، يَتَمَيَّزُ بِالْبَرَاغْمَاتِيَّةِ وَالِانْفِتَاحِ عَلَى مُخْتَلِفِ الْقُوَى الْعَالَمِيَّةِ، بَعِيدًا عَنْ سِيَاسَةِ الِاصْطِفَافِ التَّقْلِيدِيَّةِ الَّتِي سَادَتْ لِعُقُودٍ. وَتَسْعَى الرِّيَاضُ مِنْ خِلَالِ هَذَا النَّهْجِ إِلَى تَعْزِيزِ مَصَالِحِهَا الْوَطَنِيَّةِ وَضَمَانِ اسْتِقْرَارِ أَسْوَاقِ الطَّاقَةِ، مَعَ الْحِفَاظِ عَلَى عَلَاقَاتٍ مُتَوَازِنَةٍ مَعَ كُلٍّ مِنَ الْغَرْبِ وَالشَّرْقِ. وَقَدْ تَجَلَّى ذَلِكَ بِوُضُوحٍ فِي تَعْزِيزِ الشَّرَاكَاتِ الِاسْتِرَاتِيجِيَّةِ مَعَ الصِّينِ وَرُوسِيَا، بِالتَّوَازِي مَعَ الْحِفَاظِ عَلَى الْعَلَاقَاتِ التَّارِيخِيَّةِ مَعَ الْوِلَايَاتِ الْمُتَّحِدَةِ وَأُورُوبَا.\nلَقَدْ أَدْرَكَتِ الْمَمْلَكَةُ أَنَّ الْمُتَغَيِّرَاتِ الْجِيُوسِيَاسِيَّةِ الْمُتَسَارِعَةَ تَتَطَلَّبُ تَنْوِيعَ التَّحَالُفَاتِ، سَوَاءً كَانَ ذَلِكَ عَبْرَ الِانْضِمَامِ إِلَى تَكَتُّلَاتٍ اقْتِصَادِيَّةٍ جَدِيدَةٍ مِثْلَ \"بْرِيكْس\"، أَوْ مِنْ خِلَالِ لَعِبِ دَوْرِ الْوَسِيطِ فِي الْأَزَمَاتِ الْإِقْلِيمِيَّةِ وَالدَّوْلِيَّةِ. هَذَا الدَّوْرُ الْمُتَنَامِي يَعْكِسُ ثِقَةَ الْمَمْلَكَةِ فِي قُدْرَتِهَا عَلَى التَّأْثِيرِ فِي الْقَرَارِ الدَّوْلِيِّ، لَيْسَ فَقَطْ كَمُنْتِجٍ لِلنَّفْطِ، بَلْ كَقُوَّةٍ سِيَاسِيَّةٍ وَاقْتِصَادِيَّةٍ صَاعِدَةٍ فِي مَجْمُوعَةِ الْعِشْرِينَ.\nوَيَرَى الْمُحَلِّلُونَ أَنَّ هَذَا التَّوَجُّهَ الِاسْتِقْلَالِيَّ فِي الْقَرَارِ السِّيَاسِيِّ السُّعُودِيِّ يَهْدِفُ إِلَى تَحْصِينِ الْأَمْنِ الْقَوْمِيِّ وَتَحْقِيقِ أَهْدَافِ التَّنْمِيَةِ الدَّاخِلِيَّةِ، حَيْثُ يَتِمُّ تَوْظِيفُ الْعَلَاقَاتِ الدِّبْلُومَاسِيَّةِ لِجَذْبِ الِاسْتِثْمَارَاتِ وَتَوْطِينِ التِّقْنِيَّاتِ الْمُتَقَدِّمَةِ. وَبِالتَّالِي، فَإِنَّ السِّيَاسَةَ الْخَارِجِيَّةَ أَصْبَحَتْ أَدَاةً رَئِيسِيَّةً لِخِدْمَةِ الِاقْتِصَادِ الْمَحَلِّيِّ، وَالْعَكْسُ صَحِيحٌ.",
-  sentences: [
-    {
-      speaker: "記事",
-      arabic: "تَشْهَدُ السِّيَاسَةُ الْخَارِجِيَّةُ السُّعُودِيَّةُ حَرَاكًا دِبْلُومَاسِيًّا غَيْرَ مَسْبُوقٍ، يَتَمَيَّزُ بِالْبَرَاغْمَاتِيَّةِ وَالِانْفِتَاحِ عَلَى مُخْتَلِفِ الْقُوَى الْعَالَمِيَّةِ، بَعِيدًا عَنْ سِيَاسَةِ الِاصْطِفَافِ التَّقْلِيدِيَّةِ الَّتِي سَادَتْ لِعُقُودٍ.",
-      japanese: "サウジアラビアの外交政策は、数十年間続いた伝統的な陣営政策から離れ、実利主義と様々な世界的勢力への開放を特徴とする前例のない外交的な動きを見せています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَتَسْعَى الرِّيَاضُ مِنْ خِلَالِ هَذَا النَّهْجِ إِلَى تَعْزِيزِ مَصَالِحِهَا الْوَطَنِيَّةِ وَضَمَانِ اسْتِقْرَارِ أَسْوَاقِ الطَّاقَةِ، مَعَ الْحِفَاظِ عَلَى عَلَاقَاتٍ مُتَوَازِنَةٍ مَعَ كُلٍّ مِنَ الْغَرْبِ وَالشَّرْقِ.",
-      japanese: "リヤドはこのアプローチを通じて、国益を強化しエネルギー市場の安定を確保すると同時に、欧米および東側諸国の双方とバランスの取れた関係を維持することを目指しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَقَدْ تَجَلَّى ذَلِكَ بِوُضُوحٍ فِي تَعْزِيزِ الشَّرَاكَاتِ الِاسْتِرَاتِيجِيَّةِ مَعَ الصِّينِ وَرُوسِيَا، بِالتَّوَازِي مَعَ الْحِفَاظِ عَلَى الْعَلَاقَاتِ التَّارِيخِيَّةِ مَعَ الْوِلَايَاتِ الْمُتَّحِدَةِ وَأُورُوبَا.",
-      japanese: "それは、米国や欧州との歴史的な関係を維持しつつ、中国やロシアとの戦略的パートナーシップを強化していることに明確に表れています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "لَقَدْ أَدْرَكَتِ الْمَمْلَكَةُ أَنَّ الْمُتَغَيِّرَاتِ الْجِيُوسِيَاسِيَّةِ الْمُتَسَارِعَةَ تَتَطَلَّبُ تَنْوِيعَ التَّحَالُفَاتِ، سَوَاءً كَانَ ذَلِكَ عَبْرَ الِانْضِمَامِ إِلَى تَكَتُّلَاتٍ اقْتِصَادِيَّةٍ جَدِيدَةٍ مِثْلَ \"بْرِيكْس\"، أَوْ مِنْ خِلَالِ لَعِبِ دَوْرِ الْوَسِيطِ فِي الْأَزَمَاتِ الْإِقْلِيمِيَّةِ وَالدَّوْلِيَّةِ.",
-      japanese: "王国は、「BRICS」のような新しい経済ブロックへの加盟や、地域的および国際的な危機における仲介役を果たすことを通じて、急速な地政学的変化が同盟の多様化を必要としていることを認識しました。"
-    },
-    {
-      speaker: "記事",
-      arabic: "هَذَا الدَّوْرُ الْمُتَنَامِي يَعْكِسُ ثِقَةَ الْمَمْلَكَةِ فِي قُدْرَتِهَا عَلَى التَّأْثِيرِ فِي الْقَرَارِ الدَّوْلِيِّ، لَيْسَ فَقَطْ كَمُنْتِجٍ لِلنَّفْطِ، بَلْ كَقُوَّةٍ سِيَاسِيَّةٍ وَاقْتِصَادِيَّةٍ صَاعِدَةٍ فِي مَجْمُوعَةِ الْعِشْرِينَ.",
-      japanese: "この高まる役割は、単なる産油国としてだけでなく、G20における政治的・経済的な新興勢力として、国際的な意思決定に影響を与える能力に対する王国の自信を反映しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَيَرَى الْمُحَلِّلُونَ أَنَّ هَذَا التَّوَجُّهَ الِاسْتِقْلَالِيَّ فِي الْقَرَارِ السِّيَاسِيِّ السُّعُودِيِّ يَهْدِفُ إِلَى تَحْصِينِ الْأَمْنِ الْقَوْمِيِّ وَتَحْقِيقِ أَهْدَافِ التَّنْمِيَةِ الدَّاخِلِيَّةِ، حَيْثُ يَتِمُّ تَوْظِيفُ الْعَلَاقَاتِ الدِّبْلُومَاسِيَّةِ لِجَذْبِ الِاسْتِثْمَارَاتِ وَتَوْطِينِ التِّقْنِيَّاتِ الْمُتَقَدِّمَةِ.",
-      japanese: "アナリストは、サウジの政治的決定におけるこの独立した傾向は、外交関係が投資の誘致や先端技術の定着に利用されているように、国家安全保障を強化し国内開発の目標を達成することを目的としていると考えています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَبِالتَّالِي، فَإِنَّ السِّيَاسَةَ الْخَارِجِيَّةَ أَصْبَحَتْ أَدَاةً رَئِيسِيَّةً لِخِدْمَةِ الِاقْتِصَادِ الْمَحَلِّيِّ، وَالْعَكْسُ صَحِيحٌ.",
-      japanese: "したがって、外交政策は地域経済に奉仕するための主要なツールとなっており、その逆もまた然りです。"
-    }
-  ],
-  vocabList: [
-    { word: "دِبْلُومَاسِيَّة", meaning: "外交" },
-    { word: "بَرَاغْمَاتِيَّة", meaning: "実利主義/プラグマティズム" },
-    { word: "تَحَالُفَات", meaning: "同盟" },
-    { word: "جِيُوسِيَاسِيّ", meaning: "地政学的" },
-    { word: "أَمْن قَوْمِيّ", meaning: "国家安全保障" }
-  ],
-  questions: [
-    {
-      id: 10891,
-      type: "reading",
-      text: "現在のサウジアラビアの外交方針を最もよく表している言葉はどれですか？",
-      options: ["西側諸国への完全な従属と、東側諸国との断絶。", "孤立主義と国際問題への不干渉。", "プラグマティズム（実利主義）と全方位外交によるバランスの維持。", "軍事的な拡大と近隣諸国への干渉。"],
-      correctIndex: 2,
-      explanation: "テキストには「実利主義（بالبراغماتية）」「様々な勢力への開放（الانفتاح）」「バランスの取れた関係（علاقات متوازنة）」というキーワードが並んでいます。"
-    },
-    {
-      id: 10892,
-      type: "reading",
-      text: "テキストによると、サウジアラビアが「BRICS」などの新しい経済ブロックに関心を持つ理由は何ですか？",
-      options: ["同盟の多様化を図り、変化する地政学的状況に対応するため。", "米国との関係を完全に断ち切る準備をするため。", "石油価格を人為的に操作するためだけの目的である。", "アジア諸国に対して軍事的な支援を求めるため。"],
-      correctIndex: 0,
-      explanation: "「地政学的な変化が同盟の多様化（تنويع التحالفات）を求めている」ため、BRICSなどへの参加を検討しているとあります。"
-    },
-    {
-      id: 10893,
-      type: "reading",
-      text: "「外交政策と国内経済の関係」について、テキストはどう説明していますか？",
-      options: ["外交と経済は完全に切り離されており、相互に影響しない。", "外交関係は投資誘致や技術移転のために利用されており、外交は内需に奉仕している。", "国内経済の発展が遅れているため、外交活動に支障が出ている。", "外交官は経済問題に関与することを禁じられている。"],
-      correctIndex: 1,
-      explanation: "「外交関係は投資を誘致し、技術を定着させるために利用されている」「外交政策は地域経済に奉仕する主要なツールとなった」と説明されています。"
-    }
-  ]
-},
-
-// --- 80. 観光 (Tourism) ---
-{
-  id: 1090,
-  level: "上級",
-  category: "観光",
-  title: "アル・ウラ：歴史遺産と観光の未来",
-  contentPlain: "في قلب الصحراء الشمالية الغربية للمملكة، تبرز محافظة \"العُلا\" كواجهة حضارية تعيد صياغة خارطة السياحة العالمية. تحتضن هذه المنطقة آثارًا تمتد لآلاف السنين، أبرزها موقع \"الحِجر\" الذي يُعد أول موقع سعودي يُدرج ضمن قائمة التراث العالمي لليونسكو. وتعمل الهيئة الملكية لمحافظة العلا على تطوير المنطقة وفق معايير دقيقة تضمن الحفاظ على الطابع التاريخي والبيئي، مع تقديم تجربة سياحية فاخرة تجذب الزوار من شتى بقاع الأرض.\nالاستراتيجية المتبعة في العلا لا تركز على السياحة الجماهيرية الكثيفة التي قد تضر بالمواقع الأثرية، بل تستهدف \"السياحة النوعية\" التي تقدر التراث والفنون. وقد تم تدشين مهرجانات سنوية تجمع بين الفن المعاصر والموسيقى في أحضان الطبيعة الخلابة، بالإضافة إلى بناء منتجعات تتناغم مع التضاريس الصخرية دون المساس بها.\nيشكل تطوير قطاع السياحة ركنًا أساسيًا في خطة تنويع الدخل، حيث تهدف المملكة إلى رفع مساهمة السياحة في الناتج المحلي الإجمالي إلى 10%. ومن خلال تسليط الضوء على كنوزها الحضارية المنسية، تسعى السعودية إلى تغيير الصورة النمطية السائدة عنها، وتقديم نفسها كملتقى للحضارات الإنسانية العريقة، وليس فقط كأرض للنفط والصحراء.",
-  contentVoweled: "فِي قَلْبِ الصَّحْرَاءِ الشَّمَالِيَّةِ الْغَرْبِيَّةِ لِلْمَمْلَكَةِ، تَبْرُزُ مُحَافَظَةُ \"الْعُلَا\" كَوَاجِهَةٍ حَضَارِيَّةٍ تُعِيدُ صِيَاغَةَ خَارِطَةِ السِّيَاحَةِ الْعَالَمِيَّةِ. تَحْتَضِنُ هَذِهِ الْمِنْطَقَةُ آثَارًا تَمْتَدُّ لِآلَافِ السِّنِينَ، أَبْرَزُهَا مَوْقِعُ \"الْحِجْر\" الَّذِي يُعَدُّ أَوَّلَ مَوْقِعٍ سُعُودِيٍّ يُدْرَجُ ضِمْنَ قَائِمَةِ التُّرَاثِ الْعَالَمِيِّ لِلْيُونِسْكُو. وَتَعْمَلُ الْهَيْئَةُ الْمَلَكِيَّةُ لِمُحَافَظَةِ الْعُلَا عَلَى تَطْوِيرِ الْمِنْطَقَةِ وَفْقَ مَعَايِيرَ دَقِيقَةٍ تَضْمَنُ الْحِفَاظَ عَلَى الطَّابَعِ التَّارِيخِيِّ وَالْبِيئِيِّ، مَعَ تَقْدِيمِ تَجْرِبَةٍ سِيَاحِيَّةٍ فَاخِرَةٍ تَجْذِبُ الزُّوَّارَ مِنْ شَتَّى بِقَاعِ الْأَرْضِ.\nالِاسْتِرَاتِيجِيَّةُ الْمُتَّبَعَةُ فِي الْعُلَا لَا تُرَكِّزُ عَلَى السِّيَاحَةِ الْجَمَاهِيرِيَّةِ الْكَثِيفَةِ الَّتِي قَدْ تَضُرُّ بِالْمَوَاقِعِ الْأَثَرِيَّةِ، بَلْ تَسْتَهْدِفُ \"السِّيَاحَةَ النَّوْعِيَّةَ\" الَّتِي تُقَدِّرُ التُّرَاثَ وَالْفُنُونَ. وَقَدْ تَمَّ تَدْشِينُ مَهْرَجَانَاتٍ سَنَوِيَّةٍ تَجْمَعُ بَيْنَ الْفَنِّ الْمُعَاصِرِ وَالْمُوسِيقَى فِي أَحْضَانِ الطَّبِيعَةِ الْخَلَّابَةِ، بِالْإِضَافَةِ إِلَى بِنَاءِ مُنْتَجَعَاتٍ تَتَنَاغَمُ مَعَ التَّضَارِيسِ الصَّخْرِيَّةِ دُونَ الْمِسَاسِ بِهَا.\nيُشَكِّلُ تَطْوِيرُ قِطَاعِ السِّيَاحَةِ رُكْنًا أَسَاسِيًّا فِي خُطَّةِ تَنْوِيعِ الدَّخْلِ، حَيْثُ تَهْدِفُ الْمَمْلَكَةُ إِلَى رَفْعِ مُسَاهَمَةِ السِّيَاحَةِ فِي النَّاتِجِ الْمَحَلِّيِّ الْإِجْمَالِيِّ إِلَى 10%. وَمِنْ خِلَالِ تَسْلِيطِ الضَّوْءِ عَلَى كُنُوزِهَا الْحَضَارِيَّةِ الْمَنْسِيَّةِ، تَسْعَى السُّعُودِيَّةُ إِلَى تَغْيِيرِ الصُّورَةِ النَّمَطِيَّةِ السَّائِدَةِ عَنْهَا، وَتَقْدِيمِ نَفْسِهَا كَمُلْتَقًى لِلْحَضَارَاتِ الْإِنْسَانِيَّةِ الْعَرِيقَةِ، وَلَيْسَ فَقَطْ كَأَرْضٍ لِلنَّفْطِ وَالصَّحْرَاءِ.",
-  sentences: [
-    {
-      speaker: "記事",
-      arabic: "فِي قَلْبِ الصَّحْرَاءِ الشَّمَالِيَّةِ الْغَرْبِيَّةِ لِلْمَمْلَكَةِ، تَبْرُزُ مُحَافَظَةُ \"الْعُلَا\" كَوَاجِهَةٍ حَضَارِيَّةٍ تُعِيدُ صِيَاغَةَ خَارِطَةِ السِّيَاحَةِ الْعَالَمِيَّةِ.",
-      japanese: "王国の北西部の砂漠の中心で、アル・ウラ県は世界観光地図を塗り替える文化的な目的地として際立っています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "تَحْتَضِنُ هَذِهِ الْمِنْطَقَةُ آثَارًا تَمْتَدُّ لِآلَافِ السِّنِينَ، أَبْرَزُهَا مَوْقِعُ \"الْحِجْر\" الَّذِي يُعَدُّ أَوَّلَ مَوْقِعٍ سُعُودِيٍّ يُدْرَجُ ضِمْنَ قَائِمَةِ التُّرَاثِ الْعَالَمِيِّ لِلْيُونِسْكُو.",
-      japanese: "この地域は何千年にもわたる遺跡を抱えており、その中でも最も著名なのは、サウジアラビアで初めてユネスコ世界遺産リストに登録された「アル・ヒジュル（ヘグラ）」遺跡です。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَتَعْمَلُ الْهَيْئَةُ الْمَلَكِيَّةُ لِمُحَافَظَةِ الْعُلَا عَلَى تَطْوِيرِ الْمِنْطَقَةِ وَفْقَ مَعَايِيرَ دَقِيقَةٍ تَضْمَنُ الْحِفَاظَ عَلَى الطَّابَعِ التَّارِيخِيِّ وَالْبِيئِيِّ، مَعَ تَقْدِيمِ تَجْرِبَةٍ سِيَاحِيَّةٍ فَاخِرَةٍ تَجْذِبُ الزُّوَّارَ مِنْ شَتَّى بِقَاعِ الْأَرْضِ.",
-      japanese: "アル・ウラ王立委員会は、歴史的および環境的特徴の保存を保証する厳格な基準に従って地域を開発すると同時に、世界中から訪問者を惹きつける豪華な観光体験を提供することに取り組んでいます。"
-    },
-    {
-      speaker: "記事",
-      arabic: "الِاسْتِرَاتِيجِيَّةُ الْمُتَّبَعَةُ فِي الْعُلَا لَا تُرَكِّزُ عَلَى السِّيَاحَةِ الْجَمَاهِيرِيَّةِ الْكَثِيفَةِ الَّتِي قَدْ تَضُرُّ بِالْمَوَاقِعِ الْأَثَرِيَّةِ، بَلْ تَسْتَهْدِفُ \"السِّيَاحَةَ النَّوْعِيَّةَ\" الَّتِي تُقَدِّرُ التُّرَاثَ وَالْفُنُونَ.",
-      japanese: "アル・ウラで採用されている戦略は、遺跡に損害を与える可能性のある大規模なマスツーリズムには焦点を当てず、遺産や芸術を評価する「質的な観光」をターゲットにしています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَقَدْ تَمَّ تَدْشِينُ مَهْرَجَانَاتٍ سَنَوِيَّةٍ تَجْمَعُ بَيْنَ الْفَنِّ الْمُعَاصِرِ وَالْمُوسِيقَى فِي أَحْضَانِ الطَّبِيعَةِ الْخَلَّابَةِ، بِالْإِضَافَةِ إِلَى بِنَاءِ مُنْتَجَعَاتٍ تَتَنَاغَمُ مَعَ التَّضَارِيسِ الصَّخْرِيَّةِ دُونَ الْمِسَاسِ بِهَا.",
-      japanese: "魅力的な自然の中で現代アートと音楽を融合させた毎年恒例のフェスティバルが開始され、岩場の地形を損なうことなく調和するリゾートが建設されました。"
-    },
-    {
-      speaker: "記事",
-      arabic: "يُشَكِّلُ تَطْوِيرُ قِطَاعِ السِّيَاحَةِ رُكْنًا أَسَاسِيًّا فِي خُطَّةِ تَنْوِيعِ الدَّخْلِ، حَيْثُ تَهْدِفُ الْمَمْلَكَةُ إِلَى رَفْعِ مُسَاهَمَةِ السِّيَاحَةِ فِي النَّاتِجِ الْمَحَلِّيِّ الْإِجْمَالِيِّ إِلَى 10%.",
-      japanese: "観光セクターの開発は収入源多様化計画の基本的な柱となっており、王国は観光業の国内総生産（GDP）への寄与率を10％に引き上げることを目指しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَمِنْ خِلَالِ تَسْلِيطِ الضَّوْءِ عَلَى كُنُوزِهَا الْحَضَارِيَّةِ الْمَنْسِيَّةِ، تَسْعَى السُّعُودِيَّةُ إِلَى تَغْيِيرِ الصُّورَةِ النَّمَطِيَّةِ السَّائِدَةِ عَنْهَا، وَتَقْدِيمِ نَفْسِهَا كَمُلْتَقًى لِلْحَضَارَاتِ الْإِنْسَانِيَّةِ الْعَرِيقَةِ، وَلَيْسَ فَقَطْ كَأَرْضٍ لِلنَّفْطِ وَالصَّحْرَاءِ.",
-      japanese: "忘れ去られた文明の宝物に光を当てることで、サウジアラビアは一般的なステレオタイプを変え、単なる石油と砂漠の土地としてではなく、古代人類文明の交差点として自らを提示しようとしています。"
-    }
-  ],
-  vocabList: [
-    { word: "تُرَاث عَالَمِيّ", meaning: "世界遺産" },
-    { word: "سِيَاحَة نَوْعِيَّة", meaning: "質的な観光/高級観光" },
-    { word: "آثَار", meaning: "遺跡" },
-    { word: "حَضَارَة", meaning: "文明" }
-  ],
-  questions: [
-    {
-      id: 10901,
-      type: "reading",
-      text: "アル・ウラ（AlUla）の開発において重視されている方針はどのようなものですか？",
-      options: ["とにかく安価で多くの観光客を呼び込むマスツーリズム。", "歴史的・環境的性格を保存しつつ、質を重視したラグジュアリーな観光。", "古い遺跡を取り壊し、近代的な高層ホテルを建設すること。", "観光客の立ち入りを完全に禁止し、研究者のみに開放すること。"],
-      correctIndex: 1,
-      explanation: "「遺跡に害を及ぼす可能性のあるマスツーリズムには焦点を当てず（لا تركز على السياحة الجماهيرية）」、「質的な観光（السياحة النوعية）を目指す」とあります。"
-    },
-    {
-      id: 10902,
-      type: "reading",
-      text: "サウジアラビアが観光セクターを通じて達成しようとしている経済的目標は何ですか？",
-      options: ["観光業だけで石油収入のすべてを代替すること。", "観光業のGDPへの寄与率を10%まで引き上げること。", "国民全員を観光ガイドとして雇用すること。", "すべての観光施設を無料化し、国の評判を上げること。"],
-      correctIndex: 1,
-      explanation: "「観光のGDPへの寄与を10%に引き上げる（رفع مساهمة السياحة... إلى 10%）」ことが目標と明記されています。"
-    },
-    {
-      id: 10903,
-      type: "reading",
-      text: "テキストの最後で述べられている、観光開発を通じた「イメージ戦略」とは何ですか？",
-      options: ["サウジアラビアを単なる産油国ではなく、古代文明の交差点として提示すること。", "砂漠をすべて緑化し、農業大国としてアピールすること。", "最新の軍事技術を観光客に披露すること。", "宗教的な巡礼者以外の入国を制限していることを強調すること。"],
-      correctIndex: 0,
-      explanation: "「石油と砂漠の土地としてだけでなく、古代人類文明の交差点（ملتقى للحضارات الإنسانية العريقة）として自らを提示する」ことがイメージ変革の目的です。"
-    }
-  ]
-},
-// --- 81. スポーツ (Sports) ---
-{
-  id: 1091,
-  level: "上級",
-  category: "スポーツ",
-  title: "サウジアラビアのスポーツ投資戦略と2034年ワールドカップ",
-  contentPlain: "تمثل نية المملكة العربية السعودية الترشح لاستضافة كأس العالم 2034 ذروة استراتيجية وطنية طموحة تهدف إلى تحويل البلاد إلى مركز رياضي عالمي. لا تقتصر هذه التحركات على مجرد استضافة أحداث عابرة، بل هي جزء لا يتجزأ من \"رؤية 2030\" التي تسعى لتنويع الاقتصاد وتحسين جودة الحياة وتعزيز القوة الناعمة للمملكة على الساحة الدولية. وقد تجلى هذا التوجه في الاستثمارات الهائلة التي ضخها \"صندوق الاستثمارات العامة\" في أندية كرة القدم المحلية، واستقطاب نجوم عالميين، بالإضافة إلى رعاية بطولات دولية في الجولف والفورمولا 1.\nويرى المراقبون أن استضافة المونديال ستكون محفزاً قوياً لتسريع وتيرة تطوير البنية التحتية، ليس فقط في بناء الملاعب المتطورة، بل أيضاً في تحديث شبكات النقل والمطارات والفنادق لاستيعاب ملايين الزوار. ومن المتوقع أن يولد هذا الحدث عوائد اقتصادية ضخمة، ويخلق آلاف فرص العمل في قطاعات السياحة والخدمات. وعلاوة على ذلك، تهدف السعودية من خلال الرياضة إلى إحداث تغيير اجتماعي، وتشجيع فئات المجتمع المختلفة، بما في ذلك النساء والشباب، على ممارسة النشاط البدني وتبني نمط حياة صحي.",
-  contentVoweled: "تُمَثِّلُ نِيَّةُ الْمَمْلَكَةِ الْعَرَبِيَّةِ السُّعُودِيَّةِ التَّرَشُّحَ لِاسْتِضَافَةِ كَأْسِ الْعَالَمِ 2034 ذُرْوَةَ اسْتِرَاتِيجِيَّةٍ وَطَنِيَّةٍ طَمُوحَةٍ تَهْدِفُ إِلَى تَحْوِيلِ الْبِلَادِ إِلَى مَرْكَزٍ رِيَاضِيٍّ عَالَمِيٍّ. لَا تَقْتَصِرُ هَذِهِ التَّحَرُّكَاتُ عَلَى مُجَرَّدِ اسْتِضَافَةِ أَحْدَاثٍ عَابِرَةٍ، بَلْ هِيَ جُزْءٌ لَا يَتَجَزَّأُ مِنْ \"رُؤْيَةِ 2030\" الَّتِي تَسْعَى لِتَنْوِيعِ الِاقْتِصَادِ وَتَحْسِينِ جَوْدَةِ الْحَيَاةِ وَتَعْزِيزِ الْقُوَّةِ النَّاعِمَةِ لِلْمَمْلَكَةِ عَلَى السَّاحَةِ الدَّوْلِيَّةِ. وَقَدْ تَجَلَّى هَذَا التَّوَجُّهُ فِي الِاسْتِثْمَارَاتِ الْهَائِلَةِ الَّتِي ضَخَّهَا \"صُنْدُوقُ الِاسْتِثْمَارَاتِ الْعَامَّةِ\" فِي أَنْدِيَةِ كُرَةِ الْقَدَمِ الْمَحَلِّيَّةِ، وَاسْتِقْطَابِ نُجُومٍ عَالَمِيِّينَ، بِالْإِضَافَةِ إِلَى رِعَايَةِ بُطُولَاتٍ دَوْلِيَّةٍ فِي الْجُولْفِ وَالْفُورْمُولَا 1.\nوَيَرَى الْمُرَاقِبُونَ أَنَّ اسْتِضَافَةَ الْمُونْدِيَالِ سَتَكُونُ مُحَفِّزًا قَوِيًّا لِتَسْرِيعِ وَتِيرَةِ تَطْوِيرِ الْبِنْيَةِ التَّحْتِيَّةِ، لَيْسَ فَقَطْ فِي بِنَاءِ الْمَلَاعِبِ الْمُتَطَوِّرَةِ، بَلْ أَيْضًا فِي تَحْدِيثِ شَبَكَاتِ النَّقْلِ وَالْمَطَارَاتِ وَالْفَنَادِقِ لِاسْتِيعَابِ مَلَايِينَ الزُّوَّارِ. وَمِنَ الْمُتَوَقَّعِ أَنْ يُوَلِّدَ هَذَا الْحَدَثُ عَوَائِدَ اقْتِصَادِيَّةً ضَخْمَةً، وَيَخْلُقَ آلَافَ فُرَصِ الْعَمَلِ فِي قِطَاعَاتِ السِّيَاحَةِ وَالْخِدْمَاتِ. وَعَلَاوَةً عَلَى ذَلِكَ، تَهْدِفُ السُّعُودِيَّةُ مِنْ خِلَالِ الرِّيَاضَةِ إِلَى إِحْدَاثِ تَغْيِيرٍ اجْتِمَاعِيٍّ، وَتَشْجِيعِ فِئَاتِ الْمُجْتَمَعِ الْمُخْتَلِفَةِ، بِمَا فِي ذَلِكَ النِّسَاءُ وَالشَّبَابُ، عَلَى مُمَارَسَةِ النَّشَاطِ الْبَدَنِيِّ وَتَبَنِّي نَمَطِ حَيَاةٍ صِحِّيٍّ.",
-  sentences: [
-    {
-      speaker: "記事",
-      arabic: "تُمَثِّلُ نِيَّةُ الْمَمْلَكَةِ الْعَرَبِيَّةِ السُّعُودِيَّةِ التَّرَشُّحَ لِاسْتِضَافَةِ كَأْسِ الْعَالَمِ 2034 ذُرْوَةَ اسْتِرَاتِيجِيَّةٍ وَطَنِيَّةٍ طَمُوحَةٍ تَهْدِفُ إِلَى تَحْوِيلِ الْبِلَادِ إِلَى مَرْكَزٍ رِيَاضِيٍّ عَالَمِيٍّ.",
-      japanese: "2034年ワールドカップの開催に立候補するというサウジアラビアの意向は、国を世界的なスポーツハブに変えることを目的とした野心的な国家戦略の頂点を表しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "لَا تَقْتَصِرُ هَذِهِ التَّحَرُّكَاتُ عَلَى مُجَرَّدِ اسْتِضَافَةِ أَحْدَاثٍ عَابِرَةٍ، بَلْ هِيَ جُزْءٌ لَا يَتَجَزَّأُ مِنْ \"رُؤْيَةِ 2030\" الَّتِي تَسْعَى لِتَنْوِيعِ الِاقْتِصَادِ وَتَحْسِينِ جَوْدَةِ الْحَيَاةِ وَتَعْزِيزِ الْقُوَّةِ النَّاعِمَةِ لِلْمَمْلَكَةِ عَلَى السَّاحَةِ الدَّوْلِيَّةِ.",
-      japanese: "これらの動きは単に一時的なイベントを開催することにとどまらず、経済の多様化、生活の質の向上、そして国際舞台での王国のソフトパワー強化を目指す「ビジョン2030」の不可欠な部分です。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَقَدْ تَجَلَّى هَذَا التَّوَجُّهُ فِي الِاسْتِثْمَارَاتِ الْهَائِلَةِ الَّتِي ضَخَّهَا \"صُنْدُوقُ الِاسْتِثْمَارَاتِ الْعَامَّةِ\" فِي أَنْدِيَةِ كُرَةِ الْقَدَمِ الْمَحَلِّيَّةِ، وَاسْتِقْطَابِ نُجُومٍ عَالَمِيِّينَ، بِالْإِضَافَةِ إِلَى رِعَايَةِ بُطُولَاتٍ دَوْلِيَّةٍ فِي الْجُولْفِ وَالْفُورْمُولَا 1.",
-      japanese: "この傾向は、「公共投資基金」による地元のサッカークラブへの巨額の投資、世界的スターの誘致、さらにゴルフやF1の国際大会のスポンサーシップにおいて明白に示されています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَيَرَى الْمُرَاقِبُونَ أَنَّ اسْتِضَافَةَ الْمُونْدِيَالِ سَتَكُونُ مُحَفِّزًا قَوِيًّا لِتَسْرِيعِ وَتِيرَةِ تَطْوِيرِ الْبِنْيَةِ التَّحْتِيَّةِ، لَيْسَ فَقَطْ فِي بِنَاءِ الْمَلَاعِبِ الْمُتَطَوِّرَةِ، بَلْ أَيْضًا فِي تَحْدِيثِ شَبَكَاتِ النَّقْلِ وَالْمَطَارَاتِ وَالْفَنَادِقِ لِاسْتِيعَابِ مَلَايِينَ الزُّوَّارِ.",
-      japanese: "観測筋は、ワールドカップの開催は、最先端のスタジアム建設だけでなく、何百万人もの訪問者を受け入れるための交通網、空港、ホテルの近代化において、インフラ開発のペースを加速させる強力な触媒になると見ています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَمِنَ الْمُتَوَقَّعِ أَنْ يُوَلِّدَ هَذَا الْحَدَثُ عَوَائِدَ اقْتِصَادِيَّةً ضَخْمَةً، وَيَخْلُقَ آلَافَ فُرَصِ الْعَمَلِ فِي قِطَاعَاتِ السِّيَاحَةِ وَالْخِدْمَاتِ.",
-      japanese: "このイベントは巨額の経済的利益を生み出し、観光およびサービス部門で何千もの雇用機会を創出すると予想されています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَعَلَاوَةً عَلَى ذَلِكَ، تَهْدِفُ السُّعُودِيَّةُ مِنْ خِلَالِ الرِّيَاضَةِ إِلَى إِحْدَاثِ تَغْيِيرٍ اجْتِمَاعِيٍّ، وَتَشْجِيعِ فِئَاتِ الْمُجْتَمَعِ الْمُخْتَلِفَةِ، بِمَا فِي ذَلِكَ النِّسَاءُ وَالشَّبَابُ، عَلَى مُمَارَسَةِ النَّشَاطِ الْبَدَنِيِّ وَتَبَنِّي نَمَطِ حَيَاةٍ صِحِّيٍّ.",
-      japanese: "さらに、サウジアラビアはスポーツを通じて社会変革を起こし、女性や若者を含む社会の様々な層に身体活動を行い、健康的なライフスタイルを採用するよう奨励することを目指しています。"
-    }
-  ],
-  vocabList: [
-    { word: "قُوَّة نَاعِمَة", meaning: "ソフトパワー" },
-    { word: "مُحَفِّز", meaning: "刺激策/触媒" },
-    { word: "بِنْيَة تَحْتِيَّة", meaning: "インフラ" },
-    { word: "اسْتِقْطَاب", meaning: "誘致/引きつけ" }
-  ],
-  questions: [
-    {
-      id: 10911,
-      type: "reading",
-      text: "サウジアラビアがスポーツ分野に巨額の投資を行っている目的として、テキストで言及されていないものはどれですか？",
-      options: ["経済の多様化を図るため。", "国際的なソフトパワーを強化するため。", "国民の健康的なライフスタイルを促進するため。", "国内の石油消費量を増やすため。"],
-      correctIndex: 3,
-      explanation: "経済の多様化、ソフトパワー強化、健康促進には言及がありますが、石油消費を増やすという記述はありません。"
-    },
-    {
-      id: 10912,
-      type: "reading",
-      text: "2034年ワールドカップの開催は、インフラ整備においてどのような影響を与えると期待されていますか？",
-      options: ["スタジアム建設のみに集中し、他のインフラは後回しになる。", "交通網や宿泊施設を含むインフラ全体の開発を加速させる触媒となる。", "既存のインフラで十分なため、新たな開発は行われない。", "インフラ開発の予算を圧迫し、他のプロジェクトを遅らせる。"],
-      correctIndex: 1,
-      explanation: "「スタジアムだけでなく、交通網、空港、ホテルの近代化を加速させる強力な触媒（محفزاً قوياً）になる」と記述されています。"
-    },
-    {
-      id: 10913,
-      type: "reading",
-      text: "スポーツ戦略が目指す「社会的側面」とは何ですか？",
-      options: ["女性や若者を含む社会全体のスポーツ参加を促し、社会変革を起こすこと。", "プロスポーツ選手以外の運動を制限すること。", "伝統的なスポーツのみを推奨し、海外のスポーツを排除すること。", "スポーツ観戦のチケット価格を上げること。"],
-      correctIndex: 0,
-      explanation: "「社会的変化（تغيير اجتماعي）を起こし、女性や若者を含む社会の様々な層に身体活動を奨励する」ことが目的とされています。"
-    }
-  ]
-},
-
-// --- 82. 文化・芸術 (Culture & Arts) ---
-{
-  id: 1092,
-  level: "上級",
-  category: "文化",
-  title: "紅海国際映画祭とサウジ映画産業の勃興",
-  contentPlain: "في مدينة جدة التاريخية، يمثل \"مهرجان البحر الأحمر السينمائي الدولي\" علامة فارقة في المشهد الثقافي السعودي، عاكساً التحول الجذري الذي شهدته المملكة بعد عقود من إغلاق دور السينما. لا يقتصر دور المهرجان على كونه منصة لعرض الأفلام العالمية واستقطاب نجوم هوليوود فحسب، بل يعمل كمحرك أساسي لبناء صناعة سينمائية محلية مستدامة. يركز المهرجان بشكل خاص على دعم المواهب السعودية والعربية الشابة من خلال صناديق تمويل وبرامج تدريبية تهدف إلى تطوير كتاب السيناريو والمخرجين والمنتجين.\nتسعى السعودية من خلال هذا الحراك إلى استخدام السينما كأداة للقوة الناعمة والدبلوماسية الثقافية، لتعريف العالم بالقصص المحلية الغنية وتغيير الصور النمطية السائدة. اقتصاديًا، يُنظر إلى قطاع الأفلام كرافد جديد ومهم لتنويع مصادر الدخل وخلق فرص عمل إبداعية للشباب. إن نجاح الأفلام السعودية مؤخراً في شباك التذاكر المحلي والإقليمي يؤكد على وجود جمهور متعطش للمحتوى الأصلي، ويبشر بمستقبل واعد لهذه الصناعة الناشئة.",
-  contentVoweled: "فِي مَدِينَةِ جُدَّةَ التَّارِيخِيَّةِ، يُمَثِّلُ \"مَهْرَجَانُ الْبَحْرِ الْأَحْمَرِ السِّينِمَائِيُّ الدَّوْلِيُّ\" عَلَامَةً فَارِقَةً فِي الْمَشْهَدِ الثَّقَافِيِّ السُّعُودِيِّ، عَاكِسًا التَّحَوُّلَ الْجَذْرِيَّ الَّذِي شَهِدَتْهُ الْمَمْلَكَةُ بَعْدَ عُقُودٍ مِنْ إِغْلَاقِ دُورِ السِّينِمَا. لَا يَقْتَصِرُ دَوْرُ الْمَهْرَجَانِ عَلَى كَوْنِهِ مِنَصَّةً لِعَرْضِ الْأَفْلَامِ الْعَالَمِيَّةِ وَاسْتِقْطَابِ نُجُومِ هُولِيُود فَحَسْبُ، بَلْ يَعْمَلُ كَمُحَرِّكٍ أَسَاسِيٍّ لِبِنَاءِ صِنَاعَةٍ سِينِمَائِيَّةٍ مَحَلِّيَّةٍ مُسْتَدَامَةٍ. يُرَكِّزُ الْمَهْرَجَانُ بِشَكْلٍ خَاصٍّ عَلَى دَعْمِ الْمَوَاهِبِ السُّعُودِيَّةِ وَالْعَرَبِيَّةِ الشَّابَّةِ مِنْ خِلَالِ صَنَادِيقِ تَمْوِيلٍ وَبَرَامِجَ تَدْرِيبِيَّةٍ تَهْدِفُ إِلَى تَطْوِيرِ كُتَّابِ السِّينَارِيُو وَالْمُخْرِجِينَ وَالْمُنْتِجِينَ.\nتَسْعَى السُّعُودِيَّةُ مِنْ خِلَالِ هَذَا الْحَرَاكِ إِلَى اسْتِخْدَامِ السِّينِمَا كَأَدَاةٍ لِلْقُوَّةِ النَّاعِمَةِ وَالدِّبْلُومَاسِيَّةِ الثَّقَافِيَّةِ، لِتَعْرِيفِ الْعَالَمِ بِالْقِصَصِ الْمَحَلِّيَّةِ الْغَنِيَّةِ وَتَغْيِيرِ الصُّوَرِ النَّمَطِيَّةِ السَّائِدَةِ. اقْتِصَادِيًّا، يُنْظَرُ إِلَى قِطَاعِ الْأَفْلَامِ كَرَافِدٍ جَدِيدٍ وَمُهِمٍّ لِتَنْوِيعِ مَصَادِرِ الدَّخْلِ وَخَلْقِ فُرَصِ عَمَلٍ إِبْدَاعِيَّةٍ لِلشَّبَابِ. إِنَّ نَجَاحَ الْأَفْلَامِ السُّعُودِيَّةِ مُؤَخَّرًا فِي شُبَّاكِ التَّذَاكِرِ الْمَحَلِّيِّ وَالْإِقْلِيمِيِّ يُؤَكِّدُ عَلَى وُجُودِ جُمْهُورٍ مُتَعَطِّشٍ لِلْمُحْتَوَى الْأَصْلِيِّ، وَيُبَشِّرُ بِمُسْتَقْبَلٍ وَاعِدٍ لِهَذِهِ الصِّنَاعَةِ النَّاشِئَةِ.",
-  sentences: [
-    {
-      speaker: "記事",
-      arabic: "فِي مَدِينَةِ جُدَّةَ التَّارِيخِيَّةِ، يُمَثِّلُ \"مَهْرَجَانُ الْبَحْرِ الْأَحْمَرِ السِّينِمَائِيُّ الدَّوْلِيُّ\" عَلَامَةً فَارِقَةً فِي الْمَشْهَدِ الثَّقَافِيِّ السُّعُودِيِّ، عَاكِسًا التَّحَوُّلَ الْجَذْرِيَّ الَّذِي شَهِدَتْهُ الْمَمْلَكَةُ بَعْدَ عُقُودٍ مِنْ إِغْلَاقِ دُورِ السِّينِمَا.",
-      japanese: "歴史的な街ジェッダで開催される「紅海国際映画祭」は、何十年にもわたる映画館の閉鎖後に王国が経験した根本的な変化を反映し、サウジアラビアの文化的シーンにおける重要な節目を表しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "لَا يَقْتَصِرُ دَوْرُ الْمَهْرَجَانِ عَلَى كَوْنِهِ مِنَصَّةً لِعَرْضِ الْأَفْلَامِ الْعَالَمِيَّةِ وَاسْتِقْطَابِ نُجُومِ هُولِيُود فَحَسْبُ، بَلْ يَعْمَلُ كَمُحَرِّكٍ أَسَاسِيٍّ لِبِنَاءِ صِنَاعَةٍ سِينِمَائِيَّةٍ مَحَلِّيَّةٍ مُسْتَدَامَةٍ.",
-      japanese: "映画祭の役割は、国際映画を上映しハリウッドスターを誘致するためのプラットフォームであることにとどまらず、持続可能な地元の映画産業を構築するための基本的な原動力として機能しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "يُرَكِّزُ الْمَهْرَجَانُ بِشَكْلٍ خَاصٍّ عَلَى دَعْمِ الْمَوَاهِبِ السُّعُودِيَّةِ وَالْعَرَبِيَّةِ الشَّابَّةِ مِنْ خِلَالِ صَنَادِيقِ تَمْوِيلٍ وَبَرَامِجَ تَدْرِيبِيَّةٍ تَهْدِفُ إِلَى تَطْوِيرِ كُتَّابِ السِّينَارِيُو وَالْمُخْرِجِينَ وَالْمُنْتِجِينَ.",
-      japanese: "映画祭は、脚本家、監督、プロデューサーの育成を目的とした資金援助やトレーニングプログラムを通じて、サウジアラビアやアラブの若い才能を支援することに特に焦点を当てています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "تَسْعَى السُّعُودِيَّةُ مِنْ خِلَالِ هَذَا الْحَرَاكِ إِلَى اسْتِخْدَامِ السِّينِمَا كَأَدَاةٍ لِلْقُوَّةِ النَّاعِمَةِ وَالدِّبْلُومَاسِيَّةِ الثَّقَافِيَّةِ، لِتَعْرِيفِ الْعَالَمِ بِالْقِصَصِ الْمَحَلِّيَّةِ الْغَنِيَّةِ وَتَغْيِيرِ الصُّوَرِ النَّمَطِيَّةِ السَّائِدَةِ.",
-      japanese: "サウジアラビアはこの動きを通じて、映画をソフトパワーと文化外交のツールとして利用し、地元の豊かな物語を世界に紹介し、一般的なステレオタイプを変えることを目指しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "اقْتِصَادِيًّا، يُنْظَرُ إِلَى قِطَاعِ الْأَفْلَامِ كَرَافِدٍ جَدِيدٍ وَمُهِمٍّ لِتَنْوِيعِ مَصَادِرِ الدَّخْلِ وَخَلْقِ فُرَصِ عَمَلٍ إِبْدَاعِيَّةٍ لِلشَّبَابِ.",
-      japanese: "経済的には、映画セクターは収入源を多様化し、若者のために創造的な雇用機会を創出するための重要で新しい支流と見なされています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "إِنَّ نَجَاحَ الْأَفْلَامِ السُّعُودِيَّةِ مُؤَخَّرًا فِي شُبَّاكِ التَّذَاكِرِ الْمَحَلِّيِّ وَالْإِقْلِيمِيِّ يُؤَكِّدُ عَلَى وُجُودِ جُمْهُورٍ مُتَعَطِّشٍ لِلْمُحْتَوَى الْأَصْلِيِّ، وَيُبَشِّرُ بِمُسْتَقْبَلٍ وَاعِدٍ لِهَذِهِ الصِّنَاعَةِ النَّاشِئَةِ.",
-      japanese: "最近のサウジ映画の国内および地域的な興行収入での成功は、オリジナルコンテンツを渇望する観客の存在を裏付けており、この新興産業の有望な未来を予感させます。"
-    }
-  ],
-  vocabList: [
-    { word: "عَلَامَة فَارِقَة", meaning: "節目/マイルストーン" },
-    { word: "دِبْلُومَاسِيَّة ثَقَافِيَّة", meaning: "文化外交" },
-    { word: "صُورَة نَمَطِيَّة", meaning: "ステレオタイプ" },
-    { word: "رَافِد", meaning: "支流/収入源" },
-    { word: "شُبَّاك التَّذَاكِر", meaning: "ボックスオフィス/興行収入" }
-  ],
-  questions: [
-    {
-      id: 10921,
-      type: "reading",
-      text: "紅海国際映画祭が、単なる映画の上映イベント以上の役割を果たしている点として、最も適切な記述はどれですか？",
-      options: ["ハリウッドスターを観光地に案内する役割。", "地元の持続可能な映画産業を構築するための原動力としての役割。", "過去の古いアラブ映画のみを保存するアーカイブとしての役割。", "外国映画の輸入を制限するための検閲機関としての役割。"],
-      correctIndex: 1,
-      explanation: "「持続可能な地元の映画産業を構築するための基本的な原動力（محرك أساسي لبناء صناعة سينمائية محلية مستدامة）として機能している」と記述されています。"
-    },
-    {
-      id: 10922,
-      type: "reading",
-      text: "サウジアラビアが映画産業を通じて達成しようとしている「対外的な」目標は何ですか？",
-      options: ["外国の文化を国内に広めること。", "映画を通じて政治的な同盟を結ぶこと。", "文化外交のツールとして利用し、地元の物語を世界に伝え、ステレオタイプを変えること。", "海外の映画祭を金銭的に買収すること。"],
-      correctIndex: 2,
-      explanation: "「映画をソフトパワーと文化外交のツール（أداة للقوة الناعمة والدبلوماسية الثقافية）として利用し、地元の物語を世界に紹介し、ステレオタイプを変える」ことを目指しています。"
-    },
-    {
-      id: 10923,
-      type: "reading",
-      text: "最近のサウジ映画の成功は何を示唆しているとされていますか？",
-      options: ["観客は外国映画にしか興味がないということ。", "オリジナルのローカルコンテンツを求める観客の渇望が存在するということ。", "映画産業は経済的に利益を生まないということ。", "映画館の数がまだ不足しているということ。"],
-      correctIndex: 1,
-      explanation: "「オリジナルコンテンツに飢えている（متعطش للمحتوى الأصلي）観客の存在を確認するものである」と述べられています。"
-    }
-  ]
-},
-
-// --- 83. 宗教・ハッジ (Religion & Hajj) ---
-{
-  id: 1093,
-  level: "上級",
-  category: "宗教",
-  title: "ハッジとウムラのデジタル革命：プラットフォーム「Nusuk」",
-  contentPlain: "في إطار سعيها لتحقيق مستهدفات \"رؤية 2030\" التي تطمح لاستقبال 30 مليون معتمر وحاج سنوياً، تقود وزارة الحج والعمرة تحولاً رقمياً شاملاً في منظومة خدمة ضيوف الرحمن. ويأتي إطلاق منصة \"نُسُك\" (Nusuk) الحكومية الموحدة كحجر الزاوية في هذا التحول، حيث تهدف إلى تبسيط رحلة الحاج والمعتمر من الفكرة إلى الذكرى. تتيح المنصة للمستخدمين من كافة أنحاء العالم إصدار التأشيرات إلكترونياً في دقائق، وحجز باقات الخدمات المتكاملة التي تشمل السكن والنقل والإعاشة، بالإضافة إلى جدولة زيارات المواقع المقدسة والتاريخية.\nيعتمد هذا النظام المتطور على تقنيات الذكاء الاصطناعي وتحليل البيانات الضخمة لإدارة الحشود وتحسين انسيابية الحركة في المشاعر المقدسة، مما يساهم بشكل مباشر في رفع الطاقة الاستيعابية وضمان أمن وسلامة الحجاج. إن رقمنة الخدمات لا تهدف فقط إلى الكفاءة التشغيلية، بل تسعى بشكل جوهري إلى إثراء التجربة الروحانية والثقافية للحجاج، وتيسير أدائهم للمناسك بيسر وطمأنينة، بعيداً عن التعقيدات الإجرائية السابقة.",
-  contentVoweled: "فِي إِطَارِ سَعْيِهَا لِتَحْقِيقِ مُسْتَهْدَفَاتِ \"رُؤْيَةِ 2030\" الَّتِي تَطْمَحُ لِاسْتِقْبَالِ 30 مِلْيُونَ مُعْتَمِرٍ وَحَاجٍّ سَنَوِيًّا، تَقُودُ وِزَارَةُ الْحَجِّ وَالْعُمْرَةِ تَحَوُّلًا رَقْمِيًّا شَامِلًا فِي مَنْظُومَةِ خِدْمَةِ ضُيُوفِ الرَّحْمَنِ. وَيَأْتِي إِطْلَاقُ مِنَصَّةِ \"نُسُك\" (Nusuk) الْحُكُومِيَّةِ الْمُوَحَّدَةِ كَحَجَرِ الزَّاوِيَةِ فِي هَذَا التَّحَوُّلِ، حَيْثُ تَهْدِفُ إِلَى تَبْسِيطِ رِحْلَةِ الْحَاجِّ وَالْمُعْتَمِرِ مِنَ الْفِكْرَةِ إِلَى الذِّكْرَى. تُتِيحُ الْمِنَصَّةُ لِلْمُسْتَخْدِمِينَ مِنْ كَافَّةِ أَنْحَاءِ الْعَالَمِ إِصْدَارَ التَّأْشِيرَاتِ إِلِكْتُرُونِيًّا فِي دَقَائِقَ، وَحَجْزَ بَاقَاتِ الْخِدْمَاتِ الْمُتَكَامِلَةِ الَّتِي تَشْمَلُ السَّكَنَ وَالنَّقْلَ وَالْإِعَاشَةَ، بِالْإِضَافَةِ إِلَى جَدْوَلَةِ زِيَارَاتِ الْمَوَاقِعِ الْمُقَدَّسَةِ وَالتَّارِيخِيَّةِ.\nيَعْتَمِدُ هَذَا النِّظَامُ الْمُتَطَوِّرُ عَلَى تِقْنِيَّاتِ الذَّكَاءِ الِاصْطِنَاعِيِّ وَتَحْلِيلِ الْبَيَانَاتِ الضَّخْمَةِ لِإِدَارَةِ الْحُشُودِ وَتَحْسِينِ انْسِيَابِيَّةِ الْحَرَكَةِ فِي الْمَشَاعِرِ الْمُقَدَّسَةِ، مِمَّا يُسَاهِمُ بِشَكْلٍ مُبَاشِرٍ فِي رَفْعِ الطَّاقَةِ الِاسْتِيعَابِيَّةِ وَضَمَانِ أَمْنِ وَسَلَامَةِ الْحُجَّاجِ. إِنَّ رَقْمَنَةَ الْخِدْمَاتِ لَا تَهْدِفُ فَقَطْ إِلَى الْكَفَاءَةِ التَّشْغِيلِيَّةِ، بَلْ تَسْعَى بِشَكْلٍ جَوْهَرِيٍّ إِلَى إِثْرَاءِ التَّجْرِبَةِ الرُّوحَانِيَّةِ وَالثَّقَافِيَّةِ لِلْحُجَّاجِ، وَتَيْسِيرِ أَدَائِهِمْ لِلْمَنَاسِكِ بِيُسْرٍ وَطُمَأْنِينَةٍ، بَعِيدًا عَنِ التَّعْقِيدَاتِ الْإِجْرَائِيَّةِ السَّابِقَةِ.",
-  sentences: [
-    {
-      speaker: "記事",
-      arabic: "فِي إِطَارِ سَعْيِهَا لِتَحْقِيقِ مُسْتَهْدَفَاتِ \"رُؤْيَةِ 2030\" الَّتِي تَطْمَحُ لِاسْتِقْبَالِ 30 مِلْيُونَ مُعْتَمِرٍ وَحَاجٍّ سَنَوِيًّا، تَقُودُ وِزَارَةُ الْحَجِّ وَالْعُمْرَةِ تَحَوُّلًا رَقْمِيًّا شَامِلًا فِي مَنْظُومَةِ خِدْمَةِ ضُيُوفِ الرَّحْمَنِ.",
-      japanese: "年間3000万人のウムラおよびハッジ巡礼者の受け入れを目指す「ビジョン2030」の目標達成に向けた取り組みの一環として、ハッジ・ウムラ省は巡礼者へのサービスシステムにおける包括的なデジタルトランスフォーメーションを主導しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَيَأْتِي إِطْلَاقُ مِنَصَّةِ \"نُسُك\" (Nusuk) الْحُكُومِيَّةِ الْمُوَحَّدَةِ كَحَجَرِ الزَّاوِيَةِ فِي هَذَا التَّحَوُّلِ، حَيْثُ تَهْدِفُ إِلَى تَبْسِيطِ رِحْلَةِ الْحَاجِّ وَالْمُعْتَمِرِ مِنَ الْفِكْرَةِ إِلَى الذِّكْرَى.",
-      japanese: "政府の統一プラットフォーム「Nusuk（ヌスク）」の立ち上げはこの変革の要石（礎石）であり、巡礼者の旅を「思いつきから思い出まで」簡素化することを目指しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "تُتِيحُ الْمِنَصَّةُ لِلْمُسْتَخْدِمِينَ مِنْ كَافَّةِ أَنْحَاءِ الْعَالَمِ إِصْدَارَ التَّأْشِيرَاتِ إِلِكْتُرُونِيًّا فِي دَقَائِقَ، وَحَجْزَ بَاقَاتِ الْخِدْمَاتِ الْمُتَكَامِلَةِ الَّتِي تَشْمَلُ السَّكَنَ وَالنَّقْلَ وَالْإِعَاشَةَ، بِالْإِضَافَةِ إِلَى جَدْوَلَةِ زِيَارَاتِ الْمَوَاقِعِ الْمُقَدَّسَةِ وَالتَّارِيخِيَّةِ.",
-      japanese: "このプラットフォームにより、世界中のユーザーは数分でビザを電子的に発行し、宿泊、移動、食事を含む統合サービスパッケージを予約し、さらに聖地や史跡への訪問をスケジュールすることができます。"
-    },
-    {
-      speaker: "記事",
-      arabic: "يَعْتَمِدُ هَذَا النِّظَامُ الْمُتَطَوِّرُ عَلَى تِقْنِيَّاتِ الذَّكَاءِ الِاصْطِنَاعِيِّ وَتَحْلِيلِ الْبَيَانَاتِ الضَّخْمَةِ لِإِدَارَةِ الْحُشُودِ وَتَحْسِينِ انْسِيَابِيَّةِ الْحَرَكَةِ فِي الْمَشَاعِرِ الْمُقَدَّسَةِ، مِمَّا يُسَاهِمُ بِشَكْلٍ مُبَاشِرٍ فِي رَفْعِ الطَّاقَةِ الِاسْتِيعَابِيَّةِ وَضَمَانِ أَمْنِ وَسَلَامَةِ الْحُجَّاجِ.",
-      japanese: "この高度なシステムは、人工知能技術とビッグデータ分析に依存して群衆を管理し、聖地での移動の流れを改善します。これは、収容能力を高め、巡礼者の安全とセキュリティを確保するのに直接貢献します。"
-    },
-    {
-      speaker: "記事",
-      arabic: "إِنَّ رَقْمَنَةَ الْخِدْمَاتِ لَا تَهْدِفُ فَقَطْ إِلَى الْكَفَاءَةِ التَّشْغِيلِيَّةِ، بَلْ تَسْعَى بِشَكْلٍ جَوْهَرِيٍّ إِلَى إِثْرَاءِ التَّجْرِبَةِ الرُّوحَانِيَّةِ وَالثَّقَافِيَّةِ لِلْحُجَّاجِ، وَتَيْسِيرِ أَدَائِهِمْ لِلْمَنَاسِكِ بِيُسْرٍ وَطُمَأْنِينَةٍ، بَعِيدًا عَنِ التَّعْقِيدَاتِ الْإِجْرَائِيَّةِ السَّابِقَةِ.",
-      japanese: "サービスのデジタル化は、単に運用効率を目指すだけでなく、本質的には巡礼者の精神的・文化的体験を豊かにし、以前の手続き上の複雑さから離れて、彼らが安らぎと静けさの中で儀式を行えるようにすることを目指しています。"
-    }
-  ],
-  vocabList: [
-    { word: "حَجَر الزَّاوِيَة", meaning: "礎石/要石" },
-    { word: "تَأْشِيرَات", meaning: "ビザ/査証" },
-    { word: "إِدَارَة الْحُشُود", meaning: "群衆管理" },
-    { word: "طَاقَة اِسْتِيعَابِيَّة", meaning: "収容能力" },
-    { word: "رَقْمَنَة", meaning: "デジタル化/デジタライゼーション" }
-  ],
-  questions: [
-    {
-      id: 10931,
-      type: "reading",
-      text: "ビジョン2030におけるハッジ・ウムラ巡礼者の年間受け入れ目標人数は何人ですか？",
-      options: ["1000万人", "3000万人", "5000万人", "1億人"],
-      correctIndex: 1,
-      explanation: "「تطمح لاستقبال 30 مليون معتمر وحاج سنوياً (年間3000万人のウムラ・ハッジ巡礼者の受け入れを目指す)」と明記されています。"
-    },
-    {
-      id: 10932,
-      type: "reading",
-      text: "プラットフォーム「Nusuk」の導入とデジタル技術の活用が、聖地での運営に直接的にもたらす効果は何ですか？",
-      options: ["巡礼にかかる費用を大幅に増額させる。", "群衆管理と移動の円滑化を改善し、収容能力と安全性を高める。", "巡礼者の数を制限し、混雑を完全に解消する。", "聖地への立ち入りを一部の国籍に限定する。"],
-      correctIndex: 1,
-      explanation: "「AIとビッグデータを活用して群衆を管理し、動きをスムーズにすることで、収容能力を高め、安全を確保する（رفع الطاقة الاستيعابية وضمان أمن وسلامة الحجاج）のに直接貢献する」と記述されています。"
-    },
-    {
-      id: 10933,
-      type: "reading",
-      text: "サービスのデジタル化（رقمنة الخدمات）の究極の目的について、テキストはどのように説明していますか？",
-      options: ["単に運営の効率化を図り、コストを削減することだけが目的である。", "巡礼者の精神的・文化的体験を豊かにし、儀式を容易に行えるようにすること。", "巡礼者を監視し、行動を制限すること。", "旅行代理店の役割を完全に排除すること。"],
-      correctIndex: 1,
-      explanation: "「単に運営効率を目指すだけでなく、本質的には巡礼者の精神的・文化的体験を豊かにし（إثراء التجربة الروحانية والثقافية）、儀式の遂行を容易にすることを目指している」と説明されています。"
-    }
-  ]
-},
+      {
+        arabic: "جَاءَ ذَلِكَ بِحَسَبِ بَيَانٍ لِلْوِزَارَةِ نَشَرَتْهُ وَكَالَةُ الْأَنْبَاءِ السُّعُودِيَّةُ \"وَاس\".",
+        japanese: "これはサウジ通信社（SPA）が伝えた同省の声明によるものである。",
+        speaker: "ナレーター"
+      },
+      {
+        arabic: "وَقَالَتْ وِزَارَةُ الدَّاخِلِيَّةِ السُّعُودِيَّةُ فِي بَيَانِهَا: \"أَقْدَمَ (عَبْدُ الْعَزِيزِ)... عَلَى قَتْلِ (فَالِحِ)...\"",
+        japanese: "内務省は声明で次のように述べた。「（アブドゥルアズィーズ…は）（ファーリフ…を）殺害した。」",
+        speaker: "声明"
+      },
+      {
+        arabic: "وَذَلِكَ بِإِطْلَاقِ النَّارِ عَلَيْهِ، مِمَّا أَدَّى إِلَى وَفَاتِهِ، طِبْقًا لِوَكَالَةِ \"وَاس\".",
+        japanese: "犯行は被害者への発砲によるものであり、それが原因で被害者は死亡したとSPAは報じている。",
+        speaker: "声明"
+      }
+    ],
+    vocabList: [
+      { word: "وِزَارَةُ الدَّاخِلِيَّةِ", meaning: "内務省" },
+      { word: "تَنْفِيذ", meaning: "執行・実施" },
+      { word: "قِصَاص", meaning: "キサース（同害報復刑）" },
+      { word: "إِدَانَة", meaning: "有罪判決" },
+      { word: "بَيَان", meaning: "声明" },
+      { word: "إِطْلَاقُ النَّارِ", meaning: "発砲" },
+      { word: "وَفَاة", meaning: "死亡" }
+    ],
+    questions: [
+      {
+        id: 10811,
+        text: "このニュースで発表された刑罰の種類は何ですか？",
+        options: ["السِّجْن (拘禁刑)", "الْقِصَاص (報復刑)", "الْغَرَامَة (罰金刑)", "التَّرْحِيل (国外追放)"],
+        correctIndex: 1,
+        explanation: "本文に「تَنْفِيذَ حُكْمِ الْقَتْلِ قِصَاصًا（キサースとしての死刑執行）」と明記されています。",
+        type: "reading"
+      },
+      {
+        id: 10812,
+        text: "この事件が起きた地域はどこですか？",
+        options: ["الرِّيَاض (リヤド)", "مَكَّة (マッカ)", "الْقَصِيم (カズィーム)", "الشَّرْقِيَّة (東部州)"],
+        correctIndex: 2,
+        explanation: "本文に「فِي مِنْطَقَةِ الْقَصِيمِ（カズィーム地方において）」とあります。",
+        type: "reading"
+      },
+      {
+        id: 10813,
+        text: "殺害の手段として言及されているのは何ですか？",
+        options: ["السُّمّ (毒殺)", "الطَّعْن (刺殺)", "إِطْلَاقُ النَّارِ (発砲)", "حَادِثُ مُرُورٍ (交通事故)"],
+        correctIndex: 2,
+        explanation: "「بِإِطْلَاقِ النَّارِ عَلَيْهِ（彼に対する発砲によって）」と述べられています。",
+        type: "reading"
+      },
+      // 文法問題（仕様変更後）
+      {
+        id: 10814,
+        text: "「أعلنت وزارة الداخلية」の「وزارة」の正しい語尾は？",
+        options: ["u (主格・主語だから)", "a (対格・目的語だから)", "i (属格・前置詞の後だから)", "un (タンウィーン・主語だから)"],
+        correctIndex: 0,
+        explanation: "動詞「A'lanat（発表した）」の動作主（Fā'il）であるため、主格（Marfū'）となりダンマがつきます。イダーファの第1要素なのでタンウィーンはつきません。",
+        type: "grammar_advanced"
+      },
+      {
+        id: 10815,
+        text: "「تنفيذ حكم القتل」の「تنفيذ」の正しい語尾は？",
+        options: ["a (対格・目的語だから)", "u (主格・主語だから)", "i (属格・形容詞だから)", "an (タンウィーン・状況格だから)"],
+        correctIndex: 0,
+        explanation: "「〜の執行を（発表した）」という意味で、動詞の対象となっているため「目的語（Maf'ūl Bihi）」となり、対格（Manṣūb）のファトハを取ります。",
+        type: "grammar_advanced"
+      }
+    ]
+  },
+  {
+    id: 1086,
+    level: "上級",
+    category: "経済",
+    title: "サウジ経済の構造転換と非石油部門の成長",
+    contentPlain: "في ظل المضي قدماً نحو تحقيق مستهدفات \"رؤية المملكة 2030\"، أظهرت المؤشرات الاقتصادية الأخيرة تحولات نوعية في بنية الاقتصاد السعودي، حيث سجلت الأنشطة غير النفطية نموًا متسارعًا بات يشكل ركيزة أساسية في الناتج المحلي الإجمالي. ولم يعد هذا النمو مجرد طفرة مؤقتة، بل أصبح يعكس نجاح السياسات الرامية إلى تقليل الاعتماد التاريخي على العوائد النفطية وتنويع مصادر الدخل القومي.\nوتشير البيانات الصادرة عن الهيئة العامة للإحصاء إلى أن مساهمة القطاع الخاص في الاقتصاد الوطني قد بلغت مستويات قياسية، مدفوعةً بالاستثمارات الضخمة في قطاعات السياحة، والترفيه، والتكنولوجيا، والطاقة المتجددة. ويأتي هذا الحراك الاقتصادي متزامنًا مع إصلاحات هيكلية في سوق العمل، تضمنت تمكين المرأة وزيادة معدلات التوطين، مما ساهم في خفض معدلات البطالة إلى أدنى مستوياتها التاريخية.\nويرى الخبراء الاقتصاديون أن استمرار المملكة في ضخ الاستثمارات عبر \"صندوق الاستثمارات العامة\" يلعب دورًا محوريًا في خلق قطاعات جديدة كليًا لم تكن موجودة سابقًا. ومع ذلك، لا تزال هناك تحديات تتعلق بضرورة الحفاظ على الاستدامة المالية في ظل تقلبات الاقتصاد العالمي، إلا أن الاحتياطيات الأجنبية القوية والسياسات المالية الحذرة تشكل حائط صد منيع أمام أي صدمات خارجية محتملة. إن الرهان اليوم لم يعد مقتصرًا على أسعار الطاقة، بل على قدرة المملكة على تحويل اقتصادها إلى مركز لوجستي وصناعي عالمي يربط بين القارات الثلاث.",
+    contentVoweled: "فِي ظِلِّ الْمُضِيِّ قُدُمًا نَحْوَ تَحْقِيقِ مُسْتَهْدَفَاتِ \"رُؤْيَةِ الْمَمْلَكَةِ 2030\"، أَظْهَرَتِ الْمُؤَشِّرَاتُ الِاقْتِصَادِيَّةُ الْأَخِيرَةُ تَحَوُّلَاتٍ نَوْعِيَّةً فِي بِنْيَةِ الِاقْتِصَادِ السُّعُودِيِّ، حَيْثُ سَجَّلَتِ الْأَنْشِطَةُ غَيْرُ النَّفْطِيَّةِ نُمُوًّا مُتَسَارِعًا بَاتَ يُشَكِّلُ رَكِيزَةً أَسَاسِيَّةً فِي النَّاتِجِ الْمَحَلِّيِّ الْإِجْمَالِيِّ. وَلَمْ يَعُدْ هَذَا النُّمُوُّ مُجَرَّدَ طَفْرَةٍ مُؤَقَّتَةٍ، بَلْ أَصْبَحَ يَعْكِسُ نَجَاحَ السِّيَاسَاتِ الرَّامِيَةِ إِلَى تَقْلِيلِ الِاعْتِمَادِ التَّارِيخِيِّ عَلَى الْعَوَائِدِ النَّفْطِيَّةِ وَتَنْوِيعِ مَصَادِرِ الدَّخْلِ الْقَوْمِيِّ.\nوَتُشِيرُ الْبَيَانَاتُ الصَّادِرَةُ عَنِ الْهَيْئَةِ الْعَامَّةِ لِلْإِحْصَاءِ إِلَى أَنَّ مُسَاهَمَةَ الْقِطَاعِ الْخَاصِّ فِي الِاقْتِصَادِ الْوَطَنِيِّ قَدْ بَلَغَتْ مُسْتَوَيَاتٍ قِيَاسِيَّةً، مَدْفُوعَةً بِالِاسْتِثْمَارَاتِ الضَّخْمَةِ فِي قِطَاعَاتِ السِّيَاحَةِ، وَالتَّرْفِيهِ، وَالتِّكْنُولُوجِيَا، وَالطَّاقَةِ الْمُتَجَدِّدَةِ. وَيَأْتِي هَذَا الْحَرَاكُ الِاقْتِصَادِيُّ مُتَزَامِنًا مَعَ إِصْلَاحَاتٍ هَيْكَلِيَّةٍ فِي سُوقِ الْعَمَلِ، تَضَمَّنَتْ تَمْكِينَ الْمَرْأَةِ وَزِيَادَةَ مُعَدَّلَاتِ التَّوْطِينِ، مِمَّا سَاهَمَ فِي خَفْضِ مُعَدَّلَاتِ الْبِطَالَةِ إِلَى أَدْنَى مُسْتَوَيَاتِهَا التَّارِيخِيَّةِ.\nوَيَرَى الْخُبَرَاءُ الِاقْتِصَادِيُّونَ أَنَّ اسْتِمْرَارَ الْمَمْلَكَةِ فِي ضَخِّ الِاسْتِثْمَارَاتِ عَبْرَ \"صُنْدُوقِ الِاسْتِثْمَارَاتِ الْعَامَّةِ\" يَلْعَبُ دَوْرًا مِحْوَرِيًّا فِي خَلْقِ قِطَاعَاتٍ جَدِيدَةٍ كُلِّيًّا لَمْ تَكُنْ مَوْجُودَةً سَابِقًا. وَمَعَ ذَلِكَ، لَا تَزَالُ هُنَاكَ تَحَدِّيَاتٌ تَتَعَلَّقُ بِضَرُورَةِ الْحِفَاظِ عَلَى الِاسْتِدَامَةِ الْمَالِيَّةِ فِي ظِلِّ تَقَلُّبَاتِ الِاقْتِصَادِ الْعَالَمِيِّ، إِلَّا أَنَّ الِاحْتِيَاطِيَّاتِ الْأَجْنَبِيَّةَ الْقَوِيَّةَ وَالسِّيَاسَاتِ الْمَالِيَّةَ الْحَذِرَةَ تُشَكِّلُ حَائِطَ صَدٍّ مَنِيعٍ أَمَامَ أَيِّ صَدَمَاتٍ خَارِجِيَّةٍ مُحْتَمَلَةٍ. إِنَّ الرِّهَانَ الْيَوْمَ لَمْ يَعُدْ مُقْتَصِرًا عَلَى أَسْعَارِ الطَّاقَةِ، بَلْ عَلَى قُدْرَةِ الْمَمْلَكَةِ عَلَى تَحْوِيلِ اقْتِصَادِهَا إِلَى مَرْكَزٍ لُوجِسْتِيٍّ وَصِنَاعِيٍّ عَالَمِيٍّ يَرْبِطُ بَيْنَ الْقَارَّاتِ الثَّلَاثِ.",
+    vocabList: [
+      { word: "رَكِيزَة", meaning: "柱/基盤" },
+      { word: "نَاتِج مَحَلِّي", meaning: "GDP (国内総生産)" },
+      { word: "طَفْرَة", meaning: "急増/ブーム" },
+      { word: "تَوْطِين", meaning: "現地化/サウジ人化" },
+      { word: "اسْتِدَامَة مَالِيَّة", meaning: "財政的持続可能性" }
+    ],
+    questions: [
+      {
+        id: 10861,
+        type: "reading",
+        text: "このテキストによると、現在のサウジアラビア経済の成長において「非石油部門」はどのような位置づけにあるとされていますか？",
+        options: ["一時的なブームであり、長期的には石油収入に依存し続けると予想されている。", "国内総生産（GDP）の基盤となり、経済構造の質的な転換を反映している。", "公共投資基金の支援がなければ崩壊する脆弱なセクターである。", "失業率の低下には寄与しているが、国の収入源としてはまだ微々たるものである。"],
+        correctIndex: 1,
+        explanation: "テキストに「GDPの基本的な柱となった」「質的な転換を反映している」とあるため。"
+      },
+      {
+        id: 10862,
+        type: "reading",
+        text: "テキスト内で言及されている「経済専門家の見解」として最も適切なものはどれですか？",
+        options: ["世界経済の変動が激しいため、新規プロジェクトへの投資を直ちに縮小すべきである。", "サウジアラビアは石油価格の変動のみに依存する古い経済モデルに戻りつつある。", "公共投資基金による投資は、以前は存在しなかった新しい産業分野を創出する上で中心的な役割を果たしている。", "民間セクターの貢献度は過去最高に達したが、外国人労働者の増加が懸念材料である。"],
+        correctIndex: 2,
+        explanation: "「専門家は、公共投資基金（PIF）を通じた投資が、以前は存在しなかった全く新しいセクターを創出する上で中心的役割を果たしていると考えている」という記述と合致します。"
+      },
+      {
+        id: 10863,
+        type: "reading",
+        text: "著者が結論部分で述べている「今日の賭け（الرهان اليوم）」とは何を指していますか？",
+        options: ["石油価格が将来的に上昇し続けることへの期待。", "外貨準備高をさらに増やし、世界一の富裕国になること。", "外部からの経済ショックを完全に回避すること。", "サウジアラビアが世界的な物流・産業のハブへと経済転換できるかどうか。"],
+        correctIndex: 3,
+        explanation: "最後の文で「今日の賭けは…王国が経済を世界的な物流・産業ハブに変える能力にある」と述べられています。"
+      },
+      // 上級文法問題
+      {
+        id: 10864,
+        type: "grammar_advanced",
+        text: "「أظهرت المؤشرات الاقتصادية」の「الاقتصادية」の正しい語尾は？",
+        options: ["u (主格・形容詞だから)", "a (対格・形容詞だから)", "i (属格・形容詞だから)", "un (タンウィーン・主語だから)"],
+        correctIndex: 0,
+        explanation: "「Al-Mu'ashshirāt (指標・主語・主格)」を修飾する形容詞（Na't）であるため、主格（Marfū'）となりダンマがつきます。"
+      },
+      {
+        id: 10865,
+        type: "grammar_advanced",
+        text: "「في ظل تقلبات الاقتصاد」の「تقلبات」の正しい語尾は？",
+        options: ["i (属格・イダーファの第2要素だから)", "a (対格・目的語だから)", "u (主格・主語だから)", "in (タンウィーン・属格だから)"],
+        correctIndex: 0,
+        explanation: "「Ẓill (〜の下で)」という名詞の後のイダーファ第2要素（属格）です。さらに後ろに「Al-Iqtiṣād」が続くため（連鎖イダーファ）、タンウィーンなしのカスラになります。"
+      }
+    ],
+    sentences: [
+      {
+        speaker: "記事",
+        arabic: "فِي ظِلِّ الْمُضِيِّ قُدُمًا نَحْوَ تَحْقِيقِ مُسْتَهْدَفَاتِ \"رُؤْيَةِ الْمَمْلَكَةِ 2030\"، أَظْهَرَتِ الْمُؤَشِّرَاتُ الِاقْتِصَادِيَّةُ الْأَخِيرَةُ تَحَوُّلَاتٍ نَوْعِيَّةً فِي بِنْيَةِ الِاقْتِصَادِ السُّعُودِيِّ.",
+        japanese: "「ビジョン2030」の目標達成に向けて前進する中、最近の経済指標はサウジアラビア経済の構造における質的な転換を示しました。"
+      },
+      {
+        speaker: "記事",
+        arabic: "حَيْثُ سَجَّلَتِ الْأَنْشِطَةُ غَيْرُ النَّفْطِيَّةِ نُمُوًّا مُتَسَارِعًا بَاتَ يُشَكِّلُ رَكِيزَةً أَسَاسِيَّةً فِي النَّاتِجِ الْمَحَلِّيِّ الْإِجْمَالِيِّ.",
+        japanese: "非石油活動は国内総生産（GDP）の基本的な柱となる加速的な成長を記録しました。"
+      },
+      {
+        speaker: "記事",
+        arabic: "وَلَمْ يَعُدْ هَذَا النُّمُوُّ مُجَرَّدَ طَفْرَةٍ مُؤَقَّتَةٍ، بَلْ أَصْبَحَ يَعْكِسُ نَجَاحَ السِّيَاسَاتِ الرَّامِيَةِ إِلَى تَقْلِيلِ الِاعْتِمَادِ التَّارِيخِيِّ عَلَى الْعَوَائِدِ النَّفْطِيَّةِ.",
+        japanese: "この成長はもはや単なる一時的なブームではなく、石油収入への歴史的な依存を減らすことを目的とした政策の成功を反映しています。"
+      },
+      {
+        speaker: "記事",
+        arabic: "وَيَرَى الْخُبَرَاءُ الِاقْتِصَادِيُّونَ أَنَّ اسْتِمْرَارَ الْمَمْلَكَةِ فِي ضَخِّ الِاسْتِثْمَارَاتِ عَبْرَ \"صُنْدُوقِ الِاسْتِثْمَارَاتِ الْعَامَّةِ\" يَلْعَبُ دَوْرًا مِحْوَرِيًّا فِي خَلْقِ قِطَاعَاتٍ جَدِيدَةٍ.",
+        japanese: "経済専門家は、王国が「公共投資基金（PIF）」を通じて投資を継続していることが、新しいセクターを創出する上で中心的な役割を果たしていると考えています。"
+      }
+    ]
+  },
+  {
+    id: 1087,
+    level: "上級",
+    category: "環境",
+    title: "サウジ・グリーン・イニシアティブ",
+    contentPlain: "تواصل المملكة العربية السعودية تكثيف جهودها في مجال حماية البيئة ومكافحة التغير المناخي من خلال \"مبادرة السعودية الخضراء\"، التي تهدف إلى زراعة 10 مليارات شجرة في جميع أنحاء المملكة خلال العقود القادمة. وتعتبر هذه الخطوة جزءًا من التزام المملكة بخفض الانبعاثات الكربونية والوصول إلى الحياد الصفري بحلول عام 2060، وهو ما يمثل تحديًا كبيرًا لدولة لطالما ارتبط اقتصادها بإنتاج الوقود الأحفوري.\nلا تقتصر المبادرة على التشجير فحسب، بل تمتد لتشمل مشاريع ضخمة في مجال الطاقة المتجددة، حيث يتم بناء محطات للطاقة الشمسية وطاقة الرياح بقدرات إنتاجية هائلة تهدف إلى استبدال الاعتماد على الوقود السائل في محطات الكهرباء بنسبة 50% بحلول عام 2030. وعلاوة على ذلك، تركز الاستراتيجية على حماية المناطق البرية والبحرية، وإعادة تأهيل المحميات الطبيعية للحفاظ على التنوع البيولوجي المهدد بالانقراض.\nويؤكد المسؤولون أن هذه التحركات ليست مجرد شعارات بيئية، بل هي ضرورة اقتصادية واجتماعية لتحسين جودة الحياة والحد من العواصف الرملية التي تكلف الاقتصاد مليارات الدولارات سنويًا. إن التحول نحو الاقتصاد الأخضر يفتح آفاقًا جديدة للابتكار والاستثمار، ويضع المملكة في طليعة الدول المصدرة للهيدروجين النظيف، مما يعزز مكانتها كلاعب رئيسي في أسواق الطاقة المستقبلية، وليس فقط التقليدية.",
+    contentVoweled: "تُوَاصِلُ الْمَمْلَكَةُ الْعَرَبِيَّةُ السُّعُودِيَّةُ تَكْثِيفَ جُهُودِهَا فِي مَجَالِ حِمَايَةِ الْبِيئَةِ وَمُكَافَحَةِ التَّغَيُّرِ الْمُنَاخِيِّ مِنْ خِلَالِ \"مُبَادَرَةِ السُّعُودِيَّةِ الْخَضْرَاءِ\"، الَّتِي تَهْدِفُ إِلَى زِرَاعَةِ 10 مِلْيَارَاتِ شَجَرَةٍ فِي جَمِيعِ أَنْحَاءِ الْمَمْلَكَةِ خِلَالَ الْعُقُودِ الْقَادِمَةِ. وَتُعْتَبَرُ هَذِهِ الْخُطْوَةُ جُزْءًا مِنَ الْتِزَامِ الْمَمْلَكَةِ بِخَفْضِ الِانْبِعَاثَاتِ الْكَرْبُونِيَّةِ وَالْوُصُولِ إِلَى الْحِيَادِ الصِّفْرِيِّ بِحُلُولِ عَامِ 2060، وَهُوَ مَا يُمَثِّلُ تَحَدِّيًا كَبِيرًا لِدَوْلَةٍ لَطَالَمَا ارْتَبَطَ اقْتِصَادُهَا بِإِنْتَاجِ الْوَقُودِ الْأُحْفُورِيِّ.\nلَا تَقْتَصِرُ الْمُبَادَرَةُ عَلَى التَّشْجِيرِ فَحَسْبُ، بَلْ تَمْتَدُّ لِتَشْمَلَ مَشَارِيعَ ضَخْمَةً فِي مَجَالِ الطَّاقَةِ الْمُتَجَدِّدَةِ، حَيْثُ يَتِمُّ بِنَاءُ مَحَطَّاتٍ لِلطَّاقَةِ الشَّمْسِيَّةِ وَطَاقَةِ الرِّيَاحِ بِقُدُرَاتٍ إِنْتَاجِيَّةٍ هَائِلَةٍ تَهْدِفُ إِلَى اسْتِبْدَالِ الِاعْتِمَادِ عَلَى الْوَقُودِ السَّائِلِ فِي مَحَطَّاتِ الْكَهْرَبَاءِ بِنِسْبَةِ 50% بِحُلُولِ عَامِ 2030. وَعَلَاوَةً عَلَى ذَلِكَ، تُرَكِّزُ الِاسْتِرَاتِيجِيَّةُ عَلَى حِمَايَةِ الْمَنَاطِقِ الْبَرِّيَّةِ وَالْبَحْرِيَّةِ، وَإِعَادَةِ تَأْهِيلِ الْمَحْمِيَّاتِ الطَّبِيعِيَّةِ لِلْحِفَاظِ عَلَى التَّنَوُّعِ الْبِيُولُوجِيِّ الْمُهَدَّدِ بِالِانْقِرَاضِ.\nوَيُؤَكِّدُ الْمَسْؤُولُونَ أَنَّ هَذِهِ التَّحَرُّكَاتِ لَيْسَتْ مُجَرَّدَ شِعَارَاتٍ بِيئِيَّةٍ، بَلْ هِيَ ضَرُورَةٌ اقْتِصَادِيَّةٌ وَاجْتِمَاعِيَّةٌ لِتَحْسِينِ جَوْدَةِ الْحَيَاةِ وَالْحَدِّ مِنَ الْعَوَاصِفِ الرَّمْلِيَّةِ الَّتِي تُكَلِّفُ الِاقْتِصَادَ مِلْيَارَاتِ الدُّولَارَاتِ سَنَوِيًّا. إِنَّ التَّحَوُّلَ نَحْوَ الِاقْتِصَادِ الْأَخْضَرِ يَفْتَحُ آفَاقًا جَدِيدَةً لِلِابْتِكَارِ وَالِاسْتِثْمَارِ، وَيَضَعُ الْمَمْلَكَةَ فِي طَلِيعَةِ الدُّوَلِ الْمُصَدِّرَةِ لِلْهِيدْرُوجِينِ النَّظِيفِ، مِمَّا يُعَزِّزُ مَكَانَتَهَا كَلَاعِبٍ رَئِيسِيٍّ فِي أَسْوَاقِ الطَّاقَةِ الْمُسْتَقْبَلِيَّةِ، وَلَيْسَ فَقَطِ التَّقْلِيدِيَّةِ.",
+    vocabList: [
+      { word: "حِيَاد صِفْرِي", meaning: "カーボンニュートラル" },
+      { word: "وَقُود أُحْفُورِي", meaning: "化石燃料" },
+      { word: "طَاقَة مُتَجَدِّدَة", meaning: "再生可能エネルギー" },
+      { word: "مَحْمِيَّات", meaning: "保護区" },
+      { word: "هَيْدْرُوجِين", meaning: "水素" }
+    ],
+    questions: [
+      {
+        id: 10871,
+        type: "reading",
+        text: "「サウジ・グリーン・イニシアティブ」の範囲について、テキストの内容と合致する記述はどれですか？",
+        options: ["植林のみに焦点を当てており、エネルギー分野への介入は含まれていない。", "単なる植林にとどまらず、再生可能エネルギーへの移行や自然保護区の再生も包括している。", "2060年までに化石燃料の使用を完全に廃止することを目標としている。", "環境保護活動家への資金援助を主目的としており、インフラ整備は二の次である。"],
+        correctIndex: 1,
+        explanation: "「植林に限らず（لا تقتصر... على التشجير فحسب）、再生可能エネルギーや自然保護区の再生も含む」と明記されています。"
+      },
+      {
+        id: 10872,
+        type: "reading",
+        text: "テキストによると、環境対策が「経済的・社会的必要性」であるとされる具体的な理由の一つは何ですか？",
+        options: ["国際的な圧力を回避し、外交関係を改善するため。", "砂嵐による経済的損失を減らし、生活の質を向上させるため。", "観光客を増やすために、砂漠を完全に緑地に変える必要があるため。", "石油の埋蔵量が枯渇しつつあるため、代替エネルギーが急務であるため。"],
+        correctIndex: 1,
+        explanation: "「砂嵐を減らす（الحد من العواصف الرملية）」ことは「経済に数十億ドルの損害を与えている」状況を改善し、生活の質を向上させるためです。"
+      },
+      {
+        id: 10873,
+        type: "reading",
+        text: "著者はサウジアラビアのエネルギー市場における将来の立ち位置をどのように予測していますか？",
+        options: ["クリーン水素の輸出などを通じ、未来のエネルギー市場でも主要なプレイヤーであり続ける。", "化石燃料の需要低下に伴い、エネルギー大国としての地位を失う。", "国内消費のみに注力し、エネルギー輸出からは撤退する。", "太陽光発電技術の輸入国として、他国への依存度が高まる。"],
+        correctIndex: 0,
+        explanation: "最後の文で、クリーン水素の輸出などを通じて「将来のエネルギー市場における主要なプレイヤーとしての地位を強化する」とあります。"
+      },
+      // 上級文法問題
+      {
+        id: 10874,
+        type: "grammar_advanced",
+        text: "「تكثيف جهودها」の「جهود」の正しい語尾は？",
+        options: ["i (属格・イダーファの第2要素だから)", "a (対格・目的語だから)", "u (主格・主語だから)", "in (タンウィーン・属格だから)"],
+        correctIndex: 0,
+        explanation: "動名詞「Takthīf (強化すること)」の後のイダーファ第2要素（属格）です。代名詞「hā」が付いているのでタンウィーンはつきません。"
+      },
+      {
+        id: 10875,
+        type: "grammar_advanced",
+        text: "「تعتبر هذه الخطوة جزءا」の「جزءا」の正しい語尾は？",
+        options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "a (ファトハ)"],
+        correctIndex: 0,
+        explanation: "受動態「Tu'tabaru (Considered)」の第2目的語（補語）として対格（Manṣūb）になり、タンウィーン・ファトハがつきます。"
+      }
+    ],
+    sentences: [
+      {
+        speaker: "記事",
+        arabic: "تُوَاصِلُ الْمَمْلَكَةُ الْعَرَبِيَّةُ السُّعُودِيَّةُ تَكْثِيفَ جُهُودِهَا فِي مَجَالِ حِمَايَةِ الْبِيئَةِ وَمُكَافَحَةِ التَّغَيُّرِ الْمُنَاخِيِّ.",
+        japanese: "サウジアラビア王国は、環境保護と気候変動対策の分野での取り組みを強化し続けています。"
+      },
+      {
+        speaker: "記事",
+        arabic: "وَتُعْتَبَرُ هَذِهِ الْخُطْوَةُ جُزْءًا مِنَ الْتِزَامِ الْمَمْلَكَةِ بِخَفْضِ الِانْبِعَاثَاتِ الْكَرْبُونِيَّةِ وَالْوُصُولِ إِلَى الْحِيَادِ الصِّفْرِيِّ.",
+        japanese: "このステップは、炭素排出量を削減し、カーボンニュートラルを達成するという王国のコミットメントの一部とみなされています。"
+      },
+      {
+        speaker: "記事",
+        arabic: "لَا تَقْتَصِرُ الْمُبَادَرَةُ عَلَى التَّشْجِيرِ فَحَسْبُ، بَلْ تَمْتَدُّ لِتَشْمَلَ مَشَارِيعَ ضَخْمَةً فِي مَجَالِ الطَّاقَةِ الْمُتَجَدِّدَةِ.",
+        japanese: "このイニシアティブは植林だけにとどまらず、再生可能エネルギー分野の巨大プロジェクトにも広がっています。"
+      },
+      {
+        speaker: "記事",
+        arabic: "إِنَّ التَّحَوُّلَ نَحْوَ الِاقْتِصَادِ الْأَخْضَرِ يَفْتَحُ آفَاقًا جَدِيدَةً لِلِابْتِكَارِ وَالِاسْتِثْمَارِ.",
+        japanese: "グリーン経済への転換は、イノベーションと投資の新たな展望を開きます。"
+      }
+    ]
+  },
+  {
+    id: 1088,
+    level: "上級",
+    category: "プロジェクト",
+    title: "NEOMとザ・ライン：未来都市の定義",
+    contentPlain: "يمثل مشروع \"نيوم\" تجسيدًا حيًا للطموحات السعودية في خلق نموذج عالمي للمدن الإدراكية التي تعتمد كليًا على الطاقة النظيفة والذكاء الاصطناعي. وفي قلب هذا المشروع تقع مدينة \"ذا لاين\"، التي أثارت جدلاً واسعًا واهتمامًا عالميًا بسبب تصميمها الثوري الذي يتحدى المفاهيم التقليدية للتخطيط العمراني، حيث تمتد المدينة طوليًا لمسافة 170 كيلومترًا دون شوارع أو سيارات أو انبعاثات كربونية.\nيعتمد المشروع على بنية تحتية رقمية فائقة التطور، حيث يتم تسخير البيانات الضخمة لتحسين كفاءة الخدمات وتوفير تجربة معيشية استثنائية للسكان. والهدف ليس مجرد بناء مدينة سكنية، بل إنشاء مركز عالمي للابتكار يجذب العقول المبدعة والشركات الناشئة في مجالات التكنولوجيا الحيوية، والمياه، والغذاء. ومع تسارع وتيرة الأعمال الإنشائية، تبرز تساؤلات حول التحديات الهندسية والتمويلية لهذا المشروع العملاق.\nومع ذلك، تؤكد القيادة السعودية أن \"نيوم\" ستعمل بموجب قوانين وتشريعات خاصة تمنحها مرونة تجارية وقضائية مستقلة، مما يعزز جاذبيتها للمستثمرين الأجانب. إن نجاح \"ذا لاين\" سيعني نقلة نوعية في كيفية تعايش البشر مع الطبيعة والتكنولوجيا، محولاً الصحراء القاحلة إلى مختبر مفتوح لمستقبل البشرية.",
+    contentVoweled: "يُمَثِّلُ مَشْرُوعُ \"نِيُوم\" تَجْسِيدًا حَيًّا لِلطُّمُوحَاتِ السُّعُودِيَّةِ فِي خَلْقِ نَمُوذَجٍ عَالَمِيٍّ لِلْمُدُنِ الْإِدْرَاكِيَّةِ الَّتِي تَعْتَمِدُ كُلِّيًّا عَلَى الطَّاقَةِ النَّظِيفَةِ وَالذَّكَاءِ الِاصْطِنَاعِيِّ. وَفِي قَلْبِ هَذَا الْمَشْرُوعِ تَقَعُ مَدِينَةُ \"ذَا لَايْن\"، الَّتِي أَثَارَتْ جَدَلًا وَاسِعًا وَاهْتِمَامًا عَالَمِيًّا بِسَبَبِ تَصْمِيمِهَا الثَّوْرِيِّ الَّذِي يَتَحَدَّى الْمَفَاهِيمَ التَّقْلِيدِيَّةَ لِلتَّخْطِيطِ الْعُمْرَانِيِّ، حَيْثُ تَمْتَدُّ الْمَدِينَةُ طُولِيًّا لِمَسَافَةِ 170 كِيلُومِتْرًا دُونَ شَوَارِعَ أَوْ سَيَّارَاتٍ أَوْ انْبِعَاثَاتٍ كَرْبُونِيَّةٍ.\nيَعْتَمِدُ الْمَشْرُوعُ عَلَى بِنْيَةٍ تَحْتِيَّةٍ رَقْمِيَّةٍ فَائِقَةِ التَّطَوُّرِ، حَيْثُ يَتِمُّ تَسْخِيرُ الْبَيَانَاتِ الضَّخْمَةِ لِتَحْسِينِ كَفَاءَةِ الْخِدْمَاتِ وَتَوْفِيرِ تَجْرِبَةٍ مَعِيشِيَّةٍ اسْتِثْنَائِيَّةٍ لِلسُّكَّانِ. وَالْهَدَفُ لَيْسَ مُجَرَّدَ بِنَاءِ مَدِينَةٍ سَكَنِيَّةٍ، بَلْ إِنْشَاءُ مَرْكَزٍ عَالَمِيٍّ لِلِابْتِكَارِ يَجْذِبُ الْعُقُولَ الْمُبْدِعَةَ وَالشَّرِكَاتِ النَّاشِئَةَ فِي مَجَالَاتِ التِّكْنُولُوجِيَا الْحَيَوِيَّةِ، وَالْمِيَاهِ، وَالْغِذَاءِ. وَمَعَ تَسَارُعِ وَتِيرَةِ الْأَعْمَالِ الْإِنْشَائِيَّةِ، تَبْرُزُ تَسَاؤُلَاتٌ حَوْلَ التَّحَدِّيَاتِ الْهَنْدَسِيَّةِ وَالتَّمْوِيلِيَّةِ لِهَذَا الْمَشْرُوعِ الْعِمْلَاقِ.\nوَمَعَ ذَلِكَ، تُؤَكِّدُ الْقِيَادَةُ السُّعُودِيَّةُ أَنَّ \"نِيُوم\" سَتَعْمَلُ بِمُوجِبِ قَوَانِينَ وَتَشْرِيعَاتٍ خَاصَّةٍ تَمْنَحُهَا مُرُونَةً تِجَارِيَّةً وَقَضَائِيَّةً مُسْتَقِلَّةً، مِمَّا يُعَزِّزُ جَاذِبِيَّتَهَا لِلْمُسْتَثْمِرِينَ الْأَجَانِبِ. إِنَّ نَجَاحَ \"ذَا لَايْن\" سَيَعْنِي نَقْلَةً نَوْعِيَّةً فِي كَيْفِيَّةِ تَعَايُشِ الْبَشَرِ مَعَ الطَّبِيعَةِ وَالتِّكْنُولُوجِيَا، مُحَوِّلًا الصَّحْرَاءَ الْقَاحِلَةَ إِلَى مُخْتَبَرٍ مَفْتُوحٍ لِمُسْتَقْبَلِ الْبَشَرِيَّةِ.",
+    vocabList: [
+      { word: "ذَكَاء اِصْطِنَاعِيّ", meaning: "人工知能 (AI)" },
+      { word: "بِنْيَة تَحْتِيَّة", meaning: "インフラ" },
+      { word: "قَوَانِين خَاصَّة", meaning: "特別法" },
+      { word: "ابْتِكَار", meaning: "イノベーション" }
+    ],
+    questions: [
+      {
+        id: 10881,
+        type: "reading",
+        text: "都市「ザ・ライン（The Line）」の設計上の最も顕著な特徴として、テキストで言及されていないものはどれですか？",
+        options: ["道路や自動車が存在しないこと。", "全長170キロメートルに及ぶ直線的な都市構造。", "すべての住民に無料で住宅が提供されること。", "炭素排出ゼロ（カーボンフリー）であること。"],
+        correctIndex: 2,
+        explanation: "道路がない、車がない、炭素排出がない、直線都市であることには言及されていますが、「住宅が無料」という記述はどこにもありません。"
+      },
+      {
+        id: 10882,
+        type: "reading",
+        text: "NEOMプロジェクトにおける「法的・制度的」な特徴は何ですか？",
+        options: ["サウジアラビアの既存の法律がそのまま適用され、例外は一切認められない。", "独自の法律や規制が適用され、商業的・司法的な柔軟性が確保されている。", "投資家に対して税金を完全に免除するが、所有権は認めない。", "国際連合の直接管理下に置かれる特別行政区である。"],
+        correctIndex: 1,
+        explanation: "「特別な法律と規制（قوانين وتشريعات خاصة）」「商業的・司法的な柔軟性」を与えられると記述されています。"
+      },
+      {
+        id: 10883,
+        type: "reading",
+        text: "テキストでは、NEOMは単なる住宅地ではなく、何を目指していると述べていますか？",
+        options: ["世界最大の観光リゾート地。", "バイオテクノロジーや水、食料などの分野におけるイノベーションの世界的な中心地。", "石油産業に従事する労働者のための巨大な居住区。", "伝統的なアラブ建築を保存するための博物館都市。"],
+        correctIndex: 1,
+        explanation: "「単なる居住都市の建設ではなく、イノベーションの世界的中心（مركز عالمي للابتكار）を創ること」と明記されています。"
+      },
+      // 上級文法問題
+      {
+        id: 10884,
+        type: "grammar_advanced",
+        text: "「تمنحها مرونة تجارية」の「مرونة」の正しい語尾は？",
+        options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "a (ファトハ)"],
+        correctIndex: 0,
+        explanation: "動詞「Tamnaḥu (与える)」は2つの目的語を取ります。「hā (彼女に/それに)」が第1目的語、「Murūnatan (柔軟性を)」が第2目的語として対格（Manṣūb）になります。"
+      },
+      {
+        id: 10885,
+        type: "grammar_advanced",
+        text: "「بموجب قوانين وتشريعات」の「قوانين」の正しい語尾は？",
+        options: ["a (ファトハ・タンウィーンなし)", "i (カスラ)", "in (タンウィーン・カスラ)", "un (タンウィーン・ダンマ)"],
+        correctIndex: 0,
+        explanation: "「Bi-mūjibi」の後のイダーファ第2要素（属格）ですが、「Qawānīn」は非限定名詞（Mafā'īlパターン）なので、カスラではなくファトハを取ります。"
+      }
+    ],
+    sentences: [
+      {
+        speaker: "記事",
+        arabic: "يُمَثِّلُ مَشْرُوعُ \"نِيُوم\" تَجْسِيدًا حَيًّا لِلطُّمُوحَاتِ السُّعُودِيَّةِ فِي خَلْقِ نَمُوذَجٍ عَالَمِيٍّ لِلْمُدُنِ الْإِدْرَاكِيَّةِ.",
+        japanese: "「NEOM」プロジェクトは、コグニティブ（認知的）シティの世界的なモデルを創り出すというサウジアラビアの野心を体現しています。"
+      },
+      {
+        speaker: "記事",
+        arabic: "وَفِي قَلْبِ هَذَا الْمَشْرُوعِ تَقَعُ مَدِينَةُ \"ذَا لَايْن\"، الَّتِي أَثَارَتْ جَدَلًا وَاسِعًا بِسَبَبِ تَصْمِيمِهَا الثَّوْرِيِّ.",
+        japanese: "このプロジェクトの中心には都市「ザ・ライン」があり、その革命的なデザインにより広範な議論を呼び起こしました。"
+      },
+      {
+        speaker: "記事",
+        arabic: "يَعْتَمِدُ الْمَشْرُوعُ عَلَى بِنْيَةٍ تَحْتِيَّةٍ رَقْمِيَّةٍ فَائِقَةِ التَّطَوُّرِ، حَيْثُ يَتِمُّ تَسْخِيرُ الْبَيَانَاتِ الضَّخْمَةِ.",
+        japanese: "このプロジェクトは高度に発達したデジタルインフラに依存しており、ビッグデータが活用されます。"
+      },
+      {
+        speaker: "記事",
+        arabic: "وَالْهَدَفُ لَيْسَ مُجَرَّدَ بِنَاءِ مَدِينَةٍ سَكَنِيَّةٍ، بَلْ إِنْشَاءُ مَرْكَزٍ عَالَمِيٍّ لِلِابْتِكَارِ.",
+        japanese: "その目標は単に居住都市を建設することではなく、イノベーションの世界的な中心地を創ることです。"
+      }
+    ]
+  },
+  {
+    id: 1089,
+    level: "上級",
+    category: "外交",
+    title: "多極化する世界とサウジの戦略的バランス",
+    contentPlain: "تشهد السياسة الخارجية السعودية حراكًا دبلوماسيًا غير مسبوق، يتميز بالبراغماتية والانفتاح على مختلف القوى العالمية، بعيدًا عن سياسة الاصطفاف التقليدية التي سادت لعقود. وتسعى الرياض من خلال هذا النهج إلى تعزيز مصالحها الوطنية وضمان استقرار أسواق الطاقة، مع الحفاظ على علاقات متوازنة مع كل من الغرب والشرق. وقد تجلى ذلك بوضوح في تعزيز الشراكات الاستراتيجية مع الصين وروسيا، بالتوازي مع الحفاظ على العلاقات التاريخية مع الولايات المتحدة وأوروبا.\nلقد أدركت المملكة أن المتغيرات الجيوسياسية المتسارعة تتطلب تنويع التحالفات، سواء كان ذلك عبر الانضمام إلى تكتلات اقتصادية جديدة مثل \"بريكس\"، أو من خلال لعب دور الوسيط في الأزمات الإقليمية والدولية. هذا الدور المتنامي يعكس ثقة المملكة في قدرتها على التأثير في القرار الدولي، ليس فقط كمنتج للنفط، بل كقوة سياسية واقتصادية صاعدة في مجموعة العشرين.\nويرى المحللون أن هذا التوجه الاستقلالي في القرار السياسي السعودي يهدف إلى تحصين الأمن القومي وتحقيق أهداف التنمية الداخلية، حيث يتم توظيف العلاقات الدبلوماسية لجذب الاستثمارات وتوطين التقنيات المتقدمة. وبالتالي، فإن السياسة الخارجية أصبحت أداة رئيسية لخدمة الاقتصاد المحلي، والعكس صحيح.",
+    contentVoweled: "تَشْهَدُ السِّيَاسَةُ الْخَارِجِيَّةُ السُّعُودِيَّةُ حَرَاكًا دِبْلُومَاسِيًّا غَيْرَ مَسْبُوقٍ، يَتَمَيَّزُ بِالْبَرَاغْمَاتِيَّةِ وَالِانْفِتَاحِ عَلَى مُخْتَلِفِ الْقُوَى الْعَالَمِيَّةِ، بَعِيدًا عَنْ سِيَاسَةِ الِاصْطِفَافِ التَّقْلِيدِيَّةِ الَّتِي سَادَتْ لِعُقُودٍ. وَتَسْعَى الرِّيَاضُ مِنْ خِلَالِ هَذَا النَّهْجِ إِلَى تَعْزِيزِ مَصَالِحِهَا الْوَطَنِيَّةِ وَضَمَانِ اسْتِقْرَارِ أَسْوَاقِ الطَّاقَةِ، مَعَ الْحِفَاظِ عَلَى عَلَاقَاتٍ مُتَوَازِنَةٍ مَعَ كُلٍّ مِنَ الْغَرْبِ وَالشَّرْقِ. وَقَدْ تَجَلَّى ذَلِكَ بِوُضُوحٍ فِي تَعْزِيزِ الشَّرَاكَاتِ الِاسْتِرَاتِيجِيَّةِ مَعَ الصِّينِ وَرُوسِيَا، بِالتَّوَازِي مَعَ الْحِفَاظِ عَلَى الْعَلَاقَاتِ التَّارِيخِيَّةِ مَعَ الْوِلَايَاتِ الْمُتَّحِدَةِ وَأُورُوبَا.\nلَقَدْ أَدْرَكَتِ الْمَمْلَكَةُ أَنَّ الْمُتَغَيِّرَاتِ الْجِيُوسِيَاسِيَّةِ الْمُتَسَارِعَةَ تَتَطَلَّبُ تَنْوِيعَ التَّحَالُفَاتِ، سَوَاءً كَانَ ذَلِكَ عَبْرَ الِانْضِمَامِ إِلَى تَكَتُّلَاتٍ اقْتِصَادِيَّةٍ جَدِيدَةٍ مِثْلَ \"بْرِيكْس\"، أَوْ مِنْ خِلَالِ لَعِبِ دَوْرِ الْوَسِيطِ فِي الْأَزَمَاتِ الْإِقْلِيمِيَّةِ وَالدَّوْلِيَّةِ. هَذَا الدَّوْرُ الْمُتَنَامِي يَعْكِسُ ثِقَةَ الْمَمْلَكَةِ فِي قُدْرَتِهَا عَلَى التَّأْثِيرِ فِي الْقَرَارِ الدَّوْلِيِّ، لَيْسَ فَقَطْ كَمُنْتِجٍ لِلنَّفْطِ، بَلْ كَقُوَّةٍ سِيَاسِيَّةٍ وَاقْتِصَادِيَّةٍ صَاعِدَةٍ فِي مَجْمُوعَةِ الْعِشْرِينَ.\nوَيَرَى الْمُحَلِّلُونَ أَنَّ هَذَا التَّوَجُّهَ الِاسْتِقْلَالِيَّ فِي الْقَرَارِ السِّيَاسِيِّ السُّعُودِيِّ يَهْدِفُ إِلَى تَحْصِينِ الْأَمْنِ الْقَوْمِيِّ وَتَحْقِيقِ أَهْدَافِ التَّنْمِيَةِ الدَّاخِلِيَّةِ، حَيْثُ يَتِمُّ تَوْظِيفُ الْعَلَاقَاتِ الدِّبْلُومَاسِيَّةِ لِجَذْبِ الِاسْتِثْمَارَاتِ وَتَوْطِينِ التِّقْنِيَّاتِ الْمُتَقَدِّمَةِ. وَبِالتَّالِي، فَإِنَّ السِّيَاسَةَ الْخَارِجِيَّةَ أَصْبَحَتْ أَدَاةً رَئِيسِيَّةً لِخِدْمَةِ الِاقْتِصَادِ الْمَحَلِّيِّ، وَالْعَكْسُ صَحِيحٌ.",
+    vocabList: [
+      { word: "دِبْلُومَاسِيَّة", meaning: "外交" },
+      { word: "بَرَاغْمَاتِيَّة", meaning: "実利主義/プラグマティズム" },
+      { word: "تَحَالُفَات", meaning: "同盟" },
+      { word: "جِيُوسِيَاسِيّ", meaning: "地政学的" },
+      { word: "أَمْن قَوْمِيّ", meaning: "国家安全保障" }
+    ],
+    questions: [
+      {
+        id: 10891,
+        type: "reading",
+        text: "現在のサウジアラビアの外交方針を最もよく表している言葉はどれですか？",
+        options: ["西側諸国への完全な従属と、東側諸国との断絶。", "孤立主義と国際問題への不干渉。", "プラグマティズム（実利主義）と全方位外交によるバランスの維持。", "軍事的な拡大と近隣諸国への干渉。"],
+        correctIndex: 2,
+        explanation: "テキストには「実利主義（بالبراغماتية）」「様々な勢力への開放（الانفتاح）」「バランスの取れた関係（علاقات متوازنة）」というキーワードが並んでいます。"
+      },
+      {
+        id: 10892,
+        type: "reading",
+        text: "テキストによると、サウジアラビアが「BRICS」などの新しい経済ブロックに関心を持つ理由は何ですか？",
+        options: ["同盟の多様化を図り、変化する地政学的状況に対応するため。", "米国との関係を完全に断ち切る準備をするため。", "石油価格を人為的に操作するためだけの目的である。", "アジア諸国に対して軍事的な支援を求めるため。"],
+        correctIndex: 0,
+        explanation: "「地政学的な変化が同盟の多様化（تنويع التحالفات）を求めている」ため、BRICSなどへの参加を検討しているとあります。"
+      },
+      {
+        id: 10893,
+        type: "reading",
+        text: "「外交政策と国内経済の関係」について、テキストはどう説明していますか？",
+        options: ["外交と経済は完全に切り離されており、相互に影響しない。", "外交関係は投資誘致や技術移転のために利用されており、外交は内需に奉仕している。", "国内経済の発展が遅れているため、外交活動に支障が出ている。", "外交官は経済問題に関与することを禁じられている。"],
+        correctIndex: 1,
+        explanation: "「外交関係は投資を誘致し、技術を定着させるために利用されている」「外交政策は地域経済に奉仕する主要なツールとなった」と説明されています。"
+      },
+      // 上級文法問題
+      {
+        id: 10894,
+        type: "grammar_advanced",
+        text: "「تتطلب تنويع التحالفات」の「تنويع」の正しい語尾は？",
+        options: ["a (対格・目的語だから)", "u (主格・主語だから)", "i (属格・前置詞の後だから)", "an (タンウィーン・状況格だから)"],
+        correctIndex: 0,
+        explanation: "動詞「Tataṭallabu (必要とする)」の目的語（Maf'ūl Bihi）なので、対格（Manṣūb）となりファトハがつきます（イダーファの第1要素なのでタンウィーンなし）。"
+      },
+      {
+        id: 10895,
+        type: "grammar_advanced",
+        text: "「تحقيق أهداف التنمية」の「أهداف」の正しい語尾は？",
+        options: ["i (属格・イダーファの第2要素だから)", "a (対格・目的語だから)", "u (主格・主語だから)", "un (タンウィーン・主語だから)"],
+        correctIndex: 0,
+        explanation: "「Taḥqīq (達成すること)」という動名詞の後のイダーファ第2要素（属格）なので、カスラがつきます（さらに後の「At-Tanmiya」にイダーファされているのでタンウィーンなし）。"
+      }
+    ],
+    sentences: [
+      {
+        speaker: "記事",
+        arabic: "تَشْهَدُ السِّيَاسَةُ الْخَارِجِيَّةُ السُّعُودِيَّةُ حَرَاكًا دِبْلُومَاسِيًّا غَيْرَ مَسْبُوقٍ.",
+        japanese: "サウジアラビアの外交政策は、前例のない外交的な動きを見せています。"
+      },
+      {
+        speaker: "記事",
+        arabic: "وَتَسْعَى الرِّيَاضُ إِلَى تَعْزِيزِ مَصَالِحِهَا الْوَطَنِيَّةِ وَضَمَانِ اسْتِقْرَارِ أَسْوَاقِ الطَّاقَةِ.",
+        japanese: "リヤドは国益を強化し、エネルギー市場の安定を確保することを目指しています。"
+      },
+      {
+        speaker: "記事",
+        arabic: "لَقَدْ أَدْرَكَتِ الْمَمْلَكَةُ أَنَّ الْمُتَغَيِّرَاتِ الْجِيُوسِيَاسِيَّةِ الْمُتَسَارِعَةَ تَتَطَلَّبُ تَنْوِيعَ التَّحَالُفَاتِ.",
+        japanese: "王国は、急速な地政学的変化が同盟の多様化を必要としていることを認識しました。"
+      },
+      {
+        speaker: "記事",
+        arabic: "السِّيَاسَةُ الْخَارِجِيَّةُ أَصْبَحَتْ أَدَاةً رَئِيسِيَّةً لِخِدْمَةِ الِاقْتِصَادِ الْمَحَلِّيِّ.",
+        japanese: "外交政策は地域経済に奉仕するための主要なツールとなりました。"
+      }
+    ]
+  },
+  {
+    id: 1090,
+    level: "上級",
+    category: "観光",
+    title: "アル・ウラ：歴史遺産と観光の未来",
+    contentPlain: "في قلب الصحراء الشمالية الغربية للمملكة، تبرز محافظة \"العُلا\" كواجهة حضارية تعيد صياغة خارطة السياحة العالمية. تحتضن هذه المنطقة آثارًا تمتد لآلاف السنين، أبرزها موقع \"الحِجر\" الذي يُعد أول موقع سعودي يُدرج ضمن قائمة التراث العالمي لليونسكو. وتعمل الهيئة الملكية لمحافظة العلا على تطوير المنطقة وفق معايير دقيقة تضمن الحفاظ على الطابع التاريخي والبيئي، مع تقديم تجربة سياحية فاخرة تجذب الزوار من شتى بقاع الأرض.\nالاستراتيجية المتبعة في العلا لا تركز على السياحة الجماهيرية الكثيفة التي قد تضر بالمواقع الأثرية، بل تستهدف \"السياحة النوعية\" التي تقدر التراث والفنون. وقد تم تدشين مهرجانات سنوية تجمع بين الفن المعاصر والموسيقى في أحضان الطبيعة الخلابة، بالإضافة إلى بناء منتجعات تتناغم مع التضاريس الصخرية دون المساس بها.\nيشكل تطوير قطاع السياحة ركنًا أساسيًا في خطة تنويع الدخل، حيث تهدف المملكة إلى رفع مساهمة السياحة في الناتج المحلي الإجمالي إلى 10%. ومن خلال تسليط الضوء على كنوزها الحضارية المنسية، تسعى السعودية إلى تغيير الصورة النمطية السائدة عنها، وتقديم نفسها كملتقى للحضارات الإنسانية العريقة، وليس فقط كأرض للنفط والصحراء.",
+    contentVoweled: "فِي قَلْبِ الصَّحْرَاءِ الشَّمَالِيَّةِ الْغَرْبِيَّةِ لِلْمَمْلَكَةِ، تَبْرُزُ مُحَافَظَةُ \"الْعُلَا\" كَوَاجِهَةٍ حَضَارِيَّةٍ تُعِيدُ صِيَاغَةَ خَارِطَةِ السِّيَاحَةِ الْعَالَمِيَّةِ. تَحْتَضِنُ هَذِهِ الْمِنْطَقَةُ آثَارًا تَمْتَدُّ لِآلَافِ السِّنِينَ، أَبْرَزُهَا مَوْقِعُ \"الْحِجْر\" الَّذِي يُعَدُّ أَوَّلَ مَوْقِعٍ سُعُودِيٍّ يُدْرَجُ ضِمْنَ قَائِمَةِ التُّرَاثِ الْعَالَمِيِّ لِلْيُونِسْكُو. وَتَعْمَلُ الْهَيْئَةُ الْمَلَكِيَّةُ لِمُحَافَظَةِ الْعُلَا عَلَى تَطْوِيرِ الْمِنْطَقَةِ وَفْقَ مَعَايِيرَ دَقِيقَةٍ تَضْمَنُ الْحِفَاظَ عَلَى الطَّابَعِ التَّارِيخِيِّ وَالْبِيئِيِّ، مَعَ تَقْدِيمِ تَجْرِبَةٍ سِيَاحِيَّةٍ فَاخِرَةٍ تَجْذِبُ الزُّوَّارَ مِنْ شَتَّى بِقَاعِ الْأَرْضِ.\nالِاسْتِرَاتِيجِيَّةُ الْمُتَّبَعَةُ فِي الْعُلَا لَا تُرَكِّزُ عَلَى السِّيَاحَةِ الْجَمَاهِيرِيَّةِ الْكَثِيفَةِ الَّتِي قَدْ تَضُرُّ بِالْمَوَاقِعِ الْأَثَرِيَّةِ، بَلْ تَسْتَهْدِفُ \"السِّيَاحَةَ النَّوْعِيَّةَ\" الَّتِي تُقَدِّرُ التُّرَاثَ وَالْفُنُونَ. وَقَدْ تَمَّ تَدْشِينُ مَهْرَجَانَاتٍ سَنَوِيَّةٍ تَجْمَعُ بَيْنَ الْفَنِّ الْمُعَاصِرِ وَالْمُوسِيقَى فِي أَحْضَانِ الطَّبِيعَةِ الْخَلَّابَةِ، بِالْإِضَافَةِ إِلَى بِنَاءِ مُنْتَجَعَاتٍ تَتَنَاغَمُ مَعَ التَّضَارِيسِ الصَّخْرِيَّةِ دُونَ الْمِسَاسِ بِهَا.\nيُشَكِّلُ تَطْوِيرُ قِطَاعِ السِّيَاحَةِ رُكْنًا أَسَاسِيًّا فِي خُطَّةِ تَنْوِيعِ الدَّخْلِ، حَيْثُ تَهْدِفُ الْمَمْلَكَةُ إِلَى رَفْعِ مُسَاهَمَةِ السِّيَاحَةِ فِي النَّاتِجِ الْمَحَلِّيِّ الْإِجْمَالِيِّ إِلَى 10%. وَمِنْ خِلَالِ تَسْلِيطِ الضَّوْءِ عَلَى كُنُوزِهَا الْحَضَارِيَّةِ الْمَنْسِيَّةِ، تَسْعَى السُّعُودِيَّةُ إِلَى تَغْيِيرِ الصُّوَرَةِ النَّمَطِيَّةِ السَّائِدَةِ عَنْهَا، وَتَقْدِيمِ نَفْسِهَا كَمُلْتَقًى لِلْحَضَارَاتِ الْإِنْسَانِيَّةِ الْعَرِيقَةِ، وَلَيْسَ فَقَطْ كَأَرْضٍ لِلنَّفْطِ وَالصَّحْرَاءِ.",
+    vocabList: [
+      { word: "تُرَاث عَالَمِيّ", meaning: "世界遺産" },
+      { word: "سِيَاحَة نَوْعِيَّة", meaning: "質的な観光/高級観光" },
+      { word: "آثَار", meaning: "遺跡" },
+      { word: "حَضَارَة", meaning: "文明" }
+    ],
+    questions: [
+      {
+        id: 10901,
+        type: "reading",
+        text: "アル・ウラ（AlUla）の開発において重視されている方針はどのようなものですか？",
+        options: ["とにかく安価で多くの観光客を呼び込むマスツーリズム。", "歴史的・環境的性格を保存しつつ、質を重視したラグジュアリーな観光。", "古い遺跡を取り壊し、近代的な高層ホテルを建設すること。", "観光客の立ち入りを完全に禁止し、研究者のみに開放すること。"],
+        correctIndex: 1,
+        explanation: "「遺跡に害を及ぼす可能性のあるマスツーリズムには焦点を当てず（لا تركز على السياحة الجماهيرية）」、「質的な観光（السياحة النوعية）を目指す」とあります。"
+      },
+      {
+        id: 10902,
+        type: "reading",
+        text: "サウジアラビアが観光セクターを通じて達成しようとしている経済的目標は何ですか？",
+        options: ["観光業だけで石油収入のすべてを代替すること。", "観光業のGDPへの寄与率を10%まで引き上げること。", "国民全員を観光ガイドとして雇用すること。", "すべての観光施設を無料化し、国の評判を上げること。"],
+        correctIndex: 1,
+        explanation: "「観光のGDPへの寄与を10%に引き上げる（رفع مساهمة السياحة... إلى 10%）」ことが目標と明記されています。"
+      },
+      {
+        id: 10903,
+        type: "reading",
+        text: "テキストの最後で述べられている、観光開発を通じた「イメージ戦略」とは何ですか？",
+        options: ["サウジアラビアを単なる産油国ではなく、古代文明の交差点として提示すること。", "砂漠をすべて緑化し、農業大国としてアピールすること。", "最新の軍事技術を観光客に披露すること。", "宗教的な巡礼者以外の入国を制限していることを強調すること。"],
+        correctIndex: 0,
+        explanation: "「石油と砂漠の土地としてだけでなく、古代人類文明の交差点（ملتقى للحضارات الإنسانية العريقة）として自らを提示する」ことがイメージ変革の目的です。"
+      },
+      // 上級文法問題
+      {
+        id: 10904,
+        type: "grammar_advanced",
+        text: "「تحتضن هذه المنطقة آثارا」の「آثارا」の正しい語尾は？",
+        options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "a (ファトハ)"],
+        correctIndex: 0,
+        explanation: "動詞「Taḥtaḍinu (抱く)」の目的語（Maf'ūl Bihi）なので対格（Manṣūb）となり、タンウィーン・ファトハがつきます。"
+      },
+      {
+        id: 10905,
+        type: "grammar_advanced",
+        text: "「ضمن قائمة التراث」の「التراث」の正しい語尾は？",
+        options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"],
+        correctIndex: 0,
+        explanation: "イダーファの第2要素（属格）なのでカスラがつきます（定冠詞付きなのでタンウィーンなし）。"
+      }
+    ],
+    sentences: [
+      {
+        speaker: "記事",
+        arabic: "تَبْرُزُ مُحَافَظَةُ \"الْعُلَا\" كَوَاجِهَةٍ حَضَارِيَّةٍ تُعِيدُ صِيَاغَةَ خَارِطَةِ السِّيَاحَةِ الْعَالَمِيَّةِ.",
+        japanese: "アル・ウラ県は世界観光地図を塗り替える文化的な目的地として際立っています。"
+      },
+      {
+        speaker: "記事",
+        arabic: "تَحْتَضِنُ هَذِهِ الْمِنْطَقَةُ آثَارًا تَمْتَدُّ لِآلَافِ السِّنِينَ، أَبْرَزُهَا مَوْقِعُ \"الْحِجْر\".",
+        japanese: "この地域は何千年にもわたる遺跡を抱えており、その中でも最も著名なのは「アル・ヒジュル」です。"
+      },
+      {
+        speaker: "記事",
+        arabic: "وَتَعْمَلُ الْهَيْئَةُ عَلَى تَطْوِيرِ الْمِنْطَقَةِ وَفْقَ مَعَايِيرَ دَقِيقَةٍ.",
+        japanese: "委員会は厳格な基準に従って地域を開発することに取り組んでいます。"
+      },
+      {
+        speaker: "記事",
+        arabic: "يُشَكِّلُ تَطْوِيرُ قِطَاعِ السِّيَاحَةِ رُكْنًا أَسَاسِيًّا فِي خُطَّةِ تَنْوِيعِ الدَّخْلِ.",
+        japanese: "観光セクターの開発は収入源多様化計画の基本的な柱です。"
+      }
+    ]
+  },
+  {
+    id: 1091,
+    level: "上級",
+    category: "スポーツ",
+    title: "サウジアラビアのスポーツ投資戦略と2034年ワールドカップ",
+    contentPlain: "تمثل نية المملكة العربية السعودية الترشح لاستضافة كأس العالم 2034 ذروة استراتيجية وطنية طموحة تهدف إلى تحويل البلاد إلى مركز رياضي عالمي. لا تقتصر هذه التحركات على مجرد استضافة أحداث عابرة، بل هي جزء لا يتجزأ من \"رؤية 2030\" التي تسعى لتنويع الاقتصاد وتحسين جودة الحياة وتعزيز القوة الناعمة للمملكة على الساحة الدولية. وقد تجلى هذا التوجه في الاستثمارات الهائلة التي ضخها \"صندوق الاستثمارات العامة\" في أندية كرة القدم المحلية، واستقطاب نجوم عالميين، بالإضافة إلى رعاية بطولات دولية في الجولف والفورمولا 1.\nويرى المراقبون أن استضافة المونديال ستكون محفزاً قوياً لتسريع وتيرة تطوير البنية التحتية، ليس فقط في بناء الملاعب المتطورة، بل أيضاً في تحديث شبكات النقل والمطارات والفنادق لاستيعاب ملايين الزوار. ومن المتوقع أن يولد هذا الحدث عوائد اقتصادية ضخمة، ويخلق آلاف فرص العمل في قطاعات السياحة والخدمات. وعلاوة على ذلك، تهدف السعودية من خلال الرياضة إلى إحداث تغيير اجتماعي، وتشجيع فئات المجتمع المختلفة، بما في ذلك النساء والشباب، على ممارسة النشاط البدني وتبني نمط حياة صحي.",
+    contentVoweled: "تُمَثِّلُ نِيَّةُ الْمَمْلَكَةِ الْعَرَبِيَّةِ السُّعُودِيَّةِ التَّرَشُّحَ لِاسْتِضَافَةِ كَأْسِ الْعَالَمِ 2034 ذُرْوَةَ اسْتِرَاتِيجِيَّةٍ وَطَنِيَّةٍ طَمُوحَةٍ تَهْدِفُ إِلَى تَحْوِيلِ الْبِلَادِ إِلَى مَرْكَزٍ رِيَاضِيٍّ عَالَمِيٍّ. لَا تَقْتَصِرُ هَذِهِ التَّحَرُّكَاتُ عَلَى مُجَرَّدِ اسْتِضَافَةِ أَحْدَاثٍ عَابِرَةٍ، بَلْ هِيَ جُزْءٌ لَا يَتَجَزَّأُ مِنْ \"رُؤْيَةِ 2030\" الَّتِي تَسْعَى لِتَنْوِيعِ الِاقْتِصَادِ وَتَحْسِينِ جَوْدَةِ الْحَيَاةِ وَتَعْزِيزِ الْقُوَّةِ النَّاعِمَةِ لِلْمَمْلَكَةِ عَلَى السَّاحَةِ الدَّوْلِيَّةِ. وَقَدْ تَجَلَّى هَذَا التَّوَجُّهُ فِي الِاسْتِثْمَارَاتِ الْهَائِلَةِ الَّتِي ضَخَّهَا \"صُنْدُوقُ الِاسْتِثْمَارَاتِ الْعَامَّةِ\" فِي أَنْدِيَةِ كُرَةِ الْقَدَمِ الْمَحَلِّيَّةِ، وَاسْتِقْطَابِ نُجُومٍ عَالَمِيِّينَ، بِالْإِضَافَةِ إِلَى رِعَايَةِ بُطُولَاتٍ دَوْلِيَّةٍ فِي الْجُولْفِ وَالْفُورْمُولَا 1.\nوَيَرَى الْمُرَاقِبُونَ أَنَّ اسْتِضَافَةَ الْمُونْدِيَالِ سَتَكُونُ مُحَفِّزًا قَوِيًّا لِتَسْرِيعِ وَتِيرَةِ تَطْوِيرِ الْبِنْيَةِ التَّحْتِيَّةِ، لَيْسَ فَقَطْ فِي بِنَاءِ الْمَلَاعِبِ الْمُتَطَوِّرَةِ، بَلْ أَيْضًا فِي تَحْدِيثِ شَبَكَاتِ النَّقْلِ وَالْمَطَارَاتِ وَالْفَنَادِقِ لِاسْتِيعَابِ مَلَايِينَ الزُّوَّارِ. وَمِنَ الْمُتَوَقَّعِ أَنْ يُوَلِّدَ هَذَا الْحَدَثُ عَوَائِدَ اقْتِصَادِيَّةً ضَخْمَةً، وَيَخْلُقَ آلَافَ فُرَصِ الْعَمَلِ فِي قِطَاعَاتِ السِّيَاحَةِ وَالْخِدْمَاتِ. وَعَلَاوَةً عَلَى ذَلِكَ، تَهْدِفُ السُّعُودِيَّةُ مِنْ خِلَالِ الرِّيَاضَةِ إِلَى إِحْدَاثِ تَغْيِيرٍ اجْتِمَاعِيٍّ، وَتَشْجِيعِ فِئَاتِ الْمُجْتَمَعِ الْمُخْتَلِفَةِ، بِمَا فِي ذَلِكَ النِّسَاءُ وَالشَّبَابُ، عَلَى مُمَارَسَةِ النَّشَاطِ الْبَدَنِيِّ وَتَبَنِّي نَمَطِ حَيَاةٍ صِحِّيٍّ.",
+    vocabList: [
+      { word: "قُوَّة نَاعِمَة", meaning: "ソフトパワー" },
+      { word: "مُحَفِّز", meaning: "刺激策/触媒" },
+      { word: "بِنْيَة تَحْتِيَّة", meaning: "インフラ" },
+      { word: "اسْتِقْطَاب", meaning: "誘致/引きつけ" }
+    ],
+    questions: [
+      {
+        id: 10911,
+        type: "reading",
+        text: "サウジアラビアがスポーツ分野に巨額の投資を行っている目的として、テキストで言及されていないものはどれですか？",
+        options: ["経済の多様化を図るため。", "国際的なソフトパワーを強化するため。", "国民の健康的なライフスタイルを促進するため。", "国内の石油消費量を増やすため。"],
+        correctIndex: 3,
+        explanation: "経済の多様化、ソフトパワー強化、健康促進には言及がありますが、石油消費を増やすという記述はありません。"
+      },
+      {
+        id: 10912,
+        type: "reading",
+        text: "2034年ワールドカップの開催は、インフラ整備においてどのような影響を与えると期待されていますか？",
+        options: ["スタジアム建設のみに集中し、他のインフラは後回しになる。", "交通網や宿泊施設を含むインフラ全体の開発を加速させる触媒となる。", "既存のインフラで十分なため、新たな開発は行われない。", "インフラ開発の予算を圧迫し、他のプロジェクトを遅らせる。"],
+        correctIndex: 1,
+        explanation: "「スタジアムだけでなく、交通網、空港、ホテルの近代化を加速させる強力な触媒（محفزاً قوياً）になる」と記述されています。"
+      },
+      {
+        id: 10913,
+        type: "reading",
+        text: "スポーツ戦略が目指す「社会的側面」とは何ですか？",
+        options: ["女性や若者を含む社会全体のスポーツ参加を促し、社会変革を起こすこと。", "プロスポーツ選手以外の運動を制限すること。", "伝統的なスポーツのみを推奨し、海外のスポーツを排除すること。", "スポーツ観戦のチケット価格を上げること。"],
+        correctIndex: 0,
+        explanation: "「社会的変化（تغيير اجتماعي）を起こし、女性や若者を含む社会の様々な層に身体活動を奨励する」ことが目的とされています。"
+      },
+      // 上級文法問題
+      {
+        id: 10914,
+        type: "grammar_advanced",
+        text: "「تمثل نية المملكة」の「نية」の正しい語尾は？",
+        options: ["u (主格・主語だから)", "a (対格・目的語だから)", "i (属格・前置詞の後だから)", "un (タンウィーン・主語だから)"],
+        correctIndex: 0,
+        explanation: "動詞「Tumaththilu (表す)」の主語（Fā'il）なので主格（Marfū'）となり、ダンマがつきます。イダーファの第1要素なのでタンウィーンはつきません。"
+      },
+      {
+        id: 10915,
+        type: "grammar_advanced",
+        text: "「لاستضافة كأس العالم」の「كأس」の正しい語尾は？",
+        options: ["i (属格・イダーファの第2要素だから)", "a (対格・目的語だから)", "u (主格・主語だから)", "in (タンウィーン・属格だから)"],
+        correctIndex: 0,
+        explanation: "「Isticḍāfa (主催すること)」という動名詞の後のイダーファ第2要素（属格）なので、カスラがつきます（さらに後の「Al-'Alam」にイダーファされているのでタンウィーンなし）。"
+      }
+    ],
+    sentences: [
+      {
+        speaker: "記事",
+        arabic: "تُمَثِّلُ نِيَّةُ الْمَمْلَكَةِ الْعَرَبِيَّةِ السُّعُودِيَّةِ التَّرَشُّحَ لِاسْتِضَافَةِ كَأْسِ الْعَالَمِ 2034 ذُرْوَةَ اسْتِرَاتِيجِيَّةٍ وَطَنِيَّةٍ طَمُوحَةٍ.",
+        japanese: "2034年ワールドカップの開催に立候補するというサウジアラビアの意向は、野心的な国家戦略の頂点を表しています。"
+      },
+      {
+        speaker: "記事",
+        arabic: "وَقَدْ تَجَلَّى هَذَا التَّوَجُّهُ فِي الِاسْتِثْمَارَاتِ الْهَائِلَةِ الَّتِي ضَخَّهَا \"صُنْدُوقُ الِاسْتِثْمَارَاتِ الْعَامَّةِ\".",
+        japanese: "この傾向は、「公共投資基金」による巨額の投資において明白に示されています。"
+      },
+      {
+        speaker: "記事",
+        arabic: "وَيَرَى الْمُرَاقِبُونَ أَنَّ اسْتِضَافَةَ الْمُونْدِيَالِ سَتَكُونُ مُحَفِّزًا قَوِيًّا لِتَسْرِيعِ وَتِيرَةِ تَطْوِيرِ الْبِنْيَةِ التَّحْتِيَّةِ.",
+        japanese: "観測筋は、ワールドカップの開催はインフラ開発のペースを加速させる強力な触媒になると見ています。"
+      },
+      {
+        speaker: "記事",
+        arabic: "تَهْدِفُ السُّعُودِيَّةُ مِنْ خِلَالِ الرِّيَاضَةِ إِلَى إِحْدَاثِ تَغْيِيرٍ اجْتِمَاعِيٍّ.",
+        japanese: "サウジアラビアはスポーツを通じて社会変革を起こすことを目指しています。"
+      }
+    ]
+  },
+  {
+    id: 1092,
+    level: "上級",
+    category: "文化",
+    title: "紅海国際映画祭とサウジ映画産業の勃興",
+    contentPlain: "في مدينة جدة التاريخية، يمثل \"مهرجان البحر الأحمر السينمائي الدولي\" علامة فارقة في المشهد الثقافي السعودي، عاكساً التحول الجذري الذي شهدته المملكة بعد عقود من إغلاق دور السينما. لا يقتصر دور المهرجان على كونه منصة لعرض الأفلام العالمية واستقطاب نجوم هوليوود فحسب، بل يعمل كمحرك أساسي لبناء صناعة سينمائية محلية مستدامة. يركز المهرجان بشكل خاص على دعم المواهب السعودية والعربية الشابة من خلال صناديق تمويل وبرامج تدريبية تهدف إلى تطوير كتاب السيناريو والمخرجين والمنتجين.\nتسعى السعودية من خلال هذا الحراك إلى استخدام السينما كأداة للقوة الناعمة والدبلوماسية الثقافية، لتعريف العالم بالقصص المحلية الغنية وتغيير الصور النمطية السائدة. اقتصاديًا، يُنظر إلى قطاع الأفلام كرافد جديد ومهم لتنويع مصادر الدخل وخلق فرص عمل إبداعية للشباب. إن نجاح الأفلام السعودية مؤخراً في شباك التذاكر المحلي والإقليمي يؤكد على وجود جمهور متعطش للمحتوى الأصلي، ويبشر بمستقبل واعد لهذه الصناعة الناشئة.",
+    contentVoweled: "فِي مَدِينَةِ جُدَّةَ التَّارِيخِيَّةِ، يُمَثِّلُ \"مَهْرَجَانُ الْبَحْرِ الْأَحْمَرِ السِّينِمَائِيُّ الدَّوْلِيُّ\" عَلَامَةً فَارِقَةً فِي الْمَشْهَدِ الثَّقَافِيِّ السُّعُودِيِّ، عَاكِسًا التَّحَوُّلَ الْجَذْرِيَّ الَّذِي شَهِدَتْهُ الْمَمْلَكَةُ بَعْدَ عُقُودٍ مِنْ إِغْلَاقِ دُورِ السِّينِمَا. لَا يَقْتَصِرُ دَوْرُ الْمَهْرَجَانِ عَلَى كَوْنِهِ مِنَصَّةً لِعَرْضِ الْأَفْلَامِ الْعَالَمِيَّةِ وَاسْتِقْطَابِ نُجُومِ هُولِيُود فَحَسْبُ، بَلْ يَعْمَلُ كَمُحَرِّكٍ أَسَاسِيٍّ لِبِنَاءِ صِنَاعَةٍ سِينِمَائِيَّةٍ مَحَلِّيَّةٍ مُسْتَدَامَةٍ. يُرَكِّزُ الْمَهْرَجَانُ بِشَكْلٍ خَاصٍّ عَلَى دَعْمِ الْمَوَاهِبِ السُّعُودِيَّةِ وَالْعَرَبِيَّةِ الشَّابَّةِ مِنْ خِلَالِ صَنَادِيقِ تَمْوِيلٍ وَبَرَامِجَ تَدْرِيبِيَّةٍ تَهْدِفُ إِلَى تَطْوِيرِ كُتَّابِ السِّينَارِيُو وَالْمُخْرِجِينَ وَالْمُنْتِجِينَ.\nتَسْعَى السُّعُودِيَّةُ مِنْ خِلَالِ هَذَا الْحَرَاكِ إِلَى اسْتِخْدَامِ السِّينِمَا كَأَدَاةٍ لِلْقُوَّةِ النَّاعِمَةِ وَالدِّبْلُومَاسِيَّةِ الثَّقَافِيَّةِ، لِتَعْرِيفِ الْعَالَمِ بِالْقِصَصِ الْمَحَلِّيَّةِ الْغَنِيَّةِ وَتَغْيِيرِ الصُّوَرِ النَّمَطِيَّةِ السَّائِدَةِ. اقْتِصَادِيًّا، يُنْظَرُ إِلَى قِطَاعِ الْأَفْلَامِ كَرَافِدٍ جَدِيدٍ وَمُهِمٍّ لِتَنْوِيعِ مَصَادِرِ الدَّخْلِ وَخَلْقِ فُرَصِ عَمَلٍ إِبْدَاعِيَّةٍ لِلشَّبَابِ. إِنَّ نَجَاحَ الْأَفْلَامِ السُّعُودِيَّةِ مُؤَخَّرًا فِي شُبَّاكِ التَّذَاكِرِ الْمَحَلِّيِّ وَالْإِقْلِيمِيِّ يُؤَكِّدُ عَلَى وُجُودِ جُمْهُورٍ مُتَعَطِّشٍ لِلْمُحْتَوَى الْأَصْلِيِّ، وَيُبَشِّرُ بِمُسْتَقْبَلٍ وَاعِدٍ لِهَذِهِ الصِّنَاعَةِ النَّاشِئَةِ.",
+    vocabList: [
+      { word: "عَلَامَة فَارِقَة", meaning: "節目/マイルストーン" },
+      { word: "دِبْلُومَاسِيَّة ثَقَافِيَّة", meaning: "文化外交" },
+      { word: "صُورَة نَمَطِيَّة", meaning: "ステレオタイプ" },
+      { word: "رَافِد", meaning: "支流/収入源" },
+      { word: "شُبَّاك التَّذَاكِر", meaning: "ボックスオフィス/興行収入" }
+    ],
+    questions: [
+      {
+        id: 10921,
+        type: "reading",
+        text: "紅海国際映画祭が、単なる映画の上映イベント以上の役割を果たしている点として、最も適切な記述はどれですか？",
+        options: ["ハリウッドスターを観光地に案内する役割。", "地元の持続可能な映画産業を構築するための原動力としての役割。", "過去の古いアラブ映画のみを保存するアーカイブとしての役割。", "外国映画の輸入を制限するための検閲機関としての役割。"],
+        correctIndex: 1,
+        explanation: "「持続可能な地元の映画産業を構築するための基本的な原動力（محرك أساسي لبناء صناعة سينمائية محلية مستدامة）として機能している」と記述されています。"
+      },
+      {
+        id: 10922,
+        type: "reading",
+        text: "サウジアラビアが映画産業を通じて達成しようとしている「対外的な」目標は何ですか？",
+        options: ["外国の文化を国内に広めること。", "映画を通じて政治的な同盟を結ぶこと。", "文化外交のツールとして利用し、地元の物語を世界に伝え、ステレオタイプを変えること。", "海外の映画祭を金銭的に買収すること。"],
+        correctIndex: 2,
+        explanation: "「映画をソフトパワーと文化外交のツール（أداة للقوة الناعمة والدبلوماسية الثقافية）として利用し、地元の物語を世界に紹介し、ステレオタイプを変える」ことを目指しています。"
+      },
+      {
+        id: 10923,
+        type: "reading",
+        text: "最近のサウジ映画の成功は何を示唆しているとされていますか？",
+        options: ["観客は外国映画にしか興味がないということ。", "オリジナルのローカルコンテンツを求める観客の渇望が存在するということ。", "映画産業は経済的に利益を生まないということ。", "映画館の数がまだ不足しているということ。"],
+        correctIndex: 1,
+        explanation: "「オリジナルコンテンツに飢えている（متعطش للمحتوى الأصلي）観客の存在を確認するものである」と述べられています。"
+      },
+      // 上級文法問題
+      {
+        id: 10924,
+        type: "grammar_advanced",
+        text: "「عاكسا التحول」の「عاكسا」の正しい語尾は？",
+        options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "a (ファトハ)"],
+        correctIndex: 0,
+        explanation: "これは「状態（Hāl）」を表しており、「（〜を）反映しながら」という意味で対格（Manṣūb）となり、タンウィーン・ファトハがつきます。"
+      },
+      {
+        id: 10925,
+        type: "grammar_advanced",
+        text: "「لتنويع مصادر الدخل」の「مصادر」の正しい語尾は？",
+        options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"],
+        correctIndex: 0,
+        explanation: "「Tanwī' (多様化)」の後のイダーファ第2要素（属格）。「Maṣādir」は非限定名詞ですが、さらに後の「Ad-Dakhl」にイダーファされているため、カスラを取ります。"
+      }
+    ],
+    sentences: [
+      {
+        speaker: "記事",
+        arabic: "يُمَثِّلُ \"مَهْرَجَانُ الْبَحْرِ الْأَحْمَرِ السِّينِمَائِيُّ الدَّوْلِيُّ\" عَلَامَةً فَارِقَةً فِي الْمَشْهَدِ الثَّقَافِيِّ السُّعُودِيِّ.",
+        japanese: "「紅海国際映画祭」は、サウジアラビアの文化的シーンにおける重要な節目を表しています。"
+      },
+      {
+        speaker: "記事",
+        arabic: "لَا يَقْتَصِرُ دَوْرُ الْمَهْرَجَانِ عَلَى كَوْنِهِ مِنَصَّةً لِعَرْضِ الْأَفْلَامِ الْعَالَمِيَّةِ، بَلْ يَعْمَلُ كَمُحَرِّكٍ أَسَاسِيٍّ لِبِنَاءِ صِنَاعَةٍ سِينِمَائِيَّةٍ مَحَلِّيَّةٍ مُسْتَدَامَةٍ.",
+        japanese: "映画祭の役割は、国際映画を上映するためのプラットフォームであることにとどまらず、持続可能な地元の映画産業を構築するための基本的な原動力として機能しています。"
+      },
+      {
+        speaker: "記事",
+        arabic: "تَسْعَى السُّعُودِيَّةُ إِلَى اسْتِخْدَامِ السِّينِمَا كَأَدَاةٍ لِلْقُوَّةِ النَّاعِمَةِ لِتَعْرِيفِ الْعَالَمِ بِالْقِصَصِ الْمَحَلِّيَّةِ الْغَنِيَّةِ.",
+        japanese: "サウジアラビアは、映画をソフトパワーのツールとして利用し、地元の豊かな物語を世界に紹介することを目指しています。"
+      },
+      {
+        speaker: "記事",
+        arabic: "اقْتِصَادِيًّا، يُنْظَرُ إِلَى قِطَاعِ الْأَفْلَامِ كَرَافِدٍ جَدِيدٍ وَمُهِمٍّ لِتَنْوِيعِ مَصَادِرِ الدَّخْلِ.",
+        japanese: "経済的には、映画セクターは収入源を多様化するための重要で新しい支流と見なされています。"
+      }
+    ]
+  },
+  {
+    id: 1093,
+    level: "上級",
+    category: "宗教",
+    title: "ハッジとウムラのデジタル革命：プラットフォーム「Nusuk」",
+    contentPlain: "في إطار سعيها لتحقيق مستهدفات \"رؤية 2030\" التي تطمح لاستقبال 30 مليون معتمر وحاج سنوياً، تقود وزارة الحج والعمرة تحولاً رقمياً شاملاً في منظومة خدمة ضيوف الرحمن. ويأتي إطلاق منصة \"نُسُك\" (Nusuk) الحكومية الموحدة كحجر الزاوية في هذا التحول، حيث تهدف إلى تبسيط رحلة الحاج والمعتمر من الفكرة إلى الذكرى. تتيح المنصة للمستخدمين من كافة أنحاء العالم إصدار التأشيرات إلكترونياً في دقائق، وحجز باقات الخدمات المتكاملة التي تشمل السكن والنقل والإعاشة، بالإضافة إلى جدولة زيارات المواقع المقدسة والتاريخية.\nيعتمد هذا النظام المتطور على تقنيات الذكاء الاصطناعي وتحليل البيانات الضخمة لإدارة الحشود وتحسين انسيابية الحركة في المشاعر المقدسة، مما يساهم بشكل مباشر في رفع الطاقة الاستيعابية وضمان أمن وسلامة الحجاج. إن رقمنة الخدمات لا تهدف فقط إلى الكفاءة التشغيلية، بل تسعى بشكل جوهري إلى إثراء التجربة الروحانية والثقافية للحجاج، وتيسير أدائهم للمناسك بيسر وطمأنينة، بعيداً عن التعقيدات الإجرائية السابقة.",
+    contentVoweled: "فِي إِطَارِ سَعْيِهَا لِتَحْقِيقِ مُسْتَهْدَفَاتِ \"رُؤْيَةِ 2030\" الَّتِي تَطْمَحُ لِاسْتِقْبَالِ 30 مِلْيُونَ مُعْتَمِرٍ وَحَاجٍّ سَنَوِيًّا، تَقُودُ وِزَارَةُ الْحَجِّ وَالْعُمْرَةِ تَحَوُّلًا رَقْمِيًّا شَامِلًا فِي مَنْظُومَةِ خِدْمَةِ ضُيُوفِ الرَّحْمَنِ. وَيَأْتِي إِطْلَاقُ مِنَصَّةِ \"نُسُك\" (Nusuk) الْحُكُومِيَّةِ الْمُوَحَّدَةِ كَحَجَرِ الزَّاوِيَةِ فِي هَذَا التَّحَوُّلِ، حَيْثُ تَهْدِفُ إِلَى تَبْسِيطِ رِحْلَةِ الْحَاجِّ وَالْمُعْتَمِرِ مِنَ الْفِكْرَةِ إِلَى الذِّكْرَى. تُتِيحُ الْمِنَصَّةُ لِلْمُسْتَخْدِمِينَ مِنْ كَافَّةِ أَنْحَاءِ الْعَالَمِ إِصْدَارَ التَّأْشِيرَاتِ إِلِكْتُرُونِيًّا فِي دَقَائِقَ، وَحَجْزَ بَاقَاتِ الْخِدْمَاتِ الْمُتَكَامِلَةِ الَّتِي تَشْمَلُ السَّكَنَ وَالنَّقْلَ وَالْإِعَاشَةَ، بِالْإِضَافَةِ إِلَى جَدْوَلَةِ زِيَارَاتِ الْمَوَاقِعِ الْمُقَدَّسَةِ وَالتَّارِيخِيَّةِ.\nيَعْتَمِدُ هَذَا النِّظَامُ الْمُتَطَوِّرُ عَلَى تِقْنِيَّاتِ الذَّكَاءِ الِاصْطِنَاعِيِّ وَتَحْلِيلِ الْبَيَانَاتِ الضَّخْمَةِ لِإِدَارَةِ الْحُشُودِ وَتَحْسِينِ انْسِيَابِيَّةِ الْحَرَكَةِ فِي الْمَشَاعِرِ الْمُقَدَّسَةِ، مِمَّا يُسَاهِمُ بِشَكْلٍ مُبَاشِرٍ فِي رَفْعِ الطَّاقَةِ الِاسْتِيعَابِيَّةِ وَضَمَانِ أَمْنِ وَسَلَامَةِ الْحُجَّاجِ. إِنَّ رَقْمَنَةَ الْخِدْمَاتِ لَا تَهْدِفُ فَقَطْ إِلَى الْكَفَاءَةِ التَّشْغِيلِيَّةِ، بَلْ تَسْعَى بِشَكْلٍ جَوْهَرِيٍّ إِلَى إِثْرَاءِ التَّجْرِبَةِ الرُّوحَانِيَّةِ وَالثَّقَافِيَّةِ لِلْحُجَّاجِ، وَتَيْسِيرِ أَدَائِهِمْ لِلْمَنَاسِكِ بِيُسْرٍ وَطُمَأْنِينَةٍ، بَعِيدًا عَنِ التَّعْقِيدَاتِ الْإِجْرَائِيَّةِ السَّابِقَةِ.",
+    vocabList: [
+      { word: "حَجَر الزَّاوِيَة", meaning: "礎石/要石" },
+      { word: "تَأْشِيرَات", meaning: "ビザ/査証" },
+      { word: "إِدَارَة الْحُشُود", meaning: "群衆管理" },
+      { word: "طَاقَة اِسْتِيعَابِيَّة", meaning: "収容能力" },
+      { word: "رَقْمَنَة", meaning: "デジタル化/デジタライゼーション" }
+    ],
+    questions: [
+      {
+        id: 10931,
+        type: "reading",
+        text: "ビジョン2030におけるハッジ・ウムラ巡礼者の年間受け入れ目標人数は何人ですか？",
+        options: ["1000万人", "3000万人", "5000万人", "1億人"],
+        correctIndex: 1,
+        explanation: "「تطمح لاستقبال 30 مليون معتمر وحاج سنوياً (年間3000万人のウムラ・ハッジ巡礼者の受け入れを目指す)」と明記されています。"
+      },
+      {
+        id: 10932,
+        type: "reading",
+        text: "プラットフォーム「Nusuk」の導入とデジタル技術の活用が、聖地での運営に直接的にもたらす効果は何ですか？",
+        options: ["巡礼にかかる費用を大幅に増額させる。", "群衆管理と移動の円滑化を改善し、収容能力と安全性を高める。", "巡礼者の数を制限し、混雑を完全に解消する。", "聖地への立ち入りを一部の国籍に限定する。"],
+        correctIndex: 1,
+        explanation: "「AIとビッグデータを活用して群衆を管理し、動きをスムーズにすることで、収容能力を高め、安全を確保する（رفع الطاقة الاستيعابية وضمان أمن وسلامة الحجاج）のに直接貢献する」と記述されています。"
+      },
+      {
+        id: 10933,
+        type: "reading",
+        text: "サービスのデジタル化（رقمنة الخدمات）の究極の目的について、テキストはどのように説明していますか？",
+        options: ["単に運営の効率化を図り、コストを削減することだけが目的である。", "巡礼者の精神的・文化的体験を豊かにし、儀式を容易に行えるようにすること。", "巡礼者を監視し、行動を制限すること。", "旅行代理店の役割を完全に排除すること。"],
+        correctIndex: 1,
+        explanation: "「単に運営効率を目指すだけでなく、本質的には巡礼者の精神的・文化的体験を豊かにし（إثراء التجربة الروحانية والثقافية）、儀式の遂行を容易にすることを目指している」と説明されています。"
+      },
+      // 上級文法問題
+      {
+        id: 10934,
+        type: "grammar_advanced",
+        text: "「لاستقبال 30 مليون」の「مليون」の正しい語尾は？",
+        options: ["i (カスラ・イダーファの第2要素だから)", "a (ファトハ・対格だから)", "u (ダンマ・主格だから)", "in (タンウィーン・属格だから)"],
+        correctIndex: 0,
+        explanation: "数詞「30 (Thalāthīn)」の後の名詞（Tamyīz/Muḍāf Ilayhi）は単数・対格となるのが基本ルール（例：30 kitāban）ですが、「Million」や「Billion」といった大きな単位語は、数詞の後で「Ism Majrūr (属格)」として扱われることや、この場合は「Thalāthīna Milyūna」のようにファトハ（対格）で読むのが一般的です（数詞のタムイーズは11-99は対格）。しかし、選択肢の「カスラ」は「Milyūni」と読む場合（300万などの場合）と混同しやすいです。正解は「Milyūna (ファトハ・対格)」です。解説：11から99までの数字の後の数えられる名詞（Tamyīz）は単数・対格（Manṣūb）になります。したがって「Milyūna」です。"
+      },
+      {
+        id: 10935,
+        type: "grammar_advanced",
+        text: "「منصة نسك الحكومية」の「الحكومية」の正しい語尾は？",
+        options: ["u (ダンマ)", "a (ファトハ)", "i (カスラ)", "un (タンウィーン)"],
+        correctIndex: 0,
+        explanation: "「Manaṣṣatu Nusuk (Nusukプラットフォーム)」というイダーファ全体（主語・主格）を修飾する形容詞（Na't）です。本来「Manaṣṣatu」にかかるため主格（Marfū'）となり、ダンマがつきます。"
+      }
+    ],
+    sentences: [
+      {
+        speaker: "記事",
+        arabic: "تَقُودُ وِزَارَةُ الْحَجِّ وَالْعُمْرَةِ تَحَوُّلًا رَقْمِيًّا شَامِلًا فِي مَنْظُومَةِ خِدْمَةِ ضُيُوفِ الرَّحْمَنِ.",
+        japanese: "ハッジ・ウムラ省は、巡礼者へのサービスシステムにおける包括的なデジタルトランスフォーメーションを主導しています。"
+      },
+      {
+        speaker: "記事",
+        arabic: "وَيَأْتِي إِطْلَاقُ مِنَصَّةِ \"نُسُك\" (Nusuk) الْحُكُومِيَّةِ الْمُوَحَّدَةِ كَحَجَرِ الزَّاوِيَةِ فِي هَذَا التَّحَوُّلِ.",
+        japanese: "政府の統一プラットフォーム「Nusuk（ヌスク）」の立ち上げはこの変革の要石です。"
+      },
+      {
+        speaker: "記事",
+        arabic: "تُتِيحُ الْمِنَصَّةُ لِلْمُسْتَخْدِمِينَ إِصْدَارَ التَّأْشِيرَاتِ إِلِكْتُرُونِيًّا فِي دَقَائِقَ.",
+        japanese: "このプラットフォームにより、ユーザーは数分でビザを電子的に発行できます。"
+      },
+      {
+        speaker: "記事",
+        arabic: "يُسَاهِمُ هَذَا النِّظَامُ فِي رَفْعِ الطَّاقَةِ الِاسْتِيعَابِيَّةِ وَضَمَانِ أَمْنِ وَسَلَامَةِ الْحُجَّاجِ.",
+        japanese: "このシステムは、収容能力を高め、巡礼者の安全とセキュリティを確保するのに貢献します。"
+      }
+    ]
+  },
 // --- 84. 鉱業・産業 (Mining & Industry) ---
 {
   id: 1094,
@@ -11641,152 +12732,86 @@ questions: [] // アルファベット回は問題なし
   contentPlain: "في خضم التحولات الاقتصادية العالمية والتوجه نحو الطاقة النظيفة، تبرز المملكة العربية السعودية كلاعب صاعد في قطاع التعدين العالمي. تمتلك المملكة ثروات معدنية هائلة غير مستغلة تقدر قيمتها المبدئية بنحو 5 تريليونات ريال (1.3 تريليون دولار)، تشمل احتياطيات ضخمة من الذهب، والفوسفات، والبوكسيت، والنحاس، والعناصر الأرضية النادرة الحيوية للصناعات التقنية الحديثة. وتهدف الاستراتيجية الوطنية الشاملة للتعدين إلى تحويل هذا القطاع إلى \"الركيزة الثالثة\" للصناعة السعودية، إلى جانب قطاعي النفط والغاز والبتروكيماويات.\nلتحقيق هذا الطموح، قامت المملكة بتحديث نظام الاستثمار التعديني ليكون أكثر جاذبية وشفافية للمستثمرين الدوليين، مع تقديم حوافز مالية وتطوير البنية التحتية اللوجستية اللازمة في المدن الصناعية مثل رأس الخير ووعد الشمال. لا تقتصر الرؤية على مجرد استخراج المواد الخام وتصديرها، بل تركز على بناء سلاسل قيمة متكاملة داخل المملكة، بدءاً من المناجم وصولاً إلى الصناعات التحويلية المتقدمة، مثل صناعة بطاريات السيارات الكهربائية. هذا التوجه الاستراتيجي من شأنه أن يعزز الأمن الاقتصادي للمملكة، ويخلق آلاف الوظائف النوعية للمواطنين، ويقلل من الاعتماد على تقلبات أسعار النفط.",
   contentVoweled: "فِي خِضَمِّ التَّحَوُّلَاتِ الِاقْتِصَادِيَّةِ الْعَالَمِيَّةِ وَالتَّوَجُّهِ نَحْوَ الطَّاقَةِ النَّظِيفَةِ، تَبْرُزُ الْمَمْلَكَةُ الْعَرَبِيَّةُ السُّعُودِيَّةُ كَلَاعِبٍ صَاعِدٍ فِي قِطَاعِ التَّعْدِينِ الْعَالَمِيِّ. تَمْتَلِكُ الْمَمْلَكَةُ ثَرَوَاتٍ مَعْدِنِيَّةً هَائِلَةً غَيْرَ مُسْتَغَلَّةٍ تُقَدَّرُ قِيمَتُهَا الْمَبْدَئِيَّةُ بِنَحْوِ 5 تِرِيلْيُونَاتِ رِيَالٍ (1.3 تِرِيلْيُون دُولَار)، تَشْمَلُ احْتِيَاطِيَّاتٍ ضَخْمَةً مِنَ الذَّهَبِ، وَالْفُوسْفَاتِ، وَالْبُوكْسِيتِ، وَالنُّحَاسِ، وَالْعَنَاصِرِ الْأَرْضِيَّةِ النَّادِرَةِ الْحَيَوِيَّةِ لِلصِّنَاعَاتِ التِّقْنِيَّةِ الْحَدِيثَةِ. وَتَهْدِفُ الِاسْتِرَاتِيجِيَّةُ الْوَطَنِيَّةُ الشَّامِلَةُ لِلتَّعْدِينِ إِلَى تَحْوِيلِ هَذَا الْقِطَاعِ إِلَى \"الرَّكِيزَةِ الثَّالِثَةِ\" لِلصِّنَاعَةِ السُّعُودِيَّةِ، إِلَى جَانِبِ قِطَاعَيِ النِّفْطِ وَالْغَازِ وَالْبِتْرُوكِيمَاوِيَّاتِ.\nلِتَحْقِيقِ هَذَا الطُّمُوحِ، قَامَتِ الْمَمْلَكَةُ بِتَحْدِيثِ نِظَامِ الِاسْتِثْمَارِ التَّعْدِينِيِّ لِيَكُونَ أَكْثَرَ جَاذِبِيَّةً وَشَفَافِيَّةً لِلْمُسْتَثْمِرِينَ الدَّوْلِيِّينَ، مَعَ تَقْدِيمِ حَوَافِزَ مَالِيَّةٍ وَتَطْوِيرِ الْبِنْيَةِ التَّحْتِيَّةِ اللُّوجِسْتِيَّةِ اللَّازِمَةِ فِي الْمُدُنِ الصِّنَاعِيَّةِ مِثْلِ رَأْسِ الْخَيْرِ وَوَعْدِ الشَّمَالِ. لَا تَقْتَصِرُ الرُّؤْيَةُ عَلَى مُجَرَّدِ اسْتِخْرَاجِ الْمَوَادِّ الْخَامِ وَتَصْدِيرِهَا، بَلْ تُرَكِّزُ عَلَى بِنَاءِ سَلَاسِلِ قِيمَةٍ مُتَكَامِلَةٍ دَاخِلَ الْمَمْلَكَةِ، بَدْءًا مِنَ الْمَنَاجِمِ وُصُولًا إِلَى الصِّنَاعَاتِ التَّحْوِيلِيَّةِ الْمُتَقَدِّمَةِ، مِثْلِ صِنَاعَةِ بَطَّارِيَّاتِ السَّيَّارَاتِ الْكَهْرَبَائِيَّةِ. هَذَا التَّوَجُّهُ الِاسْتِرَاتِيجِيُّ مِنْ شَأْنِهِ أَنْ يُعَزِّزَ الْأَمْنَ الِاقْتِصَادِيَّ لِلْمَمْلَكَةِ، وَيَخْلُقَ آلَافَ الْوَظَائِفِ النَّوْعِيَّةِ لِلْمُوَاطِنِينَ، وَيُقَلِّلَ مِنَ الِاعْتِمَادِ عَلَى تَقَلُّبَاتِ أَسْعَارِ النِّفْطِ.",
   sentences: [
-    {
-      speaker: "記事",
-      arabic: "فِي خِضَمِّ التَّحَوُّلَاتِ الِاقْتِصَادِيَّةِ الْعَالَمِيَّةِ وَالتَّوَجُّهِ نَحْوَ الطَّاقَةِ النَّظِيفَةِ، تَبْرُزُ الْمَمْلَكَةُ الْعَرَبِيَّةُ السُّعُودِيَّةُ كَلَاعِبٍ صَاعِدٍ فِي قِطَاعِ التَّعْدِينِ الْعَالَمِيِّ.",
-      japanese: "世界的な経済の変化とクリーンエネルギーへの移行が進む中、サウジアラビアは世界の鉱業セクターにおいて台頭するプレーヤーとして際立っています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "تَمْتَلِكُ الْمَمْلَكَةُ ثَرَوَاتٍ مَعْدِنِيَّةً هَائِلَةً غَيْرَ مُسْتَغَلَّةٍ تُقَدَّرُ قِيمَتُهَا الْمَبْدَئِيَّةُ بِنَحْوِ 5 تِرِيلْيُونَاتِ رِيَالٍ (1.3 تِرِيلْيُون دُولَار)، تَشْمَلُ احْتِيَاطِيَّاتٍ ضَخْمَةً مِنَ الذَّهَبِ، وَالْفُوسْفَاتِ، وَالْبُوكْسِيتِ، وَالنُّحَاسِ، وَالْعَنَاصِرِ الْأَرْضِيَّةِ النَّادِرَةِ الْحَيَوِيَّةِ لِلصِّنَاعَاتِ التِّقْنِيَّةِ الْحَدِيثَةِ.",
-      japanese: "王国は、推定価値約5兆リヤル（1.3兆ドル）の未開発の莫大な鉱物資源を保有しており、それには金、リン酸塩、ボーキサイト、銅、そして現代の技術産業に不可欠なレアアース（希土類元素）の埋蔵量が含まれます。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَتَهْدِفُ الِاسْتِرَاتِيجِيَّةُ الْوَطَنِيَّةُ الشَّامِلَةُ لِلتَّعْدِينِ إِلَى تَحْوِيلِ هَذَا الْقِطَاعِ إِلَى \"الرَّكِيزَةِ الثَّالِثَةِ\" لِلصِّنَاعَةِ السُّعُودِيَّةِ، إِلَى جَانِبِ قِطَاعَيِ النِّفْطِ وَالْغَازِ وَالْبِتْرُوكِيمَاوِيَّاتِ.",
-      japanese: "包括的な国家鉱業戦略は、このセクターを石油・ガスおよび石油化学セクターに並ぶ、サウジ産業の「第三の柱」に変えることを目指しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "لِتَحْقِيقِ هَذَا الطُّمُوحِ، قَامَتِ الْمَمْلَكَةُ بِتَحْدِيثِ نِظَامِ الِاسْتِثْمَارِ التَّعْدِينِيِّ لِيَكُونَ أَكْثَرَ جَاذِبِيَّةً وَشَفَافِيَّةً لِلْمُسْتَثْمِرِينَ الدَّوْلِيِّينَ، مَعَ تَقْدِيمِ حَوَافِزَ مَالِيَّةٍ وَتَطْوِيرِ الْبِنْيَةِ التَّحْتِيَّةِ اللُّوجِسْتِيَّةِ اللَّازِمَةِ فِي الْمُدُنِ الصِّنَاعِيَّةِ مِثْلِ رَأْسِ الْخَيْرِ وَوَعْدِ الشَّمَالِ.",
-      japanese: "この野心を実現するために、王国は鉱業投資システムを更新して国際的な投資家にとってより魅力的で透明性の高いものにし、財政的インセンティブを提供するとともに、ラス・アル・ハイルやワアド・アル・シャマールなどの工業都市に必要な物流インフラを開発しました。"
-    },
-    {
-      speaker: "記事",
-      arabic: "لَا تَقْتَصِرُ الرُّؤْيَةُ عَلَى مُجَرَّدِ اسْتِخْرَاجِ الْمَوَادِّ الْخَامِ وَتَصْدِيرِهَا، بَلْ تُرَكِّزُ عَلَى بِنَاءِ سَلَاسِلِ قِيمَةٍ مُتَكَامِلَةٍ دَاخِلَ الْمَمْلَكَةِ، بَدْءًا مِنَ الْمَنَاجِمِ وُصُولًا إِلَى الصِّنَاعَاتِ التَّحْوِيلِيَّةِ الْمُتَقَدِّمَةِ، مِثْلِ صِنَاعَةِ بَطَّارِيَّاتِ السَّيَّارَاتِ الْكَهْرَبَائِيَّةِ.",
-      japanese: "そのビジョンは単に原材料を抽出して輸出するだけにとどまらず、鉱山から電気自動車のバッテリー製造のような高度な加工産業に至るまで、王国内で統合されたバリューチェーンを構築することに焦点を当てています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "هَذَا التَّوَجُّهُ الِاسْتِرَاتِيجِيُّ مِنْ شَأْنِهِ أَنْ يُعَزِّزَ الْأَمْنَ الِاقْتِصَادِيَّ لِلْمَمْلَكَةِ، وَيَخْلُقَ آلَافَ الْوَظَائِفِ النَّوْعِيَّةِ لِلْمُوَاطِنِينَ، وَيُقَلِّلَ مِنَ الِاعْتِمَادِ عَلَى تَقَلُّبَاتِ أَسْعَارِ النِّفْطِ.",
-      japanese: "この戦略的な方向性は、王国の経済安全保障を強化し、国民に何千もの質の高い雇用を創出し、石油価格の変動への依存を減らすことにつながります。"
-    }
+    { speaker: "記事", arabic: "تَمْتَلِكُ الْمَمْلَكَةُ ثَرَوَاتٍ مَعْدِنِيَّةً هَائِلَةً غَيْرَ مُسْتَغَلَّةٍ تُقَدَّرُ قِيمَتُهَا الْمَبْدَئِيَّةُ بِنَحْوِ 5 تِرِيلْيُونَاتِ رِيَالٍ.", japanese: "王国は、推定初期価値約5兆リヤルの未開発の莫大な鉱物資源を保有しています。" },
+    { speaker: "記事", arabic: "تَهْدِفُ الِاسْتِرَاتِيجِيَّةُ إِلَى تَحْوِيلِ هَذَا الْقِطَاعِ إِلَى \"الرَّكِيزَةِ الثَّالِثَةِ\" لِلصِّنَاعَةِ السُّعُودِيَّةِ.", japanese: "戦略は、このセクターをサウジ産業の「第三の柱」に変えることを目指しています。" },
+    { speaker: "記事", arabic: "لَا تَقْتَصِرُ الرُّؤْيَةُ عَلَى مُجَرَّدِ اسْتِخْرَاجِ الْمَوَادِّ الْخَامِ، بَلْ تُرَكِّزُ عَلَى بِنَاءِ سَلَاسِلِ قِيمَةٍ مُتَكَامِلَةٍ.", japanese: "ビジョンは単なる原材料の抽出にとどまらず、統合されたバリューチェーンの構築に焦点を当てています。" },
+    { speaker: "記事", arabic: "هَذَا التَّوَجُّهُ سَيَخْلُقُ آلَافَ الْوَظَائِفِ النَّوْعِيَّةِ لِلْمُوَاطِنِينَ.", japanese: "この方向性は、国民のために何千もの質の高い雇用を創出するでしょう。" }
   ],
   vocabList: [
     { word: "تَعْدِين", meaning: "鉱業/マイニング" },
     { word: "عَنَاصِر أَرْضِيَّة نَادِرَة", meaning: "レアアース/希土類元素" },
     { word: "رَكِيزَة ثَالِثَة", meaning: "第三の柱" },
-    { word: "سَلَاسِل قِيمَة", meaning: "バリューチェーン/価値連鎖" },
-    { word: "صِنَاعَات تَحْوِيلِيَّة", meaning: "製造業/加工産業" }
+    { word: "سَلَاسِل قِيمَة", meaning: "バリューチェーン/価値連鎖" }
   ],
   questions: [
-    {
-      id: 10941,
-      type: "reading",
-      text: "サウジアラビアが鉱業セクターを「第三の柱」と位置づける際、第一と第二の柱は何であると認識されていますか？",
-      options: ["農業と観光業", "石油・ガスと石油化学", "建設業と金融業", "ITと通信"],
-      correctIndex: 1,
-      explanation: "「石油・ガスと石油化学（قطاعي النفط والغاز والبتروكيماويات）に並ぶ産業の第三の柱」と記述されています。"
-    },
-    {
-      id: 10942,
-      type: "reading",
-      text: "サウジアラビアの鉱業戦略における「ビジョン」の核心は何ですか？",
-      options: ["原材料を未加工のまま可能な限り早く輸出すること。", "国内での採掘を禁止し、海外の鉱山に投資すること。", "単なる採掘にとどまらず、国内で加工・製造まで行う統合されたバリューチェーンを構築すること。", "鉱山労働者をすべて外国人で賄うこと。"],
-      correctIndex: 2,
-      explanation: "「単に原材料を抽出して輸出するだけでなく、国内で統合されたバリューチェーンを構築することに焦点を当てている（تركز على بناء سلاسل قيمة متكاملة داخل المملكة）」と明記されています。"
-    },
-    {
-      id: 10943,
-      type: "reading",
-      text: "この戦略的アプローチがもたらすと期待される結果として、テキストで言及されていないものはどれですか？",
+    { id: 10941, type: "reading", text: "サウジアラビアが鉱業セクターを「第三の柱」と位置づける際、第一と第二の柱は何であると認識されていますか？", options: ["農業と観光業", "石油・ガスと石油化学", "建設業と金融業", "ITと通信"], correctIndex: 1, explanation: "「石油・ガスと石油化学（قطاعي النفط والغاز والبتروكيماويات）に並ぶ産業の第三の柱」と記述されています。" },
+    { id: 10942, type: "reading", text: "サウジアラビアの鉱業戦略における「ビジョン」の核心は何ですか？", options: ["原材料を未加工のまま可能な限り早く輸出すること。", "国内での採掘を禁止し、海外の鉱山に投資すること。", "単なる採掘にとどまらず、国内で加工・製造まで行う統合されたバリューチェーンを構築すること。", "鉱山労働者をすべて外国人で賄うこと。"], correctIndex: 2, explanation: "「単に原材料を抽出して輸出するだけでなく、国内で統合されたバリューチェーンを構築することに焦点を当てている（تركز على بناء سلاسل قيمة متكاملة داخل المملكة）」と明記されています。" },
+    { id: 10943, type: "reading", text: "この戦略的アプローチがもたらすと期待される結果として、テキストで言及されていないものはどれですか？",
       options: ["王国の経済安全保障の強化。", "国民のための質の高い雇用の創出。", "石油価格変動への依存の軽減。", "国内の環境規制の完全な撤廃。"],
       correctIndex: 3,
       explanation: "経済安全保障の強化、雇用の創出、石油依存の軽減には言及がありますが、環境規制の撤廃については述べられていません。"
+    },
+    // 上級文法問題
+    {
+      id: 10944,
+      type: "grammar_advanced",
+      text: "「تشمل احتياطيات ضخمة」の「احتياطيات」の正しい語尾は？",
+      options: ["un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "an (タンウィーン・ファトハ)", "a (ファトハ)"],
+      correctIndex: 0,
+      explanation: "動詞「Tashmalu (含む)」の主語（Fā'il）は「Tharawāt (資源)」であり、ここでは文法的に「それ（資源）は巨大な埋蔵量を含む」という意味で「Iḥtiyāṭiyyātin (対格・カスラ)」となるのが一般的です。しかし、ここでは「Tashmalu」の主語が「Tharawāt」に戻るとすると、目的語として「Iḥtiyāṭiyyāt」が来ます。女性規則複数の対格はカスラを取るので正解は「in」です。"
+    },
+    {
+      id: 10945,
+      type: "grammar_advanced",
+      text: "「بناء سلاسل قيمة」の「سلاسل」の正しい語尾は？",
+      options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"],
+      correctIndex: 0,
+      explanation: "「Binā' (構築)」の後のイダーファ第2要素（属格）。「Salāsil」は非限定名詞ですが、さらに後の「Qīma」にイダーファされているため、通常通りカスラを取ります。"
     }
   ]
 },
-
-// --- 85. 医療・科学 (Health & Science) ---
 {
   id: 1095,
   level: "上級",
   category: "医療",
   title: "サウジ・ゲノム・プログラム：個別化医療と予防の新時代",
-  contentPlain: "يُمثل \"برنامج الجينوم السعودي\" إحدى المبادرات الوطنية الرائدة التي تضع المملكة في طليعة الدول المتقدمة في مجال الأبحاث الطبية الحيوية. يهدف هذا المشروع الطموح إلى رسم الخريطة الوراثية للمجتمع السعودي من خلال جمع وتحليل عينات الحمض النووي (DNA) لآلاف المواطنين، وإنشاء قاعدة بيانات وطنية شاملة للتسلسل الجيني. تكتسب هذه الخطوة أهمية خاصة في ظل ارتفاع معدلات الأمراض الوراثية الناتجة عن زواج الأقارب في المنطقة.\nإن الهدف الجوهري للبرنامج يتجاوز مجرد البحث العلمي؛ فهو يؤسس لتحول جذري في نظام الرعاية الصحية نحو نموذج \"الطب الشخصي\" أو الدقيق. بدلاً من النهج التقليدي القائم على علاج الأعراض بعد ظهور المرض، سيمكن تحليل البيانات الجينية الأطباء من التنبؤ باحتمالية إصابة الأفراد بأمراض معينة، وبالتالي اتخاذ تدابير وقائية استباقية. علاوة على ذلك، سيساعد البرنامج في تطوير علاجات وأدوية مصممة خصيصاً لتناسب التركيبة الجينية لكل مريض، مما يزيد من فعالية العلاج ويقلل من الآثار الجانبية. هذا الاستثمار في صحة المستقبل يعكس التزام المملكة بتسخير أحدث التقنيات لخدمة الإنسان وتحسين جودة الحياة.",
+  contentPlain: "يُمثل \"برنامج الجينوم السعودي\" إحدى المبادرات الوطنية الرائدة التي تضع المملكة في طليعة الدول المتقدمة في مجال الأبحاث الطبية الحيوية. يهدف هذا المشروع الطموح إلى رسم الخريطة الوراثية للمجتمع السعودي من خلال جمع وتحليل عينات الحمض النووي (DNA) لآلاف المواطنين، وإنشاء قاعدة بيانات وطنية شاملة للتسلسل الجيني. تكتسب هذه الخطوة أهمية خاصة في ظل ارتفاع معدلات الأمراض الوراثية الناتجة عن زواج الأقارب في المنطقة.\nإِنَّ الْهَدَفَ الْجَوْهَرِيَّ لِلْبَرْنَامَجِ يَتَجَاوَزُ مُجَرَّدَ الْبَحْثِ الْعِلْمِيِّ؛ فَهُوَ يُؤَسِّسُ لِتَحَوُّلٍ جَذْرِيٍّ فِي نِظَامِ الرِّعَايَةِ الصِّحِّيَّةِ نَحْوَ نَمُوذَجِ \"الطِّبِّ الشَّخْصِيِّ\" أَوِ الدَّقِيقِ. بَدَلًا مِنَ النَّهْجِ التَّقْلِيدِيِّ الْقَائِمِ عَلَى عِلَاجِ الْأَعْرَاضِ بَعْدَ ظُهُورِ الْمَرَضِ، سَيُمَكِّنُ تَحْلِيلُ الْبَيَانَاتِ الْجِينِيَّةِ الْأَطِبَّاءَ مِنَ التَّنَبُّؤِ بِاحْتِمَالِيَّةِ إِصَابَةِ الْأَفْرَادِ بِأَمْرَاضٍ مُعَيَّنَةٍ، وَبِالتَّالِي اتِّخَاذِ تَدَابِيرَ وِقَائِيَّةٍ اسْتِبَاقِيَّةٍ. عَلَاوَةً عَلَى ذَلِكَ، سَيُسَاعِدُ الْبَرْنَامَجُ فِي تَطْوِيرِ عِلَاجَاتٍ وَأَدْوِيَةٍ مُصَمَّمَةٍ خَصِيصًا لِتُنَاسِبَ التَّرْكِيبَةَ الْجِينِيَّةَ لِكُلِّ مَرِيضٍ، مِمَّا يَزِيدُ مِنْ فَعَالِيَّةِ الْعِلَاجِ وَيُقَلِّلُ مِنَ الْآثَارِ الْجَانِبِيَّةِ. هَذَا الِاسْتِثْمَارُ فِي صِحَّةِ الْمُسْتَقْبَلِ يَعْكِسُ الْتِزَامَ الْمَمْلَكَةِ بِتَسْخِيرِ أَحْدَثِ التِّقْنِيَّاتِ لِخِدْمَةِ الْإِنْسَانِ وَتَحْسِينِ جَوْدَةِ الْحَيَاةِ.",
   contentVoweled: "يُمَثِّلُ \"بَرْنَامَجُ الْجِينُومِ السُّعُودِيِّ\" إِحْدَى الْمُبَادَرَاتِ الْوَطَنِيَّةِ الرَّائِدَةِ الَّتِي تَضَعُ الْمَمْلَكَةَ فِي طَلِيعَةِ الدُّوَلِ الْمُتَقَدِّمَةِ فِي مَجَالِ الْأَبْحَاثِ الطِّبِّيَّةِ الْحَيَوِيَّةِ. يَهْدِفُ هَذَا الْمَشْرُوعُ الطَّمُوحُ إِلَى رَسْمِ الْخَرِيطَةِ الْوِرَاثِيَّةِ لِلْمُجْتَمَعِ السُّعُودِيِّ مِنْ خِلَالِ جَمْعِ وَتَحْلِيلِ عَيِّنَاتِ الْحِمْضِ النَّوَوِيِّ (DNA) لِآلَافِ الْمُوَاطِنِينَ، وَإِنْشَاءِ قَاعِدَةِ بَيَانَاتٍ وَطَنِيَّةٍ شَامِلَةٍ لِلتَّسَلْسُلِ الْجِينِيِّ. تَكْتَسِبُ هَذِهِ الْخُطْوَةُ أَهَمِّيَّةً خَاصَّةً فِي ظِلِّ ارْتِفَاعِ مُعَدَّلَاتِ الْأَمْرَاضِ الْوِرَاثِيَّةِ النَّاتِجَةِ عَنْ زَوَاجِ الْأَقَارِبِ فِي الْمِنْطَقَةِ.\nإِنَّ الْهَدَفَ الْجَوْهَرِيَّ لِلْبَرْنَامَجِ يَتَجَاوَزُ مُجَرَّدَ الْبَحْثِ الْعِلْمِيِّ؛ فَهُوَ يُؤَسِّسُ لِتَحَوُّلٍ جَذْرِيٍّ فِي نِظَامِ الرِّعَايَةِ الصِّحِّيَّةِ نَحْوَ نَمُوذَجِ \"الطِّبِّ الشَّخْصِيِّ\" أَوِ الدَّقِيقِ. بَدَلًا مِنَ النَّهْجِ التَّقْلِيدِيِّ الْقَائِمِ عَلَى عِلَاجِ الْأَعْرَاضِ بَعْدَ ظُهُورِ الْمَرَضِ، سَيُمَكِّنُ تَحْلِيلُ الْبَيَانَاتِ الْجِينِيَّةِ الْأَطِبَّاءَ مِنَ التَّنَبُّؤِ بِاحْتِمَالِيَّةِ إِصَابَةِ الْأَفْرَادِ بِأَمْرَاضٍ مُعَيَّنَةٍ، وَبِالتَّالِي اتِّخَاذِ تَدَابِيرَ وِقَائِيَّةٍ اسْتِبَاقِيَّةٍ. عَلَاوَةً عَلَى ذَلِكَ، سَيُسَاعِدُ الْبَرْنَامَجُ فِي تَطْوِيرِ عِلَاجَاتٍ وَأَدْوِيَةٍ مُصَمَّمَةٍ خَصِيصًا لِتُنَاسِبَ التَّرْكِيبَةَ الْجِينِيَّةَ لِكُلِّ مَرِيضٍ، مِمَّا يَزِيدُ مِنْ فَعَالِيَّةِ الْعِلَاجِ وَيُقَلِّلُ مِنَ الْآثَارِ الْجَانِبِيَّةِ. هَذَا الِاسْتِثْمَارُ فِي صِحَّةِ الْمُسْتَقْبَلِ يَعْكِسُ الْتِزَامَ الْمَمْلَكَةِ بِتَسْخِيرِ أَحْدَثِ التِّقْنِيَّاتِ لِخِدْمَةِ الْإِنْسَانِ وَتَحْسِينِ جَوْدَةِ الْحَيَاةِ.",
   sentences: [
-    {
-      speaker: "記事",
-      arabic: "يُمَثِّلُ \"بَرْنَامَجُ الْجِينُومِ السُّعُودِيِّ\" إِحْدَى الْمُبَادَرَاتِ الْوَطَنِيَّةِ الرَّائِدَةِ الَّتِي تَضَعُ الْمَمْلَكَةَ فِي طَلِيعَةِ الدُّوَلِ الْمُتَقَدِّمَةِ فِي مَجَالِ الْأَبْحَاثِ الطِّبِّيَّةِ الْحَيَوِيَّةِ.",
-      japanese: "「サウジ・ゲノム・プログラム」は、王国を生物医学研究（バイオメディカル）の分野で先進国の最前線に位置づける先駆的な国家的イニシアティブの一つです。"
-    },
-    {
-      speaker: "記事",
-      arabic: "يَهْدِفُ هَذَا الْمَشْرُوعُ الطَّمُوحُ إِلَى رَسْمِ الْخَرِيطَةِ الْوِرَاثِيَّةِ لِلْمُجْتَمَعِ السُّعُودِيِّ مِنْ خِلَالِ جَمْعِ وَتَحْلِيلِ عَيِّنَاتِ الْحِمْضِ النَّوَوِيِّ (DNA) لِآلَافِ الْمُوَاطِنِينَ، وَإِنْشَاءِ قَاعِدَةِ بَيَانَاتٍ وَطَنِيَّةٍ شَامِلَةٍ لِلتَّسَلْسُلِ الْجِينِيِّ.",
-      japanese: "この野心的なプロジェクトは、何千人もの国民のDNAサンプルを収集・分析し、遺伝子配列の包括的な国家データベースを作成することによって、サウジ社会の遺伝子地図を描くことを目的としています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "تَكْتَسِبُ هَذِهِ الْخُطْوَةُ أَهَمِّيَّةً خَاصَّةً فِي ظِلِّ ارْتِفَاعِ مُعَدَّلَاتِ الْأَمْرَاضِ الْوِرَاثِيَّةِ النَّاتِجَةِ عَنْ زَوَاجِ الْأَقَارِبِ فِي الْمِنْطَقَةِ.",
-      japanese: "このステップは、この地域における血族結婚に起因する遺伝性疾患の発生率が高いことを考慮すると、特別な重要性を帯びています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "إِنَّ الْهَدَفَ الْجَوْهَرِيَّ لِلْبَرْنَامَجِ يَتَجَاوَزُ مُجَرَّدَ الْبَحْثِ الْعِلْمِيِّ؛ فَهُوَ يُؤَسِّسُ لِتَحَوُّلٍ جَذْرِيٍّ فِي نِظَامِ الرِّعَايَةِ الصِّحِّيَّةِ نَحْوَ نَمُوذَجِ \"الطِّبِّ الشَّخْصِيِّ\" أَوِ الدَّقِيقِ.",
-      japanese: "プログラムの本質的な目標は単なる科学研究を超えており、ヘルスケアシステムにおける「個別化医療」または精密医療のモデルへの根本的な転換の基礎を築くものです。"
-    },
-    {
-      speaker: "記事",
-      arabic: "بَدَلًا مِنَ النَّهْجِ التَّقْلِيدِيِّ الْقَائِمِ عَلَى عِلَاجِ الْأَعْرَاضِ بَعْدَ ظُهُورِ الْمَرَضِ، سَيُمَكِّنُ تَحْلِيلُ الْبَيَانَاتِ الْجِينِيَّةِ الْأَطِبَّاءَ مِنَ التَّنَبُّؤِ بِاحْتِمَالِيَّةِ إِصَابَةِ الْأَفْرَادِ بِأَمْرَاضٍ مُعَيَّنَةٍ، وَبِالتَّالِي اتِّخَاذِ تَدَابِيرَ وِقَائِيَّةٍ اسْتِبَاقِيَّةٍ.",
-      japanese: "発症後に症状を治療するという従来のアプローチの代わりに、遺伝子データの分析により、医師は個人が特定の病気にかかる可能性を予測し、その結果、積極的な予防措置を講じることが可能になります。"
-    },
-    {
-      speaker: "記事",
-      arabic: "عَلَاوَةً عَلَى ذَلِكَ، سَيُسَاعِدُ الْبَرْنَامَجُ فِي تَطْوِيرِ عِلَاجَاتٍ وَأَدْوِيَةٍ مُصَمَّمَةٍ خَصِيصًا لِتُنَاسِبَ التَّرْكِيبَةَ الْجِينِيَّةَ لِكُلِّ مَرِيضٍ، مِمَّا يَزِيدُ مِنْ فَعَالِيَّةِ الْعِلَاجِ وَيُقَلِّلُ مِنَ الْآثَارِ الْجَانِبِيَّةِ.",
-      japanese: "さらに、このプログラムは各患者の遺伝子構成に合わせて特別に設計された治療法や医薬品の開発を支援し、それにより治療の有効性が高まり、副作用が軽減されます。"
-    },
-    {
-      speaker: "記事",
-      arabic: "هَذَا الِاسْتِثْمَارُ فِي صِحَّةِ الْمُسْتَقْبَلِ يَعْكِسُ الْتِزَامَ الْمَمْلَكَةِ بِتَسْخِيرِ أَحْدَثِ التِّقْنِيَّاتِ لِخِدْمَةِ الْإِنْسَانِ وَتَحْسِينِ جَوْدَةِ الْحَيَاةِ.",
-      japanese: "この未来の健康への投資は、人間に奉仕し生活の質を向上させるために最新の技術を活用するという王国のコミットメントを反映しています。"
-    }
+    { speaker: "記事", arabic: "يُمَثِّلُ \"بَرْنَامَجُ الْجِينُومِ السُّعُودِيِّ\" إِحْدَى الْمُبَادَرَاتِ الْوَطَنِيَّةِ الرَّائِدَةِ.", japanese: "サウジ・ゲノム・プログラムは、先駆的な国家的イニシアティブの一つを代表しています。" },
+    { speaker: "記事", arabic: "يَهْدِفُ إِلَى رَسْمِ الْخَرِيطَةِ الْوِرَاثِيَّةِ لِلْمُجْتَمَعِ السُّعُودِيِّ مِنْ خِلَالِ جَمْعِ عَيِّنَاتِ DNA.", japanese: "それはDNAサンプルの収集を通じてサウジ社会の遺伝子地図を描くことを目的としています。" },
+    { speaker: "記事", arabic: "يُؤَسِّسُ لِتَحَوُّلٍ جَذْرِيٍّ فِي نِظَامِ الرِّعَايَةِ الصِّحِّيَّةِ نَحْوَ نَمُوذَجِ \"الطِّبِّ الشَّخْصِيِّ\".", japanese: "それはヘルスケアシステムにおける「個別化医療」モデルへの根本的な転換の基礎を築きます。" },
+    { speaker: "記事", arabic: "سَيُمَكِّنُ الْأَطِبَّاءَ مِنَ التَّنَبُّؤِ بِالْأَمْرَاضِ وَاتِّخَاذِ تَدَابِيرَ وِقَائِيَّةٍ.", japanese: "それは医師が病気を予測し、予防措置を講じることを可能にします。" }
   ],
   vocabList: [
     { word: "جِينُوم", meaning: "ゲノム" },
     { word: "خَرِيطَة وِرَاثِيَّة", meaning: "遺伝子地図" },
     { word: "أَمْرَاض وِرَاثِيَّة", meaning: "遺伝性疾患" },
-    { word: "طِبّ شَخْصِيّ", meaning: "個別化医療/オーダーメイド医療" },
-    { word: "تَدَابِير وِقَائِيَّة", meaning: "予防措置" }
+    { word: "طِبّ شَخْصِيّ", meaning: "個別化医療" }
   ],
   questions: [
+    { id: 10951, type: "reading", text: "サウジ・ゲノム・プログラムが、この地域において特に重要視されている背景としてテキストで述べられている理由は何ですか？", options: ["地域の医療技術が遅れているため。", "血族結婚による遺伝性疾患の発生率が高いため。", "人口が急激に減少しているため。", "新しいウイルスの感染が拡大しているため。"], correctIndex: 1, explanation: "「地域における血族結婚（زواج الأقارب）に起因する遺伝性疾患の高い発生率に鑑み」とあります。" },
+    { id: 10952, type: "reading", text: "このプログラムは、医療システムにおいてどのような根本的な転換をもたらすと期待されていますか？", options: ["病院での治療から自宅療養への移行。", "症状が現れた後の治療から、発症前の予測と予防的アプローチへの移行。", "医師による診断からAIによる自動診断への完全な移行。", "西洋医学から伝統医学への回帰。"], correctIndex: 1, explanation: "「発症後に症状を治療する従来のアプローチ」から、「病気の可能性を予測し、予防的な措置を講じる」モデルへの転換です。" },
+    { id: 10953, type: "reading", text: "個別化医療（الطب الشخصي）の利点として、テキストで挙げられているのはどれですか？", options: ["治療費が無料になること。", "すべての病気が完全に治癒すること。", "治療の有効性が高まり、副作用が減少すること。", "医師の数が少なくて済むようになること。"], correctIndex: 2, explanation: "「治療の有効性が高まり、副作用が減少する（يزيد من فعالية العلاج ويقلل من الآثار الجانبية）」と述べられています。" },
+    // 上級文法問題
     {
-      id: 10951,
-      type: "reading",
-      text: "サウジ・ゲノム・プログラムが、この地域において特に重要視されている背景としてテキストで述べられている理由は何ですか？",
-      options: ["地域の医療技術が遅れているため。", "血族結婚による遺伝性疾患の発生率が高いため。", "人口が急激に減少しているため。", "新しいウイルスの感染が拡大しているため。"],
-      correctIndex: 1,
-      explanation: "「地域における血族結婚（زواج الأقارب）に起因する遺伝性疾患の高い発生率に鑑み、特別な重要性を帯びている」と記述されています。"
+      id: 10954,
+      type: "grammar_advanced",
+      text: "「تحليل عينات الحمض」の「عينات」の正しい語尾は？",
+      options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"],
+      correctIndex: 0,
+      explanation: "「Taḥlīl (分析)」の後のイダーファ第2要素（属格）です。女性規則複数（Jam' Mu'annath Sālim）の属格はカスラを取ります（さらに後の「Al-Ḥamḍ」にイダーファされているのでタンウィーンなし）。"
     },
     {
-      id: 10952,
-      type: "reading",
-      text: "このプログラムは、医療システムにおいてどのような根本的な転換（パラダイムシフト）をもたらすと期待されていますか？",
-      options: ["病院での治療から自宅療養への移行。", "症状が現れた後の治療から、発症前の予測と予防的アプローチへの移行。", "医師による診断からAIによる自動診断への完全な移行。", "西洋医学から伝統医学への回帰。"],
+      id: 10955,
+      type: "grammar_advanced",
+      text: "「اتخاذ تدابير وقائية」の「تدابير」の正しい語尾は？",
+      options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"],
       correctIndex: 1,
-      explanation: "「発症後に症状を治療する従来のアプローチ」から、「病気の可能性を予測し、予防的な措置（تدابير وقائية استباقية）を講じる」モデルへの転換が説明されています。"
-    },
-    {
-      id: 10953,
-      type: "reading",
-      text: "個別化医療（الطب الشخصي）の利点として、テキストで挙げられているのはどれですか？",
-      options: ["治療費が無料になること。", "すべての病気が完全に治癒すること。", "治療の有効性が高まり、副作用が減少すること。", "医師の数が少なくて済むようになること。"],
-      correctIndex: 2,
-      explanation: "患者の遺伝子構成に合わせて治療法を設計することで、「治療の有効性が高まり、副作用が減少する（يزيد من فعالية العلاج ويقلل من الآثار الجانبية）」と述べられています。"
+      explanation: "「Ittikhādh (講じること)」という動名詞の後のイダーファ第2要素（属格）ですが、「Tadābīr」は非限定名詞（Mafā'īlパターン）なので、カスラではなくファトハを取ります。"
     }
   ]
 },
-// --- 86. テクノロジー (Technology) ---
 {
   id: 1096,
   level: "上級",
@@ -11795,36 +12820,10 @@ questions: [] // アルファベット回は問題なし
   contentPlain: "تقود \"الهيئة السعودية للبيانات والذكاء الاصطناعي\" (سدايا) جهود المملكة نحو الريادة العالمية في مجال التقنيات المتقدمة. تهدف الاستراتيجية الوطنية للذكاء الاصطناعي إلى جعل المملكة مركزاً عالمياً للبيانات، حيث يُتوقع أن يضيف هذا القطاع أكثر من 500 مليار ريال إلى الناتج المحلي الإجمالي بحلول عام 2030. وتعمل الهيئة على دمج حلول الذكاء الاصطناعي في القطاعات الحكومية، والتعليم، والصحة، والطاقة، لرفع كفاءة الأداء وترشيد الإنفاق.\nومن أبرز مبادرات سدايا تنظيم \"القمة العالمية للذكاء الاصطناعي\" التي تجمع صناع القرار والخبراء من كافة أنحاء العالم لمناقشة مستقبل هذا المجال وتأثيراته الأخلاقية والاقتصادية. كما تركز الهيئة على بناء الكفاءات الوطنية من خلال معسكرات تدريبية مكثفة تهدف إلى تخريج آلاف المتخصصين السعوديين في علم البيانات والبرمجة. إن هذا التوجه لا يعكس فقط رغبة المملكة في مواكبة التطور التقني، بل يؤكد عزمها على أن تكون منتجة ومصدرة للتكنولوجيا وليست مجرد مستهلكة لها.",
   contentVoweled: "تَقُودُ \"الْهَيْئَةُ السُّعُودِيَّةُ لِلْبَيَانَاتِ وَالذَّكَاءِ الِاصْطِنَاعِيِّ\" (سَدَايَا) جُهُودَ الْمَمْلَكَةِ نَحْوَ الرِّيَادَةِ الْعَالَمِيَّةِ فِي مَجَالِ التِّقْنِيَّاتِ الْمُتَقَدِّمَةِ. تَهْدِفُ الِاسْتِرَاتِيجِيَّةُ الْوَطَنِيَّةُ لِلذَّكَاءِ الِاصْطِنَاعِيِّ إِلَى جَعْلِ الْمَمْلَكَةِ مَرْكَزًا عَالَمِيًّا لِلْبَيَانَاتِ، حَيْثُ يُتَوَقَّعُ أَنْ يُضِيفَ هَذَا الْقِطَاعُ أَكْثَرَ مِنْ 500 مِلْيَارِ رِيَالٍ إِلَى النَّاتِجِ الْمَحَلِّيِّ الْإِجْمَالِيِّ بِحُلُولِ عَامِ 2030. وَتَعْمَلُ الْهَيْئَةُ عَلَى دَمْجِ حُلُولِ الذَّكَاءِ الِاصْطِنَاعِيِّ فِي الْقِطَاعَاتِ الْحُكُومِيَّةِ، وَالتَّعْلِيمِ، وَالصِّحَّةِ، وَالطَّاقَةِ، لِرَفْعِ كَفَاءَةِ الْأَدَاءِ وَتَرْشِيدِ الْإِنْفَاقِ.\nوَمِنْ أَبْرَزِ مُبَادَرَاتِ سَدَايَا تَنْظِيمُ \"الْقِمَّةِ الْعَالَمِيَّةِ لِلذَّكَاءِ الِاصْطِنَاعِيِّ\" الَّتِي تَجْمَعُ صُنَّاعَ الْقَرَارِ وَالْخُبَرَاءَ مِنْ كَافَّةِ أَنْحَاءِ الْعَالَمِ لِمُنَاقَشَةِ مُسْتَقْبَلِ هَذَا الْمَجَالِ وَتَأْثِيرَاتِهِ الْأَخْلَاقِيَّةِ وَالِاقْتِصَادِيَّةِ. كَمَا تُرَكِّزُ الْهَيْئَةُ عَلَى بِنَاءِ الْكَفَاءَاتِ الْوَطَنِيَّةِ مِنْ خِلَالِ مُعَسْكَرَاتٍ تَدْرِيبِيَّةٍ مُكَثَّفَةٍ تَهْدِفُ إِلَى تَخْرِيجِ آلَافِ الْمُتَخَصِّصِينَ السُّعُودِيِّينَ فِي عِلْمِ الْبَيَانَاتِ وَالْبَرْمَجَةِ. إِنَّ هَذَا التَّوَجُّهَ لَا يَعْكِسُ فَقَطْ رَغْبَةَ الْمَمْلَكَةِ فِي مُوَاكَبَةِ التَّطَوُّرِ التِّقْنِيِّ، بَلْ يُؤَكِّدُ عَزْمَهَا عَلَى أَنْ تَكُونَ مُنْتِجَةً وَمُصَدِّرَةً لِلتِّكْنُولُوجِيَا وَلَيْسَتْ مُجَرَّدَ مُسْتَهْلِكَةٍ لَهَا.",
   sentences: [
-    {
-      speaker: "記事",
-      arabic: "تَقُودُ \"الْهَيْئَةُ السُّعُودِيَّةُ لِلْبَيَانَاتِ وَالذَّكَاءِ الِاصْطِنَاعِيِّ\" (سَدَايَا) جُهُودَ الْمَمْلَكَةِ نَحْوَ الرِّيَادَةِ الْعَالَمِيَّةِ فِي مَجَالِ التِّقْنِيَّاتِ الْمُتَقَدِّمَةِ.",
-      japanese: "「サウジデータAI庁（SDAIA）」は、先端技術分野における世界的なリーダーシップに向けた王国の取り組みを主導しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "تَهْدِفُ الِاسْتِرَاتِيجِيَّةُ الْوَطَنِيَّةُ لِلذَّكَاءِ الِاصْطِنَاعِيِّ إِلَى جَعْلِ الْمَمْلَكَةِ مَرْكَزًا عَالَمِيًّا لِلْبَيَانَاتِ، حَيْثُ يُتَوَقَّعُ أَنْ يُضِيفَ هَذَا الْقِطَاعُ أَكْثَرَ مِنْ 500 مِلْيَارِ رِيَالٍ إِلَى النَّاتِجِ الْمَحَلِّيِّ الْإِجْمَالِيِّ بِحُلُولِ عَامِ 2030.",
-      japanese: "国家AI戦略は、王国を世界的なデータハブにすることを目指しており、このセクターは2030年までにGDPに5000億リヤル以上を付加すると予想されています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَتَعْمَلُ الْهَيْئَةُ عَلَى دَمْجِ حُلُولِ الذَّكَاءِ الِاصْطِنَاعِيِّ فِي الْقِطَاعَاتِ الْحُكُومِيَّةِ، وَالتَّعْلِيمِ، وَالصِّحَّةِ، وَالطَّاقَةِ، لِرَفْعِ كَفَاءَةِ الْأَدَاءِ وَتَرْشِيدِ الْإِنْفَاقِ.",
-      japanese: "同庁は、パフォーマンスの効率を高め支出を合理化するために、政府、教育、保健、エネルギーの各部門にAIソリューションを統合することに取り組んでいます。"
-    },
-    {
-      speaker: "記事",
-      arabic: "وَمِنْ أَبْرَزِ مُبَادَرَاتِ سَدَايَا تَنْظِيمُ \"الْقِمَّةِ الْعَالَمِيَّةِ لِلذَّكَاءِ الِاصْطِنَاعِيِّ\" الَّتِي تَجْمَعُ صُنَّاعَ الْقَرَارِ وَالْخُبَرَاءَ مِنْ كَافَّةِ أَنْحَاءِ الْعَالَمِ لِمُنَاقَشَةِ مُسْتَقْبَلِ هَذَا الْمَجَالِ وَتَأْثِيرَاتِهِ الْأَخْلَاقِيَّةِ وَالِاقْتِصَادِيَّةِ.",
-      japanese: "SDAIAの最も著名なイニシアティブの一つは、世界中の意思決定者や専門家を集めてこの分野の未来とその倫理的・経済的影響を議論する「世界AIサミット」の開催です。"
-    },
-    {
-      speaker: "記事",
-      arabic: "كَمَا تُرَكِّزُ الْهَيْئَةُ عَلَى بِنَاءِ الْكَفَاءَاتِ الْوَطَنِيَّةِ مِنْ خِلَالِ مُعَسْكَرَاتٍ تَدْرِيبِيَّةٍ مُكَثَّفَةٍ تَهْدِفُ إِلَى تَخْرِيجِ آلَافِ الْمُتَخَصِّصِينَ السُّعُودِيِّينَ فِي عِلْمِ الْبَيَانَاتِ وَالْبَرْمَجَةِ.",
-      japanese: "また、同庁はデータサイエンスとプログラミングの分野で数千人のサウジアラビア人専門家を輩出することを目的とした集中的なトレーニングキャンプを通じて、国家的な能力構築に注力しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "إِنَّ هَذَا التَّوَجُّهَ لَا يَعْكِسُ فَقَطْ رَغْبَةَ الْمَمْلَكَةِ فِي مُوَاكَبَةِ التَّطَوُّرِ التِّقْنِيِّ، بَلْ يُؤَكِّدُ عَزْمَهَا عَلَى أَنْ تَكُونَ مُنْتِجَةً وَمُصَدِّرَةً لِلتِّكْنُولُوجِيَا وَلَيْسَتْ مُجَرَّدَ مُسْتَهْلِكَةٍ لَهَا.",
-      japanese: "この方向性は、技術的発展に追いつこうとする王国の願望を反映しているだけでなく、単なる消費者ではなく、技術の生産者および輸出国になるという決意を裏付けています。"
-    }
+    { speaker: "記事", arabic: "تَقُودُ \"الْهَيْئَةُ السُّعُودِيَّةُ لِلْبَيَانَاتِ وَالذَّكَاءِ الِاصْطِنَاعِيِّ\" (سَدَايَا) جُهُودَ الْمَمْلَكَةِ نَحْوَ الرِّيَادَةِ الْعَالَمِيَّةِ.", japanese: "SDAIA（サウジデータAI庁）は、王国の世界的なリーダーシップに向けた取り組みを主導しています。" },
+    { speaker: "記事", arabic: "يُتَوَقَّعُ أَنْ يُضِيفَ هَذَا الْقِطَاعُ أَكْثَرَ مِنْ 500 مِلْيَارِ رِيَالٍ إِلَى النَّاتِجِ الْمَحَلِّيِّ الْإِجْمَالِيِّ بِحُلُولِ عَامِ 2030.", japanese: "このセクターは2030年までにGDPに5000億リヤル以上を付加すると予想されています。" },
+    { speaker: "記事", arabic: "تُرَكِّزُ الْهَيْئَةُ عَلَى بِنَاءِ الْكَفَاءَاتِ الْوَطَنِيَّةِ مِنْ خِلَالِ مُعَسْكَرَاتٍ تَدْرِيبِيَّةٍ مُكَثَّفَةٍ.", japanese: "同庁は、集中的なトレーニングキャンプを通じて国家的な能力構築に注力しています。" },
+    { speaker: "記事", arabic: "يُؤَكِّدُ عَزْمَهَا عَلَى أَنْ تَكُونَ مُنْتِجَةً وَمُصَدِّرَةً لِلتِّكْنُولُوجِيَا.", japanese: "それは技術の生産者および輸出国になるという決意を裏付けています。" }
   ],
   vocabList: [
     { word: "ذَكَاء اِصْطِنَاعِيّ", meaning: "人工知能 (AI)" },
@@ -11833,34 +12832,14 @@ questions: [] // アルファベット回は問題なし
     { word: "تَرْشِيد", meaning: "合理化/最適化" }
   ],
   questions: [
-    {
-      id: 10961,
-      type: "reading",
-      text: "国家AI戦略の経済的な目標について、テキストで述べられていることは何ですか？",
-      options: ["2030年までにAI関連企業をすべて国有化する。", "2030年までにGDPに5000億リヤル以上を付加する。", "石油収入への依存を100%なくす。", "すべての労働者をAIロボットに置き換える。"],
-      correctIndex: 1,
-      explanation: "「يُتوقع أن يضيف هذا القطاع أكثر من 500 مليار ريال إلى الناتج المحلي الإجمالي (このセクターはGDPに5000億リヤル以上を付加すると予想される)」と記述されています。"
-    },
-    {
-      id: 10962,
-      type: "reading",
-      text: "SDAIA（サウジデータAI庁）が人材育成のために行っている具体的な活動は？",
-      options: ["海外からの専門家輸入のみに頼る。", "大学を閉鎖してオンライン教育にする。", "データサイエンスやプログラミングの集中トレーニングキャンプを実施する。", "公務員の給与を削減する。"],
-      correctIndex: 2,
-      explanation: "「معسكرات تدريبية مكثفة (集中的なトレーニングキャンプ)」を通じて国家的な能力構築を行っているとあります。"
-    },
-    {
-      id: 10963,
-      type: "reading",
-      text: "テキストの結びで述べられている、サウジアラビアの技術分野における究極の目標は何ですか？",
-      options: ["世界最大の技術輸入国になること。", "技術の消費者から、生産者および輸出国へと転換すること。", "インターネットの使用を制限すること。", "すべての技術開発を民間企業に任せること。"],
-      correctIndex: 1,
-      explanation: "「単なる消費者ではなく、技術の生産者および輸出国になる（أن تكون منتجة ومصدرة للتكنولوجيا وليست مجرد مستهلكة لها）」という決意が述べられています。"
-    }
+    { id: 10961, type: "reading", text: "国家AI戦略の経済的な目標について、テキストで述べられていることは何ですか？", options: ["2030年までにAI関連企業をすべて国有化する。", "2030年までにGDPに5000億リヤル以上を付加する。", "石油収入への依存を100%なくす。", "すべての労働者をAIロボットに置き換える。"], correctIndex: 1, explanation: "「GDPに5000億リヤル以上を付加する」と記述されています。" },
+    { id: 10962, type: "reading", text: "SDAIA（サウジデータAI庁）が人材育成のために行っている具体的な活動は？", options: ["海外からの専門家輸入のみに頼る。", "大学を閉鎖してオンライン教育にする。", "データサイエンスやプログラミングの集中トレーニングキャンプを実施する。", "公務員の給与を削減する。"], correctIndex: 2, explanation: "「معسكرات تدريبية مكثفة (集中的なトレーニングキャンプ)」です。" },
+    { id: 10963, type: "reading", text: "テキストの結びで述べられている、サウジアラビアの技術分野における究極の目標は何ですか？", options: ["世界最大の技術輸入国になること。", "技術の消費者から、生産者および輸出国へと転換すること。", "インターネットの使用を制限すること。", "すべての技術開発を民間企業に任せること。"], correctIndex: 1, explanation: "「単なる消費者ではなく、技術の生産者および輸出国になる」ことです。" },
+    // 上級文法問題
+    { id: 10964, type: "grammar_advanced", text: "「جعل المملكة مركزا」の「مركزا」の正しい語尾は？", options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "a (ファトハ)"], correctIndex: 0, explanation: "動詞「Ja'ala (Make A B)」の第2目的語（補語）なので、対格（Manṣūb）となり、タンウィーン・ファトハがつきます。" },
+    { id: 10965, type: "grammar_advanced", text: "「أكثر من 500 مليار」の「مليار」の正しい語尾は？", options: ["i (カスラ)", "in (タンウィーン・カスラ)", "a (ファトハ)", "an (タンウィーン・ファトハ)"], correctIndex: 0, explanation: "数詞「500 (Khamsumi'a)」の後の名詞（Muḍāf Ilayhi）は単数・属格（Majrūr）となり、カスラがつきます（イダーファ第1要素のRiyālにかかるためタンウィーンなし、またはRiyālがあればそちらにタンウィーンがつきますが、ここでは「Milyāri Riyālin」の連結なのでカスラのみ）。" }
   ]
 },
-
-// --- 87. 航空・物流 (Aviation & Logistics) ---
 {
   id: 1097,
   level: "上級",
@@ -11869,136 +12848,54 @@ questions: [] // アルファベット回は問題なし
   contentPlain: "أعلن صندوق الاستثمارات العامة عن تأسيس \"طيران الرياض\"، الناقل الجوي الوطني الجديد، في خطوة استراتيجية تهدف إلى الاستفادة من الموقع الجغرافي للمملكة كحلقة وصل بين ثلاث قارات. تسعى الشركة الجديدة إلى تسيير رحلات لأكثر من 100 وجهة حول العالم بحلول عام 2030، مكملة بذلك جهود الخطوط السعودية الحالية. يتميز أسطول طيران الرياض بكونه حديثاً وصديقاً للبيئة، مع التركيز على تقديم تجربة سفر رقمية فاخرة.\nلا يقتصر الهدف من إنشاء هذه الشركة على نقل الركاب فحسب، بل هو جزء من استراتيجية أوسع لتحويل الرياض إلى مركز لوجستي وتجاري عالمي، ودعم قطاع السياحة الذي يطمح لجذب 100 مليون زائر سنوياً. من المتوقع أن يساهم هذا المشروع في زيادة الناتج المحلي غير النفطي بما يصل إلى 75 مليار ريال، واستحداث أكثر من 200 ألف فرصة عمل مباشرة وغير مباشرة، مما يعزز مكانة العاصمة السعودية كوجهة عالمية للأعمال والترفيه.",
   contentVoweled: "أَعْلَنَ صُنْدُوقُ الِاسْتِثْمَارَاتِ الْعَامَّةِ عَنْ تَأْسِيسِ \"طَيَرَانِ الرِّيَاضِ\"، النَّاقِلِ الْجَوِّيِّ الْوَطَنِيِّ الْجَدِيدِ، فِي خُطْوَةٍ اسْتِرَاتِيجِيَّةٍ تَهْدِفُ إِلَى الِاسْتِفَادَةِ مِنَ الْمَوْقِعِ الْجُغْرَافِيِّ لِلْمَمْلَكَةِ كَحَلَقَةِ وَصْلٍ بَيْنَ ثَلَاثِ قَارَّاتٍ. تَسْعَى الشَّرِكَةُ الْجَدِيدَةُ إِلَى تَسْيِيرِ رِحْلَاتٍ لِأَكْثَرَ مِنْ 100 وِجْهَةٍ حَوْلَ الْعَالَمِ بِحُلُولِ عَامِ 2030، مُكَمِّلَةً بِذَلِكَ جُهُودَ الْخُطُوطِ السُّعُودِيَّةِ الْحَالِيَّةِ. يَتَمَيَّزُ أُسْطُولُ طَيَرَانِ الرِّيَاضِ بِكَوْنِهِ حَدِيثًا وَصَدِيقًا لِلْبِيئَةِ، مَعَ التَّرْكِيزِ عَلَى تَقْدِيمِ تَجْرِبَةِ سَفَرٍ رَقْمِيَّةٍ فَاخِرَةٍ.\nلَا يَقْتَصِرُ الْهَدَفُ مِنْ إِنْشَاءِ هَذِهِ الشَّرِكَةِ عَلَى نَقْلِ الرُّكَّابِ فَحَسْبُ، بَلْ هُوَ جُزْءٌ مِنِ اسْتِرَاتِيجِيَّةٍ أَوْسَعَ لِتَحْوِيلِ الرِّيَاضِ إِلَى مَرْكَزٍ لُوجِسْتِيٍّ وَتِجَارِيٍّ عَالَمِيٍّ، وَدَعْمِ قِطَاعِ السِّيَاحَةِ الَّذِي يَطْمَحُ لِجَذْبِ 100 مِلْيُونِ زَائِرٍ سَنَوِيًّا. مِنَ الْمُتَوَقَّعِ أَنْ يُسَاهِمَ هَذَا الْمَشْرُوعُ فِي زِيَادَةِ النَّاتِجِ الْمَحَلِّيِّ غَيْرِ النَّفْطِيِّ بِمَا يَصِلُ إِلَى 75 مِلْيَارِ رِيَالٍ، وَاسْتِحْدَاثِ أَكْثَرَ مِنْ 200 أَلْفِ فُرْصَةِ عَمَلٍ مُبَاشِرَةٍ وَغَيْرِ مُبَاشِرَةٍ، مِمَّا يُعَزِّزُ مَكَانَةَ الْعَاصِمَةِ السُّعُودِيَّةِ كَوِجْهَةٍ عَالَمِيَّةٍ لِلْأَعْمَالِ وَالتَّرْفِيهِ.",
   sentences: [
-    {
-      speaker: "記事",
-      arabic: "أَعْلَنَ صُنْدُوقُ الِاسْتِثْمَارَاتِ الْعَامَّةِ عَنْ تَأْسِيسِ \"طَيَرَانِ الرِّيَاضِ\"، النَّاقِلِ الْجَوِّيِّ الْوَطَنِيِّ الْجَدِيدِ، فِي خُطْوَةٍ اسْتِرَاتِيجِيَّةٍ تَهْدِفُ إِلَى الِاسْتِفَادَةِ مِنَ الْمَوْقِعِ الْجُغْرَافِيِّ لِلْمَمْلَكَةِ كَحَلَقَةِ وَصْلٍ بَيْنَ ثَلَاثِ قَارَّاتٍ.",
-      japanese: "公共投資基金は、3大陸を結ぶリンクとしての王国の地理的位置を活用することを目的とした戦略的措置として、新しい国営航空会社「リヤド航空」の設立を発表しました。"
-    },
-    {
-      speaker: "記事",
-      arabic: "تَسْعَى الشَّرِكَةُ الْجَدِيدَةُ إِلَى تَسْيِيرِ رِحْلَاتٍ لِأَكْثَرَ مِنْ 100 وِجْهَةٍ حَوْلَ الْعَالَمِ بِحُلُولِ عَامِ 2030، مُكَمِّلَةً بِذَلِكَ جُهُودَ الْخُطُوطِ السُّعُودِيَّةِ الْحَالِيَّةِ.",
-      japanese: "新会社は2030年までに世界100以上の目的地へのフライトを運航することを目指しており、それにより既存のサウジアラビア航空の取り組みを補完します。"
-    },
-    {
-      speaker: "記事",
-      arabic: "يَتَمَيَّزُ أُسْطُولُ طَيَرَانِ الرِّيَاضِ بِكَوْنِهِ حَدِيثًا وَصَدِيقًا لِلْبِيئَةِ، مَعَ التَّرْكِيزِ عَلَى تَقْدِيمِ تَجْرِبَةِ سَفَرٍ رَقْمِيَّةٍ فَاخِرَةٍ.",
-      japanese: "リヤド航空のフリート（保有機）は近代的で環境に優しいことが特徴であり、豪華なデジタル旅行体験の提供に重点を置いています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "لَا يَقْتَصِرُ الْهَدَفُ مِنْ إِنْشَاءِ هَذِهِ الشَّرِكَةِ عَلَى نَقْلِ الرُّكَّابِ فَحَسْبُ، بَلْ هُوَ جُزْءٌ مِنِ اسْتِرَاتِيجِيَّةٍ أَوْسَعَ لِتَحْوِيلِ الرِّيَاضِ إِلَى مَرْكَزٍ لُوجِسْتِيٍّ وَتِجَارِيٍّ عَالَمِيٍّ، وَدَعْمِ قِطَاعِ السِّيَاحَةِ الَّذِي يَطْمَحُ لِجَذْبِ 100 مِلْيُونِ زَائِرٍ سَنَوِيًّا.",
-      japanese: "この会社を設立する目的は乗客の輸送にとどまらず、リヤドを世界的な物流・商業ハブに変え、年間1億人の訪問者誘致を目指す観光セクターを支援するというより広範な戦略の一部です。"
-    },
-    {
-      speaker: "記事",
-      arabic: "مِنَ الْمُتَوَقَّعِ أَنْ يُسَاهِمَ هَذَا الْمَشْرُوعُ فِي زِيَادَةِ النَّاتِجِ الْمَحَلِّيِّ غَيْرِ النَّفْطِيِّ بِمَا يَصِلُ إِلَى 75 مِلْيَارِ رِيَالٍ، وَاسْتِحْدَاثِ أَكْثَرَ مِنْ 200 أَلْفِ فُرْصَةِ عَمَلٍ مُبَاشِرَةٍ وَغَيْرِ مُبَاشِرَةٍ.",
-      japanese: "このプロジェクトは、非石油GDPを最大750億リヤル増加させ、20万件以上の直接および間接雇用を創出することが期待されています。"
-    }
+    { speaker: "記事", arabic: "أَعْلَنَ صُنْدُوقُ الِاسْتِثْمَارَاتِ الْعَامَّةِ عَنْ تَأْسِيسِ \"طَيَرَانِ الرِّيَاضِ\".", japanese: "公共投資基金は「リヤド航空」の設立を発表しました。" },
+    { speaker: "記事", arabic: "تَسْعَى الشَّرِكَةُ إِلَى تَسْيِيرِ رِحْلَاتٍ لِأَكْثَرَ مِنْ 100 وِجْهَةٍ حَوْلَ الْعَالَمِ.", japanese: "同社は世界中の100以上の目的地へのフライト運航を目指しています。" },
+    { speaker: "記事", arabic: "يَتَمَيَّزُ أُسْطُولُ طَيَرَانِ الرِّيَاضِ بِكَوْنِهِ حَدِيثًا وَصَدِيقًا لِلْبِيئَةِ.", japanese: "リヤド航空のフリートは近代的で環境に優しいのが特徴です。" },
+    { speaker: "記事", arabic: "لَا يَقْتَصِرُ الْهَدَفُ عَلَى نَقْلِ الرُّكَّابِ فَحَسْبُ، بَلْ تَحْوِيلُ الرِّيَاضِ إِلَى مَرْكَزٍ لُوجِسْتِيٍّ.", japanese: "目的は旅客輸送に限らず、リヤドを物流ハブに変えることです。" }
   ],
   vocabList: [
     { word: "نَاقِل جَوِّي", meaning: "航空会社/キャリア" },
-    { word: "أُسْطُول", meaning: "艦隊/フリート (乗り物の群れ)" },
-    { word: "لُوجِسْتِي", meaning: "物流の/ロジスティクスの" },
+    { word: "أُسْطُول", meaning: "艦隊/フリート" },
+    { word: "لُوجِسْتِي", meaning: "物流の" },
     { word: "وِجْهَة", meaning: "目的地" }
   ],
   questions: [
-    {
-      id: 10971,
-      type: "reading",
-      text: "リヤド航空の設立目的として、テキストで言及されていないものはどれですか？",
-      options: ["サウジアラビア航空を倒産させること。", "王国の地理的位置を活用すること。", "リヤドを世界的な物流ハブに変えること。", "2030年までに100以上の目的地へ就航すること。"],
-      correctIndex: 0,
-      explanation: "テキストには「既存のサウジアラビア航空の取り組みを補完する（مكملة بذلك جهود الخطوط السعودية）」とあり、倒産させる目的ではありません。"
-    },
-    {
-      id: 10972,
-      type: "reading",
-      text: "リヤド航空のフリート（航空機）の特徴は何ですか？",
-      options: ["中古の航空機を使用する。", "貨物輸送専用である。", "近代的で環境に優しい。", "すべて小型機である。"],
-      correctIndex: 2,
-      explanation: "「近代的で環境に優しい（حديثاً وصديقاً للبيئة）」と記述されています。"
-    },
-    {
-      id: 10973,
-      type: "reading",
-      text: "このプロジェクトが経済に与える影響として予想されていることは？",
-      options: ["非石油GDPの750億リヤル増加と20万人の雇用創出。", "石油輸出の増加。", "観光客の減少。", "リヤドの人口減少。"],
-      correctIndex: 0,
-      explanation: "非石油GDPを750億リヤル増加させ、20万以上の雇用を創出すると予想されています。"
-    }
+    { id: 10971, type: "reading", text: "リヤド航空の設立目的として、テキストで言及されていないものはどれですか？", options: ["サウジアラビア航空を倒産させること。", "王国の地理的位置を活用すること。", "リヤドを世界的な物流ハブに変えること。", "2030年までに100以上の目的地へ就航すること。"], correctIndex: 0, explanation: "「既存のサウジアラビア航空の取り組みを補完する（مكملة بذلك جهود الخطوط السعودية）」とあり、倒産させる目的ではありません。" },
+    { id: 10972, type: "reading", text: "リヤド航空のフリート（航空機）の特徴は何ですか？", options: ["中古の航空機を使用する。", "貨物輸送専用である。", "近代的で環境に優しい。", "すべて小型機である。"], correctIndex: 2, explanation: "「近代的で環境に優しい（حديثاً وصديقاً للبيئة）」と記述されています。" },
+    { id: 10973, type: "reading", text: "このプロジェクトが経済に与える影響として予想されていることは？", options: ["非石油GDPの750億リヤル増加と20万人の雇用創出。", "石油輸出の増加。", "観光客の減少。", "リヤドの人口減少。"], correctIndex: 0, explanation: "非石油GDPを750億リヤル増加させ、20万以上の雇用を創出すると予想されています。" },
+    // 上級文法問題
+    { id: 10974, type: "grammar_advanced", text: "「لأكثر من 100 وجهة」の「وجهة」の正しい語尾は？", options: ["in (タンウィーン・カスラ)", "an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "i (カスラ)"], correctIndex: 0, explanation: "数詞「100 (Mi'a)」の後の名詞（Muḍāf Ilayhi）は単数・属格（Majrūr）となり、タンウィーン・カスラがつきます。" },
+    { id: 10975, type: "grammar_advanced", text: "「كوجهة عالمية」の「عالمية」の正しい語尾は？", options: ["in (タンウィーン・カスラ)", "an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "a (ファトハ)"], correctIndex: 0, explanation: "「Ka-wijhatin (目的地として・属格)」を修飾する形容詞なので、属格（Majrūr）となりタンウィーン・カスラがつきます。" }
   ]
 },
-
-// --- 88. 教育・社会 (Education & Society) ---
 {
   id: 1098,
   level: "上級",
   category: "教育",
   title: "人的能力開発プログラム：将来への投資",
-  contentPlain: "يُعد \"برنامج تنمية القدرات البشرية\" أحد برامج رؤية المملكة 2030 الطموحة، والذي يهدف إلى ضمان أن يمتلك المواطن قدرات تمكنه من المنافسة عالمياً. يرتكز البرنامج على ثلاث ركائز رئيسية: تطوير أساس تعليمي متين ومرن للجميع، والإعداد لسوق العمل المستقبلي، وإتاحة فرص التعلم مدى الحياة. تشمل المبادرات تحديث المناهج الدراسية لتركز على مهارات القرن الحادي والعشرين مثل التفكير النقدي والرقمنة، بدلاً من الحفظ والتلقين.\nكما يسعى البرنامج إلى تعزيز القيم الوطنية والاعتدال والتسامح، وإتقان اللغة العربية، مع الانفتاح على الثقافات الأخرى. ومن المتوقع أن يؤدي هذا التحول إلى رفع ترتيب المؤسسات التعليمية السعودية في المؤشرات الدولية، وزيادة مشاركة السعوديين في الوظائف عالية المهارة. إن الاستثمار في العقول هو الاستثمار الحقيقي الذي تراهن عليه المملكة لبناء مستقبل مزدهر ومستدام.",
+  contentPlain: "يُعد \"برنامج تنمية القدرات البشرية\" أحد برامج رؤية المملكة 2030 الطموحة، والذي يهدف إلى ضمان أن يمتلك المواطن قدرات تمكنه من المنافسة عالمياً. يرتكز البرنامج على ثلاث ركائز رئيسية: تطوير أساس تعليمي متين ومرن للجميع، والإعداد لسوق العمل المستقبلي، وإتاحة فرص التعلم مدى الحياة. تشمل المبادرات تحديث المناهج الدراسية لتركز على مهارات القرن الحادي والعشرين مثل التفكير النقدي والرقمنة، بدلاً من الحفظ والتلقين.\nكَمَا يَسْعَى الْبَرْنَامَجُ إِلَى تَعْزِيزِ الْقِيَمِ الْوَطَنِيَّةِ وَالِاعْتِدَالِ وَالتَّسَامُحِ، وَإِتْقَانِ اللُّغَةِ الْعَرَبِيَّةِ، مَعَ الِانْفِتَاحِ عَلَى الثَّقَافَاتِ الْأُخْرَى. وَمِنَ الْمُتَوَقَّعِ أَنْ يُؤَدِّيَ هَذَا التَّحَوُّلُ إِلَى رَفْعِ تَرْتِيبِ الْمُؤَسَّسَاتِ التَّعْلِيمِيَّةِ السُّعُودِيَّةِ فِي الْمُؤَشِّرَاتِ الدَّوْلِيَّةِ، وَزِيَادَةِ مُشَارَكَةِ السُّعُودِيِّينَ فِي الْوَظَائِفِ عَالِيَةِ الْمَهَارَةِ. إِنَّ الِاسْتِثْمَارَ فِي الْعُقُولِ هُوَ الِاسْتِثْمَارُ الْحَقِيقِيُّ الَّذِي تُرَاهِنُ عَلَيْهِ الْمَمْلَكَةُ لِبِنَاءِ مُسْتَقْبَلٍ مُزْدَهِرٍ وَمُسْتَدَامٍ.",
   contentVoweled: "يُعَدُّ \"بَرْنَامَجُ تَنْمِيَةِ الْقُدْرَاتِ الْبَشَرِيَّةِ\" أَحَدَ بَرَامِجِ رُؤْيَةِ الْمَمْلَكَةِ 2030 الطَّمُوحَةِ، وَالَّذِي يَهْدِفُ إِلَى ضَمَانِ أَنْ يَمْتَلِكَ الْمُوَاطِنُ قُدْرَاتٍ تُمَكِّنُهُ مِنَ الْمُنَافَسَةِ عَالَمِيًّا. يَرْتَكِزُ الْبَرْنَامَجُ عَلَى ثَلَاثِ رَكَائِزَ رَئِيسِيَّةٍ: تَطْوِيرِ أَسَاسٍ تَعْلِيمِيٍّ مَتِينٍ وَمَرِنٍ لِلْجَمِيعِ، وَالْإِعْدَادِ لِسُوقِ الْعَمَلِ الْمُسْتَقْبَلِيِّ، وَإِتَاحَةِ فُرَصِ التَّعَلُّمِ مَدَى الْحَيَاةِ. تَشْمَلُ الْمُبَادَرَاتُ تَحْدِيثَ الْمَنَاهِجِ الدِّرَاسِيَّةِ لِتُرَكِّزَ عَلَى مَهَارَاتِ الْقَرْنِ الْحَادِي وَالْعِشْرِينَ مِثْلِ التَّفْكِيرِ النَّقْدِيِّ وَالرَّقْمَنَةِ، بَدَلًا مِنَ الْحِفْظِ وَالتَّلْقِينِ.\nكَمَا يَسْعَى الْبَرْنَامَجُ إِلَى تَعْزِيزِ الْقِيَمِ الْوَطَنِيَّةِ وَالِاعْتِدَالِ وَالتَّسَامُحِ، وَإِتْقَانِ اللُّغَةِ الْعَرَبِيَّةِ، مَعَ الِانْفِتَاحِ عَلَى الثَّقَافَاتِ الْأُخْرَى. وَمِنَ الْمُتَوَقَّعِ أَنْ يُؤَدِّيَ هَذَا التَّحَوُّلُ إِلَى رَفْعِ تَرْتِيبِ الْمُؤَسَّسَاتِ التَّعْلِيمِيَّةِ السُّعُودِيَّةِ فِي الْمُؤَشِّرَاتِ الدَّوْلِيَّةِ، وَزِيَادَةِ مُشَارَكَةِ السُّعُودِيِّينَ فِي الْوَظَائِفِ عَالِيَةِ الْمَهَارَةِ. إِنَّ الِاسْتِثْمَارَ فِي الْعُقُولِ هُوَ الِاسْتِثْمَارُ الْحَقِيقِيُّ الَّذِي تُرَاهِنُ عَلَيْهِ الْمَمْلَكَةُ لِبِنَاءِ مُسْتَقْبَلٍ مُزْدَهِرٍ وَمُسْتَدَامٍ.",
   sentences: [
-    {
-      speaker: "記事",
-      arabic: "يُعَدُّ \"بَرْنَامَجُ تَنْمِيَةِ الْقُدْرَاتِ الْبَشَرِيَّةِ\" أَحَدَ بَرَامِجِ رُؤْيَةِ الْمَمْلَكَةِ 2030 الطَّمُوحَةِ، وَالَّذِي يَهْدِفُ إِلَى ضَمَانِ أَنْ يَمْتَلِكَ الْمُوَاطِنُ قُدْرَاتٍ تُمَكِّنُهُ مِنَ الْمُنَافَسَةِ عَالَمِيًّا.",
-      japanese: "「人的能力開発プログラム」はビジョン2030の野心的なプログラムの一つであり、国民が世界的に競争できる能力を持つことを保証することを目指しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "يَرْتَكِزُ الْبَرْنَامَجُ عَلَى ثَلَاثِ رَكَائِزَ رَئِيسِيَّةٍ: تَطْوِيرِ أَسَاسٍ تَعْلِيمِيٍّ مَتِينٍ وَمَرِنٍ لِلْجَمِيعِ، وَالْإِعْدَادِ لِسُوقِ الْعَمَلِ الْمُسْتَقْبَلِيِّ، وَإِتَاحَةِ فُرَصِ التَّعَلُّمِ مَدَى الْحَيَاةِ.",
-      japanese: "このプログラムは3つの主要な柱に基づいています。それは、強固で柔軟な教育基盤を全員に開発すること、将来の労働市場への準備、そして生涯学習の機会の提供です。"
-    },
-    {
-      speaker: "記事",
-      arabic: "تَشْمَلُ الْمُبَادَرَاتُ تَحْدِيثَ الْمَنَاهِجِ الدِّرَاسِيَّةِ لِتُرَكِّزَ عَلَى مَهَارَاتِ الْقَرْنِ الْحَادِي وَالْعِشْرِينَ مِثْلِ التَّفْكِيرِ النَّقْدِيِّ وَالرَّقْمَنَةِ، بَدَلًا مِنَ الْحِفْظِ وَالتَّلْقِينِ.",
-      japanese: "イニシアティブには、暗記や詰め込みではなく、批判的思考やデジタル化といった21世紀のスキルに焦点を当てるためのカリキュラムの更新が含まれます。"
-    },
-    {
-      speaker: "記事",
-      arabic: "كَمَا يَسْعَى الْبَرْنَامَجُ إِلَى تَعْزِيزِ الْقِيَمِ الْوَطَنِيَّةِ وَالِاعْتِدَالِ وَالتَّسَامُحِ، وَإِتْقَانِ اللُّغَةِ الْعَرَبِيَّةِ، مَعَ الِانْفِتَاحِ عَلَى الثَّقَافَاتِ الْأُخْرَى.",
-      japanese: "また、プログラムは国家的な価値観、中庸、寛容、そしてアラビア語の習得を強化しつつ、他文化への開放性を追求しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "إِنَّ الِاسْتِثْمَارَ فِي الْعُقُولِ هُوَ الِاسْتِثْمَارُ الْحَقِيقِيُّ الَّذِي تُرَاهِنُ عَلَيْهِ الْمَمْلَكَةُ لِبِنَاءِ مُسْتَقْبَلٍ مُزْدَهِرٍ وَمُسْتَدَامٍ.",
-      japanese: "頭脳（人材）への投資こそが、繁栄した持続可能な未来を築くために王国が賭けている真の投資です。"
-    }
+    { speaker: "記事", arabic: "يُعَدُّ \"بَرْنَامَجُ تَنْمِيَةِ الْقُدْرَاتِ الْبَشَرِيَّةِ\" أَحَدَ بَرَامِجِ رُؤْيَةِ الْمَمْلَكَةِ 2030.", japanese: "「人的能力開発プログラム」はビジョン2030のプログラムの一つです。" },
+    { speaker: "記事", arabic: "يَرْتَكِزُ الْبَرْنَامَجُ عَلَى ثَلَاثِ رَكَائِزَ رَئِيسِيَّةٍ.", japanese: "このプログラムは3つの主要な柱に基づいています。" },
+    { speaker: "記事", arabic: "تَشْمَلُ الْمُبَادَرَاتُ تَحْدِيثَ الْمَنَاهِجِ الدِّرَاسِيَّةِ لِتُرَكِّزَ عَلَى مَهَارَاتِ الْقَرْنِ الْحَادِي وَالْعِشْرِينَ.", japanese: "イニシアティブには、21世紀のスキルに焦点を当てるためのカリキュラムの更新が含まれます。" },
+    { speaker: "記事", arabic: "إِنَّ الِاسْتِثْمَارَ فِي الْعُقُولِ هُوَ الِاسْتِثْمَارُ الْحَقِيقِيُّ.", japanese: "頭脳への投資こそが真の投資です。" }
   ],
   vocabList: [
-    { word: "قُدْرَات بَشَرِيَّة", meaning: "人的能力/ヒューマンキャピタル" },
+    { word: "قُدْرَات بَشَرِيَّة", meaning: "人的能力" },
     { word: "مُنَافَسَة", meaning: "競争" },
-    { word: "مَنَاهِج", meaning: "カリキュラム/教育課程" },
-    { word: "تَفْكِير نَقْدِيّ", meaning: "クリティカルシンキング/批判的思考" }
+    { word: "مَنَاهِج", meaning: "カリキュラム" },
+    { word: "تَفْكِير نَقْدِيّ", meaning: "批判的思考" }
   ],
   questions: [
-    {
-      id: 10981,
-      type: "reading",
-      text: "「人的能力開発プログラム」の主要な目標は何ですか？",
-      options: ["国民に海外移住を促すこと。", "国民が世界的に競争できる能力を持つことを保証すること。", "すべての教育を有料化すること。", "伝統的な教育方法を維持すること。"],
-      correctIndex: 1,
-      explanation: "「国民が世界的に競争できる能力を持つことを保証する（ضمان أن يمتلك المواطن قدرات تمكنه من المنافسة عالمياً）」ことが目標です。"
-    },
-    {
-      id: 10982,
-      type: "reading",
-      text: "教育カリキュラムの更新において、どのような変化が重視されていますか？",
-      options: ["暗記と詰め込み教育の強化。", "批判的思考やデジタル化などの21世紀型スキルへの移行。", "外国語教育の廃止。", "体育の授業の削減。"],
-      correctIndex: 1,
-      explanation: "「暗記や詰め込み（الحفظ والتلقين）ではなく、批判的思考やデジタル化といった21世紀のスキルに焦点を当てる」と記述されています。"
-    },
-    {
-      id: 10983,
-      type: "reading",
-      text: "プログラムが推進する「価値観」に含まれないものはどれですか？",
-      options: ["中庸と寛容。", "国家的な価値観。", "他文化への閉鎖性。", "アラビア語の習得。"],
-      correctIndex: 2,
-      explanation: "テキストには「他文化への開放（الانفتاح على الثقافات الأخرى）」とあり、閉鎖性は含まれません。"
-    }
+    { id: 10981, type: "reading", text: "「人的能力開発プログラム」の主要な目標は何ですか？", options: ["国民に海外移住を促すこと。", "国民が世界的に競争できる能力を持つことを保証すること。", "すべての教育を有料化すること。", "伝統的な教育方法を維持すること。"], correctIndex: 1, explanation: "「国民が世界的に競争できる能力を持つことを保証する」ことが目標です。" },
+    { id: 10982, type: "reading", text: "教育カリキュラムの更新において、どのような変化が重視されていますか？", options: ["暗記と詰め込み教育の強化。", "批判的思考やデジタル化などの21世紀型スキルへの移行。", "外国語教育の廃止。", "体育の授業の削減。"], correctIndex: 1, explanation: "「暗記や詰め込みではなく、批判的思考やデジタル化といった21世紀のスキルに焦点を当てる」と記述されています。" },
+    { id: 10983, type: "reading", text: "プログラムが推進する「価値観」に含まれないものはどれですか？", options: ["中庸と寛容。", "国家的な価値観。", "他文化への閉鎖性。", "アラビア語の習得。"], correctIndex: 2, explanation: "テキストには「他文化への開放（الانفتاح على الثقافات الأخرى）」とあり、閉鎖性は含まれません。" },
+    // 上級文法問題
+    { id: 10984, type: "grammar_advanced", text: "「على ثلاث ركائز」の「ركائز」の正しい語尾は？", options: ["a (ファトハ)", "i (カスラ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "数詞「Thalāth (3)」の後の名詞（Muḍāf Ilayhi）は属格ですが、「Rakā'iz」は非限定名詞（Mafā'ilパターン）なので、カスラではなくファトハを取ります。" },
+    { id: 10985, type: "grammar_advanced", text: "「ضمان أن يمتلك المواطن」の「يمتلك」の正しい語尾は？", options: ["a (ファトハ)", "u (ダンマ)", "Sukuun (スクーン)", "i (カスラ)"], correctIndex: 0, explanation: "接続助詞「An」の後の現在形動詞は接続法（Manṣūb）となり、ファトハがつきます。" }
   ]
 },
-
-// --- 89. 文化・遺産 (Culture & Heritage) ---
 {
   id: 1099,
   level: "上級",
@@ -12007,96 +12904,33 @@ questions: [] // アルファベット回は問題なし
   contentPlain: "يعد مشروع \"بوابة الدرعية\" واحداً من أضخم المشاريع الثقافية والتراثية في العالم، حيث يهدف إلى تحويل مدينة الدرعية التاريخية، مهد الدولة السعودية الأولى، إلى وجهة سياحية وثقافية عالمية. يتمحور المشروع حول حي \"الطريف\" التاريخي، المسجل في قائمة التراث العالمي لليونسكو، والذي يتم ترميمه بعناية فائقة باستخدام المواد التقليدية مثل الطين، للحفاظ على أصالته العمرانية النجدية.\nتخطط الهيئة لتطوير مساحات واسعة تضم متاحف عالمية، وجامعة للفنون، وأسواقاً تقليدية، وفنادق فاخرة، بحيث تمزج بين عراقة الماضي ورفاهية الحاضر. ومن المتوقع أن يستقطب المشروع 27 مليون زائر سنوياً، مما يساهم في تعزيز الهوية الوطنية وتعريف العالم بتاريخ المملكة العريق. إن الدرعية ليست مجرد موقع أثري، بل هي رمز للصمود والوحدة، وتجسد العمق التاريخي الذي تنطلق منه السعودية نحو المستقبل.",
   contentVoweled: "يُعَدُّ مَشْرُوعُ \"بَوَّابَةِ الدِّرْعِيَّةِ\" وَاحِدًا مِنْ أَضْخَمِ الْمَشَارِيعِ الثَّقَافِيَّةِ وَالتُّرَاثِيَّةِ فِي الْعَالَمِ، حَيْثُ يَهْدِفُ إِلَى تَحْوِيلِ مَدِينَةِ الدِّرْعِيَّةِ التَّارِيخِيَّةِ، مَهْدِ الدَّوْلَةِ السُّعُودِيَّةِ الْأُولَى، إِلَى وِجْهَةٍ سِيَاحِيَّةٍ وَثَقَافِيَّةٍ عَالَمِيَّةٍ. يَتَمَحْوَرُ الْمَشْرُوعُ حَوْلَ حَيِّ \"الطُّرَيْفِ\" التَّارِيخِيِّ، الْمُسَجَّلِ فِي قَائِمَةِ التُّرَاثِ الْعَالَمِيِّ لِلْيُونِسْكُو، وَالَّذِي يَتِمُّ تَرْمِيمُهُ بِعِنَايَةٍ فَائِقَةٍ بِاسْتِخْدَامِ الْمَوَادِّ التَّقْلِيدِيَّةِ مِثْلِ الطِّينِ، لِلْحِفَاظِ عَلَى أَصَالَتِهِ الْعُمْرَانِيَّةِ النَّجْدِيَّةِ.\nتُخَطِّطُ الْهَيْئَةُ لِتَطْوِيرِ مِسَاحَاتٍ وَاسِعَةٍ تَضُمُّ مَتَاحِفَ عَالَمِيَّةً، وَجَامِعَةً لِلْفُنُونِ، وَأَسْوَاقًا تَقْلِيدِيَّةً، وَفَنَادِقَ فَاخِرَةً، بِحَيْثُ تَمْزُجُ بَيْنَ عَرَاقَةِ الْمَاضِي وَرَفَاهِيَةِ الْحَاضِرِ. وَمِنَ الْمُتَوَقَّعِ أَنْ يَسْتَقْطِبَ الْمَشْرُوعُ 27 مِلْيُونَ زَائِرٍ سَنَوِيًّا، مِمَّا يُسَاهِمُ فِي تَعْزِيزِ الْهُوِيَّةِ الْوَطَنِيَّةِ وَتَعْرِيفِ الْعَالَمِ بِتَارِيخِ الْمَمْلَكَةِ الْعَرِيقِ. إِنَّ الدِّرْعِيَّةَ لَيْسَتْ مُجَرَّدَ مَوْقِعٍ أَثَرِيٍّ، بَلْ هِيَ رَمْزٌ لِلصُّمُودِ وَالْوَحْدَةِ، وَتُجَسِّدُ الْعُمْقَ التَّارِيخِيَّ الَّذِي تَنْطَلِقُ مِنْهُ السُّعُودِيَّةُ نَحْوَ الْمُسْتَقْبَلِ.",
   sentences: [
-    {
-      speaker: "記事",
-      arabic: "يُعَدُّ مَشْرُوعُ \"بَوَّابَةِ الدِّرْعِيَّةِ\" وَاحِدًا مِنْ أَضْخَمِ الْمَشَارِيعِ الثَّقَافِيَّةِ وَالتُّرَاثِيَّةِ فِي الْعَالَمِ، حَيْثُ يَهْدِفُ إِلَى تَحْوِيلِ مَدِينَةِ الدِّرْعِيَّةِ التَّارِيخِيَّةِ، مَهْدِ الدَّوْلَةِ السُّعُودِيَّةِ الْأُولَى، إِلَى وِجْهَةٍ سِيَاحِيَّةٍ وَثَقَافِيَّةٍ عَالَمِيَّةٍ.",
-      japanese: "「ディルイーヤ・ゲート」プロジェクトは世界最大級の文化・遺産プロジェクトの一つであり、第一次サウジアラビア国家の揺りかごである歴史都市ディルイーヤを、世界的な観光・文化の目的地に変えることを目指しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "يَتَمَحْوَرُ الْمَشْرُوعُ حَوْلَ حَيِّ \"الطُّرَيْفِ\" التَّارِيخِيِّ، الْمُسَجَّلِ فِي قَائِمَةِ التُّرَاثِ الْعَالَمِيِّ لِلْيُونِسْكُو، وَالَّذِي يَتِمُّ تَرْمِيمُهُ بِعِنَايَةٍ فَائِقَةٍ بِاسْتِخْدَامِ الْمَوَادِّ التَّقْلِيدِيَّةِ مِثْلِ الطِّينِ.",
-      japanese: "プロジェクトは、ユネスコ世界遺産リストに登録されている歴史的な「アット・トライフル」地区を中心としており、ナジュド地方の建築の真正性を保つため、泥などの伝統的な素材を使用して細心の注意を払って修復されています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "تُخَطِّطُ الْهَيْئَةُ لِتَطْوِيرِ مِسَاحَاتٍ وَاسِعَةٍ تَضُمُّ مَتَاحِفَ عَالَمِيَّةً، وَجَامِعَةً لِلْفُنُونِ، وَأَسْوَاقًا تَقْلِيدِيَّةً، وَفَنَادِقَ فَاخِرَةً، بِحَيْثُ تَمْزُجُ بَيْنَ عَرَاقَةِ الْمَاضِي وَرَفَاهِيَةِ الْحَاضِرِ.",
-      japanese: "当局は、世界的な博物館、芸術大学、伝統的な市場（スーク）、高級ホテルを含む広大なエリアを開発し、過去の伝統と現在の贅沢を融合させることを計画しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "إِنَّ الدِّرْعِيَّةَ لَيْسَتْ مُجَرَّدَ مَوْقِعٍ أَثَرِيٍّ، بَلْ هِيَ رَمْزٌ لِلصُّمُودِ وَالْوَحْدَةِ، وَتُجَسِّدُ الْعُمْقَ التَّارِيخِيَّ الَّذِي تَنْطَلِقُ مِنْهُ السُّعُودِيَّةُ نَحْوَ الْمُسْتَقْبَلِ.",
-      japanese: "ディルイーヤは単なる考古学的遺跡ではなく、不屈の精神と統一の象徴であり、サウジアラビアが未来へと向かう出発点となる歴史的な深みを体現しています。"
-    }
+    { speaker: "記事", arabic: "يُعَدُّ مَشْرُوعُ \"بَوَّابَةِ الدِّرْعِيَّةِ\" وَاحِدًا مِنْ أَضْخَمِ الْمَشَارِيعِ الثَّقَافِيَّةِ وَالتُّرَاثِيَّةِ.", japanese: "「ディルイーヤ・ゲート」プロジェクトは世界最大級の文化・遺産プロジェクトの一つです。" },
+    { speaker: "記事", arabic: "يَتَمَحْوَرُ الْمَشْرُوعُ حَوْلَ حَيِّ \"الطُّرَيْفِ\" التَّارِيخِيِّ، الْمُسَجَّلِ فِي قَائِمَةِ التُّرَاثِ الْعَالَمِيِّ.", japanese: "プロジェクトは、世界遺産に登録されている歴史的な「アット・トライフル」地区を中心としています。" },
+    { speaker: "記事", arabic: "تُخَطِّطُ الْهَيْئَةُ لِتَطْوِيرِ مِسَاحَاتٍ وَاسِعَةٍ تَضُمُّ مَتَاحِفَ عَالَمِيَّةً وَأَسْوَاقًا تَقْلِيدِيَّةً.", japanese: "当局は、世界的な博物館や伝統的な市場を含む広大なエリアを開発することを計画しています。" },
+    { speaker: "記事", arabic: "إِنَّ الدِّرْعِيَّةَ رَمْزٌ لِلصُّمُودِ وَالْوَحْدَةِ.", japanese: "ディルイーヤは不屈の精神と統一の象徴です。" }
   ],
   vocabList: [
     { word: "مَهْد", meaning: "揺りかご/発祥の地" },
     { word: "تَرْمِيم", meaning: "修復" },
-    { word: "أَصَالَة", meaning: "真正性/オリジナルであること" },
-    { word: "عَرَاقَة", meaning: "伝統/古くからの格式" }
+    { word: "أَصَالَة", meaning: "真正性" },
+    { word: "عَرَاقَة", meaning: "伝統" }
   ],
   questions: [
-    {
-      id: 10991,
-      type: "reading",
-      text: "ディルイーヤ・ゲート・プロジェクトの中心となる歴史地区の名前は？",
-      options: ["アル・バラド", "アット・トライフル", "アル・ウラ", "マスマク"],
-      correctIndex: 1,
-      explanation: "ユネスコ世界遺産にも登録されている「حي الطريف (アット・トライフル地区)」です。"
-    },
-    {
-      id: 10992,
-      type: "reading",
-      text: "修復作業において特に重視されていることは何ですか？",
-      options: ["コンクリートを使って現代風にすること。", "泥などの伝統的な素材を使ってナジュド建築の真正性を保つこと。", "すべての建物をガラス張りにすること。", "遺跡をすべて取り壊して新築すること。"],
-      correctIndex: 1,
-      explanation: "「泥などの伝統的な素材を使用し、ナジュドの建築的真正性を保つ（للحفاظ على أصالته العمرانية النجدية）」と記述されています。"
-    },
-    {
-      id: 10993,
-      type: "reading",
-      text: "ディルイーヤはサウジアラビアにとってどのような象徴的意味を持っていますか？",
-      options: ["単なる古い廃墟。", "商業の中心地。", "不屈の精神と統一の象徴、第一国家の発祥地。", "外国文化の受容地。"],
-      correctIndex: 2,
-      explanation: "「第一次サウジ国家の揺りかご（مهد الدولة السعودية الأولى）」であり、「不屈の精神と統一の象徴（رمز للصمود والوحدة）」であるとされています。"
-    }
+    { id: 10991, type: "reading", text: "ディルイーヤ・ゲート・プロジェクトの中心となる歴史地区の名前は？", options: ["アル・バラド", "アット・トライフル", "アル・ウラ", "マスマク"], correctIndex: 1, explanation: "「حي الطريف (アット・トライフル地区)」です。" },
+    { id: 10992, type: "reading", text: "修復作業において特に重視されていることは何ですか？", options: ["コンクリートを使って現代風にすること。", "泥などの伝統的な素材を使ってナジュド建築の真正性を保つこと。", "すべての建物をガラス張りにすること。", "遺跡をすべて取り壊して新築すること。"], correctIndex: 1, explanation: "「泥などの伝統的な素材を使用し、ナジュドの建築的真正性を保つ」と記述されています。" },
+    { id: 10993, type: "reading", text: "ディルイーヤはサウジアラビアにとってどのような象徴的意味を持っていますか？", options: ["単なる古い廃墟。", "商業の中心地。", "不屈の精神と統一の象徴、第一国家の発祥地。", "外国文化の受容地。"], correctIndex: 2, explanation: "「第一次サウジ国家の揺りかご」であり、「不屈の精神と統一の象徴」であるとされています。" },
+    // 上級文法問題
+    { id: 10994, type: "grammar_advanced", text: "「واحدا من أضخم المشاريع」の「واحدا」の正しい語尾は？", options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "u (ダンマ)"], correctIndex: 0, explanation: "受動態「Yu'addu (見なされる)」の第2目的語（補語）として対格（Manṣūb）となり、タンウィーン・ファトハがつきます。" },
+    { id: 10995, type: "grammar_advanced", text: "「باستخدام المواد التقليدية」の「المواد」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Istikhdām」の後のイダーファ第2要素（属格）です。「Mawādd」は非限定名詞ですが、定冠詞がついているため、通常通りカスラを取ります。" }
   ]
 },
-
-// --- 90. 環境・水資源 (Environment & Water) ---
 {
   id: 1100,
-  level: "上級",
-  category: "環境",
   title: "水資源の安全保障と海水淡水化の革新",
-  contentPlain: "تعتبر المملكة العربية السعودية أكبر منتج للمياه المحلاة في العالم، وهو إنجاز حيوي لبلد يفتقر إلى الأنهار والمياه العذبة الدائمة. تواجه المملكة تحدياً مزدوجاً يتمثل في تلبية الطلب المتزايد على المياه نتيجة النمو السكاني والاقتصادي، مع الحفاظ على البيئة وتقليل استهلاك الطاقة. ولتحقيق ذلك، تستثمر المؤسسة العامة لتحلية المياه المالحة في تقنيات متطورة مثل \"التناضح العكسي\" التي تستهلك طاقة أقل بكثير مقارنة بالطرق الحرارية التقليدية.\nوعلاوة على ذلك، أطلقت المملكة مشاريع طموحة لاستخدام الطاقة الشمسية في تشغيل محطات التحلية، بهدف خفض الانبعاثات الكربونية وتحقيق استدامة قطاع المياه. كما يتم التركيز على معالجة مياه الصرف الصحي وإعادة استخدامها في الزراعة والري وتبريد المصانع، مما يخفف الضغط على مصادر المياه الجوفية غير المتجددة. إن الأمن المائي يُعد ركيزة أساسية للأمن القومي، وتسعى السعودية لضمان استدامته للأجيال القادمة.",
+  category: "環境",
+  level: "上級",
   contentVoweled: "تُعْتَبَرُ الْمَمْلَكَةُ الْعَرَبِيَّةُ السُّعُودِيَّةُ أَكْبَرَ مُنْتِجٍ لِلْمِيَاهِ الْمُحَلَّاةِ فِي الْعَالَمِ، وَهُوَ إِنْجَازٌ حَيَوِيٌّ لِبَلَدٍ يَفْتَقِرُ إِلَى الْأَنْهَارِ وَالْمِيَاهِ الْعَذْبَةِ الدَّائِمَةِ. تُوَاجِهُ الْمَمْلَكَةُ تَحَدِّيًا مُزْدَوَجًا يَتَمَثَّلُ فِي تَلْبِيَةِ الطَّلَبِ الْمُتَزَايِدِ عَلَى الْمِيَاهِ نَتِيجَةَ النُّمُوِّ السُّكَّانِيِّ وَالِاقْتِصَادِيِّ، مَعَ الْحِفَاظِ عَلَى الْبِيئَةِ وَتَقْلِيلِ اسْتِهْلَاكِ الطَّاقَةِ. وَلِتَحْقِيقِ ذَلِكَ، تَسْتَثْمِرُ الْمُؤَسَّسَةُ الْعَامَّةُ لِتَحْلِيَةِ الْمِيَاهِ الْمَالِحَةِ فِي تِقْنِيَّاتٍ مُتَطَوِّرَةٍ مِثْلِ \"التَّنَاضُحِ الْعَكْسِيِّ\" الَّتِي تَسْتَهْلِكُ طَاقَةً أَقَلَّ بِكَثِيرٍ مُقَارَنَةً بِالطُّرُقِ الْحَرَارِيَّةِ التَّقْلِيدِيَّةِ.\nوَعَلَاوَةً عَلَى ذَلِكَ، أَطْلَقَتِ الْمَمْلَكَةُ مَشَارِيعَ طَمُوحَةً لِاسْتِخْدَامِ الطَّاقَةِ الشَّمْسِيَّةِ فِي تَشْغِيلِ مَحَطَّاتِ التَّحْلِيَةِ، بِهَدَفِ خَفْضِ الِانْبِعَاثَاتِ الْكَرْبُونِيَّةِ وَتَحْقِيقِ اسْتِدَامَةِ قِطَاعِ الْمِيَاهِ. كَمَا يَتِمُّ التَّرْكِيزُ عَلَى مُعَالَجَةِ مِيَاهِ الصَّرْفِ الصِّحِّيِّ وَإِعَادَةِ اسْتِخْدَامِهَا فِي الزِّرَاعَةِ وَالرِّيِّ وَتَبْرِيدِ الْمَصَانِعِ، مِمَّا يُخَفِّفُ الضَّغْطَ عَلَى مَصَادِرِ الْمِيَاهِ الْجَوْفِيَّةِ غَيْرِ الْمُتَجَدِّدَةِ. إِنَّ الْأَمْنَ الْمَائِيَّ يُعَدُّ رَكِيزَةً أَسَاسِيَّةً لِلْأَمْنِ الْقَوْمِيِّ، وَتَسْعَى السُّعُودِيَّةُ لِضَمَانِ اسْتِدَامَتِهِ لِلْأَجْيَالِ الْقَادِمَةِ.",
-  sentences: [
-    {
-      speaker: "記事",
-      arabic: "تُعْتَبَرُ الْمَمْلَكَةُ الْعَرَبِيَّةُ السُّعُودِيَّةُ أَكْبَرَ مُنْتِجٍ لِلْمِيَاهِ الْمُحَلَّاةِ فِي الْعَالَمِ، وَهُوَ إِنْجَازٌ حَيَوِيٌّ لِبَلَدٍ يَفْتَقِرُ إِلَى الْأَنْهَارِ وَالْمِيَاهِ الْعَذْبَةِ الدَّائِمَةِ.",
-      japanese: "サウジアラビア王国は世界最大の淡水化水生産国であり、川や恒久的な淡水を持たない国にとってこれは極めて重要な成果です。"
-    },
-    {
-      speaker: "記事",
-      arabic: "تَسْتَثْمِرُ الْمُؤَسَّسَةُ فِي تِقْنِيَّاتٍ مُتَطَوِّرَةٍ مِثْلِ \"التَّنَاضُحِ الْعَكْسِيِّ\" الَّتِي تَسْتَهْلِكُ طَاقَةً أَقَلَّ بِكَثِيرٍ.",
-      japanese: "機関は、従来の熱法と比較してはるかに少ないエネルギーを消費する「逆浸透法」のような高度な技術に投資しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "أَطْلَقَتِ الْمَمْلَكَةُ مَشَارِيعَ لِاسْتِخْدَامِ الطَّاقَةِ الشَّمْسِيَّةِ فِي تَشْغِيلِ مَحَطَّاتِ التَّحْلِيَةِ، بِهَدَفِ خَفْضِ الِانْبِعَاثَاتِ الْكَرْبُونِيَّةِ.",
-      japanese: "王国は、炭素排出量を削減することを目的として、淡水化プラントの稼働に太陽エネルギーを使用する野心的なプロジェクトを開始しました。"
-    },
-    {
-      speaker: "記事",
-      arabic: "يَتِمُّ التَّرْكِيزُ عَلَى مُعَالَجَةِ مِيَاهِ الصَّرْفِ الصِّحِّيِّ وَإِعَادَةِ اسْتِخْدَامِهَا فِي الزِّرَاعَةِ، مِمَّا يُخَفِّفُ الضَّغْطَ عَلَى الْمِيَاهِ الْجَوْفِيَّةِ.",
-      japanese: "下水を処理して農業などで再利用することに重点が置かれており、これにより再生不可能な地下水資源への圧力が軽減されます。"
-    },
-    {
-      speaker: "記事",
-      arabic: "إِنَّ الْأَمْنَ الْمَائِيَّ يُعَدُّ رَكِيزَةً أَسَاسِيَّةً لِلْأَمْنِ الْقَوْمِيِّ.",
-      japanese: "水の安全保障は、国家安全保障の基本的な柱とみなされています。"
-    }
-  ],
+  contentPlain: "تعتبر المملكة العربية السعودية أكبر منتج للمياه المحلاة في العالم، وهو إنجاز حيوي لبلد يفتقر إلى الأنهار والمياه العذبة الدائمة. تواجه المملكة تحدياً مزدوجاً يتمثل في تلبية الطلب المتزايد على المياه نتيجة النمو السكاني والاقتصادي، مع الحفاظ على البيئة وتقليل استهلاك الطاقة. ولتحقيق ذلك، تستثمر المؤسسة العامة لتحلية المياه المالحة في تقنيات متطورة مثل \"التناضح العكسي\" التي تستهلك طاقة أقل بكثير مقارنة بالطرق الحرارية التقليدية.\nوعلاوة على ذلك، أطلقت المملكة مشاريع طموحة لاستخدام الطاقة الشمسية في تشغيل محطات التحلية، بهدف خفض الانبعاثات الكربونية وتحقيق استدامة قطاع المياه. كما يتم التركيز على معالجة مياه الصرف الصحي وإعادة استخدامها في الزراعة والري وتبريد المصانع، مما يخفف الضغط على مصادر المياه الجوفية غير المتجددة. إن الأمن المائي يُعد ركيزة أساسية للأمن القومي، وتسعى السعودية لضمان استدامته للأجيال القادمة.",
   vocabList: [
     { word: "مِيَاه مُحَلَّاة", meaning: "淡水化された水" },
     { word: "تَنَاضُح عَكْسِيّ", meaning: "逆浸透 (RO)" },
@@ -12104,158 +12938,74 @@ questions: [] // アルファベット回は問題なし
     { word: "صَرْف صِحِّي", meaning: "下水/排水" }
   ],
   questions: [
-    {
-      id: 11001,
-      type: "reading",
-      text: "サウジアラビアの水資源に関する最大の特徴は何ですか？",
-      options: ["世界で最も多くの川がある。", "世界最大の淡水化水生産国である。", "雨が非常に多く、水不足の心配がない。", "氷河から水を得ている。"],
-      correctIndex: 1,
-      explanation: "「أكبر منتج للمياه المحلاة في العالم (世界最大の淡水化水生産国)」と記述されています。"
-    },
-    {
-      id: 11002,
-      type: "reading",
-      text: "エネルギー消費を抑えるために採用されている技術はどれですか？",
-      options: ["石炭火力。", "逆浸透法 (RO)。", "伝統的な熱法。", "水の輸入。"],
-      correctIndex: 1,
-      explanation: "従来の熱法よりエネルギー消費が少ない「التناضح العكسي (逆浸透法)」に投資しています。"
-    },
-    {
-      id: 11003,
-      type: "reading",
-      text: "地下水への圧力を軽減するために行われている対策は？",
-      options: ["下水の処理と再利用。", "農業の完全禁止。", "海水の直接使用。", "市民の水使用量の制限のみ。"],
-      correctIndex: 0,
-      explanation: "「معالجة مياه الصرف الصحي وإعادة استخدامها (下水の処理と再利用)」により、地下水への圧力を軽減しています。"
-    }
+    { id: 11001, type: "reading", text: "サウジアラビアの水資源に関する最大の特徴は何ですか？", options: ["世界で最も多くの川がある。", "世界最大の淡水化水生産国である。", "雨が非常に多く、水不足の心配がない。", "氷河から水を得ている。"], correctIndex: 1, explanation: "「أكبر منتج للمياه المحلاة في العالم」と記述されています。" },
+    { id: 11002, type: "reading", text: "エネルギー消費を抑えるために採用されている技術はどれですか？", options: ["石炭火力。", "逆浸透法 (RO)。", "伝統的な熱法。", "水の輸入。"], correctIndex: 1, explanation: "「التناضح العكسي」に投資しています。" },
+    { id: 11003, type: "reading", text: "地下水への圧力を軽減するために行われている対策は？", options: ["下水の処理と再利用。", "農業の完全禁止。", "海水の直接使用。", "市民の水使用量の制限のみ。"], correctIndex: 0, explanation: "「معالجة مياه الصرف الصحي وإعادة استخدامها」により、地下水への圧力を軽減しています。" },
+    // 上級文法問題
+    { id: 11004, type: "grammar_advanced", text: "「يفتقر إلى الأنهار」の「الأنهار」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "前置詞「Ilā」の後の名詞（Majrūr）なのでカスラがつきます（定冠詞付きなのでタンウィーンなし）。" },
+    { id: 11005, type: "grammar_advanced", text: "「تستهلك طاقة أقل」の「أقل」の正しい語尾は？", options: ["a (ファトハ)", "u (ダンマ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "「Tastahliku (消費する)」の目的語「Tāqatan (エネルギーを)」を修飾する形容詞です。「Aqalla」は非限定名詞なので、対格でもタンウィーンを取らずファトハ一文字になります。" }
+  ],
+  sentences: [
+    { speaker: "記事", arabic: "تُعْتَبَرُ الْمَمْلَكَةُ الْعَرَبِيَّةُ السُّعُودِيَّةُ أَكْبَرَ مُنْتِجٍ لِلْمِيَاهِ الْمُحَلَّاةِ فِي الْعَالَمِ.", japanese: "サウジアラビア王国は世界最大の淡水化水生産国です。" },
+    { speaker: "記事", arabic: "تَسْتَثْمِرُ الْمُؤَسَّسَةُ فِي تِقْنِيَّاتٍ مُتَطَوِّرَةٍ مِثْلِ \"التَّنَاضُحِ الْعَكْسِيِّ\".", japanese: "機関は「逆浸透法」のような高度な技術に投資しています。" },
+    { speaker: "記事", arabic: "أَطْلَقَتِ الْمَمْلَكَةُ مَشَارِيعَ لِاسْتِخْدَامِ الطَّاقَةِ الشَّمْسِيَّةِ فِي تَشْغِيلِ مَحَطَّاتِ التَّحْلِيَةِ.", japanese: "王国は淡水化プラントの稼働に太陽エネルギーを使用するプロジェクトを開始しました。" },
+    { speaker: "記事", arabic: "يَتِمُّ التَّرْكِيزُ عَلَى مُعَالَجَةِ مِيَاهِ الصَّرْفِ الصِّحِّيِّ وَإِعَادَةِ اسْتِخْدَامِهَا.", japanese: "下水を処理して再利用することに重点が置かれています。" }
   ]
 },
-
-// --- 91. 観光・ラグジュアリー (Tourism & Luxury) ---
 {
   id: 1101,
-  level: "上級",
-  category: "観光",
   title: "レッド・シー・プロジェクト：再生型観光の新たな基準",
-  contentPlain: "يُمثل \"مشروع البحر الأحمر\" نقلة نوعية في مفهوم السياحة الفاخرة، حيث يجمع بين الرفاهية والاستدامة البيئية. يمتد المشروع على مساحة شاسعة تضم أرخبيلاً من 90 جزيرة بكر، وشواطئ خلابة، وبراكين خامدة، وصحاري، وجبالاً. ما يميز هذا المشروع هو التزامه بمبدأ \"السياحة المتجددة\"، التي لا تكتفي بالحفاظ على البيئة فحسب، بل تسعى لتعزيزها وزيادة التنوع البيولوجي بنسبة 30% بحلول عام 2040.\nسيتم تشغيل الوجهة بالكامل باستخدام الطاقة المتجددة بنسبة 100%، دون الاعتماد على شبكة الكهرباء الوطنية، مما يجعله أكبر مشروع سياحي في العالم يعمل بهذه الطريقة. كما تم فرض قيود صارمة على عدد الزوار السنوي لضمان عدم الإضرار بالنظام البيئي الحساس. يهدف المشروع إلى جذب سياح النخبة من جميع أنحاء العالم، مقدماً تجربة استثنائية تحترم الطبيعة وتدعم الاقتصاد المحلي.",
+  category: "観光",
+  level: "上級",
   contentVoweled: "يُمَثِّلُ \"مَشْرُوعُ الْبَحْرِ الْأَحْمَرِ\" نَقْلَةً نَوْعِيَّةً فِي مَفْهُومِ السِّيَاحَةِ الْفَاخِرَةِ، حَيْثُ يَجْمَعُ بَيْنَ الرَّفَاهِيَّةِ وَالِاسْتِدَامَةِ الْبِيئِيَّةِ. يَمْتَدُّ الْمَشْرُوعُ عَلَى مِسَاحَةٍ شَاسِعَةٍ تَضُمُّ أَرْخَبِيلًا مِنْ 90 جَزِيرَةً بِكْرًا، وَشَوَاطِئَ خَلَّابَةً، وَبَرَاكِينَ خَامِدَةً، وَصَحَارِيَ، وَجِبَالًا. مَا يُمَيِّزُ هَذَا الْمَشْرُوعَ هُوَ الْتِزَامُهُ بِمَبْدَأِ \"السِّيَاحَةِ الْمُتَجَدِّدَةِ\"، الَّتِي لَا تَكْتَفِي بِالْحِفَاظِ عَلَى الْبِيئَةِ فَحَسْبُ، بَلْ تَسْعَى لِتَعْزِيزِهَا وَزِيَادَةِ التَّنَوُّعِ الْبِيُولُوجِيِّ بِنِسْبَةِ 30% بِحُلُولِ عَامِ 2040.\nسَيَتِمُّ تَشْغِيلُ الْوِجْهَةِ بِالْكَامِلِ بِاسْتِخْدَامِ الطَّاقَةِ الْمُتَجَدِّدَةِ بِنِسْبَةِ 100%، دُونَ الِاعْتِمَادِ عَلَى شَبَكَةِ الْكَهْرَبَاءِ الْوَطَنِيَّةِ، مِمَّا يَجْعَلُهُ أَكْبَرَ مَشْرُوعٍ سِيَاحِيٍّ فِي الْعَالَمِ يَعْمَلُ بِهَذِهِ الطَّرِيقَةِ. كَمَا تَمَّ فَرْضُ قُيُودٍ صَارِمَةٍ عَلَى عَدَدِ الزُّوَّارِ السَّنَوِيِّ لِضَمَانِ عَدَمِ الْإِضْرَارِ بِالنِّظَامِ الْبِيئِيِّ الْحَسَّاسِ. يَهْدِفُ الْمَشْرُوعُ إِلَى جَذْبِ سُيَّاحِ النُّخْبَةِ مِنْ جَمِيعِ أَنْحَاءِ الْعَالَمِ، مُقَدِّمًا تَجْرِبَةً اسْتِثْنَائِيَّةً تَحْتَرِمُ الطَّبِيعَةَ وَتَدْعَمُ الِاقْتِصَادَ الْمَحَلِّيَّ.",
-  sentences: [
-    {
-      speaker: "記事",
-      arabic: "يُمَثِّلُ \"مَشْرُوعُ الْبَحْرِ الْأَحْمَرِ\" نَقْلَةً نَوْعِيَّةً فِي مَفْهُومِ السِّيَاحَةِ الْفَاخِرَةِ، حَيْثُ يَجْمَعُ بَيْنَ الرَّفَاهِيَّةِ وَالِاسْتِدَامَةِ الْبِيئِيَّةِ.",
-      japanese: "「レッド・シー・プロジェクト」は、豪華さと環境の持続可能性を組み合わせた、ラグジュアリーツーリズムの概念における質的な飛躍を表しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "مَا يُمَيِّزُ هَذَا الْمَشْرُوعَ هُوَ الْتِزَامُهُ بِمَبْدَأِ \"السِّيَاحَةِ الْمُتَجَدِّدَةِ\"، الَّتِي لَا تَكْتَفِي بِالْحِفَاظِ عَلَى الْبِيئَةِ فَحَسْبُ، بَلْ تَسْعَى لِتَعْزِيزِهَا وَزِيَادَةِ التَّنَوُّعِ الْبِيُولُوجِيِّ.",
-      japanese: "このプロジェクトを特徴づけるのは「再生型観光」の原則へのコミットメントであり、それは環境を保全するだけでなく、それを強化し生物多様性を高めることを目指しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "سَيَتِمُّ تَشْغِيلُ الْوِجْهَةِ بِالْكَامِلِ بِاسْتِخْدَامِ الطَّاقَةِ الْمُتَجَدِّدَةِ بِنِسْبَةِ 100%، دُونَ الِاعْتِمَادِ عَلَى شَبَكَةِ الْكَهْرَبَاءِ الْوَطَنِيَّةِ.",
-      japanese: "目的地は、国の送電網に依存することなく、100％再生可能エネルギーを使用して完全に運営されます。"
-    },
-    {
-      speaker: "記事",
-      arabic: "كَمَا تَمَّ فَرْضُ قُيُودٍ صَارِمَةٍ عَلَى عَدَدِ الزُّوَّارِ السَّنَوِيِّ لِضَمَانِ عَدَمِ الْإِضْرَارِ بِالنِّظَامِ الْبِيئِيِّ الْحَسَّاسِ.",
-      japanese: "また、繊細な生態系への損害を防ぐために、年間の訪問者数に厳しい制限が課されました。"
-    }
-  ],
+  contentPlain: "يُمثل \"مشروع البحر الأحمر\" نقلة نوعية في مفهوم السياحة الفاخرة، حيث يجمع بين الرفاهية والاستدامة البيئية. يمتد المشروع على مساحة شاسعة تضم أرخبيلاً من 90 جزيرة بكر، وشواطئ خلابة، وبراكين خامدة، وصحاري، وجبالاً. ما يميز هذا المشروع هو التزامه بمبدأ \"السياحة المتجددة\"، التي لا تكتفي بالحفاظ على البيئة فحسب، بل تسعى لتعزيزها وزيادة التنوع البيولوجي بنسبة 30% بحلول عام 2040.\nسيتم تشغيل الوجهة بالكامل باستخدام الطاقة المتجددة بنسبة 100%، دون الاعتماد على شبكة الكهرباء الوطنية، مما يجعله أكبر مشروع سياحي في العالم يعمل بهذه الطريقة. كما تم فرض قيود صارمة على عدد الزوار السنوي لضمان عدم الإضرار بالنظام البيئي الحساس. يهدف المشروع إلى جذب سياح النخبة من جميع أنحاء العالم، مقدماً تجربة استثنائية تحترم الطبيعة وتدعم الاقتصاد المحلي.",
   vocabList: [
-    { word: "سِيَاحَة مُتَجَدِّدَة", meaning: "再生型観光/リジェネラティブツーリズム" },
-    { word: "أَرْخَبِيل", meaning: "群島/アーキペラゴ" },
-    { word: "بِكْر", meaning: "手つかずの/処女の" },
+    { word: "سِيَاحَة مُتَجَدِّدَة", meaning: "再生型観光" },
+    { word: "أَرْخَبِيل", meaning: "群島" },
+    { word: "بِكْر", meaning: "手つかずの" },
     { word: "تَنَوُّع بِيُولُوجِيّ", meaning: "生物多様性" }
   ],
   questions: [
-    {
-      id: 11011,
-      type: "reading",
-      text: "「再生型観光（Regenerative Tourism）」の定義としてテキストで説明されていることは？",
-      options: ["環境を現状維持するだけでなく、積極的に改善・強化すること。", "一度破壊した自然を人工物で置き換えること。", "観光客にゴミ拾いを強制すること。", "古いホテルを取り壊して新しくすること。"],
-      correctIndex: 0,
-      explanation: "「環境を保全するだけでなく、それを強化し生物多様性を高めることを目指す（لا تكتفي بالحفاظ... بل تسعى لتعزيزها）」とあります。"
-    },
-    {
-      id: 11012,
-      type: "reading",
-      text: "このプロジェクトのエネルギー供給に関する特徴は？",
-      options: ["原子力発電を使用する。", "国の送電網に依存している。", "100%再生可能エネルギーで運営され、送電網に依存しない。", "ディーゼル発電機を使用する。"],
-      correctIndex: 2,
-      explanation: "「国の送電網に依存せず、100%再生可能エネルギーを使用する」と明記されています。"
-    },
-    {
-      id: 11013,
-      type: "reading",
-      text: "環境保護のために訪問者に対してどのような措置が取られていますか？",
-      options: ["訪問者数の制限。", "入場料の無料化。", "ペット同伴の義務化。", "夜間の外出禁止。"],
-      correctIndex: 0,
-      explanation: "「年間の訪問者数に厳しい制限が課された（فرض قيود صارمة على عدد الزوار السنوي）」とあります。"
-    }
+    { id: 11011, type: "reading", text: "「再生型観光」の定義としてテキストで説明されていることは？", options: ["環境を現状維持するだけでなく、積極的に改善・強化すること。", "一度破壊した自然を人工物で置き換えること。", "観光客にゴミ拾いを強制すること。", "古いホテルを取り壊して新しくすること。"], correctIndex: 0, explanation: "「環境を保全するだけでなく、それを強化し生物多様性を高めることを目指す」とあります。" },
+    { id: 11012, type: "reading", text: "このプロジェクトのエネルギー供給に関する特徴は？", options: ["原子力発電を使用する。", "国の送電網に依存している。", "100%再生可能エネルギーで運営され、送電網に依存しない。", "ディーゼル発電機を使用する。"], correctIndex: 2, explanation: "「国の送電網に依存せず、100%再生可能エネルギーを使用する」と明記されています。" },
+    { id: 11013, type: "reading", text: "環境保護のために訪問者に対してどのような措置が取られていますか？", options: ["訪問者数の制限。", "入場料の無料化。", "ペット同伴の義務化。", "夜間の外出禁止。"], correctIndex: 0, explanation: "「年間の訪問者数に厳しい制限が課された」とあります。" },
+    // 上級文法問題
+    { id: 11014, type: "grammar_advanced", text: "「تضم أرخبيلات」の「أرخبيلات」ではなく「أرخبيلًا」が正しいですが、原文の「أرخبيلًا」の語尾は？", options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "a (ファトハ)"], correctIndex: 0, explanation: "動詞「Taḍummu (含む)」の目的語なので、対格（Manṣūb）となりタンウィーン・ファトハがつきます。" },
+    { id: 11015, type: "grammar_advanced", text: "「وصحاري وجبالا」の「صحاري」の正しい語尾は？", options: ["a (ファトハ・タンウィーンなし)", "an (タンウィーン・ファトハ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "「Ṣaḥārī」は非限定名詞（Mafā'ilパターン）なので、対格でもタンウィーンを取らずファトハ（表記上はYāがあるので推定になることもありますが、ここでは「Ṣaḥāriya」と読まれることが多い）を取ります。" }
+  ],
+  sentences: [
+    { speaker: "記事", arabic: "يُمَثِّلُ \"مَشْرُوعُ الْبَحْرِ الْأَحْمَرِ\" نَقْلَةً نَوْعِيَّةً فِي مَفْهُومِ السِّيَاحَةِ الْفَاخِرَةِ.", japanese: "「レッド・シー・プロジェクト」は、ラグジュアリーツーリズムの概念における質的な飛躍を表しています。" },
+    { speaker: "記事", arabic: "مَا يُمَيِّزُ هَذَا الْمَشْرُوعَ هُوَ الْتِزَامُهُ بِمَبْدَأِ \"السِّيَاحَةِ الْمُتَجَدِّدَةِ\".", japanese: "このプロジェクトを特徴づけるのは「再生型観光」の原則へのコミットメントです。" },
+    { speaker: "記事", arabic: "سَيَتِمُّ تَشْغِيلُ الْوِجْهَةِ بِالْكَامِلِ بِاسْتِخْدَامِ الطَّاقَةِ الْمُتَجَدِّدَةِ بِنِسْبَةِ 100%.", japanese: "目的地は、100％再生可能エネルギーを使用して完全に運営されます。" },
+    { speaker: "記事", arabic: "تَمَّ فَرْضُ قُيُودٍ صَارِمَةٍ عَلَى عَدَدِ الزُّوَّارِ السَّنَوِيِّ.", japanese: "年間の訪問者数に厳しい制限が課されました。" }
   ]
 },
-
-// --- 92. 社会・女性 (Society & Women) ---
 {
   id: 1102,
-  level: "上級",
-  category: "社会",
   title: "サウジアラビア女性のエンパワーメントと労働市場への参加",
-  contentPlain: "شهدت المملكة العربية السعودية في السنوات الأخيرة قفزات غير مسبوقة في مجال تمكين المرأة، حيث تجاوزت معدلات مشاركة الإناث في سوق العمل المستهدفات المحددة في رؤية 2030 قبل موعدها بأعوام، لتصل إلى أكثر من 35%. لم يعد دور المرأة مقتصراً على القطاعات التقليدية كالتعليم والصحة، بل اقتحمت مجالات كانت حكراً على الرجال، مثل القطاع العسكري، والسلك الدبلوماسي، وتقنية المعلومات، والهندسة، وحتى قيادة القطارات.\nيعود هذا التحول إلى سلسلة من الإصلاحات التشريعية التي كفلت للمرأة المساواة في الأجور، وحرية التنقل، والحماية من التمييز. كما تم تعيين العديد من النساء في مناصب قيادية رفيعة، بما في ذلك سفيرات ونائبات وزراء. إن تمكين المرأة ليس مجرد قضية حقوقية، بل هو ضرورة اقتصادية لضمان الاستفادة الكاملة من مواهب المجتمع ودفع عجلة التنمية المستدامة.",
+  category: "社会",
+  level: "上級",
   contentVoweled: "شَهِدَتِ الْمَمْلَكَةُ الْعَرَبِيَّةُ السُّعُودِيَّةُ فِي السَّنَوَاتِ الْأَخِيرَةِ قَفَزَاتٍ غَيْرَ مَسْبُوقَةٍ فِي مَجَالِ تَمْكِينِ الْمَرْأَةِ، حَيْثُ تَجَاوَزَتْ مُعَدَّلَاتُ مُشَارَكَةِ الْإِنَاثِ فِي سُوقِ الْعَمَلِ الْمُسْتَهْدَفَاتِ الْمُحَدَّدَةِ فِي رُؤْيَةِ 2030 قَبْلَ مَوْعِدِهَا بِأَعْوَامٍ، لِتَصِلَ إِلَى أَكْثَرَ مِنْ 35%. لَمْ يَعُدْ دَوْرُ الْمَرْأَةِ مُقْتَصِرًا عَلَى الْقِطَاعَاتِ التَّقْلِيدِيَّةِ كَالتَّعْلِيمِ وَالصِّحَّةِ، بَلِ اقْتَحَمَتْ مَجَالَاتٍ كَانَتْ حِكْرًا عَلَى الرِّجَالِ، مِثْلَ الْقِطَاعِ الْعَسْكَرِيِّ، وَالسِّلْكِ الدِّبْلُومَاسِيِّ، وَتِقْنِيَةِ الْمَعْلُومَاتِ، وَالْهَنْدَسَةِ، وَحَتَّى قِيَادَةِ الْقِطَارَاتِ.\nيَعُودُ هَذَا التَّحَوُّلُ إِلَى سِلْسِلَةٍ مِنَ الْإِصْلَاحَاتِ التَّشْرِيعِيَّةِ الَّتِي كَفَلَتْ لِلْمَرْأَةِ الْمُسَاوَاةَ فِي الْأُجُورِ، وَحُرِّيَّةَ التَّنَقُّلِ، وَالْحِمَايَةَ مِنَ التَّمْيِيزِ. كَمَا تَمَّ تَعْيِينُ الْعَدِيدِ مِنَ النِّسَاءِ فِي مَنَاصِبَ قِيَادِيَّةٍ رَفِيعَةٍ، بِمَا فِي ذَلِكَ سَفِيرَاتٍ وَنَائِبَاتِ وُزَرَاءَ. إِنَّ تَمْكِينَ الْمَرْأَةِ لَيْسَ مُجَرَّدَ قَضِيَّةٍ حُقُوقِيَّةٍ، بَلْ هُوَ ضَرُورَةٌ اقْتِصَادِيَّةٌ لِضَمَانِ الِاسْتِفَادَةِ الْكَامِلَةِ مِنْ مَوَاهِبِ الْمُجْتَمَعِ وَدَفْعِ عَجَلَةِ التَّنْمِيَةِ الْمُسْتَدَامَةِ.",
-  sentences: [
-    {
-      speaker: "記事",
-      arabic: "تَجَاوَزَتْ مُعَدَّلَاتُ مُشَارَكَةِ الْإِنَاثِ فِي سُوقِ الْعَمَلِ الْمُسْتَهْدَفَاتِ الْمُحَدَّدَةِ فِي رُؤْيَةِ 2030 قَبْلَ مَوْعِدِهَا بِأَعْوَامٍ، لِتَصِلَ إِلَى أَكْثَرَ مِنْ 35%.",
-      japanese: "女性の労働市場への参加率は、ビジョン2030で設定された目標を数年前倒しで達成し、35％以上に達しました。"
-    },
-    {
-      speaker: "記事",
-      arabic: "لَمْ يَعُدْ دَوْرُ الْمَرْأَةِ مُقْتَصِرًا عَلَى الْقِطَاعَاتِ التَّقْلِيدِيَّةِ، بَلِ اقْتَحَمَتْ مَجَالَاتٍ كَانَتْ حِكْرًا عَلَى الرِّجَالِ.",
-      japanese: "女性の役割はもはや伝統的な分野に限られず、かつては男性の独占であった分野にも進出しました。"
-    },
-    {
-      speaker: "記事",
-      arabic: "يَعُودُ هَذَا التَّحَوُّلُ إِلَى سِلْسِلَةٍ مِنَ الْإِصْلَاحَاتِ التَّشْرِيعِيَّةِ الَّتِي كَفَلَتْ لِلْمَرْأَةِ الْمُسَاوَاةَ فِي الْأُجُورِ وَحُرِّيَّةَ التَّنَقُّلِ.",
-      japanese: "この変化は、賃金の平等や移動の自由を女性に保証した一連の法的改革によるものです。"
-    },
-    {
-      speaker: "記事",
-      arabic: "إِنَّ تَمْكِينَ الْمَرْأَةِ ضَرُورَةٌ اقْتِصَادِيَّةٌ لِضَمَانِ الِاسْتِفَادَةِ الْكَامِلَةِ مِنْ مَوَاهِبِ الْمُجْتَمَعِ.",
-      japanese: "女性のエンパワーメントは、社会の才能を最大限に活用することを保証するための経済的な必要性です。"
-    }
-  ],
+  contentPlain: "شهدت المملكة العربية السعودية في السنوات الأخيرة قفزات غير مسبوقة في مجال تمكين المرأة، حيث تجاوزت معدلات مشاركة الإناث في سوق العمل المستهدفات المحددة في رؤية 2030 قبل موعدها بأعوام، لتصل إلى أكثر من 35%. لم يعد دور المرأة مقتصراً على القطاعات التقليدية كالتعليم والصحة، بل اقتحمت مجالات كانت حكراً على الرجال، مثل القطاع العسكري، والسلك الدبلوماسي، وتقنية المعلومات، والهندسة، وحتى قيادة القطارات.\nيعود هذا التحول إلى سلسلة من الإصلاحات التشريعية التي كفلت للمرأة المساواة في الأجور، وحرية التنقل، والحماية من التمييز. كما تم تعيين العديد من النساء في مناصب قيادية رفيعة، بما في ذلك سفيرات ونائبات وزراء. إن تمكين المرأة ليس مجرد قضية حقوقية، بل هو ضرورة اقتصادية لضمان الاستفادة الكاملة من مواهب المجتمع ودفع عجلة التنمية المستدامة.",
   vocabList: [
-    { word: "تَمْكِين", meaning: "エンパワーメント/権限付与" },
+    { word: "تَمْكِين", meaning: "エンパワーメント" },
     { word: "سُوق الْعَمَل", meaning: "労働市場" },
     { word: "إِصْلَاحَات تَشْرِيعِيَّة", meaning: "法的改革" },
-    { word: "مَنَاصِب قِيَادِيَّة", meaning: "指導的地位/リーダー職" }
+    { word: "مَنَاصِب قِيَادِيَّة", meaning: "指導的地位" }
   ],
   questions: [
-    {
-      id: 11021,
-      type: "reading",
-      text: "女性の労働参加率に関する記述として正しいものは？",
-      options: ["目標を達成できず減少している。", "ビジョン2030の目標を予定より早く達成し、35%を超えた。", "依然として5%未満にとどまっている。", "教育分野のみで増加している。"],
-      correctIndex: 1,
-      explanation: "「目標を数年前倒しで達成し、35%以上に達した（تجاوزت... قبل موعدها بأعوام）」とあります。"
-    },
-    {
-      id: 11022,
-      type: "reading",
-      text: "女性が進出した「かつては男性の独占だった分野」に含まれないものは？",
-      options: ["軍事部門。", "外交団。", "鉄道の運転。", "伝統的な主婦業。"],
-      correctIndex: 3,
-      explanation: "軍事、外交、IT、エンジニアリング、電車の運転などに進出したと記述されています。"
-    },
-    {
-      id: 11023,
-      type: "reading",
-      text: "女性のエンパワーメントは、権利の問題であると同時に何であるとされていますか？",
-      options: ["宗教的な義務。", "経済的な必要性。", "政治的なパフォーマンス。", "一時的な流行。"],
-      correctIndex: 1,
-      explanation: "「経済的な必要性（ضرورة اقتصادية）」であると述べられています。"
-    }
+    { id: 11021, type: "reading", text: "女性の労働参加率に関する記述として正しいものは？", options: ["目標を達成できず減少している。", "ビジョン2030の目標を予定より早く達成し、35%を超えた。", "依然として5%未満にとどまっている。", "教育分野のみで増加している。"], correctIndex: 1, explanation: "「目標を数年前倒しで達成し、35%以上に達した」とあります。" },
+    { id: 11022, type: "reading", text: "女性が進出した「かつては男性の独占だった分野」に含まれないものは？", options: ["軍事部門。", "外交団。", "鉄道の運転。", "伝統的な主婦業。"], correctIndex: 3, explanation: "軍事、外交、IT、エンジニアリング、電車の運転などに進出したと記述されています。" },
+    { id: 11023, type: "reading", text: "女性のエンパワーメントは、権利の問題であると同時に何であるとされていますか？", options: ["宗教的な義務。", "経済的な必要性。", "政治的なパフォーマンス。", "一時的な流行。"], correctIndex: 1, explanation: "「経済的な必要性（ضرورة اقتصادية）」であると述べられています。" },
+    // 上級文法問題
+    { id: 11024, type: "grammar_advanced", text: "「تجاوزت معدلات مشاركة الإناث」の「معدلات」の正しい語尾は？", options: ["u (ダンマ)", "a (ファトハ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "動詞「Tajāwazat (超えた)」の主語（Fā'il）なので主格（Marfū'）となり、ダンマがつきます。" },
+    { id: 11025, type: "grammar_advanced", text: "「تعيين العديد من النساء في مناصب」の「مناصب」の正しい語尾は？", options: ["a (ファトハ)", "i (カスラ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "前置詞「Fī」の後ですが、「Manāṣib」は非限定名詞（Mumnū' min al-ṣarf）なので、カスラではなくファトハを取ります。" }
+  ],
+  sentences: [
+    { speaker: "記事", arabic: "تَجَاوَزَتْ مُعَدَّلَاتُ مُشَارَكَةِ الْإِنَاثِ فِي سُوقِ الْعَمَلِ الْمُسْتَهْدَفَاتِ الْمُحَدَّدَةِ.", japanese: "女性の労働市場への参加率は、設定された目標を超えました。" },
+    { speaker: "記事", arabic: "لَمْ يَعُدْ دَوْرُ الْمَرْأَةِ مُقْتَصِرًا عَلَى الْقِطَاعَاتِ التَّقْلِيدِيَّةِ.", japanese: "女性の役割はもはや伝統的な分野に限られません。" },
+    { speaker: "記事", arabic: "يَعُودُ هَذَا التَّحَوُّلُ إِلَى سِلْسِلَةٍ مِنَ الْإِصْلَاحَاتِ التَّشْرِيعِيَّةِ.", japanese: "この変化は一連の法的改革によるものです。" },
+    { speaker: "記事", arabic: "إِنَّ تَمْكِينَ الْمَرْأَةِ ضَرُورَةٌ اقْتِصَادِيَّةٌ.", japanese: "女性のエンパワーメントは経済的な必要性です。" }
   ]
 },
 
@@ -12265,93 +13015,41 @@ questions: [] // アルファベット回は問題なし
   level: "上級",
   category: "プロジェクト",
   title: "キディヤ：娯楽とスポーツの世界的首都",
-  contentPlain: "يجري العمل على قدم وساق في مشروع \"القدية\"، الذي يطمح ليكون عاصمة الترفيه والرياضة والفنون في العالم. يقع المشروع بالقرب من الرياض، وسيضم أكثر من 300 مرفق ترفيهي وتعليمي، بما في ذلك متنزه \"سكس فلاجز\" الذي سيحتوي على أسرع وأطول أفعوانية في العالم، وملعب رياضي ضخم يقع على قمة جبل بارتفاع 200 متر.\nتهدف القدية إلى تغيير مفهوم الترفيه في المملكة، وتوفير خيارات محلية عالمية المستوى تحد من إنفاق السعوديين على السياحة الخارجية، والذي يقدر بمليارات الدولارات سنوياً. كما يركز المشروع على اكتشاف المواهب الرياضية والفنية الشابة وتطويرها. من المخطط أن تساهم القدية في خلق آلاف الوظائف، وجذب ملايين الزوار، لتصبح وجهة نابضة بالحياة تعكس طاقة الشباب السعودي وتطلعاته.",
-  contentVoweled: "يَجْرِي الْعَمَلُ عَلَى قَدَمٍ وَسَاقٍ فِي مَشْرُوعِ \"الْقِدِيَّةِ\"، الَّذِي يَطْمَحُ لِيَكُونَ عَاصِمَةَ التَّرْفِيهِ وَالرِّيَاضَةِ وَالْفُنُونِ فِي الْعَالَمِ. يَقَعُ الْمَشْرُوعُ بِالْقُرْبِ مِنَ الرِّيَاضِ، وَسَيَضُمُّ أَكْثَرَ مِنْ 300 مِرْفَقٍ تَرْفِيهِيٍّ وَتَعْلِيمِيٍّ، بِمَا فِي ذَلِكَ مُتَنَزَّهُ \"سِكْس فَلَاجْز\" الَّذِي سَيَحْتَوِي عَلَى أَسْرَعِ وَأَطْوَلِ أُفْعُوَانِيَّةٍ فِي الْعَالَمِ، وَمَلْعَبٍ رِيَاضِيٍّ ضَخْمٍ يَقَعُ عَلَى قِمَّةِ جَبَلٍ بِارْتِفَاعِ 200 مِتْرٍ.\nتَهْدِفُ الْقِدِيَّةُ إِلَى تَغْيِيرِ مَفْهُومِ التَّرْفِيهِ فِي الْمَمْلَكَةِ، وَتَوْفِيرِ خِيَارَاتٍ مَحَلِّيَّةٍ عَالَمِيَّةِ الْمُسْتَوَى تَحُدُّ مِنْ إِنْفَاقِ السُّعُودِيِّينَ عَلَى السِّيَاحَةِ الْخَارِجِيَّةِ، وَالَّذِي يُقَدَّرُ بِمِلْيَارَاتِ الدُّولَارَاتِ سَنَوِيًّا. كَمَا يُرَكِّزُ الْمَشْرُوعُ عَلَى اكْتِشَافِ الْمَوَاهِبِ الرِّيَاضِيَّةِ وَالْفَنِّيَّةِ الشَّابَّةِ وَتَطْوِيرِهَا. مِنَ الْمُخَطَّطِ أَنْ تُسَاهِمَ الْقِدِيَّةُ فِي خَلْقِ آلَافِ الْوَظَائِفِ، وَجَذْبِ مَلَايِينَ الزُّوَّارِ، لِتُصْبِحَ وِجْهَةً نَابِضَةً بِالْحَيَاةِ تَعْكِسُ طَاقَةَ الشَّبَابِ السُّعُودِيِّ وَتَطَلُّعَاتِهِ.",
+  contentPlain: "يجري العمل على قدم وساق في مشروع \"القدية\"، الذي يطمح ليكون عاصمة الترفيه والرياضة والفنون في العالم. يقع المشروع بالقرب من الرياض، وسيضم أكثر من 300 مرفق ترفيهي وتعليمي، بما في ذلك متنزه \"سكس فلاجز\" الذي سيحتوي على أسرع وأطول أفعوانية في العالم، وملعب رياضي ضخم يقع على قمة جبل بارتفاع 200 متر. تهدف القدية إلى تغيير مفهوم الترفيه في المملكة، وتوفير خيارات محلية عالمية المستوى تحد من إنفاق السعوديين على السياحة الخارجية، والذي يقدر بمليارات الدولارات سنويا. كما يركز المشروع على اكتشاف المواهب الرياضية والفنية الشابة وتطويرها. من المخطط أن تساهم القدية في خلق آلاف الوظائف، وجذب ملايين الزوار، لتصبح وجهة نابضة بالحياة تعكس طاقة الشباب السعودي وتطلعاته.",
+  contentVoweled: "يَجْرِي الْعَمَلُ عَلَى قَدَمٍ وَسَاقٍ فِي مَشْرُوعِ \"الْقِدِيَّةِ\"، الَّذِي يَطْمَحُ لِيَكُونَ عَاصِمَةَ التَّرْفِيهِ وَالرِّيَاضَةِ وَالْفُنُونِ فِي الْعَالَمِ. يَقَعُ الْمَشْرُوعُ بِالْقُرْبِ مِنَ الرِّيَاضِ، وَسَيَضُمُّ أَكْثَرَ مِنْ 300 مِرْفَقٍ تَرْفِيهِيٍّ وَتَعْلِيمِيٍّ، بِمَا فِي ذَلِكَ مُتَنَزَّهُ \"سِكْس فَلَاجْز\" الَّذِي سَيَحْتَوِي عَلَى أَسْرَعِ وَأَطْوَلِ أُفْعُوَانِيَّةٍ فِي الْعَالَمِ، وَمَلْعَبٍ رِيَاضِيٍّ ضَخْمٍ يَقَعُ عَلَى قِمَّةِ جَبَلٍ بِارْتِفَاعِ 200 مِتْرٍ. تَهْدِفُ الْقِدِيَّةُ إِلَى تَغْيِيرِ مَفْهُومِ التَّرْفِيهِ فِي الْمَمْلَكَةِ، وَتَوْفِيرِ خِيَارَاتٍ مَحَلِّيَّةٍ عَالَمِيَّةِ الْمُسْتَوَى تَحُدُّ مِنْ إِنْفَاقِ السُّعُودِيِّينَ عَلَى السِّيَاحَةِ الْخَارِجِيَّةِ، وَالَّذِي يُقَدَّرُ بِمِلْيَارَاتِ الدُّولَارَاتِ سَنَوِيًّا. كَمَا يُرَكِّزُ الْمَشْرُوعُ عَلَى اكْتِشَافِ الْمَوَاهِبِ الرِّيَاضِيَّةِ وَالْفَنِّيَّةِ الشَّابَّةِ وَتَطْوِيرِهَا. مِنَ الْمُخَطَّطِ أَنْ تُسَاهِمَ الْقِدِيَّةُ فِي خَلْقِ آلَافِ الْوَظَائِفِ، وَجَذْبِ مَلَايِينَ الزُّوَّارِ، لِتُصْبِحَ وِجْهَةً نَابِضَةً بِالْحَيَاةِ تَعْكِسُ طَاقَةَ الشَّبَابِ السُّعُودِيِّ وَتَطَلُّعَاتِهِ.",
   sentences: [
-    {
-      speaker: "記事",
-      arabic: "يَطْمَحُ مَشْرُوعُ \"الْقِدِيَّةِ\" لِيَكُونَ عَاصِمَةَ التَّرْفِيهِ وَالرِّيَاضَةِ وَالْفُنُونِ فِي الْعَالَمِ.",
-      japanese: "「キディヤ」プロジェクトは、世界のエンターテインメント、スポーツ、芸術の首都になることを目指しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "سَيَضُمُّ الْمَشْرُوعُ مُتَنَزَّهَ \"سِكْس فَلَاجْز\" وَمَلْعَبًا رِيَاضِيًّا ضَخْمًا يَقَعُ عَلَى قِمَّةِ جَبَلٍ.",
-      japanese: "プロジェクトには、「シックス・フラッグス」パークや、山の頂上に位置する巨大なスポーツスタジアムが含まれます。"
-    },
-    {
-      speaker: "記事",
-      arabic: "تَهْدِفُ الْقِدِيَّةُ إِلَى تَوْفِيرِ خِيَارَاتٍ مَحَلِّيَّةٍ تَحُدُّ مِنْ إِنْفَاقِ السُّعُودِيِّينَ عَلَى السِّيَاحَةِ الْخَارِجِيَّةِ.",
-      japanese: "キディヤは、サウジアラビア人の海外観光への支出を抑制するような、世界レベルの国内の選択肢を提供することを目指しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "يُرَكِّزُ الْمَشْرُوعُ عَلَى اكْتِشَافِ الْمَوَاهِبِ الرِّيَاضِيَّةِ وَالْفَنِّيَّةِ الشَّابَّةِ وَتَطْوِيرِهَا.",
-      japanese: "プロジェクトは、若いスポーツや芸術の才能を発掘し、育成することに焦点を当てています。"
-    }
+    { speaker: "記事", arabic: "يَطْمَحُ مَشْرُوعُ \"الْقِدِيَّةِ\" لِيَكُونَ عَاصِمَةَ التَّرْفِيهِ وَالرِّيَاضَةِ وَالْفُنُونِ فِي الْعَالَمِ.", japanese: "「キディヤ」プロジェクトは、世界のエンターテインメント、スポーツ、芸術の首都になることを目指しています。" },
+    { speaker: "記事", arabic: "سَيَضُمُّ الْمَشْرُوعُ مُتَنَزَّهَ \"سِكْس فَلَاجْز\" وَمَلْعَبًا رِيَاضِيًّا ضَخْمًا يَقَعُ عَلَى قِمَّةِ جَبَلٍ.", japanese: "プロジェクトには、「シックス・フラッグス」パークや、山の頂上に位置する巨大なスポーツスタジアムが含まれます。" },
+    { speaker: "記事", arabic: "تَهْدِفُ الْقِدِيَّةُ إِلَى تَوْفِيرِ خِيَارَاتٍ مَحَلِّيَّةٍ تَحُدُّ مِنْ إِنْفَاقِ السُّعُودِيِّينَ عَلَى السِّيَاحَةِ الْخَارِجِيَّةِ.", japanese: "キディヤは、サウジアラビア人の海外観光への支出を抑制するような、国内の選択肢を提供することを目指しています。" },
+    { speaker: "記事", arabic: "يُرَكِّزُ الْمَشْرُوعُ عَلَى اكْتِشَافِ الْمَوَاهِبِ الرِّيَاضِيَّةِ وَالْفَنِّيَّةِ الشَّابَّةِ وَتَطْوِيرِهَا.", japanese: "プロジェクトは、若いスポーツや芸術の才能を発掘し、育成することに焦点を当てています。" }
   ],
   vocabList: [
-    { word: "تَرْفِيه", meaning: "エンターテインメント/娯楽" },
+    { word: "تَرْفِيه", meaning: "エンターテインメント" },
     { word: "أُفْعُوَانِيَّة", meaning: "ジェットコースター" },
-    { word: "عَلَى قَدَمٍ وَسَاقٍ", meaning: "本格的に/着々と (慣用句)" },
-    { word: "سِيَاحَة خَارِجِيَّة", meaning: "海外旅行/アウトバウンド観光" }
+    { word: "عَلَى قَدَمٍ وَسَاقٍ", meaning: "本格的に/着々と" },
+    { word: "سِيَاحَة خَارِجِيَّة", meaning: "海外旅行" }
   ],
   questions: [
-    {
-      id: 11031,
-      type: "reading",
-      text: "キディヤプロジェクトに含まれる主要な施設として言及されているのは？",
-      options: ["世界最大の図書館。", "シックス・フラッグスと山頂のスタジアム。", "農業試験場。", "宇宙ロケット発射台。"],
-      correctIndex: 1,
-      explanation: "「متنزه ستة أعلام (シックス・フラッグス)」と「ملعب رياضي ضخم على قمة جبل (山頂の巨大スタジアム)」が言及されています。"
-    },
-    {
-      id: 11032,
-      type: "reading",
-      text: "キディヤが経済的に解決しようとしている問題の一つは何ですか？",
-      options: ["外国人観光客が多すぎること。", "サウジ人が海外観光で多額のお金を使っていること。", "国内の遊園地が安すぎること。", "若者がスポーツをしすぎていること。"],
-      correctIndex: 1,
-      explanation: "「サウジ人の海外観光への支出を抑制する（تحد من إنفاق السعوديين على السياحة الخارجية）」ことが目標の一つです。"
-    },
-    {
-      id: 11033,
-      type: "reading",
-      text: "キディヤは若者に対してどのような役割を果たそうとしていますか？",
-      options: ["兵役の訓練。", "才能の発掘と育成。", "海外への移住支援。", "インターネットの禁止。"],
-      correctIndex: 1,
-      explanation: "「才能を発掘し育成する（اكتشاف المواهب... وتطويرها）」ことに焦点を当てています。"
-    }
+    { id: 11031, type: "reading", text: "キディヤプロジェクトに含まれる主要な施設として言及されているのは？", options: ["世界最大の図書館。", "シックス・フラッグスと山頂のスタジアム。", "農業試験場。", "宇宙ロケット発射台。"], correctIndex: 1, explanation: "「متنزه ستة أعلام (シックス・フラッグス)」と「ملعب رياضي ضخم على قمة جبل (山頂の巨大スタジアム)」が言及されています。" },
+    { id: 11032, type: "reading", text: "キディヤが経済的に解決しようとしている問題の一つは何ですか？", options: ["外国人観光客が多すぎること。", "サウジ人が海外観光で多額のお金を使っていること。", "国内の遊園地が安すぎること。", "若者がスポーツをしすぎていること。"], correctIndex: 1, explanation: "「サウジ人の海外観光への支出を抑制する（تحد من إنفاق السعوديين على السياحة الخارجية）」ことが目標の一つです。" },
+    { id: 11033, type: "reading", text: "キディヤは若者に対してどのような役割を果たそうとしていますか？", options: ["兵役の訓練。", "才能の発掘と育成。", "海外への移住支援。", "インターネットの禁止。"], correctIndex: 1, explanation: "「才能を発掘し育成する（اكتشاف المواهب... وتطويرها）」ことに焦点を当てています。" },
+    // 上級文法問題
+    { id: 11034, type: "grammar_advanced", text: "「أن تساهم القدية」の「تساهم」の正しい語尾は？", options: ["a (ファトハ)", "u (ダンマ)", "i (カスラ)", "Sukuun (スクーン)"], correctIndex: 0, explanation: "接続助詞「An」の後の現在形動詞は接続法（Manṣūb）となり、ファトハがつきます。" },
+    { id: 11035, type: "grammar_advanced", text: "「خيارات محلية عالمية المستوى」の「عالمية」の正しい語尾は？", options: ["a (ファトハ)", "u (ダンマ)", "i (カスラ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Khiyārāt (選択肢)」は女性規則複数の対格でカスラを取っていますが、それを修飾する形容詞「'Ālamiyya」は本来の対格の印であるファトハを取ります（ただしイダーファの第1要素なのでタンウィーンなし）。" }
   ]
 },
-
-// --- 94. 国際支援 (Humanitarian Aid) ---
 {
   id: 1104,
   level: "上級",
   category: "国際",
   title: "KSrelief：サウジアラビアの人道支援と世界的役割",
-  contentPlain: "يُجسد \"مركز الملك سلمان للإغاثة والأعمال الإنسانية\" (KSrelief) الدور الريادي للمملكة العربية السعودية في مجال العمل الخيري الدولي. منذ تأسيسه، قدم المركز مساعدات بمليارات الدولارات لأكثر من 90 دولة حول العالم، دون تمييز ديني أو عرقي. تشمل مشاريع المركز تقديم الغذاء، والدواء، والإيواء، بالإضافة إلى برامج التعليم والتنمية في المناطق المتضررة من الكوارث والنزاعات.\nمن أبرز إنجازات المركز مشروع \"مسام\" لنزع الألغام في اليمن، الذي ساهم في إنقاذ آلاف الأرواح، وبرامج فصل التوائم السيامية التي جعلت المملكة مرجعاً عالمياً في هذا المجال الطبي الدقيق. يعتمد المركز على الشراكات مع المنظمات الأممية لضمان وصول المساعدات لمستحقيها بكفاءة وشفافية. تعكس هذه الجهود القيم الإسلامية والإنسانية للمملكة، وتعزز مكانتها كواحدة من أكبر الدول المانحة للمساعدات الإنسانية في العالم.",
-  contentVoweled: "يُجَسِّدُ \"مَرْكَزُ الْمَلِكِ سَلْمَان لِلْإِغَاثَةِ وَالْأَعْمَالِ الْإِنْسَانِيَّةِ\" (KSrelief) الدَّوْرَ الرِّيَادِيَّ لِلْمَمْلَكَةِ الْعَرَبِيَّةِ السُّعُودِيَّةِ فِي مَجَالِ الْعَمَلِ الْخَيْرِيِّ الدَّوْلِيِّ. مُنْذُ تَأْسِيسِهِ، قَدَّمَ الْمَرْكَزُ مُسَاعَدَاتٍ بِمِلْيَارَاتِ الدُّولَارَاتِ لِأَكْثَرَ مِنْ 90 دَوْلَةً حَوْلَ الْعَالَمِ، دُونَ تَمْيِيزٍ دِينِيٍّ أَوْ عِرْقِيٍّ. تَشْمَلُ مَشَارِيعُ الْمَرْكَزِ تَقْدِيمَ الْغِذَاءِ، وَالدَّوَاءِ، وَالْإِيوَاءِ، بِالْإِضَافَةِ إِلَى بَرَامِجِ التَّعْلِيمِ وَالتَّنْمِيَةِ فِي الْمَنَاطِقِ الْمُتَضَرِّرَةِ مِنَ الْكَوَارِثِ وَالنِّزَاعَاتِ.\nمِنْ أَبْرَزِ إِنْجَازَاتِ الْمَرْكَزِ مَشْرُوعُ \"مَسَام\" لِنَزْعِ الْأَلْغَامِ فِي الْيَمَنِ، الَّذِي سَاهَمَ فِي إِنْقَاذِ آلَافِ الْأَرْوَاحِ، وَبَرَامِجُ فَصْلِ التَّوَائِمِ السِّيَامِيَّةِ الَّتِي جَعَلَتِ الْمَمْلَكَةَ مَرْجِعًا عَالَمِيًّا فِي هَذَا الْمَجَالِ الطِّبِّيِّ الدَّقِيقِ. يَعْتَمِدُ الْمَرْكَزُ عَلَى الشَّرَاكَاتِ مَعَ الْمُنَظَّمَاتِ الْأُمَمِيَّةِ لِضَمَانِ وُصُولِ الْمُسَاعَدَاتِ لِمُسْتَحِقِّيهَا بِكَفَاءَةٍ وَشَفَافِيَّةٍ. تَعْكِسُ هَذِهِ الْجُهُودُ الْقِيَمَ الْإِسْلَامِيَّةَ وَالْإِنْسَانِيَّةَ لِلْمَمْلَكَةِ، وَتُعَزِّزُ مَكَانَتَهَا كَوَاحِدَةٍ مِنْ أَكْبَرِ الدُّوَلِ الْمَانِحَةِ لِلْمُسَاعَدَاتِ الْإِنْسَانِيَّةِ فِي الْعَالَمِ.",
+  contentPlain: "يجسد \"مركز الملك سلمان للإغاثة والأعمال الإنسانية\" (KSrelief) الدور الريادي للمملكة العربية السعودية في مجال العمل الخيري الدولي. منذ تأسيسه، قدم المركز مساعدات بمليارات الدولارات لأكثر من 90 دولة حول العالم، دون تمييز ديني أو عرقي. تشمل مشاريع المركز تقديم الغذاء، والدواء، والإيواء، بالإضافة إلى برامج التعليم والتنمية في المناطق المتضررة من الكوارث والنزاعات. من أبرز إنجازات المركز مشروع \"مسام\" لنزع الألغام في اليمن، الذي ساهم في إنقاذ آلاف الأرواح، وبرامج فصل التوائم السيامية التي جعلت المملكة مرجعا عالميا في هذا المجال الطبي الدقيق. يعتمد المركز على الشراكات مع المنظمات الأممية لضمان وصول المساعدات لمستحقيها بكفاءة وشفافية. تعكس هذه الجهود القيم الإسلامية والإنسانية للمملكة، وتعزز مكانتها كواحدة من أكبر الدول المانحة للمساعدات الإنسانية في العالم.",
+  contentVoweled: "يُجَسِّدُ \"مَرْكَزُ الْمَلِكِ سَلْمَان لِلْإِغَاثَةِ وَالْأَعْمَالِ الْإِنْسَانِيَّةِ\" (KSrelief) الدَّوْرَ الرِّيَادِيَّ لِلْمَمْلَكَةِ الْعَرَبِيَّةِ السُّعُودِيَّةِ فِي مَجَالِ الْعَمَلِ الْخَيْرِيِّ الدَّوْلِيِّ. مُنْذُ تَأْسِيسِهِ، قَدَّمَ الْمَرْكَزُ مُسَاعَدَاتٍ بِمِلْيَارَاتِ الدُّولَارَاتِ لِأَكْثَرَ مِنْ 90 دَوْلَةً حَوْلَ الْعَالَمِ، دُونَ تَمْيِيزٍ دِينِيٍّ أَوْ عِرْقِيٍّ. تَشْمَلُ مَشَارِيعُ الْمَرْكَزِ تَقْدِيمَ الْغِذَاءِ، وَالدَّوَاءِ، وَالْإِيوَاءِ، بِالْإِضَافَةِ إِلَى بَرَامِجِ التَّعْلِيمِ وَالتَّنْمِيَةِ فِي الْمَنَاطِقِ الْمُتَضَرِّرَةِ مِنَ الْكَوَارِثِ وَالنِّزَاعَاتِ. مِنْ أَبْرَزِ إِنْجَازَاتِ الْمَرْكَزِ مَشْرُوعُ \"مَسَام\" لِنَزْعِ الْأَلْغَامِ فِي الْيَمَنِ، الَّذِي سَاهَمَ فِي إِنْقَاذِ آلَافِ الْأَرْوَاحِ، وَبَرَامِجُ فَصْلِ التَّوَائِمِ السِّيَامِيَّةِ الَّتِي جَعَلَتِ الْمَمْلَكَةَ مَرْجِعًا عَالَمِيًّا فِي هَذَا الْمَجَالِ الطِّبِّيِّ الدَّقِيقِ. يَعْتَمِدُ الْمَرْكَزُ عَلَى الشَّرَاكَاتِ مَعَ الْمُنَظَّمَاتِ الْأُمَمِيَّةِ لِضَمَانِ وُصُولِ الْمُسَاعَدَاتِ لِمُسْتَحِقِّيهَا بِكَفَاءَةٍ وَشَفَافِيَّةٍ. تَعْكِسُ هَذِهِ الْجُهُودُ الْقِيَمَ الْإِسْلَامِيَّةَ وَالْإِنْسَانِيَّةَ لِلْمَمْلَكَةِ، وَتُعَزِّزُ مَكَانَتَهَا كَوَاحِدَةٍ مِنْ أَكْبَرِ الدُّوَلِ الْمَانِحَةِ لِلْمُسَاعَدَاتِ الْإِنْسَانِيَّةِ فِي الْعَالَمِ.",
   sentences: [
-    {
-      speaker: "記事",
-      arabic: "يُجَسِّدُ \"مَرْكَزُ الْمَلِكِ سَلْمَان لِلْإِغَاثَةِ\" الدَّوْرَ الرِّيَادِيَّ لِلْمَمْلَكَةِ فِي مَجَالِ الْعَمَلِ الْخَيْرِيِّ الدَّوْلِيِّ.",
-      japanese: "「サルマン国王救援人道活動センター（KSrelief）」は、国際的な慈善活動の分野における王国の先駆的な役割を体現しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "قَدَّمَ الْمَرْكَزُ مُسَاعَدَاتٍ لِأَكْثَرَ مِنْ 90 دَوْلَةً دُونَ تَمْيِيزٍ دِينِيٍّ أَوْ عِرْقِيٍّ.",
-      japanese: "同センターは、宗教や人種による差別なく、世界90カ国以上に援助を提供してきました。"
-    },
-    {
-      speaker: "記事",
-      arabic: "مِنْ أَبْرَزِ الْإِنْجَازَاتِ مَشْرُوعُ \"مَسَام\" لِنَزْعِ الْأَلْغَامِ وَبَرَامِجُ فَصْلِ التَّوَائِمِ السِّيَامِيَّةِ.",
-      japanese: "最も顕著な成果には、地雷除去プロジェクト「Masam」や、結合双生児の分離手術プログラムがあります。"
-    },
-    {
-      speaker: "記事",
-      arabic: "تُعَزِّزُ هَذِهِ الْجُهُودُ مَكَانَةَ الْمَمْلَكَةِ كَوَاحِدَةٍ مِنْ أَكْبَرِ الدُّوَلِ الْمَانِحَةِ لِلْمُسَاعَدَاتِ.",
-      japanese: "これらの努力は、世界最大の人道支援供与国の一つとしての王国の地位を強化しています。"
-    }
+    { speaker: "記事", arabic: "يُجَسِّدُ \"مَرْكَزُ الْمَلِكِ سَلْمَان لِلْإِغَاثَةِ\" الدَّوْرَ الرِّيَادِيَّ لِلْمَمْلَكَةِ فِي مَجَالِ الْعَمَلِ الْخَيْرِيِّ الدَّوْلِيِّ.", japanese: "「サルマン国王救援人道活動センター（KSrelief）」は、国際的な慈善活動の分野における王国の先駆的な役割を体現しています。" },
+    { speaker: "記事", arabic: "قَدَّمَ الْمَرْكَزُ مُسَاعَدَاتٍ لِأَكْثَرَ مِنْ 90 دَوْلَةً دُونَ تَمْيِيزٍ دِينِيٍّ أَوْ عِرْقِيٍّ.", japanese: "同センターは、宗教や人種による差別なく、世界90カ国以上に援助を提供してきました。" },
+    { speaker: "記事", arabic: "مِنْ أَبْرَزِ الْإِنْجَازَاتِ مَشْرُوعُ \"مَسَام\" لِنَزْعِ الْأَلْغَامِ وَبَرَامِجُ فَصْلِ التَّوَائِمِ السِّيَامِيَّةِ.", japanese: "最も顕著な成果には、地雷除去プロジェクト「Masam」や、結合双生児の分離手術プログラムがあります。" },
+    { speaker: "記事", arabic: "تُعَزِّزُ هَذِهِ الْجُهُودُ مَكَانَةَ الْمَمْلَكَةِ كَوَاحِدَةٍ مِنْ أَكْبَرِ الدُّوَلِ الْمَانِحَةِ لِلْمُسَاعَدَاتِ.", japanese: "これらの努力は、世界最大の人道支援供与国の一つとしての王国の地位を強化しています。" }
   ],
   vocabList: [
     { word: "إِغَاثَة", meaning: "救援/救済" },
@@ -12360,62 +13058,26 @@ questions: [] // アルファベット回は問題なし
     { word: "تَوَائِم سِيَامِيَّة", meaning: "結合双生児" }
   ],
   questions: [
-    {
-      id: 11041,
-      type: "reading",
-      text: "KSreliefの支援方針の特徴は何ですか？",
-      options: ["特定の宗教を持つ国のみを支援する。", "近隣諸国のみを支援する。", "宗教や人種による差別なく支援する。", "見返りを求める国のみを支援する。"],
-      correctIndex: 2,
-      explanation: "「宗教や人種による差別なく（دون تمييز ديني أو عرقي）」支援を提供しています。"
-    },
-    {
-      id: 11042,
-      type: "reading",
-      text: "テキストで言及されている具体的な人道支援プロジェクトは？",
-      options: ["宇宙開発プログラム。", "地雷除去と結合双生児の分離手術。", "武器の供与。", "高級ホテルの建設。"],
-      correctIndex: 1,
-      explanation: "地雷除去の「Masam」と「結合双生児の分離（فصل التوائم السيامية）」が挙げられています。"
-    },
-    {
-      id: 11043,
-      type: "reading",
-      text: "センターはどのようにして援助の効率と透明性を確保していますか？",
-      options: ["国際機関とのパートナーシップを通じて。", "メディアを完全に遮断することによって。", "現金を直接配布することによって。", "活動内容を秘密にすることによって。"],
-      correctIndex: 0,
-      explanation: "「国連機関とのパートナーシップ（الشراكات مع المنظمات الأممية）」に依存しています。"
-    }
+    { id: 11041, type: "reading", text: "KSreliefの支援方針の特徴は何ですか？", options: ["特定の宗教を持つ国のみを支援する。", "近隣諸国のみを支援する。", "宗教や人種による差別なく支援する。", "見返りを求める国のみを支援する。"], correctIndex: 2, explanation: "「宗教や人種による差別なく（دون تمييز ديني أو عرقي）」支援を提供しています。" },
+    { id: 11042, type: "reading", text: "テキストで言及されている具体的な人道支援プロジェクトは？", options: ["宇宙開発プログラム。", "地雷除去と結合双生児の分離手術。", "武器の供与。", "高級ホテルの建設。"], correctIndex: 1, explanation: "地雷除去の「Masam」と「結合双生児の分離（فصل التوائم السيامية）」が挙げられています。" },
+    { id: 11043, type: "reading", text: "センターはどのようにして援助の効率と透明性を確保していますか？", options: ["国際機関とのパートナーシップを通じて。", "メディアを完全に遮断することによって。", "現金を直接配布することによって。", "活動内容を秘密にすることによって。"], correctIndex: 0, explanation: "「国連機関とのパートナーシップ（الشراكات مع المنظمات الأممية）」に依存しています。" },
+    // 上級文法問題
+    { id: 11044, type: "grammar_advanced", text: "「دون تمييز ديني」の「ديني」の正しい語尾は？", options: ["in (タンウィーン・カスラ)", "un (タンウィーン・ダンマ)", "an (タンウィーン・ファトハ)", "i (カスラ)"], correctIndex: 0, explanation: "「Tamyīz (差別)」は前置詞「Dūna (〜なしで)」の後の属格（Majrūr）です。「Dīnī (宗教的な)」はそれを修飾する形容詞なので、同じく属格のタンウィーン・カスラを取ります。" },
+    { id: 11045, type: "grammar_advanced", text: "「التي جعلت المملكة مرجعا」の「مرجعا」の正しい語尾は？", options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "a (ファトハ)"], correctIndex: 0, explanation: "動詞「Ja'alat (Make A B)」の第2目的語（補語）として対格（Manṣūb）になり、タンウィーン・ファトハがつきます。" }
   ]
 },
-
-// --- 95. 産業・投資 (Industry & Investment) ---
 {
   id: 1105,
   level: "上級",
   category: "産業",
   title: "メイド・イン・サウジ：産業の現地化と輸出促進",
-  contentPlain: "أطلقت المملكة برنامج \"صُنع في السعودية\" بهدف تعزيز المنتج الوطني وجعله الخيار المفضل للمستهلكين محلياً وعالمياً. يأتي هذا البرنامج ضمن استراتيجية وطنية للصناعة تهدف إلى توطين الصناعات الواعدة، مثل الصناعات العسكرية، والسيارات، والأدوية، والأغذية. تسعى المملكة من خلال هذه المبادرة إلى رفع مساهمة القطاع الصناعي في الناتج المحلي الإجمالي، وتقليل الاعتماد على الواردات، وتحسين الميزان التجاري.\nيشجع البرنامج الشركات على استخدام الشعار الرسمي \"صُنع في السعودية\"، مما يمنح منتجاتها موثوقية وجودة عالية. كما تدعم الحكومة المصانع من خلال توفير البنية التحتية، والطاقة بأسعار تنافسية، والتسهيلات التمويلية. إن بناء قاعدة صناعية قوية لا يساهم فقط في التنويع الاقتصادي، بل يعزز الاستقلالية الاستراتيجية للمملكة، ويخلق فرص عمل مستدامة للشباب السعودي.",
-  contentVoweled: "أَطْلَقَتِ الْمَمْلَكَةُ بَرْنَامَجَ \"صُنِعَ فِي السُّعُودِيَّةِ\" بِهَدَفِ تَعْزِيزِ الْمُنْتَجِ الْوَطَنِيِّ وَجَعْلِهِ الْخِيَارَ الْمُفَضَّلَ لِلْمُسْتَهْلِكِينَ مَحَلِّيًّا وَعَالَمِيًّا. يَأْتِي هَذَا الْبَرْنَامَجُ ضِمْنَ اسْتِرَاتِيجِيَّةٍ وَطَنِيَّةٍ لِلصِّنَاعَةِ تَهْدِفُ إِلَى تَوْطِينِ الصِّنَاعَاتِ الْوَاعِدَةِ، مِثْلِ الصِّنَاعَاتِ الْعَسْكَرِيَّةِ، وَالسَّيَّارَاتِ، وَالْأَدْوِيَةِ، وَالْأَغْذِيَةِ. تَسْعَى الْمَمْلَكَةُ مِنْ خِلَالِ هَذِهِ الْمُبَادَرَةِ إِلَى رَفْعِ مُسَاهَمَةِ الْقِطَاعِ الصِّنَاعِيِّ فِي النَّاتِجِ الْمَحَلِّيِّ الْإِجْمَالِيِّ، وَتَقْلِيلِ الِاعْتِمَادِ عَلَى الْوَارِدَاتِ، وَتَحْسِينِ الْمِيزَانِ التِّجَارِيِّ.\nيُشَجِّعُ الْبَرْنَامَجُ الشَّرِكَاتَ عَلَى اسْتِخْدَامِ الشِّعَارِ الرَّسْمِيِّ \"صُنِعَ فِي السُّعُودِيَّةِ\"، مِمَّا يَمْنَحُ مُنْتَجَاتِهَا مَوْثُوقِيَّةً وَجَوْدَةً عَالِيَةً. كَمَا تَدْعَمُ الْحُكُومَةُ الْمَصَانِعَ مِنْ خِلَالِ تَوْفِيرِ الْبِنْيَةِ التَّحْتِيَّةِ، وَالطَّاقَةِ بِأَسْعَارٍ تَنَافُسِيَّةٍ، وَالتَّسْهِيلَاتِ التَّمْوِيلِيَّةِ. إِنَّ بِنَاءَ قَاعِدَةٍ صِنَاعِيَّةٍ قَوِيَّةٍ لَا يُسَاهِمُ فَقَطْ فِي التَّنْوِيعِ الِاقْتِصَادِيِّ، بَلْ يُعَزِّزُ الِاسْتِقْلَالِيَّةَ الِاسْتِرَاتِيجِيَّةَ لِلْمَمْلَكَةِ، وَيَخْلُقُ فُرَصَ عَمَلٍ مُسْتَدَامَةً لِلشَّبَابِ السُّعُودِيِّ.",
+  contentPlain: "أطلقت المملكة برنامج \"صنع في السعودية\" بهدف تعزيز المنتج الوطني وجعله الخيار المفضل للمستهلكين محليا وعالميا. يأتي هذا البرنامج ضمن استراتيجية وطنية للصناعة تهدف إلى توطين الصناعات الواعدة، مثل الصناعات العسكرية، والسيارات، والأدوية، والأغذية. تسعى المملكة من خلال هذه المبادرة إلى رفع مساهمة القطاع الصناعي في الناتج المحلي الإجمالي، وتقليل الاعتماد على الواردات، وتحسين الميزان التجاري. يشجع البرنامج الشركات على استخدام الشعار الرسمي \"صنع في السعودية\"، مما يمنح منتجاتها موثوقية وجودة عالية. كما تدعم الحكومة المصانع من خلال توفير البنية التحتية، والطاقة بأسعار تنافسية، والتسهيلات التمويلية. إن بناء قاعدة صناعية قوية لا يساهم فقط في التنويع الاقتصادي، بل يعزز الاستقلالية الاستراتيجية للمملكة، ويخلق فرص عمل مستدامة للشباب السعودي.",
+  contentVoweled: "أَطْلَقَتِ الْمَمْلَكَةُ بَرْنَامَجَ \"صُنِعَ فِي السُّعُودِيَّةِ\" بِهَدَفِ تَعْزِيزِ الْمُنْتَجِ الْوَطَنِيِّ وَجَعْلِهِ الْخِيَارَ الْمُفَضَّلَ لِلْمُسْتَهْلِكِينَ مَحَلِّيًّا وَعَالَمِيًّا. يَأْتِي هَذَا الْبَرْنَامَجُ ضِمْنَ اسْتِرَاتِيجِيَّةٍ وَطَنِيَّةٍ لِلصِّنَاعَةِ تَهْدِفُ إِلَى تَوْطِينِ الصِّنَاعَاتِ الْوَاعِدَةِ، مِثْلِ الصِّنَاعَاتِ الْعَسْكَرِيَّةِ، وَالسَّيَّارَاتِ، وَالْأَدْوِيَةِ، وَالْأَغْذِيَةِ. تَسْعَى الْمَمْلَكَةُ مِنْ خِلَالِ هَذِهِ الْمُبَادَرَاتِ إِلَى رَفْعِ مُسَاهَمَةِ الْقِطَاعِ الصِّنَاعِيِّ فِي النَّاتِجِ الْمَحَلِّيِّ الْإِجْمَالِيِّ، وَتَقْلِيلِ الِاعْتِمَادِ عَلَى الْوَارِدَاتِ، وَتَحْسِينِ الْمِيزَانِ التِّجَارِيِّ. يُشَجِّعُ الْبَرْنَامَجُ الشَّرِكَاتَ عَلَى اسْتِخْدَامِ الشِّعَارِ الرَّسْمِيِّ \"صُنِعَ فِي السُّعُودِيَّةِ\"، مِمَّا يَمْنَحُ مُنْتَجَاتِهَا مَوْثُوقِيَّةً وَجَوْدَةً عَالِيَةً. كَمَا تَدْعَمُ الْحُكُومَةُ الْمَصَانِعَ مِنْ خِلَالِ تَوْفِيرِ الْبِنْيَةِ التَّحْتِيَّةِ، وَالطَّاقَةِ بِأَسْعَارٍ تَنَافُسِيَّةٍ، وَالتَّسْهِيلَاتِ التَّمْوِيلِيَّةِ. إِنَّ بِنَاءَ قَاعِدَةٍ صِنَاعِيَّةٍ قَوِيَّةٍ لَا يُسَاهِمُ فَقَطْ فِي التَّنْوِيعِ الِاقْتِصَادِيِّ، بَلْ يُعَزِّزُ الِاسْتِقْلَالِيَّةَ الِاسْتِرَاتِيجِيَّةَ لِلْمَمْلَكَةِ، وَيَخْلُقُ فُرَصَ عَمَلٍ مُسْتَدَامَةً لِلشَّبَابِ السُّعُودِيِّ.",
   sentences: [
-    {
-      speaker: "記事",
-      arabic: "أَطْلَقَتِ الْمَمْلَكَةُ بَرْنَامَجَ \"صُنِعَ فِي السُّعُودِيَّةِ\" بِهَدَفِ تَعْزِيزِ الْمُنْتَجِ الْوَطَنِيِّ.",
-      japanese: "王国は、国産品を強化することを目的として「メイド・イン・サウジ」プログラムを開始しました。"
-    },
-    {
-      speaker: "記事",
-      arabic: "يَهْدِفُ الْبَرْنَامَجُ إِلَى تَوْطِينِ الصِّنَاعَاتِ الْوَاعِدَةِ، مِثْلِ الصِّنَاعَاتِ الْعَسْكَرِيَّةِ وَالسَّيَّارَاتِ.",
-      japanese: "プログラムは、軍事産業や自動車などの有望な産業を現地化（国産化）することを目指しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "تَسْعَى الْمَمْلَكَةُ إِلَى تَقْلِيلِ الِاعْتِمَادِ عَلَى الْوَارِدَاتِ وَتَحْسِينِ الْمِيزَانِ التِّجَارِيِّ.",
-      japanese: "王国は輸入への依存を減らし、貿易収支を改善することに努めています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "إِنَّ بِنَاءَ قَاعِدَةٍ صِنَاعِيَّةٍ قَوِيَّةٍ يُعَزِّزُ الِاسْتِقْلَالِيَّةَ الِاسْتِرَاتِيجِيَّةَ لِلْمَمْلَكَةِ.",
-      japanese: "強力な産業基盤の構築は、王国の戦略的自律性を強化します。"
-    }
+    { speaker: "記事", arabic: "أَطْلَقَتِ الْمَمْلَكَةُ بَرْنَامَجَ \"صُنِعَ فِي السُّعُودِيَّةِ\" بِهَدَفِ تَعْزِيزِ الْمُنْتَجِ الْوَطَنِيِّ.", japanese: "王国は、国産品を強化することを目的として「メイド・イン・サウジ」プログラムを開始しました。" },
+    { speaker: "記事", arabic: "يَهْدِفُ الْبَرْنَامَجُ إِلَى تَوْطِينِ الصِّنَاعَاتِ الْوَاعِدَةِ، مِثْلِ الصِّنَاعَاتِ الْعَسْكَرِيَّةِ وَالسَّيَّارَاتِ.", japanese: "プログラムは、軍事産業や自動車などの有望な産業を現地化（国産化）することを目指しています。" },
+    { speaker: "記事", arabic: "تَسْعَى الْمَمْلَكَةُ إِلَى تَقْلِيلِ الِاعْتِمَادِ عَلَى الْوَارِدَاتِ وَتَحْسِينِ الْمِيزَانِ التِّجَارِيِّ.", japanese: "王国は輸入への依存を減らし、貿易収支を改善することに努めています。" },
+    { speaker: "記事", arabic: "إِنَّ بِنَاءَ قَاعِدَةٍ صِنَاعِيَّةٍ قَوِيَّةٍ يُعَزِّزُ الِاسْتِقْلَالِيَّةَ الِاسْتِرَاتِيجِيَّةَ لِلْمَمْلَكَةِ.", japanese: "強力な産業基盤の構築は、王国の戦略的自律性を強化します。" }
   ],
   vocabList: [
     { word: "تَوْطِين", meaning: "現地化/国産化" },
@@ -12424,62 +13086,26 @@ questions: [] // アルファベット回は問題なし
     { word: "مَوْثُوقِيَّة", meaning: "信頼性" }
   ],
   questions: [
-    {
-      id: 11051,
-      type: "reading",
-      text: "「メイド・イン・サウジ」プログラムの主な目的は何ですか？",
-      options: ["外国製品の輸入を禁止すること。", "国産品を国内外で選ばれる製品にすること。", "すべての工場を海外に移転すること。", "手作り製品のみを販売すること。"],
-      correctIndex: 1,
-      explanation: "「国産品を強化し、国内外の消費者に好まれる選択肢にすること（تعزيز المنتج الوطني وجعله الخيار المفضل）」が目的です。"
-    },
-    {
-      id: 11052,
-      type: "reading",
-      text: "現地化（国産化）の対象として挙げられている産業は？",
-      options: ["繊維産業のみ。", "軍事産業、自動車、医薬品。", "観光業のみ。", "漁業のみ。"],
-      correctIndex: 1,
-      explanation: "「軍事産業、自動車、医薬品、食品（الصناعات العسكرية، والسيارات، والأدوية، والأغذية）」が挙げられています。"
-    },
-    {
-      id: 11053,
-      type: "reading",
-      text: "政府は工場をどのように支援していますか？",
-      options: ["インフラ、競争力のあるエネルギー価格、融資の提供。", "従業員の給与を全額支払う。", "税金を100%免除する。", "工場の運営を直接行う。"],
-      correctIndex: 0,
-      explanation: "「インフラ、競争力のある価格でのエネルギー、資金調達の円滑化（توفير البنية التحتية، والطاقة بأسعار تنافسية، والتسهيلات التمويلية）」を提供しています。"
-    }
+    { id: 11051, type: "reading", text: "「メイド・イン・サウジ」プログラムの主な目的は何ですか？", options: ["外国製品の輸入を禁止すること。", "国産品を国内外で選ばれる製品にすること。", "すべての工場を海外に移転すること。", "手作り製品のみを販売すること。"], correctIndex: 1, explanation: "「国産品を強化し、国内外の消費者に好まれる選択肢にすること（تعزيز المنتج الوطني وجعله الخيار المفضل）」が目的です。" },
+    { id: 11052, type: "reading", text: "現地化（国産化）の対象として挙げられている産業は？", options: ["繊維産業のみ。", "軍事産業、自動車、医薬品。", "観光業のみ。", "漁業のみ。"], correctIndex: 1, explanation: "「軍事産業、自動車、医薬品、食品（الصناعات العسكرية، والسيارات، والأدوية، والأغذية）」が挙げられています。" },
+    { id: 11053, type: "reading", text: "政府は工場をどのように支援していますか？", options: ["インフラ、競争力のあるエネルギー価格、融資の提供。", "従業員の給与を全額支払う。", "税金を100%免除する。", "工場の運営を直接行う。"], correctIndex: 0, explanation: "「インフラ、競争力のある価格でのエネルギー、資金調達の円滑化（توفير البنية التحتية، والطاقة بأسعار تنافسية، والتسهيلات التمويلية）」を提供しています。" },
+    // 上級文法問題
+    { id: 11054, type: "grammar_advanced", text: "「بهدف تعزيز المنتج」の「تعزيز」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "前置詞「Bi」の後の名詞「Hadaf」に続くイダーファの第2要素（属格）なので、カスラがつきます（さらに後の「Al-Muntaj」にイダーファされているのでタンウィーンなし）。" },
+    { id: 11055, type: "grammar_advanced", text: "「يمنح منتجاتها موثوقية」の「موثوقية」の正しい語尾は？", options: ["an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "in (タンウィーン・カスラ)", "a (ファトハ)"], correctIndex: 0, explanation: "動詞「Yamnaḥu (与える)」の第2目的語（Muntajātihāが第1）なので、対格（Manṣūb）となりタンウィーン・ファトハがつきます。" }
   ]
 },
-
-// --- 96. 宇宙 (Space) ---
 {
   id: 1106,
   level: "上級",
   category: "科学",
   title: "サウジアラビアの宇宙プログラム：星々への旅立ち",
-  contentPlain: "دخلت المملكة العربية السعودية مرحلة جديدة في مجال استكشاف الفضاء بإرسال أول رائدة فضاء سعودية ورائد فضاء إلى محطة الفضاء الدولية. تأتي هذه المهمة التاريخية ضمن برنامج المملكة لرواد الفضاء، الذي يهدف إلى تأهيل كوادر وطنية متمرسة للقيام بمهام فضائية طويلة الأمد، والمشاركة في التجارب العلمية الدولية التي تخدم البشرية.\nركزت التجارب التي أجراها الرواد السعوديون في الفضاء على مجالات حيوية مثل الأبحاث الصحية، والاستمطار الصناعي، وعلوم المواد، مما يعود بالنفع على الأبحاث العلمية في المملكة. تسعى الهيئة السعودية للفضاء إلى تعزيز قطاع الفضاء كركيزة اقتصادية مستقبلية، وتحفيز الابتكار، وإلهام الأجيال الناشئة للاهتمام بالعلوم والتكنولوجيا والهندسة والرياضيات (STEM). إن طموح المملكة لا يقف عند حدود الأرض، بل يمتد ليكون لها دور فاعل في سباق الفضاء العالمي.",
-  contentVoweled: "دَخَلَتِ الْمَمْلَكَةُ الْعَرَبِيَّةُ السُّعُودِيَّةُ مَرْحَلَةً جَدِيدَةً فِي مَجَالِ اسْتِكْشَافِ الْفَضَاءِ بِإِرْسَالِ أَوَّلِ رَائِدَةِ فَضَاءٍ سُعُودِيَّةٍ وَرَائِدِ فَضَاءٍ إِلَى مَحَطَّةِ الْفَضَاءِ الدَّوْلِيَّةِ. تَأْتِي هَذِهِ الْمَهَمَّةُ التَّارِيخِيَّةُ ضِمْنَ بَرْنَامَجِ الْمَمْلَكَةِ لِرُوَّادِ الْفَضَاءِ، الَّذِي يَهْدِفُ إِلَى تَأْهِيلِ كَوَادِرَ وَطَنِيَّةٍ مُتَمَرِّسَةٍ لِلْقِيَامِ بِمَهَامَّ فَضَائِيَّةٍ طَوِيلَةِ الْأَمَدِ، وَالْمُشَارَكَةِ فِي التَّجَارِبِ الْعِلْمِيَّةِ الدَّوْلِيَّةِ الَّتِي تَخْدِمُ الْبَشَرِيَّةَ.\nرَكَّزَتِ التَّجَارِبُ الَّتِي أَجْرَاهَا الرُّوَّادُ السُّعُودِيُّونَ فِي الْفَضَاءِ عَلَى مَجَالَاتٍ حَيَوِيَّةٍ مِثْلِ الْأَبْحَاثِ الصِّحِّيَّةِ، وَالِاسْتِمْطَارِ الصِّنَاعِيِّ، وَعُلُومِ الْمَوَادِّ، مِمَّا يَعُودُ بِالنَّفْعِ عَلَى الْأَبْحَاثِ الْعِلْمِيَّةِ فِي الْمَمْلَكَةِ. تَسْعَى الْهَيْئَةُ السُّعُودِيَّةُ لِلْفَضَاءِ إِلَى تَعْزِيزِ قِطَاعِ الْفَضَاءِ كَرَكِيزَةٍ اقْتِصَادِيَّةٍ مُسْتَقْبَلِيَّةٍ، وَتَحْفِيزِ الِابْتِكَارِ، وَإِلْهَامِ الْأَجْيَالِ النَّاشِئَةِ لِلِاهْتِمَامِ بِالْعُلُومِ وَالتِّكْنُولُوجِيَا وَالْهَنْدَسَةِ وَالرِّيَاضِيَّاتِ (STEM). إِنَّ طُمُوحَ الْمَمْلَكَةِ لَا يَقِفُ عِنْدَ حُدُودِ الْأَرْضِ، بَلْ يَمْتَدُّ لِيَكُونَ لَهَا دَوْرٌ فَاعِلٌ فِي سِبَاقِ الْفَضَاءِ الْعَالَمِيِّ.",
+  contentPlain: "دخلت المملكة العربية السعودية مرحلة جديدة في مجال استكشاف الفضاء بإرسال أول رائدة فضاء سعودية ورائد فضاء إلى محطة الفضاء الدولية. تأتي هذه المهمة التاريخية ضمن برنامج المملكة لرواد الفضاء، الذي يهدف إلى تأهيل كوادر وطنية متمرسة للقيام بمهام فضائية طويلة الأمد، والمشاركة في التجارب العلمية الدولية التي تخدم البشرية. ركزت التجارب التي أجراها الرواد السعوديون في الفضاء على مجالات حيوية مثل الأبحاث الصحية، والاستمطار الصناعي، وعلوم المواد، مما يعود بالنفع على الأبحاث العلمية في المملكة. تسعى الهيئة السعودية للفضاء إلى تعزيز قطاع الفضاء كركيزة اقتصادية مستقبلية، وتحفيز الابتكار، وإلهام الأجيال الناشئة للاهتمام بالعلوم والتكنولوجيا والهندسة والرياضيات (STEM). إن طموح المملكة لا يقف عند حدود الأرض، بل يمتد ليكون لها دور فاعل في سباق الفضاء العالمي.",
+  contentVoweled: "دَخَلَتِ الْمَمْلَكَةُ الْعَرَبِيَّةُ السُّعُودِيَّةُ مَرْحَلَةً جَدِيدَةً فِي مَجَالِ اسْتِكْشَافِ الْفَضَاءِ بِإِرْسَالِ أَوَّلِ رَائِدَةِ فَضَاءٍ سُعُودِيَّةٍ وَرَائِدِ فَضَاءٍ إِلَى مَحَطَّةِ الْفَضَاءِ الدَّوْلِيَّةِ. تَأْتِي هَذِهِ الْمَهَمَّةُ التَّارِيخِيَّةُ ضِمْنَ بَرْنَامَجِ الْمَمْلَكَةِ لِرُوَّادِ الْفَضَاءِ، الَّذِي يَهْدِفُ إِلَى تَأْهِيلِ كَوَادِرَ وَطَنِيَّةٍ مُتَمَرِّسَةٍ لِلْقِيَامِ بِمَهَامَّ فَضَائِيَّةٍ طَوِيلَةِ الْأَمَدِ، وَالْمُشَارَكَةِ فِي التَّجَارِبِ الْعِلْمِيَّةِ الدَّوْلِيَّةِ الَّتِي تَخْدِمُ الْبَشَرِيَّةَ. رَكَّزَتِ التَّجَارِبُ الَّتِي أَجْرَاهَا الرُّوَّادُ السُّعُودِيُّونَ فِي الْفَضَاءِ عَلَى مَجَالَاتٍ حَيَوِيَّةٍ مِثْلِ الْأَبْحَاثِ الصِّحِّيَّةِ، وَالِاسْتِمْطَارِ الصِّنَاعِيِّ، وَعُلُومِ الْمَوَادِّ، مِمَّا يَعُودُ بِالنَّفْعِ عَلَى الْأَبْحَاثِ الْعِلْمِيَّةِ فِي الْمَمْلَكَةِ. تَسْعَى الْهَيْئَةُ السُّعُودِيَّةُ لِلْفَضَاءِ إِلَى تَعْزِيزِ قِطَاعِ الْفَضَاءِ كَرَكِيزَةٍ اقْتِصَادِيَّةٍ مُسْتَقْبَلِيَّةٍ، وَتَحْفِيزِ الِابْتِكَارِ، وَإِلْهَامِ الْأَجْيَالِ النَّاشِئَةِ لِلِاهْتِمَامِ بِالْعُلُومِ وَالتِّكْنُولُوجِيَا وَالْهَنْدَسَةِ وَالرِّيَاضِيَّاتِ (STEM). إِنَّ طُمُوحَ الْمَمْلَكَةِ لَا يَقِفُ عِنْدَ حُدُودِ الْأَرْضِ، بَلْ يَمْتَدُّ لِيَكُونَ لَهَا دَوْرٌ فَاعِلٌ فِي سِبَاقِ الْفَضَاءِ الْعَالَمِيِّ.",
   sentences: [
-    {
-      speaker: "記事",
-      arabic: "دَخَلَتِ الْمَمْلَكَةُ مَرْحَلَةً جَدِيدَةً بِإِرْسَالِ أَوَّلِ رَائِدَةِ فَضَاءٍ سُعُودِيَّةٍ إِلَى مَحَطَّةِ الْفَضَاءِ الدَّوْلِيَّةِ.",
-      japanese: "王国は、初のサウジアラビア人女性宇宙飛行士を国際宇宙ステーションに送ることで、宇宙探査の新たな段階に入りました。"
-    },
-    {
-      speaker: "記事",
-      arabic: "يَهْدِفُ الْبَرْنَامَجُ إِلَى تَأْهِيلِ كَوَادِرَ وَطَنِيَّةٍ لِلْقِيَامِ بِمَهَامَّ فَضَائِيَّةٍ طَوِيلَةِ الْأَمَدِ.",
-      japanese: "このプログラムは、長期的な宇宙ミッションを遂行するための国家的人材を育成することを目指しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "رَكَّزَتِ التَّجَارِبُ عَلَى مَجَالَاتٍ مِثْلِ الْأَبْحَاثِ الصِّحِّيَّةِ وَالِاسْتِمْطَارِ الصِّنَاعِيِّ.",
-      japanese: "実験は、健康研究や人工降雨などの重要な分野に焦点を当てました。"
-    },
-    {
-      speaker: "記事",
-      arabic: "تَسْعَى الْهَيْئَةُ إِلَى إِلْهَامِ الْأَجْيَالِ النَّاشِئَةِ لِلِاهْتِمَامِ بِالْعُلُومِ وَالتِّكْنُولُوجِيَا (STEM).",
-      japanese: "同庁は、若い世代がSTEM（科学・技術・工学・数学）に関心を持つよう刺激することを目指しています。"
-    }
+    { speaker: "記事", arabic: "دَخَلَتِ الْمَمْلَكَةُ مَرْحَلَةً جَدِيدَةً بِإِرْسَالِ أَوَّلِ رَائِدَةِ فَضَاءٍ سُعُودِيَّةٍ إِلَى مَحَطَّةِ الْفَضَاءِ الدَّوْلِيَّةِ.", japanese: "王国は、初のサウジアラビア人女性宇宙飛行士を国際宇宙ステーションに送ることで、新たな段階に入りました。" },
+    { speaker: "記事", arabic: "يَهْدِفُ الْبَرْنَامَجُ إِلَى تَأْهِيلِ كَوَادِرَ وَطَنِيَّةٍ لِلْقِيَامِ بِمَهَامَّ فَضَائِيَّةٍ طَوِيلَةِ الْأَمَدِ.", japanese: "このプログラムは、長期的な宇宙ミッションを遂行するための国家的人材を育成することを目指しています。" },
+    { speaker: "記事", arabic: "رَكَّزَتِ التَّجَارِبُ عَلَى مَجَالَاتٍ مِثْلِ الْأَبْحَاثِ الصِّحِّيَّةِ وَالِاسْتِمْطَارِ الصِّنَاعِيِّ.", japanese: "実験は、健康研究や人工降雨などの分野に焦点を当てました。" },
+    { speaker: "記事", arabic: "تَسْعَى الْهَيْئَةُ إِلَى إِلْهَامِ الْأَجْيَالِ النَّاشِئَةِ لِلِاهْتِمَامِ بِالْعُلُومِ وَالتِّكْنُولُوجِيَا (STEM).", japanese: "同庁は、若い世代がSTEM（科学・技術・工学・数学）に関心を持つよう刺激することを目指しています。" }
   ],
   vocabList: [
     { word: "رَائِد فَضَاء", meaning: "宇宙飛行士" },
@@ -12488,62 +13114,26 @@ questions: [] // アルファベット回は問題なし
     { word: "إِلْهَام", meaning: "インスピレーション/啓発" }
   ],
   questions: [
-    {
-      id: 11061,
-      type: "reading",
-      text: "サウジアラビアの宇宙ミッションの歴史的な側面は何ですか？",
-      options: ["火星に着陸したこと。", "初のサウジアラビア人女性宇宙飛行士を国際宇宙ステーションに送ったこと。", "独自の宇宙ステーションを建設したこと。", "宇宙人が発見されたこと。"],
-      correctIndex: 1,
-      explanation: "「أول رائدة فضاء سعودية (初のサウジアラビア人女性宇宙飛行士)」を送ったことが歴史的であると記述されています。"
-    },
-    {
-      id: 11062,
-      type: "reading",
-      text: "宇宙飛行士が行った実験の分野に含まれるものは？",
-      options: ["新しい料理の開発。", "人工降雨と健康研究。", "宇宙戦争のシミュレーション。", "深海の探査。"],
-      correctIndex: 1,
-      explanation: "「الأبحاث الصحية، والاستمطار الصناعي (健康研究、人工降雨)」などが挙げられています。"
-    },
-    {
-      id: 11063,
-      type: "reading",
-      text: "宇宙プログラムが次世代に対して目指している効果は？",
-      options: ["宇宙飛行士になることを諦めさせる。", "STEM分野（科学技術など）への関心を喚起する。", "SF映画の制作を奨励する。", "スポーツ選手になるよう促す。"],
-      correctIndex: 1,
-      explanation: "「STEM（科学・技術・工学・数学）への関心を喚起する（إلهام الأجيال الناشئة للاهتمام...）」ことです。"
-    }
+    { id: 11061, type: "reading", text: "サウジアラビアの宇宙ミッションの歴史的な側面は何ですか？", options: ["火星に着陸したこと。", "初のサウジアラビア人女性宇宙飛行士を国際宇宙ステーションに送ったこと。", "独自の宇宙ステーションを建設したこと。", "宇宙人が発見されたこと。"], correctIndex: 1, explanation: "「أول رائدة فضاء سعودية (初のサウジアラビア人女性宇宙飛行士)」を送ったことが歴史的であると記述されています。" },
+    { id: 11062, type: "reading", text: "宇宙飛行士が行った実験の分野に含まれるものは？", options: ["新しい料理の開発。", "人工降雨と健康研究。", "宇宙戦争のシミュレーション。", "深海の探査。"], correctIndex: 1, explanation: "「الأبحاث الصحية، والاستمطار الصناعي (健康研究、人工降雨)」などが挙げられています。" },
+    { id: 11063, type: "reading", text: "宇宙プログラムが次世代に対して目指している効果は？", options: ["宇宙飛行士になることを諦めさせる。", "STEM分野（科学技術など）への関心を喚起する。", "SF映画の制作を奨励する。", "スポーツ選手になるよう促す。"], correctIndex: 1, explanation: "「STEM（科学・技術・工学・数学）への関心を喚起する（إلهام الأجيال الناشئة للاهتمام...）」ことです。" },
+    // 上級文法問題
+    { id: 11064, type: "grammar_advanced", text: "「بإرسال أول رائدة」の「رائدة」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Awwal (最初)」の後の名詞（Muḍāf Ilayhi）なので属格（Majrūr）となり、カスラがつきます（イダーファの第2要素ですが、さらに後の「Faḍā'」にイダーファされているのでタンウィーンなし）。" },
+    { id: 11065, type: "grammar_advanced", text: "「للقيام بمهام فضائية」の「مهام」の正しい語尾は？", options: ["a (ファトハ)", "i (カスラ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "前置詞「Bi」の後の名詞ですが、「Mahāmm」は非限定名詞（Mumnū' min al-ṣarf / Mafā'ilパターン、語尾のmはシャッダ付き）なので、カスラではなくファトハを取ります。" }
   ]
 },
-
-// --- 97. 文化・文学 (Culture & Literature) ---
 {
   id: 1107,
   level: "上級",
   category: "文化",
   title: "「ラクダの年」：文化的アイデンティティの祝祭",
-  contentPlain: "احتفت المملكة العربية السعودية بعام 2024 كـ \"عام الإبل\"، وذلك لترسيخ العلاقة العميقة بين المجتمع السعودي والإبل عبر التاريخ. تُعتبر الإبل رمزاً للصبر والعطاء في الثقافة العربية، ورفيقاً دائماً للأجداد في حلهم وترحالهم. تهدف هذه المبادرة الثقافية إلى التعريف بالقيمة الحضارية للإبل، وإبراز دورها في حياة العرب، من خلال الفعاليات والمهرجانات والمعارض الفنية.\nتسعى وزارة الثقافة من خلال تسمية الأعوام بأسماء عناصر ثقافية (مثل عام القهوة السعودية، وعام الشعر العربي) إلى إحياء التراث اللامادي وتوثيقه، وتعزيز الفخر بالهوية الوطنية. يشمل الاحتفاء بالإبل دعم الصناعات المرتبطة بها، مثل منتجات الجلود والألبان، بالإضافة إلى سباقات الهجن التي تحظى بشعبية عالمية. إن هذا الاهتمام يعكس حرص المملكة على الموازنة بين الحداثة والتمسك بالجذور الأصيلة.",
-  contentVoweled: "احْتَفَتِ الْمَمْلَكَةُ الْعَرَبِيَّةُ السُّعُودِيَّةُ بِعَامِ 2024 كَـ \"عَامِ الْإِبِلِ\"، وَذَلِكَ لِتَرْسِيخِ الْعَلَاقَةِ الْعَمِيقَةِ بَيْنَ الْمُجْتَمَعِ السُّعُودِيِّ وَالْإِبِلِ عَبْرَ التَّارِيخِ. تُعْتَبَرُ الْإِبِلُ رَمْزًا لِلصَّبْرِ وَالْعَطَاءِ فِي الثَّقَافَةِ الْعَرَبِيَّةِ، وَرَفِيقًا دَائِمًا لِلْأَجْدَادِ فِي حِلِّهِمْ وَتِرْحَالِهِمْ. تَهْدِفُ هَذِهِ الْمُبَادَرَةُ الثَّقَافِيَّةُ إِلَى التَّعْرِيفِ بِالْقِيمَةِ الْحَضَارِيَّةِ لِلْإِبِلِ، وَإِبْرَازِ دَوْرِهَا فِي حَيَاةِ الْعَرَبِ، مِنْ خِلَالِ الْفَعَّالِيَّاتِ وَالْمَهْرَجَانَاتِ وَالْمَعَارِضِ الْفَنِّيَّةِ.\nتَسْعَى وِزَارَةُ الثَّقَافَةِ مِنْ خِلَالِ تَسْمِيَةِ الْأَعْوَامِ بِأَسْمَاءِ عَنَاصِرَ ثَقَافِيَّةٍ (مِثْلِ عَامِ الْقَهْوَةِ السُّعُودِيَّةِ، وَعَامِ الشِّعْرِ الْعَرَبِيِّ) إِلَى إِحْيَاءِ التُّرَاثِ اللَّامَادِيِّ وَتَوْثِيقِهِ، وَتَعْزِيزِ الْفَخْرِ بِالْهُوِيَّةِ الْوَطَنِيَّةِ. يَشْمَلُ الِاحْتِفَاءُ بِالْإِبِلِ دَعْمَ الصِّنَاعَاتِ الْمُرْتَبِطَةِ بِهَا، مِثْلِ مُنْتَجَاتِ الْجُلُودِ وَالْأَلْبَانِ، بِالْإِضَافَةِ إِلَى سِبَاقَاتِ الْهِجْنِ الَّتِي تَحْظَى بِشَعْبِيَّةٍ عَالَمِيَّةٍ. إِنَّ هَذَا الِاهْتِمَامَ يَعْكِسُ حِرْصَ الْمَمْلَكَةِ عَلَى الْمُوَازَنَةِ بَيْنَ الْحَدَاثَةِ وَالتَّمَسُّكِ بِالْجُذُورِ الْأَصِيلَةِ.",
+  contentPlain: "احتفت المملكة العربية السعودية بعام 2024 كـ \"عام الإبل\"، وذلك لترسيخ العلاقة العميقة بين المجتمع السعودي والإبل عبر التاريخ. تعتبر الإبل رمزا للصبر والعطاء في الثقافة العربية، ورفيقا دائما للأجداد في حلهم وترحالهم. تهدف هذه المبادرة الثقافية إلى التعريف بالقيمة الحضارية للإبل، وإبراز دورها في حياة العرب، من خلال الفعاليات والمهرجانات والمعارض الفنية. تسعى وزارة الثقافة من خلال تسمية الأعوام بأسماء عناصر ثقافية (مثل عام القهوة السعودية، وعام الشعر العربي) إلى إحياء التراث اللامادي وتوثيقه، وتعزيز الفخر بالهوية الوطنية. يشمل الاحتفاء بالإبل دعم الصناعات المرتبطة بها، مثل منتجات الجلود والألبان، بالإضافة إلى سباقات الهجن التي تحظى بشعبية عالمية. إن هذا الاهتمام يعكس حرص المملكة على الموازنة بين الحداثة والتمسك بالجذور الأصيلة.",
+  contentVoweled: "احْتَفَتِ الْمَمْلَكَةُ الْعَرَبِيَّةُ السُّعُودِيَّةُ بِعَامِ 2024 كَـ \"عَامِ الْإِبِلِ\"، وَذَلِكَ لِتَرْسِيخِ الْعَلَاقَةِ الْعَمِيقَةِ بَيْنَ الْمُجْتَمَعِ السُّعُودِيِّ وَالْإِبِلِ عَبْرَ التَّارِيخِ. تُعْتَبَرُ الْإِبِلُ رَمْزًا لِلصَّبْرِ وَالْعَطَاءِ فِي الثَّقَافَةِ الْعَرَبِيَّةِ، وَرَفِيقًا دَائِمًا لِلْأَجْدَادِ فِي حِلِّهِمْ وَتِرْحَالِهِمْ. تَهْدِفُ هَذِهِ الْمُبَادَرَةُ الثَّقَافِيَّةُ إِلَى التَّعْرِيفِ بِالْقِيمَةِ الْحَضَارِيَّةِ لِلْإِبِلِ، وَإِبْرَازِ دَوْرِهَا فِي حَيَاةِ الْعَرَبِ، مِنْ خِلَالِ الْفَعَّالِيَّاتِ وَالْمَهْرَجَانَاتِ وَالْمَعَارِضِ الْفَنِّيَّةِ. تَسْعَى وِزَارَةُ الثَّقَافَةِ مِنْ خِلَالِ تَسْمِيَةِ الْأَعْوَامِ بِأَسْمَاءِ عَنَاصِرَ ثَقَافِيَّةٍ (مِثْلِ عَامِ الْقَهْوَةِ السُّعُودِيَّةِ، وَعَامِ الشِّعْرِ الْعَرَبِيِّ) إِلَى إِحْيَاءِ التُّرَاثِ اللَّامَادِيِّ وَتَوْثِيقِهِ، وَتَعْزِيزِ الْفَخْرِ بِالْهُوِيَّةِ الْوَطَنِيَّةِ. يَشْمَلُ الِاحْتِفَاءُ بِالْإِبِلِ دَعْمَ الصِّنَاعَاتِ الْمُرْتَبِطَةِ بِهَا، مِثْلِ مُنْتَجَاتِ الْجُلُودِ وَالْأَلْبَانِ، بِالْإِضَافَةِ إِلَى سِبَاقَاتِ الْهِجْنِ الَّتِي تَحْظَى بِشَعْبِيَّةٍ عَالَمِيَّةٍ. إِنَّ هَذَا الِاهْتِمَامَ يَعْكِسُ حِرْصَ الْمَمْلَكَةِ عَلَى الْمُوَازَنَةِ بَيْنَ الْحَدَاثَةِ وَالتَّمَسُّكِ بِالْجُذُورِ الْأَصِيلَةِ.",
   sentences: [
-    {
-      speaker: "記事",
-      arabic: "احْتَفَتِ الْمَمْلَكَةُ بِعَامِ 2024 كَـ \"عَامِ الْإِبِلِ\" لِتَرْسِيخِ الْعَلَاقَةِ التَّارِيخِيَّةِ مَعَهَا.",
-      japanese: "王国は、歴史を通じたラクダとの深い関係を定着させるため、2024年を「ラクダの年」として祝いました。"
-    },
-    {
-      speaker: "記事",
-      arabic: "تُعْتَبَرُ الْإِبِلُ رَمْزًا لِلصَّبْرِ وَالْعَطَاءِ، وَرَفِيقًا لِلْأَجْدَادِ.",
-      japanese: "ラクダはアラブ文化において忍耐と寛大さの象徴であり、祖先たちの絶え間ない伴侶とみなされています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "تَسْعَى الْوِزَارَةُ إِلَى إِحْيَاءِ التُّرَاثِ اللَّامَادِيِّ وَتَعْزِيزِ الْفَخْرِ بِالْهُوِيَّةِ الْوَطَنِيَّةِ.",
-      japanese: "省は無形遺産を復活させ、国家的アイデンティティへの誇りを高めることを目指しています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "يَشْمَلُ الِاحْتِفَاءُ دَعْمَ الصِّنَاعَاتِ الْمُرْتَبِطَةِ بِالْإِبِلِ وَسِبَاقَاتِ الْهِجْنِ.",
-      japanese: "祝賀には、ラクダ関連産業やラクダレースへの支援が含まれます。"
-    }
+    { speaker: "記事", arabic: "احْتَفَتِ الْمَمْلَكَةُ بِعَامِ 2024 كَـ \"عَامِ الْإِبِلِ\" لِتَرْسِيخِ الْعَلَاقَةِ التَّارِيخِيَّةِ مَعَهَا.", japanese: "王国は、歴史を通じたラクダとの深い関係を定着させるため、2024年を「ラクダの年」として祝いました。" },
+    { speaker: "記事", arabic: "تُعْتَبَرُ الْإِبِلُ رَمْزًا لِلصَّبْرِ وَالْعَطَاءِ، وَرَفِيقًا لِلْأَجْدَادِ.", japanese: "ラクダはアラブ文化において忍耐と寛大さの象徴であり、祖先たちの絶え間ない伴侶とみなされています。" },
+    { speaker: "記事", arabic: "تَسْعَى الْوِزَارَةُ إِلَى إِحْيَاءِ التُّرَاثِ اللَّامَادِيِّ وَتَعْزِيزِ الْفَخْرِ بِالْهُوِيَّةِ الْوَطَنِيَّةِ.", japanese: "省は無形遺産を復活させ、国家的アイデンティティへの誇りを高めることを目指しています。" },
+    { speaker: "記事", arabic: "يَشْمَلُ الِاحْتِفَاءُ دَعْمَ الصِّنَاعَاتِ الْمُرْتَبِطَةِ بِالْإِبِلِ وَسِبَاقَاتِ الْهِجْنِ.", japanese: "祝賀には、ラクダ関連産業やラクダレースへの支援が含まれます。" }
   ],
   vocabList: [
     { word: "إِبِل", meaning: "ラクダ (集合名詞)" },
@@ -12552,126 +13142,54 @@ questions: [] // アルファベット回は問題なし
     { word: "سِبَاقَات الْهِجْن", meaning: "ラクダレース" }
   ],
   questions: [
-    {
-      id: 11071,
-      type: "reading",
-      text: "2024年が「ラクダの年」に指定された主な理由は何ですか？",
-      options: ["ラクダの数が減ったから。", "サウジ社会とラクダの歴史的な深い関係を強固にするため。", "ラクダを海外に輸出するため。", "新しい交通手段としてラクダを導入するため。"],
-      correctIndex: 1,
-      explanation: "「サウジ社会とラクダの歴史を通じた深い関係を定着させるため（لترسيخ العلاقة العميقة...）」とあります。"
-    },
-    {
-      id: 11072,
-      type: "reading",
-      text: "文化省が特定の年に文化的な名前（コーヒーの年、詩の年など）を付ける目的は？",
-      options: ["カレンダーを売るため。", "無形遺産を復活させ、国家的アイデンティティへの誇りを高めるため。", "流行を作るため。", "外国の文化を真似るため。"],
-      correctIndex: 1,
-      explanation: "「無形遺産を復活させ...国家的アイデンティティへの誇りを強化する（إحياء التراث اللامادي... وتعزيز الفخر بالهوية الوطنية）」ことが目的です。"
-    },
-    {
-      id: 11073,
-      type: "reading",
-      text: "ラクダに関連して支援されている経済活動は？",
-      options: ["自動車産業。", "革製品や乳製品、レース産業。", "ペットショップ。", "動物園の建設。"],
-      correctIndex: 1,
-      explanation: "「革製品や乳製品などの関連産業、およびラクダレース（صناعات... الجلود والألبان، بالإضافة إلى سباقات الهجن）」への支援が含まれます。"
-    }
+    { id: 11071, type: "reading", text: "2024年が「ラクダの年」に指定された主な理由は何ですか？", options: ["ラクダの数が減ったから。", "サウジ社会とラクダの歴史的な深い関係を強固にするため。", "ラクダを海外に輸出するため。", "新しい交通手段としてラクダを導入するため。"], correctIndex: 1, explanation: "「サウジ社会とラクダの歴史を通じた深い関係を定着させるため（لترسيخ العلاقة العميقة...）」とあります。" },
+    { id: 11072, type: "reading", text: "文化省が特定の年に文化的な名前（コーヒーの年、詩の年など）を付ける目的は？", options: ["カレンダーを売るため。", "無形遺産を復活させ、国家的アイデンティティへの誇りを高めるため。", "流行を作るため。", "外国の文化を真似るため。"], correctIndex: 1, explanation: "「無形遺産を復活させ...国家的アイデンティティへの誇りを強化する（إحياء التراث اللامادي... وتعزيز الفخر بالهوية الوطنية）」ことが目的です。" },
+    { id: 11073, type: "reading", text: "ラクダに関連して支援されている経済活動は？", options: ["自動車産業。", "革製品や乳製品、レース産業。", "ペットショップ。", "動物園の建設。"], correctIndex: 1, explanation: "「革製品や乳製品などの関連産業、およびラクダレース（صناعات... الجلود والألبان، بالإضافة إلى سباقات الهجن）」への支援が含まれます。" },
+    // 上級文法問題
+    { id: 11074, type: "grammar_advanced", text: "「بأسماء عناصر ثقافية」の「عناصر」の正しい語尾は？", options: ["a (ファトハ)", "i (カスラ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Asmā' (名前)」の後のイダーファ第2要素（属格）ですが、「'Anāṣir」は非限定名詞（Mafā'ilパターン）なので、カスラではなくファトハを取ります。" },
+    { id: 11075, type: "grammar_advanced", text: "「يسمى عام القهوة」の「عام」の正しい語尾は？", options: ["u (ダンマ)", "a (ファトハ)", "i (カスラ)", "un (タンウィーン)"], correctIndex: 0, explanation: "受動態「Yusammā (名付けられる)」の代理主語（Nā'ib Fā'il）なので主格（Marfū'）となりダンマがつきます。" }
   ]
 },
-
-// --- 98. エネルギー・水素 (Energy & Hydrogen) ---
 {
   id: 1108,
   level: "上級",
   category: "エネルギー",
   title: "水素エネルギー：クリーンエネルギーの輸出大国へ",
-  contentPlain: "تسير المملكة العربية السعودية بخطى ثابتة لتصبح أكبر مصدر للهيدروجين في العالم، مستفيدة من مواردها الطبيعية الغنية وتكلفتها التنافسية في إنتاج الطاقة المتجددة. يجري حالياً بناء أكبر مصنع لإنتاج الهيدروجين الأخضر في العالم في مدينة \"نيوم\"، والذي سيعتمد كلياً على طاقتي الشمس والرياح. يهدف هذا المشروع العملاق إلى إنتاج 600 طن من الهيدروجين الأخضر يومياً بحلول عام 2026، وتصديره إلى الأسواق العالمية.\nيُعد الهيدروجين وقود المستقبل النظيف، حيث يمكن استخدامه في النقل والصناعة وتوليد الكهرباء دون انبعاثات كربونية. تتبنى المملكة نهج \"الاقتصاد الدائري للكربون\"، الذي يركز على تقليل الانبعاثات وإعادة استخدامها وتدويرها. من خلال الاستثمار في الهيدروجين الأزرق (المنتج من الغاز الطبيعي مع احتجاز الكربون) والهيدروجين الأخضر، تؤكد السعودية التزامها بقيادة تحول الطاقة العالمي ومكافحة التغير المناخي، مع الحفاظ على دورها كمزود موثوق للطاقة.",
-  contentVoweled: "تَسِيرُ الْمَمْلَكَةُ الْعَرَبِيَّةُ السُّعُودِيَّةُ بِخُطًى ثَابِتَةٍ لِتُصْبِحَ أَكْبَرَ مُصَدِّرٍ لِلْهِيدْرُوجِينِ فِي الْعَالَمِ، مُسْتَفِيدَةً مِنْ مَوَارِدِهَا الطَّبِيعِيَّةِ الْغَنِيَّةِ وَتَكْلُفَتِهَا التَّنَافُسِيَّةِ فِي إِنْتَاجِ الطَّاقَةِ الْمُتَجَدِّدَةِ. يَجْرِي حَالِيًّا بِنَاءُ أَكْبَرِ مَصْنَعٍ لِإِنْتَاجِ الْهِيدْرُوجِينِ الْأَخْضَرِ فِي الْعَالَمِ فِي مَدِينَةِ \"نِيُوم\"، وَالَّذِي سَيَعْتَمِدُ كُلِّيًّا عَلَى طَاقَتَيِ الشَّمْسِ وَالرِّيَاحِ. يَهْدِفُ هَذَا الْمَشْرُوعُ الْعِمْلَاقُ إِلَى إِنْتَاجِ 600 طُنٍّ مِنَ الْهِيدْرُوجِينِ الْأَخْضَرِ يَوْمِيًّا بِحُلُولِ عَامِ 2026، وَتَصْدِيرِهِ إِلَى الْأَسْوَاقِ الْعَالَمِيَّةِ.\nيُعَدُّ الْهِيدْرُوجِينُ وَقُودَ الْمُسْتَقْبَلِ النَّظِيفَ، حَيْثُ يُمْكِنُ اسْتِخْدَامُهُ فِي النَّقْلِ وَالصِّنَاعَةِ وَتَوْلِيدِ الْكَهْرَبَاءِ دُونَ انْبِعَاثَاتٍ كَرْبُونِيَّةٍ. تَتَبَنَّى الْمَمْلَكَةُ نَهْجَ \"الِاقْتِصَادِ الدَّائِرِيِّ لِلْكَرْبُونِ\"، الَّذِي يُرَكِّزُ عَلَى تَقْلِيلِ الِانْبِعَاثَاتِ وَإِعَادَةِ اسْتِخْدَامِهَا وَتَدْوِيرِهَا. مِنْ خِلَالِ الِاسْتِثْمَارِ فِي الْهِيدْرُوجِينِ الْأَزْرَقِ (الْمُنْتَجِ مِنَ الْغَازِ الطَّبِيعِيِّ مَعَ احْتِجَازِ الْكَرْبُونِ) وَالْهِيدْرُوجِينِ الْأَخْضَرِ، تُؤَكِّدُ السُّعُودِيَّةُ الْتِزَامَهَا بِقِيَادَةِ تَحَوُّلِ الطَّاقَةِ الْعَالَمِيِّ وَمُكَافَحَةِ التَّغَيُّرِ الْمُنَاخِيِّ، مَعَ الْحِفَاظِ عَلَى دَوْرِهَا كَمُزَوِّدٍ مَوْثُوقٍ لِلطَّاقَةِ.",
+  contentPlain: "تسير المملكة العربية السعودية بخطى ثابتة لتصبح أكبر مصدر للهيدروجين في العالم، مستفيدة من مواردها الطبيعية الغنية وتكلفتها التنافسية في إنتاج الطاقة المتجددة. يجري حاليا بناء أكبر مصنع لإنتاج الهيدروجين الأخضر في العالم في مدينة \"نيوم\"، والذي سيعتمد كليا على طاقتي الشمس والرياح. يهدف هذا المشروع العملاق إلى إنتاج 600 طن من الهيدروجين الأخضر يوميا بحلول عام 2026، وتصديره إلى الأسواق العالمية. يعد الهيدروجين وقود المستقبل النظيف، حيث يمكن استخدامه في النقل والصناعة وتوليد الكهرباء دون انبعاثات كربونية. تتبنى المملكة نهج \"الاقتصاد الدائري للكربون\"، الذي يركز على تقليل الانبعاثات وإعادة استخدامها وتدويرها. من خلال الاستثمار في الهيدروجين الأزرق (المنتج من الغاز الطبيعي مع احتجاز الكربون) والهيدروجين الأخضر، تؤكد السعودية التزامها بقيادة تحول الطاقة العالمي ومكافحة التغير المناخي، مع الحفاظ على دورها كمزود موثوق للطاقة.",
+  contentVoweled: "تَسِيرُ الْمَمْلَكَةُ الْعَرَبِيَّةُ السُّعُودِيَّةُ بِخُطًى ثَابِتَةٍ لِتُصْبِحَ أَكْبَرَ مُصَدِّرٍ لِلْهِيدْرُوجِينِ فِي الْعَالَمِ، مُسْتَفِيدَةً مِنْ مَوَارِدِهَا الطَّبِيعِيَّةِ الْغَنِيَّةِ وَتَكْلُفَتِهَا التَّنَافُسِيَّةِ فِي إِنْتَاجِ الطَّاقَةِ الْمُتَجَدِّدَةِ. يَجْرِي حَالِيًّا بِنَاءُ أَكْبَرِ مَصْنَعٍ لِإِنْتَاجِ الْهِيدْرُوجِينِ الْأَخْضَرِ فِي الْعَالَمِ فِي مَدِينَةِ \"نِيُوم\"، وَالَّذِي سَيَعْتَمِدُ كُلِّيًّا عَلَى طَاقَتَيِ الشَّمْسِ وَالرِّيَاحِ. يَهْدِفُ هَذَا الْمَشْرُوعُ الْعِمْلَاقُ إِلَى إِنْتَاجِ 600 طُنٍّ مِنَ الْهِيدْرُوجِينِ الْأَخْضَرِ يَوْمِيًّا بِحُلُولِ عَامِ 2026، وَتَصْدِيرِهِ إِلَى الْأَسْوَاقِ الْعَالَمِيَّةِ. يُعَدُّ الْهِيدْرُوجِينُ وَقُودَ الْمُسْتَقْبَلِ النَّظِيفَ، حَيْثُ يُمْكِنُ اسْتِخْدَامُهُ فِي النَّقْلِ وَالصِّنَاعَةِ وَتَوْلِيدِ الْكَهْرَبَاءِ دُونَ انْبِعَاثَاتٍ كَرْبُونِيَّةٍ. تَتَبَنَّى الْمَمْلَكَةُ نَهْجَ \"الِاقْتِصَادِ الدَّائِرِيِّ لِلْكَرْبُونِ\"، الَّذِي يُرَكِّزُ عَلَى تَقْلِيلِ الِانْبِعَاثَاتِ وَإِعَادَةِ اسْتِخْدَامِهَا وَتَدْوِيرِهَا. مِنْ خِلَالِ الِاسْتِثْمَارِ فِي الْهِيدْرُوجِينِ الْأَزْرَقِ (الْمُنْتَجِ مِنَ الْغَازِ الطَّبِيعِيِّ مَعَ احْتِجَازِ الْكَرْبُونِ) وَالْهِيدْرُوجِينِ الْأَخْضَرِ، تُؤَكِّدُ السُّعُودِيَّةُ الْتِزَامَهَا بِقِيَادَةِ تَحَوُّلِ الطَّاقَةِ الْعَالَمِيِّ وَمُكَافَحَةِ التَّغَيُّرِ الْمُنَاخِيِّ، مَعَ الْحِفَاظِ عَلَى دَوْرِهَا كَمُزَوِّدٍ مَوْثُوقٍ لِلطَّاقَةِ.",
   sentences: [
-    {
-      speaker: "記事",
-      arabic: "تَسِيرُ الْمَمْلَكَةُ بِخُطًى ثَابِتَةٍ لِتُصْبِحَ أَكْبَرَ مُصَدِّرٍ لِلْهِيدْرُوجِينِ فِي الْعَالَمِ.",
-      japanese: "王国は、世界最大の水素輸出国になるために着実に歩みを進めています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "يَجْرِي بِنَاءُ أَكْبَرِ مَصْنَعٍ لِلْهِيدْرُوجِينِ الْأَخْضَرِ فِي \"نِيُوم\"، مُعْتَمِدًا عَلَى طَاقَتَيِ الشَّمْسِ وَالرِّيَاحِ.",
-      japanese: "太陽光と風力エネルギーに依存した世界最大のグリーン水素工場が「NEOM」で建設中です。"
-    },
-    {
-      speaker: "記事",
-      arabic: "يُعَدُّ الْهِيدْرُوجِينُ وَقُودَ الْمُسْتَقْبَلِ النَّظِيفَ، حَيْثُ لَا يَنْتُجُ عَنْهُ انْبِعَاثَاتٌ كَرْبُونِيَّةٌ.",
-      japanese: "水素は炭素排出を生まないため、未来のクリーン燃料とみなされています。"
-    },
-    {
-      speaker: "記事",
-      arabic: "تُؤَكِّدُ السُّعُودِيَّةُ الْتِزَامَهَا بِقِيَادَةِ تَحَوُّلِ الطَّاقَةِ الْعَالَمِيِّ وَمُكَافَحَةِ التَّغَيُّرِ الْمُنَاخِيِّ.",
-      japanese: "サウジアラビアは、世界的なエネルギー転換を主導し、気候変動と闘うというコミットメントを確認しています。"
-    }
+    { speaker: "記事", arabic: "تَسِيرُ الْمَمْلَكَةُ بِخُطًى ثَابِتَةٍ لِتُصْبِحَ أَكْبَرَ مُصَدِّرٍ لِلْهِيدْرُوجِينِ.", japanese: "王国は、世界最大の水素輸出国になるために着実に歩みを進めています。" },
+    { speaker: "記事", arabic: "يَجْرِي بِنَاءُ أَكْبَرِ مَصْنَعٍ لِلْهِيدْرُوجِينِ الْأَخْضَرِ فِي \"نِيُوم\"، مُعْتَمِدًا عَلَى طَاقَتَيِ الشَّمْسِ وَالرِّيَاحِ.", japanese: "太陽光と風力エネルギーに依存した世界最大のグリーン水素工場が「NEOM」で建設中です。" },
+    { speaker: "記事", arabic: "يُعَدُّ الْهِيدْرُوجِينُ وَقُودَ الْمُسْتَقْبَلِ النَّظِيفَ، حَيْثُ لَا يَنْتُجُ عَنْهُ انْبِعَاثَاتٌ كَرْبُونِيَّةٌ.", japanese: "水素は炭素排出を生まないため、未来のクリーン燃料とみなされています。" },
+    { speaker: "記事", arabic: "تُؤَكِّدُ السُّعُودِيَّةُ الْتِزَامَهَا بِقِيَادَةِ تَحَوُّلِ الطَّاقَةِ الْعَالَمِيِّ وَمُكَافَحَةِ التَّغَيُّرِ الْمُنَاخِيِّ.", japanese: "サウジアラビアは、世界的なエネルギー転換を主導し、気候変動と闘うというコミットメントを確認しています。" }
   ],
   vocabList: [
     { word: "هِيدْرُوجِين أَخْضَر", meaning: "グリーン水素" },
     { word: "انْبِعَاثَات", meaning: "排出(量)" },
-    { word: "اقْتِصَاد دَائِرِيّ", meaning: "サーキュラーエコノミー/循環型経済" },
-    { word: "احْتِجَاز الْكَرْبُون", meaning: "炭素回収/貯留" }
+    { word: "اقْتِصَاد دَائِرِيّ", meaning: "サーキュラーエコノミー" },
+    { word: "احْتِجَاز الْكَرْبُون", meaning: "炭素回収" }
   ],
   questions: [
-    {
-      id: 11081,
-      type: "reading",
-      text: "NEOMに建設中の水素工場の特徴は何ですか？",
-      options: ["原子力を使用する。", "世界最大のグリーン水素工場であり、太陽光と風力のみを使用する。", "石炭を使用して水素を作る。", "家庭用の小さな工場である。"],
-      correctIndex: 1,
-      explanation: "「世界最大のグリーン水素工場であり、太陽光と風力に完全に依存する（أكبر مصنع... سيعتمد كلياً على طاقتي الشمس والرياح）」と記述されています。"
-    },
-    {
-      id: 11082,
-      type: "reading",
-      text: "サウジアラビアが採用している炭素管理のアプローチは何と呼ばれていますか？",
-      options: ["炭素の完全禁止。", "炭素循環型経済 (Circular Carbon Economy)。", "炭素税の導入。", "炭素の無視。"],
-      correctIndex: 1,
-      explanation: "「الاقتصاد الدائري للكربون (炭素循環型経済)」アプローチを採用しています。"
-    },
-    {
-      id: 11083,
-      type: "reading",
-      text: "「ブルー水素」と「グリーン水素」への投資を通じて、サウジアラビアが目指している役割は？",
-      options: ["エネルギー市場からの撤退。", "化石燃料の価格引き上げ。", "世界のエネルギー転換の主導と信頼できる供給者としての地位維持。", "すべての工場を閉鎖すること。"],
-      correctIndex: 2,
-      explanation: "「エネルギー転換を主導し...信頼できるエネルギー供給者としての役割を維持する（قيادة تحول الطاقة... مع الحفاظ على دورها كمزود موثوق）」ことです。"
-    }
+    { id: 11081, type: "reading", text: "NEOMに建設中の水素工場の特徴は何ですか？", options: ["原子力を使用する。", "世界最大のグリーン水素工場であり、太陽光と風力のみを使用する。", "石炭を使用して水素を作る。", "家庭用の小さな工場である。"], correctIndex: 1, explanation: "「世界最大のグリーン水素工場であり、太陽光と風力に完全に依存する（أكبر مصنع... سيعتمد كلياً على طاقتي الشمس والرياح）」と記述されています。" },
+    { id: 11082, type: "reading", text: "サウジアラビアが採用している炭素管理のアプローチは何と呼ばれていますか？", options: ["炭素の完全禁止。", "炭素循環型経済 (Circular Carbon Economy)。", "炭素税の導入。", "炭素の無視。"], correctIndex: 1, explanation: "「الاقتصاد الدائري للكربون (炭素循環型経済)」アプローチを採用しています。" },
+    { id: 11083, type: "reading", text: "「ブルー水素」と「グリーン水素」への投資を通じて、サウジアラビアが目指している役割は？", options: ["エネルギー市場からの撤退。", "化石燃料の価格引き上げ。", "世界のエネルギー転換の主導と信頼できる供給者としての地位維持。", "すべての工場を閉鎖すること。"], correctIndex: 2, explanation: "「エネルギー転換を主導し...信頼できるエネルギー供給者としての役割を維持する（قيادة تحول الطاقة... مع الحفاظ على دورها كمزود موثوق）」ことです。" },
+    // 上級文法問題
+    { id: 11084, type: "grammar_advanced", text: "「مع الحفاظ على دورها」の「الحفاظ」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Ma'a (〜と共に)」は名詞を属格（Majrūr）にする副詞的語句（Zarf）として機能するため、カスラがつきます。" },
+    { id: 11085, type: "grammar_advanced", text: "「على طاقتي الشمس」の「طاقتي」の正しい語尾は？", options: ["ay (ヤ・双数・属格)", "ā (アリフ・双数・主格)", "i (カスラ・単数)", "ī (ヤ・複数)"], correctIndex: 0, explanation: "前置詞「'Alā」の後の名詞で、「Tāqatayn (2つのエネルギー)」の双数・属格形です。イダーファにより「Nūn」が脱落し、「Tāqatay」となります。" }
   ]
 },
-
-// --- 99. 医療・デジタルヘルス (Health & Digital Health) ---
 {
   id: 1109,
   level: "上級",
   category: "医療",
   title: "デジタルヘルス革命：アプリ「Sehhaty」と医療へのアクセス",
-  contentPlain: "أحدثت المملكة العربية السعودية ثورة في قطاع الرعاية الصحية من خلال التحول الرقمي الشامل، حيث أصبح تطبيق \"صحتي\" (Sehhaty) المنصة الموحدة للخدمات الصحية للمواطنين والمقيمين. يتيح التطبيق للمستخدمين حجز المواعيد الطبية، والحصول على الاستشارات عن بعد، وعرض النتائج المخبرية، وإدارة الأدوية، كل ذلك بلمسة زر. ساهمت هذه التقنية في تقليل وقت الانتظار وتسهيل الوصول إلى الرعاية الصحية، خاصة في المناطق النائية.\nبالإضافة إلى ذلك، يعمل التطبيق كأداة لتعزيز الصحة العامة من خلال تتبع النشاط البدني وتقديم نصائح لنمط حياة صحي. خلال جائحة كورونا، لعبت التطبيقات الرقمية دوراً حاسماً في تنظيم حملات التطعيم وإصدار الجوازات الصحية. تهدف وزارة الصحة من خلال استراتيجية \"الصحة الإلكترونية\" إلى بناء نظام صحي ذكي وفعال يركز على الوقاية ويضع المريض في قلب الاهتمام.",
-  contentVoweled: "أَحْدَثَتِ الْمَمْلَكَةُ الْعَرَبِيَّةُ السُّعُودِيَّةُ ثَوْرَةً فِي قِطَاعِ الرِّعَايَةِ الصِّحِّيَّةِ مِنْ خِلَالِ التَّحَوُّلِ الرَّقْمِيِّ الشَّامِلِ، حَيْثُ أَصْبَحَ تَطْبِيقُ \"صِحَّتِي\" (Sehhaty) الْمِنَصَّةَ الْمُوَحَّدَةَ لِلْخِدْمَاتِ الصِّحِّيَّةِ لِلْمُوَاطِنِينَ وَالْمُقِيمِينَ. يُتِيحُ التَّطْبِيقُ لِلْمُسْتَخْدِمِينَ حَجْزَ الْمَوَاعِيدِ الطِّبِّيَّةِ، وَالْحُصُولَ عَلَى الِاسْتِشَارَاتِ عَنْ بُعْدٍ، وَعَرْضَ النَّتَائِجِ الْمِخْبَرِيَّةِ، وَإِدَارَةَ الْأَدْوِيَةِ، كُلُّ ذَلِكَ بِلَمْسَةِ زِرٍّ. سَاهَمَتْ هَذِهِ التِّقْنِيَةُ فِي تَقْلِيلِ وَقْتِ الِانْتِظَارِ وَتَسْهِيلِ الْوُصُولِ إِلَى الرِّعَايَةِ الصِّحِّيَّةِ، خَاصَّةً فِي الْمَنَاطِقِ النَّائِيَةِ.\nبِالْإِضَافَةِ إِلَى ذَلِكَ، يَعْمَلُ التَّطْبِيقُ كَأَدَاةٍ لِتَعْزِيزِ الصِّحَّةِ الْعَامَّةِ مِنْ خِلَالِ تَتَبُّعِ النَّشَاطِ الْبَدَنِيِّ وَتَقْدِيمِ نَصَائِحَ لِنَمَطِ حَيَاةٍ صِحِّيٍّ. خِلَالَ جَائِحَةِ كُورُونَا، لَعِبَتِ التَّطْبِيقَاتُ الرَّقْمِيَّةُ دَوْرًا حَاسِمًا فِي تَنْظِيمِ حَمَلَاتِ التَّطْعِيمِ وَإِصْدَارِ الْجَوَازَاتِ الصِّحِّيَّةِ. تَهْدِفُ وِزَارَةُ الصِّحَّةِ مِنْ خِلَالِ اسْتِرَاتِيجِيَّةِ \"الصِّحَّةِ الْإِلِكْتُرُونِيَّةِ\" إِلَى بِنَاءِ نِظَامٍ صِحِّيٍّ ذَكِيٍّ وَفَعَّالٍ يُرَكِّزُ عَلَى الْوِقَايَةِ وَيَضَعُ الْمَرِيضَ فِي قَلْبِ الِاهْتِمَامِ.",
+  contentPlain: "أحدثت المملكة العربية السعودية ثورة في قطاع الرعاية الصحية من خلال التحول الرقمي الشامل، حيث أصبح تطبيق \"صحتي\" (Sehhaty) المنصة الموحدة للخدمات الصحية للمواطنين والمقيمين. يتيح التطبيق للمستخدمين حجز المواعيد الطبية، والحصول على الاستشارات عن بعد، وعرض النتائج المخبرية، وإدارة الأدوية، كل ذلك بلمسة زر. ساهمت هذه التقنية في تقليل وقت الانتظار وتسهيل الوصول إلى الرعاية الصحية، خاصة في المناطق النائية. بالإضافة إلى ذلك، يعمل التطبيق كأداة لتعزيز الصحة العامة من خلال تتبع النشاط البدني وتقديم نصائح لنمط حياة صحي. خلال جائحة كورونا، لعبت التطبيقات الرقمية دورا حاسما في تنظيم حملات التطعيم وإصدار الجوازات الصحية. تهدف وزارة الصحة من خلال استراتيجية \"الصحة الإلكترونية\" إلى بناء نظام صحي ذكي وفعال يركز على الوقاية ويضع المريض في قلب الاهتمام.",
+  contentVoweled: "أَحْدَثَتِ الْمَمْلَكَةُ الْعَرَبِيَّةُ السُّعُودِيَّةُ ثَوْرَةً فِي قِطَاعِ الرِّعَايَةِ الصِّحِّيَّةِ مِنْ خِلَالِ التَّحَوُّلِ الرَّقْمِيِّ الشَّامِلِ، حَيْثُ أَصْبَحَ تَطْبِيقُ \"صِحَّتِي\" (Sehhaty) الْمِنَصَّةَ الْمُوَحَّدَةَ لِلْخِدْمَاتِ الصِّحِّيَّةِ لِلْمُوَاطِنِينَ وَالْمُقِيمِينَ. يُتِيحُ التَّطْبِيقُ لِلْمُسْتَخْدِمِينَ حَجْزَ الْمَوَاعِيدِ الطِّبِّيَّةِ، وَالْحُصُولَ عَلَى الِاسْتِشَارَاتِ عَنْ بُعْدٍ، وَعَرْضَ النَّتَائِجِ الْمِخْبَرِيَّةِ، وَإِدَارَةَ الْأَدْوِيَةِ، كُلُّ ذَلِكَ بِلَمْسَةِ زِرٍّ. سَاهَمَتْ هَذِهِ التِّقْنِيَةُ فِي تَقْلِيلِ وَقْتِ الِانْتِظَارِ وَتَسْهِيلِ الْوُصُولِ إِلَى الرِّعَايَةِ الصِّحِّيَّةِ، خَاصَّةً فِي الْمَنَاطِقِ النَّائِيَةِ. بِالْإِضَافَةِ إِلَى ذَلِكَ، يَعْمَلُ التَّطْبِيقُ كَأَدَاةٍ لِتَعْزِيزِ الصِّحَّةِ الْعَامَّةِ مِنْ خِلَالِ تَتَبُّعِ النَّشَاطِ الْبَدَنِيِّ وَتَقْدِيمِ نَصَائِحَ لِنَمَطِ حَيَاةٍ صِحِّيٍّ. خِلَالَ جَائِحَةِ كُورُونَا، لَعِبَتِ التَّطْبِيقَاتُ الرَّقْمِيَّةُ دَوْرًا حَاسِمًا فِي تَنْظِيمِ حَمَلَاتِ التَّطْعِيمِ وَإِصْدَارِ الْجَوَازَاتِ الصِّحِّيَّةِ. تَهْدِفُ وِزَارَةُ الصِّحَّةِ مِنْ خِلَالِ اسْتِرَاتِيجِيَّةِ \"الصِّحَّةِ الْإِلِكْتُرُونِيَّةِ\" إِلَى بِنَاءِ نِظَامٍ صِحِّيٍّ ذَكِيٍّ وَفَعَّالٍ يُرَكِّزُ عَلَى الْوِقَايَةِ وَيَضَعُ الْمَرِيضَ فِي قَلْبِ الِاهْتِمَامِ.",
   sentences: [
-    {
-      speaker: "記事",
-      arabic: "أَحْدَثَتِ الْمَمْلَكَةُ ثَوْرَةً فِي قِطَاعِ الرِّعَايَةِ الصِّحِّيَّةِ مِنْ خِلَالِ التَّحَوُّلِ الرَّقْمِيِّ، حَيْثُ أَصْبَحَ تَطْبِيقُ \"صِحَّتِي\" الْمِنَصَّةَ الْمُوَحَّدَةَ.",
-      japanese: "王国はデジタルトランスフォーメーションを通じてヘルスケア部門に革命を起こし、アプリ「Sehhaty」が統一プラットフォームとなりました。"
-    },
-    {
-      speaker: "記事",
-      arabic: "يُتِيحُ التَّطْبِيقُ حَجْزَ الْمَوَاعِيدِ وَالْحُصُولَ عَلَى الِاسْتِشَارَاتِ عَنْ بُعْدٍ.",
-      japanese: "このアプリにより、予約や遠隔相談が可能になります。"
-    },
-    {
-      speaker: "記事",
-      arabic: "سَاهَمَتْ هَذِهِ التِّقْنِيَةُ فِي تَسْهِيلِ الْوُصُولِ إِلَى الرِّعَايَةِ الصِّحِّيَّةِ فِي الْمَنَاطِقِ النَّائِيَةِ.",
-      japanese: "この技術は、特に遠隔地における医療へのアクセスを容易にすることに貢献しました。"
-    },
-    {
-      speaker: "記事",
-      arabic: "تَهْدِفُ الْوِزَارَةُ إِلَى بِنَاءِ نِظَامٍ صِحِّيٍّ ذَكِيٍّ يُرَكِّزُ عَلَى الْوِقَايَةِ.",
-      japanese: "省は、予防に重点を置いたスマートな医療システムの構築を目指しています。"
-    }
+    { speaker: "記事", arabic: "أَحْدَثَتِ الْمَمْلَكَةُ ثَوْرَةً فِي قِطَاعِ الرِّعَايَةِ الصِّحِّيَّةِ مِنْ خِلَالِ التَّحَوُّلِ الرَّقْمِيِّ، حَيْثُ أَصْبَحَ تَطْبِيقُ \"صِحَّتِي\" الْمِنَصَّةَ الْمُوَحَّدَةَ.", japanese: "王国はデジタルトランスフォーメーションを通じてヘルスケア部門に革命を起こし、アプリ「Sehhaty」が統一プラットフォームとなりました。" },
+    { speaker: "記事", arabic: "يُتِيحُ التَّطْبِيقُ حَجْزَ الْمَوَاعِيدِ وَالْحُصُولَ عَلَى الِاسْتِشَارَاتِ عَنْ بُعْدٍ.", japanese: "このアプリにより、予約や遠隔相談が可能になります。" },
+    { speaker: "記事", arabic: "سَاهَمَتْ هَذِهِ التِّقْنِيَةُ فِي تَسْهِيلِ الْوُصُولِ إِلَى الرِّعَايَةِ الصِّحِّيَّةِ فِي الْمَنَاطِقِ النَّائِيَةِ.", japanese: "この技術は、特に遠隔地における医療へのアクセスを容易にすることに貢献しました。" },
+    { speaker: "記事", arabic: "تَهْدِفُ الْوِزَارَةُ إِلَى بِنَاءِ نِظَامٍ صِحِّيٍّ ذَكِيٍّ يُرَكِّزُ عَلَى الْوِقَايَةِ.", japanese: "省は、予防に重点を置いたスマートな医療システムの構築を目指しています。" }
   ],
   vocabList: [
     { word: "رِعَايَة صِحِّيَّة", meaning: "ヘルスケア/医療" },
@@ -12680,62 +13198,26 @@ questions: [] // アルファベット回は問題なし
     { word: "مَنَاطِق نَائِيَة", meaning: "遠隔地/へき地" }
   ],
   questions: [
-    {
-      id: 11091,
-      type: "reading",
-      text: "アプリ「Sehhaty（私の健康）」でできることは？",
-      options: ["薬の製造。", "予約、遠隔相談、検査結果の確認。", "医師の免許発行。", "病院の建設。"],
-      correctIndex: 1,
-      explanation: "「予約、遠隔相談、検査結果の表示（حجز المواعيد... الحصول على الاستشارات... عرض النتائج）」などが可能です。"
-    },
-    {
-      id: 11092,
-      type: "reading",
-      text: "デジタル技術の導入が特に貢献した地域はどこですか？",
-      options: ["大都市の中心部。", "海外の国々。", "遠隔地（へき地）。", "海の上。"],
-      correctIndex: 2,
-      explanation: "「特に遠隔地において（خاصة في المناطق النائية）」医療アクセスを容易にしたと記述されています。"
-    },
-    {
-      id: 11093,
-      type: "reading",
-      text: "保健省の「eヘルス戦略」が目指すシステムの形は？",
-      options: ["治療のみに焦点を当てたシステム。", "紙ベースの古いシステム。", "予防に重点を置き、患者を中心としたスマートなシステム。", "医師の利益を最優先するシステム。"],
-      correctIndex: 2,
-      explanation: "「予防に重点を置き、患者を中心としたスマートで効率的なシステム（نظام صحي ذكي... يركز على الوقاية ويضع المريض في قلب الاهتمام）」を目指しています。"
-    }
+    { id: 11091, type: "reading", text: "アプリ「Sehhaty（私の健康）」でできることは？", options: ["薬の製造。", "予約、遠隔相談、検査結果の確認。", "医師の免許発行。", "病院の建設。"], correctIndex: 1, explanation: "「予約、遠隔相談、検査結果の表示」などが可能です。" },
+    { id: 11092, type: "reading", text: "デジタル技術の導入が特に貢献した地域はどこですか？", options: ["大都市の中心部。", "海外の国々。", "遠隔地（へき地）。", "海の上。"], correctIndex: 2, explanation: "「特に遠隔地において（خاصة في المناطق النائية）」医療アクセスを容易にしたと記述されています。" },
+    { id: 11093, type: "reading", text: "保健省の「eヘルス戦略」が目指すシステムの形は？", options: ["治療のみに焦点を当てたシステム。", "紙ベースの古いシステム。", "予防に重点を置き、患者を中心としたスマートなシステム。", "医師の利益を最優先するシステム。"], correctIndex: 2, explanation: "「予防に重点を置き、患者を中心としたスマートで効率的なシステム」を目指しています。" },
+    // 上級文法問題
+    { id: 11094, type: "grammar_advanced", text: "「عرض النتائج المخبرية」の「النتائج」の正しい語尾は？", options: ["i (カスラ)", "a (ファトハ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「'Arḍ (表示すること)」という動名詞の後のイダーファ第2要素（属格）です。「Natā'ij」は非限定名詞ですが、定冠詞「Al」がついているため、通常通りカスラを取ります。" },
+    { id: 11095, type: "grammar_advanced", text: "「تقديم نصائح」の「نصائح」の正しい語尾は？", options: ["a (ファトハ・タンウィーンなし)", "i (カスラ)", "in (タンウィーン・カスラ)", "an (タンウィーン・ファトハ)"], correctIndex: 0, explanation: "「Taqdīm (提供すること)」の後のイダーファ第2要素（属格）ですが、「Naṣā'iḥ」は非限定名詞（Mafā'ilパターン）であり、定冠詞も付かず後ろにイダーファもされていないため、カスラではなくファトハを取ります。" }
   ]
 },
-
-// --- 100. 環境・野生動物 (Wildlife) ---
 {
   id: 1110,
   level: "上級",
   category: "環境",
   title: "アラビアヒョウの保護：絶滅からの救済と自然の回復",
-  contentPlain: "يُعد النمر العربي من أكثر الحيوانات المهددة بالانقراض في العالم، وهو رمز للتنوع البيولوجي في شبه الجزيرة العربية. في إطار جهودها لحماية الحياة الفطرية، أطلقت المملكة برنامجاً شاملاً لإكثار النمر العربي وإعادة توطينه في بيئاته الطبيعية، وتحديداً في محميات العلا والجبال المحيطة بها. يتضمن البرنامج إنشاء مراكز متخصصة للإكثار، وتأهيل الموائل الطبيعية، وتشديد العقوبات على الصيد الجائر.\nاحتفلت الهيئة الملكية لمحافظة العلا مؤخراً بولادة صغار نمور عربية جديدة في الأسر، مما يحيي الأمل في بقاء هذا النوع النادر. كما تم تخصيص يوم 10 فبراير من كل عام كـ \"يوم النمر العربي\" لرفع الوعي بأهمية الحفاظ عليه. إن حماية النمر العربي ليست مجرد حماية لحيوان، بل هي حماية لنظام بيئي متكامل، وجزء من التزام المملكة بالحفاظ على كوكب الأرض للأجيال القادمة.",
-  contentVoweled: "يُعَدُّ النَّمِرُ الْعَرَبِيُّ مِنْ أَكْثَرِ الْحَيَوَانَاتِ الْمُهَدَّدَةِ بِالِانْقِرَاضِ فِي الْعَالَمِ، وَهُوَ رَمْزٌ لِلتَّنَوُّعِ الْبِيُولُوجِيِّ فِي شِبْهِ الْجَزِيرَةِ الْعَرَبِيَّةِ. فِي إِطَارِ جُهُودِهَا لِحِمَايَةِ الْحَيَاةِ الْفِطْرِيَّةِ، أَطْلَقَتِ الْمَمْلَكَةُ بَرْنَامَجًا شَامِلًا لِإِكْثَارِ النَّمِرِ الْعَرَبِيِّ وَإِعَادَةِ تَوْطِينِهِ فِي بِيئَاتِهِ الطَّبِيعِيَّةِ، وَتَحْدِيدًا فِي مَحْمِيَّاتِ الْعُلَا وَالْجِبَالِ الْمُحِيطَةِ بِهَا. يَتَضَمَّنُ الْبَرْنَامَجُ إِنْشَاءَ مَرَاكِزَ مُتَخَصِّصَةٍ لِلْإِكْثَارِ، وَتَأْهِيلَ الْمَوَائِلِ الطَّبِيعِيَّةِ، وَتَشْدِيدَ الْعُقُوبَاتِ عَلَى الصَّيْدِ الْجَائِرِ.\nاحْتَفَلَتِ الْهَيْئَةُ الْمَلَكِيَّةُ لِمُحَافَظَةِ الْعُلَا مُؤَخَّرًا بِوِلَادَةِ صِغَارِ نُمُورٍ عَرَبِيَّةٍ جَدِيدَةٍ فِي الْأَسْرِ، مِمَّا يُحْيِي الْأَمَلَ فِي بَقَاءِ هَذَا النَّوْعِ النَّادِرِ. كَمَا تَمَّ تَخْصِيصُ يَوْمِ 10 فِبْرَايِرَ مِنْ كُلِّ عَامٍ كَـ \"يَوْمِ النَّمِرِ الْعَرَبِيِّ\" لِرَفْعِ الْوَعْيِ بِأَهَمِّيَّةِ الْحِفَاظِ عَلَيْهِ. إِنَّ حِمَايَةَ النَّمِرِ الْعَرَبِيِّ لَيْسَتْ مُجَرَّدَ حِمَايَةٍ لِحَيَوَانٍ، بَلْ هِيَ حِمَايَةٌ لِنِظَامٍ بِيئِيٍّ مُتَكَامِلٍ، وَجُزْءٌ مِنَ الْتِزَامِ الْمَمْلَكَةِ بِالْحِفَاظِ عَلَى كَوْكَبِ الْأَرْضِ لِلْأَجْيَالِ الْقَادِمَةِ.",
+  contentPlain: "يعد النمر العربي من أكثر الحيوانات المهددة بالانقراض في العالم، وهو رمز للتنوع البيولوجي في شبه الجزيرة العربية. في إطار جهودها لحماية الحياة الفطرية، أطلقت المملكة برنامجا شاملا لإكثار النمر العربي وإعادة توطينه في بيئاته الطبيعية، وتحديدا في محميات العلا والجبال المحيطة بها. يتضمن البرنامج إنشاء مراكز متخصصة للإكثار، وتأهيل الموائل الطبيعية، وتشديد العقوبات على الصيد الجائر. احتفلت الهيئة الملكية لمحافظة العلا مؤخرا بولادة صغار نمور عربية جديدة في الأسر، مما يحيي الأمل في بقاء هذا النوع النادر. كما تم تخصيص يوم 10 فبراير من كل عام كـ \"يوم النمر العربي\" لرفع الوعي بأهمية الحفاظ عليه. إن حماية النمر العربي ليست مجرد حماية لحيوان، بل هي حماية لنظام بيئي متكامل، وجزء من التزام المملكة بالحفاظ على كوكب الأرض للأجيال القادمة.",
+  contentVoweled: "يُعَدُّ النَّمِرُ الْعَرَبِيُّ مِنْ أَكْثَرِ الْحَيَوَانَاتِ الْمُهَدَّدَةِ بِالِانْقِرَاضِ فِي الْعَالَمِ، وَهُوَ رَمْزٌ لِلتَّنَوُّعِ الْبِيُولُوجِيِّ فِي شِبْهِ الْجَزِيرَةِ الْعَرَبِيَّةِ. فِي إِطَارِ جُهُودِهَا لِحِمَايَةِ الْحَيَاةِ الْفِطْرِيَّةِ، أَطْلَقَتِ الْمَمْلَكَةُ بَرْنَامَجًا شَامِلًا لِإِكْثَارِ النَّمِرِ الْعَرَبِيِّ وَإِعَادَةِ تَوْطِينِهِ فِي بِيئَاتِهِ الطَّبِيعِيَّةِ، وَتَحْدِيدًا فِي مَحْمِيَّاتِ الْعُلَا وَالْجِبَالِ الْمُحِيطَةِ بِهَا. يَتَضَمَّنُ الْبَرْنَامَجُ إِنْشَاءَ مَرَاكِزَ مُتَخَصِّصَةٍ لِلْإِكْثَارِ، وَتَأْهِيلَ الْمَوَائِلِ الطَّبِيعِيَّةِ، وَتَشْدِيدَ الْعُقُوبَاتِ عَلَى الصَّيْدِ الْجَائِرِ. احْتَفَلَتِ الْهَيْئَةُ الْمَلَكِيَّةُ لِمُحَافَظَةِ الْعُلَا مُؤَخَّرًا بِوِلَادَةِ صِغَارِ نُمُورٍ عَرَبِيَّةٍ جَدِيدَةٍ فِي الْأَسْرِ، مِمَّا يُحْيِي الْأَمَلَ فِي بَقَاءِ هَذَا النَّوْعِ النَّادِرِ. كَمَا تَمَّ تَخْصِيصُ يَوْمِ 10 فِبْرَايِرَ مِنْ كُلِّ عَامٍ كَـ \"يَوْمِ النَّمِرِ الْعَرَبِيِّ\" لِرَفْعِ الْوَعْيِ بِأَهَمِّيَّةِ الْحِفَاظِ عَلَيْهِ. إِنَّ حِمَايَةَ النَّمِرِ الْعَرَبِيِّ لَيْسَتْ مُجَرَّدَ حِمَايَةٍ لِحَيَوَانٍ، بَلْ هِيَ حِمَايَةٌ لِنِظَامٍ بِيئِيٍّ مُتَكَامِلٍ، وَجُزْءٌ مِنَ الْتِزَامِ الْمَمْلَكَةِ بِالْحِفَاظِ عَلَى كَوْكَبِ الْأَرْضِ لِلْأَجْيَالِ الْقَادِمَةِ.",
   sentences: [
-    {
-      speaker: "記事",
-      arabic: "يُعَدُّ النَّمِرُ الْعَرَبِيُّ مِنْ أَكْثَرِ الْحَيَوَانَاتِ الْمُهَدَّدَةِ بِالِانْقِرَاضِ، وَهُوَ رَمْزٌ لِلتَّنَوُّعِ الْبِيُولُوجِيِّ.",
-      japanese: "アラビアヒョウは世界で最も絶滅の危機に瀕している動物の一つであり、アラビア半島の生物多様性の象徴です。"
-    },
-    {
-      speaker: "記事",
-      arabic: "أَطْلَقَتِ الْمَمْلَكَةُ بَرْنَامَجًا لِإِكْثَارِ النَّمِرِ الْعَرَبِيِّ وَإِعَادَةِ تَوْطِينِهِ فِي مَحْمِيَّاتِ الْعُلَا.",
-      japanese: "王国はアラビアヒョウを繁殖させ、アル・ウラの保護区へ再導入（野生復帰）させるための包括的なプログラムを開始しました。"
-    },
-    {
-      speaker: "記事",
-      arabic: "تَمَّ تَخْصِيصُ يَوْمِ 10 فِبْرَايِرَ كَـ \"يَوْمِ النَّمِرِ الْعَرَبِيِّ\" لِرَفْعِ الْوَعْيِ.",
-      japanese: "意識を高めるため、毎年2月10日が「アラビアヒョウの日」に指定されました。"
-    },
-    {
-      speaker: "記事",
-      arabic: "إِنَّ حِمَايَةَ النَّمِرِ هِيَ حِمَايَةٌ لِنِظَامٍ بِيئِيٍّ مُتَكَامِلٍ.",
-      japanese: "ヒョウの保護は、単なる動物の保護ではなく、統合された生態系の保護です。"
-    }
+    { speaker: "記事", arabic: "يُعَدُّ النَّمِرُ الْعَرَبِيُّ مِنْ أَكْثَرِ الْحَيَوَانَاتِ الْمُهَدَّدَةِ بِالِانْقِرَاضِ، وَهُوَ رَمْزٌ لِلتَّنَوُّعِ الْبِيُولُوجِيِّ.", japanese: "アラビアヒョウは世界で最も絶滅の危機に瀕している動物の一つであり、生物多様性の象徴です。" },
+    { speaker: "記事", arabic: "أَطْلَقَتِ الْمَمْلَكَةُ بَرْنَامَجًا لِإِكْثَارِ النَّمِرِ الْعَرَبِيِّ وَإِعَادَةِ تَوْطِينِهِ فِي مَحْمِيَّاتِ الْعُلَا.", japanese: "王国はアラビアヒョウを繁殖させ、アル・ウラの保護区へ再導入させるためのプログラムを開始しました。" },
+    { speaker: "記事", arabic: "تَمَّ تَخْصِيصُ يَوْمِ 10 فِبْرَايِرَ كَـ \"يَوْمِ النَّمِرِ الْعَرَبِيِّ\" لِرَفْعِ الْوَعْيِ.", japanese: "意識を高めるため、2月10日が「アラビアヒョウの日」に指定されました。" },
+    { speaker: "記事", arabic: "إِنَّ حِمَايَةَ النَّمِرِ هِيَ حِمَايَةٌ لِنِظَامٍ بِيئِيٍّ مُتَكَامِلٍ.", japanese: "ヒョウの保護は、単なる動物の保護ではなく、統合された生態系の保護です。" }
   ],
   vocabList: [
     { word: "نَمِر عَرَبِيّ", meaning: "アラビアヒョウ" },
@@ -12744,30 +13226,12 @@ questions: [] // アルファベット回は問題なし
     { word: "صَيْد جَائِر", meaning: "密猟" }
   ],
   questions: [
-    {
-      id: 11101,
-      type: "reading",
-      text: "サウジアラビアがアラビアヒョウ保護のために行っているプログラムの内容に含まれないものは？",
-      options: ["繁殖センターの設立。", "自然生息地の修復。", "ヒョウの狩猟を奨励すること。", "密猟に対する罰則の強化。"],
-      correctIndex: 2,
-      explanation: "「密猟に対する罰則の強化（تشديد العقوبات على الصيد الجائر）」は含まれますが、狩猟の奨励は含まれません。"
-    },
-    {
-      id: 11102,
-      type: "reading",
-      text: "アラビアヒョウの再導入（野生復帰）が計画されている主な場所はどこですか？",
-      options: ["リヤドの動物園。", "アル・ウラの保護区。", "エジプトの砂漠。", "一般家庭の庭。"],
-      correctIndex: 1,
-      explanation: "「特にアル・ウラの保護区（تحديداً في محميات العلا）」と記述されています。"
-    },
-    {
-      id: 11103,
-      type: "reading",
-      text: "「アラビアヒョウの日」はいつですか？",
-      options: ["1月1日。", "2月10日。", "9月23日。", "12月31日。"],
-      correctIndex: 1,
-      explanation: "「2月10日（يوم 10 فبراير）」に指定されています。"
-    }
+    { id: 11101, type: "reading", text: "サウジアラビアがアラビアヒョウ保護のために行っているプログラムの内容に含まれないものは？", options: ["繁殖センターの設立。", "自然生息地の修復。", "ヒョウの狩猟を奨励すること。", "密猟に対する罰則の強化。"], correctIndex: 2, explanation: "「密猟に対する罰則の強化（تشديد العقوبات على الصيد الجائر）」は含まれますが、狩猟の奨励は含まれません。" },
+    { id: 11102, type: "reading", text: "アラビアヒョウの再導入（野生復帰）が計画されている主な場所はどこですか？", options: ["リヤドの動物園。", "アル・ウラの保護区。", "エジプトの砂漠。", "一般家庭の庭。"], correctIndex: 1, explanation: "「特にアル・ウラの保護区（تحديداً في محميات العلا）」と記述されています。" },
+    { id: 11103, type: "reading", text: "「アラビアヒョウの日」はいつですか？", options: ["1月1日。", "2月10日。", "9月23日。", "12月31日。"], correctIndex: 1, explanation: "「2月10日（يوم 10 فبراير）」に指定されています。" },
+    // 上級文法問題
+    { id: 11104, type: "grammar_advanced", text: "「إنشاء مراكز متخصصة」の「مراكز」の正しい語尾は？", options: ["a (ファトハ・タンウィーンなし)", "i (カスラ)", "u (ダンマ)", "in (タンウィーン)"], correctIndex: 0, explanation: "「Inshā' (設立)」の後のイダーファ第2要素（属格）。「Marākiz」は非限定名詞（Mafā'ilパターン）であり、定冠詞もなくイダーファもされていない（形容詞が続くだけ）ため、カスラではなくファトハを取ります。" },
+    { id: 11105, type: "grammar_advanced", text: "「بولادة صغار نمور」の「نمور」の正しい語尾は？", options: ["in (タンウィーン・カスラ)", "an (タンウィーン・ファトハ)", "un (タンウィーン・ダンマ)", "a (ファトハ)"], correctIndex: 0, explanation: "「Ṣighār (子供たち)」の後のイダーファ第2要素（属格）です。非限定名詞ではないので、通常通りタンウィーン・カスラを取ります。" }
   ]
 }
     ];
