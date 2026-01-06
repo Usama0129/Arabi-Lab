@@ -39,7 +39,7 @@ export default function Home() {
   const [activeArticle, setActiveArticle] = useState<Article & { videoUrl?: string; imageUrls?: string[] } | null>(null);
   const [learningMode, setLearningMode] = useState<LearningMode>("reading");
   const [activeProblemNumber, setActiveProblemNumber] = useState<number>(0);
-  
+   
   const [allArticles, setAllArticles] = useState<(Article & { videoUrl?: string; imageUrls?: string[] })[]>(articles); 
 
   const [completedArticleIds, setCompletedArticleIds] = useState<number[]>([]); 
@@ -170,7 +170,7 @@ export default function Home() {
     setStats(prev => ({ ...prev, total: parseInt(localStorage.getItem("arabicApp_totalTime") || "0"), month: parseInt(localStorage.getItem("arabicApp_monthTime") || "0") }));
     setBreakdown(JSON.parse(localStorage.getItem("arabicApp_breakdown") || JSON.stringify({ reading: 0, listening: 0, dictation: 0, vocab: 0, grammar: 0 })));
   }, []);
-  
+   
   useEffect(() => {
     timerRef.current = setInterval(() => {
       let activeCategory: keyof StudyBreakdown | null = null;
@@ -221,7 +221,7 @@ export default function Home() {
   const handleLogin = async () => { await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin } }); };
   const handleLogout = async () => { await supabase.auth.signOut(); setUser(null); setIsPremium(false); setSavedVocab(JSON.parse(localStorage.getItem("arabicApp_vocab") || "[]")); changeScreen("main_menu"); };
   const changeScreen = (screen: Screen) => { stopSpeaking(); setCurrentScreen(screen); };
-  
+   
   const handleMainMenuClick = (type: CourseType) => {
     setCourseType(type);
     if (type === "grammar") {
@@ -266,7 +266,7 @@ export default function Home() {
         return false;
     });
   };
-  
+   
   const handleArticleClick = (article: Article & { videoUrl?: string; imageUrls?: string[] }, index: number) => { 
     if (isLockedContent(article)) { setShowUpgradeModal(true); return; }
     
@@ -340,7 +340,7 @@ export default function Home() {
   };
   const checkDictation = () => { if (normalizeArabic(dictationInput) === targetWordClean) setDictationFeedback("correct"); else setDictationFeedback("incorrect"); };
   const nextDictation = () => { if (!activeArticle) return; if (dictationIndex < activeArticle.sentences.length - 1) { const nextIdx = dictationIndex + 1; setDictationIndex(nextIdx); generateDictationProblem(activeArticle, nextIdx); } else changeScreen("result"); };
-  
+   
   const speakText = (text: string, speaker?: string) => {
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
@@ -473,7 +473,7 @@ export default function Home() {
             <div className="flex justify-center mb-4">
                <HeaderBackButton onClick={() => changeScreen("main_menu")} />
             </div>
-            
+             
             <h2 className="text-2xl font-serif font-bold mb-3 text-emerald-950">
                 {courseType === "reading" ? "リーディング" : courseType === "listening" ? "リスニング" : "学習モード選択"}
             </h2>
@@ -501,7 +501,7 @@ export default function Home() {
                     changeScreen("levels_sub");
                 }
             }} />
-            
+             
             <h2 className="text-2xl font-serif font-bold mb-6 text-emerald-950 border-b-2 border-amber-400 pb-2 inline-block">
                 {courseType === "grammar" ? "文法トピック" : 
                  courseType === "conversation" ? "会話シーン" :
@@ -780,9 +780,9 @@ export default function Home() {
         {currentScreen === "result" && activeArticle && (
           <div className="pb-20 animate-fade-in-up">
             {/* 結果画面から戻るボタンを追加: リストへ戻る */}
-             <div className="max-w-xl mx-auto">
-                 <HeaderBackButton onClick={() => changeScreen("list")} text="一覧に戻る" />
-             </div>
+              <div className="max-w-xl mx-auto">
+                  <HeaderBackButton onClick={() => changeScreen("list")} text="一覧に戻る" />
+              </div>
 
             <div className="text-center py-12 bg-white rounded-2xl shadow-xl mb-8 border border-stone-100">
               <div className="text-6xl mb-4">🎉</div>
@@ -805,7 +805,7 @@ export default function Home() {
         {currentScreen === "vocab" && (
           <div className="animate-fade-in-up pb-20">
             <HeaderBackButton onClick={() => changeScreen("main_menu")} text="ホームに戻る" />
-            
+             
             {!isFlashcardMode ? (
               <>
                 <div className="flex justify-between items-center mb-6"><h2 className="text-2xl font-serif font-bold text-emerald-950">📒 My 単語帳</h2><div className="flex gap-2"><button onClick={() => setIsAddingWord(!isAddingWord)} className="bg-emerald-100 text-emerald-800 px-4 py-2 rounded-full font-bold shadow-sm hover:bg-emerald-200 transition text-xs flex items-center gap-1">{isAddingWord ? "✕ 閉じる" : "＋ 単語を追加"}</button>{savedVocab.length > 0 && <button onClick={() => { setFcIndex(0); setFcFlipped(false); setIsFlashcardMode(true); }} className="bg-amber-500 text-emerald-950 px-4 py-2 rounded-full font-bold shadow-lg hover:bg-amber-400 transition text-xs flex items-center gap-1"><span>▶</span> 暗記モード</button>}</div></div>
@@ -821,7 +821,31 @@ export default function Home() {
           <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 animate-fade-in">
             <div className="bg-white rounded-3xl p-8 max-w-sm w-full text-center relative shadow-2xl overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-br from-amber-400 to-amber-600 z-0"></div>
-              <div className="relative z-10"><div className="bg-white w-20 h-20 rounded-full mx-auto flex items-center justify-center text-4xl shadow-lg mb-4 mt-8">👑</div><h3 className="text-2xl font-serif font-bold text-emerald-950 mb-2">プレミアムプラン</h3><p className="text-gray-500 text-sm mb-6">このコンテンツは有料会員限定です。<br/>学習制限を解除してすべての機能を使おう！</p><ul className="text-left text-sm text-gray-600 space-y-2 mb-8 bg-stone-50 p-4 rounded-xl"><li className="flex gap-2"><span>✅</span> 中級・上級コンテンツへのアクセス</li><li className="flex gap-2"><span>✅</span> 無制限の音声再生</li><li className="flex gap-2"><span>✅</span> 広告非表示</li></ul><button onClick={() => { setShowUpgradeModal(false); alert("実際のアプリではここでStripe決済画面に移動します💰"); }} className="w-full bg-emerald-600 text-white font-bold py-3 rounded-xl shadow-lg hover:bg-emerald-700 transition transform hover:scale-105 mb-3">月額 ¥980 で登録</button><button onClick={() => setShowUpgradeModal(false)} className="text-gray-400 text-sm hover:text-gray-600">閉じる</button></div>
+              <div className="relative z-10"><div className="bg-white w-20 h-20 rounded-full mx-auto flex items-center justify-center text-4xl shadow-lg mb-4 mt-8">👑</div><h3 className="text-2xl font-serif font-bold text-emerald-950 mb-2">プレミアムプラン</h3><p className="text-gray-500 text-sm mb-6">このコンテンツは有料会員限定です。<br/>学習制限を解除してすべての機能を使おう！</p><ul className="text-left text-sm text-gray-600 space-y-2 mb-8 bg-stone-50 p-4 rounded-xl"><li className="flex gap-2"><span>✅</span> 中級・上級コンテンツへのアクセス</li><li className="flex gap-2"><span>✅</span> 無制限の音声再生</li><li className="flex gap-2"><span>✅</span> 広告非表示</li></ul>
+              <button 
+                onClick={async () => {
+                  setShowUpgradeModal(false);
+                  try {
+                    // 決済の準備を開始（APIを呼び出す）
+                    const response = await fetch('/api/checkout', { method: 'POST' });
+                    const data = await response.json();
+                    
+                    // Stripeの決済画面へ移動
+                    if (data.url) {
+                      window.location.href = data.url;
+                    } else {
+                      alert('決済への移動に失敗しました');
+                    }
+                  } catch (err) {
+                    console.error(err);
+                    alert('エラーが発生しました');
+                  }
+                }} 
+                className="w-full bg-emerald-600 text-white font-bold py-3 rounded-xl shadow-lg hover:bg-emerald-700 transition transform hover:scale-105 mb-3"
+              >
+                月額 ¥980 で登録
+              </button>
+              <button onClick={() => setShowUpgradeModal(false)} className="text-gray-400 text-sm hover:text-gray-600">閉じる</button></div>
             </div>
           </div>
         )}
@@ -848,7 +872,7 @@ function OrthographyDrill({ question, onNext, isLast }: any) {
       <span className="inline-block bg-purple-50 text-purple-700 text-[10px] font-bold px-2 py-1 rounded mb-4 tracking-wider uppercase border border-purple-100">
         ✍️ 文字練習
       </span>
-      
+       
       <h3 className="text-lg font-bold mb-2 text-gray-500">問題</h3>
       <div className="text-4xl font-bold font-arabic text-emerald-950 mb-10 py-6 bg-stone-50 rounded-xl border border-stone-200 dir-rtl whitespace-pre-wrap">
         {question.text}
@@ -869,7 +893,7 @@ function OrthographyDrill({ question, onNext, isLast }: any) {
               {question.explanation}
             </div>
           </div>
-          
+           
           <div className="flex gap-2">
             <button 
               onClick={onNext} 

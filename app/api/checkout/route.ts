@@ -7,7 +7,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2023-10-16' as any 
 });
 
-// Supabaseの初期化
+// Supabaseの初期化 (管理者権限)
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!, 
   process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -15,9 +15,16 @@ const supabase = createClient(
 
 export async function POST(req: Request) {
   try {
-    // 1. ユーザー情報を取得 (priceIdはここで受け取らず、下で直接書きます)
-    const { userId, email } = await req.json();
-    const returnUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    // 1. フロントエンドからユーザー情報を受け取る
+    const body = await req.json();
+    const { userId, email } = body;
+
+    // 戻り先のURLを自動判定 (Vercel環境か、ローカルか)
+    const origin = req.headers.get('origin') || 'http://localhost:3000';
+
+    if (!userId || !email) {
+      return NextResponse.json({ error: 'User ID or Email is missing' }, { status: 400 });
+    }
 
     // 2. 既存のStripe顧客IDがあるか確認
     const { data: profile } = await supabase
@@ -30,6 +37,7 @@ export async function POST(req: Request) {
 
     // 3. なければ新規作成してSupabaseに保存
     if (!customerId) {
+      console.log("Creating new Stripe customer...");
       const customer = await stripe.customers.create({ 
         email, 
         metadata: { supabaseUUID: userId } 
@@ -47,10 +55,9 @@ export async function POST(req: Request) {
       customer: customerId,
       mode: 'subscription',
       payment_method_types: ['card'],
-      // ★ここにあなたの Price ID を直接書きます！★
-      line_items: [{ price: "price_1SmCYCAFaihlgeNmDHVvuoKl", quantity: 1 }],
-      success_url: `${returnUrl}?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${returnUrl}`,
+      line_items: [{ price: "price_1SmCYCAFaihlgeNmDHVvuoKl", quantity: 1 }], // あなたのPrice ID
+      success_url: `${origin}?session_id={CHECKOUT_SESSION_ID}`, // 成功したらトップページへ
+      cancel_url: `${origin}`, // キャンセルしてもトップページへ
       metadata: { userId },
     });
 
