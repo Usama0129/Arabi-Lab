@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-// ↓ パスが違う場合は修正してください
+// ↓ パスは ./ (同じ階層) になっています
 import { supabase } from "./lib/supabaseClient";
 import { articles, Article, QuizQuestion } from "./data";
 
@@ -721,7 +721,6 @@ export default function Home() {
                 <ModeButton icon="✍️" title="Dictation" subtitle="書き取り" color="border-orange-200 hover:bg-orange-50 text-orange-900" onClick={() => startLearning("dictation")} />
               )}
             </div>
-            {/* キャンセルボタンは上の戻るボタンと重複するので削除、またはそのまま残す */}
           </div>
         )}
 
@@ -822,6 +821,19 @@ export default function Home() {
             <div className="bg-white rounded-3xl p-8 max-w-sm w-full text-center relative shadow-2xl overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-br from-amber-400 to-amber-600 z-0"></div>
               <div className="relative z-10"><div className="bg-white w-20 h-20 rounded-full mx-auto flex items-center justify-center text-4xl shadow-lg mb-4 mt-8">👑</div><h3 className="text-2xl font-serif font-bold text-emerald-950 mb-2">プレミアムプラン</h3><p className="text-gray-500 text-sm mb-6">このコンテンツは有料会員限定です。<br/>学習制限を解除してすべての機能を使おう！</p><ul className="text-left text-sm text-gray-600 space-y-2 mb-8 bg-stone-50 p-4 rounded-xl"><li className="flex gap-2"><span>✅</span> 中級・上級コンテンツへのアクセス</li><li className="flex gap-2"><span>✅</span> 無制限の音声再生</li><li className="flex gap-2"><span>✅</span> 広告非表示</li></ul>
+              
+              {/* ▼ 修正: 決済機能を一時停止（準備中ボタンに変更） */}
+              <button 
+                onClick={() => {
+                  alert("申し訳ありません。決済機能は現在準備中です。\n正式リリースをお待ちください！");
+                  setShowUpgradeModal(false);
+                }}
+                className="w-full bg-gray-400 text-white font-bold py-3 rounded-xl shadow-none cursor-not-allowed mb-3"
+              >
+                🚧 プレミアムプラン準備中
+              </button>
+
+              {/* ▼ 将来のために元の決済ボタンをコメントアウトして保存
               <button 
                 onClick={async () => {
                   setShowUpgradeModal(false);
@@ -830,7 +842,6 @@ export default function Home() {
                       return;
                   }
                   try {
-                    // ★修正箇所: 自分のIDとメアドをサーバーに送る
                     const response = await fetch('/api/checkout', { 
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -857,6 +868,8 @@ export default function Home() {
               >
                 月額 ¥980 で登録
               </button>
+              */}
+
               <button onClick={() => setShowUpgradeModal(false)} className="text-gray-400 text-sm hover:text-gray-600">閉じる</button></div>
             </div>
           </div>
