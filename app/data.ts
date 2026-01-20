@@ -45144,7 +45144,7 @@ questions: [] // アルファベット回は問題なし
             {
               id: 4012,
               title: "剣という名の医師 (Antarah ibn Shaddad)",
-              category: "ジャーヒリーヤ",
+              category: "ジャーヒリーヤ時代",
               level: "Poetry",
           
               // ▼▼▼ 学習前の全文表示用（発音記号あり） ▼▼▼
@@ -45388,7 +45388,7 @@ questions: [] // アルファベット回は問題なし
         {
                 id: 4013,
                 title: "黒さは誇り (Antarah ibn Shaddad)",
-                category: "ジャーヒリーヤ",
+                category: "ジャーヒリーヤ時代",
                 level: "Poetry",
             
                 // ▼▼▼ 学習前の全文表示用（発音記号あり） ▼▼▼
