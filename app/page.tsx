@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 // ↓ パスは ./ (同じ階層) になっています
 import { supabase } from "./lib/supabaseClient";
 import { articles, Article, QuizQuestion } from "./data";
+import Link from 'next/link';
 
 // --- Types ---
 type Screen = "main_menu" | "levels_sub" | "topics" | "list" | "mode_select" | "reader" | "quiz" | "result" | "vocab" | "dictation" | "mypage" | "eras" | "era_desc" | "poets" | "poetry_read";
@@ -10,13 +11,26 @@ type LearningMode = "reading" | "listening" | "dictation" | "grammar";
 type CourseType = "grammar" | "conversation" | "reading" | "listening" | "poetry";
 type StudyBreakdown = { reading: number; listening: number; dictation: number; vocab: number; grammar: number; poetry: number };
 
+// サブスクリプション情報の型定義
+type SubscriptionInfo = {
+  plan: "Free" | "Premium";
+  status: "active" | "canceled" | "past_due";
+  startDate: string;
+  nextPayment: string;
+  amount: number;
+};
+
 // --- Constants ---
 const ARABIC_KEYS = [
   "ا", "ب", "ت", "ث", "ج", "ح", "خ", "د", "ذ", "ر", "ز", "س", "ش", "ص", "ض", "ط", "ظ", "ع", "غ", "ف", "ق", "ك", "ل", "م", "ن", "ه", "و", "ي",
   "ة", "ء", "أ", "إ", "آ", "ى", "ئ", "ؤ", "؟"
 ];
 
-// 詩の時代データ (詳細版・修正)
+// ムタナッビーの詩（背景用）
+// "馬も、夜も、砂漠も私を知っている。剣も、槍も、紙も、ペンも。"
+const MUTANABBI_POEM = "الخَيْلُ وَاللّيْلُ وَالبَيْداءُ تَعرِفُني ... وَالسّيفُ وَالرّمحُ والقرْطاسُ وَقَلَمُ ... ";
+
+// 詩の時代データ
 const POETRY_ERAS = [
   {
     id: "jahiliyya",
@@ -82,13 +96,158 @@ const HeaderBackButton = ({ onClick, text = "戻る", colorClass = "text-gray-40
   </button>
 );
 
+// --- Landing Page Component ---
+const LandingPage = ({ onLogin, onGuestStart }: { onLogin: () => void, onGuestStart: () => void }) => {
+  return (
+    <div className="min-h-screen bg-[#FDFCF8] font-sans text-gray-800 flex flex-col overflow-x-hidden">
+      {/* Background Poem Animation CSS */}
+      <style jsx>{`
+        @keyframes scroll-rtl {
+          0% { transform: translateX(-50%); }
+          100% { transform: translateX(0%); }
+        }
+        .animate-scroll-text {
+          animation: scroll-rtl 60s linear infinite;
+        }
+      `}</style>
+
+      {/* Hero Section */}
+      <div className="bg-emerald-950 text-white relative overflow-hidden h-[600px] flex flex-col justify-center items-center">
+        {/* 背景のアニメーション層 */}
+        <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none flex flex-col justify-around z-0 overflow-hidden" dir="rtl">
+           {/* ムタナッビーの詩を流す */}
+           {[...Array(5)].map((_, i) => (
+             <div key={i} className="whitespace-nowrap text-[8rem] md:text-[10rem] font-arabic leading-none animate-scroll-text" style={{ animationDuration: `${40 + i * 10}s`, opacity: 0.5 + (i * 0.1) }}>
+               {MUTANABBI_POEM.repeat(10)}
+             </div>
+           ))}
+        </div>
+        
+        {/* グラデーションオーバーレイ */}
+        <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/80 via-emerald-950/60 to-emerald-900/90 z-1"></div>
+
+        <div className="max-w-4xl mx-auto px-6 py-10 relative z-10 text-center">
+          <div className="inline-block bg-white/10 px-4 py-1 rounded-full text-xs font-bold tracking-widest mb-6 border border-white/20 backdrop-blur-sm">
+            ARABIC LEARNING PLATFORM
+          </div>
+          
+          <h1 className="text-4xl md:text-6xl font-serif font-bold mb-4 leading-tight drop-shadow-lg">
+            アラビア語を、<br />
+            <span className="text-amber-400">もっと身近に。</span>
+          </h1>
+          <h2 className="text-lg md:text-2xl font-serif font-bold text-emerald-100 mb-8 drop-shadow-md tracking-wide">
+            『暗号』が『言葉』に変わる感動を Arabi Labで
+          </h2>
+
+          <p className="text-base md:text-lg text-emerald-100 mb-10 max-w-2xl mx-auto leading-relaxed opacity-90 font-medium">
+            初心者の文法理解から、会話表現、読解・聴解、<br className="hidden md:block"/>
+            そして千年の歴史を持つアラブ詩まで。1000問以上の演習と共に。
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <button 
+              onClick={onLogin}
+              className="w-full sm:w-auto px-10 py-4 bg-white text-emerald-950 font-bold rounded-full shadow-2xl hover:bg-gray-100 hover:scale-105 transition transform flex items-center justify-center gap-2 border-2 border-white"
+            >
+              <span className="text-blue-500 font-bold text-lg">G</span> Googleで今すぐ始める
+            </button>
+            <button 
+              onClick={onGuestStart}
+              className="w-full sm:w-auto px-10 py-4 bg-transparent border-2 border-amber-400/50 text-amber-100 font-bold rounded-full hover:bg-amber-900/30 transition backdrop-blur-sm"
+            >
+              登録せずに試す
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Value Proposition Section */}
+      <div className="bg-white py-16 border-b border-stone-100">
+         <div className="max-w-4xl mx-auto px-6 text-center">
+            <div className="grid md:grid-cols-3 gap-8 divide-y md:divide-y-0 md:divide-x divide-stone-100">
+               <div className="p-4">
+                  <div className="text-4xl mb-2">📚</div>
+                  <h3 className="font-bold text-emerald-900 text-lg mb-2">圧倒的な網羅性</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed">初心者向けの基礎文法から、ニュース読解、日常会話表現、そして古典詩まで。あらゆるレベルに対応。</p>
+               </div>
+               <div className="p-4">
+                  <div className="text-4xl mb-2">✍️</div>
+                  <h3 className="font-bold text-emerald-900 text-lg mb-2">1000問以上の演習</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed">ただ読むだけではありません。豊富なクイズと書き取り問題で、知識を確実に定着させます。</p>
+               </div>
+               <div className="p-4">
+                  <div className="text-4xl mb-2">💰</div>
+                  <h3 className="font-bold text-emerald-900 text-lg mb-2">驚きのコストパフォーマンス</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed">一般的なアラビア語教材は1冊3,000円〜。Arabi Labなら、月額500円ですべてのコンテンツが学び放題。</p>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      {/* Pricing Section */}
+      <div className="bg-stone-50 py-20">
+        <div className="max-w-4xl mx-auto px-6">
+          <h2 className="text-2xl font-serif font-bold text-center text-emerald-950 mb-12">シンプルで、続けやすいプラン</h2>
+          <div className="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+            {/* Free Plan */}
+            <div className="bg-white p-8 rounded-3xl border border-stone-200 shadow-sm flex flex-col hover:border-emerald-200 transition">
+              <div className="mb-4">
+                <span className="bg-stone-100 text-stone-600 px-3 py-1 rounded-full text-xs font-bold">FREE</span>
+              </div>
+              <h3 className="text-2xl font-bold mb-2 text-gray-800">フリープラン</h3>
+              <p className="text-4xl font-bold mb-6 font-serif text-gray-400">¥0 <span className="text-sm font-normal">/月</span></p>
+              <ul className="space-y-4 mb-8 flex-1">
+                <li className="flex gap-2 text-sm text-gray-600"><span>✅</span> 初級コンテンツへのアクセス</li>
+                <li className="flex gap-2 text-sm text-gray-600"><span>✅</span> 文法・単語の基礎練習</li>
+                <li className="flex gap-2 text-sm text-gray-600"><span>✅</span> 制限付き音声再生</li>
+              </ul>
+              <button onClick={onGuestStart} className="w-full py-3 border-2 border-gray-300 text-gray-600 font-bold rounded-xl hover:bg-gray-50 hover:border-gray-400 transition">
+                無料で試す
+              </button>
+            </div>
+            
+            {/* Premium Plan */}
+            <div className="bg-gradient-to-br from-emerald-900 to-emerald-800 p-8 rounded-3xl shadow-2xl flex flex-col relative overflow-hidden text-white transform md:-translate-y-4 border border-emerald-700">
+              <div className="absolute top-0 right-0 bg-amber-400 text-amber-900 text-xs font-bold px-4 py-1 rounded-bl-xl shadow-md">おすすめ</div>
+              <div className="mb-4">
+                <span className="bg-emerald-700/50 border border-emerald-500 text-emerald-100 px-3 py-1 rounded-full text-xs font-bold">PREMIUM</span>
+              </div>
+              <h3 className="text-2xl font-bold mb-2">プレミアムプラン</h3>
+              <p className="text-4xl font-bold mb-6 font-serif text-amber-400">¥500 <span className="text-sm text-emerald-200 font-normal">/月</span></p>
+              <p className="text-xs text-emerald-300 mb-6">教材一冊分(約3000円)で、半年間学び放題。</p>
+              <ul className="space-y-4 mb-8 flex-1">
+                <li className="flex gap-2 text-sm text-emerald-50 font-bold"><span>✦</span> 全レベルの記事・詩の閲覧</li>
+                <li className="flex gap-2 text-sm text-emerald-50 font-bold"><span>✦</span> ネイティブ音声 無制限リスニング</li>
+                <li className="flex gap-2 text-sm text-emerald-50 font-bold"><span>✦</span> 1000問以上の全問題に挑戦</li>
+                <li className="flex gap-2 text-sm text-emerald-50 font-bold"><span>✦</span> 広告非表示・優先サポート</li>
+              </ul>
+              <button onClick={onLogin} className="w-full py-4 bg-gradient-to-r from-amber-400 to-amber-500 text-amber-950 font-bold rounded-xl shadow-lg hover:to-amber-400 transition transform hover:scale-105">
+                プレミアムで登録する
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer className="bg-emerald-950 text-emerald-200 py-10 text-center text-xs mt-auto">
+        <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-6 mb-6">
+          <Link href="/faq" className="hover:text-white transition">よくある質問</Link>
+          <Link href="/terms" className="hover:text-white transition">利用規約</Link>
+          <Link href="/privacy" className="hover:text-white transition">プライバシーポリシー</Link>
+          <Link href="/law" className="hover:text-white transition">特定商取引法に基づく表記</Link>
+        </div>
+        <p className="opacity-50">&copy; 2024 Arabi Lab. All Rights Reserved.</p>
+      </footer>
+    </div>
+  );
+};
+
 export default function Home() {
   // --- State ---
   const [currentScreen, setCurrentScreen] = useState<Screen>("main_menu");
   const [courseType, setCourseType] = useState<CourseType | null>(null);
   const [selectedLevel, setSelectedLevel] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
-  // 詩の時代選択用ステート
   const [selectedEraId, setSelectedEraId] = useState<string | null>(null);
 
   const [activeArticle, setActiveArticle] = useState<Article & { videoUrl?: string; imageUrls?: string[] } | null>(null);
@@ -103,6 +262,13 @@ export default function Home() {
   const [user, setUser] = useState<any>(null);
   const [isPremium, setIsPremium] = useState(false); 
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+
+  // ★追加: LP表示の制御フラグ
+  const [showLandingPage, setShowLandingPage] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // サブスクリプション情報用のState
+  const [subscription, setSubscription] = useState<SubscriptionInfo | null>(null);
 
   const [isAddingWord, setIsAddingWord] = useState(false);
   const [newArabic, setNewArabic] = useState("");
@@ -195,17 +361,51 @@ export default function Home() {
     const initUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       setUser(session?.user ?? null);
-      if (session?.user) { fetchProfile(session.user.id); fetchVocab(session.user.id); } 
-      else { setIsPremium(false); setSavedVocab(JSON.parse(localStorage.getItem("arabicApp_vocab") || "[]")); }
+      if (session?.user) { 
+          fetchProfile(session.user.id); 
+          fetchVocab(session.user.id);
+          setShowLandingPage(false); // ログイン済みならLP非表示
+      } else { 
+          setIsPremium(false); 
+          setSavedVocab(JSON.parse(localStorage.getItem("arabicApp_vocab") || "[]"));
+          setShowLandingPage(true); // 未ログインならLP表示
+      }
+      setIsLoading(false); // 判定完了
     };
     initUser();
+    
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
-      if (session?.user) { fetchProfile(session.user.id); fetchVocab(session.user.id); } 
-      else { setIsPremium(false); setSavedVocab(JSON.parse(localStorage.getItem("arabicApp_vocab") || "[]")); }
+      if (session?.user) { 
+          fetchProfile(session.user.id); 
+          fetchVocab(session.user.id);
+          setShowLandingPage(false);
+      } else { 
+          setIsPremium(false); 
+          setSavedVocab(JSON.parse(localStorage.getItem("arabicApp_vocab") || "[]")); 
+      }
     });
     return () => subscription.unsubscribe();
   }, []);
+
+  useEffect(() => {
+    if (user && isPremium) {
+      setSubscription({
+        plan: "Premium",
+        status: "active",
+        startDate: "2023-12-01",
+        nextPayment: "2024-02-01",
+        amount: 500
+      });
+    } else {
+      setSubscription(null);
+    }
+  }, [user, isPremium]);
+
+  const handleCancelSubscription = async () => {
+    if (!confirm("本当に解約しますか？\n解約すると次回の更新日にプレミアム機能が利用できなくなります。")) return;
+    alert("解約手続きを受け付けました。（デモ機能）\n実際の実装ではバックエンドAPIを呼び出します。");
+  };
 
   useEffect(() => {
     setCompletedArticleIds(JSON.parse(localStorage.getItem("arabicApp_completed") || "[]"));
@@ -275,7 +475,14 @@ export default function Home() {
     setNewArabic(""); setNewJapanese(""); setIsAddingWord(false);
   };
   const handleLogin = async () => { await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin } }); };
-  const handleLogout = async () => { await supabase.auth.signOut(); setUser(null); setIsPremium(false); setSavedVocab(JSON.parse(localStorage.getItem("arabicApp_vocab") || "[]")); changeScreen("main_menu"); };
+  const handleLogout = async () => { 
+      await supabase.auth.signOut(); 
+      setUser(null); 
+      setIsPremium(false); 
+      setSavedVocab(JSON.parse(localStorage.getItem("arabicApp_vocab") || "[]")); 
+      setShowLandingPage(true); // ログアウト後はLPに戻る
+      changeScreen("main_menu"); 
+  };
   const changeScreen = (screen: Screen) => { stopSpeaking(); setCurrentScreen(screen); };
     
   const handleMainMenuClick = (type: CourseType) => {
@@ -287,7 +494,7 @@ export default function Home() {
         setSelectedLevel("会話");
         changeScreen("topics");
     } else if (type === "poetry") {
-        changeScreen("eras"); // 詩の場合は時代選択へ
+        changeScreen("eras");
     } else {
         changeScreen("levels_sub");
     }
@@ -313,15 +520,12 @@ export default function Home() {
         if (courseType === "grammar") return a.level === "文法";
         if (courseType === "conversation") return a.level === "会話";
         if (courseType === "poetry") {
-            // 詩の場合、categoryに時代名が入っていると仮定、またはlevel="Poetry"で絞る
             const era = POETRY_ERAS.find(e => e.id === selectedEraId);
             return a.level === "Poetry" && (era ? a.category === era.name : true);
         }
-        
         if (courseType === "listening") {
             return (a.videoUrl && a.videoUrl.length > 0) && a.level === selectedLevel;
         }
-
         if (courseType === "reading") {
             if (a.level === "文法") return false;
             if (a.level === "Poetry") return false;
@@ -339,10 +543,9 @@ export default function Home() {
     setActiveProblemNumber(index + 1); 
     setRevealedVocabIndex(null); 
     
-    // 詩モードのフロー
     if (courseType === "poetry") {
         setLearningMode("reading");
-        changeScreen("poetry_read"); // まずは詩の鑑賞画面へ
+        changeScreen("poetry_read");
     } else if (courseType === "grammar") {
         startLearning("grammar");
     } else if (courseType === "listening") {
@@ -480,6 +683,17 @@ export default function Home() {
 
   const getEraData = () => POETRY_ERAS.find(e => e.id === selectedEraId);
 
+  // ★ローディング中の表示
+  if (isLoading) {
+    return <div className="min-h-screen bg-[#FDFCF8] flex items-center justify-center text-emerald-800 font-serif text-xl animate-pulse">Loading Arabi Lab...</div>;
+  }
+
+  // ★LPの表示（未ログイン かつ showLandingPageがtrueの場合）
+  if (!user && showLandingPage) {
+    return <LandingPage onLogin={handleLogin} onGuestStart={() => setShowLandingPage(false)} />;
+  }
+
+  // --- メインアプリ画面 (ログイン済み or ゲスト利用) ---
   return (
     <div className="min-h-screen bg-[#FDFCF8] font-sans text-gray-800" dir="rtl">
       <nav className="bg-emerald-950 shadow-md p-4 sticky top-0 z-20 border-b border-amber-500/30">
@@ -514,16 +728,128 @@ export default function Home() {
       </nav>
 
       <main className="max-w-3xl mx-auto p-4 pb-20">
+        
+        {/* マイページ (刷新版) */}
         {currentScreen === "mypage" && (
-           <div className="animate-fade-in-up">
+           <div className="animate-fade-in-up pb-20">
              <HeaderBackButton onClick={() => changeScreen("main_menu")} />
              
-             <div className="mb-6 flex justify-between items-end"><h2 className="text-2xl font-serif font-bold text-emerald-950">📊 学習レポート</h2></div>
-             {user && (<div className="bg-white p-4 rounded-xl shadow-sm border border-emerald-100 mb-6 flex items-center gap-4" dir="ltr">{user.user_metadata?.avatar_url ? (<img src={user.user_metadata.avatar_url} className="w-12 h-12 rounded-full" alt="User" />) : <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center text-2xl">👤</div>}<div><div className="flex items-center gap-2"><p className="font-bold text-emerald-900">{user.user_metadata?.full_name || "ユーザー"}</p>{isPremium ? <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full border border-amber-200">👑 有料会員</span> : <span className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">無料会員</span>}</div><p className="text-xs text-gray-500">{user.email}</p></div></div>)}
-             <div className="grid grid-cols-3 gap-4 mb-8 text-center" dir="ltr"><StatCard label="今日" value={formatTime(stats.today)} color="text-emerald-700" /><StatCard label="今月" value={formatTime(stats.month)} color="text-blue-700" /><StatCard label="総計" value={formatTime(stats.total)} color="text-amber-600" /></div>
-             <div className="bg-white p-6 rounded-2xl shadow-lg border border-amber-100"><h3 className="font-bold mb-6 text-gray-600 font-serif">📈 スキルバランス</h3><div className="space-y-4" dir="ltr">{Object.entries(breakdown).map(([key, val]) => (<div key={key} className="space-y-2"><div className="flex justify-between text-xs font-bold uppercase text-gray-400"><span>{key}</span><span>{formatTime(val)}</span></div><div className="w-full bg-stone-100 rounded-full h-2.5 overflow-hidden"><div className={`h-full rounded-full ${key==='reading'?'bg-emerald-600':key==='listening'?'bg-blue-600':key==='dictation'?'bg-orange-500': key==='grammar' ? 'bg-purple-600' : key==='poetry' ? 'bg-indigo-600' : 'bg-amber-500'}`} style={{width: `${stats.total ? (val/stats.total)*100 : 0}%`}}></div></div></div>))}</div></div></div>
+             <div className="mb-6 flex justify-between items-end">
+                <h2 className="text-2xl font-serif font-bold text-emerald-950">マイページ</h2>
+             </div>
+
+             {/* 1. ユーザープロファイル */}
+             {user && (
+               <div className="bg-white p-6 rounded-2xl shadow-sm border border-emerald-100 mb-6 flex items-center gap-4 relative overflow-hidden" dir="ltr">
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-50 rounded-bl-full -mr-4 -mt-4 z-0"></div>
+                  
+                  <div className="relative z-10">
+                    {user.user_metadata?.avatar_url ? (
+                      <img src={user.user_metadata.avatar_url} className="w-16 h-16 rounded-full border-2 border-white shadow-md" alt="User" />
+                    ) : (
+                      <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center text-3xl text-emerald-700 border-2 border-white shadow-md">👤</div>
+                    )}
+                  </div>
+                  <div className="relative z-10">
+                    <div className="flex items-center gap-2 mb-1">
+                      <p className="font-bold text-lg text-emerald-900">{user.user_metadata?.full_name || "ゲストユーザー"}</p>
+                      {isPremium ? 
+                        <span className="text-[10px] bg-amber-400 text-amber-900 px-2 py-0.5 rounded-full font-bold shadow-sm">PREMIUM</span> : 
+                        <span className="text-[10px] bg-gray-200 text-gray-600 px-2 py-0.5 rounded-full font-bold">FREE</span>
+                      }
+                    </div>
+                    <p className="text-sm text-gray-500">{user.email}</p>
+                  </div>
+               </div>
+             )}
+
+             {/* 2. 学習ステータス */}
+             <div className="grid grid-cols-3 gap-3 mb-6 text-center" dir="ltr">
+                <StatCard label="今日" value={formatTime(stats.today)} color="text-emerald-700" />
+                <StatCard label="今月" value={formatTime(stats.month)} color="text-blue-700" />
+                <StatCard label="総計" value={formatTime(stats.total)} color="text-amber-600" />
+             </div>
+
+             {/* 3. サブスクリプション管理 */}
+             <div className="mb-8">
+               <h3 className="font-bold text-gray-600 mb-3 ml-1 text-sm">サブスクリプション情報</h3>
+               <div className="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden">
+                 {isPremium && subscription ? (
+                   <div className="p-0">
+                     <div className="bg-gradient-to-r from-amber-400 to-orange-400 p-4 text-white flex justify-between items-center">
+                        <span className="font-bold text-lg flex items-center gap-2">👑 プレミアムプラン</span>
+                        <span className="font-bold text-xl">¥{subscription.amount}<span className="text-xs font-normal opacity-80">/月</span></span>
+                     </div>
+                     <div className="p-5 space-y-4 text-sm" dir="ltr">
+                        <div className="flex justify-between border-b border-gray-100 pb-2">
+                          <span className="text-gray-500">ステータス</span>
+                          <span className="font-bold text-emerald-600 flex items-center gap-1">
+                            <span className="w-2 h-2 bg-emerald-500 rounded-full"></span> 有効 (Active)
+                          </span>
+                        </div>
+                        <div className="flex justify-between border-b border-gray-100 pb-2">
+                          <span className="text-gray-500">登録日</span>
+                          <span className="font-medium">{subscription.startDate}</span>
+                        </div>
+                        <div className="flex justify-between border-b border-gray-100 pb-2">
+                          <span className="text-gray-500">次回支払日</span>
+                          <span className="font-medium">{subscription.nextPayment}</span>
+                        </div>
+                        <div className="pt-2 text-center">
+                          <button 
+                            onClick={handleCancelSubscription}
+                            className="text-red-500 text-xs font-bold hover:text-red-700 hover:underline transition"
+                          >
+                            サブスクリプションを解約する
+                          </button>
+                        </div>
+                     </div>
+                   </div>
+                 ) : (
+                   <div className="p-6 text-center">
+                     <p className="text-gray-500 text-sm mb-4">現在、無料プランをご利用中です。</p>
+                     <button 
+                       onClick={() => setShowUpgradeModal(true)}
+                       className="w-full py-3 bg-emerald-600 text-white font-bold rounded-xl shadow-md hover:bg-emerald-700 transition"
+                     >
+                       🚀 プレミアムにアップグレード
+                     </button>
+                   </div>
+                 )}
+               </div>
+             </div>
+
+             {/* 4. アプリ設定・サポート */}
+             <div className="mb-8">
+               <h3 className="font-bold text-gray-600 mb-3 ml-1 text-sm">設定・サポート</h3>
+               <div className="bg-white rounded-2xl shadow-sm border border-stone-200 divide-y divide-gray-100">
+                  <SettingItem icon="📧" label="メールアドレス変更" onClick={() => alert("メールアドレス変更機能は準備中です")} />
+                  <SettingItem icon="🔒" label="パスワード変更" onClick={() => alert("パスワード再設定メールを送信しました（デモ）")} />
+                  <SettingItem icon="💬" label="お問い合わせ・サポート" onClick={() => window.open("mailto:support@arabilab.com", "_blank")} />
+               </div>
+             </div>
+
+             {/* 5. 法的情報 */}
+             <div className="mb-8">
+               <h3 className="font-bold text-gray-600 mb-3 ml-1 text-sm">運営・規約</h3>
+               <div className="bg-white rounded-2xl shadow-sm border border-stone-200 divide-y divide-gray-100">
+                  <SettingItem icon="📜" label="利用規約" onClick={() => window.open("/terms", "_blank")} />
+                  <SettingItem icon="🛡️" label="プライバシーポリシー" onClick={() => window.open("/privacy", "_blank")} />
+                  <SettingItem icon="⚖️" label="特定商取引法に基づく表記" onClick={() => window.open("/law", "_blank")} />
+               </div>
+             </div>
+
+             {/* 6. ログアウトエリア */}
+             <div className="text-center mt-8">
+                <button onClick={handleLogout} className="text-red-500 font-bold text-sm hover:bg-red-50 px-6 py-3 rounded-full transition">
+                  ログアウト
+                </button>
+                <p className="text-xs text-gray-300 mt-4">Arabi Lab v1.0.0</p>
+             </div>
+           </div>
         )}
 
+        {/* コース選択 (メインメニュー) */}
         {currentScreen === "main_menu" && (
           <div className="text-center py-10 animate-fade-in-up">
             <h2 className="text-3xl font-serif font-bold mb-3 text-emerald-950">コース選択</h2>
@@ -533,7 +859,7 @@ export default function Home() {
               <LevelButton title="会話" subtitle="Conversation" color="bg-amber-50 border-amber-200" icon="💬" onClick={() => handleMainMenuClick("conversation")} />
               <LevelButton title="読解" subtitle="Reading" color="bg-blue-50 border-blue-200" icon="📖" onClick={() => handleMainMenuClick("reading")} />
               <LevelButton title="聴解" subtitle="Listening" color="bg-orange-50 border-orange-200" icon="🎧" onClick={() => handleMainMenuClick("listening")} />
-              {/* 詩のセクションを追加 */}
+              {/* 詩のセクション */}
               <button onClick={() => handleMainMenuClick("poetry")} className="col-span-2 h-40 rounded-3xl shadow-lg border-2 bg-stone-50 border-stone-300 flex flex-col items-center justify-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
                 <span className="text-5xl mb-3 group-hover:scale-110 transition-transform drop-shadow-sm">📜</span>
                 <span className="text-xl font-bold tracking-wide text-gray-800 font-serif">詩 (Poetry)</span>
@@ -566,9 +892,9 @@ export default function Home() {
         {currentScreen === "era_desc" && selectedEraId && (
             <div className="animate-fade-in-up bg-white rounded-2xl shadow-xl border border-stone-200 overflow-hidden">
                 <div className="bg-emerald-900 p-6 text-white text-center">
-                     <span className="text-6xl mb-4 block">{getEraData()?.icon}</span>
-                     <h2 className="text-2xl font-bold font-serif">{getEraData()?.name}</h2>
-                     <p className="opacity-80 text-sm mt-1">{getEraData()?.period}</p>
+                      <span className="text-6xl mb-4 block">{getEraData()?.icon}</span>
+                      <h2 className="text-2xl font-bold font-serif">{getEraData()?.name}</h2>
+                      <p className="opacity-80 text-sm mt-1">{getEraData()?.period}</p>
                 </div>
                 <div className="p-8">
                     <p className="text-gray-700 leading-relaxed mb-8 text-lg">{getEraData()?.desc}</p>
@@ -671,7 +997,7 @@ export default function Home() {
             <div className="flex justify-center mb-4">
                <HeaderBackButton onClick={() => changeScreen("main_menu")} />
             </div>
-             
+              
             <h2 className="text-2xl font-serif font-bold mb-3 text-emerald-950">
                 {courseType === "reading" ? "リーディング" : courseType === "listening" ? "リスニング" : "学習モード選択"}
             </h2>
@@ -696,7 +1022,7 @@ export default function Home() {
                     changeScreen("levels_sub");
                 }
             }} />
-             
+              
             <h2 className="text-2xl font-serif font-bold mb-6 text-emerald-950 border-b-2 border-amber-400 pb-2 inline-block">
                 {courseType === "grammar" ? "文法トピック" : 
                  courseType === "conversation" ? "会話シーン" :
@@ -749,7 +1075,6 @@ export default function Home() {
                     if (courseType === "listening" || courseType === "grammar") {
                         changeScreen("list");
                     } else if (courseType === "poetry") {
-                        // 詩モードはリストではなく結果画面やクイズに戻ることを想定するが、ここではリストへ
                         changeScreen("poets"); 
                     } else {
                         changeScreen("mode_select");
@@ -1113,6 +1438,18 @@ export default function Home() {
           </div>
         )}
       </main>
+
+      {/* フッターリンクエリア */}
+      <footer className="bg-emerald-950 text-emerald-200 py-8 text-center text-xs">
+        <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-6 mb-4">
+          <Link href="/faq" className="hover:text-white transition">よくある質問</Link>
+          <Link href="/terms" className="hover:text-white transition">利用規約</Link>
+          <Link href="/privacy" className="hover:text-white transition">プライバシーポリシー</Link>
+          <Link href="/law" className="hover:text-white transition">特定商取引法に基づく表記</Link>
+        </div>
+        <p className="opacity-50">&copy; 2024 Arabi Lab. All Rights Reserved.</p>
+      </footer>
+
     </div>
   );
 }
@@ -1122,6 +1459,18 @@ function VocabButton({ v, i, isRevealed, isSaved, onReveal, onSave }: any) { ret
 function LevelButton({ title, subtitle, color, icon, onClick }: any) { return <button onClick={onClick} className={`h-40 rounded-3xl shadow-lg border-2 ${color} flex flex-col items-center justify-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group bg-white`}><span className="text-5xl mb-3 group-hover:scale-110 transition-transform drop-shadow-sm grayscale group-hover:grayscale-0">{icon}</span><span className="text-xl font-bold tracking-wide text-gray-800">{title}</span><span className="text-[10px] font-bold text-gray-400 uppercase mt-1 tracking-widest">{subtitle}</span></button>; }
 function ModeButton({ icon, title, subtitle, color, onClick }: any) { return <button onClick={onClick} className={`border-2 ${color} p-4 rounded-2xl transition-all shadow-sm hover:shadow-md flex flex-col items-center gap-2 group h-full justify-center bg-white`}><span className="text-3xl group-hover:scale-110 transition-transform">{icon}</span><div className="text-center"><span className="font-bold text-sm block text-gray-700">{title}</span><span className="text-[10px] text-gray-400 font-bold">{subtitle}</span></div></button>; }
 function StatCard({ label, value, color }: any) { return <div className="bg-white p-4 rounded-2xl shadow-sm border border-stone-100"><p className="text-stone-400 text-[10px] font-bold uppercase tracking-widest mb-1">{label}</p><p className={`text-2xl font-bold font-serif ${color}`}>{value}</p></div>; }
+
+function SettingItem({ icon, label, onClick }: { icon: string, label: string, onClick: () => void }) {
+  return (
+    <button onClick={onClick} className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition text-left group">
+      <div className="flex items-center gap-3">
+        <span className="text-xl bg-stone-100 w-8 h-8 rounded-full flex items-center justify-center">{icon}</span>
+        <span className="text-gray-700 font-medium text-sm">{label}</span>
+      </div>
+      <span className="text-gray-300 group-hover:text-emerald-500 transition">→</span>
+    </button>
+  );
+}
 
 function OrthographyDrill({ question, onNext, isLast }: any) {
   const [isRevealed, setIsRevealed] = useState(false);
