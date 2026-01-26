@@ -27,7 +27,6 @@ const ARABIC_KEYS = [
 ];
 
 // ムタナッビーの詩（背景用）
-// "馬も、夜も、砂漠も私を知っている。剣も、槍も、紙も、ペンも。"
 const MUTANABBI_POEM = "الخَيْلُ وَاللّيْلُ وَالبَيْداءُ تَعرِفُني ... وَالسّيفُ وَالرّمحُ والقرْطاسُ وَقَلَمُ ... ";
 
 // 詩の時代データ
@@ -115,7 +114,6 @@ const LandingPage = ({ onLogin, onGuestStart }: { onLogin: () => void, onGuestSt
       <div className="bg-emerald-950 text-white relative overflow-hidden h-[600px] flex flex-col justify-center items-center">
         {/* 背景のアニメーション層 */}
         <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none flex flex-col justify-around z-0 overflow-hidden" dir="rtl">
-           {/* ムタナッビーの詩を流す */}
            {[...Array(5)].map((_, i) => (
              <div key={i} className="whitespace-nowrap text-[8rem] md:text-[10rem] font-arabic leading-none animate-scroll-text" style={{ animationDuration: `${40 + i * 10}s`, opacity: 0.5 + (i * 0.1) }}>
                {MUTANABBI_POEM.repeat(10)}
@@ -263,7 +261,7 @@ export default function Home() {
   const [isPremium, setIsPremium] = useState(false); 
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
 
-  // ★追加: LP表示の制御フラグ
+  // LP表示の制御フラグ
   const [showLandingPage, setShowLandingPage] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -364,13 +362,13 @@ export default function Home() {
       if (session?.user) { 
           fetchProfile(session.user.id); 
           fetchVocab(session.user.id);
-          setShowLandingPage(false); // ログイン済みならLP非表示
+          setShowLandingPage(false); 
       } else { 
           setIsPremium(false); 
           setSavedVocab(JSON.parse(localStorage.getItem("arabicApp_vocab") || "[]"));
-          setShowLandingPage(true); // 未ログインならLP表示
+          setShowLandingPage(true); 
       }
-      setIsLoading(false); // 判定完了
+      setIsLoading(false); 
     };
     initUser();
     
@@ -1210,23 +1208,31 @@ export default function Home() {
                   })}
                           </div>
                         ) : (
-                          <p className="text-xl md:text-2xl leading-loose font-arabic text-justify mb-10 w-full text-gray-800" dir="rtl">
-                            {(() => {
-                              if (activeArticle.level === "上級") {
-                                if (activeArticle.contentPlain) return activeArticle.contentPlain;
-                                if (activeArticle.sentences && activeArticle.sentences.length > 0) return removeTashkeel(activeArticle.sentences.map(s => s.arabic).join(" "));
-                                return activeArticle.contentVoweled ? removeTashkeel(activeArticle.contentVoweled) : "";
-                              } 
-                              else if (activeArticle.level === "中級") {
-                                if (activeArticle.contentVoweled) return activeArticle.contentVoweled;
-                                if (activeArticle.sentences && activeArticle.sentences.length > 0) return activeArticle.sentences.map(s => s.arabic).join(" ");
-                                return activeArticle.contentPlain || "";
-                              } 
-                              else {
-                                return (activeArticle.contentVoweled || activeArticle.contentPlain || "");
-                              }
-                            })()}
-                          </p>
+                          // ★★★ ここを修正: 聴解モードならアラビア語テキストを非表示にする ★★★
+                          learningMode === "listening" ? (
+                             <div className="py-8 text-center text-gray-500 text-sm bg-stone-50 rounded-xl border border-stone-200 mb-8">
+                                <p>🎥 動画・音声を視聴して内容を理解しましょう</p>
+                                <p className="text-xs mt-2 opacity-70">（テキストはクイズ後に表示されます）</p>
+                             </div>
+                          ) : (
+                             <p className="text-xl md:text-2xl leading-loose font-arabic text-justify mb-10 w-full text-gray-800" dir="rtl">
+                                {(() => {
+                                  if (activeArticle.level === "上級") {
+                                    if (activeArticle.contentPlain) return activeArticle.contentPlain;
+                                    if (activeArticle.sentences && activeArticle.sentences.length > 0) return removeTashkeel(activeArticle.sentences.map(s => s.arabic).join(" "));
+                                    return activeArticle.contentVoweled ? removeTashkeel(activeArticle.contentVoweled) : "";
+                                  } 
+                                  else if (activeArticle.level === "中級") {
+                                    if (activeArticle.contentVoweled) return activeArticle.contentVoweled;
+                                    if (activeArticle.sentences && activeArticle.sentences.length > 0) return activeArticle.sentences.map(s => s.arabic).join(" ");
+                                    return activeArticle.contentPlain || "";
+                                  } 
+                                  else {
+                                    return (activeArticle.contentVoweled || activeArticle.contentPlain || "");
+                                  }
+                                })()}
+                             </p>
+                          )
                         )}
                         
                         {activeArticle.keyExpressions && activeArticle.keyExpressions.length > 0 && (
@@ -1246,7 +1252,7 @@ export default function Home() {
                                      </p>
                                    )}
                                    <p className="text-sm text-gray-700 font-bold mb-1">{item.explanation.split("「")[0]}</p>
-                                   <p className="text-xs text-gray-500 leading-relaxed">{item.explanation}</p>
+                                   <p className="text-xs text-gray-500 leading-relaxed" dir="ltr" className="text-left">{item.explanation}</p>
                                  </div>
                                ))}
                              </div>
@@ -1397,7 +1403,47 @@ export default function Home() {
                       </button>
                   </div>
               ) : (
-                  <div className="flex justify-center gap-4"><button onClick={() => changeScreen("list")} className="px-10 py-3 bg-emerald-900 text-white font-bold rounded-full hover:bg-emerald-800 shadow-lg transition">一覧に戻る</button></div>
+                  <div className="space-y-6">
+                    {/* 通常の読解モードでも、ここに「復習（解説）」を表示する */}
+                    <div className="flex justify-center gap-4 mb-8">
+                        <button onClick={() => changeScreen("list")} className="px-10 py-3 bg-emerald-900 text-white font-bold rounded-full hover:bg-emerald-800 shadow-lg transition">一覧に戻る</button>
+                    </div>
+
+                    {/* sentencesデータがある場合、復習用に表示する */}
+                    {activeArticle.sentences && activeArticle.sentences.length > 0 && (
+                      <div className="mt-12 text-left max-w-2xl mx-auto px-4">
+                        <h3 className="text-center font-bold text-emerald-900 mb-6 border-b pb-2">文章の解説・日本語訳</h3>
+                        <div className="space-y-6">
+                          {activeArticle.sentences.map((sent, idx) => (
+                            <div key={idx} className="bg-stone-50 p-4 rounded-xl border border-stone-200">
+                              {/* アラビア語 */}
+                              <p className="text-xl font-arabic text-emerald-900 mb-2 leading-loose" dir="rtl">{sent.arabic}</p>
+                              
+                              {/* 日本語訳 */}
+                              <p className="text-sm font-bold text-gray-700 mb-2 text-left" dir="ltr">
+                                {sent.japanese}
+                              </p>
+                              
+                              {/* 解説ノート（あれば表示） */}
+                              {sent.note && (
+                                <div className="text-xs bg-amber-100 text-amber-900 p-2 rounded flex gap-2 items-start text-left" dir="ltr">
+                                  <span className="text-lg">💡</span>
+                                  <span>{sent.note}</span>
+                                </div>
+                              )}
+                              
+                              {/* 音声再生ボタン */}
+                              <div className="mt-2 text-right">
+                                <button onClick={() => speakText(sent.arabic)} className="text-xs text-emerald-600 font-bold hover:underline">
+                                  🔊 音声を聞く
+                                </button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
               )}
             </div>
           </div>
