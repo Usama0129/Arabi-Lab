@@ -1252,7 +1252,7 @@ export default function Home() {
                                      </p>
                                    )}
                                    <p className="text-sm text-gray-700 font-bold mb-1">{item.explanation.split("「")[0]}</p>
-                                   <p className="text-xs text-gray-500 leading-relaxed" dir="ltr" className="text-left">{item.explanation}</p>
+                                   <p className="text-xs text-gray-500 leading-relaxed text-left" dir="ltr">{item.explanation}</p>
                                  </div>
                                ))}
                              </div>
