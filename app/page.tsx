@@ -1208,7 +1208,6 @@ export default function Home() {
                   })}
                           </div>
                         ) : (
-                          // ★★★ ここを修正: 聴解モードならアラビア語テキストを非表示にする ★★★
                           learningMode === "listening" ? (
                              <div className="py-8 text-center text-gray-500 text-sm bg-stone-50 rounded-xl border border-stone-200 mb-8">
                                 <p>🎥 動画・音声を視聴して内容を理解しましょう</p>
@@ -1335,6 +1334,7 @@ export default function Home() {
                   question={activeArticle.questions[currentQuestionIndex]} 
                   onNext={nextQuizQuestion}
                   isLast={currentQuestionIndex === activeArticle.questions.length - 1}
+                  onSpeak={speakText}
                 />
              ) : (
                 <div className="bg-white p-8 rounded-2xl shadow-xl border border-stone-100">
@@ -1368,6 +1368,16 @@ export default function Home() {
       <p className="text-sm opacity-90 text-left mt-2 whitespace-pre-wrap" dir="ltr">
         {activeArticle.questions[currentQuestionIndex].explanation}
       </p>
+
+      {/* ★★★ 全クイズ形式対応: 解説時に音声ボタンを表示 ★★★ */}
+      {activeArticle.questions[currentQuestionIndex].audio && (
+        <button 
+          onClick={() => speakText(activeArticle.questions[currentQuestionIndex].audio!)} 
+          className="mx-auto flex items-center gap-2 bg-white border border-emerald-200 text-emerald-700 px-4 py-2 rounded-full text-xs font-bold shadow-sm hover:bg-emerald-50 transition mt-4"
+        >
+          <span>🔊</span> 発音を聞く
+        </button>
+      )}
 
     </div>
     <button onClick={nextQuizQuestion} className="w-full bg-emerald-800 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-emerald-900 transition transform">{currentQuestionIndex < activeArticle.questions.length - 1 ? "次の問題へ" : "結果を見る"}</button>
@@ -1518,7 +1528,7 @@ function SettingItem({ icon, label, onClick }: { icon: string, label: string, on
   );
 }
 
-function OrthographyDrill({ question, onNext, isLast }: any) {
+function OrthographyDrill({ question, onNext, isLast, onSpeak }: any) {
   const [isRevealed, setIsRevealed] = useState(false);
 
   useEffect(() => {
@@ -1547,9 +1557,19 @@ function OrthographyDrill({ question, onNext, isLast }: any) {
         <div className="animate-fade-in-up">
           <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-6 mb-6">
             <div className="text-sm text-emerald-600 font-bold mb-2">正解 (Answer)</div>
-            <div className="text-5xl text-emerald-800 font-arabic font-bold mb-2">
+            <div className="text-5xl text-emerald-800 font-arabic font-bold mb-4">
               {question.explanation}
             </div>
+            
+            {/* 音声再生ボタン（解説時のみ表示） */}
+            {question.audio && (
+              <button 
+                onClick={() => onSpeak(question.audio)} 
+                className="mx-auto flex items-center gap-2 bg-white border border-emerald-200 text-emerald-700 px-4 py-2 rounded-full text-xs font-bold shadow-sm hover:bg-emerald-50 transition mb-2"
+              >
+                <span>🔊</span> 発音を聞く
+              </button>
+            )}
           </div>
             
           <div className="flex gap-2">

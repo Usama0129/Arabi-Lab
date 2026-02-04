@@ -1,7 +1,6 @@
 // =================================================================
 //  data.ts (完全版)
 // =================================================================
-
 // ▼▼▼ 1. 型定義 (Type Definitions) ▼▼▼
 
 // data.ts
@@ -23,6 +22,7 @@ export type QuizQuestion = {
   options: string[];
   correctIndex: number;
   explanation: string;
+  audio?: string; // ★★★ これを追加！(オプショナル型) ★★★
 };
 
 export type Vocab = {
@@ -68,7 +68,6 @@ export type Article = {
 
 // ▼▼▼ データ本体 ▼▼▼
 export const articles: Article[] = [
-  // ... 以下、各記事データを続けてください
   // ==========================================
   //  カテゴリー: ホテル (Hotel) - 10 Scenes
   // ==========================================
@@ -2316,12 +2315,195 @@ export const articles: Article[] = [
       "/image/grammar/lesson1_4.jpg", 
       "/image/grammar/lesson1_5.jpg"
     ],
-// ダミーデータ
-contentVoweled: "",
-sentences: [], 
-vocabList: [],
-questions: [] // アルファベット回は問題なし
-},
+    // ダミーデータ
+    contentVoweled: "",
+    sentences: [], 
+    vocabList: [],
+    
+    // ▼▼▼ 問題と音声データを追加しました ▼▼▼
+    questions: [
+      {
+        id: 1011,
+        type: "grammar",
+        text: "次の文字の名前は何ですか？\n「ص」",
+        audio: "ص",
+        options: ["Sād (サード)", "Dād (ダード)", "Tā (ター)", "Sīn (スィーン)"],
+        correctIndex: 0,
+        explanation: "「ص」は Sād (サード) です。Dād (ض) と似ていますが点がありません。"
+      },
+      {
+        id: 1012,
+        type: "grammar",
+        text: "「Kha (ハー)」の文字はどれですか？",
+        audio: "خ",
+        options: ["ح", "ج", "خ", "د"],
+        correctIndex: 2,
+        explanation: "「خ (Kha)」は頭の上に点が1つあります。「ج (Jīm)」は点がお腹に、「ح (Hā)」は点がありません。"
+      },
+      {
+        id: 1013,
+        type: "grammar",
+        text: "次の文字の名前は何ですか？\n「م」",
+        audio: "م",
+        options: ["Nūn (ヌーン)", "Mīm (ミーム)", "Wāw (ワウ)", "Hā (ハー)"],
+        correctIndex: 1,
+        explanation: "「م」は Mīm (ミーム) です。英語のMの音に相当します。"
+      },
+      {
+        id: 1014,
+        type: "grammar",
+        text: "「Bā (バー)」の文字はどれですか？",
+        audio: "ب",
+        options: ["ت", "ث", "ب", "ن"],
+        correctIndex: 2,
+        explanation: "「ب (Bā)」は下に点が1つあります。「ت (Tā)」は上に2つ、「ث (Thā)」は上に3つ点があります。"
+      },
+      {
+        id: 1015,
+        type: "grammar",
+        text: "次の文字の名前は何ですか？\n「ا」",
+        audio: "ا",
+        options: ["Alif (アリフ)", "Lām (ラーム)", "Yā (ヤー)", "Kāf (カーフ)"],
+        correctIndex: 0,
+        explanation: "「ا」は Alif (アリフ) です。最も基本的な縦棒の文字です。"
+      },
+      {
+        id: 1016,
+        type: "grammar",
+        text: "「Thā (サー)」の文字はどれですか？",
+        audio: "ث",
+        options: ["ت", "ن", "ب", "ث"],
+        correctIndex: 3,
+        explanation: "「ث (Thā)」はお皿の上に点が3つあります。英語の 'think' の 'th' のような音です。"
+      },
+      {
+        id: 1017,
+        type: "grammar",
+        text: "次の文字の名前は何ですか？\n「ج」",
+        audio: "ج",
+        options: ["Hā (ハー)", "Kha (ハー)", "Jīm (ジーム)", "Ayn (アイン)"],
+        correctIndex: 2,
+        explanation: "「ج」は Jīm (ジーム) です。点がお腹（下）にあります。"
+      },
+      {
+        id: 1018,
+        type: "grammar",
+        text: "「Dāl (ダール)」の文字はどれですか？",
+        audio: "د",
+        options: ["ر", "د", "ذ", "ز"],
+        correctIndex: 1,
+        explanation: "「د (Dāl)」は点がありません。「ذ (Dhāl)」には点があります。"
+      },
+      {
+        id: 1019,
+        type: "grammar",
+        text: "次の文字の名前は何ですか？\n「ذ」",
+        audio: "ذ",
+        options: ["Dāl (ダール)", "Zāy (ザーイ)", "Dhāl (ザール)", "Rā (ラー)"],
+        correctIndex: 2,
+        explanation: "「ذ」は Dhāl (ザール) です。Dāl (د) に点が1つ付いた形で、英語の 'this' の 'th' の音です。"
+      },
+      {
+        id: 1020,
+        type: "grammar",
+        text: "「Rā (ラー)」の文字はどれですか？",
+        audio: "ر",
+        options: ["ز", "و", "د", "ر"],
+        correctIndex: 3,
+        explanation: "「ر (Rā)」は点がなく、ラインの下に滑らかにカーブします。「ز (Zāy)」には点があります。"
+      },
+      {
+        id: 1021,
+        type: "grammar",
+        text: "次の文字の名前は何ですか？\n「ز」",
+        audio: "ز",
+        options: ["Rā (ラー)", "Zāy (ザーイ)", "Sīn (スィーン)", "Nūn (ヌーン)"],
+        correctIndex: 1,
+        explanation: "「ز」は Zāy (ザーイ) です。Rā (ر) の上に点が1つ付きます。"
+      },
+      {
+        id: 1022,
+        type: "grammar",
+        text: "「Sīn (スィーン)」の文字はどれですか？",
+        audio: "س",
+        options: ["ش", "ص", "س", "ث"],
+        correctIndex: 2,
+        explanation: "「س (Sīn)」は3つの歯があり、点がありません。"
+      },
+      {
+        id: 1023,
+        type: "grammar",
+        text: "次の文字の名前は何ですか？\n「ش」",
+        audio: "ش",
+        options: ["Sīn (スィーン)", "Sād (サード)", "Shīn (シーン)", "Thā (サー)"],
+        correctIndex: 2,
+        explanation: "「ش」は Shīn (シーン) です。Sīn (س) の上に点が3つ付きます。"
+      },
+      {
+        id: 1024,
+        type: "grammar",
+        text: "「Tā (ター・強調音)」の文字はどれですか？",
+        audio: "ط",
+        options: ["ت", "ط", "ظ", "د"],
+        correctIndex: 1,
+        explanation: "「ط (Tā)」は縦に長い竿があり、点がありません。喉の奥から出す重い「タ」の音です。"
+      },
+      {
+        id: 1025,
+        type: "grammar",
+        text: "次の文字の名前は何ですか？\n「ظ」",
+        audio: "ظ",
+        options: ["Tā (ター)", "Zā (ザー)", "Ayn (アイン)", "Dād (ダード)"],
+        correctIndex: 1,
+        explanation: "「ظ」は Zā (ザー・強調音) です。Tā (ط) に点が1つ付きます。"
+      },
+      {
+        id: 1026,
+        type: "grammar",
+        text: "「Ayn (アイン)」の文字はどれですか？",
+        audio: "ع",
+        options: ["غ", "ع", "ح", "ه"],
+        correctIndex: 1,
+        explanation: "「ع (Ayn)」は点がありません。「C」を左右反転させたような独特な形です。"
+      },
+      {
+        id: 1027,
+        type: "grammar",
+        text: "次の文字の名前は何ですか？\n「غ」",
+        audio: "غ",
+        options: ["Ayn (アイン)", "Fā (ファー)", "Ghayn (ガイン)", "Qāf (カーフ)"],
+        correctIndex: 2,
+        explanation: "「غ」は Ghayn (ガイン) です。Ayn (ع) の上に点が1つあります。"
+      },
+      {
+        id: 1028,
+        type: "grammar",
+        text: "「Fā (ファー)」の文字はどれですか？",
+        audio: "ف",
+        options: ["ق", "م", "و", "ف"],
+        correctIndex: 3,
+        explanation: "「ف (Fā)」は丸い頭の上に点が1つあります。体は平たい形をしています。"
+      },
+      {
+        id: 1029,
+        type: "grammar",
+        text: "次の文字の名前は何ですか？\n「ق」",
+        audio: "ق",
+        options: ["Fā (ファー)", "Kāf (カーフ)", "Qāf (カーフ・強調音)", "Yā (ヤー)"],
+        correctIndex: 2,
+        explanation: "「ق」は Qāf (カーフ) です。Fā (ف) に似ていますが、点が2つあり、お皿の部分が深くカーブします。"
+      },
+      {
+        id: 1030,
+        type: "grammar",
+        text: "「Kāf (カーフ)」の文字はどれですか？",
+        audio: "ك",
+        options: ["ل", "ك", "ع", "ء"],
+        correctIndex: 1,
+        explanation: "「ك (Kāf)」はＬ字型の中に、小さな「S」のような形（ハムザに似た形）が入っています。"
+      }
+    ]
+  },
 {
   id: 102,
   level: "文法",
@@ -2705,25 +2887,208 @@ questions: [
 ]
 },
 {
-id: 103,
-level: "文法",
-category: "文字と発音",
-title: "Lesson 3: 発音記号",
-contentPlain: "ますは基本形と発音記号でアラビア語の読み方に慣れましょう",
+  id: 103,
+  level: "文法",
+  category: "文字と発音",
+  title: "Lesson 3: 発音",
+  contentPlain: "アラビア語の文字は、単語の中で前後とつながって形を変えます。パズルのように文字をつなぐルールを覚えましょう。",
 
-// ★ 修正版: "image" フォルダを追加し、ファイル名を写真通りに修正
-imageUrls: [
-"/image/grammar/lesson3_1.jpg", 
-"/image/grammar/lesson3_2.jpg", 
-"/image/grammar/lesson3_3.jpg", 
-"/image/grammar/lesson3_4.jpg", 
-],
+  // 画像パスはご自身の環境に合わせてください
+  imageUrls: [
+    "/image/grammar/lesson3_1.jpg", 
+    "/image/grammar/lesson3_2.jpg", 
+    "/image/grammar/lesson3_3.jpg", 
+    "/image/grammar/lesson3_4.jpg", 
+  ],
 
-// ダミーデータ
-contentVoweled: "",
-sentences: [], 
-vocabList: [],
-questions: [] // アルファベット回は問題なし
+  // ダミーデータ
+  contentVoweled: "",
+  sentences: [], 
+  vocabList: [],
+  
+  // ▼▼▼ 長母音なし・語末ダンマ対応版 20問 ▼▼▼
+  questions: [
+    {
+      id: 1031,
+      type: "grammar",
+      text: "次の文字をつなげてください（書いた / 動詞）：\nكَ + تَ + بَ",
+      audio: "كَتَبَ",
+      explanation: "كَتَبَ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1032,
+      type: "grammar",
+      text: "次の文字をつなげてください（ペン）：\nقَ + لَ + مُ",
+      audio: "قَلَمُ",
+      explanation: "قَلَمُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1033,
+      type: "grammar",
+      text: "次の文字をつなげてください（太陽）：\nشَ + مْ + سُ",
+      audio: "شَمْسُ",
+      explanation: "شَمْسُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1034,
+      type: "grammar",
+      text: "次の文字をつなげてください（勉強した / 動詞）：\nدَ + رَ + سَ",
+      audio: "دَرَسَ",
+      explanation: "دَرَسَ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1035,
+      type: "grammar",
+      text: "次の文字をつなげてください（ラクダ）：\nجَ + مَ + لُ",
+      audio: "جَمَلُ",
+      explanation: "جَمَلُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1036,
+      type: "grammar",
+      text: "次の文字をつなげてください（男）：\nرَ + جُ + لُ",
+      audio: "رَجُلُ",
+      explanation: "رَجُلُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1037,
+      type: "grammar",
+      text: "次の文字をつなげてください（男の子）：\nوَ + لَ + دُ",
+      audio: "وَلَدُ",
+      explanation: "وَلَدُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1038,
+      type: "grammar",
+      text: "次の文字をつなげてください（遊んだ / 動詞）：\nلَ + عِ + بَ",
+      audio: "لَعِبَ",
+      explanation: "لَعِبَ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1039,
+      type: "grammar",
+      text: "次の文字をつなげてください（月）：\nقَ + مَ + رُ",
+      audio: "قَمَرُ",
+      explanation: "قَمَرُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1040,
+      type: "grammar",
+      text: "次の文字をつなげてください（手）：\nيَ + دُ",
+      audio: "يَدُ",
+      explanation: "يَدُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1041,
+      type: "grammar",
+      text: "次の文字をつなげてください（王様）：\nمَ + لِ + كُ",
+      audio: "مَلِكُ",
+      explanation: "مَلِكُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1042,
+      type: "grammar",
+      text: "次の文字をつなげてください（犬）：\nكَ + لْ + بُ",
+      audio: "كَلْبُ",
+      explanation: "كَلْبُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1043,
+      type: "grammar",
+      text: "次の文字をつなげてください（ブドウ）：\nعِ + نَ + بُ",
+      audio: "عِنَبُ",
+      explanation: "عِنَبُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1044,
+      type: "grammar",
+      text: "次の文字をつなげてください（行った / 動詞）：\nذَ + هَ + بَ",
+      audio: "ذَهَبَ",
+      explanation: "ذَهَبَ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1045,
+      type: "grammar",
+      text: "次の文字をつなげてください（耳）：\nأُ + ذُ + نُ",
+      audio: "أُذُنُ",
+      explanation: "أُذُنُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1046,
+      type: "grammar",
+      text: "次の文字をつなげてください（父）：\nأَ + بُ",
+      audio: "أَبُ",
+      explanation: "أَبُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1047,
+      type: "grammar",
+      text: "次の文字をつなげてください（目）：\nعَ + يْ + نُ",
+      audio: "عَيْنُ",
+      explanation: "عَيْنُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1048,
+      type: "grammar",
+      text: "次の文字をつなげてください（紙）：\nوَ + رَ + قُ",
+      audio: "وَرَ‌قُ",
+      explanation: "وَرَ‌قُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1049,
+      type: "grammar",
+      text: "次の文字をつなげてください（女の子）：\nبِ + نْ + تُ",
+      audio: "بِنْتُ",
+      explanation: "بِنْتُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1050,
+      type: "grammar",
+      text: "次の文字をつなげてください（飲んだ / 動詞）：\nشَ + رِ + بَ",
+      audio: "شَرِبَ",
+      explanation: "شَرِبَ",
+      options: [], 
+      correctIndex: 0
+    }
+  ]
 },
 {
   id: 104,
@@ -2734,64 +3099,803 @@ questions: [] // アルファベット回は問題なし
   
   // ★ 修正版: "image" フォルダを追加し、ファイル名を写真通りに修正
   imageUrls: [
-  "/image/grammar/lesson4_1.jpg", 
-  "/image/grammar/lesson4_2.jpg", 
-  "/image/grammar/lesson4_3.jpg", 
-  "/image/grammar/lesson4_4.jpg", 
-  "/image/grammar/lesson4_5.jpg", 
-  "/image/grammar/lesson4_6.jpg", 
-  "/image/grammar/lesson4_7.jpg", 
-  "/image/grammar/lesson4_8.jpg",
-  "/image/grammar/lesson4_9.jpg",
+    "/image/grammar/lesson4_1.jpg", 
+    "/image/grammar/lesson4_2.jpg", 
+    "/image/grammar/lesson4_3.jpg", 
+    "/image/grammar/lesson4_4.jpg", 
+    "/image/grammar/lesson4_5.jpg", 
+    "/image/grammar/lesson4_6.jpg", 
+    "/image/grammar/lesson4_7.jpg", 
+    "/image/grammar/lesson4_8.jpg",
+    "/image/grammar/lesson4_9.jpg",
   ],
   
   // ダミーデータ
   contentVoweled: "",
   sentences: [], 
   vocabList: [],
-  questions: [] // アルファベット回は問題なし
-  },
-  {
-    id: 105,
-    level: "文法",
-    category: "文字と発音",
-    title: "Lesson 5: タンウィーン",
-    contentPlain: "これは単語の最後に付き、「～ン (n)」という音を加える記号です。主に「ある～」「一人の～」といった**非限定（英語の a / an）**の意味を持たせるために使います。",
-    
-    // ★ 修正版: "image" フォルダを追加し、ファイル名を写真通りに修正
-    imageUrls: [
-    "/image/grammar/lesson5_1.jpg", 
-    "/image/grammar/lesson5_2.jpg", 
-    ],
-    
-    // ダミーデータ
-    contentVoweled: "",
-    sentences: [], 
-    vocabList: [],
-    questions: [] // アルファベット回は問題なし
+  
+  // ▼▼▼ 長母音・重子音の連結ドリル 20問 ▼▼▼
+  questions: [
+    {
+      id: 1041,
+      type: "grammar",
+      text: "次の文字をつなげてください（ドア / 長母音）：\nبَ + ا + بُ",
+      audio: "بَابُ",
+      explanation: "بَابُ",
+      options: [], 
+      correctIndex: 0
     },
     {
-      id: 106,
-      level: "文法",
-      category: "文字と発音",
-      title: "Lesson 6: 太陽文字と月文字",
-      contentPlain: "これは定冠詞「アル」を単語の頭につけた時、「ル」の音を読むか、読まないかのルールです。",
-      
-      // ★ 修正版: "image" フォルダを追加し、ファイル名を写真通りに修正
-      imageUrls: [
-      "/image/grammar/lesson6_1.jpg", 
-      "/image/grammar/lesson6_2.jpg", 
-      "/image/grammar/lesson6_3.jpg", 
-      "/image/grammar/lesson6_4.jpg", 
-      "/image/grammar/lesson6_5.jpg", 
-      ],
-      
-      // ダミーデータ
-      contentVoweled: "",
-      sentences: [], 
-      vocabList: [],
-      questions: [] // アルファベット回は問題なし
-      },
+      id: 1042,
+      type: "grammar",
+      text: "次の文字をつなげてください（象 / 長母音）：\nفِ + ي + لُ",
+      audio: "فِيلُ",
+      explanation: "فِيلُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1043,
+      type: "grammar",
+      text: "次の文字をつなげてください（クジラ / 長母音）：\nحُ + و + تُ",
+      audio: "حُوتُ",
+      explanation: "حُوتُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1044,
+      type: "grammar",
+      text: "次の文字をつなげてください（本 / 長母音）：\nكِ + تَ + ا + بُ",
+      audio: "كِتَابُ",
+      explanation: "كِتَابُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1045,
+      type: "grammar",
+      text: "次の文字をつなげてください（小さい / 長母音）：\nصَ + غِ + ي + رُ",
+      audio: "صَغِيرُ",
+      explanation: "صَغِيرُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1046,
+      type: "grammar",
+      text: "次の文字をつなげてください（市場 / 長母音）：\nسُ + و + قُ",
+      audio: "سُوقُ",
+      explanation: "سُوقُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1047,
+      type: "grammar",
+      text: "次の文字をつなげてください（母 / シャッダ）：\nأُ + مُّ",
+      audio: "أُمُّ",
+      explanation: "أُمُّ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1048,
+      type: "grammar",
+      text: "次の文字をつなげてください（祖父 / シャッダ）：\nجَ + دُّ",
+      audio: "جَدُّ",
+      explanation: "جَدُّ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1049,
+      type: "grammar",
+      text: "次の文字をつなげてください（猫 / シャッダ）：\nقِ + طَّ + ةُ",
+      audio: "قِطَّةُ",
+      explanation: "قِطَّةُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1050,
+      type: "grammar",
+      text: "次の文字をつなげてください（6 / シャッダ）：\nسِ + تَّ + ةُ",
+      audio: "سِتَّةُ",
+      explanation: "سِتَّةُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1051,
+      type: "grammar",
+      text: "次の文字をつなげてください（教えた / 動詞・シャッダ）：\nدَ + رَّ + سَ",
+      audio: "دَرَّسَ",
+      explanation: "دَرَّسَ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1052,
+      type: "grammar",
+      text: "次の文字をつなげてください（ジャスミン / シャッダ）：\nفُ + لُّ",
+      audio: "فُلُّ",
+      explanation: "فُلُّ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1053,
+      type: "grammar",
+      text: "次の文字をつなげてください（リンゴ / シャッダ＋長母音）：\nتُ + فَّ + ا + حُ",
+      audio: "تُفَّاحُ",
+      explanation: "تُفَّاحُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1054,
+      type: "grammar",
+      text: "次の文字をつなげてください（浴室 / シャッダ＋長母音）：\nحَ + مَّ + ا + مُ",
+      audio: "حَمَّامُ",
+      explanation: "حَمَّامُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1055,
+      type: "grammar",
+      text: "次の文字をつなげてください（ザクロ / シャッダ＋長母音）：\nرُ + مَّ + ا + نُ",
+      audio: "رُمَّانُ",
+      explanation: "رُمَّانُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1056,
+      type: "grammar",
+      text: "次の文字をつなげてください（車 / シャッダ＋長母音）：\nسَ + يَّ + ا + رَ + ةُ",
+      audio: "سَيَّارَةُ",
+      explanation: "سَيَّارَةُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1057,
+      type: "grammar",
+      text: "次の文字をつなげてください（きゅうり / 長母音）：\nخِ + يَ + ا + رُ",
+      audio: "خِيَارُ",
+      explanation: "خِيَارُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1058,
+      type: "grammar",
+      text: "次の文字をつなげてください（医者 / 長母音）：\nطَ + بِ + ي + بُ",
+      audio: "طَبِيبُ",
+      explanation: "طَبِيبُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1059,
+      type: "grammar",
+      text: "次の文字をつなげてください（ジュース / 長母音）：\nعَ + صِ + ي + رُ",
+      audio: "عَصِيرُ",
+      explanation: "عَصِيرُ",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1060,
+      type: "grammar",
+      text: "次の文字をつなげてください（石鹸 / 長母音）：\nصَ + ا + بُ + و + نُ",
+      audio: "صَابُونُ",
+      explanation: "صَابُونُ",
+      options: [], 
+      correctIndex: 0
+    }
+  ]
+},
+{
+  id: 105,
+  level: "文法",
+  category: "文字と発音",
+  title: "Lesson 5: タンウィーン（～ン）",
+  contentPlain: "これは単語の最後に付き、「～ン (n)」という音を加える記号です。主に「ある～」「一人の～」といった非限定（英語の a / an）の意味を持たせるために使います。",
+  
+  // ★ 修正版: "image" フォルダを追加し、ファイル名を写真通りに修正
+  imageUrls: [
+    "/image/grammar/lesson5_1.jpg", 
+    "/image/grammar/lesson5_2.jpg", 
+  ],
+  
+  // ダミーデータ
+  contentVoweled: "",
+  sentences: [], 
+  vocabList: [],
+  
+  // ▼▼▼ タンウィーン変換ドリル 20問 ▼▼▼
+  questions: [
+    // --- タンウィーン・ダンマ (un) の練習 ---
+    {
+      id: 1051,
+      type: "grammar",
+      text: "次の単語を「タンウィーン・ダンマ（un）」にしてください：\nبَيْتُ (家)",
+      audio: "بَيْتٌ",
+      explanation: "بَيْتٌ (Baytun)",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1052,
+      type: "grammar",
+      text: "次の単語を「タンウィーン・ダンマ（un）」にしてください：\nقَلَمُ (ペン)",
+      audio: "قَلَمٌ",
+      explanation: "قَلَمٌ (Qalamun)",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1053,
+      type: "grammar",
+      text: "次の単語を「タンウィーン・ダンマ（un）」にしてください：\nوَلَدُ (男の子)",
+      audio: "وَلَدٌ",
+      explanation: "وَلَدٌ (Waladun)",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1054,
+      type: "grammar",
+      text: "次の単語を「タンウィーン・ダンマ（un）」にしてください：\nبِنْتُ (女の子)",
+      audio: "بِنْتٌ",
+      explanation: "بِنْتٌ (Bintun)",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1055,
+      type: "grammar",
+      text: "次の単語を「タンウィーン・ダンマ（un）」にしてください：\nمُدَرِّسُ (教師)",
+      audio: "مُدَرِّسٌ",
+      explanation: "مُدَرِّسٌ (Mudarrisun)",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1056,
+      type: "grammar",
+      text: "次の単語を「タンウィーン・ダンマ（un）」にしてください：\nسَيَّارَةُ (車)",
+      audio: "سَيَّارَةٌ",
+      explanation: "سَيَّارَةٌ (Sayyāratun)\n※ター・マルブータの上にもそのまま書きます。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1057,
+      type: "grammar",
+      text: "次の単語を「タンウィーン・ダンマ（un）」にしてください：\nطَالِبَةُ (女子学生)",
+      audio: "طَالِبَةٌ",
+      explanation: "طَالِبَةٌ (Tālibatun)",
+      options: [], 
+      correctIndex: 0
+    },
+    
+    // --- タンウィーン・カスラ (in) の練習 ---
+    {
+      id: 1058,
+      type: "grammar",
+      text: "次の単語を「タンウィーン・カスラ（in）」にしてください：\nكِتَابِ (本)",
+      audio: "كِتَابٍ",
+      explanation: "كِتَابٍ (Kitābin)\n※文字の下に二重線を書きます。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1059,
+      type: "grammar",
+      text: "次の単語を「タンウィーン・カスラ（in）」にしてください：\nرَجُلِ (男)",
+      audio: "رَجُلٍ",
+      explanation: "رَجُلٍ (Rajulin)",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1060,
+      type: "grammar",
+      text: "次の単語を「タンウィーン・カスラ（in）」にしてください：\nمَدْرَسَةِ (学校)",
+      audio: "مَدْرَسَةٍ",
+      explanation: "مَدْرَسَةٍ (Madrasatin)",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1061,
+      type: "grammar",
+      text: "次の単語を「タンウィーン・カスラ（in）」にしてください：\nبَابِ (ドア)",
+      audio: "بَابٍ",
+      explanation: "بَابٍ (Bābin)",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1062,
+      type: "grammar",
+      text: "次の単語を「タンウィーン・カスラ（in）」にしてください：\nكَبِيرِ (大きい)",
+      audio: "كَبِيرٍ",
+      explanation: "كَبِيرٍ (Kabīrin)",
+      options: [], 
+      correctIndex: 0
+    },
+
+    // --- タンウィーン・ファトハ (an) の練習 ※アリフの有無に注意 ---
+    {
+      id: 1063,
+      type: "grammar",
+      text: "次の単語を「タンウィーン・ファトハ（an）」にしてください：\nقَلَمَ (ペン)\n※ヒント：通常はアリフを足します",
+      audio: "قَلَمًا",
+      explanation: "قَلَمًا (Qalaman)\n※タンウィーン・ファトハの場合、基本的に最後に「アリフ (ا)」を添えます。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1064,
+      type: "grammar",
+      text: "次の単語を「タンウィーン・ファトハ（an）」にしてください：\nكِتَابَ (本)",
+      audio: "كِتَابًا",
+      explanation: "كِتَابًا (Kitāban)\n※アリフ (ا) を足して、その直前の文字の上に二重線を書きます。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1065,
+      type: "grammar",
+      text: "次の単語を「タンウィーン・ファトハ（an）」にしてください：\nشُكْرَ (感謝)",
+      audio: "شُكْرًا",
+      explanation: "شُكْرًا (Shukran)\n※「ありがとう」という意味でよく使います。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1066,
+      type: "grammar",
+      text: "次の単語を「タンウィーン・ファトハ（an）」にしてください：\nأَهْلَ (家族/ようこそ)",
+      audio: "أَهْلًا",
+      explanation: "أَهْلًا (Ahlan)\n※ラームとアリフがつながって「لا」の形になります。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1067,
+      type: "grammar",
+      text: "次の単語を「タンウィーン・ファトハ（an）」にしてください：\nمَدْرَسَةَ (学校)\n※ヒント：ター・マルブータで終わる場合",
+      audio: "مَدْرَسَةً",
+      explanation: "مَدْرَسَةً (Madrasatan)\n※例外：ター・マルブータ (ة) で終わる場合は、アリフを足しません。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1068,
+      type: "grammar",
+      text: "次の単語を「タンウィーン・ファトハ（an）」にしてください：\nحَدِيقَةَ (庭)",
+      audio: "حَدِيقَةً",
+      explanation: "حَدِيقَةً (Hadīqatan)\n※最後が「ة」なのでアリフは不要です。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1069,
+      type: "grammar",
+      text: "次の単語を「タンウィーン・ファトハ（an）」にしてください：\nجَدِيدَ (新しい)",
+      audio: "جَدِيدًا",
+      explanation: "جَدِيدًا (Jadīdan)",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1070,
+      type: "grammar",
+      text: "次の単語を「タンウィーン・ファトハ（an）」にしてください：\nصَبَاحَ (朝)",
+      audio: "صَبَاحًا",
+      explanation: "صَبَاحًا (Sabāhan)",
+      options: [], 
+      correctIndex: 0
+    }
+  ]
+},
+{
+  id: 106,
+  level: "文法",
+  category: "文字と発音",
+  title: "Lesson 6: 太陽文字と月文字",
+  contentPlain: "これは定冠詞「アル」を単語の頭につけた時、「ル」の音を読むか、読まないかのルールです。\n\n【重要】定冠詞「アル」がつくと、単語の最後の「ン」の音（タンウィーン）は消えます。",
+  
+  // ★ 修正版: "image" フォルダを追加し、ファイル名を写真通りに修正
+  imageUrls: [
+    "/image/grammar/lesson6_1.jpg", 
+    "/image/grammar/lesson6_2.jpg", 
+    "/image/grammar/lesson6_3.jpg", 
+    "/image/grammar/lesson6_4.jpg", 
+    "/image/grammar/lesson6_5.jpg", 
+    "/image/grammar/lesson6_6.jpg", 
+    "/image/grammar/lesson6_7.jpg", 
+  ],
+  
+  // ダミーデータ
+  contentVoweled: "",
+  sentences: [], 
+  vocabList: [],
+  
+  // ▼▼▼ 太陽文字・月文字の定冠詞ドリル 合計40問 ▼▼▼
+  questions: [
+    // --- 前半 20問 ---
+    {
+      id: 1061,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nقَمَرٌ (月)",
+      audio: "اَلْقَمَرُ",
+      explanation: "「ق (Qāf)」は月文字なので、ラーム（لْ）をはっきり発音します。語末のタンウィーンは消えます。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1062,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nشَمْسٌ (太陽)",
+      audio: "اَلشَّمْسُ",
+      explanation: "اَلشَّمْسُ (ash-shamsu)\n「ش (Shīn)」は太陽文字なので、ラームは読まず、次の文字にシャッダ（ ّ ）をつけて「アッシュ」と読みます。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1063,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nبَيْتٌ (家)",
+      audio: "اَلْبَيْتُ",
+      explanation: "اَلْبَيْتُ (al-baytu)\n「ب (Bā)」は月文字です。「アル・バイトゥ」となります。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1064,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nرَجُلٌ (男)",
+      audio: "اَلرَّجُلُ",
+      explanation: "اَلرَّجُلُ (ar-rajulu)\n「ر (Rā)」は太陽文字です。ルと言わずに「アッ・ラジュル」のように同化します。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1065,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nكِتَابٌ (本)",
+      audio: "اَلْكِتَابُ",
+      explanation: "اَلْكِتَابُ (al-kitābu)\n「ك (Kāf)」は月文字です。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1066,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nطَالِبٌ (男子学生)",
+      audio: "اَلطَّالِبُ",
+      explanation: "اَلطَّالِبُ (at-tālibu)\n「ط (Tā)」は太陽文字です。「アッ・ターリブ」となります。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1067,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nبَابٌ (ドア)",
+      audio: "اَلْبَابُ",
+      explanation: "اَلْبَابُ (al-bābu)\n「ب (Bā)」は月文字です。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1068,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nدَفْتَرٌ (ノート)",
+      audio: "اَلدَّفْتَرُ",
+      explanation: "اَلدَّفْتَرُ (ad-daftaru)\n「د (Dāl)」は太陽文字です。「アッ・ダフタル」となります。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1069,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nقَلَمٌ (ペン)",
+      audio: "اَلْقَلَمُ",
+      explanation: "اَلْقَلَمُ (al-qalamu)\n「ق (Qāf)」は月文字です。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1070,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nسَيَّارَةٌ (車)",
+      audio: "اَلسَّيَّارَةُ",
+      explanation: "اَلسَّيَّارَةُ (as-sayyāratu)\n「س (Sīn)」は太陽文字です。「アッ・サイヤーラ」となります。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1071,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nعَيْنٌ (目)",
+      audio: "اَلْعَيْنُ",
+      explanation: "اَلْعَيْنُ (al-'aynu)\n「ع (Ayn)」は月文字です。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1072,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nنُورٌ (光)",
+      audio: "اَلنُّورُ",
+      explanation: "اَلنُّورُ (an-nūru)\n「ن (Nūn)」は太陽文字です。「アン・ヌール」となります。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1073,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nيَدٌ (手)",
+      audio: "اَلْيَدُ",
+      explanation: "اَلْيَدُ (al-yadu)\n「ي (Yā)」は月文字です。「アル・ヤド」。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1074,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nدِيكٌ (雄鶏)",
+      audio: "اَلدِّيكُ",
+      explanation: "اَلدِّيكُ (ad-dīku)\n「د (Dāl)」は太陽文字です。「アッ・ディーク」。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1075,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nوَجْهٌ (顔)",
+      audio: "اَلْوَجْهُ",
+      explanation: "اَلْوَجْهُ (al-wajhu)\n「و (Wāw)」は月文字です。「アル・ワジュフ」。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1076,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nزَهْرَةٌ (花)",
+      audio: "اَلزَّهْرَةُ",
+      explanation: "اَلزَّهْرَةُ (az-zahratu)\n「ز (Zāy)」は太陽文字です。「アッ・ザハラ」。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1077,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nوَلَدٌ (男の子)",
+      audio: "اَلْوَلَدُ",
+      explanation: "اَلْوَلَدُ (al-waladu)\n「و (Wāw)」は月文字です。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1078,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nثَوْبٌ (服/トーブ)",
+      audio: "اَلثَّوْبُ",
+      explanation: "اَلثَّوْبُ (ath-thawbu)\n「ث (Thā)」は太陽文字です。「アッ・ソウブ」。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1079,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nجَمَلٌ (ラクダ)",
+      audio: "اَلْجَمَلُ",
+      explanation: "اَلْجَمَلُ (al-jamalu)\n「ج (Jīm)」は月文字です。「アル・ジャマル」。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1080,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nلَيْلٌ (夜)",
+      audio: "اَللَّيْلُ",
+      explanation: "اَللَّيْلُ (al-laylu)\n※注意：「ل (Lām)」自体も太陽文字です！「アル・ライル」ではなく、同化して「アッ・ライル」と読みます。",
+      options: [], 
+      correctIndex: 0
+    },
+
+    // --- 追加 20問 (ID 1081 - 1100) ---
+    {
+      id: 1081,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nهَرَمٌ (ピラミッド)",
+      audio: "اَلْهَرَمُ",
+      explanation: "اَلْهَرَمُ (al-haramu)\n「ه (Hā)」は月文字です。「アル・ハラム」。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1082,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nذَهَبٌ (金/ゴールド)",
+      audio: "اَلذَّهَبُ",
+      explanation: "اَلذَّهَبُ (adh-dhahabu)\n「ذ (Dhāl)」は太陽文字です。「アッ・ザハブ」。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1083,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nغُرْفَةٌ (部屋)",
+      audio: "اَلْغُرْفَةُ",
+      explanation: "اَلْغُرْفَةُ (al-ghurfatu)\n「غ (Ghayn)」は月文字です。「アル・グルファ」。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1084,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nصَدِيقٌ (友達)",
+      audio: "اَلصَّدِيقُ",
+      explanation: "اَلصَّدِيقُ (as-sadīqu)\n「ص (Sād)」は太陽文字です。「アッ・サディーク」。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1085,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nخُبْزٌ (パン)",
+      audio: "اَلْخُبْزُ",
+      explanation: "اَلْخُبْزُ (al-khubzu)\n「خ (Khā)」は月文字です。「アル・フブズ」。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1086,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nضَيْفٌ (客)",
+      audio: "اَلضَّيْفُ",
+      explanation: "اَلضَّيْفُ (ad-dayfu)\n「ض (Dād)」は太陽文字です。「アッ・ダイフ」。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1087,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nفَمٌ (口)",
+      audio: "اَلْفَمُ",
+      explanation: "اَلْفَمُ (al-famu)\n「ف (Fā)」は月文字です。「アル・ファム」。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1088,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nطَبِيبٌ (医者)",
+      audio: "اَلطَّبِيبُ",
+      explanation: "اَلطَّبِيبُ (at-tabību)\n「ط (Tā)」は太陽文字です。「アッ・タビーブ」。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1089,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nكُرْسِيٌّ (椅子)",
+      audio: "اَلْكُرْسِيُّ",
+      explanation: "اَلْكُرْسِيُّ (al-kursiyyu)\n「ك (Kāf)」は月文字です。「アル・クルスィー」。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1090,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nظُهْرٌ (昼/正午)",
+      audio: "اَلظُّهْرُ",
+      explanation: "اَلظُّهْرُ (az-zuhru)\n「ظ (Zā)」は太陽文字です。「アッ・ズフル」。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1091,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nمَاءٌ (水)",
+      audio: "اَلْمَاءُ",
+      explanation: "اَلْمَاءُ (al-mā'u)\n「م (Mīm)」は月文字です。「アル・マー」。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1092,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nسَمَكٌ (魚)",
+      audio: "اَلسَّمَكُ",
+      explanation: "اَلسَّمَكُ (as-samaku)\n「س (Sīn)」は太陽文字です。「アッ・サマク」。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1093,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nحِصَانٌ (馬)",
+      audio: "اَلْحِصَانُ",
+      explanation: "اَلْحِصَانُ (al-hisānu)\n「ح (Hā)」は月文字です。「アル・ヒサーン」。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1094,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nشَجَرَةٌ (木)",
+      audio: "اَلشَّجَرَةُ",
+      explanation: "اَلشَّجَرَةُ (ash-shajaratu)\n「ش (Shīn)」は太陽文字です。「アッ・シャジャラ」。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1095,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nيَوْمٌ (日/day)",
+      audio: "اَلْيَوْمُ",
+      explanation: "اَلْيَوْمُ (al-yawmu)\n「ي (Yā)」は月文字です。「アル・ヤウム」。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1096,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nلَحْمٌ (肉)",
+      audio: "اَللَّحْمُ",
+      explanation: "اَللَّحْمُ (al-lahmu)\n「ل (Lām)」で始まる単語に定冠詞がつくと、ラームが重なってシャッダがつきます（実質太陽文字と同じ扱いです）。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1097,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nأَبٌ (父)",
+      audio: "اَلْأَبُ",
+      explanation: "اَلْأَبُ (al-abu)\n「أ (Alif)」は月文字です。「アル・アブ」。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1098,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nتَاجٌ (王冠)",
+      audio: "اَلتَّاجُ",
+      explanation: "اَلتَّاجُ (at-tāju)\n「ت (Tā)」は太陽文字です。「アッ・タージュ」。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1099,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nوَرْدَةٌ (バラ)",
+      audio: "اَلْوَرْدَةُ",
+      explanation: "اَلْوَرْدَةُ (al-wardatu)\n「و (Wāw)」は月文字です。「アル・ワルダ」。",
+      options: [], 
+      correctIndex: 0
+    },
+    {
+      id: 1100,
+      type: "grammar",
+      text: "次の単語に定冠詞（ال）をつけてください：\nنَجْمٌ (星)",
+      audio: "اَلنَّجْمُ",
+      explanation: "اَلنَّجْمُ (an-najmu)\n「ن (Nūn)」は太陽文字です。「アン・ナジュム」。",
+      options: [], 
+      correctIndex: 0
+    }
+  ]
+},
       {
         id: 107,
         level: "文法",
