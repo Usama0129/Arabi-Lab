@@ -26,7 +26,6 @@ const ARABIC_KEYS = [
   "ة", "ء", "أ", "إ", "آ", "ى", "ئ", "ؤ", "؟"
 ];
 
-// ムタナッビーの詩（背景用）
 const MUTANABBI_POEM = "الخَيْلُ وَاللّيْلُ وَالبَيْداءُ تَعرِفُني ... وَالسّيفُ وَالرّمحُ والقرْطاسُ وَقَلَمُ ... ";
 
 // 詩の時代データ
@@ -112,7 +111,6 @@ const LandingPage = ({ onLogin, onGuestStart }: { onLogin: () => void, onGuestSt
 
       {/* Hero Section */}
       <div className="bg-emerald-950 text-white relative overflow-hidden h-[600px] flex flex-col justify-center items-center">
-        {/* 背景のアニメーション層 */}
         <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none flex flex-col justify-around z-0 overflow-hidden" dir="rtl">
            {[...Array(5)].map((_, i) => (
              <div key={i} className="whitespace-nowrap text-[8rem] md:text-[10rem] font-arabic leading-none animate-scroll-text" style={{ animationDuration: `${40 + i * 10}s`, opacity: 0.5 + (i * 0.1) }}>
@@ -120,15 +118,11 @@ const LandingPage = ({ onLogin, onGuestStart }: { onLogin: () => void, onGuestSt
              </div>
            ))}
         </div>
-        
-        {/* グラデーションオーバーレイ */}
         <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/80 via-emerald-950/60 to-emerald-900/90 z-1"></div>
-
         <div className="max-w-4xl mx-auto px-6 py-10 relative z-10 text-center">
           <div className="inline-block bg-white/10 px-4 py-1 rounded-full text-xs font-bold tracking-widest mb-6 border border-white/20 backdrop-blur-sm">
             ARABIC LEARNING PLATFORM
           </div>
-          
           <h1 className="text-4xl md:text-6xl font-serif font-bold mb-4 leading-tight drop-shadow-lg">
             アラビア語を、<br />
             <span className="text-amber-400">もっと身近に。</span>
@@ -136,30 +130,21 @@ const LandingPage = ({ onLogin, onGuestStart }: { onLogin: () => void, onGuestSt
           <h2 className="text-lg md:text-2xl font-serif font-bold text-emerald-100 mb-8 drop-shadow-md tracking-wide">
             『暗号』が『言葉』に変わる感動を Arabi Labで
           </h2>
-
           <p className="text-base md:text-lg text-emerald-100 mb-10 max-w-2xl mx-auto leading-relaxed opacity-90 font-medium">
             初心者の文法理解から、会話表現、読解・聴解、<br className="hidden md:block"/>
             そして千年の歴史を持つアラブ詩まで。1000問以上の演習と共に。
           </p>
-          
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button 
-              onClick={onLogin}
-              className="w-full sm:w-auto px-10 py-4 bg-white text-emerald-950 font-bold rounded-full shadow-2xl hover:bg-gray-100 hover:scale-105 transition transform flex items-center justify-center gap-2 border-2 border-white"
-            >
+            <button onClick={onLogin} className="w-full sm:w-auto px-10 py-4 bg-white text-emerald-950 font-bold rounded-full shadow-2xl hover:bg-gray-100 hover:scale-105 transition transform flex items-center justify-center gap-2 border-2 border-white">
               <span className="text-blue-500 font-bold text-lg">G</span> Googleで今すぐ始める
             </button>
-            <button 
-              onClick={onGuestStart}
-              className="w-full sm:w-auto px-10 py-4 bg-transparent border-2 border-amber-400/50 text-amber-100 font-bold rounded-full hover:bg-amber-900/30 transition backdrop-blur-sm"
-            >
+            <button onClick={onGuestStart} className="w-full sm:w-auto px-10 py-4 bg-transparent border-2 border-amber-400/50 text-amber-100 font-bold rounded-full hover:bg-amber-900/30 transition backdrop-blur-sm">
               登録せずに試す
             </button>
           </div>
         </div>
       </div>
 
-      {/* Value Proposition Section */}
       <div className="bg-white py-16 border-b border-stone-100">
          <div className="max-w-4xl mx-auto px-6 text-center">
             <div className="grid md:grid-cols-3 gap-8 divide-y md:divide-y-0 md:divide-x divide-stone-100">
@@ -182,12 +167,10 @@ const LandingPage = ({ onLogin, onGuestStart }: { onLogin: () => void, onGuestSt
          </div>
       </div>
 
-      {/* Pricing Section */}
       <div className="bg-stone-50 py-20">
         <div className="max-w-4xl mx-auto px-6">
           <h2 className="text-2xl font-serif font-bold text-center text-emerald-950 mb-12">シンプルで、続けやすいプラン</h2>
           <div className="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
-            {/* Free Plan */}
             <div className="bg-white p-8 rounded-3xl border border-stone-200 shadow-sm flex flex-col hover:border-emerald-200 transition">
               <div className="mb-4">
                 <span className="bg-stone-100 text-stone-600 px-3 py-1 rounded-full text-xs font-bold">FREE</span>
@@ -204,7 +187,6 @@ const LandingPage = ({ onLogin, onGuestStart }: { onLogin: () => void, onGuestSt
               </button>
             </div>
             
-            {/* Premium Plan */}
             <div className="bg-gradient-to-br from-emerald-900 to-emerald-800 p-8 rounded-3xl shadow-2xl flex flex-col relative overflow-hidden text-white transform md:-translate-y-4 border border-emerald-700">
               <div className="absolute top-0 right-0 bg-amber-400 text-amber-900 text-xs font-bold px-4 py-1 rounded-bl-xl shadow-md">おすすめ</div>
               <div className="mb-4">
@@ -261,11 +243,9 @@ export default function Home() {
   const [isPremium, setIsPremium] = useState(false); 
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
 
-  // LP表示の制御フラグ
   const [showLandingPage, setShowLandingPage] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
 
-  // サブスクリプション情報用のState
   const [subscription, setSubscription] = useState<SubscriptionInfo | null>(null);
 
   const [isAddingWord, setIsAddingWord] = useState(false);
@@ -294,6 +274,9 @@ export default function Home() {
   const [fcReverse, setFcReverse] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
 
+  // ★ 音声再生設定用のState (スピードのみ)
+  const [playbackRate, setPlaybackRate] = useState<number>(1.0);
+
   const [streak, setStreak] = useState(0);
   const [stats, setStats] = useState({ today: 0, month: 0, total: 0 });
   const [breakdown, setBreakdown] = useState<StudyBreakdown>({ reading: 0, listening: 0, dictation: 0, vocab: 0, grammar: 0, poetry: 0 });
@@ -302,6 +285,12 @@ export default function Home() {
   // --- Helpers ---
   const normalizeArabic = (text: string) => text.replace(/[\u064B-\u065F\u0670]/g, "").replace(/[.,،؟:;!۔"«»]/g, "").replace(/\s+/g, " ").trim();
   const removeTashkeel = (text: string) => text.replace(/[\u064B-\u065F\u0670]/g, "");
+
+  // 範囲制限用のヘルパー関数
+  const clamp = (val: number, min: number, max: number) => Math.min(Math.max(val, min), max);
+
+  // ★ 追加: 記事をIDで検索するヘルパー関数
+  const getArticleById = (id: number) => allArticles.find(a => a.id === id);
 
   const formatTime = (seconds: number) => {
     const h = Math.floor(seconds / 3600);
@@ -334,10 +323,10 @@ export default function Home() {
           contentPlain: d.content_plain || "", 
           contentVoweled: d.content_voweled || "",
           sentences: d.article_sentences 
-            ? d.article_sentences.map((s: any) => ({ arabic: s.arabic, japanese: s.japanese || "", speaker: s.speaker || "Narrator", note: s.note || "" })).sort((a: any, b: any) => (a.order_index || 0) - (b.order_index || 0))
+            ? d.article_sentences.map((s: any) => ({ arabic: s.arabic, japanese: s.japanese || "", speaker: s.speaker || "Narrator", note: s.note || "", relatedGrammarId: s.related_grammar_id || null })).sort((a: any, b: any) => (a.order_index || 0) - (b.order_index || 0))
             : [],
           vocabList: d.article_vocab ? d.article_vocab.map((v: any) => ({ word: v.word, meaning: v.meaning })) : [],
-          questions: d.article_questions ? d.article_questions.map((q: any) => ({ type: q.type, text: q.text, options: q.options || [], correctIndex: q.correct_index, explanation: q.explanation || "" })) : []
+          questions: d.article_questions ? d.article_questions.map((q: any) => ({ type: q.type, text: q.text, options: q.options || [], correctIndex: q.correct_index, explanation: q.explanation || "", relatedGrammarId: q.related_grammar_id || null })) : []
         }));
         setAllArticles([...articles, ...formattedArticles]);
       } else {
@@ -478,7 +467,7 @@ export default function Home() {
       setUser(null); 
       setIsPremium(false); 
       setSavedVocab(JSON.parse(localStorage.getItem("arabicApp_vocab") || "[]")); 
-      setShowLandingPage(true); // ログアウト後はLPに戻る
+      setShowLandingPage(true); 
       changeScreen("main_menu"); 
   };
   const changeScreen = (screen: Screen) => { stopSpeaking(); setCurrentScreen(screen); };
@@ -555,6 +544,20 @@ export default function Home() {
     }
   };
 
+  // ★ 追加: 文法記事へのジャンプ機能
+  const handleJumpToGrammar = (grammarId: number) => {
+    const targetArticle = getArticleById(grammarId);
+    if (targetArticle) {
+        // 文法レッスンを開く処理
+        setActiveArticle(targetArticle);
+        setLearningMode("grammar"); // 文法モードに変更
+        changeScreen("reader"); // リーダー画面へ直接遷移
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // スクロールトップ
+    } else {
+        alert("該当する文法レッスンが見つかりません");
+    }
+  };
+
   const generateDictationProblem = (article: Article, index: number) => {
     if (!article.sentences || article.sentences.length === 0) return;
     const fullSentence = article.sentences[index].arabic;
@@ -613,21 +616,27 @@ export default function Home() {
   const checkDictation = () => { if (normalizeArabic(dictationInput) === targetWordClean) setDictationFeedback("correct"); else setDictationFeedback("incorrect"); };
   const nextDictation = () => { if (!activeArticle) return; if (dictationIndex < activeArticle.sentences.length - 1) { const nextIdx = dictationIndex + 1; setDictationIndex(nextIdx); generateDictationProblem(activeArticle, nextIdx); } else changeScreen("result"); };
     
+  // --- ★ 変更: 音声再生関数 (スピードのみ・ピッチ/ボイス選択削除) ---
   const speakText = (text: string, speaker?: string) => {
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
       const cleanText = text.replace(/[^\u0600-\u06FF\s]/g, "").trim(); 
       const u = new SpeechSynthesisUtterance(cleanText);
+      
       const voices = window.speechSynthesis.getVoices();
       const arabicVoice = voices.find(v => v.lang.includes('ar'));
       if (arabicVoice) { u.voice = arabicVoice; u.lang = arabicVoice.lang; } else { u.lang = 'ar-SA'; }
-      if (speaker) { if (speaker.includes("客") || speaker.includes("私") || speaker.includes("自分") || speaker.includes("サラ")) { u.pitch = 1.1; } else { u.pitch = 0.9; } }
+      
+      // ★ 速度の安全制限 (0.1 ~ 2.0)
+      u.rate = clamp(playbackRate, 0.1, 2.0); 
+      
       u.onstart = () => setIsSpeaking(true);
       u.onend = () => setIsSpeaking(false);
       window.speechSynthesis.speak(u);
     }
   };
 
+  // --- ★ 変更: 連続再生関数 (スピードのみ・ピッチ/ボイス選択削除) ---
   const playArticleAudio = () => {
     if (!activeArticle || !('speechSynthesis' in window)) return;
     window.speechSynthesis.cancel();
@@ -641,18 +650,22 @@ export default function Home() {
     function startPlayback() {
         if (activeArticle?.category === "会話" || (activeArticle?.level === "会話" && activeArticle.sentences)) {
           if (activeArticle!.sentences.length > 0) {
-             let currentIndex = 0;
-             const speakNextSentence = () => {
-                if (currentIndex >= activeArticle!.sentences.length) { setIsSpeaking(false); return; }
-                const sent = activeArticle!.sentences[currentIndex];
-                const u = new SpeechSynthesisUtterance(sent.arabic);
-                const arabicVoice = voices.find(v => v.lang.includes('ar'));
-                if (arabicVoice) { u.voice = arabicVoice; u.lang = arabicVoice.lang; } else { u.lang = 'ar-SA'; }
-                if (currentIndex % 2 === 0) { u.pitch = 1.1; } else { u.pitch = 0.9; }
-                u.onend = () => { currentIndex++; speakNextSentence(); };
-                window.speechSynthesis.speak(u);
-             };
-             speakNextSentence();
+              let currentIndex = 0;
+              const speakNextSentence = () => {
+                 if (currentIndex >= activeArticle!.sentences.length) { setIsSpeaking(false); return; }
+                 const sent = activeArticle!.sentences[currentIndex];
+                 const u = new SpeechSynthesisUtterance(sent.arabic);
+                 
+                 // ★ ユーザー設定 (Clamp)
+                 u.rate = clamp(playbackRate, 0.1, 2.0);
+                 
+                 const arabicVoice = voices.find(v => v.lang.includes('ar'));
+                 if (arabicVoice) { u.voice = arabicVoice; u.lang = arabicVoice.lang; } else { u.lang = 'ar-SA'; }
+                 
+                 u.onend = () => { currentIndex++; speakNextSentence(); };
+                 window.speechSynthesis.speak(u);
+              };
+              speakNextSentence();
           } else { setIsSpeaking(false); }
         } else {
           let textToRead = "";
@@ -664,6 +677,10 @@ export default function Home() {
           if (textToRead) {
             const cleanText = textToRead.replace(/[^\u0600-\u06FF\s]/g, "").trim();
             const u = new SpeechSynthesisUtterance(cleanText);
+            
+            // ★ ユーザー設定 (Clamp)
+            u.rate = clamp(playbackRate, 0.1, 2.0);
+            
             u.lang = 'ar-SA';
             const arabicVoice = voices.find(v => v.lang.includes('ar'));
             if (arabicVoice) { u.voice = arabicVoice; }
@@ -693,8 +710,8 @@ export default function Home() {
 
   // --- メインアプリ画面 (ログイン済み or ゲスト利用) ---
   return (
-    <div className="min-h-screen bg-[#FDFCF8] font-sans text-gray-800" dir="rtl">
-      <nav className="bg-emerald-950 shadow-md p-4 sticky top-0 z-20 border-b border-amber-500/30">
+    <div className="min-h-screen bg-[#FDFCF8] font-sans text-gray-800">
+<nav className="bg-emerald-950 shadow-md p-4 sticky top-0 z-20 border-b border-amber-500/30" dir="ltr">
         <div className="max-w-4xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3" onClick={() => { changeScreen("main_menu"); setIsFlashcardMode(false); }}>
               <div className="bg-white p-1 rounded-lg shadow-sm hover:scale-105 transition-transform duration-300 border border-amber-400/30 cursor-pointer">
@@ -703,10 +720,31 @@ export default function Home() {
               <h1 className="font-serif font-bold text-amber-50 cursor-pointer text-xl tracking-wider hidden sm:block">Arabi Lab</h1>
               <div className="flex items-center gap-1 bg-emerald-900/50 px-3 py-1 rounded-full border border-emerald-700 text-xs font-bold text-emerald-100 ml-2"><span className="text-amber-400 animate-pulse">🔥</span> {streak}</div>
           </div>
+          
+          {/* ★ ナビゲーションバー内 音声コントロールパネル (PC用・スピードのみ) */}
+          <div className="flex items-center gap-3 bg-emerald-900/50 px-3 py-1.5 rounded-full border border-emerald-700 mx-2 hidden md:flex" dir="ltr">
+            {/* 速度設定 */}
+            <div className="flex items-center gap-1">
+              <span className="text-[9px] font-bold text-emerald-300 uppercase">Speed</span>
+              <select 
+                value={playbackRate} 
+                onChange={(e) => setPlaybackRate(parseFloat(e.target.value))}
+                className="bg-transparent text-amber-400 text-xs font-bold outline-none cursor-pointer border-none p-0 focus:ring-0"
+              >
+                <option value="0.25" className="bg-emerald-900 text-white">0.25x</option>
+                <option value="0.5" className="bg-emerald-900 text-white">0.5x</option>
+                <option value="0.75" className="bg-emerald-900 text-white">0.75x</option>
+                <option value="1.0" className="bg-emerald-900 text-white">1.0x (Std)</option>
+                <option value="1.25" className="bg-emerald-900 text-white">1.25x</option>
+                <option value="1.5" className="bg-emerald-900 text-white">1.5x (Fast)</option>
+              </select>
+            </div>
+          </div>
+
           <div className="flex items-center gap-2">
             <button 
                 onClick={() => setIsPremium(!isPremium)}
-                className="bg-purple-600 text-white px-2 py-1 rounded text-xs font-bold border border-purple-400 shadow-lg hover:bg-purple-500 transition mr-2"
+                className="bg-purple-600 text-white px-2 py-1 rounded text-xs font-bold border border-purple-400 shadow-lg hover:bg-purple-500 transition mr-2 hidden sm:block"
             >
                 {isPremium ? "🔧 無料に戻す" : "🔧 プレミアム化"}
             </button>
@@ -725,8 +763,27 @@ export default function Home() {
         </div>
       </nav>
 
+      {/* モバイル用音声コントロール（スピードのみ） */}
+      <div className="md:hidden bg-emerald-900 p-2 flex justify-center items-center gap-4 text-xs border-b border-emerald-800 shadow-inner" dir="ltr">
+         <div className="flex items-center gap-2">
+            <span className="font-bold text-emerald-300">SPEED</span>
+            <select 
+                value={playbackRate} 
+                onChange={(e) => setPlaybackRate(parseFloat(e.target.value))}
+                className="bg-emerald-800 text-white rounded px-1 py-0.5 text-xs outline-none"
+              >
+                <option value="0.25">0.25x</option>
+                <option value="0.5">0.5x</option>
+                <option value="0.75">0.75x</option>
+                <option value="1.0">1.0x</option>
+                <option value="1.25">1.25x</option>
+                <option value="1.5">1.5x</option>
+              </select>
+         </div>
+      </div>
+
       <main className="max-w-3xl mx-auto p-4 pb-20">
-        
+          
         {/* マイページ (刷新版) */}
         {currentScreen === "mypage" && (
            <div className="animate-fade-in-up pb-20">
@@ -955,37 +1012,37 @@ export default function Home() {
                  <HeaderBackButton onClick={() => changeScreen("poets")} text="詩のリストに戻る" />
                  
                  <div className="bg-[#fffdf5] rounded-2xl shadow-xl border border-[#e8e4d0] overflow-hidden relative">
-                    {/* 装飾的な背景パターン */}
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-[url('/pattern.png')] opacity-10 pointer-events-none"></div>
-                    
-                    <div className="p-8 md:p-12 text-center">
-                        <span className="text-amber-600 text-xs tracking-widest font-bold uppercase mb-2 block">Poetry Appreciation</span>
-                        <h2 className="text-3xl font-serif font-bold mb-8 text-emerald-950">{activeArticle.title}</h2>
-                        
-                        {/* 詩の本文（アラビア語のみ表示） */}
-                        <div className="space-y-8 mb-10">
-                            {activeArticle.sentences?.map((sent, idx) => (
-                                <div key={idx} className="relative group cursor-pointer" onClick={() => speakText(sent.arabic)}>
-                                    <p className="text-2xl md:text-3xl font-arabic leading-loose text-emerald-900 drop-shadow-sm">{sent.arabic}</p>
-                                    <p className="text-xs text-stone-400 mt-2 opacity-0 group-hover:opacity-100 transition">🔊 タップで再生</p>
-                                </div>
-                            ))}
-                        </div>
+                   {/* 装飾的な背景パターン */}
+                   <div className="absolute top-0 right-0 w-32 h-32 bg-[url('/pattern.png')] opacity-10 pointer-events-none"></div>
+                   
+                   <div className="p-8 md:p-12 text-center">
+                       <span className="text-amber-600 text-xs tracking-widest font-bold uppercase mb-2 block">Poetry Appreciation</span>
+                       <h2 className="text-3xl font-serif font-bold mb-8 text-emerald-950">{activeArticle.title}</h2>
+                       
+                       {/* 詩の本文（アラビア語のみ表示） */}
+                       <div className="space-y-8 mb-10">
+                           {activeArticle.sentences?.map((sent, idx) => (
+                               <div key={idx} className="relative group cursor-pointer" onClick={() => speakText(sent.arabic)}>
+                                   <p className="text-2xl md:text-3xl font-arabic leading-loose text-emerald-900 drop-shadow-sm">{sent.arabic}</p>
+                                   <p className="text-xs text-stone-400 mt-2 opacity-0 group-hover:opacity-100 transition">🔊 タップで再生</p>
+                               </div>
+                           ))}
+                       </div>
 
-                        <div className="flex justify-center mb-8">
-                             <button onClick={playArticleAudio} className="flex items-center gap-2 bg-amber-100 text-amber-800 px-6 py-2 rounded-full font-bold hover:bg-amber-200 transition">
-                                 <span>🔊</span> 詩を朗読する
-                             </button>
-                        </div>
-
-                        <div className="bg-white/80 p-6 rounded-xl border border-stone-200 backdrop-blur-sm">
-                            <p className="font-bold text-gray-700 mb-4">まずは意味を推測してみましょう</p>
-                            <p className="text-sm text-gray-500 mb-6">詩の響きを味わったら、理解度チェックに進んでください。全問終了後に、詳しい解説と現代語訳が表示されます。</p>
-                            <button onClick={() => startQuiz()} className="w-full md:w-auto px-12 py-4 bg-emerald-800 text-white font-bold rounded-full shadow-lg hover:bg-emerald-900 transition transform hover:scale-105">
-                                📝 理解度チェックへ進む
+                       <div className="flex justify-center mb-8">
+                            <button onClick={playArticleAudio} className="flex items-center gap-2 bg-amber-100 text-amber-800 px-6 py-2 rounded-full font-bold hover:bg-amber-200 transition">
+                                <span>🔊</span> 詩を朗読する
                             </button>
-                        </div>
-                    </div>
+                       </div>
+
+                       <div className="bg-white/80 p-6 rounded-xl border border-stone-200 backdrop-blur-sm">
+                           <p className="font-bold text-gray-700 mb-4">まずは意味を推測してみましょう</p>
+                           <p className="text-sm text-gray-500 mb-6">詩の響きを味わったら、理解度チェックに進んでください。全問終了後に、詳しい解説と現代語訳が表示されます。</p>
+                           <button onClick={() => startQuiz()} className="w-full md:w-auto px-12 py-4 bg-emerald-800 text-white font-bold rounded-full shadow-lg hover:bg-emerald-900 transition transform hover:scale-105">
+                               📝 理解度チェックへ進む
+                           </button>
+                       </div>
+                   </div>
                  </div>
              </div>
         )}
@@ -995,7 +1052,7 @@ export default function Home() {
             <div className="flex justify-center mb-4">
                <HeaderBackButton onClick={() => changeScreen("main_menu")} />
             </div>
-              
+             
             <h2 className="text-2xl font-serif font-bold mb-3 text-emerald-950">
                 {courseType === "reading" ? "リーディング" : courseType === "listening" ? "リスニング" : "学習モード選択"}
             </h2>
@@ -1020,7 +1077,7 @@ export default function Home() {
                     changeScreen("levels_sub");
                 }
             }} />
-              
+             
             <h2 className="text-2xl font-serif font-bold mb-6 text-emerald-950 border-b-2 border-amber-400 pb-2 inline-block">
                 {courseType === "grammar" ? "文法トピック" : 
                  courseType === "conversation" ? "会話シーン" :
@@ -1091,12 +1148,11 @@ export default function Home() {
                     {activeArticle.title}
                   </h2>
                   {activeArticle.contentPlain && (
-                    <p 
-                      className="text-sm text-gray-600 mb-8 text-left max-w-xl leading-relaxed whitespace-pre-wrap" 
-                      dir="ltr"
-                    >
+                    <div className="w-full text-left" dir="ltr">
+                    <p className="text-sm text-gray-600 mb-8 leading-relaxed whitespace-pre-wrap">
                       {activeArticle.contentPlain}
                     </p>
+                  </div>
                   )}
                   <div className="w-full space-y-6 mb-10">
                     {activeArticle.imageUrls.map((url, idx) => (
@@ -1195,9 +1251,22 @@ export default function Home() {
                               </p>
                               {/* 詩の解説ノート */}
                               {sent.note && (
-                                  <div className="mt-2 text-xs bg-amber-50 text-amber-900 p-2 rounded" dir="ltr">
-                                      <span className="font-bold">解説:</span> {sent.note}
+                                <div className="mt-2 text-xs bg-amber-100 text-amber-900 p-2 rounded flex flex-col gap-2 text-left" dir="ltr">
+                                  <div className="flex gap-2 items-start">
+                                    <span className="text-lg">💡</span>
+                                    <span>{sent.note}</span>
                                   </div>
+
+                                  {/* ★ 追加: 関連文法へのボタン */}
+                                  {sent.relatedGrammarId && (
+                                    <button 
+                                      onClick={() => handleJumpToGrammar(sent.relatedGrammarId!)}
+                                      className="self-start mt-1 bg-white border border-amber-300 text-amber-800 text-[10px] px-3 py-1 rounded-full font-bold hover:bg-amber-200 transition flex items-center gap-1 shadow-sm"
+                                    >
+                                      <span>📖</span> 文法解説: {getArticleById(sent.relatedGrammarId)?.title}
+                                    </button>
+                                  )}
+                                </div>
                               )}
                             </div>
                           )}
@@ -1337,11 +1406,20 @@ export default function Home() {
                   onSpeak={speakText}
                 />
              ) : (
-                <div className="bg-white p-8 rounded-2xl shadow-xl border border-stone-100">
-                <span className="inline-block bg-blue-50 text-blue-700 text-[10px] font-bold px-2 py-1 rounded mb-4 tracking-wider uppercase border border-blue-100">{getQuestionTypeLabel(activeArticle.questions[currentQuestionIndex].type)}</span>
-                <h3 className="text-xl font-bold mb-8 text-gray-800 leading-relaxed">
-  {activeArticle.questions[currentQuestionIndex].text}
-</h3>
+              <div className="bg-white p-8 rounded-2xl shadow-xl border border-stone-100 text-left" dir="ltr">
+              <span className="...">...</span>
+              <div className="text-xl font-bold mb-8 text-gray-800 leading-relaxed text-left" dir="ltr">
+  {/* \n でテキストを分割して一行ずつ処理する */}
+  {activeArticle.questions[currentQuestionIndex].text.split('\n').map((line, i) => (
+    <p 
+      key={i} 
+      className={line.includes('؟') || line.includes('هَذَا') ? "text-2xl font-arabic mt-4 text-right" : "text-base text-gray-600"}
+      dir={line.includes('؟') || line.includes('هَذَا') ? "rtl" : "ltr"}
+    >
+      {line}
+    </p>
+  ))}
+</div>
                 <div className="space-y-3 mb-6">
                     {activeArticle.questions[currentQuestionIndex].options.map((option, idx) => {
                     let btnClass = "bg-stone-50 border-stone-100 text-gray-700 hover:border-emerald-300";
@@ -1369,6 +1447,19 @@ export default function Home() {
         {activeArticle.questions[currentQuestionIndex].explanation}
       </p>
 
+      {/* ★ 追加: 関連文法へのボタン（クイズ解説） */}
+      {activeArticle.questions[currentQuestionIndex].relatedGrammarId && (
+        <div className="mt-3 text-left">
+          <button 
+            onClick={() => handleJumpToGrammar(activeArticle.questions[currentQuestionIndex].relatedGrammarId!)}
+            className="bg-blue-50 border border-blue-200 text-blue-700 text-xs px-4 py-2 rounded-full font-bold hover:bg-blue-100 transition flex items-center gap-2 shadow-sm"
+          >
+            <span>🔗</span> 
+            この文法を詳しく学ぶ ({getArticleById(activeArticle.questions[currentQuestionIndex].relatedGrammarId!)?.category})
+          </button>
+        </div>
+      )}
+
       {/* ★★★ 全クイズ形式対応: 解説時に音声ボタンを表示 ★★★ */}
       {activeArticle.questions[currentQuestionIndex].audio && (
         <button 
@@ -1389,7 +1480,7 @@ export default function Home() {
         )}
         {currentScreen === "result" && activeArticle && (
           <div className="pb-20 animate-fade-in-up">
-             {/* 結果画面から戻るボタンを追加: リストへ戻る */}
+              {/* 結果画面から戻るボタンを追加: リストへ戻る */}
               <div className="max-w-xl mx-auto">
                   <HeaderBackButton onClick={() => changeScreen(courseType === "poetry" ? "poets" : "list")} text="一覧に戻る" />
               </div>
@@ -1436,9 +1527,21 @@ export default function Home() {
                               
                               {/* 解説ノート（あれば表示） */}
                               {sent.note && (
-                                <div className="text-xs bg-amber-100 text-amber-900 p-2 rounded flex gap-2 items-start text-left" dir="ltr">
-                                  <span className="text-lg">💡</span>
-                                  <span>{sent.note}</span>
+                                <div className="text-xs bg-amber-100 text-amber-900 p-2 rounded flex flex-col gap-2 text-left" dir="ltr">
+                                  <div className="flex gap-2 items-start">
+                                    <span className="text-lg">💡</span>
+                                    <span>{sent.note}</span>
+                                  </div>
+
+                                  {/* ★ 追加: 関連文法へのボタン（復習画面） */}
+                                  {sent.relatedGrammarId && (
+                                    <button 
+                                      onClick={() => handleJumpToGrammar(sent.relatedGrammarId!)}
+                                      className="self-start mt-1 bg-white border border-amber-300 text-amber-800 text-[10px] px-3 py-1 rounded-full font-bold hover:bg-amber-200 transition flex items-center gap-1 shadow-sm"
+                                    >
+                                      <span>📖</span> 文法解説: {getArticleById(sent.relatedGrammarId)?.title}
+                                    </button>
+                                  )}
                                 </div>
                               )}
                               
@@ -1455,41 +1558,6 @@ export default function Home() {
                     )}
                   </div>
               )}
-            </div>
-          </div>
-        )}
-        {currentScreen === "vocab" && (
-          <div className="animate-fade-in-up pb-20">
-            <HeaderBackButton onClick={() => changeScreen("main_menu")} text="ホームに戻る" />
-             
-            {!isFlashcardMode ? (
-              <>
-                <div className="flex justify-between items-center mb-6"><h2 className="text-2xl font-serif font-bold text-emerald-950">📒 My 単語帳</h2><div className="flex gap-2"><button onClick={() => setIsAddingWord(!isAddingWord)} className="bg-emerald-100 text-emerald-800 px-4 py-2 rounded-full font-bold shadow-sm hover:bg-emerald-200 transition text-xs flex items-center gap-1">{isAddingWord ? "✕ 閉じる" : "＋ 単語を追加"}</button>{savedVocab.length > 0 && <button onClick={() => { setFcIndex(0); setFcFlipped(false); setIsFlashcardMode(true); }} className="bg-amber-500 text-emerald-950 px-4 py-2 rounded-full font-bold shadow-lg hover:bg-amber-400 transition text-xs flex items-center gap-1"><span>▶</span> 暗記モード</button>}</div></div>
-                {isAddingWord && (<div className="bg-white p-5 rounded-2xl shadow-lg border-2 border-emerald-100 mb-8 animate-fade-in-up"><h3 className="font-bold text-emerald-900 mb-4 text-sm">新しい単語を登録</h3><div className="flex flex-col gap-3"><input type="text" dir="rtl" placeholder="アラビア語 (例: كِتَاب)" value={newArabic} onChange={(e) => setNewArabic(e.target.value)} className="w-full p-3 border border-stone-200 rounded-xl focus:border-emerald-500 outline-none font-arabic text-right bg-stone-50" /><input type="text" placeholder="日本語の意味 (例: 本)" value={newJapanese} onChange={(e) => setNewJapanese(e.target.value)} className="w-full p-3 border border-stone-200 rounded-xl focus:border-emerald-500 outline-none bg-stone-50" /><button onClick={handleAddCustomWord} disabled={!newArabic || !newJapanese} className={`w-full py-3 rounded-xl font-bold transition shadow-md ${(!newArabic || !newJapanese) ? "bg-gray-200 text-gray-400" : "bg-emerald-600 text-white hover:bg-emerald-700"}`}>保存する</button></div></div>)}
-                {savedVocab.length === 0 ? (<div className="text-center py-24 text-gray-400 bg-white rounded-3xl border border-dashed border-stone-300">単語が登録されていません<br/><span className="text-xs mt-2 block">レッスン中に単語をタップするか、<br/>右上のボタンから追加してください</span></div>) : (<div className="grid grid-cols-1 md:grid-cols-2 gap-3">{savedVocab.map((v, i) => (<div key={i} className="bg-white p-4 rounded-xl shadow-sm border border-stone-100 flex justify-between items-center group hover:border-emerald-300 transition"><div><span className="font-bold text-xl block text-emerald-900 font-arabic">{v.word}</span><span className="text-gray-500 text-sm">{v.meaning}</span></div><div className="flex gap-2"><button onClick={() => speakText(v.word)} className="text-stone-300 hover:text-emerald-500 p-2 transition">🔊</button><button onClick={() => deleteWord(v.word)} className="text-stone-300 hover:text-red-400 p-2 transition">✕</button></div></div>))}</div>)}
-              </>
-            ) : (
-              <div className="max-w-md mx-auto"><div className="flex justify-between items-center mb-6"><button onClick={() => setIsFlashcardMode(false)} className="text-gray-400 font-bold hover:text-red-500">✕ 終了</button><button onClick={() => setFcReverse(!fcReverse)} className="text-xs bg-stone-200 text-stone-700 px-3 py-1 rounded-full font-bold">モード: {fcReverse ? "日→アラ" : "アラ→日"}</button></div><div onClick={() => setFcFlipped(!fcFlipped)} className="bg-white h-80 rounded-3xl shadow-2xl flex flex-col items-center justify-center p-8 cursor-pointer border-b-8 border-stone-100 active:border-b-0 active:translate-y-2 transition-all relative"><button onClick={(e) => { e.stopPropagation(); speakText(savedVocab[fcIndex].word); }} className="absolute top-6 right-6 text-stone-300 hover:text-emerald-600 text-2xl transition">🔊</button><p className="text-gray-300 text-xs font-bold tracking-widest mb-8 uppercase">TAP TO FLIP</p><h2 className={`font-bold text-center text-emerald-950 ${fcFlipped ? (fcReverse ? "text-5xl font-arabic" : "text-3xl") : (fcReverse ? "text-3xl" : "text-5xl font-arabic")}`}>{!fcFlipped ? (fcReverse ? savedVocab[fcIndex].meaning : savedVocab[fcIndex].word) : (fcReverse ? savedVocab[fcIndex].word : savedVocab[fcIndex].meaning)}</h2></div><div className="flex justify-between items-center mt-10 px-8" dir="ltr"><button onClick={prevCard} className="bg-white w-14 h-14 rounded-full font-bold text-xl text-stone-400 shadow-md hover:scale-110 transition border border-stone-100">←</button><span className="font-bold text-stone-400 text-sm tracking-widest">{fcIndex + 1} / {savedVocab.length}</span><button onClick={nextCard} className="bg-emerald-600 text-white w-14 h-14 rounded-full font-bold text-xl shadow-lg shadow-emerald-200 hover:bg-emerald-700 hover:scale-110 transition">→</button></div></div>
-            )}
-          </div>
-        )}
-        {showUpgradeModal && (
-          <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 animate-fade-in">
-            <div className="bg-white rounded-3xl p-8 max-w-sm w-full text-center relative shadow-2xl overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-br from-amber-400 to-amber-600 z-0"></div>
-              <div className="relative z-10"><div className="bg-white w-20 h-20 rounded-full mx-auto flex items-center justify-center text-4xl shadow-lg mb-4 mt-8">👑</div><h3 className="text-2xl font-serif font-bold text-emerald-950 mb-2">プレミアムプラン</h3><p className="text-gray-500 text-sm mb-6">このコンテンツは有料会員限定です。<br/>学習制限を解除してすべての機能を使おう！</p><ul className="text-left text-sm text-gray-600 space-y-2 mb-8 bg-stone-50 p-4 rounded-xl"><li className="flex gap-2"><span>✅</span> 中級・上級コンテンツへのアクセス</li><li className="flex gap-2"><span>✅</span> 無制限の音声再生</li><li className="flex gap-2"><span>✅</span> 広告非表示</li></ul>
-              
-              <button 
-                onClick={() => {
-                  alert("申し訳ありません。決済機能は現在準備中です。\n正式リリースをお待ちください！");
-                  setShowUpgradeModal(false);
-                }}
-                className="w-full bg-gray-400 text-white font-bold py-3 rounded-xl shadow-none cursor-not-allowed mb-3"
-              >
-                🚧 プレミアムプラン準備中
-              </button>
-
-              <button onClick={() => setShowUpgradeModal(false)} className="text-gray-400 text-sm hover:text-gray-600">閉じる</button></div>
             </div>
           </div>
         )}
@@ -1512,7 +1580,11 @@ export default function Home() {
 
 // UI Components
 function VocabButton({ v, i, isRevealed, isSaved, onReveal, onSave }: any) { return <button onClick={onReveal} className={`relative px-3 py-1.5 rounded-lg text-sm transition-all duration-300 border ${isRevealed ? "bg-emerald-50 border-emerald-300 text-emerald-900 shadow-sm scale-105" : "bg-white border-dashed border-stone-300 text-stone-500 hover:border-amber-400 hover:text-amber-700"}`}><span className={`font-bold ${isRevealed ? "" : "font-arabic text-lg"}`}>{isRevealed ? v.meaning : v.word}</span>{isRevealed && !isSaved && <span onClick={(e) => { e.stopPropagation(); onSave(); }} className="absolute -top-2 -left-2 bg-emerald-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs shadow-md cursor-pointer hover:bg-emerald-700 hover:scale-110 transition">+</span>}{isSaved && <span className="absolute -top-2 -left-2 text-emerald-600 bg-white rounded-full border border-emerald-200 text-[10px] w-5 h-5 flex items-center justify-center shadow-sm">✓</span>}</button>; }
-function LevelButton({ title, subtitle, color, icon, onClick }: any) { return <button onClick={onClick} className={`h-40 rounded-3xl shadow-lg border-2 ${color} flex flex-col items-center justify-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group bg-white`}><span className="text-5xl mb-3 group-hover:scale-110 transition-transform drop-shadow-sm grayscale group-hover:grayscale-0">{icon}</span><span className="text-xl font-bold tracking-wide text-gray-800">{title}</span><span className="text-[10px] font-bold text-gray-400 uppercase mt-1 tracking-widest">{subtitle}</span></button>; }
+function LevelButton({ title, subtitle, color, icon, onClick }: any) { return <button onClick={onClick} className={`h-40 rounded-3xl shadow-lg border-2 ${color} flex flex-col items-center justify-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group bg-white`}><span className="text-5xl mb-3 group-hover:scale-110 transition-transform drop-shadow-sm grayscale group-hover:grayscale-0">{icon}</span><span className="text-xl font-bold tracking-wide text-gray-800">{title}</span>
+
+
+
+<span className="text-[10px] font-bold text-gray-400 uppercase mt-1 tracking-widest">{subtitle}</span></button>; }
 function ModeButton({ icon, title, subtitle, color, onClick }: any) { return <button onClick={onClick} className={`border-2 ${color} p-4 rounded-2xl transition-all shadow-sm hover:shadow-md flex flex-col items-center gap-2 group h-full justify-center bg-white`}><span className="text-3xl group-hover:scale-110 transition-transform">{icon}</span><div className="text-center"><span className="font-bold text-sm block text-gray-700">{title}</span><span className="text-[10px] text-gray-400 font-bold">{subtitle}</span></div></button>; }
 function StatCard({ label, value, color }: any) { return <div className="bg-white p-4 rounded-2xl shadow-sm border border-stone-100"><p className="text-stone-400 text-[10px] font-bold uppercase tracking-widest mb-1">{label}</p><p className={`text-2xl font-bold font-serif ${color}`}>{value}</p></div>; }
 
