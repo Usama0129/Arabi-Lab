@@ -6,9 +6,9 @@ import { articles, Article, QuizQuestion } from "./data";
 import Link from 'next/link';
 
 // --- Types ---
-type Screen = "main_menu" | "levels_sub" | "topics" | "list" | "mode_select" | "reader" | "quiz" | "result" | "vocab" | "dictation" | "mypage" | "eras" | "era_desc" | "poets" | "poetry_read";
+type Screen = "main_menu" | "levels_sub" | "topics" | "list" | "mode_select" | "reader" | "quiz" | "result" | "vocab" | "dictation" | "mypage" | "eras" | "era_desc" | "poets" | "poetry_read" | "phrases_list" | "phrase_detail";
 type LearningMode = "reading" | "listening" | "dictation" | "grammar";
-type CourseType = "grammar" | "conversation" | "reading" | "listening" | "poetry";
+type CourseType = "grammar" | "conversation" | "reading" | "listening" | "poetry" | "phrase";
 type StudyBreakdown = { reading: number; listening: number; dictation: number; vocab: number; grammar: number; poetry: number };
 
 // サブスクリプション情報の型定義
@@ -482,6 +482,9 @@ export default function Home() {
         changeScreen("topics");
     } else if (type === "poetry") {
         changeScreen("eras");
+    } else if (type === "phrase") {
+        // ★ 変更: "levels_sub"（種類選択画面）へ移動させる
+        changeScreen("levels_sub");
     } else {
         changeScreen("levels_sub");
     }
@@ -501,11 +504,21 @@ export default function Home() {
     setSelectedEraId(eraId);
     changeScreen("era_desc");
   };
+  // ▼▼▼ ここに追加 ▼▼▼
+  // ★ 追加: フスハー/方言のボタンを押した時の処理
+  const handlePhraseCategoryClick = (category: string) => {
+    setSelectedCategory(category);
+    changeScreen("phrases_list"); // 一覧画面へ進む
+  };
+  // ▲▲▲ ここまで ▲▲▲
 
   const getFilteredArticles = () => {
     return allArticles.filter(a => {
         if (courseType === "grammar") return a.level === "文法";
         if (courseType === "conversation") return a.level === "会話";
+        // ★ 追加: 1フレーズのフィルタリング
+        if (courseType === "phrase") return a.level === "1フレーズ";
+        
         if (courseType === "poetry") {
             const era = POETRY_ERAS.find(e => e.id === selectedEraId);
             return a.level === "Poetry" && (era ? a.category === era.name : true);
@@ -514,8 +527,7 @@ export default function Home() {
             return (a.videoUrl && a.videoUrl.length > 0) && a.level === selectedLevel;
         }
         if (courseType === "reading") {
-            if (a.level === "文法") return false;
-            if (a.level === "Poetry") return false;
+            if (a.level === "文法" || a.level === "Poetry" || a.level === "1フレーズ") return false; // ★ 1フレーズを除外
             if (a.level !== selectedLevel) return false;
             return !a.videoUrl || a.videoUrl === "";
         }
@@ -542,6 +554,12 @@ export default function Home() {
         setLearningMode("reading");
         changeScreen("mode_select"); 
     }
+  };
+
+  // ▼ 新しく追加する関数（1フレーズ専用）
+  const handlePhraseClick = (article: Article & { videoUrl?: string; imageUrls?: string[] }) => {
+    setActiveArticle(article);
+    changeScreen("phrase_detail");
   };
 
   // ★ 追加: 文法記事へのジャンプ機能
@@ -914,6 +932,12 @@ export default function Home() {
               <LevelButton title="会話" subtitle="Conversation" color="bg-amber-50 border-amber-200" icon="💬" onClick={() => handleMainMenuClick("conversation")} />
               <LevelButton title="読解" subtitle="Reading" color="bg-blue-50 border-blue-200" icon="📖" onClick={() => handleMainMenuClick("reading")} />
               <LevelButton title="聴解" subtitle="Listening" color="bg-orange-50 border-orange-200" icon="🎧" onClick={() => handleMainMenuClick("listening")} />
+             {/* ★ 追加: 1フレーズのセクション */}
+             <button onClick={() => handleMainMenuClick("phrase")} className="col-span-2 h-32 rounded-3xl shadow-lg border-2 bg-purple-50 border-purple-200 flex flex-col items-center justify-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                <span className="text-4xl mb-2 group-hover:scale-110 transition-transform drop-shadow-sm">💡</span>
+                <span className="text-xl font-bold tracking-wide text-purple-900 font-serif">1フレーズ (Phrases)</span>
+                <span className="text-[10px] font-bold text-purple-400 uppercase mt-1 tracking-widest">Quick & Useful Expressions</span>
+              </button>
               {/* 詩のセクション */}
               <button onClick={() => handleMainMenuClick("poetry")} className="col-span-2 h-40 rounded-3xl shadow-lg border-2 bg-stone-50 border-stone-300 flex flex-col items-center justify-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
                 <span className="text-5xl mb-3 group-hover:scale-110 transition-transform drop-shadow-sm">📜</span>
@@ -1047,27 +1071,53 @@ export default function Home() {
              </div>
         )}
 
-        {currentScreen === "levels_sub" && (
+{currentScreen === "levels_sub" && (
           <div className="text-center py-10 animate-fade-in-up">
             <div className="flex justify-center mb-4">
                <HeaderBackButton onClick={() => changeScreen("main_menu")} />
             </div>
              
             <h2 className="text-2xl font-serif font-bold mb-3 text-emerald-950">
-                {courseType === "reading" ? "リーディング" : courseType === "listening" ? "リスニング" : "学習モード選択"}
+                {courseType === "reading" ? "リーディング" : 
+                 courseType === "listening" ? "リスニング" : 
+                 courseType === "phrase" ? "種類を選択" : "学習モード選択"}
             </h2>
             <div className="grid grid-cols-1 gap-4 max-w-sm mx-auto" dir="ltr">
-              {courseType !== "grammar" && courseType !== "conversation" && courseType !== "poetry" && (
+              
+              {/* ▼ 既存の 初級・中級・上級 ボタン */}
+              {courseType !== "grammar" && courseType !== "conversation" && courseType !== "poetry" && courseType !== "phrase" && (
                 <>
                   <button onClick={() => handleSubLevelClick("初級")} className="p-6 bg-white border-2 border-emerald-100 rounded-xl shadow-sm hover:shadow-md hover:border-emerald-300 transition flex items-center justify-between group"><span className="text-2xl">🌱</span><span className="font-bold text-lg text-emerald-900">初級 (Beginner)</span><span className="text-gray-300 group-hover:text-emerald-500">→</span></button>
                   <button onClick={() => handleSubLevelClick("中級")} className="p-6 bg-white border-2 border-blue-100 rounded-xl shadow-sm hover:shadow-md hover:border-blue-300 transition flex items-center justify-between group"><span className="text-2xl">📖</span><span className="font-bold text-lg text-blue-900">中級 (Intermediate)</span><span className="text-gray-300 group-hover:text-blue-500">→</span></button>
                   <button onClick={() => handleSubLevelClick("上級")} className="p-6 bg-white border-2 border-purple-100 rounded-xl shadow-sm hover:shadow-md hover:border-purple-300 transition flex items-center justify-between group"><span className="text-2xl">📰</span><span className="font-bold text-lg text-purple-900">上級 (Advanced)</span><span className="text-gray-300 group-hover:text-purple-500">→</span></button>
                 </>
               )}
+
+              {/* ▼ ★新規追加: 1フレーズ用の フスハー・方言 ボタン */}
+              {courseType === "phrase" && (
+                <>
+                  <button onClick={() => handlePhraseCategoryClick("フスハー")} className="p-6 bg-white border-2 border-emerald-100 rounded-xl shadow-sm hover:shadow-md hover:border-emerald-400 transition flex items-center justify-between group">
+                    <span className="text-3xl">🕌</span>
+                    <div className="text-left flex-1 ml-4">
+                      <span className="font-bold text-lg text-emerald-900 block group-hover:text-emerald-700 transition">フスハー</span>
+                      <span className="text-xs text-gray-500 font-bold">標準アラビア語 (Fusha)</span>
+                    </div>
+                    <span className="text-gray-300 group-hover:text-emerald-500 text-xl">→</span>
+                  </button>
+                  
+                  <button onClick={() => handlePhraseCategoryClick("サウジ方言")} className="p-6 bg-white border-2 border-amber-100 rounded-xl shadow-sm hover:shadow-md hover:border-amber-500 transition flex items-center justify-between group">
+                    <span className="text-3xl">☕</span>
+                    <div className="text-left flex-1 ml-4">
+                      <span className="font-bold text-lg text-amber-900 block group-hover:text-amber-700 transition">方言</span>
+                      <span className="text-xs text-gray-500 font-bold">サウジ等の日常会話 (Ammiya)</span>
+                    </div>
+                    <span className="text-gray-300 group-hover:text-amber-500 text-xl">→</span>
+                  </button>
+                </>
+              )}
             </div>
           </div>
         )}
-
         {currentScreen === "topics" && (
           <div className="animate-fade-in-up">
             <HeaderBackButton onClick={() => {
@@ -1481,6 +1531,7 @@ export default function Home() {
         {currentScreen === "result" && activeArticle && (
           <div className="pb-20 animate-fade-in-up">
               {/* 結果画面から戻るボタンを追加: リストへ戻る */}
+
               <div className="max-w-xl mx-auto">
                   <HeaderBackButton onClick={() => changeScreen(courseType === "poetry" ? "poets" : "list")} text="一覧に戻る" />
               </div>
@@ -1559,6 +1610,79 @@ export default function Home() {
                   </div>
               )}
             </div>
+          </div>
+        )}
+{/* ★ 新規画面: 1フレーズ一覧 (日本語一覧) */}
+{currentScreen === "phrases_list" && (
+          <div className="animate-fade-in-up max-w-xl mx-auto">
+            <HeaderBackButton onClick={() => changeScreen("levels_sub")} text="種類選択に戻る" />
+            <h2 className="text-2xl font-serif font-bold mb-6 text-emerald-950 border-b-2 border-amber-400 pb-2 inline-block">
+                {selectedCategory}のフレーズ
+            </h2>
+            <div className="space-y-3">
+              {/* ★ .filter(a => a.category === selectedCategory) を追加して絞り込み */}
+              {getFilteredArticles().filter(a => a.category === selectedCategory).length > 0 ? (
+                getFilteredArticles().filter(a => a.category === selectedCategory).map((article) => (
+                  <button 
+                    key={article.id} 
+                    onClick={() => handlePhraseClick(article)} 
+                    className="w-full text-left p-5 bg-white rounded-xl shadow-sm border border-stone-100 hover:border-emerald-400 hover:shadow-md transition-all group flex justify-between items-center"
+                  >
+                    <div className="flex items-center gap-4">
+                       <span className="text-2xl opacity-80">🇯🇵</span>
+                       <span className="font-bold text-lg text-gray-800 group-hover:text-emerald-800 transition">{article.title}</span>
+                    </div>
+                    <span className="text-stone-300 group-hover:text-amber-500 transition">翻訳を見る ❯</span>
+                  </button>
+                ))
+              ) : (
+                 <div className="text-center py-12 text-gray-400 bg-stone-50 rounded-xl border-dashed border-2 border-stone-200">
+                   <p className="text-2xl mb-2">📭</p>
+                   <p>現在、{selectedCategory}のデータはありません。</p>
+                 </div>
+              )}
+            </div>
+          </div>
+        )}
+        {/* ★ 新規画面: 1フレーズ詳細 (アラビア語と解説) */}
+        {currentScreen === "phrase_detail" && activeArticle && (
+          <div className="animate-fade-in-up pb-20 max-w-xl mx-auto">
+             <HeaderBackButton onClick={() => changeScreen("phrases_list")} text="一覧に戻る" />
+             
+             <div className="bg-white rounded-2xl shadow-xl border border-stone-200 overflow-hidden text-center">
+                {/* 上部: 日本語 */}
+                <div className="bg-stone-50 p-6 border-b border-stone-100">
+                   <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">Meaning</span>
+                   <h2 className="text-2xl font-bold text-gray-800">{activeArticle.title}</h2>
+                </div>
+                
+                {/* 下部: アラビア語と解説 */}
+                <div className="p-8 md:p-12">
+                   <span className="text-xs font-bold text-emerald-500 uppercase tracking-widest block mb-6">Arabic Phrase</span>
+                   <p className="text-4xl md:text-5xl font-arabic text-emerald-900 leading-loose mb-10 drop-shadow-sm" dir="rtl">
+                      {/* sentences[0].arabic にアラビア語を入れる想定 */}
+                      {activeArticle.sentences?.[0]?.arabic || activeArticle.contentPlain}
+                   </p>
+                   
+                   <button 
+                     onClick={() => speakText(activeArticle.sentences?.[0]?.arabic || activeArticle.contentPlain || "")} 
+                     className="bg-amber-100 text-amber-700 w-20 h-20 rounded-full text-3xl mx-auto flex items-center justify-center hover:bg-amber-200 hover:scale-110 active:scale-95 transition shadow-sm border-2 border-amber-200 mb-10"
+                   >
+                     🔊
+                   </button>
+
+                   {/* 解説セクション */}
+                   <div className="text-left bg-emerald-50 p-6 rounded-xl border border-emerald-100 relative">
+                     <div className="absolute -top-3 left-6 bg-emerald-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-sm">
+                       Explanation
+                     </div>
+                     <p className="text-sm text-emerald-900 leading-relaxed whitespace-pre-wrap mt-2 font-medium">
+                       {/* sentences[0].note に解説を入れる想定 */}
+                       {activeArticle.sentences?.[0]?.note || "解説がありません。"}
+                     </p>
+                   </div>
+                </div>
+             </div>
           </div>
         )}
       </main>
