@@ -8,7 +8,7 @@ import Link from 'next/link';
 // --- Types ---
 type Screen = "main_menu" | "levels_sub" | "topics" | "list" | "mode_select" | "reader" | "quiz" | "result" | "vocab" | "dictation" | "mypage" | "eras" | "era_desc" | "poets" | "poetry_read" | "phrases_list" | "phrase_detail";
 type LearningMode = "reading" | "listening" | "dictation" | "grammar";
-type CourseType = "grammar" | "conversation" | "reading" | "listening" | "poetry" | "phrase";
+type CourseType = "grammar" | "conversation" | "reading" | "listening" | "poetry" | "phrase" | "reorder";
 type StudyBreakdown = { reading: number; listening: number; dictation: number; vocab: number; grammar: number; poetry: number };
 
 // サブスクリプション情報の型定義
@@ -492,7 +492,13 @@ export default function Home() {
 
   const handleSubLevelClick = (level: string) => {
     setSelectedLevel(level);
-    changeScreen("topics");
+    // ★ 追加: 並び替えの場合はトピック選択をスキップして直接リストへ
+    if (courseType === "reorder") {
+        setSelectedCategory("並び替え");
+        changeScreen("list");
+    } else {
+        changeScreen("topics");
+    }
   };
 
   const handleSelectCategory = (category: string) => { 
@@ -516,8 +522,10 @@ export default function Home() {
     return allArticles.filter(a => {
         if (courseType === "grammar") return a.level === "文法";
         if (courseType === "conversation") return a.level === "会話";
-        // ★ 追加: 1フレーズのフィルタリング
         if (courseType === "phrase") return a.level === "1フレーズ";
+        
+        // ★ 追加: 並び替えコースの場合は「並び替え」カテゴリかつ選択したレベルに絞る
+        if (courseType === "reorder") return a.category === "並び替え" && a.level === selectedLevel;
         
         if (courseType === "poetry") {
             const era = POETRY_ERAS.find(e => e.id === selectedEraId);
@@ -527,7 +535,8 @@ export default function Home() {
             return (a.videoUrl && a.videoUrl.length > 0) && a.level === selectedLevel;
         }
         if (courseType === "reading") {
-            if (a.level === "文法" || a.level === "Poetry" || a.level === "1フレーズ") return false; // ★ 1フレーズを除外
+            // ★ "並び替え" も読解から除外する
+            if (a.level === "文法" || a.level === "Poetry" || a.level === "1フレーズ" || a.category === "並び替え") return false; 
             if (a.level !== selectedLevel) return false;
             return !a.videoUrl || a.videoUrl === "";
         }
@@ -543,19 +552,29 @@ export default function Home() {
     setRevealedVocabIndex(null); 
     
     if (courseType === "poetry") {
-        setLearningMode("reading");
-        changeScreen("poetry_read");
-    } else if (courseType === "grammar") {
-        startLearning("grammar");
-    } else if (courseType === "listening") {
-        setLearningMode("listening");
-        changeScreen("reader"); 
-    } else {
-        setLearningMode("reading");
-        changeScreen("mode_select"); 
-    }
-  };
-
+      setLearningMode("reading");
+      changeScreen("poetry_read");
+  } else if (courseType === "grammar") {
+      startLearning("grammar");
+  } else if (courseType === "listening") {
+      setLearningMode("listening");
+      changeScreen("reader"); 
+  } else if (courseType === "reorder") {
+      // ★ 追加: 並び替えの場合はモード選択を飛ばして直接クイズを開始する
+      const qs = article.questions;
+      setGrammarQuestions(qs);
+      stopSpeaking(); 
+      setQuizScore(0); 
+      setCurrentQuestionIndex(0); 
+      setQuizSelectedOption(null); 
+      setIsQuizResultVisible(false); 
+      setUserAnswers([]); 
+      changeScreen("quiz");
+  } else {
+      setLearningMode("reading");
+      changeScreen("mode_select"); 
+  }
+};
   // ▼ 新しく追加する関数（1フレーズ専用）
   const handlePhraseClick = (article: Article & { videoUrl?: string; imageUrls?: string[] }) => {
     setActiveArticle(article);
@@ -923,27 +942,35 @@ export default function Home() {
         )}
 
         {/* コース選択 (メインメニュー) */}
-        {currentScreen === "main_menu" && (
+{/* コース選択 (メインメニュー) */}
+{currentScreen === "main_menu" && (
           <div className="text-center py-10 animate-fade-in-up">
             <h2 className="text-3xl font-serif font-bold mb-3 text-emerald-950">コース選択</h2>
             <div className="w-16 h-1 bg-amber-400 mx-auto mb-8 rounded-full"></div>
-            <div className="grid grid-cols-2 gap-4" dir="ltr">
-              <LevelButton title="文法" subtitle="Grammar" color="bg-emerald-50 border-emerald-200" icon="🧩" onClick={() => handleMainMenuClick("grammar")} />
-              <LevelButton title="会話" subtitle="Conversation" color="bg-amber-50 border-amber-200" icon="💬" onClick={() => handleMainMenuClick("conversation")} />
-              <LevelButton title="読解" subtitle="Reading" color="bg-blue-50 border-blue-200" icon="📖" onClick={() => handleMainMenuClick("reading")} />
-              <LevelButton title="聴解" subtitle="Listening" color="bg-orange-50 border-orange-200" icon="🎧" onClick={() => handleMainMenuClick("listening")} />
-             {/* ★ 追加: 1フレーズのセクション */}
-             <button onClick={() => handleMainMenuClick("phrase")} className="col-span-2 h-32 rounded-3xl shadow-lg border-2 bg-purple-50 border-purple-200 flex flex-col items-center justify-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                <span className="text-4xl mb-2 group-hover:scale-110 transition-transform drop-shadow-sm">💡</span>
-                <span className="text-xl font-bold tracking-wide text-purple-900 font-serif">1フレーズ (Phrases)</span>
-                <span className="text-[10px] font-bold text-purple-400 uppercase mt-1 tracking-widest">Quick & Useful Expressions</span>
-              </button>
-              {/* 詩のセクション */}
-              <button onClick={() => handleMainMenuClick("poetry")} className="col-span-2 h-40 rounded-3xl shadow-lg border-2 bg-stone-50 border-stone-300 flex flex-col items-center justify-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                <span className="text-5xl mb-3 group-hover:scale-110 transition-transform drop-shadow-sm">📜</span>
-                <span className="text-xl font-bold tracking-wide text-gray-800 font-serif">詩 (Poetry)</span>
-                <span className="text-[10px] font-bold text-gray-400 uppercase mt-1 tracking-widest">Culture & Literature</span>
-              </button>
+            
+            {/* Flexboxを使って綺麗に並べる（余ったボタンは自動的に中央配置） */}
+            <div className="flex flex-wrap justify-center gap-3 sm:gap-4 max-w-2xl mx-auto" dir="ltr">
+              <div className="w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-1rem)]">
+                <LevelButton title="文法" subtitle="Grammar" color="bg-emerald-50 border-emerald-200" icon="🧩" onClick={() => handleMainMenuClick("grammar")} />
+              </div>
+              <div className="w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-1rem)]">
+                <LevelButton title="会話" subtitle="Conversation" color="bg-amber-50 border-amber-200" icon="💬" onClick={() => handleMainMenuClick("conversation")} />
+              </div>
+              <div className="w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-1rem)]">
+                <LevelButton title="読解" subtitle="Reading" color="bg-blue-50 border-blue-200" icon="📖" onClick={() => handleMainMenuClick("reading")} />
+              </div>
+              <div className="w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-1rem)]">
+                <LevelButton title="聴解" subtitle="Listening" color="bg-orange-50 border-orange-200" icon="🎧" onClick={() => handleMainMenuClick("listening")} />
+              </div>
+              <div className="w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-1rem)]">
+                <LevelButton title="並び替え" subtitle="Reorder" color="bg-pink-50 border-pink-200" icon="🔄" onClick={() => handleMainMenuClick("reorder")} />
+              </div>
+              <div className="w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-1rem)]">
+                <LevelButton title="1フレーズ" subtitle="Phrases" color="bg-purple-50 border-purple-200" icon="💡" onClick={() => handleMainMenuClick("phrase")} />
+              </div>
+              <div className="w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-1rem)]">
+                <LevelButton title="詩" subtitle="Poetry" color="bg-stone-50 border-stone-300" icon="📜" onClick={() => handleMainMenuClick("poetry")} />
+              </div>
             </div>
           </div>
         )}
@@ -1080,7 +1107,8 @@ export default function Home() {
             <h2 className="text-2xl font-serif font-bold mb-3 text-emerald-950">
                 {courseType === "reading" ? "リーディング" : 
                  courseType === "listening" ? "リスニング" : 
-                 courseType === "phrase" ? "種類を選択" : "学習モード選択"}
+                 courseType === "phrase" ? "種類を選択" : 
+                 courseType === "reorder" ? "並び替えレベル" : "学習モード選択"}
             </h2>
             <div className="grid grid-cols-1 gap-4 max-w-sm mx-auto" dir="ltr">
               
@@ -1437,96 +1465,115 @@ export default function Home() {
              <div className="fixed bottom-0 left-0 w-full bg-gray-100 border-t border-gray-300 p-2 z-30 shadow-2xl"><div className="max-w-3xl mx-auto"><div className="flex flex-wrap gap-1 justify-center mb-2" dir="rtl">{ARABIC_KEYS.map((char) => (<button key={char} onClick={() => handleKeyClick(char)} className="w-10 h-12 bg-white rounded shadow border-b-4 border-gray-200 active:border-b-0 active:translate-y-1 font-arabic text-xl hover:bg-gray-50 text-gray-800">{char}</button>))}</div><div className="flex gap-2 justify-center"><button onClick={handleSpace} className="flex-1 max-w-xs h-12 bg-white rounded shadow border-b-4 border-gray-200 active:border-b-0 active:translate-y-1 text-gray-600 font-bold">SPACE</button><button onClick={handleBackspace} className="w-20 h-12 bg-red-100 text-red-600 rounded shadow border-b-4 border-red-200 active:border-b-0 active:translate-y-1 font-bold">⌫</button></div></div></div>
           </div>
         )}
-        {currentScreen === "quiz" && activeArticle && (
+{currentScreen === "quiz" && activeArticle && (
           <div className="max-w-xl mx-auto animate-fade-in-up">
              <div className="flex justify-between items-center mb-4">
                  {/* 詩の場合は鑑賞モードに戻る */}
                  <HeaderBackButton 
-                    onClick={() => courseType === "poetry" ? changeScreen("poetry_read") : changeScreen("reader")} 
-                    text={courseType === "poetry" ? "詩に戻る" : "記事に戻る"} 
-                 />
+   onClick={() => courseType === "poetry" ? changeScreen("poetry_read") : courseType === "reorder" ? changeScreen("list") : changeScreen("reader")} 
+   text={courseType === "poetry" ? "詩に戻る" : courseType === "reorder" ? "一覧に戻る" : "記事に戻る"} 
+/>
                  <div className="text-center text-xs font-bold text-gray-400 tracking-widest" dir="ltr">QUESTION {currentQuestionIndex + 1} / {activeArticle.questions.length}</div>
              </div>
              
-             {activeArticle.questions[currentQuestionIndex].type === "orthography" || activeArticle.questions[currentQuestionIndex].options.length === 0 ? (
-                <OrthographyDrill 
-                  question={activeArticle.questions[currentQuestionIndex]} 
-                  onNext={nextQuizQuestion}
-                  isLast={currentQuestionIndex === activeArticle.questions.length - 1}
-                  onSpeak={speakText}
-                />
-             ) : (
-              <div className="bg-white p-8 rounded-2xl shadow-xl border border-stone-100 text-left" dir="ltr">
-              <span className="...">...</span>
-              <div className="text-xl font-bold mb-8 text-gray-800 leading-relaxed text-left" dir="ltr">
-  {/* \n でテキストを分割して一行ずつ処理する */}
-  {activeArticle.questions[currentQuestionIndex].text.split('\n').map((line, i) => (
-    <p 
-      key={i} 
-      className={line.includes('؟') || line.includes('هَذَا') ? "text-2xl font-arabic mt-4 text-right" : "text-base text-gray-600"}
-      dir={line.includes('؟') || line.includes('هَذَا') ? "rtl" : "ltr"}
-    >
-      {line}
-    </p>
-  ))}
-</div>
-                <div className="space-y-3 mb-6">
-                    {activeArticle.questions[currentQuestionIndex].options.map((option, idx) => {
-                    let btnClass = "bg-stone-50 border-stone-100 text-gray-700 hover:border-emerald-300";
-                    if (isQuizResultVisible) {
-                        if (idx === activeArticle.questions[currentQuestionIndex].correctIndex) { btnClass = "bg-emerald-100 border-emerald-500 text-emerald-900 font-bold"; } else if (idx === quizSelectedOption) { btnClass = "bg-red-100 border-red-500 text-red-900"; } else { btnClass = "bg-gray-50 border-gray-100 text-gray-400 opacity-50"; }
-                    }
-                    return (
-                      <button 
-                        key={idx} 
-                        onClick={() => handleQuizOptionClick(idx)} 
-                        disabled={isQuizResultVisible} 
-                        dir="ltr"
-                        className={`w-full p-4 text-left border-2 rounded-xl transition font-medium ${btnClass}`}
-                      >
-                        {option}
-                      </button>
-                    );               })}
-                </div>
-                {isQuizResultVisible && (
-  <div className="animate-fade-in-up">
-    <div className={`p-4 rounded-xl text-center mb-6 border ${quizSelectedOption === activeArticle.questions[currentQuestionIndex].correctIndex ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-red-50 border-red-200 text-red-800"}`}>
-      <p className="font-bold text-lg mb-1">{quizSelectedOption === activeArticle.questions[currentQuestionIndex].correctIndex ? "🎉 正解！" : "😢 残念..."}</p>
-      
-      <p className="text-sm opacity-90 text-left mt-2 whitespace-pre-wrap" dir="ltr">
-        {activeArticle.questions[currentQuestionIndex].explanation}
-      </p>
+             {(() => {
+               const currentQ = activeArticle.questions[currentQuestionIndex];
+               const isLast = currentQuestionIndex === activeArticle.questions.length - 1;
 
-      {/* ★ 追加: 関連文法へのボタン（クイズ解説） */}
-      {activeArticle.questions[currentQuestionIndex].relatedGrammarId && (
-        <div className="mt-3 text-left">
-          <button 
-            onClick={() => handleJumpToGrammar(activeArticle.questions[currentQuestionIndex].relatedGrammarId!)}
-            className="bg-blue-50 border border-blue-200 text-blue-700 text-xs px-4 py-2 rounded-full font-bold hover:bg-blue-100 transition flex items-center gap-2 shadow-sm"
-          >
-            <span>🔗</span> 
-            この文法を詳しく学ぶ ({getArticleById(activeArticle.questions[currentQuestionIndex].relatedGrammarId!)?.category})
-          </button>
-        </div>
-      )}
-
-      {/* ★★★ 全クイズ形式対応: 解説時に音声ボタンを表示 ★★★ */}
-      {activeArticle.questions[currentQuestionIndex].audio && (
-        <button 
-          onClick={() => speakText(activeArticle.questions[currentQuestionIndex].audio!)} 
-          className="mx-auto flex items-center gap-2 bg-white border border-emerald-200 text-emerald-700 px-4 py-2 rounded-full text-xs font-bold shadow-sm hover:bg-emerald-50 transition mt-4"
-        >
-          <span>🔊</span> 発音を聞く
-        </button>
-      )}
-
-    </div>
-    <button onClick={nextQuizQuestion} className="w-full bg-emerald-800 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-emerald-900 transition transform">{currentQuestionIndex < activeArticle.questions.length - 1 ? "次の問題へ" : "結果を見る"}</button>
-  </div>
-)}
+               if (currentQ.type === "reorder") {
+                 return (
+                   <ReorderDrill
+                     question={currentQ}
+                     onNext={nextQuizQuestion}
+                     isLast={isLast}
+                     onSpeak={speakText}
+                     onScoreIncrease={() => {
+                       setQuizScore(prev => prev + 1);
+                       speakText("Mumtāz");
+                     }}
+                   />
+                 );
+               } else if (currentQ.type === "orthography" || !currentQ.options || currentQ.options.length === 0) {
+                 return (
+                   <OrthographyDrill 
+                     question={currentQ} 
+                     onNext={nextQuizQuestion}
+                     isLast={isLast}
+                     onSpeak={speakText}
+                   />
+                 );
+               } else {
+                 return (
+                   <div className="bg-white p-8 rounded-2xl shadow-xl border border-stone-100 text-left" dir="ltr">
+                     <span className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 block">Multiple Choice</span>
+                     <div className="text-xl font-bold mb-8 text-gray-800 leading-relaxed text-left" dir="ltr">
+                       {currentQ.text.split('\n').map((line, i) => (
+                         <p 
+                           key={i} 
+                           className={line.includes('؟') || line.includes('هَذَا') ? "text-2xl font-arabic mt-4 text-right" : "text-base text-gray-600"}
+                           dir={line.includes('؟') || line.includes('هَذَا') ? "rtl" : "ltr"}
+                         >
+                           {line}
+                         </p>
+                       ))}
+                     </div>
+                     <div className="space-y-3 mb-6">
+                         {currentQ.options.map((option, idx) => {
+                         let btnClass = "bg-stone-50 border-stone-100 text-gray-700 hover:border-emerald-300";
+                         if (isQuizResultVisible) {
+                             if (idx === currentQ.correctIndex) { btnClass = "bg-emerald-100 border-emerald-500 text-emerald-900 font-bold"; } else if (idx === quizSelectedOption) { btnClass = "bg-red-100 border-red-500 text-red-900"; } else { btnClass = "bg-gray-50 border-gray-100 text-gray-400 opacity-50"; }
+                         }
+                         return (
+                           <button 
+                             key={idx} 
+                             onClick={() => handleQuizOptionClick(idx)} 
+                             disabled={isQuizResultVisible} 
+                             dir="ltr"
+                             className={`w-full p-4 text-left border-2 rounded-xl transition font-medium ${btnClass}`}
+                           >
+                             {option}
+                           </button>
+                         );                
+                         })}
+                     </div>
+                     {isQuizResultVisible && (
+                       <div className="animate-fade-in-up">
+                         <div className={`p-4 rounded-xl text-center mb-6 border ${quizSelectedOption === currentQ.correctIndex ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-red-50 border-red-200 text-red-800"}`}>
+                           <p className="font-bold text-lg mb-1">{quizSelectedOption === currentQ.correctIndex ? "🎉 正解！" : "😢 残念..."}</p>
+                           
+                           <p className="text-sm opacity-90 text-left mt-2 whitespace-pre-wrap" dir="ltr">
+                             {currentQ.explanation}
+                           </p>
+             
+                           {currentQ.relatedGrammarId && (
+                             <div className="mt-3 text-left">
+                               <button 
+                                 onClick={() => handleJumpToGrammar(currentQ.relatedGrammarId!)}
+                                 className="bg-blue-50 border border-blue-200 text-blue-700 text-xs px-4 py-2 rounded-full font-bold hover:bg-blue-100 transition flex items-center gap-2 shadow-sm"
+                               >
+                                 <span>🔗</span> 
+                                 この文法を詳しく学ぶ ({getArticleById(currentQ.relatedGrammarId!)?.category})
+                               </button>
+                             </div>
+                           )}
+             
+                           {currentQ.audio && (
+                             <button 
+                               onClick={() => speakText(currentQ.audio!)} 
+                               className="mx-auto flex items-center gap-2 bg-white border border-emerald-200 text-emerald-700 px-4 py-2 rounded-full text-xs font-bold shadow-sm hover:bg-emerald-50 transition mt-4"
+                             >
+                               <span>🔊</span> 発音を聞く
+                             </button>
+                           )}
+                         </div>
+                         <button onClick={nextQuizQuestion} className="w-full bg-emerald-800 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-emerald-900 transition transform">{isLast ? "結果を見る" : "次の問題へ"}</button>
+                       </div>
+                     )}
+                   </div>
+                 );
+               }
+             })()}
           </div>
-        )}
-        </div>
         )}
         {currentScreen === "result" && activeArticle && (
           <div className="pb-20 animate-fade-in-up">
@@ -1704,11 +1751,15 @@ export default function Home() {
 
 // UI Components
 function VocabButton({ v, i, isRevealed, isSaved, onReveal, onSave }: any) { return <button onClick={onReveal} className={`relative px-3 py-1.5 rounded-lg text-sm transition-all duration-300 border ${isRevealed ? "bg-emerald-50 border-emerald-300 text-emerald-900 shadow-sm scale-105" : "bg-white border-dashed border-stone-300 text-stone-500 hover:border-amber-400 hover:text-amber-700"}`}><span className={`font-bold ${isRevealed ? "" : "font-arabic text-lg"}`}>{isRevealed ? v.meaning : v.word}</span>{isRevealed && !isSaved && <span onClick={(e) => { e.stopPropagation(); onSave(); }} className="absolute -top-2 -left-2 bg-emerald-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs shadow-md cursor-pointer hover:bg-emerald-700 hover:scale-110 transition">+</span>}{isSaved && <span className="absolute -top-2 -left-2 text-emerald-600 bg-white rounded-full border border-emerald-200 text-[10px] w-5 h-5 flex items-center justify-center shadow-sm">✓</span>}</button>; }
-function LevelButton({ title, subtitle, color, icon, onClick }: any) { return <button onClick={onClick} className={`h-40 rounded-3xl shadow-lg border-2 ${color} flex flex-col items-center justify-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group bg-white`}><span className="text-5xl mb-3 group-hover:scale-110 transition-transform drop-shadow-sm grayscale group-hover:grayscale-0">{icon}</span><span className="text-xl font-bold tracking-wide text-gray-800">{title}</span>
-
-
-
-<span className="text-[10px] font-bold text-gray-400 uppercase mt-1 tracking-widest">{subtitle}</span></button>; }
+function LevelButton({ title, subtitle, color, icon, onClick }: any) { 
+  return (
+    <button onClick={onClick} className={`w-full h-28 sm:h-32 p-4 rounded-3xl shadow-sm border-2 ${color} flex flex-col items-center justify-center hover:shadow-md hover:-translate-y-1 transition-all duration-300 group bg-white`}>
+      <span className="text-3xl sm:text-4xl mb-2 group-hover:scale-110 transition-transform drop-shadow-sm grayscale group-hover:grayscale-0">{icon}</span>
+      <span className="text-base sm:text-lg font-bold tracking-wide text-gray-800">{title}</span>
+      <span className="text-[9px] sm:text-[10px] font-bold text-gray-400 uppercase mt-1 tracking-widest">{subtitle}</span>
+    </button>
+  ); 
+}
 function ModeButton({ icon, title, subtitle, color, onClick }: any) { return <button onClick={onClick} className={`border-2 ${color} p-4 rounded-2xl transition-all shadow-sm hover:shadow-md flex flex-col items-center gap-2 group h-full justify-center bg-white`}><span className="text-3xl group-hover:scale-110 transition-transform">{icon}</span><div className="text-center"><span className="font-bold text-sm block text-gray-700">{title}</span><span className="text-[10px] text-gray-400 font-bold">{subtitle}</span></div></button>; }
 function StatCard({ label, value, color }: any) { return <div className="bg-white p-4 rounded-2xl shadow-sm border border-stone-100"><p className="text-stone-400 text-[10px] font-bold uppercase tracking-widest mb-1">{label}</p><p className={`text-2xl font-bold font-serif ${color}`}>{value}</p></div>; }
 
@@ -1777,6 +1828,136 @@ function OrthographyDrill({ question, onNext, isLast, onSpeak }: any) {
             </button>
           </div>
         </div>
+      )}
+    </div>
+  );
+}
+function ReorderDrill({ question, onNext, isLast, onSpeak, onScoreIncrease }: any) {
+  const [availableWords, setAvailableWords] = useState<string[]>([]);
+  const [selectedWords, setSelectedWords] = useState<string[]>([]);
+  const [isChecked, setIsChecked] = useState(false);
+  const [isCorrect, setIsCorrect] = useState(false);
+  const [showAnswer, setShowAnswer] = useState(false);
+
+  useEffect(() => {
+    const correct = question.correctOrder || [];
+    const distractors = question.distractors || [];
+    const allWords = [...correct, ...distractors];
+    setAvailableWords(allWords.sort(() => Math.random() - 0.5));
+    setSelectedWords([]);
+    setIsChecked(false);
+    setShowAnswer(false);
+  }, [question]);
+
+  const handleSelect = (word: string, idx: number) => {
+    if (isChecked) return;
+    const newAvailable = [...availableWords];
+    newAvailable.splice(idx, 1);
+    setAvailableWords(newAvailable);
+    setSelectedWords([...selectedWords, word]);
+  };
+
+  const handleDeselect = (word: string, idx: number) => {
+    if (isChecked) return;
+    const newSelected = [...selectedWords];
+    newSelected.splice(idx, 1);
+    setSelectedWords(newSelected);
+    setAvailableWords([...availableWords, word]);
+  };
+
+  const checkAnswer = () => {
+    if (selectedWords.length === 0) return;
+    
+    const selectedStr = selectedWords.join(" ");
+    const correctStr = (question.correctOrder || []).join(" ");
+    
+    // 1. まず基本の正解（correctOrder）と一致するかチェック
+    let isMatch = (selectedStr === correctStr);
+
+    // 2. 一致しなかった場合、許容パターン（acceptableOrders）の中に一致するものがあるかチェック
+    if (!isMatch && question.acceptableOrders) {
+        isMatch = question.acceptableOrders.some((order: string[]) => order.join(" ") === selectedStr);
+    }
+
+    if (isMatch) {
+        // どれかに一致していれば「完全正解」
+        setIsCorrect(true);
+        setIsChecked(true);
+        onScoreIncrease();
+        onSpeak(question.audio || correctStr);
+    } else {
+        // どれにも一致しなければ不正解
+        setIsCorrect(false);
+        setIsChecked(true);
+    }
+  };
+
+  return (
+    <div className="bg-white p-8 rounded-2xl shadow-xl border border-stone-100 text-center animate-fade-in-up">
+      <span className="inline-block bg-blue-50 text-blue-700 text-[10px] font-bold px-2 py-1 rounded mb-4 tracking-wider uppercase border border-blue-100">
+        🔄 並び替え問題
+      </span>
+      <h3 className="text-lg font-bold mb-6 text-gray-700 whitespace-pre-wrap">{question.text}</h3>
+
+      {/* 選択した単語のエリア */}
+      <div className="min-h-[80px] p-4 bg-stone-50 rounded-xl border-2 border-dashed border-stone-300 flex flex-wrap gap-2 justify-center items-center mb-6" dir="rtl">
+        {selectedWords.length === 0 && !isChecked && (
+          <span className="text-stone-400 text-sm">下の単語をタップして文を作成してください</span>
+        )}
+        {selectedWords.map((word, idx) => (
+          <button 
+            key={`sel-${idx}`} 
+            onClick={() => handleDeselect(word, idx)}
+            className={`px-4 py-2 rounded-lg font-arabic text-xl shadow-sm transition transform hover:scale-105 ${isChecked ? (isCorrect ? "bg-emerald-600 text-white border-emerald-700" : "bg-red-500 text-white border-red-600") : "bg-emerald-600 text-white hover:bg-emerald-500 border-b-4 border-emerald-800 active:border-b-0 active:translate-y-1"}`}
+            disabled={isChecked}
+          >
+            {word}
+          </button>
+        ))}
+      </div>
+
+      {/* 選択肢（ダミー含む）のエリア */}
+      <div className="flex flex-wrap gap-3 justify-center mb-8" dir="rtl">
+        {availableWords.map((word, idx) => (
+          <button 
+            key={`avail-${idx}`} 
+            onClick={() => handleSelect(word, idx)}
+            className="px-4 py-2 bg-white text-gray-800 rounded-lg font-arabic text-xl shadow border border-stone-200 hover:border-emerald-400 hover:bg-emerald-50 transition transform hover:-translate-y-1"
+            disabled={isChecked}
+          >
+            {word}
+          </button>
+        ))}
+      </div>
+
+      {/* 判定結果 */}
+      {isChecked ? (
+        <div className="animate-fade-in-up">
+          <div className={`p-4 rounded-xl mb-6 border ${isCorrect ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-red-50 border-red-200 text-red-800"}`}>
+            <p className="font-bold text-lg mb-2">{isCorrect ? "🎉 正解！" : "😢 惜しい..."}</p>
+            {(!isCorrect && showAnswer) || isCorrect ? (
+                <div className="text-2xl font-arabic text-center mt-4 mb-2 text-emerald-900" dir="rtl">
+                    {(question.correctOrder || []).join(" ")}
+                </div>
+            ) : null}
+            <p className="text-sm opacity-90 text-left mt-2 whitespace-pre-wrap" dir="ltr">
+              {question.explanation}
+            </p>
+            {!isCorrect && !showAnswer && (
+                <div className="flex gap-2 mt-4">
+                    <button onClick={() => {setIsChecked(false); setSelectedWords([]); setAvailableWords([...(question.correctOrder||[]), ...(question.distractors||[])].sort(()=>Math.random()-0.5));}} className="flex-1 bg-white border border-red-200 text-red-700 py-2 rounded-lg text-sm font-bold hover:bg-red-50 transition">やり直す</button>
+                    <button onClick={() => setShowAnswer(true)} className="flex-1 bg-red-100 text-red-800 py-2 rounded-lg text-sm font-bold hover:bg-red-200 transition">正解を見る</button>
+                </div>
+            )}
+          </div>
+          <button onClick={onNext} className="w-full bg-emerald-800 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-emerald-900 transition transform">
+            {isLast ? "結果を見る" : "次の問題へ"}
+          </button>
+        </div>
+      ) : (
+         <button onClick={checkAnswer} disabled={selectedWords.length === 0} className={`w-full font-bold py-4 rounded-xl shadow-lg transition transform ${selectedWords.length === 0 ? "bg-gray-200 text-gray-400 cursor-not-allowed" : "bg-amber-500 text-white hover:bg-amber-600 hover:scale-105"}`}>
+           答え合わせ
+         </button>
       )}
     </div>
   );
