@@ -13353,7 +13353,7 @@ export const articles: Article[] = [
         },
         { 
           id: 2165, type: "grammar", 
-          text: "\u200Fكَيْفَ نَقُولُ 'Can walk'؟\u200F",
+          text: "\u200Fكَيْفَ نَقُولُ '歩くことができる'؟\u200F",
           options: ["يَسْتَطِيعُ الْمَشْيَ", "لَا يَسْتَطِيعُ", "مَشَى", "يَمْشِي"],
           correctIndex: 0, 
           explanation: "「Yastaṭī'u (できる)」です。" 
@@ -13723,7 +13723,7 @@ export const articles: Article[] = [
         { 
           id: 2204, type: "vocabulary", 
           text: "\u200Fمَا مَعْنَى 'شَبَكَة'؟\u200F",
-          options: ["بَيْت", "أَدَاةُ صَيْدٍ (Net)", "حُفْرَة", "صُنْدُوق"],
+          options: ["بَيْت", "أَدَاةُ صَيْدٍ", "حُفْرَة", "صُنْدُوق"],
           correctIndex: 1, 
           explanation: "網です。" 
         },
