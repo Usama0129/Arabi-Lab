@@ -745,61 +745,122 @@ export default function Home() {
              <div className="fixed bottom-0 left-0 w-full bg-gray-100 border-t border-gray-300 p-2 z-30 shadow-2xl"><div className="max-w-3xl mx-auto"><div className="flex flex-wrap gap-1 justify-center mb-2" dir="rtl">{ARABIC_KEYS.map((char) => (<button key={char} onClick={() => handleKeyClick(char)} className="w-10 h-12 bg-white rounded shadow border-b-4 border-gray-200 active:border-b-0 active:translate-y-1 font-arabic text-xl hover:bg-gray-50 text-gray-800">{char}</button>))}</div><div className="flex gap-2 justify-center"><button onClick={handleSpace} className="flex-1 max-w-xs h-12 bg-white rounded shadow border-b-4 border-gray-200 active:border-b-0 active:translate-y-1 text-gray-600 font-bold">SPACE</button><button onClick={handleBackspace} className="w-20 h-12 bg-red-100 text-red-600 rounded shadow border-b-4 border-red-200 active:border-b-0 active:translate-y-1 font-bold">⌫</button></div></div></div>
           </div>
         )}
-        {currentScreen === "quiz" && activeArticle && (
-          <div className="max-w-xl mx-auto animate-fade-in-up">
-             <div className="flex justify-between items-center mb-4">
-                 {/* 戻るボタンを追加: ここでは「Reader（記事）」に戻る */}
-                 <HeaderBackButton onClick={() => changeScreen("reader")} text="記事に戻る" />
-                 <div className="text-center text-xs font-bold text-gray-400 tracking-widest" dir="ltr">QUESTION {currentQuestionIndex + 1} / {activeArticle.questions.length}</div>
-             </div>
-             
-             {activeArticle.questions[currentQuestionIndex].type === "orthography" || activeArticle.questions[currentQuestionIndex].options.length === 0 ? (
-                <OrthographyDrill 
-                  question={activeArticle.questions[currentQuestionIndex]} 
-                  onNext={nextQuizQuestion}
-                  isLast={currentQuestionIndex === activeArticle.questions.length - 1}
-                />
-             ) : (
-                <div className="bg-white p-8 rounded-2xl shadow-xl border border-stone-100">
-                <span className="inline-block bg-blue-50 text-blue-700 text-[10px] font-bold px-2 py-1 rounded mb-4 tracking-wider uppercase border border-blue-100">{getQuestionTypeLabel(activeArticle.questions[currentQuestionIndex].type)}</span>
-                <h3 className="text-xl font-bold mb-8 text-gray-800 leading-relaxed">{activeArticle.questions[currentQuestionIndex].text}</h3>
-                <div className="space-y-3 mb-6">
-                    {activeArticle.questions[currentQuestionIndex].options.map((option, idx) => {
-                    let btnClass = "bg-stone-50 border-stone-100 text-gray-700 hover:border-emerald-300";
-                    if (isQuizResultVisible) {
-                        if (idx === activeArticle.questions[currentQuestionIndex].correctIndex) { btnClass = "bg-emerald-100 border-emerald-500 text-emerald-900 font-bold"; } else if (idx === quizSelectedOption) { btnClass = "bg-red-100 border-red-500 text-red-900"; } else { btnClass = "bg-gray-50 border-gray-100 text-gray-400 opacity-50"; }
-                    }
-                    return (<button key={idx} onClick={() => handleQuizOptionClick(idx)} disabled={isQuizResultVisible} className={`w-full p-4 text-right border-2 rounded-xl transition font-medium ${btnClass}`}>{option}</button>);
-                    })}
+{/* --- クイズ画面 --- */}
+{currentScreen === "quiz" && activeArticle && (
+          (() => {
+            // 現在の問題を安全に取得
+            const currentQ = activeArticle.questions?.[currentQuestionIndex];
+            // 問題が存在しない場合は何も表示しない（これでエラーを回避）
+            if (!currentQ) return null;
+
+            return (
+              <div className="max-w-xl mx-auto animate-fade-in-up">
+                <div className="flex justify-between items-center mb-4">
+                  <HeaderBackButton onClick={() => changeScreen("reader")} text="記事に戻る" />
+                  <div className="text-center text-xs font-bold text-gray-400 tracking-widest" dir="ltr">
+                    QUESTION {currentQuestionIndex + 1} / {activeArticle.questions.length}
+                  </div>
                 </div>
-                {isQuizResultVisible && (<div className="animate-fade-in-up"><div className={`p-4 rounded-xl text-center mb-6 border ${quizSelectedOption === activeArticle.questions[currentQuestionIndex].correctIndex ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-red-50 border-red-200 text-red-800"}`}><p className="font-bold text-lg mb-1">{quizSelectedOption === activeArticle.questions[currentQuestionIndex].correctIndex ? "🎉 正解！" : "😢 残念..."}</p><p className="text-sm opacity-90">{activeArticle.questions[currentQuestionIndex].explanation}</p></div><button onClick={nextQuizQuestion} className="w-full bg-emerald-800 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-emerald-900 transition transform">{currentQuestionIndex < activeArticle.questions.length - 1 ? "次の問題へ" : "結果を見る"}</button></div>)}
-                </div>
-             )}
-          </div>
+                
+                {currentQ.type === "orthography" || (currentQ.options?.length ?? 0) === 0 ? (
+                  <OrthographyDrill 
+                    question={currentQ} 
+                    onNext={nextQuizQuestion}
+                    isLast={currentQuestionIndex === activeArticle.questions.length - 1}
+                  />
+                ) : (
+                  <div className="bg-white p-8 rounded-2xl shadow-xl border border-stone-100">
+                    <span className="inline-block bg-blue-50 text-blue-700 text-[10px] font-bold px-2 py-1 rounded mb-4 tracking-wider uppercase border border-blue-100">
+                      {getQuestionTypeLabel(currentQ.type)}
+                    </span>
+                    <h3 className="text-xl font-bold mb-8 text-gray-800 leading-relaxed">{currentQ.text}</h3>
+                    <div className="space-y-3 mb-6">
+                      {currentQ.options?.map((option, idx) => {
+                        let btnClass = "bg-stone-50 border-stone-100 text-gray-700 hover:border-emerald-300";
+                        if (isQuizResultVisible) {
+                          if (idx === currentQ.correctIndex) { 
+                            btnClass = "bg-emerald-100 border-emerald-500 text-emerald-900 font-bold"; 
+                          } else if (idx === quizSelectedOption) { 
+                            btnClass = "bg-red-100 border-red-500 text-red-900"; 
+                          } else { 
+                            btnClass = "bg-gray-50 border-gray-100 text-gray-400 opacity-50"; 
+                          }
+                        }
+                        return (
+                          <button 
+                            key={idx} 
+                            onClick={() => handleQuizOptionClick(idx)} 
+                            disabled={isQuizResultVisible} 
+                            className={`w-full p-4 text-right border-2 rounded-xl transition font-medium ${btnClass}`}
+                          >
+                            {option}
+                          </button>
+                        );
+                      })}
+                    </div>
+                    {isQuizResultVisible && (
+                      <div className="animate-fade-in-up">
+                        <div className={`p-4 rounded-xl text-center mb-6 border ${quizSelectedOption === currentQ.correctIndex ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-red-50 border-red-200 text-red-800"}`}>
+                          <p className="font-bold text-lg mb-1">{quizSelectedOption === currentQ.correctIndex ? "🎉 正解！" : "😢 残念..."}</p>
+                          <p className="text-sm opacity-90">{currentQ.explanation}</p>
+                        </div>
+                        <button onClick={nextQuizQuestion} className="w-full bg-emerald-800 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-emerald-900 transition transform">
+                          {currentQuestionIndex < activeArticle.questions.length - 1 ? "次の問題へ" : "結果を見る"}
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })()
         )}
+
+        {/* --- 結果画面 --- */}
         {currentScreen === "result" && activeArticle && (
           <div className="pb-20 animate-fade-in-up">
-            {/* 結果画面から戻るボタンを追加: リストへ戻る */}
-              <div className="max-w-xl mx-auto">
-                  <HeaderBackButton onClick={() => changeScreen("list")} text="一覧に戻る" />
-              </div>
+            <div className="max-w-xl mx-auto">
+              <HeaderBackButton onClick={() => changeScreen("list")} text="一覧に戻る" />
+            </div>
 
             <div className="text-center py-12 bg-white rounded-2xl shadow-xl mb-8 border border-stone-100">
               <div className="text-6xl mb-4">🎉</div>
               <h2 className="text-2xl font-serif font-bold mb-2 text-emerald-950">学習完了</h2>
               <p className="text-gray-400 text-sm mb-8">Great Job!</p>
-              {learningMode !== "dictation" && learningMode !== "grammar" && !activeArticle.questions.some(q => q.type === "orthography") && (
+              {learningMode !== "dictation" && learningMode !== "grammar" && !(activeArticle.questions?.some(q => q.type === "orthography")) && (
                   <div className="text-4xl font-bold text-emerald-600 mb-8">{quizScore} <span className="text-lg text-gray-300 font-normal">/ {activeArticle.questions.length}</span></div>
               )}
-              <div className="flex justify-center gap-4"><button onClick={() => changeScreen("list")} className="px-10 py-3 bg-emerald-900 text-white font-bold rounded-full hover:bg-emerald-800 shadow-lg transition">一覧に戻る</button></div>
+              <div className="flex justify-center gap-4">
+                <button onClick={() => changeScreen("list")} className="px-10 py-3 bg-emerald-900 text-white font-bold rounded-full hover:bg-emerald-800 shadow-lg transition">一覧に戻る</button>
+              </div>
             </div>
+            
             {activeArticle.videoUrl && getYouTubeId(activeArticle.videoUrl) && (
                 <div className="w-full max-w-xl mx-auto mb-8 aspect-video rounded-xl overflow-hidden shadow-lg border border-stone-200">
                    <iframe width="100%" height="100%" src={`https://www.youtube.com/embed/${getYouTubeId(activeArticle.videoUrl)}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                 </div>
             )}
-            <div className="bg-white rounded-xl shadow-sm p-6 mb-4 border border-stone-100"><h3 className="font-bold mb-4 text-xs text-stone-400 tracking-widest uppercase border-b pb-2">📝 全文復習 (Review)</h3><div className="space-y-4">{activeArticle.sentences?.map((sent, i) => (<div key={i} className="p-3 bg-stone-50 rounded-lg group hover:bg-emerald-50 transition cursor-pointer" onClick={() => speakText(sent.arabic)}><p className="font-bold text-emerald-900 text-right font-arabic text-lg mb-1">{sent.arabic} <span className="text-xs text-gray-300 ml-2">🔊</span></p><p className="text-sm text-gray-600 text-right">{sent.japanese}</p></div>))}</div></div>
-            <div className="bg-white rounded-xl shadow-sm p-6 mb-4 border border-stone-100"><h3 className="font-bold mb-4 text-xs text-stone-400 tracking-widest uppercase">単語を保存</h3><div className="flex flex-wrap gap-2 justify-center">{activeArticle.vocabList.map((v, i) => (<VocabButton key={i} v={v} i={i} isRevealed={revealedVocabIndex === i} isSaved={savedVocab.some(sv => sv.word === v.word)} onReveal={() => setRevealedVocabIndex(i)} onSave={() => saveWord(v.word, v.meaning)} />))}</div></div>
+            
+            <div className="bg-white rounded-xl shadow-sm p-6 mb-4 border border-stone-100">
+              <h3 className="font-bold mb-4 text-xs text-stone-400 tracking-widest uppercase border-b pb-2">📝 全文復習 (Review)</h3>
+              <div className="space-y-4">
+                {activeArticle.sentences?.map((sent, i) => (
+                  <div key={i} className="p-3 bg-stone-50 rounded-lg group hover:bg-emerald-50 transition cursor-pointer" onClick={() => speakText(sent.arabic)}>
+                    <p className="font-bold text-emerald-900 text-right font-arabic text-lg mb-1">{sent.arabic} <span className="text-xs text-gray-300 ml-2">🔊</span></p>
+                    <p className="text-sm text-gray-600 text-right">{sent.japanese}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div className="bg-white rounded-xl shadow-sm p-6 mb-4 border border-stone-100">
+              <h3 className="font-bold mb-4 text-xs text-stone-400 tracking-widest uppercase">単語を保存</h3>
+              <div className="flex flex-wrap gap-2 justify-center">
+                {activeArticle.vocabList?.map((v, i) => (
+                  <VocabButton key={i} v={v} i={i} isRevealed={revealedVocabIndex === i} isSaved={savedVocab.some(sv => sv.word === v.word)} onReveal={() => setRevealedVocabIndex(i)} onSave={() => saveWord(v.word, v.meaning)} />
+                ))}
+              </div>
+            </div>
           </div>
         )}
         {currentScreen === "vocab" && (
