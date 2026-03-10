@@ -1477,10 +1477,16 @@ export default function Home() {
              </div>
              
              {(() => {
-               const currentQ = activeArticle.questions[currentQuestionIndex];
-               const isLast = currentQuestionIndex === activeArticle.questions.length - 1;
+  // 1. オプショナルチェイニング (?.) を使って安全に取得
+  const currentQ = activeArticle.questions?.[currentQuestionIndex];
+  
+  // 2. もし currentQ が undefined なら、何も表示せずに処理を抜ける（TypeScriptを安心させる）
+  if (!currentQ) return null;
 
-               if (currentQ.type === "reorder") {
+  const isLast = currentQuestionIndex === activeArticle.questions.length - 1;
+
+  if (currentQ.type === "reorder") {
+    // ...これ以降は currentQ が確実に存在すると判定されるためエラーが消えます
                  return (
                    <ReorderDrill
                      question={currentQ}
