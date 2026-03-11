@@ -273,7 +273,12 @@ export default function Home() {
   const [fcFlipped, setFcFlipped] = useState(false);
   const [fcReverse, setFcReverse] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
-
+// ▼▼▼ ここに追加 ▼▼▼
+  // ★ 追加: 高機能音声プレイヤー用のStateとRef
+  const [audioState, setAudioState] = useState<"idle" | "playing" | "paused">("idle");
+  const [currentAudioIndex, setCurrentAudioIndex] = useState<number>(0);
+  const audioIndexRef = useRef<number>(0);
+  // ▲▲▲ ここまで ▲▲▲
   // ★ 音声再生設定用のState (スピードのみ)
   const [playbackRate, setPlaybackRate] = useState<number>(1.0);
 
@@ -653,82 +658,133 @@ export default function Home() {
   const checkDictation = () => { if (normalizeArabic(dictationInput) === targetWordClean) setDictationFeedback("correct"); else setDictationFeedback("incorrect"); };
   const nextDictation = () => { if (!activeArticle) return; if (dictationIndex < activeArticle.sentences.length - 1) { const nextIdx = dictationIndex + 1; setDictationIndex(nextIdx); generateDictationProblem(activeArticle, nextIdx); } else changeScreen("result"); };
     
-  // --- ★ 変更: 音声再生関数 (スピードのみ・ピッチ/ボイス選択削除) ---
-  const speakText = (text: string, speaker?: string) => {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const cleanText = text.replace(/[^\u0600-\u06FF\s]/g, "").trim(); 
-      const u = new SpeechSynthesisUtterance(cleanText);
-      
-      const voices = window.speechSynthesis.getVoices();
-      const arabicVoice = voices.find(v => v.lang.includes('ar'));
-      if (arabicVoice) { u.voice = arabicVoice; u.lang = arabicVoice.lang; } else { u.lang = 'ar-SA'; }
-      
-      // ★ 速度の安全制限 (0.1 ~ 2.0)
-      u.rate = clamp(playbackRate, 0.1, 2.0); 
-      
-      u.onstart = () => setIsSpeaking(true);
-      u.onend = () => setIsSpeaking(false);
-      window.speechSynthesis.speak(u);
-    }
-  };
-
-  // --- ★ 変更: 連続再生関数 (スピードのみ・ピッチ/ボイス選択削除) ---
-  const playArticleAudio = () => {
-    if (!activeArticle || !('speechSynthesis' in window)) return;
+// --- ★ 変更: 音声再生関数 (単発読み上げ用) ---
+const speakText = (text: string, speaker?: string) => {
+  if ('speechSynthesis' in window) {
     window.speechSynthesis.cancel();
-    setIsSpeaking(true);
-    let voices = window.speechSynthesis.getVoices();
+    setAudioState("idle"); // プレイヤーの状態をリセット
+    const cleanText = text.replace(/[^\u0600-\u06FF\s]/g, "").trim(); 
+    const u = new SpeechSynthesisUtterance(cleanText);
+    
+    const voices = window.speechSynthesis.getVoices();
+    const arabicVoice = voices.find(v => v.lang.includes('ar'));
+    if (arabicVoice) { u.voice = arabicVoice; u.lang = arabicVoice.lang; } else { u.lang = 'ar-SA'; }
+    
+    u.rate = clamp(playbackRate, 0.1, 2.0); 
+    window.speechSynthesis.speak(u);
+  }
+};
+
+// --- ★ 新規: 高機能オーディオプレイヤーの制御関数 ---
+const handleTogglePlay = () => {
+  if (!('speechSynthesis' in window)) return;
+  
+  if (audioState === "playing") {
+    window.speechSynthesis.pause();
+    setAudioState("paused");
+  } else if (audioState === "paused") {
+    window.speechSynthesis.resume();
+    setAudioState("playing");
+  } else {
+    startSequencePlayback(0);
+  }
+};
+
+const handleStopPlayback = () => {
+  window.speechSynthesis.cancel();
+  setAudioState("idle");
+  setCurrentAudioIndex(0);
+  audioIndexRef.current = 0;
+};
+
+const handlePrevSentence = () => {
+  if (audioState === "idle" || !activeArticle?.sentences) return;
+  window.speechSynthesis.cancel();
+  const newIdx = Math.max(0, audioIndexRef.current - 1);
+  startSequencePlayback(newIdx);
+};
+
+const handleNextSentence = () => {
+  if (audioState === "idle" || !activeArticle?.sentences) return;
+  window.speechSynthesis.cancel();
+  const newIdx = Math.min(activeArticle.sentences.length - 1, audioIndexRef.current + 1);
+  startSequencePlayback(newIdx);
+};
+
+const startSequencePlayback = (startIndex: number) => {
+  if (!activeArticle || !('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  
+  let voices = window.speechSynthesis.getVoices();
+  if (voices.length === 0) { 
+      window.speechSynthesis.onvoiceschanged = () => { 
+          voices = window.speechSynthesis.getVoices(); 
+          executePlayback(startIndex, voices); 
+      }; 
+  } else { 
+      executePlayback(startIndex, voices); 
+  }
+};
+
+const executePlayback = (startIndex: number, voices: SpeechSynthesisVoice[]) => {
+  const hasSentences = activeArticle?.sentences && activeArticle.sentences.length > 0;
+  
+  if (hasSentences) {
+      audioIndexRef.current = startIndex;
+      setCurrentAudioIndex(startIndex);
+      setAudioState("playing");
       
-    if (voices.length === 0) { 
-        window.speechSynthesis.onvoiceschanged = () => { voices = window.speechSynthesis.getVoices(); startPlayback(); }; 
-    } else { startPlayback(); }
+      const speakNext = () => {
+         // 再生中に別の画面に行ったり、停止ボタンを押した場合のストッパー
+         if (audioIndexRef.current >= activeArticle!.sentences.length) { 
+             setAudioState("idle"); 
+             setCurrentAudioIndex(0);
+             return; 
+         }
+         
+         const sent = activeArticle!.sentences[audioIndexRef.current];
+         setCurrentAudioIndex(audioIndexRef.current); // UIハイライト用
+         
+         const u = new SpeechSynthesisUtterance(sent.arabic);
+         u.rate = clamp(playbackRate, 0.1, 2.0);
+         const arabicVoice = voices.find(v => v.lang.includes('ar'));
+         if (arabicVoice) { u.voice = arabicVoice; u.lang = arabicVoice.lang; } else { u.lang = 'ar-SA'; }
+         
+         u.onend = () => { 
+             audioIndexRef.current++; 
+             speakNext(); 
+         };
+         u.onerror = (e) => {
+             if (e.error !== 'canceled' && e.error !== 'interrupted') {
+                 setAudioState("idle");
+             }
+         };
+         window.speechSynthesis.speak(u);
+      };
+      speakNext();
+  } else {
+      // 文章データ(sentences)がなく、プレーンテキストだけの場合
+      setAudioState("playing");
+      const textToRead = activeArticle!.contentVoweled || activeArticle!.contentPlain || "";
+      const cleanText = textToRead.replace(/[^\u0600-\u06FF\s]/g, "").trim();
+      const u = new SpeechSynthesisUtterance(cleanText);
+      u.rate = clamp(playbackRate, 0.1, 2.0);
+      u.lang = 'ar-SA';
+      const arabicVoice = voices.find(v => v.lang.includes('ar'));
+      if (arabicVoice) { u.voice = arabicVoice; }
+      
+      u.onend = () => setAudioState("idle");
+      u.onerror = () => setAudioState("idle");
+      window.speechSynthesis.speak(u);
+  }
+};
 
-    function startPlayback() {
-        if (activeArticle?.category === "会話" || (activeArticle?.level === "会話" && activeArticle.sentences)) {
-          if (activeArticle!.sentences.length > 0) {
-              let currentIndex = 0;
-              const speakNextSentence = () => {
-                 if (currentIndex >= activeArticle!.sentences.length) { setIsSpeaking(false); return; }
-                 const sent = activeArticle!.sentences[currentIndex];
-                 const u = new SpeechSynthesisUtterance(sent.arabic);
-                 
-                 // ★ ユーザー設定 (Clamp)
-                 u.rate = clamp(playbackRate, 0.1, 2.0);
-                 
-                 const arabicVoice = voices.find(v => v.lang.includes('ar'));
-                 if (arabicVoice) { u.voice = arabicVoice; u.lang = arabicVoice.lang; } else { u.lang = 'ar-SA'; }
-                 
-                 u.onend = () => { currentIndex++; speakNextSentence(); };
-                 window.speechSynthesis.speak(u);
-              };
-              speakNextSentence();
-          } else { setIsSpeaking(false); }
-        } else {
-          let textToRead = "";
-          if (activeArticle!.sentences && activeArticle!.sentences.length > 0) {
-              textToRead = activeArticle!.sentences.map(s => s.arabic).join(" ");
-          } else {
-              textToRead = activeArticle!.contentVoweled || activeArticle!.contentPlain || "";
-          }
-          if (textToRead) {
-            const cleanText = textToRead.replace(/[^\u0600-\u06FF\s]/g, "").trim();
-            const u = new SpeechSynthesisUtterance(cleanText);
-            
-            // ★ ユーザー設定 (Clamp)
-            u.rate = clamp(playbackRate, 0.1, 2.0);
-            
-            u.lang = 'ar-SA';
-            const arabicVoice = voices.find(v => v.lang.includes('ar'));
-            if (arabicVoice) { u.voice = arabicVoice; }
-            u.onend = () => setIsSpeaking(false);
-            window.speechSynthesis.speak(u);
-          }
-        }
-    }
-  };
-
-  const stopSpeaking = () => { if ('speechSynthesis' in window) { window.speechSynthesis.cancel(); setIsSpeaking(false); } };
+const stopSpeaking = () => { 
+  if ('speechSynthesis' in window) { 
+    window.speechSynthesis.cancel(); 
+    setAudioState("idle"); 
+  } 
+};
   const nextCard = () => { setFcFlipped(false); setFcIndex((prev) => (prev + 1) % savedVocab.length); };
   const prevCard = () => { setFcFlipped(false); setFcIndex((prev) => (prev - 1 + savedVocab.length) % savedVocab.length); };
   const getQuestionTypeLabel = (type: string) => { switch (type) { case "grammar": return "🧩 文法"; case "vocabulary": return "💡 単語"; case "tashkeel": return "🔡 母音"; case "reading": default: return "📖 読解"; } };
@@ -1081,7 +1137,7 @@ export default function Home() {
                        </div>
 
                        <div className="flex justify-center mb-8">
-                            <button onClick={playArticleAudio} className="flex items-center gap-2 bg-amber-100 text-amber-800 px-6 py-2 rounded-full font-bold hover:bg-amber-200 transition">
+                       <button onClick={handleTogglePlay} className="flex items-center gap-2 bg-amber-100 text-amber-800 px-6 py-2 rounded-full font-bold hover:bg-amber-200 transition">
                                 <span>🔊</span> 詩を朗読する
                             </button>
                        </div>
@@ -1289,14 +1345,18 @@ export default function Home() {
                     {learningMode !== "grammar" && (
                       <>
                         <h2 className="text-2xl font-serif font-bold mb-8 text-center text-emerald-950 w-full max-w-md">{activeArticle.level === "初級" ? `問題 ${activeProblemNumber} (${activeArticle.title})` : activeArticle.title}</h2>
-                        <div className="w-full flex justify-end mb-4"><button onClick={playArticleAudio} className="text-xs font-bold bg-amber-100 px-3 py-2 rounded-full hover:bg-amber-200 text-amber-900 transition flex items-center gap-1">🔊 音声再生</button></div>
                         {activeArticle.level === "会話" || (courseType === "poetry" && activeArticle.sentences && activeArticle.sentences.length > 0) ? (
                           <div className="w-full space-y-6 mb-10">
-                           {activeArticle.sentences?.map((sent, idx) => {
+  {activeArticle.sentences?.map((sent, idx) => {
                     const isRight = courseType === "poetry" ? true : idx % 2 === 0;
+                    // ★ 追加: 現在再生中の文かどうかを判定
+                    const isCurrentPlaying = audioState !== "idle" && currentAudioIndex === idx;
+
                     return (
                       <div key={idx} className={`flex ${isRight ? "justify-start" : "justify-end"}`}>
-                        <div className={`max-w-[100%] p-5 rounded-2xl relative shadow-sm border ${courseType === "poetry" ? "bg-[#fffdf5] border-[#e8e4d0] w-full" : isRight ? "bg-emerald-50 text-emerald-900 rounded-tr-none border-emerald-100" : "bg-white text-gray-800 rounded-tl-none border-gray-100"}`}>
+                        <div className={`max-w-[100%] p-5 rounded-2xl relative shadow-sm border transition-all duration-300 
+                          ${isCurrentPlaying ? "ring-2 ring-amber-400 scale-[1.02] shadow-md" : ""} 
+                          ${courseType === "poetry" ? "bg-[#fffdf5] border-[#e8e4d0] w-full" : isRight ? "bg-emerald-50 text-emerald-900 rounded-tr-none border-emerald-100" : "bg-white text-gray-800 rounded-tl-none border-gray-100"}`}>
                           
                           {/* Header */}
                           <div className="flex justify-between items-center mb-2">
@@ -1486,20 +1546,37 @@ export default function Home() {
   const isLast = currentQuestionIndex === activeArticle.questions.length - 1;
 
   if (currentQ.type === "reorder") {
-    // ...これ以降は currentQ が確実に存在すると判定されるためエラーが消えます
-                 return (
-                   <ReorderDrill
-                     question={currentQ}
-                     onNext={nextQuizQuestion}
-                     isLast={isLast}
-                     onSpeak={speakText}
-                     onScoreIncrease={() => {
-                       setQuizScore(prev => prev + 1);
-                       speakText("Mumtāz");
-                     }}
-                   />
-                 );
-               } else if (currentQ.type === "orthography" || !currentQ.options || currentQ.options.length === 0) {
+    // ★ ここを追加: 中級・上級なら穴埋め形式にする
+    const isAdvancedReorder = activeArticle.level === "中級" || activeArticle.level === "上級";
+    
+    if (isAdvancedReorder) {
+        return (
+          <FillInBlankDrill
+            question={currentQ}
+            onNext={nextQuizQuestion}
+            isLast={isLast}
+            onSpeak={speakText}
+            onScoreIncrease={() => {
+              setQuizScore(prev => prev + 1);
+              speakText("Mumtāz");
+            }}
+          />
+        );
+    } else {
+        return (
+          <ReorderDrill
+            question={currentQ}
+            onNext={nextQuizQuestion}
+            isLast={isLast}
+            onSpeak={speakText}
+            onScoreIncrease={() => {
+              setQuizScore(prev => prev + 1);
+              speakText("Mumtāz");
+            }}
+          />
+        );
+    }
+ } else if (currentQ.type === "orthography" || !currentQ.options || currentQ.options.length === 0) {
                  return (
                    <OrthographyDrill 
                      question={currentQ} 
@@ -1739,9 +1816,60 @@ export default function Home() {
           </div>
         )}
       </main>
+{/* ★ 新規追加: フローティング・オーディオプレイヤー */}
+{(currentScreen === "reader" || currentScreen === "poetry_read") && learningMode !== "grammar" && (
+        <div className="fixed bottom-0 left-0 w-full bg-white border-t border-stone-200 shadow-[0_-4px_20px_-10px_rgba(0,0,0,0.1)] p-4 z-40 animate-fade-in-up">
+          <div className="max-w-xl mx-auto flex items-center justify-between">
+            
+            {/* 停止ボタン */}
+            <button 
+              onClick={handleStopPlayback}
+              disabled={audioState === "idle"}
+              className={`w-10 h-10 rounded-full flex items-center justify-center text-lg transition ${audioState === "idle" ? "text-gray-300 bg-gray-100" : "text-stone-600 bg-stone-100 hover:bg-stone-200 active:scale-95"}`}
+            >
+              ⏹
+            </button>
 
+            {/* コントロール群 */}
+            <div className="flex items-center gap-4">
+              {/* 戻るボタン (文章データがある場合のみ有効) */}
+              <button 
+                onClick={handlePrevSentence}
+                disabled={audioState === "idle" || !activeArticle?.sentences}
+                className={`w-12 h-12 rounded-full flex items-center justify-center text-xl transition ${audioState === "idle" || !activeArticle?.sentences ? "text-gray-300" : "text-emerald-800 bg-emerald-50 hover:bg-emerald-100 active:scale-95"}`}
+              >
+                ⏮
+              </button>
+
+              {/* 再生/一時停止ボタン */}
+              <button 
+                onClick={handleTogglePlay}
+                className="w-16 h-16 rounded-full bg-gradient-to-r from-emerald-600 to-emerald-800 text-white flex items-center justify-center text-3xl shadow-lg hover:scale-105 active:scale-95 transition"
+              >
+                {audioState === "playing" ? "⏸" : "▶️"}
+              </button>
+
+              {/* 進むボタン (文章データがある場合のみ有効) */}
+              <button 
+                onClick={handleNextSentence}
+                disabled={audioState === "idle" || !activeArticle?.sentences}
+                className={`w-12 h-12 rounded-full flex items-center justify-center text-xl transition ${audioState === "idle" || !activeArticle?.sentences ? "text-gray-300" : "text-emerald-800 bg-emerald-50 hover:bg-emerald-100 active:scale-95"}`}
+              >
+                ⏭
+              </button>
+            </div>
+
+            {/* ステータス表示 */}
+            <div className="w-10 text-center">
+              {audioState === "playing" && <span className="text-amber-500 animate-pulse text-xl">🔊</span>}
+              {audioState === "paused" && <span className="text-gray-400 text-xs font-bold">PAUSE</span>}
+            </div>
+
+          </div>
+        </div>
+      )}
       {/* フッターリンクエリア */}
-      <footer className="bg-emerald-950 text-emerald-200 py-8 text-center text-xs">
+      <footer className="bg-emerald-950 text-emerald-200 py-8 pb-32 text-center text-xs">
         <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-6 mb-4">
           <Link href="/faq" className="hover:text-white transition">よくある質問</Link>
           <Link href="/terms" className="hover:text-white transition">利用規約</Link>
@@ -1968,3 +2096,187 @@ function ReorderDrill({ question, onNext, isLast, onSpeak, onScoreIncrease }: an
     </div>
   );
 }
+// ▼▼▼ ここからコピーして、ファイルの【一番下】に追加してください ▼▼▼
+
+function FillInBlankDrill({ question, onNext, isLast, onSpeak, onScoreIncrease }: any) {
+  const [availableWords, setAvailableWords] = useState<string[]>([]);
+  const [slots, setSlots] = useState<(string | null)[]>([]);
+  const [fixedIndices, setFixedIndices] = useState<number[]>([]);
+  const [isChecked, setIsChecked] = useState(false);
+  const [isCorrect, setIsCorrect] = useState(false);
+  const [showAnswer, setShowAnswer] = useState(false);
+
+  useEffect(() => {
+    const correct = question.correctOrder || [];
+    const distractors = question.distractors || [];
+    
+    // 長さに応じて、最初から固定する「ヒント枠」の数を決める
+    let numFixed = 2; // デフォルトは2箇所
+    if (correct.length >= 10) numFixed = 3; // 10語以上なら3箇所
+    if (correct.length <= 5) numFixed = 1;  // 5語以下なら1箇所
+    
+    // 固定枠のインデックスをランダムに決定
+    const indices = Array.from({length: correct.length}, (_, i) => i);
+    const shuffledIndices = indices.sort(() => 0.5 - Math.random()).slice(0, numFixed);
+    setFixedIndices(shuffledIndices);
+
+    // スロットの初期化（固定枠には単語を入れ、他はnull）
+    const initialSlots = correct.map((word: string, idx: number) => shuffledIndices.includes(idx) ? word : null);
+    setSlots(initialSlots);
+
+    // 下の選択肢の初期化（固定されていない正解単語 ＋ ダミー）
+    const unfixedCorrectWords = correct.filter((_: any, idx: number) => !shuffledIndices.includes(idx));
+    const allAvailable = [...unfixedCorrectWords, ...distractors].sort(() => 0.5 - Math.random());
+    setAvailableWords(allAvailable);
+
+    setIsChecked(false);
+    setShowAnswer(false);
+    setIsCorrect(false);
+  }, [question]);
+
+  const handleSelect = (word: string, idx: number) => {
+    if (isChecked) return;
+    // 最初の空き（null）を探す
+    const firstEmptyIdx = slots.findIndex(s => s === null);
+    if (firstEmptyIdx === -1) return;
+
+    const newSlots = [...slots];
+    newSlots[firstEmptyIdx] = word;
+    setSlots(newSlots);
+
+    const newAvailable = [...availableWords];
+    newAvailable.splice(idx, 1);
+    setAvailableWords(newAvailable);
+  };
+
+  const handleDeselect = (slotIdx: number) => {
+    if (isChecked) return;
+    if (fixedIndices.includes(slotIdx)) return; // 固定枠は外せない
+    if (slots[slotIdx] === null) return;
+
+    const word = slots[slotIdx] as string;
+    const newSlots = [...slots];
+    newSlots[slotIdx] = null;
+    setSlots(newSlots);
+
+    setAvailableWords([...availableWords, word]);
+  };
+
+  const checkAnswer = () => {
+    if (slots.includes(null)) return; // 全て埋まっていないと押せない
+    
+    const selectedStr = slots.join(" ");
+    const correctStr = (question.correctOrder || []).join(" ");
+    
+    let isMatch = (selectedStr === correctStr);
+    if (!isMatch && question.acceptableOrders) {
+      isMatch = question.acceptableOrders.some((order: string[]) => order.join(" ") === selectedStr);
+    }
+
+    if (isMatch) {
+      setIsCorrect(true);
+      setIsChecked(true);
+      onScoreIncrease();
+      onSpeak(question.audio || correctStr);
+    } else {
+      setIsCorrect(false);
+      setIsChecked(true);
+    }
+  };
+
+  return (
+    <div className="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-stone-100 text-center animate-fade-in-up">
+      <span className="inline-block bg-indigo-50 text-indigo-700 text-[10px] font-bold px-2 py-1 rounded mb-4 tracking-wider uppercase border border-indigo-100">
+        🧩 穴埋め問題
+      </span>
+      <h3 className="text-lg font-bold mb-6 text-gray-700 whitespace-pre-wrap">{question.text}</h3>
+
+      {/* 文を組み立てるスロットエリア */}
+      <div className="p-4 bg-stone-50 rounded-xl border-2 border-dashed border-stone-300 flex flex-wrap gap-2 justify-center items-center mb-6 leading-loose" dir="rtl">
+        {slots.map((word, idx) => {
+          const isFixed = fixedIndices.includes(idx);
+          if (word === null) {
+            return (
+              <div key={`slot-${idx}`} className="h-12 min-w-[3rem] px-4 rounded-lg border-2 border-dashed border-stone-300 bg-white flex items-center justify-center">
+                <span className="text-stone-300 text-xs">...</span>
+              </div>
+            );
+          } else {
+            return (
+              <button 
+                key={`slot-${idx}`} 
+                onClick={() => handleDeselect(idx)}
+                className={`h-12 px-4 rounded-lg font-arabic text-xl shadow-sm transition transform ${
+                  isFixed 
+                    ? "bg-gray-200 text-emerald-900 border border-gray-300 cursor-default opacity-80" 
+                    : (isChecked 
+                        ? (isCorrect ? "bg-emerald-600 text-white border-emerald-700" : "bg-red-500 text-white border-red-600")
+                        : "bg-emerald-600 text-white hover:bg-emerald-500 border-b-4 border-emerald-800 active:border-b-0 active:translate-y-1 hover:scale-105"
+                      )
+                }`}
+                disabled={isChecked || isFixed}
+              >
+                {word}
+              </button>
+            );
+          }
+        })}
+      </div>
+
+      {/* 選択肢（ダミー含む）のエリア */}
+      <div className="flex flex-wrap gap-3 justify-center mb-8" dir="rtl">
+        {availableWords.map((word, idx) => (
+          <button 
+            key={`avail-${idx}`} 
+            onClick={() => handleSelect(word, idx)}
+            className="px-4 py-2 bg-white text-gray-800 rounded-lg font-arabic text-xl shadow border border-stone-200 hover:border-emerald-400 hover:bg-emerald-50 transition transform hover:-translate-y-1"
+            disabled={isChecked}
+          >
+            {word}
+          </button>
+        ))}
+      </div>
+
+      {/* 判定結果 */}
+      {isChecked ? (
+        <div className="animate-fade-in-up">
+          <div className={`p-4 rounded-xl mb-6 border ${isCorrect ? "bg-emerald-50 border-emerald-200 text-emerald-800" : "bg-red-50 border-red-200 text-red-800"}`}>
+            <p className="font-bold text-lg mb-2">{isCorrect ? "🎉 正解！" : "😢 惜しい..."}</p>
+            {(!isCorrect && showAnswer) || isCorrect ? (
+                <div className="text-2xl font-arabic text-center mt-4 mb-2 text-emerald-900 leading-loose" dir="rtl">
+                    {(question.correctOrder || []).join(" ")}
+                </div>
+            ) : null}
+            <p className="text-sm opacity-90 text-left mt-2 whitespace-pre-wrap" dir="ltr">
+              {question.explanation}
+            </p>
+            {!isCorrect && !showAnswer && (
+                <div className="flex gap-2 mt-4">
+                    <button onClick={() => {
+                        setIsChecked(false); 
+                        const initialSlots = (question.correctOrder || []).map((w: string, i: number) => fixedIndices.includes(i) ? w : null);
+                        setSlots(initialSlots);
+                        const unfixedCorrectWords = (question.correctOrder || []).filter((_: any, i: number) => !fixedIndices.includes(i));
+                        setAvailableWords([...unfixedCorrectWords, ...(question.distractors || [])].sort(()=>Math.random()-0.5));
+                    }} className="flex-1 bg-white border border-red-200 text-red-700 py-2 rounded-lg text-sm font-bold hover:bg-red-50 transition">
+                      やり直す
+                    </button>
+                    <button onClick={() => setShowAnswer(true)} className="flex-1 bg-red-100 text-red-800 py-2 rounded-lg text-sm font-bold hover:bg-red-200 transition">
+                      正解を見る
+                    </button>
+                </div>
+            )}
+          </div>
+          <button onClick={onNext} className="w-full bg-emerald-800 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-emerald-900 transition transform">
+            {isLast ? "結果を見る" : "次の問題へ"}
+          </button>
+        </div>
+      ) : (
+         <button onClick={checkAnswer} disabled={slots.includes(null)} className={`w-full font-bold py-4 rounded-xl shadow-lg transition transform ${slots.includes(null) ? "bg-gray-200 text-gray-400 cursor-not-allowed" : "bg-amber-500 text-white hover:bg-amber-600 hover:scale-105"}`}>
+           答え合わせ
+         </button>
+      )}
+    </div>
+  );
+}
+// ▲▲▲ ここまで ▲▲▲
