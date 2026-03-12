@@ -1946,7 +1946,7 @@ function VocabButton({ v, i, isRevealed, isSaved, onReveal, onSave }: any) {
         <button onClick={onReveal} className={`relative px-4 py-2 rounded-xl text-sm transition-all duration-300 border-2 flex items-center justify-center min-w-[80px] ${isRevealed ? "bg-[#F8F1E7] border-[#D4A373] text-[#5E3C1E] shadow-md scale-105" : "bg-white border-dashed border-[#E5C9A8] text-[#A67144] hover:border-amber-400 hover:text-amber-600 hover:-translate-y-0.5 hover:shadow-sm"}`}>
             <span className={`font-bold ${isRevealed ? "" : "font-arabic text-xl"}`}>{isRevealed ? v.meaning : v.word}</span>
             {isRevealed && !isSaved && <span onClick={(e) => { e.stopPropagation(); onSave(); }} className="absolute -top-2.5 -left-2.5 bg-[#8A5A33] text-white w-6 h-6 rounded-full flex items-center justify-center shadow-lg cursor-pointer hover:bg-[#5E3C1E] hover:scale-110 transition-all border-2 border-white"><Plus size={16} strokeWidth={3} /></span>}
-            {isSaved && <span className="absolute -top-2.5 -left-2.5 text-emerald-600 bg-white rounded-full border-2 border-emerald-200 w-6 h-6 flex items-center justify-center shadow-sm"><CheckIcon size={14} strokeWidth={3} /></span>}
+            {isSaved && <span className="absolute -top-2.5 -left-2.5 text-emerald-600 bg-white rounded-full border-2 border-emerald-200 w-6 h-6 flex items-center justify-center shadow-sm"><Check size={14} strokeWidth={3} /></span>}
         </button>
     ); 
 }
