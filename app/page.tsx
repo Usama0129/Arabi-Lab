@@ -294,6 +294,9 @@ export default function Home() {
   const [stats, setStats] = useState({ today: 0, month: 0, total: 0 });
   const [breakdown, setBreakdown] = useState<StudyBreakdown>({ reading: 0, listening: 0, dictation: 0, vocab: 0, grammar: 0, poetry: 0 });
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  
+  // ★追加: 文法ジャンプ直前の画面・記事・モードを記憶するState
+  const [jumpHistory, setJumpHistory] = useState<{screen: Screen, article: any, mode: LearningMode} | null>(null);
 
   const normalizeArabic = (text: string) => text.replace(/[\u064B-\u065F\u0670]/g, "").replace(/[.,،؟:;!۔"«»]/g, "").replace(/\s+/g, " ").trim();
   const removeTashkeel = (text: string) => text.replace(/[\u064B-\u065F\u0670]/g, "");
@@ -596,6 +599,9 @@ export default function Home() {
   const handleJumpToGrammar = (grammarId: number) => {
     const targetArticle = getArticleById(grammarId);
     if (targetArticle) {
+        // ★追加: ジャンプする前に、現在の状態をセーブしておく
+        setJumpHistory({ screen: currentScreen, article: activeArticle, mode: learningMode });
+        
         setActiveArticle(targetArticle);
         setLearningMode("grammar");
         changeScreen("reader"); 
@@ -1341,14 +1347,24 @@ export default function Home() {
           </div>
         )}
 
-        {/* リーダー画面 */}
-        {currentScreen === "reader" && activeArticle && (
+{/* リーダー画面 */}
+{currentScreen === "reader" && activeArticle && (
           <div className="bg-white rounded-[2rem] shadow-xl overflow-hidden pb-12 border border-[#E5C9A8] animate-fade-in-up">
             <div className="bg-[#4A3018] text-amber-50 p-4 flex justify-between items-center sticky top-0 z-10 border-b border-[#764C28] shadow-md">
                 <button onClick={() => {
-                    if (courseType === "listening" || courseType === "grammar") changeScreen("list");
-                    else if (courseType === "poetry") changeScreen("poets"); 
-                    else changeScreen("mode_select");
+                    // ★変更: ジャンプ履歴があれば、元の画面にロードして戻る
+                    if (jumpHistory) {
+                        setActiveArticle(jumpHistory.article);
+                        setLearningMode(jumpHistory.mode);
+                        changeScreen(jumpHistory.screen);
+                        setJumpHistory(null); // セーブデータをリセット
+                    } else if (courseType === "listening" || courseType === "grammar") {
+                        changeScreen("list");
+                    } else if (courseType === "poetry") {
+                        changeScreen("poets"); 
+                    } else {
+                        changeScreen("mode_select");
+                    }
                 }} className="hover:text-amber-300 text-sm font-bold opacity-90 transition-colors flex items-center gap-1.5 hover:-translate-x-1 duration-300">
                     <ArrowLeft size={16} strokeWidth={2.5}/> 戻る
                 </button>
