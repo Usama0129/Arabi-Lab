@@ -268,6 +268,7 @@ export default function Home() {
   const [quizSelectedOption, setQuizSelectedOption] = useState<number | null>(null);
   const [isQuizResultVisible, setIsQuizResultVisible] = useState(false);
   const [userAnswers, setUserAnswers] = useState<boolean[]>([]);
+  const [isQuizTextVisible, setIsQuizTextVisible] = useState(false); // ★これを追加
 
   const [dictationIndex, setDictationIndex] = useState(0);
   const [dictationInput, setDictationInput] = useState("");
@@ -640,6 +641,7 @@ export default function Home() {
     setQuizSelectedOption(null); 
     setIsQuizResultVisible(false); 
     setUserAnswers([]); 
+    setIsQuizTextVisible(false); // ★これを追加（クイズ開始時に本文を閉じる）
     changeScreen("quiz"); 
   };
 
@@ -819,25 +821,6 @@ export default function Home() {
               <div className="flex items-center gap-1 bg-[#201308]/60 px-3 py-1 rounded-full border border-[#5E3C1E] text-xs font-bold text-amber-100 ml-2 shadow-inner"><Sparkles size={14} className="text-amber-400 animate-pulse"/> {streak}</div>
           </div>
           
-          {/* PC用音声スピードコントロール */}
-          <div className="flex items-center gap-3 bg-[#201308]/60 px-3 py-1.5 rounded-full border border-[#5E3C1E] mx-2 hidden md:flex shadow-inner" dir="ltr">
-            <div className="flex items-center gap-1">
-              <span className="text-[9px] font-bold text-amber-300/80 uppercase tracking-widest">Speed</span>
-              <select 
-                value={playbackRate} 
-                onChange={(e) => setPlaybackRate(parseFloat(e.target.value))}
-                className="bg-transparent text-amber-400 text-xs font-bold outline-none cursor-pointer border-none p-0 focus:ring-0"
-              >
-                <option value="0.25" className="bg-[#4A3018] text-white">0.25x</option>
-                <option value="0.5" className="bg-[#4A3018] text-white">0.5x</option>
-                <option value="0.75" className="bg-[#4A3018] text-white">0.75x</option>
-                <option value="1.0" className="bg-[#4A3018] text-white">1.0x (Std)</option>
-                <option value="1.25" className="bg-[#4A3018] text-white">1.25x</option>
-                <option value="1.5" className="bg-[#4A3018] text-white">1.5x (Fast)</option>
-              </select>
-            </div>
-          </div>
-
           <div className="flex items-center gap-3">
             <button 
                 onClick={() => setIsPremium(!isPremium)}
@@ -860,24 +843,7 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* モバイル用音声コントロール */}
-      <div className="md:hidden bg-[#2C1A0D] p-2 flex justify-center items-center gap-4 text-xs border-b border-[#1A0F08] shadow-inner" dir="ltr">
-        <div className="flex items-center gap-2">
-            <span className="font-bold text-amber-400/80 tracking-widest text-[10px]">SPEED</span>
-            <select 
-                value={playbackRate} 
-                onChange={(e) => setPlaybackRate(parseFloat(e.target.value))}
-                className="bg-[#4A3018] text-amber-50 rounded px-2 py-1 text-xs outline-none border border-[#5E3C1E]"
-              >
-                <option value="0.25">0.25x</option>
-                <option value="0.5">0.5x</option>
-                <option value="0.75">0.75x</option>
-                <option value="1.0">1.0x</option>
-                <option value="1.25">1.25x</option>
-                <option value="1.5">1.5x</option>
-              </select>
-        </div>
-      </div>
+
 
       <main className="max-w-3xl mx-auto p-4 pb-20">
         
@@ -1593,12 +1559,18 @@ export default function Home() {
                                 {activeArticle.vocabList.map((v, i) => (<VocabButton key={i} v={v} i={i} isRevealed={revealedVocabIndex === i} isSaved={savedVocab.some(sv => sv.word === v.word)} onReveal={() => setRevealedVocabIndex(i)} onSave={() => saveWord(v.word, v.meaning)} />))}
                             </div>
                         </div>
-                        
-                        {/* クイズボタン */}
-                        {courseType !== "poetry" && (
-                              <button onClick={() => startQuiz()} className="w-full bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-amber-50 font-bold py-5 rounded-2xl shadow-xl hover:shadow-2xl hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-3 text-lg">
+                     {/* クイズ・解説へ進むボタン */}
+                     {courseType !== "poetry" && (
+                            <div className="flex flex-col sm:flex-row gap-4 w-full">
+                              <button onClick={() => startQuiz()} className="flex-1 bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-amber-50 font-bold py-4 rounded-2xl shadow-xl hover:shadow-2xl hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-3 text-lg">
                                   <Pencil size={24} className="drop-shadow-sm"/> {courseType === "listening" ? "問題を解く" : `理解度チェック (${activeArticle.questions.length}問)`}
                               </button>
+                              
+                              {/* ★追加: すぐに解説画面へ飛ぶボタン */}
+                              <button onClick={() => changeScreen("result")} className="flex-1 bg-white border-2 border-[#E5C9A8] text-[#764C28] font-bold py-4 rounded-2xl shadow-md hover:shadow-lg hover:border-[#D4A373] hover:bg-[#F8F1E7] hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2 text-lg">
+                                  <BookOpen size={22} /> すぐに解説を見る
+                              </button>
+                            </div>
                         )}
                       </>
                     )}
@@ -1661,8 +1633,8 @@ export default function Home() {
           </div>
         )}
 
-        {/* クイズ画面 */}
-        {currentScreen === "quiz" && activeArticle && (
+{/* クイズ画面 */}
+{currentScreen === "quiz" && activeArticle && (
           <div className="max-w-xl mx-auto animate-fade-in-up pb-10">
               <div className="flex justify-between items-center mb-6">
                   <HeaderBackButton 
@@ -1671,7 +1643,37 @@ export default function Home() {
                   />
                   <div className="text-center text-[10px] font-bold text-[#A67144] tracking-widest uppercase border border-[#E5C9A8] bg-white px-3 py-1 rounded-full shadow-sm" dir="ltr">QUESTION {currentQuestionIndex + 1} / {activeArticle.questions.length}</div>
               </div>
-              
+
+{/* ★ここから追加: 本文確認トグルボタン */}
+{(learningMode === "reading" || courseType === "poetry") && (
+                <div className="mb-6 animate-fade-in-up">
+                  <button 
+                    onClick={() => setIsQuizTextVisible(!isQuizTextVisible)}
+                    className="w-full py-3 bg-white border-2 border-[#E5C9A8] text-[#8A5A33] font-bold rounded-2xl shadow-sm hover:bg-[#F8F1E7] transition-all flex items-center justify-center gap-2 active:scale-95"
+                  >
+                    <BookOpen size={18} /> {isQuizTextVisible ? "本文を隠す" : "本文を確認する"}
+                  </button>
+                  {isQuizTextVisible && (
+                    <div className="mt-4 p-6 bg-[#FCFAF5] rounded-2xl border-2 border-dashed border-[#D4A373] shadow-inner max-h-[40vh] overflow-y-auto">
+                      <p className="text-2xl md:text-3xl leading-loose font-arabic text-[#3E2713] text-justify" dir="rtl">
+                        {(() => {
+                          if (activeArticle.level === "上級") {
+                            // 上級の場合は「母音なし(contentPlain)」を優先表示
+                            if (activeArticle.contentPlain) return activeArticle.contentPlain;
+                            // もしPlainがなければ、母音を強制的に削除して表示する
+                            if (activeArticle.sentences && activeArticle.sentences.length > 0) return removeTashkeel(activeArticle.sentences.map(s => s.arabic).join(" "));
+                            return activeArticle.contentVoweled ? removeTashkeel(activeArticle.contentVoweled) : "";
+                          } else {
+                            // 初級・中級・詩などは「母音あり(contentVoweled)」を優先表示
+                            return activeArticle.contentVoweled || activeArticle.contentPlain || activeArticle.sentences?.map(s => s.arabic).join(" ") || "";
+                          }
+                        })()}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+              {/* ★ここまで追加 */}              
               {(() => {
                 const currentQ = activeArticle.questions?.[currentQuestionIndex];
                 if (!currentQ) return null;
@@ -1879,53 +1881,70 @@ export default function Home() {
         )}
       </main>
 
-      {/* フローティング・オーディオプレイヤー */}
-      {(currentScreen === "reader" || currentScreen === "poetry_read") && learningMode !== "grammar" && (
+ {/* フローティング・オーディオプレイヤー */}
+ {(currentScreen === "reader" || currentScreen === "poetry_read") && learningMode !== "grammar" && learningMode !== "listening" && (
         <div className="fixed bottom-0 left-0 w-full bg-[#FBF8F1]/95 backdrop-blur-md border-t-2 border-[#D4A373] shadow-[0_-10px_30px_-10px_rgba(138,90,51,0.2)] p-4 z-40 animate-fade-in-up">
-          <div className="max-w-xl mx-auto flex items-center justify-between">
+          <div className="max-w-xl mx-auto flex items-center justify-between px-2 sm:px-0">
             
-            <button 
-              onClick={handleStopPlayback}
-              disabled={audioState === "idle"}
-              className={`w-12 h-12 rounded-full flex items-center justify-center transition-all shadow-sm ${audioState === "idle" ? "text-[#D4A373]/50 bg-[#EBE6DF]" : "text-[#5E3C1E] bg-white border border-[#E5C9A8] hover:bg-[#F8F1E7] active:scale-90"}`}
-            >
-              <Square size={20} className={audioState !== "idle" ? "fill-current" : ""} />
-            </button>
+            {/* 1. スピードコントロール (左側) */}
+            <div className="flex items-center bg-white px-2 py-1.5 rounded-lg border border-[#E5C9A8] shadow-sm">
+              <select 
+                value={playbackRate} 
+                onChange={(e) => setPlaybackRate(parseFloat(e.target.value))}
+                className="bg-transparent text-[#764C28] text-xs font-bold outline-none cursor-pointer border-none p-0 focus:ring-0 text-center"
+                dir="ltr"
+              >
+                <option value="0.25">0.25x</option>
+                <option value="0.5">0.5x</option>
+                <option value="0.75">0.75x</option>
+                <option value="1.0">1.0x</option>
+                <option value="1.25">1.25x</option>
+                <option value="1.5">1.5x</option>
+              </select>
+            </div>
 
-            <div className="flex items-center gap-5">
+            {/* 2. 再生コントロール群 (中央) */}
+            <div className="flex items-center gap-2 sm:gap-5">
+              <button 
+                onClick={handleStopPlayback}
+                disabled={audioState === "idle"}
+                className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all shadow-sm ${audioState === "idle" ? "text-[#D4A373]/50 bg-[#EBE6DF]" : "text-[#5E3C1E] bg-white border border-[#E5C9A8] hover:bg-[#F8F1E7] active:scale-90"}`}
+              >
+                <Square size={16} className={audioState !== "idle" ? "fill-current" : ""} />
+              </button>
+
               <button 
                 onClick={handlePrevSentence}
                 disabled={audioState === "idle" || !activeArticle?.sentences}
-                className={`w-14 h-14 rounded-full flex items-center justify-center transition-all shadow-md ${audioState === "idle" || !activeArticle?.sentences ? "text-[#D4A373]/50 bg-[#EBE6DF]" : "text-[#764C28] bg-white border border-[#E5C9A8] hover:bg-[#F8F1E7] active:scale-90"}`}
+                className={`w-10 h-10 sm:w-14 sm:h-14 rounded-full flex items-center justify-center transition-all shadow-md ${audioState === "idle" || !activeArticle?.sentences ? "text-[#D4A373]/50 bg-[#EBE6DF]" : "text-[#764C28] bg-white border border-[#E5C9A8] hover:bg-[#F8F1E7] active:scale-90"}`}
               >
-                <SkipBack size={24} className={audioState !== "idle" && activeArticle?.sentences ? "fill-current" : ""} />
+                <SkipBack size={20} className={audioState !== "idle" && activeArticle?.sentences ? "fill-current" : ""} />
               </button>
 
               <button 
                 onClick={handleTogglePlay}
-                className="w-20 h-20 rounded-full bg-gradient-to-br from-[#A67144] to-[#5E3C1E] text-amber-50 flex items-center justify-center shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all border-4 border-white"
+                className="w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-[#A67144] to-[#5E3C1E] text-amber-50 flex items-center justify-center shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all border-4 border-white"
               >
-                {audioState === "playing" ? <Pause size={32} className="fill-current" /> : <Play size={36} className="fill-current ml-2" />}
+                {audioState === "playing" ? <Pause size={24} className="fill-current sm:w-8 sm:h-8" /> : <Play size={28} className="fill-current ml-1 sm:ml-2 sm:w-9 sm:h-9" />}
               </button>
 
               <button 
                 onClick={handleNextSentence}
                 disabled={audioState === "idle" || !activeArticle?.sentences}
-                className={`w-14 h-14 rounded-full flex items-center justify-center transition-all shadow-md ${audioState === "idle" || !activeArticle?.sentences ? "text-[#D4A373]/50 bg-[#EBE6DF]" : "text-[#764C28] bg-white border border-[#E5C9A8] hover:bg-[#F8F1E7] active:scale-90"}`}
+                className={`w-10 h-10 sm:w-14 sm:h-14 rounded-full flex items-center justify-center transition-all shadow-md ${audioState === "idle" || !activeArticle?.sentences ? "text-[#D4A373]/50 bg-[#EBE6DF]" : "text-[#764C28] bg-white border border-[#E5C9A8] hover:bg-[#F8F1E7] active:scale-90"}`}
               >
-                <SkipForward size={24} className={audioState !== "idle" && activeArticle?.sentences ? "fill-current" : ""} />
+                <SkipForward size={20} className={audioState !== "idle" && activeArticle?.sentences ? "fill-current" : ""} />
               </button>
             </div>
 
-            <div className="w-12 text-center flex flex-col items-center">
-              {audioState === "playing" && <Volume2 size={24} className="text-amber-500 animate-pulse drop-shadow-sm" />}
-              {audioState === "paused" && <span className="text-[#A67144] text-[10px] font-bold tracking-widest border border-[#E5C9A8] bg-white px-2 py-1 rounded shadow-sm block">PAUSE</span>}
+            {/* 3. 音声ステータス (右側) */}
+            <div className="w-10 flex justify-end">
+              {audioState === "playing" && <Volume2 size={20} className="text-amber-500 animate-pulse drop-shadow-sm" />}
             </div>
 
           </div>
         </div>
       )}
-
       {/* フッター */}
       <footer className="bg-[#2C1A0D] text-[#D4A373] py-10 pb-36 text-center text-xs border-t-4 border-[#1A0F08]">
         <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-8 mb-6">
