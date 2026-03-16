@@ -1,5 +1,26 @@
-// data.ts
+// data.tsx
+import React from "react"; // ★ 追加: JSXをデータとして扱うために必要
+import { Volume2 } from "lucide-react"; // ★ 追加: 音声再生アイコン
 
+// ★ 追加: 音声再生用の関数をここに配置します
+const playTableAudio = (text: string) => {
+  if (typeof window !== "undefined" && "speechSynthesis" in window) {
+    window.speechSynthesis.cancel();
+    // 制御文字(\u200Fなど)を取り除き、純粋なアラビア文字だけを読み上げます
+    const cleanText = text.replace(/[^\u0600-\u06FF\s]/g, "").trim();
+    const u = new SpeechSynthesisUtterance(cleanText);
+    const voices = window.speechSynthesis.getVoices();
+    const arabicVoice = voices.find(v => v.lang.includes("ar"));
+    
+    if (arabicVoice) {
+      u.voice = arabicVoice;
+      u.lang = arabicVoice.lang;
+    } else {
+      u.lang = "ar-SA";
+    }
+    window.speechSynthesis.speak(u);
+  }
+};
 export type QuestionType = 
   | "reading" 
   | "vocabulary" 
@@ -25,9 +46,9 @@ export type QuizQuestion = {
   relatedGrammarId?: number; 
 
   // ★★★ 追加: 並び替え問題専用のプロパティ（オプショナル） ★★★
-  correctOrder?: string[]; // 正解の単語の並び（例: ["أنا", "طالب", "جديد"]）
+  correctOrder?: string[]; // 正解の単語の並び（例: ["\u200Fأنا\u200F", "\u200Fطالب\u200F", "\u200Fجديد\u200F"]）
   acceptableOrders?: string[][]; // ★ ここを追加: 複数正解のパターン配列
-  distractors?: string[];  // ダミーの単語（例: ["مدرسة", "في"]）
+  distractors?: string[];  // ダミーの単語（例: ["\u200Fمدرسة\u200F", "\u200Fفي\u200F"]）
 };
 
 export type Vocab = {
@@ -59,6 +80,9 @@ export type Article = {
   
   contentVoweled: string;
   contentPlain: string;
+  
+  // ★★★ 追加: コードで文法解説（JSX）を書くためのプロパティ ★★★
+  contentNode?: React.ReactNode;
   
   vocabList: Vocab[];
   questions: QuizQuestion[];
@@ -2310,13 +2334,85 @@ export const articles: Article[] = [
     category: "文字と発音",
     title: "Lesson 1: アラビア語のアルファベット（基本形）",
   
-    contentPlain: "アラビア語は右から左に書きます。まずは基本の形を覚えましょう",
+    contentPlain: "アラビア語は右から左に書きます。まずは基本の形を覚えましょう。",
 
-    imageUrls: [
-      "/image/grammar/lesson1_1.jpg", 
-      "/image/grammar/lesson1_2.jpg", 
-      "/image/grammar/lesson1_3.jpg"
-    ],
+    contentNode: (
+      <div className="space-y-6 text-[#5E3C1E] mt-6">
+        <p className="leading-relaxed">
+          アラビア語のアルファベットは、ハムザ（{"\u200Fء\u200F"}）とター・マルブータ（{"\u200Fة\u200F"}）を含めて30文字を覚えるのが基本です。まずは基準となる<strong>「独立形」</strong>を見てみましょう。
+        </p>
+        
+        <div className="overflow-x-auto rounded-xl border border-[#E5C9A8] shadow-sm">
+          <table className="min-w-full border-collapse bg-white">
+            <thead className="bg-[#F8F1E7]">
+              <tr>
+                <th className="border-b border-[#E5C9A8] px-4 py-3 text-center text-[#764C28] font-bold">文字</th>
+                <th className="border-b border-[#E5C9A8] px-4 py-3 text-center text-[#764C28] font-bold">読み方（カタカナ）</th>
+                <th className="border-b border-[#E5C9A8] px-4 py-3 text-center text-[#764C28] font-bold">英語表記</th>
+                <th className="border-b border-[#E5C9A8] px-4 py-3 text-center text-[#764C28] font-bold">発音</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[#F5F0E6]">
+              {[
+                { arabic: "\u200Fا\u200F", name: "アリフ", roman: "alif" },
+                { arabic: "\u200Fب\u200F", name: "バー", roman: "bā" },
+                { arabic: "\u200Fت\u200F", name: "ター", roman: "tā" },
+                { arabic: "\u200Fث\u200F", name: "サー", roman: "thā" },
+                { arabic: "\u200Fج\u200F", name: "ジーム", roman: "jīm" },
+                { arabic: "\u200Fح\u200F", name: "ハー", roman: "ḥā" },
+                { arabic: "\u200Fخ\u200F", name: "ハー", roman: "khā" },
+                { arabic: "\u200Fد\u200F", name: "ダール", roman: "dāl" },
+                { arabic: "\u200Fذ\u200F", name: "ザール", roman: "dhāl" },
+                { arabic: "\u200Fر\u200F", name: "ラー", roman: "rā" },
+                { arabic: "\u200Fز\u200F", name: "ザーイ", roman: "zāy" },
+                { arabic: "\u200Fس\u200F", name: "スィーン", roman: "sīn" },
+                { arabic: "\u200Fش\u200F", name: "シーン", roman: "shīn" },
+                { arabic: "\u200Fص\u200F", name: "サード", roman: "ṣād" },
+                { arabic: "\u200Fض\u200F", name: "ダード", roman: "ḍād" },
+                { arabic: "\u200Fط\u200F", name: "ター", roman: "ṭā" },
+                { arabic: "\u200Fظ\u200F", name: "ザー", roman: "ẓā" },
+                { arabic: "\u200Fع\u200F", name: "アイン", roman: "ayn" },
+                { arabic: "\u200Fغ\u200F", name: "ガイン", roman: "ghayn" },
+                { arabic: "\u200Fف\u200F", name: "ファー", roman: "fā" },
+                { arabic: "\u200Fق\u200F", name: "カーフ", roman: "qāf" },
+                { arabic: "\u200Fك\u200F", name: "カーフ", roman: "kāf" },
+                { arabic: "\u200Fل\u200F", name: "ラーム", roman: "lām" },
+                { arabic: "\u200Fم\u200F", name: "ミーム", roman: "mīm" },
+                { arabic: "\u200Fن\u200F", name: "ヌーン", roman: "nūn" },
+                { arabic: "\u200Fه\u200F", name: "ハー", roman: "hā" },
+                { arabic: "\u200Fو\u200F", name: "ワーウ", roman: "wāw" },
+                { arabic: "\u200Fي\u200F", name: "ヤー", roman: "yā" },
+                { arabic: "\u200Fء\u200F", name: "ハムザ", roman: "hamzah" },
+                { arabic: "\u200Fة\u200F", name: "ター・マルブータ", roman: "tā marbūṭah" }
+              ].map((item, idx) => (
+                <tr key={idx} className="hover:bg-stone-50 transition-colors">
+                  <td className="px-4 py-3 text-center text-3xl font-arabic text-[#8A5A33]" dir="rtl">
+                    {item.arabic}
+                  </td>
+                  <td className="px-4 py-3 text-center font-bold text-[#5E3C1E]">
+                    {item.name}
+                  </td>
+                  <td className="px-4 py-3 text-center font-medium text-[#A67144] font-serif tracking-wide">
+                    {item.roman}
+                  </td>
+                  <td className="px-4 py-3 text-center">
+                    <button 
+                      onClick={() => playTableAudio(item.arabic)}
+                      className="inline-flex items-center justify-center w-10 h-10 bg-[#F8F1E7] text-[#A67144] rounded-full shadow-sm hover:bg-amber-100 hover:text-amber-600 transition-all hover:scale-110 active:scale-95 border border-[#E5C9A8]"
+                      title="発音を聞く"
+                    >
+                      <Volume2 size={20} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    ),
+
+    imageUrls: [],
     contentVoweled: "",
     sentences: [], 
     vocabList: [],
@@ -2326,10 +2422,10 @@ export const articles: Article[] = [
         id: 1011,
         type: "grammar",
         text: "\u200F次の文字の名前は何ですか？\n「\u200Fص\u200F」\u200F",
-        audio: "ص",
-        options: ["Sād (サード)", "Dād (ダード)", "Tā (ター)", "Sīn (スィーン)"],
+        audio: "\u200Fص\u200F",
+        options: ["サード", "ダード", "ター", "スィーン"],
         correctIndex: 0,
-        explanation: "「\u200Fص\u200F」は Sād (サード) です。Dād (\u200Fض\u200F) と似ていますが点がありません。"
+        explanation: "「\u200Fص\u200F」はサードです。ダード（\u200Fض\u200F）と似ていますが点がありません。"
       },
       {
         id: 1012,
@@ -2508,18 +2604,98 @@ export const articles: Article[] = [
     id: 102,
     level: "文法",
     category: "文字と発音",
-    title: "Lesson 2: アラビア語のアルファベット（語頭、語中、語末）",
-    contentPlain: "アラビア語の文字は、それぞれ語頭、語中、語末によって形が変化しますので注意しましょう",
+    title: "Lesson 2: アラビア語のアルファベット（語頭、語中、語尾）",
+    contentPlain: "アラビア語の文字は、それぞれ語頭、語中、語尾によって形が変化しますので注意しましょう。",
     
-    imageUrls: [
-      "/image/grammar/lesson2_1.jpg", 
-      "/image/grammar/lesson2_2.jpg", 
-      "/image/grammar/lesson2_3.jpg", 
-    ],
+    contentNode: (
+      <div className="space-y-6 text-[#5E3C1E] mt-6">
+        <p className="leading-relaxed">
+          アラビア文字は、単語の中でどの位置にあるかによって形が変わります。基本となる<strong>「独立形」</strong>に加えて、<strong>「語頭形」「語中形」「語尾形」</strong>の3つの変化パターンをマスターしましょう。
+          （※アリフ、ダール、ザール、ラー、ザーイ、ワーウの6文字は、後ろの文字と繋がらないため、語頭・語中形が特殊です。）
+        </p>
+        
+        <div className="overflow-x-auto rounded-xl border border-[#E5C9A8] shadow-sm">
+          <table className="min-w-full border-collapse bg-white">
+            <thead className="bg-[#F8F1E7]">
+              <tr>
+                <th className="border-b border-[#E5C9A8] px-4 py-3 text-center text-[#764C28] font-bold">名前</th>
+                <th className="border-b border-[#E5C9A8] px-4 py-3 text-center text-[#764C28] font-bold">独立形</th>
+                <th className="border-b border-[#E5C9A8] px-4 py-3 text-center text-[#764C28] font-bold">語頭形</th>
+                <th className="border-b border-[#E5C9A8] px-4 py-3 text-center text-[#764C28] font-bold">語中形</th>
+                <th className="border-b border-[#E5C9A8] px-4 py-3 text-center text-[#764C28] font-bold">語尾形</th>
+                <th className="border-b border-[#E5C9A8] px-4 py-3 text-center text-[#764C28] font-bold">発音</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[#F5F0E6]">
+              {[
+                { name: "アリフ", isolated: "\u200Fا\u200F", initial: "\u200Fا\u200F", medial: "\u200Fـا\u200F", final: "\u200Fـا\u200F" },
+                { name: "バー", isolated: "\u200Fب\u200F", initial: "\u200Fبـ\u200F", medial: "\u200Fـبـ\u200F", final: "\u200Fـب\u200F" },
+                { name: "ター", isolated: "\u200Fت\u200F", initial: "\u200Fتـ\u200F", medial: "\u200Fـتـ\u200F", final: "\u200Fـت\u200F" },
+                { name: "サー", isolated: "\u200Fث\u200F", initial: "\u200Fثـ\u200F", medial: "\u200Fـثـ\u200F", final: "\u200Fـث\u200F" },
+                { name: "ジーム", isolated: "\u200Fج\u200F", initial: "\u200Fجـ\u200F", medial: "\u200Fـجـ\u200F", final: "\u200Fـج\u200F" },
+                { name: "ハー", isolated: "\u200Fح\u200F", initial: "\u200Fحـ\u200F", medial: "\u200Fـحـ\u200F", final: "\u200Fـح\u200F" },
+                { name: "ハー", isolated: "\u200Fخ\u200F", initial: "\u200Fخـ\u200F", medial: "\u200Fـخـ\u200F", final: "\u200Fـخ\u200F" },
+                { name: "ダール", isolated: "\u200Fد\u200F", initial: "\u200Fد\u200F", medial: "\u200Fـد\u200F", final: "\u200Fـد\u200F" },
+                { name: "ザール", isolated: "\u200Fذ\u200F", initial: "\u200Fذ\u200F", medial: "\u200Fـذ\u200F", final: "\u200Fـذ\u200F" },
+                { name: "ラー", isolated: "\u200Fر\u200F", initial: "\u200Fر\u200F", medial: "\u200Fـر\u200F", final: "\u200Fـر\u200F" },
+                { name: "ザーイ", isolated: "\u200Fز\u200F", initial: "\u200Fز\u200F", medial: "\u200Fـز\u200F", final: "\u200Fـز\u200F" },
+                { name: "スィーン", isolated: "\u200Fس\u200F", initial: "\u200Fسـ\u200F", medial: "\u200Fـسـ\u200F", final: "\u200Fـس\u200F" },
+                { name: "シーン", isolated: "\u200Fش\u200F", initial: "\u200Fشـ\u200F", medial: "\u200Fـشـ\u200F", final: "\u200Fـش\u200F" },
+                { name: "サード", isolated: "\u200Fص\u200F", initial: "\u200Fصـ\u200F", medial: "\u200Fـصـ\u200F", final: "\u200Fـص\u200F" },
+                { name: "ダード", isolated: "\u200Fض\u200F", initial: "\u200Fضـ\u200F", medial: "\u200Fـضـ\u200F", final: "\u200Fـض\u200F" },
+                { name: "ター", isolated: "\u200Fط\u200F", initial: "\u200Fطـ\u200F", medial: "\u200Fـطـ\u200F", final: "\u200Fـط\u200F" },
+                { name: "ザー", isolated: "\u200Fظ\u200F", initial: "\u200Fظـ\u200F", medial: "\u200Fـظـ\u200F", final: "\u200Fـظ\u200F" },
+                { name: "アイン", isolated: "\u200Fع\u200F", initial: "\u200Fعـ\u200F", medial: "\u200Fـعـ\u200F", final: "\u200Fـع\u200F" },
+                { name: "ガイン", isolated: "\u200Fغ\u200F", initial: "\u200Fغـ\u200F", medial: "\u200Fـغـ\u200F", final: "\u200Fـغ\u200F" },
+                { name: "ファー", isolated: "\u200Fف\u200F", initial: "\u200Fفـ\u200F", medial: "\u200Fـفـ\u200F", final: "\u200Fـف\u200F" },
+                { name: "カーフ", isolated: "\u200Fق\u200F", initial: "\u200Fقـ\u200F", medial: "\u200Fـقـ\u200F", final: "\u200Fـق\u200F" },
+                { name: "カーフ", isolated: "\u200Fك\u200F", initial: "\u200Fكـ\u200F", medial: "\u200Fـكـ\u200F", final: "\u200Fـك\u200F" },
+                { name: "ラーム", isolated: "\u200Fل\u200F", initial: "\u200Fلـ\u200F", medial: "\u200Fـلـ\u200F", final: "\u200Fـل\u200F" },
+                { name: "ミーム", isolated: "\u200Fم\u200F", initial: "\u200Fمـ\u200F", medial: "\u200Fـمـ\u200F", final: "\u200Fـم\u200F" },
+                { name: "ヌーン", isolated: "\u200Fن\u200F", initial: "\u200Fنـ\u200F", medial: "\u200Fـنـ\u200F", final: "\u200Fـن\u200F" },
+                { name: "ハー", isolated: "\u200Fه\u200F", initial: "\u200Fهـ\u200F", medial: "\u200Fـهـ\u200F", final: "\u200Fـه\u200F" },
+                { name: "ワーウ", isolated: "\u200Fو\u200F", initial: "\u200Fو\u200F", medial: "\u200Fـو\u200F", final: "\u200Fـو\u200F" },
+                { name: "ヤー", isolated: "\u200Fي\u200F", initial: "\u200Fيـ\u200F", medial: "\u200Fـيـ\u200F", final: "\u200Fـي\u200F" },
+                { name: "ハムザ", isolated: "\u200Fء\u200F", initial: "\u200Fء\u200F", medial: "\u200Fء\u200F", final: "\u200Fء\u200F" },
+                { name: "ター・マルブータ", isolated: "\u200Fة\u200F", initial: "-", medial: "-", final: "\u200Fـة\u200F" }
+              ].map((item, idx) => (
+                <tr key={idx} className="hover:bg-stone-50 transition-colors">
+                  <td className="px-4 py-3 text-center font-bold text-[#5E3C1E]">
+                    {item.name}
+                  </td>
+                  <td className="px-4 py-3 text-center text-3xl font-arabic text-[#8A5A33]" dir="rtl">
+                    {item.isolated}
+                  </td>
+                  <td className="px-4 py-3 text-center text-3xl font-arabic text-[#8A5A33]" dir="rtl">
+                    {item.initial}
+                  </td>
+                  <td className="px-4 py-3 text-center text-3xl font-arabic text-[#8A5A33]" dir="rtl">
+                    {item.medial}
+                  </td>
+                  <td className="px-4 py-3 text-center text-3xl font-arabic text-[#8A5A33]" dir="rtl">
+                    {item.final}
+                  </td>
+                  <td className="px-4 py-3 text-center">
+                    <button 
+                      onClick={() => playTableAudio(item.isolated)}
+                      className="inline-flex items-center justify-center w-10 h-10 bg-[#F8F1E7] text-[#A67144] rounded-full shadow-sm hover:bg-amber-100 hover:text-amber-600 transition-all hover:scale-110 active:scale-95 border border-[#E5C9A8]"
+                      title="発音を聞く"
+                    >
+                      <Volume2 size={20} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    ),
+    
+    imageUrls: [],
     contentVoweled: "",
     sentences: [], 
     vocabList: [],
-
     questions: [
       {
         type: "orthography",
@@ -2937,23 +3113,108 @@ export const articles: Article[] = [
     id: 103,
     level: "文法",
     category: "文字と発音",
-    title: "Lesson 3: 発音",
-    contentPlain: "アラビア語の文字は、単語の中で前後とつながって形を変えます。パズルのように文字をつなぐルールを覚えましょう。",
+    title: "Lesson 3: 発音記号（タシュキール）",
+    contentPlain: "アラビア語には母音を表す記号（タシュキール）があります。文字の上下に付く記号で「ア・イ・ウ」の音を作ります。",
 
-    imageUrls: [
-      "/image/grammar/lesson3_1.jpg", 
-      "/image/grammar/lesson3_2.jpg", 
-      "/image/grammar/lesson3_3.jpg", 
-      "/image/grammar/lesson3_4.jpg", 
-    ],
+    contentNode: (
+      <div className="space-y-6 text-[#5E3C1E] mt-6">
+        <p className="leading-relaxed">
+          アラビア文字自体は子音を表し、そこに<strong>タシュキール</strong>と呼ばれる母音記号を付けることで「ア・イ・ウ」の音を作ります。
+          <br /><br />
+          ・<strong>ア段（{"\u200Fفَتْحَة\u200F"}）</strong>：文字の上に短い斜め線を書きます。<br />
+          ・<strong>イ段（{"\u200Fكَسْرَة\u200F"}）</strong>：文字の下に短い斜め線を書きます。<br />
+          ・<strong>ウ段（{"\u200Fضَمَّة\u200F"}）</strong>：文字の上に小さな「{"\u200Fو\u200F"}」のような形を書きます。
+        </p>
+        
+        <div className="overflow-x-auto rounded-xl border border-[#E5C9A8] shadow-sm mt-8">
+          <table className="min-w-full border-collapse bg-white">
+            <thead className="bg-[#F8F1E7]">
+              <tr>
+                <th className="border-b border-[#E5C9A8] px-4 py-4 text-center text-[#764C28] font-bold whitespace-nowrap">名前</th>
+                <th className="border-b border-[#E5C9A8] px-4 py-4 text-center text-[#764C28] font-bold">ア段<br/>({"\u200Fفَتْحَة\u200F"})</th>
+                <th className="border-b border-[#E5C9A8] px-4 py-4 text-center text-[#764C28] font-bold">イ段<br/>({"\u200Fكَسْرَة\u200F"})</th>
+                <th className="border-b border-[#E5C9A8] px-4 py-4 text-center text-[#764C28] font-bold">ウ段<br/>({"\u200Fضَمَّة\u200F"})</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[#F5F0E6]">
+              {[
+                { name: "アリフ/ハムザ", a: "\u200Fأَ\u200F", i: "\u200Fإِ\u200F", u: "\u200Fأُ\u200F" },
+                { name: "バー", a: "\u200Fبَ\u200F", i: "\u200Fبِ\u200F", u: "\u200Fبُ\u200F" },
+                { name: "ター", a: "\u200Fتَ\u200F", i: "\u200Fتِ\u200F", u: "\u200Fتُ\u200F" },
+                { name: "サー", a: "\u200Fثَ\u200F", i: "\u200Fثِ\u200F", u: "\u200Fثُ\u200F" },
+                { name: "ジーム", a: "\u200Fجَ\u200F", i: "\u200Fجِ\u200F", u: "\u200Fجُ\u200F" },
+                { name: "ハー", a: "\u200Fحَ\u200F", i: "\u200Fحِ\u200F", u: "\u200Fحُ\u200F" },
+                { name: "ハー", a: "\u200Fخَ\u200F", i: "\u200Fخِ\u200F", u: "\u200Fخُ\u200F" },
+                { name: "ダール", a: "\u200Fدَ\u200F", i: "\u200Fدِ\u200F", u: "\u200Fدُ\u200F" },
+                { name: "ザール", a: "\u200Fذَ\u200F", i: "\u200Fذِ\u200F", u: "\u200Fذُ\u200F" },
+                { name: "ラー", a: "\u200Fرَ\u200F", i: "\u200Fرِ\u200F", u: "\u200Fرُ\u200F" },
+                { name: "ザーイ", a: "\u200Fزَ\u200F", i: "\u200Fزِ\u200F", u: "\u200Fزُ\u200F" },
+                { name: "スィーン", a: "\u200Fسَ\u200F", i: "\u200Fسِ\u200F", u: "\u200Fسُ\u200F" },
+                { name: "シーン", a: "\u200Fشَ\u200F", i: "\u200Fشِ\u200F", u: "\u200Fشُ\u200F" },
+                { name: "サード", a: "\u200Fصَ\u200F", i: "\u200Fصِ\u200F", u: "\u200Fصُ\u200F" },
+                { name: "ダード", a: "\u200Fضَ\u200F", i: "\u200Fضِ\u200F", u: "\u200Fضُ\u200F" },
+                { name: "ター", a: "\u200Fطَ\u200F", i: "\u200Fطِ\u200F", u: "\u200Fطُ\u200F" },
+                { name: "ザー", a: "\u200Fظَ\u200F", i: "\u200Fظِ\u200F", u: "\u200Fظُ\u200F" },
+                { name: "アイン", a: "\u200Fعَ\u200F", i: "\u200Fعِ\u200F", u: "\u200Fعُ\u200F" },
+                { name: "ガイン", a: "\u200Fغَ\u200F", i: "\u200Fغِ\u200F", u: "\u200Fغُ\u200F" },
+                { name: "ファー", a: "\u200Fفَ\u200F", i: "\u200Fفِ\u200F", u: "\u200Fفُ\u200F" },
+                { name: "カーフ", a: "\u200Fقَ\u200F", i: "\u200Fقِ\u200F", u: "\u200Fقُ\u200F" },
+                { name: "カーフ", a: "\u200Fكَ\u200F", i: "\u200Fكِ\u200F", u: "\u200Fكُ\u200F" },
+                { name: "ラーム", a: "\u200Fلَ\u200F", i: "\u200Fلِ\u200F", u: "\u200Fلُ\u200F" },
+                { name: "ミーム", a: "\u200Fمَ\u200F", i: "\u200Fمِ\u200F", u: "\u200Fمُ\u200F" },
+                { name: "ヌーン", a: "\u200Fنَ\u200F", i: "\u200Fنِ\u200F", u: "\u200Fنُ\u200F" },
+                { name: "ハー", a: "\u200Fهَ\u200F", i: "\u200Fهِ\u200F", u: "\u200Fهُ\u200F" },
+                { name: "ワーウ", a: "\u200Fوَ\u200F", i: "\u200Fوِ\u200F", u: "\u200Fوُ\u200F" },
+                { name: "ヤー", a: "\u200Fيَ\u200F", i: "\u200Fيِ\u200F", u: "\u200Fيُ\u200F" },
+                { name: "ター・マルブータ", a: "\u200Fةَ\u200F", i: "\u200Fةِ\u200F", u: "\u200Fةُ\u200F" }
+              ].map((item, idx) => (
+                <tr key={idx} className="hover:bg-stone-50 transition-colors">
+                  <td className="px-4 py-4 text-center font-bold text-[#5E3C1E] whitespace-nowrap">
+                    {item.name}
+                  </td>
+                  {/* ア段 */}
+                  <td className="px-4 py-4">
+                    <div className="flex flex-col items-center gap-3">
+                      <span className="text-4xl font-arabic text-[#8A5A33]" dir="rtl">{item.a}</span>
+                      <button onClick={() => playTableAudio(item.a)} className="flex items-center justify-center w-8 h-8 bg-[#F8F1E7] text-[#A67144] rounded-full shadow-sm hover:bg-amber-100 hover:text-amber-600 transition-all hover:scale-110 active:scale-95 border border-[#E5C9A8]" title="発音を聞く">
+                        <Volume2 size={16} />
+                      </button>
+                    </div>
+                  </td>
+                  {/* イ段 */}
+                  <td className="px-4 py-4">
+                    <div className="flex flex-col items-center gap-3">
+                      <span className="text-4xl font-arabic text-[#8A5A33]" dir="rtl">{item.i}</span>
+                      <button onClick={() => playTableAudio(item.i)} className="flex items-center justify-center w-8 h-8 bg-[#F8F1E7] text-[#A67144] rounded-full shadow-sm hover:bg-amber-100 hover:text-amber-600 transition-all hover:scale-110 active:scale-95 border border-[#E5C9A8]" title="発音を聞く">
+                        <Volume2 size={16} />
+                      </button>
+                    </div>
+                  </td>
+                  {/* ウ段 */}
+                  <td className="px-4 py-4">
+                    <div className="flex flex-col items-center gap-3">
+                      <span className="text-4xl font-arabic text-[#8A5A33]" dir="rtl">{item.u}</span>
+                      <button onClick={() => playTableAudio(item.u)} className="flex items-center justify-center w-8 h-8 bg-[#F8F1E7] text-[#A67144] rounded-full shadow-sm hover:bg-amber-100 hover:text-amber-600 transition-all hover:scale-110 active:scale-95 border border-[#E5C9A8]" title="発音を聞く">
+                        <Volume2 size={16} />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    ),
+
+    imageUrls: [],
     contentVoweled: "",
     sentences: [], 
     vocabList: [],
-    
-    questions: [
+    questions: [     // ← ★ここで配列を開いて...
       {
         id: 1031,
-        type: "grammar",
+        type: "orthography", // ★「文字をつなげる問題（キーボード入力）」なので orthography にしています
         text: "\u200F次の文字をつなげてください（書いた / 動詞）：\n\u200Fكَ + تَ + بَ\u200F\u200F",
         audio: "كَتَبَ",
         explanation: "كَتَبَ",
@@ -3137,20 +3398,158 @@ export const articles: Article[] = [
     id: 104,
     level: "文法",
     category: "文字と発音",
-    title: "Lesson 4: 長母音と重子音",
-    contentPlain: "長母音とつまる音（ッ）の発音について",
+    title: "Lesson 4: 長母音と重子音（シャッダ）",
+    contentPlain: "長母音（伸ばす音）と、重子音（つまる音）の発音について学びましょう。",
     
-    imageUrls: [
-      "/image/grammar/lesson4_1.jpg", 
-      "/image/grammar/lesson4_2.jpg", 
-      "/image/grammar/lesson4_3.jpg", 
-      "/image/grammar/lesson4_4.jpg", 
-      "/image/grammar/lesson4_5.jpg", 
-      "/image/grammar/lesson4_6.jpg", 
-      "/image/grammar/lesson4_7.jpg", 
-      "/image/grammar/lesson4_8.jpg",
-      "/image/grammar/lesson4_9.jpg",
-    ],
+    contentNode: (
+      <div className="space-y-10 text-[#5E3C1E] mt-6">
+        
+        {/* --- 長母音セクション --- */}
+        <section>
+          <h3 className="text-xl font-bold text-[#4A3018] mb-4 border-b-2 border-[#E5C9A8] pb-2 flex items-center gap-2">
+            長母音（伸ばす音）
+          </h3>
+          <p className="leading-relaxed">
+            短い母音（タシュキール）の後に特定の文字が続くと、音が長く伸びます。<br />
+            ・<strong>アー（{"\u200Fـَا\u200F"}）</strong>：ファトハ ＋ アリフ<br />
+            ・<strong>イー（{"\u200Fـِي\u200F"}）</strong>：カスラ ＋ ヤー<br />
+            ・<strong>ウー（{"\u200Fـُو\u200F"}）</strong>：ダンマ ＋ ワーウ
+          </p>
+          
+          <div className="overflow-x-auto rounded-xl border border-[#E5C9A8] shadow-sm mt-6">
+            <table className="min-w-full border-collapse bg-white">
+              <thead className="bg-[#F8F1E7]">
+                <tr>
+                  <th className="border-b border-[#E5C9A8] px-4 py-4 text-center text-[#764C28] font-bold whitespace-nowrap">名前</th>
+                  <th className="border-b border-[#E5C9A8] px-4 py-4 text-center text-[#764C28] font-bold">アー段<br/>({"ـَا"})</th>
+                  <th className="border-b border-[#E5C9A8] px-4 py-4 text-center text-[#764C28] font-bold">イー段<br/>({"ـِي"})</th>
+                  <th className="border-b border-[#E5C9A8] px-4 py-4 text-center text-[#764C28] font-bold">ウー段<br/>({"ـُو"})</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#F5F0E6]">
+                {[
+                  { name: "ハムザ/アリフ", aa: "\u200Fآ\u200F", ii: "\u200Fإِي\u200F", uu: "\u200Fأُو\u200F" },
+                  { name: "バー", aa: "\u200Fبَا\u200F", ii: "\u200Fبِي\u200F", uu: "\u200Fبُو\u200F" },
+                  { name: "ター", aa: "\u200Fتَا\u200F", ii: "\u200Fتِي\u200F", uu: "\u200Fتُو\u200F" },
+                  { name: "サー", aa: "\u200Fثَا\u200F", ii: "\u200Fثِي\u200F", uu: "\u200Fثُو\u200F" },
+                  { name: "ジーム", aa: "\u200Fجَا\u200F", ii: "\u200Fجِي\u200F", uu: "\u200Fجُو\u200F" },
+                  { name: "ハー", aa: "\u200Fحَا\u200F", ii: "\u200Fحِي\u200F", uu: "\u200Fحُو\u200F" },
+                  { name: "ハー", aa: "\u200Fخَا\u200F", ii: "\u200Fخِي\u200F", uu: "\u200Fخُو\u200F" },
+                  { name: "ダール", aa: "\u200Fدَا\u200F", ii: "\u200Fدِي\u200F", uu: "\u200Fدُو\u200F" },
+                  { name: "ザール", aa: "\u200Fذَا\u200F", ii: "\u200Fذِي\u200F", uu: "\u200Fذُو\u200F" },
+                  { name: "ラー", aa: "\u200Fرَا\u200F", ii: "\u200Fرِي\u200F", uu: "\u200Fرُو\u200F" },
+                  { name: "ザーイ", aa: "\u200Fزَا\u200F", ii: "\u200Fزِي\u200F", uu: "\u200Fزُو\u200F" },
+                  { name: "スィーン", aa: "\u200Fسَا\u200F", ii: "\u200Fسِي\u200F", uu: "\u200Fسُو\u200F" },
+                  { name: "シーン", aa: "\u200Fشَا\u200F", ii: "\u200Fشِي\u200F", uu: "\u200Fشُو\u200F" },
+                  { name: "サード", aa: "\u200Fصَا\u200F", ii: "\u200Fصِي\u200F", uu: "\u200Fصُو\u200F" },
+                  { name: "ダード", aa: "\u200Fضَا\u200F", ii: "\u200Fضِي\u200F", uu: "\u200Fضُو\u200F" },
+                  { name: "ター", aa: "\u200Fطَا\u200F", ii: "\u200Fطِي\u200F", uu: "\u200Fطُو\u200F" },
+                  { name: "ザー", aa: "\u200Fظَا\u200F", ii: "\u200Fظِي\u200F", uu: "\u200Fظُو\u200F" },
+                  { name: "アイン", aa: "\u200Fعَا\u200F", ii: "\u200Fعِي\u200F", uu: "\u200Fعُو\u200F" },
+                  { name: "ガイン", aa: "\u200Fغَا\u200F", ii: "\u200Fغِي\u200F", uu: "\u200Fغُو\u200F" },
+                  { name: "ファー", aa: "\u200Fفَا\u200F", ii: "\u200Fفِي\u200F", uu: "\u200Fفُو\u200F" },
+                  { name: "カーフ", aa: "\u200Fقَا\u200F", ii: "\u200Fقِي\u200F", uu: "\u200Fقُو\u200F" },
+                  { name: "カーフ", aa: "\u200Fكَا\u200F", ii: "\u200Fكِي\u200F", uu: "\u200Fكُو\u200F" },
+                  { name: "ラーム", aa: "\u200Fلَا\u200F", ii: "\u200Fلِي\u200F", uu: "\u200Fلُو\u200F" },
+                  { name: "ミーム", aa: "\u200Fمَا\u200F", ii: "\u200Fمِي\u200F", uu: "\u200Fمُو\u200F" },
+                  { name: "ヌーン", aa: "\u200Fنَا\u200F", ii: "\u200Fنِي\u200F", uu: "\u200Fنُو\u200F" },
+                  { name: "ハー", aa: "\u200Fهَا\u200F", ii: "\u200Fهِي\u200F", uu: "\u200Fهُو\u200F" },
+                  { name: "ワーウ", aa: "\u200Fوَا\u200F", ii: "\u200Fوِي\u200F", uu: "\u200Fوُو\u200F" },
+                  { name: "ヤー", aa: "\u200Fيَا\u200F", ii: "\u200Fيِي\u200F", uu: "\u200Fيُو\u200F" }
+                ].map((item, idx) => (
+                  <tr key={idx} className="hover:bg-stone-50 transition-colors">
+                    <td className="px-4 py-4 text-center font-bold text-[#5E3C1E] whitespace-nowrap">
+                      {item.name}
+                    </td>
+                    {/* アー段 */}
+                    <td className="px-4 py-4">
+                      <div className="flex flex-col items-center gap-3">
+                        <span className="text-4xl font-arabic text-[#8A5A33]" dir="rtl">{item.aa}</span>
+                        <button onClick={() => playTableAudio(item.aa)} className="flex items-center justify-center w-8 h-8 bg-[#F8F1E7] text-[#A67144] rounded-full shadow-sm hover:bg-amber-100 hover:text-amber-600 transition-all hover:scale-110 active:scale-95 border border-[#E5C9A8]" title="発音を聞く">
+                          <Volume2 size={16} />
+                        </button>
+                      </div>
+                    </td>
+                    {/* イー段 */}
+                    <td className="px-4 py-4">
+                      <div className="flex flex-col items-center gap-3">
+                        <span className="text-4xl font-arabic text-[#8A5A33]" dir="rtl">{item.ii}</span>
+                        <button onClick={() => playTableAudio(item.ii)} className="flex items-center justify-center w-8 h-8 bg-[#F8F1E7] text-[#A67144] rounded-full shadow-sm hover:bg-amber-100 hover:text-amber-600 transition-all hover:scale-110 active:scale-95 border border-[#E5C9A8]" title="発音を聞く">
+                          <Volume2 size={16} />
+                        </button>
+                      </div>
+                    </td>
+                    {/* ウー段 */}
+                    <td className="px-4 py-4">
+                      <div className="flex flex-col items-center gap-3">
+                        <span className="text-4xl font-arabic text-[#8A5A33]" dir="rtl">{item.uu}</span>
+                        <button onClick={() => playTableAudio(item.uu)} className="flex items-center justify-center w-8 h-8 bg-[#F8F1E7] text-[#A67144] rounded-full shadow-sm hover:bg-amber-100 hover:text-amber-600 transition-all hover:scale-110 active:scale-95 border border-[#E5C9A8]" title="発音を聞く">
+                          <Volume2 size={16} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* ★ 追加: ラーム＋アリフの注意事項 */}
+          <div className="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-r-xl mt-6 shadow-sm">
+            <h4 className="font-bold text-[#764C28] mb-3 text-lg">
+              💡 注意事項：ラーム（{"\u200Fل\u200F"}）＋ アリフ（{"\u200Fا\u200F"}）の特別な形
+            </h4>
+            <p className="text-sm text-[#5E3C1E] leading-relaxed">
+              ラーム（{"\u200Fل\u200F"}）の後に長母音のアリフ（{"\u200Fا\u200F"}）が続いて「ラー」と伸ばす場合、そのまま並べずに合体して<strong>「{"\u200Fلا\u200F"}」</strong>という特殊な形になります。<br />
+              さらに、前の文字と繋がる場合は<strong>「{"\u200Fـلا\u200F"}」</strong>のように形が変わります。<br />
+              <br />
+              例：<strong>{"\u200Fسَلَام\u200F"}</strong>（サラーム / 平和）
+            </p>
+          </div>
+        </section>
+
+        {/* --- 重子音（シャッダ）セクション --- */}
+        <section>
+          <h3 className="text-xl font-bold text-[#4A3018] mt-10 mb-4 border-b-2 border-[#E5C9A8] pb-2 flex items-center gap-2">
+            重子音（シャッダ）
+          </h3>
+          <p className="leading-relaxed mb-6">
+            文字の上に小さな「w」のような記号（<strong>{"\u200Fّ\u200F"}</strong>）がつくと、その子音が2つ重なります。日本語の「ッ」のように、少し詰まって発音します。
+          </p>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="bg-[#F8F1E7] p-6 rounded-2xl border border-[#E5C9A8] text-center shadow-sm hover:shadow-md transition-shadow">
+              <p className="text-5xl font-arabic text-[#8A5A33] mb-4 drop-shadow-sm" dir="rtl">{"\u200Fمُدَرِّس\u200F"}</p>
+              <p className="font-bold text-[#5E3C1E] mb-1">ムダッリス</p>
+              <p className="text-sm text-[#A67144] font-medium mb-4">（先生 / 教師）</p>
+              <button onClick={() => playTableAudio("\u200Fمُدَرِّس\u200F")} className="inline-flex items-center justify-center gap-2 bg-white text-[#764C28] px-4 py-2 rounded-full text-sm font-bold border border-[#D4A373] hover:bg-amber-50 active:scale-95 transition-all shadow-sm">
+                <Volume2 size={16} /> 発音を聞く
+              </button>
+            </div>
+
+            <div className="bg-[#F8F1E7] p-6 rounded-2xl border border-[#E5C9A8] text-center shadow-sm hover:shadow-md transition-shadow">
+              <p className="text-5xl font-arabic text-[#8A5A33] mb-4 drop-shadow-sm" dir="rtl">{"\u200Fسَيَّارَة\u200F"}</p>
+              <p className="font-bold text-[#5E3C1E] mb-1">サイヤーラ</p>
+              <p className="text-sm text-[#A67144] font-medium mb-4">（車）</p>
+              <button onClick={() => playTableAudio("\u200Fسَيَّارَة\u200F")} className="inline-flex items-center justify-center gap-2 bg-white text-[#764C28] px-4 py-2 rounded-full text-sm font-bold border border-[#D4A373] hover:bg-amber-50 active:scale-95 transition-all shadow-sm">
+                <Volume2 size={16} /> 発音を聞く
+              </button>
+            </div>
+
+            <div className="bg-[#F8F1E7] p-6 rounded-2xl border border-[#E5C9A8] text-center shadow-sm hover:shadow-md transition-shadow">
+              <p className="text-5xl font-arabic text-[#8A5A33] mb-4 drop-shadow-sm" dir="rtl">{"\u200Fقِطَّة\u200F"}</p>
+              <p className="font-bold text-[#5E3C1E] mb-1">キッタ</p>
+              <p className="text-sm text-[#A67144] font-medium mb-4">（猫）</p>
+              <button onClick={() => playTableAudio("\u200Fقِطَّة\u200F")} className="inline-flex items-center justify-center gap-2 bg-white text-[#764C28] px-4 py-2 rounded-full text-sm font-bold border border-[#D4A373] hover:bg-amber-50 active:scale-95 transition-all shadow-sm">
+                <Volume2 size={16} /> 発音を聞く
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+    ),
+
+    imageUrls: [],
     contentVoweled: "",
     sentences: [], 
     vocabList: [],
@@ -3158,10 +3557,10 @@ export const articles: Article[] = [
     questions: [
       {
         id: 1041,
-        type: "grammar",
+        type: "orthography",
         text: "\u200F次の文字をつなげてください（ドア / 長母音）：\n\u200Fبَ + ا + بُ\u200F\u200F",
-        audio: "بَابُ",
-        explanation: "بَابُ",
+        audio: "\u200Fبَابُ\u200F",
+        explanation: "\u200Fبَابُ\u200F",
         options: [], 
         correctIndex: 0
       },
@@ -9204,7 +9603,7 @@ export const articles: Article[] = [
   level: "文法",
   category: "動名詞",
   title: "Lesson 33: 動名詞",
-  contentPlain: "アラビア語の「動名詞（マスダル）」のまとめです。英語の「ing（～すること）」や「tion（～という行為）」にあたる名詞です。ここでも「基本形（1形）」と「派生形（2〜10形）」でルールが完全に分かれます。",
+  contentPlain: "アラビア語の「動名詞（マスダル）」のまとめです。日本語の「～すること」や「～という行為（教育、学習など）」にあたる名詞です。ここでも「基本形（第1形）」と「派生形（第2〜10形）」でルールが完全に分かれます。",
   imageUrls: [
     "/image/grammar/lesson33_1.jpg", 
     "/image/grammar/lesson33_2.jpg", 
@@ -9217,7 +9616,7 @@ export const articles: Article[] = [
   questions: [
     {
       type: "grammar",
-      text: "\u200F動詞「\u200Fدَرَّسَ\u200F（教える・第2形）」の動名詞（教育・教えること）は？\u200F",
+      text: "動詞「\u200Fدَرَّسَ\u200F（教える・第2形）」の動名詞（教育・教えること）は？",
       audio: "تَدْرِيسٌ",
       options: [
         "\u200Fتَدْرِيسٌ\u200F",
@@ -9226,11 +9625,11 @@ export const articles: Article[] = [
         "\u200Fدِرَاسَةٌ\u200F"
       ],
       correctIndex: 0,
-      explanation: "第2形の動名詞は、頭にタが付く「タフイール（Taf‘īl）」の形になります。\u200Fمُدَرِّسٌ\u200F は「先生（能動分詞）」なので注意しましょう。"
+      explanation: "第2形の動名詞は、頭に「\u200Fت\u200F」が付く「\u200Fتَفْعِيل\u200F」の形になります。\u200Fمُدَرِّسٌ\u200F は「先生（能動分詞）」なので注意しましょう。"
     },
     {
       type: "grammar",
-      text: "\u200F動詞「\u200Fأَسْلَمَ\u200F（服従した・第4形）」の動名詞（神への帰依・イスラーム）は？\u200F",
+      text: "動詞「\u200Fأَسْلَمَ\u200F（服従した・第4形）」の動名詞（神への帰依・イスラーム）は？",
       audio: "إِسْلَامٌ",
       options: [
         "\u200Fإِسْلَامٌ\u200F",
@@ -9239,11 +9638,11 @@ export const articles: Article[] = [
         "\u200Fتَسْلِيمٌ\u200F"
       ],
       correctIndex: 0,
-      explanation: "第4形の動名詞パターンは「イフアール（If‘āl）」です。"
+      explanation: "第4形の動名詞パターンは「\u200Fإِفْعَال\u200F」です。"
     },
     {
       type: "grammar",
-      text: "\u200F動詞「\u200Fدَخَلَ\u200F（入る・第1形）」の動名詞（入り口・入ること）は？\n（ヒント：不規則ですが、動作を表す基本形によくあるパターンです）\u200F",
+      text: "動詞「\u200Fدَخَلَ\u200F（入る・第1形）」の動名詞（入ること・入場）は？\n（ヒント：不規則ですが、動作を表す基本形によくあるパターンです）",
       audio: "دُخُولٌ",
       options: [
         "\u200Fدُخُولٌ\u200F",
@@ -9252,11 +9651,11 @@ export const articles: Article[] = [
         "\u200Fإِدْخَالٌ\u200F"
       ],
       correctIndex: 0,
-      explanation: "第1形の動名詞は不規則ですが、動作を表す動詞は「〜ウール（Fu‘ūl）」の形になることが多いです。"
+      explanation: "第1形の動名詞は不規則ですが、動作を表す動詞は「\u200Fفُعُول\u200F」の形になることが多いです。"
     },
     {
       type: "grammar",
-      text: "\u200F動詞「\u200Fقَرَأَ\u200F（読む・第1形）」の動名詞を使って、「私は読書が好きです」を完成させてください。\n「\u200Fأُحِبُّ ___\u200F」\u200F",
+      text: "動詞「\u200Fقَرَأَ\u200F（読む・第1形）」の動名詞を使って、「私は読書が好きです」を完成させてください。\n「\u200Fأُحِبُّ ___\u200F」",
       audio: "أُحِبُّ الْقِرَاءَةَ",
       options: [
         "\u200Fالْقِرَاءَةَ\u200F",
@@ -9265,11 +9664,11 @@ export const articles: Article[] = [
         "\u200Fالْقُرْآنَ\u200F"
       ],
       correctIndex: 0,
-      explanation: "「読むこと」は \u200Fقِرَاءَةٌ\u200F（キラアー）です。第1形の動名詞パターンの一つです。"
+      explanation: "「読むこと（読書）」は \u200Fقِرَاءَةٌ\u200F です。これも第1形の動名詞パターンのひとつです。"
     },
     {
       type: "grammar",
-      text: "\u200F動詞「\u200Fاِسْتَقْبَلَ\u200F（迎える・第10形）」の動名詞（受付／レセプション）は？\u200F",
+      text: "動詞「\u200Fاِسْتَقْبَلَ\u200F（迎える・第10形）」の動名詞（受付／レセプション）は？",
       audio: "اِسْتِقْبَالٌ",
       options: [
         "\u200Fاِسْتِقْبَالٌ\u200F",
@@ -9278,7 +9677,137 @@ export const articles: Article[] = [
         "\u200Fقَبُولٌ\u200F"
       ],
       correctIndex: 0,
-      explanation: "第10形の動名詞は、頭の「イスタ」が「イスティ」になり、後ろが伸びる「イスティフアール（Istif‘āl）」の形になります。"
+      explanation: "第10形の動名詞は、頭の「\u200Fاِسْتَـ\u200F」が「\u200Fاِسْتِـ\u200F」になり、後ろが伸びる「\u200Fاِسْتِفْعَال\u200F」の形になります。"
+    },
+    {
+      type: "grammar",
+      text: "動詞「\u200Fكَتَبَ\u200F（書く・第1形）」の動名詞（書くこと・執筆）は？",
+      audio: "كِتَابَةٌ",
+      options: [
+        "\u200Fكِتَابَةٌ\u200F",
+        "\u200Fكَاتِبٌ\u200F",
+        "\u200Fمَكْتُوبٌ\u200F",
+        "\u200Fمَكْتَبٌ\u200F"
+      ],
+      correctIndex: 0,
+      explanation: "「書くこと」は \u200Fكِتَابَةٌ\u200F になります。職業や作業・活動を表す際によく使われる「\u200Fفِعَالَة\u200F」のパターンです。"
+    },
+    {
+      type: "grammar",
+      text: "動詞「\u200Fشَاهَدَ\u200F（見る・視聴する・第3形）」の動名詞（視聴・見ること）は？",
+      audio: "مُشَاهَدَةٌ",
+      options: [
+        "\u200Fمُشَاهَدَةٌ\u200F",
+        "\u200Fشَاهِدٌ\u200F",
+        "\u200Fشَهَادَةٌ\u200F",
+        "\u200Fمَشْهَدٌ\u200F"
+      ],
+      correctIndex: 0,
+      explanation: "第3形の動名詞は、頭に「\u200Fمُـ\u200F」がつき最後に「\u200Fـَة\u200F」がつく「\u200Fمُفَاعَلَة\u200F」の形になります。"
+    },
+    {
+      type: "grammar",
+      text: "動詞「\u200Fتَعَلَّمَ\u200F（学ぶ・第5形）」の動名詞（学習・学ぶこと）は？",
+      audio: "تَعَلُّمٌ",
+      options: [
+        "\u200Fتَعَلُّمٌ\u200F",
+        "\u200Fتَعْلِيمٌ\u200F",
+        "\u200Fمُتَعَلِّمٌ\u200F",
+        "\u200Fعِلْمٌ\u200F"
+      ],
+      correctIndex: 0,
+      explanation: "第5形の動名詞は、過去形の最後から2番目の母音「ファトハ」が「ダンマ」に変わるだけの「\u200Fتَفَعُّل\u200F」の形になります。（\u200Fتَعْلِيمٌ\u200F は第2形「教える」の動名詞です）"
+    },
+    {
+      type: "grammar",
+      text: "動詞「\u200Fاِسْتَمَعَ\u200F（聞く・第8形）」の動名詞（聴解・リスニング）は？",
+      audio: "اِسْتِمَاعٌ",
+      options: [
+        "\u200Fاِسْتِمَاعٌ\u200F",
+        "\u200Fمُسْتَمِعٌ\u200F",
+        "\u200Fسَمَاعٌ\u200F",
+        "\u200Fمَسْمُوعٌ\u200F"
+      ],
+      correctIndex: 0,
+      explanation: "第8形の動名詞は、後ろの方にアリフが入って音が伸びる「\u200Fاِفْتِعَال\u200F」の形になります。"
+    },
+    {
+      type: "grammar",
+      text: "動詞「\u200Fخَرَجَ\u200F（出る・第1形）」の動名詞（出ること・退出）は？",
+      audio: "خُرُوجٌ",
+      options: [
+        "\u200Fخُرُوجٌ\u200F",
+        "\u200Fمَخْرَجٌ\u200F",
+        "\u200Fخَارِجٌ\u200F",
+        "\u200Fإِخْرَاجٌ\u200F"
+      ],
+      correctIndex: 0,
+      explanation: "「入ること（\u200Fدُخُول\u200F）」と同じく、動作を表す第1形の動名詞によく見られる「\u200Fفُعُول\u200F」の形になります。"
+    },
+    {
+      type: "grammar",
+      text: "動詞「\u200Fاِنْكَسَرَ\u200F（壊れる・第7形）」の動名詞（破損・壊れること）は？",
+      audio: "اِنْكِسَارٌ",
+      options: [
+        "\u200Fاِنْكِسَارٌ\u200F",
+        "\u200Fمُنْكَسِرٌ\u200F",
+        "\u200Fكَسْرٌ\u200F",
+        "\u200Fمَكْسُورٌ\u200F"
+      ],
+      correctIndex: 0,
+      explanation: "第7形の動名詞は「\u200Fاِنْفِعَال\u200F」の形になります。受け身や自然に起きる変化（〜れる、〜られる）を表す動詞に多いパターンです。"
+    },
+    {
+      type: "grammar",
+      text: "動詞「\u200Fسَبَّحَ\u200F（讃美する・第2形）」の動名詞（讃美）は？",
+      audio: "تَسْبِيحٌ",
+      options: [
+        "\u200Fتَسْبِيحٌ\u200F",
+        "\u200Fمُسَبِّحٌ\u200F",
+        "\u200Fسُبْحَانَ\u200F",
+        "\u200Fإِسْبَاحٌ\u200F"
+      ],
+      correctIndex: 0,
+      explanation: "第2形の動名詞は、頭に「\u200Fت\u200F」がつく「\u200Fتَفْعِيل\u200F」のパターンになります。"
+    },
+    {
+      type: "grammar",
+      text: "動詞「\u200Fأَرْسَلَ\u200F（送る・第4形）」の動名詞（送信・送ること）は？",
+      audio: "إِرْسَالٌ",
+      options: [
+        "\u200Fإِرْسَالٌ\u200F",
+        "\u200Fمُرْسِلٌ\u200F",
+        "\u200Fرِسَالَةٌ\u200F",
+        "\u200Fتَرْسِيلٌ\u200F"
+      ],
+      correctIndex: 0,
+      explanation: "第4形の動名詞は「\u200Fإِفْعَال\u200F」のパターンです。「\u200Fرِسَالَة\u200F」は手紙やメッセージという一般名詞です。"
+    },
+    {
+      type: "grammar",
+      text: "動詞「\u200Fتَعَاوَنَ\u200F（協力する・第6形）」の動名詞（協力・協同）は？",
+      audio: "تَعَاوُنٌ",
+      options: [
+        "\u200Fتَعَاوُنٌ\u200F",
+        "\u200Fمُتَعَاوِنٌ\u200F",
+        "\u200Fتَعْوِينٌ\u200F",
+        "\u200Fمُعَاوَنَةٌ\u200F"
+      ],
+      correctIndex: 0,
+      explanation: "第6形の動名詞は、第5形と同様に、過去形の最後から2番目の母音が「ダンマ」に変わるだけの「\u200Fتَفَاعُل\u200F」になります。"
+    },
+    {
+      type: "grammar",
+      text: "動詞「\u200Fاِسْتَخْدَمَ\u200F（使う・第10形）」の動名詞（使用・使うこと）は？",
+      audio: "اِسْتِخْدَامٌ",
+      options: [
+        "\u200Fاِسْتِخْدَامٌ\u200F",
+        "\u200Fمُسْتَخْدِمٌ\u200F",
+        "\u200Fخِدْمَةٌ\u200F",
+        "\u200Fمُسْتَخْدَمٌ\u200F"
+      ],
+      correctIndex: 0,
+      explanation: "第10形の動名詞は「\u200Fاِسْتِفْعَال\u200F」の形になります。実生活でも非常によく使われる単語です。"
     }
   ]
 },

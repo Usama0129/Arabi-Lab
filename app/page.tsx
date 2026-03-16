@@ -1373,30 +1373,40 @@ export default function Home() {
 
             <div className="p-6 md:p-10 flex flex-col items-center relative">
               
-              {/* 文法・スライド表示 */}
-              {learningMode === "grammar" && activeArticle.imageUrls && activeArticle.imageUrls.length > 0 ? (
+              {/* 文法・解説表示（画像またはコード） */}
+              {learningMode === "grammar" ? (
                 <div className="w-full max-w-2xl flex flex-col items-center">
                   <h2 className="text-3xl font-serif font-bold mb-8 text-[#4A3018] text-center w-full border-b-2 border-amber-400 pb-4">
                     {activeArticle.title}
                   </h2>
-                  {activeArticle.contentPlain && (
+                  
+                  {activeArticle.contentPlain && !activeArticle.contentNode && (
                     <div className="w-full text-left bg-[#F8F1E7] p-6 rounded-2xl mb-8 border border-[#E5C9A8]" dir="ltr">
-                    <p className="text-base text-[#5E3C1E] leading-relaxed whitespace-pre-wrap font-medium">
-                      {activeArticle.contentPlain}
-                    </p>
-                  </div>
+                      <p className="text-base text-[#5E3C1E] leading-relaxed whitespace-pre-wrap font-medium">
+                        {activeArticle.contentPlain}
+                      </p>
+                    </div>
                   )}
-                  <div className="w-full space-y-8 mb-12">
-                    {activeArticle.imageUrls.map((url, idx) => (
-                      <img 
-                        key={idx}
-                        src={url} 
-                        alt={`Slide ${idx + 1}`}
-                        className="w-full rounded-2xl shadow-lg border border-[#E5C9A8]"
-                        loading="lazy"
-                      />
-                    ))}
-                  </div>
+
+                  {activeArticle.contentNode && (
+                    <div className="w-full text-left mb-12 animate-fade-in-up">
+                      {activeArticle.contentNode}
+                    </div>
+                  )}
+
+                  {activeArticle.imageUrls && activeArticle.imageUrls.length > 0 && (
+                    <div className="w-full space-y-8 mb-12">
+                      {activeArticle.imageUrls.map((url, idx) => (
+                        <img 
+                          key={idx}
+                          src={url} 
+                          alt={`Slide ${idx + 1}`}
+                          className="w-full rounded-2xl shadow-lg border border-[#E5C9A8]"
+                          loading="lazy"
+                        />
+                      ))}
+                    </div>
+                  )}
 
                   {activeArticle.questions && activeArticle.questions.length > 0 ? (
                     <div className="bg-gradient-to-b from-[#F8F1E7] to-white p-8 rounded-3xl text-center w-full border border-[#E5C9A8] shadow-sm">
@@ -1428,24 +1438,8 @@ export default function Home() {
                         <iframe width="100%" height="100%" src={`https://www.youtube.com/embed/${getYouTubeId(activeArticle.videoUrl)}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                       </div>
                     )}
-
-                    {/* 文法テスト開始画面 (画像がない場合) */}
-                    {learningMode === "grammar" && (
-                        <div className="text-center py-16 bg-[#F8F1E7] rounded-[2rem] border border-[#E5C9A8] shadow-sm">
-                            <h2 className="text-2xl font-bold mb-4 text-[#4A3018]">{activeArticle.title}</h2>
-                            <p className="mb-10 text-[#8A5A33] font-medium">理解度チェックテストを開始します。</p>
-                            <button onClick={() => {
-                                const qs = activeArticle.questions;
-                                setGrammarQuestions(qs);
-                                startQuiz();
-                            }} className="bg-[#764C28] text-white px-10 py-4 rounded-full font-bold shadow-lg hover:bg-[#5E3C1E] hover:-translate-y-1 active:scale-95 transition-all text-lg flex items-center justify-center gap-2 mx-auto"><Pencil size={20}/> テストを開始する</button>
-                        </div>
-                    )}
-
-                    {/* 読解・会話・リスニング */}
-                    {learningMode !== "grammar" && (
-                      <>
-                        <h2 className="text-3xl font-serif font-bold mb-10 text-center text-[#4A3018] w-full">{activeArticle.level === "初級" ? `問題 ${activeProblemNumber} (${activeArticle.title})` : activeArticle.title}</h2>
+{/* 読解・会話・リスニング */}
+<h2 className="text-3xl font-serif font-bold mb-10 text-center text-[#4A3018] w-full">{activeArticle.level === "初級" ? `問題 ${activeProblemNumber} (${activeArticle.title})` : activeArticle.title}</h2>
                         
                         {activeArticle.level === "会話" || (courseType === "poetry" && activeArticle.sentences && activeArticle.sentences.length > 0) ? (
                           <div className="w-full space-y-8 mb-12">
@@ -1585,18 +1579,15 @@ export default function Home() {
                               {/* ★追加: すぐに解説画面へ飛ぶボタン */}
                               <button onClick={() => changeScreen("result")} className="flex-1 bg-white border-2 border-[#E5C9A8] text-[#764C28] font-bold py-4 rounded-2xl shadow-md hover:shadow-lg hover:border-[#D4A373] hover:bg-[#F8F1E7] hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2 text-lg">
                                   <BookOpen size={22} /> すぐに解説を見る
-                              </button>
+                                  </button>
                             </div>
                         )}
-                      </>
-                    )}
                 </div>
               )}
 
             </div>
           </div>
         )}
-
         {/* ディクテーション (書き取り) 画面 */}
         {currentScreen === "dictation" && activeArticle && activeArticle.sentences && (
           <div className="max-w-xl mx-auto animate-fade-in-up pb-32">
