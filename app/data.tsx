@@ -18872,26 +18872,401 @@ export const articles: Article[] = [
     id: 144,
     level: "文法",
     category: "状態",
-    title: "Lesson 44: 状態（ハール）",
+    title: "Lesson 44: 状態（ハール：〜しながら）",
     contentPlain: "「〜しながら」「〜の状態で」と、動作主の様子を説明する文法です。ポイントは「常に対格（〜を）」の形になることと、基本的に「非限定（定冠詞なし）」であることです。主語の性・数に一致させる必要があります。",
-    imageUrls: [
-      "/image/grammar/lesson44_1.jpg", 
-      "/image/grammar/lesson44_2.jpg", 
-      "/image/grammar/lesson44_3.jpg", 
-      "/image/grammar/lesson44_4.jpg", 
-      "/image/grammar/lesson44_5.jpg", 
-      "/image/grammar/lesson44_6.jpg", 
-      "/image/grammar/lesson44_7.jpg", 
-      "/image/grammar/lesson44_8.jpg", 
-      "/image/grammar/lesson44_9.jpg", 
-      "/image/grammar/lesson44_10.jpg", 
-      "/image/grammar/lesson44_11.jpg", 
-      "/image/grammar/lesson44_12.jpg", 
-    ],
+    
+    contentNode: (
+      <div className="space-y-10 text-[#5E3C1E] mt-6">
+        <p className="leading-relaxed">
+          「男が<strong>笑いながら</strong>来た」「私は<strong>急いで</strong>家を出た」のように、動作をしている時の「状態・様子」を説明する言葉を、アラビア語で<strong>「ハール（状態）」</strong>と呼びます。<br />
+          ハールには<strong>「常に非限定（アルなし）」「常に対格（ア段）」</strong>という絶対的な2つのルールがあります！
+        </p>
+
+        {/* --- 1. ハールの基本と形容詞との違い --- */}
+        <section>
+          <div className="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-r-xl shadow-sm mb-6">
+            <h4 className="font-bold text-[#764C28] mb-3 text-lg">
+              💡 基本ルール ＆ 形容詞との違い
+            </h4>
+            <p className="text-sm text-[#5E3C1E] leading-relaxed">
+              Lesson 16で学んだように、普通の「形容詞」は前の名詞と「限定（アルの有無）」や「格（ウ・ア・イ）」が完全に一致します。<br />
+              しかしハールは、前の名詞が何であれ<strong>「絶対にアルを付けない（非限定）」「絶対にア段（対格）」</strong>という孤高のルールを貫きます！
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* 形容詞の文 */}
+            <div className="bg-stone-50 p-5 rounded-2xl border border-stone-200 shadow-sm flex flex-col items-center text-center">
+              <h4 className="font-bold text-stone-700 mb-4 text-center border-b border-stone-200 pb-2 w-full">
+                【形容詞】笑っている男が来た
+              </h4>
+              <div className="flex justify-center items-center gap-2 mb-4">
+                <div className="text-center">
+                  <p className="text-xs font-bold text-gray-500 mb-1">笑っている(主格)</p>
+                  <p className="text-2xl font-arabic text-gray-500" dir="rtl">{"\u200Fالضَّاحِكُ\u200F"}</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-xs font-bold text-gray-500 mb-1">男が(主格)</p>
+                  <p className="text-2xl font-arabic text-gray-500" dir="rtl">{"\u200Fالرَّجُلُ\u200F"}</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-xs font-bold text-gray-500 mb-1">来た</p>
+                  <p className="text-2xl font-arabic text-gray-500" dir="rtl">{"\u200Fجَاءَ\u200F"}</p>
+                </div>
+              </div>
+              <p className="text-[10px] text-stone-600 bg-white px-2 py-1 border border-stone-200 rounded mb-2 w-full">
+                ※前の名詞に合わせて<strong>「アルあり」「ウ段（主格）」</strong>になります。
+              </p>
+              <div className="bg-white p-3 rounded-lg border border-stone-200 w-full">
+                <p className="text-xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fجَاءَ الرَّجُلُ الضَّاحِكُ\u200F"}</p>
+                <p className="text-xs font-bold text-[#5E3C1E]">ジャーア ル・ラジュル ッ・ダーヒ<span className="text-gray-500 text-sm">ク</span></p>
+              </div>
+              <button onClick={() => playTableAudio("\u200Fجَاءَ الرَّجُلُ الضَّاحِكُ\u200F")} className="w-8 h-8 bg-stone-100 text-stone-600 rounded-full flex items-center justify-center shadow-sm hover:bg-stone-200 transition-all border border-stone-200 mt-2">
+                <Volume2 size={14} />
+              </button>
+            </div>
+
+            {/* ハールの文 */}
+            <div className="bg-[#FFFDF9] p-5 rounded-2xl border border-[#E5C9A8] shadow-sm flex flex-col items-center text-center relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-1 bg-amber-500"></div>
+              <h4 className="font-bold text-[#764C28] mb-4 text-center border-b border-[#E5C9A8] pb-2 w-full">
+                【ハール】男が<span className="text-amber-600">笑いながら</span>来た
+              </h4>
+              <div className="flex justify-center items-center gap-2 mb-4">
+                <div className="text-center bg-amber-50 p-1.5 rounded border border-amber-200">
+                  <p className="text-xs font-bold text-amber-800 mb-1">笑って(非限定・対格)</p>
+                  <p className="text-2xl font-arabic text-amber-600 drop-shadow-sm" dir="rtl">{"\u200Fضَاحِكًا\u200F"}</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-xs font-bold text-gray-500 mb-1">男が(主格)</p>
+                  <p className="text-2xl font-arabic text-gray-500" dir="rtl">{"\u200Fالرَّجُلُ\u200F"}</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-xs font-bold text-gray-500 mb-1">来た</p>
+                  <p className="text-2xl font-arabic text-gray-500" dir="rtl">{"\u200Fجَاءَ\u200F"}</p>
+                </div>
+              </div>
+              <p className="text-[10px] text-amber-800 bg-amber-100 px-2 py-1 border border-amber-200 rounded mb-2 w-full font-bold">
+                ※ハールなので<strong>「アルなし」「ア段（対格）」</strong>になります！
+              </p>
+              <div className="bg-white p-3 rounded-lg border border-[#E5C9A8] w-full">
+                <p className="text-xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fجَاءَ الرَّجُلُ ضَاحِكًا\u200F"}</p>
+                <p className="text-xs font-bold text-[#5E3C1E]">ジャーア ル・ラジュル ダーヒ<span className="text-amber-600 text-sm font-black">カン</span></p>
+              </div>
+              <button onClick={() => playTableAudio("\u200Fجَاءَ الرَّجُلُ ضَاحِكًا\u200F")} className="w-8 h-8 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center shadow-sm hover:bg-amber-100 transition-all border border-[#E5C9A8] mt-2">
+                <Volume2 size={14} />
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* --- 2. 性・数の一致（複数形のハール） --- */}
+        <section>
+          <div className="bg-emerald-50 border-l-4 border-emerald-500 p-5 rounded-r-xl shadow-sm mt-12 mb-6">
+            <h4 className="font-bold text-emerald-800 mb-3 text-lg">
+              👥 性別と人数は主語に合わせる！（複数形に注意）
+            </h4>
+            <p className="text-sm text-emerald-900 leading-relaxed">
+              ハールは「対格」になりますが、<strong>主語の性別と人数（単数・双数・複数）には一致させる</strong>必要があります。<br />
+              特に<strong>複数形の対格の形</strong>（男性複数ならイーナ、女性複数ならアーティン）に変化する点に注意しましょう！
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            
+            {/* 女性単数 */}
+            <div className="bg-white border border-emerald-200 p-4 rounded-xl flex flex-col md:flex-row items-center gap-4 shadow-sm">
+              <div className="md:w-1/4 text-center">
+                <span className="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-1 rounded">女性・単数</span>
+              </div>
+              <div className="md:w-2/4 text-center">
+                <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fجَاءَتِ المَرْأَةُ ضَاحِكَةً\u200F"}</p>
+                <p className="text-[10px] font-bold text-[#5E3C1E]">ジャーアティ ル・マルアトゥ ダーヒカ<span className="text-emerald-600 text-sm font-black">タン</span></p>
+                <p className="text-[10px] text-gray-500 mt-1">女性が笑いながら来た</p>
+              </div>
+              <div className="md:w-1/4 flex justify-center">
+                <button onClick={() => playTableAudio("\u200Fجَاءَتِ المَرْأَةُ ضَاحِكَةً\u200F")} className="w-8 h-8 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center hover:bg-emerald-100 border border-emerald-200">
+                  <Volume2 size={14} />
+                </button>
+              </div>
+            </div>
+
+            {/* 男性複数 */}
+            <div className="bg-white border border-emerald-200 p-4 rounded-xl flex flex-col md:flex-row items-center gap-4 shadow-sm">
+              <div className="md:w-1/4 text-center">
+                <span className="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-1 rounded">男性・複数</span>
+              </div>
+              <div className="md:w-2/4 text-center">
+                <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fجَاءَ الرِّجَالُ ضَاحِكِينَ\u200F"}</p>
+                <p className="text-[10px] font-bold text-[#5E3C1E]">ジャーア ル・リジャール ダーヒ<span className="text-emerald-600 text-sm font-black">キーナ</span></p>
+                <p className="text-[10px] text-gray-500 mt-1">男たちが笑いながら来た（対格なのでウーナではなくイーナ！）</p>
+              </div>
+              <div className="md:w-1/4 flex justify-center">
+                <button onClick={() => playTableAudio("\u200Fجَاءَ الرِّجَالُ ضَاحِكِينَ\u200F")} className="w-8 h-8 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center hover:bg-emerald-100 border border-emerald-200">
+                  <Volume2 size={14} />
+                </button>
+              </div>
+            </div>
+
+            {/* 女性複数 */}
+            <div className="bg-white border border-emerald-200 p-4 rounded-xl flex flex-col md:flex-row items-center gap-4 shadow-sm">
+              <div className="md:w-1/4 text-center">
+                <span className="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-1 rounded">女性・複数</span>
+              </div>
+              <div className="md:w-2/4 text-center">
+                <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fجَاءَتِ النِّسَاءُ ضَاحِكَاتٍ\u200F"}</p>
+                <p className="text-[10px] font-bold text-[#5E3C1E]">ジャーアティ ン・ニサーウ ダーヒ<span className="text-emerald-600 text-sm font-black">カーティン</span></p>
+                <p className="text-[10px] text-gray-500 mt-1">女たちが笑いながら来た（対格なのでアートゥンではなくアーティン！）</p>
+              </div>
+              <div className="md:w-1/4 flex justify-center">
+                <button onClick={() => playTableAudio("\u200Fجَاءَتِ النِّسَاءُ ضَاحِكَاتٍ\u200F")} className="w-8 h-8 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center hover:bg-emerald-100 border border-emerald-200">
+                  <Volume2 size={14} />
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* --- 3. ハールの様々な表現（ワーウ・動詞・前置詞） --- */}
+        <section>
+          <h3 className="text-xl font-bold text-[#4A3018] mt-12 mb-4 border-b-2 border-[#E5C9A8] pb-2">
+            🚀 応用：1単語じゃないハール（文や句）
+          </h3>
+          <p className="text-sm text-[#764C28] leading-relaxed mb-6">
+            ハールは1つの単語（分詞）だけでなく、<strong>「文（動詞文・名詞文）」や「前置詞句」</strong>をそのまま使って状態を表すこともできます。この表現は長文で頻出します！
+          </p>
+
+          <div className="grid grid-cols-1 gap-6">
+            
+            {/* ハールのワーウ */}
+            <div className="bg-[#FFFDF9] border border-[#E5C9A8] p-5 rounded-xl shadow-sm">
+              <h4 className="font-bold text-[#764C28] mb-3 text-md border-b border-[#E5C9A8] pb-2">
+                ① 「ハールのワーウ（وَ）」＋ 名詞文
+              </h4>
+              <p className="text-xs text-[#5E3C1E] mb-3">
+                文の途中に「ワ（そして）」を置き、その後ろに独立した文を続けることで<strong>「〜している時に」</strong>という状態を表します。この「ワ」を<strong>ハールのワーウ</strong>と呼びます。
+              </p>
+              
+              <div className="bg-white p-4 rounded-xl border border-[#E5C9A8] flex flex-col md:flex-row justify-between items-center gap-4">
+                <div className="text-center md:text-right w-full">
+                  <div className="flex justify-center md:justify-end items-center gap-2 mb-2">
+                    <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">太陽が昇っている(名詞文)</span>
+                    <p className="text-2xl font-arabic text-gray-500" dir="rtl">{"\u200Fالشَّمْسُ طَالِعَةٌ\u200F"}</p>
+                    <span className="text-amber-500 font-bold mx-1">＋</span>
+                    <span className="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-1 rounded">ワ(〜しながら)</span>
+                    <p className="text-2xl font-arabic text-amber-600 drop-shadow-sm" dir="rtl">{"\u200Fوَ\u200F"}</p>
+                    <span className="text-gray-400 font-bold mx-1">＋</span>
+                    <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">私は目覚めた</span>
+                    <p className="text-2xl font-arabic text-gray-500" dir="rtl">{"\u200Fاِسْتَيْقَظْتُ\u200F"}</p>
+                  </div>
+                  <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fاِسْتَيْقَظْتُ وَالشَّمْسُ طَالِعَةٌ\u200F"}</p>
+                  <p className="text-xs font-bold text-[#5E3C1E]">イスタイカズトゥ <span className="text-amber-600 text-sm">ワ</span> ッ・シャムス ターリアツン</p>
+                  <p className="text-[10px] text-gray-500 mt-1">（太陽が昇っている時に、私は目覚めました）</p>
+                </div>
+                <button onClick={() => playTableAudio("\u200Fاِسْتَيْقَظْتُ وَالشَّمْسُ طَالِعَةٌ\u200F")} className="w-10 h-10 min-w-[40px] bg-[#F8F1E7] text-[#A67144] rounded-full flex items-center justify-center shadow-sm border border-[#E5C9A8] hover:bg-amber-100">
+                  <Volume2 size={16} />
+                </button>
+              </div>
+            </div>
+
+            {/* 動詞文 */}
+            <div className="bg-blue-50 border border-blue-200 p-5 rounded-xl shadow-sm">
+              <h4 className="font-bold text-blue-800 mb-3 text-md border-b border-blue-200 pb-2">
+                ② 動詞（現在形）を使ったハール
+              </h4>
+              <p className="text-xs text-blue-900 mb-3">
+                過去形の文の後に、<strong>「現在形の動詞」</strong>をそのままポンと置くだけで、「〜しながら（〜した）」という状態を表すことができます。
+              </p>
+              
+              <div className="bg-white p-4 rounded-xl border border-blue-200 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div className="text-center md:text-right w-full">
+                  <div className="flex justify-center md:justify-end items-center gap-2 mb-2">
+                    <span className="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-1 rounded">彼は泣く(現在形)</span>
+                    <p className="text-2xl font-arabic text-blue-600 drop-shadow-sm" dir="rtl">{"\u200Fيَبْكِي\u200F"}</p>
+                    <span className="text-gray-400 font-bold mx-1">＋</span>
+                    <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">男が来た</span>
+                    <p className="text-2xl font-arabic text-gray-500" dir="rtl">{"\u200Fجَاءَ الرَّجُلُ\u200F"}</p>
+                  </div>
+                  <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fجَاءَ الرَّجُلُ يَبْكِي\u200F"}</p>
+                  <p className="text-xs font-bold text-[#5E3C1E]">ジャーア ル・ラジュル <span className="text-blue-600 text-sm">ヤブキー</span></p>
+                  <p className="text-[10px] text-gray-500 mt-1">（男が泣きながら来ました）</p>
+                </div>
+                <button onClick={() => playTableAudio("\u200Fجَاءَ الرَّجُلُ يَبْكِي\u200F")} className="w-10 h-10 min-w-[40px] bg-blue-50 text-blue-600 rounded-full flex items-center justify-center shadow-sm border border-blue-200 hover:bg-blue-100">
+                  <Volume2 size={16} />
+                </button>
+              </div>
+            </div>
+
+            {/* 前置詞句 */}
+            <div className="bg-rose-50 border border-rose-200 p-5 rounded-xl shadow-sm">
+              <h4 className="font-bold text-rose-800 mb-3 text-md border-b border-rose-200 pb-2">
+                ③ 前置詞句を使ったハール
+              </h4>
+              <p className="text-xs text-rose-900 mb-3">
+                「前置詞 ＋ 名詞」の組み合わせを置いて、「〜の中で（〜の状態で）」という表現を作ります。
+              </p>
+              
+              <div className="bg-white p-4 rounded-xl border border-rose-200 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div className="text-center md:text-right w-full">
+                  <div className="flex justify-center md:justify-end items-center gap-2 mb-2">
+                    <span className="bg-rose-100 text-rose-800 text-[10px] font-bold px-2 py-1 rounded">急ぎの中で(前置詞句)</span>
+                    <p className="text-2xl font-arabic text-rose-600 drop-shadow-sm" dir="rtl">{"\u200Fفِي عَجَلَةٍ\u200F"}</p>
+                    <span className="text-gray-400 font-bold mx-1">＋</span>
+                    <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">男が来た</span>
+                    <p className="text-2xl font-arabic text-gray-500" dir="rtl">{"\u200Fجَاءَ الرَّجُلُ\u200F"}</p>
+                  </div>
+                  <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fجَاءَ الرَّجُلُ فِي عَجَلَةٍ\u200F"}</p>
+                  <p className="text-xs font-bold text-[#5E3C1E]">ジャーア ル・ラジュル <span className="text-rose-600 text-sm">フィー アジャラティン</span></p>
+                  <p className="text-[10px] text-gray-500 mt-1">（男が急いで来ました）</p>
+                </div>
+                <button onClick={() => playTableAudio("\u200Fجَاءَ الرَّجُلُ فِي عَجَلَةٍ\u200F")} className="w-10 h-10 min-w-[40px] bg-rose-50 text-rose-600 rounded-full flex items-center justify-center shadow-sm border border-rose-200 hover:bg-rose-100">
+                  <Volume2 size={16} />
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    ),
+
+    imageUrls: [],
     contentVoweled: "",
     sentences: [], 
     vocabList: [],
     questions: [
+      {
+        type: "grammar",
+        text: "\u200F「男が【笑いながら】来た」ハールとして正しい形は？\n※笑う人：ダーヒク（\u200Fضَاحِك\u200F）\u200F",
+        audio: "\u200Fجَاءَ الرَّجُلُ ضَاحِكًا\u200F",
+        options: [
+          "\u200Fضَاحِكٌ\u200F", 
+          "\u200Fالضَّاحِكَ\u200F",
+          "\u200Fضَاحِكًا\u200F",
+          "\u200Fالضَّاحِكُ\u200F"
+        ],
+        correctIndex: 2,
+        explanation: "ハールは「非限定（アルなし）」かつ「対格（ア段）」になるため、ダーヒカン（\u200Fضَاحِكًا\u200F）が正解です。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「【笑っている】男が来た」形容詞として正しい形は？\u200F",
+        audio: "\u200Fجَاءَ الرَّجُلُ الضَّاحِكُ\u200F",
+        options: [
+          "\u200Fضَاحِكًا\u200F", 
+          "\u200Fالضَّاحِكَ\u200F",
+          "\u200Fضَاحِكٌ\u200F",
+          "\u200Fالضَّاحِكُ\u200F"
+        ],
+        correctIndex: 3,
+        explanation: "形容詞は前の名詞と完全に一致します。「男（アッ・ラジュル）」がアルあり・主格なので、形容詞もアッ・ダーヒク（\u200Fالضَّاحِكُ\u200F）になります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「女性が【笑いながら】来た」正しい形は？\u200F",
+        audio: "\u200Fجَاءَتِ المَرْأَةُ ضَاحِكَةً\u200F",
+        options: [
+          "\u200Fضَاحِكَةٌ\u200F", 
+          "\u200Fالضَّاحِكَةَ\u200F",
+          "\u200Fضَاحِكَةً\u200F",
+          "\u200Fضَاحِكًا\u200F"
+        ],
+        correctIndex: 2,
+        explanation: "ハールは非限定・対格ですが、性別は主語に一致させる必要があります。女性・単数なので、ダーヒカタン（\u200Fضَاحِكَةً\u200F）になります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「男たち（複数）が【笑いながら】来た」正しい形は？\u200F",
+        audio: "\u200Fجَاءَ الرِّجَالُ ضَاحِكِينَ\u200F",
+        options: [
+          "\u200Fضَاحِكُونَ\u200F", 
+          "\u200Fالضَّاحِكِينَ\u200F",
+          "\u200Fضَاحِكًا\u200F",
+          "\u200Fضَاحِكِينَ\u200F"
+        ],
+        correctIndex: 3,
+        explanation: "男性複数のハールです。ハールは対格なので、ウーナではなく「イーナ」の形になるダーヒキーナ（\u200Fضَاحِكِينَ\u200F）が正解です。（アルは付けません）"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「女たち（複数）が【笑いながら】来た」正しい形は？\u200F",
+        audio: "\u200Fجَاءَتِ النِّسَاءُ ضَاحِكَاتٍ\u200F",
+        options: [
+          "\u200Fضَاحِكَاتٌ\u200F", 
+          "\u200Fالضَّاحِكَاتِ\u200F",
+          "\u200Fضَاحِكَاتٍ\u200F",
+          "\u200Fضَاحِكَةً\u200F"
+        ],
+        correctIndex: 2,
+        explanation: "女性複数のハールです。女性複数の対格はアーティン（\u200Fـَاتٍ\u200F）の形になるため、ダーヒカーティン（\u200Fضَاحِكَاتٍ\u200F）が正解です。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私は太陽が昇っている【時に】目覚めた」ハールのワーウの使い方は？\n目覚めた（イスタイカズトゥ）、太陽（アッ・シャムス）、昇る（ターリアツン）\u200F",
+        audio: "\u200Fاِسْتَيْقَظْتُ وَالشَّمْسُ طَالِعَةٌ\u200F",
+        options: [
+          "\u200Fاِسْتَيْقَظْتُ الشَّمْسُ طَالِعَةٌ\u200F", 
+          "\u200Fاِسْتَيْقَظْتُ وَالشَّمْسُ طَالِعَةٌ\u200F",
+          "\u200Fاِسْتَيْقَظْتُ فِي الشَّمْسُ طَالِعَةٌ\u200F",
+          "\u200Fاِسْتَيْقَظْتُ أَنَّ الشَّمْسُ طَالِعَةٌ\u200F"
+        ],
+        correctIndex: 1,
+        explanation: "文の途中に「ワ（وَ：そして）」を置き、後ろに名詞文を続けることで「〜しながら、〜の時に」という状態を表すことができます。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「男が【泣きながら】来た」動詞を使ったハールとして正しいものは？\n※彼は泣く（ヤブキー）\u200F",
+        audio: "\u200Fجَاءَ الرَّجُلُ يَبْكِي\u200F",
+        options: [
+          "\u200Fجَاءَ الرَّجُلُ يَبْكِي\u200F", 
+          "\u200Fجَاءَ الرَّجُلُ بَكَى\u200F",
+          "\u200Fيَبْكِي جَاءَ الرَّجُلُ\u200F",
+          "\u200Fجَاءَ الرَّجُلُ بَاكٍ\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "過去形の文の後ろに、現在形の動詞（ヤブキー）を直接置くことで「〜しながら〜した」というハールを作ることができます。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「男が【急いで】来た」前置詞句を使ったハールとして正しいものは？\n※急ぎ（アジャラティン）\u200F",
+        audio: "\u200Fجَاءَ الرَّجُلُ فِي عَجَلَةٍ\u200F",
+        options: [
+          "\u200Fجَاءَ الرَّجُلُ عَجَلَةً\u200F", 
+          "\u200Fجَاءَ الرَّجُلُ العَجَلَةُ\u200F",
+          "\u200Fجَاءَ الرَّجُلُ فِي عَجَلَةٍ\u200F",
+          "\u200Fفِي عَجَلَةٍ جَاءَ الرَّجُلُ\u200F"
+        ],
+        correctIndex: 2,
+        explanation: "「フィー（〜の中で）」という前置詞を使って「フィー アジャラティン（急ぎの中で＝急いで）」という状態を表すことができます。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「彼は【笑いながら】やって来た」正しい形は？\n※やって来た（アター）、笑う（ヤドハク）\u200F",
+        audio: "\u200Fأَتَى وَهُوَ يَضْحَكُ\u200F",
+        options: [
+          "\u200Fأَتَى يَضْحَكُهُ\u200F", 
+          "\u200Fأَتَى وَهُوَ يَضْحَكُ\u200F",
+          "\u200Fأَتَى هُوَ يَضْحَكُ\u200F",
+          "\u200Fوَأَتَى يَضْحَكُ\u200F"
+        ],
+        correctIndex: 1,
+        explanation: "ハールのワーウ（وَ）の後ろに「彼（هُوَ）」＋動詞現在形を続けることで「そして彼は〜しながら（＝彼は〜しながら）」という美しい表現になります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200Fハール（状態）の文法ルールとして【間違っている】ものはどれ？\u200F",
+        audio: "",
+        options: [
+          "常に「対格（ア段）」になる", 
+          "基本的に「非限定（アルなし）」になる",
+          "主語の性別と人数に一致させる",
+          "前の名詞が「アルあり」なら、ハールも「アルあり」にする"
+        ],
+        correctIndex: 3,
+        explanation: "ハールは前の名詞に関わらず「常に非限定（アルなし）」です。前の名詞に合わせてアルを付けるのは「形容詞」のルールです。"
+      },
       {
         type: "grammar",
         text: "\u200F「その男の子は『走って』来ました」\n（ヒント：ハールは常に対格）\n「\u200Fجَاءَ الْوَلَدُ ___\u200F」\u200F",
@@ -19171,20 +19546,306 @@ export const articles: Article[] = [
     id: 145,
     level: "文法",
     category: "タムイーズ",
-    title: "Lesson 45: タムイーズ",
+    title: "Lesson 45: タムイーズ（何の点で？を解消する）",
     contentPlain: "「何の点で？」という曖昧さを解消するための言葉です。「彼は私より大きい」と言った時、「身長が？年齢が？」という疑問に答えるのがタムイーズです。比較級や数詞（11〜99）の後ろによく登場し、必ず対格（～an）になります。",
-    imageUrls: [
-      "/image/grammar/lesson45_1.jpg", 
-      "/image/grammar/lesson45_2.jpg", 
-      "/image/grammar/lesson45_3.jpg", 
-      "/image/grammar/lesson45_4.jpg", 
-      "/image/grammar/lesson45_5.jpg", 
-      "/image/grammar/lesson45_6.jpg", 
-    ],
+    
+    contentNode: (
+      <div className="space-y-10 text-[#5E3C1E] mt-6">
+        <p className="leading-relaxed">
+          「彼は私より大きい」と聞いた時、「え、何が？身長？年齢？それとも態度？」と疑問に思いますよね。<br />
+          アラビア語では、このような<strong>「文の曖昧さ（何の点で？）」をピンポイントで解消して説明する名詞</strong>のことを<strong>「タムイーズ」</strong>と呼びます。
+        </p>
+
+        {/* --- 1. タムイーズの基本ルール --- */}
+        <section>
+          <div className="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-r-xl shadow-sm mb-6">
+            <h4 className="font-bold text-[#764C28] mb-3 text-lg">
+              💡 タムイーズの絶対ルール
+            </h4>
+            <p className="text-sm text-[#5E3C1E] leading-relaxed">
+              ハール（状態）の時とよく似ていますが、タムイーズとして使う名詞も<strong>「絶対にアルを付けない（非限定）」「絶対に対格（ア段・タンウィーン）」</strong>という厳しいルールがあります。
+            </p>
+          </div>
+
+          <div className="bg-[#FDFCF8] p-5 rounded-2xl border border-[#E5C9A8] shadow-sm flex flex-col items-center text-center">
+            <h4 className="font-bold text-[#764C28] mb-4 text-center border-b border-[#E5C9A8] pb-2 w-full">
+              基本の形：「年齢」という単語をタムイーズにする
+            </h4>
+            <div className="flex justify-center items-center gap-4 mb-2">
+              <div className="text-center">
+                <p className="text-xs font-bold text-gray-500 mb-1">年齢（主格）</p>
+                <p className="text-3xl font-arabic text-gray-400" dir="rtl">{"\u200Fسِنٌّ\u200F"}</p>
+                <p className="text-[10px] font-bold text-[#5E3C1E] mt-1">スィンヌン</p>
+              </div>
+              <span className="text-amber-500 font-bold">→</span>
+              <div className="text-center bg-amber-50 p-3 rounded-lg border border-amber-200">
+                <p className="text-xs font-bold text-amber-800 mb-1">年齢の点で(対格)</p>
+                <p className="text-4xl font-arabic text-amber-600 drop-shadow-sm" dir="rtl">{"\u200Fسِنًّا\u200F"}</p>
+                <p className="text-xs font-bold text-[#5E3C1E] mt-2">スィン<span className="text-amber-600 text-lg">ナン</span></p>
+              </div>
+            </div>
+            <p className="text-[10px] text-gray-500 mt-2">※必ず「アン」の音になり、多くの場合アリフが足されます。</p>
+          </div>
+        </section>
+
+        {/* --- 2. タムイーズが活躍する3つの場面 --- */}
+        <section>
+          <h3 className="text-xl font-bold text-[#4A3018] mt-12 mb-4 border-b-2 border-[#E5C9A8] pb-2">
+            🚀 タムイーズがよく使われる「3つの場面」
+          </h3>
+          <p className="text-sm text-[#764C28] leading-relaxed mb-6">
+            タムイーズはどんな文にでも登場するわけではなく、<strong>曖昧さが生まれやすい特定のパターン</strong>の後にポンと置かれます。代表的な3つを覚えましょう！
+          </p>
+
+          <div className="space-y-6">
+            
+            {/* パターン1：比較級の後 */}
+            <div className="bg-white border border-[#E5C9A8] p-5 rounded-xl shadow-sm">
+              <h4 className="font-bold text-[#764C28] mb-3 text-md border-b border-[#E5C9A8] pb-2">
+                ① 比較級（〜より大きい、多い）の後
+              </h4>
+              <p className="text-xs text-[#5E3C1E] mb-4">
+                「AはBより〜だ」と言った後、「一体何の点で？」を補足します。日常会話で最もよく使うパターンです！
+              </p>
+              
+              <div className="bg-[#FFFDF9] p-4 rounded-xl border border-amber-200 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div className="text-center md:text-right w-full">
+                  <div className="flex justify-center md:justify-end items-center gap-2 mb-2">
+                    <span className="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-1 rounded">年齢の点で(タムイーズ)</span>
+                    <p className="text-3xl font-arabic text-amber-600 drop-shadow-sm" dir="rtl">{"\u200Fسِنًّا\u200F"}</p>
+                    <span className="text-gray-400 font-bold mx-1">＋</span>
+                    <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">私は彼より大きい</span>
+                    <p className="text-2xl font-arabic text-gray-500" dir="rtl">{"\u200Fأَنَا أَكْبَرُ مِنْهُ\u200F"}</p>
+                  </div>
+                  <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fأَنَا أَكْبَرُ مِنْهُ سِنًّا\u200F"}</p>
+                  <p className="text-xs font-bold text-[#5E3C1E]">アナ アクバル ミンフ <span className="text-amber-600 text-sm">スィンナン</span></p>
+                  <p className="text-[10px] text-gray-500 mt-1">（私は彼より年齢が上です／年上です）</p>
+                </div>
+                <button onClick={() => playTableAudio("\u200Fأَنَا أَكْبَرُ مِنْهُ سِنًّا\u200F")} className="w-10 h-10 min-w-[40px] bg-amber-50 text-amber-600 rounded-full flex items-center justify-center shadow-sm border border-amber-200 hover:bg-amber-100">
+                  <Volume2 size={16} />
+                </button>
+              </div>
+            </div>
+
+            {/* パターン2：数字（11〜99）の後 */}
+            <div className="bg-blue-50 border border-blue-200 p-5 rounded-xl shadow-sm">
+              <h4 className="font-bold text-blue-800 mb-3 text-md border-b border-blue-200 pb-2">
+                ② 数字（11〜99）の後
+              </h4>
+              <p className="text-xs text-blue-900 mb-4">
+                「私は11を見た」と言った時の「11個の【何】を？」を補足します。<strong>11から99までの数字の後ろに来る名詞は、必ずタムイーズ（単数・対格）</strong>になります。
+              </p>
+              
+              <div className="bg-white p-4 rounded-xl border border-blue-200 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div className="text-center md:text-right w-full">
+                  <div className="flex justify-center md:justify-end items-center gap-2 mb-2">
+                    <span className="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-1 rounded">星という点で(タムイーズ)</span>
+                    <p className="text-3xl font-arabic text-blue-600 drop-shadow-sm" dir="rtl">{"\u200Fكَوْكَبًا\u200F"}</p>
+                    <span className="text-gray-400 font-bold mx-1">＋</span>
+                    <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">私は11を見た</span>
+                    <p className="text-2xl font-arabic text-gray-500" dir="rtl">{"\u200Fرَأَيْتُ أَحَدَ عَشَرَ\u200F"}</p>
+                  </div>
+                  <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fرَأَيْتُ أَحَدَ عَشَرَ كَوْكَبًا\u200F"}</p>
+                  <p className="text-xs font-bold text-[#5E3C1E]">ラアイトゥ アハダ アシャラ <span className="text-blue-600 text-sm">カウカバン</span></p>
+                  <p className="text-[10px] text-gray-500 mt-1">（私は11の星を見ました ※コーランの一節）</p>
+                </div>
+                <button onClick={() => playTableAudio("\u200Fرَأَيْتُ أَحَدَ عَشَرَ كَوْكَبًا\u200F")} className="w-10 h-10 min-w-[40px] bg-blue-50 text-blue-600 rounded-full flex items-center justify-center shadow-sm border border-blue-200 hover:bg-blue-100">
+                  <Volume2 size={16} />
+                </button>
+              </div>
+            </div>
+
+            {/* パターン3：増える・満ちる動詞の後 */}
+            <div className="bg-emerald-50 border border-emerald-200 p-5 rounded-xl shadow-sm">
+              <h4 className="font-bold text-emerald-800 mb-3 text-md border-b border-emerald-200 pb-2">
+                ③ 「増える・満ちる」などの動詞の後
+              </h4>
+              <p className="text-xs text-emerald-900 mb-4">
+                「コップが満ちた」「彼が増えた」などの動詞も、「何で満ちたの？」という曖昧さが残るため、タムイーズが活躍します。
+              </p>
+              
+              <div className="bg-white p-4 rounded-xl border border-emerald-200 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div className="text-center md:text-right w-full">
+                  <div className="flex justify-center md:justify-end items-center gap-2 mb-2">
+                    <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-1 rounded">知識の点で(タムイーズ)</span>
+                    <p className="text-3xl font-arabic text-emerald-600 drop-shadow-sm" dir="rtl">{"\u200Fعِلْمًا\u200F"}</p>
+                    <span className="text-gray-400 font-bold mx-1">＋</span>
+                    <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">私は増した</span>
+                    <p className="text-2xl font-arabic text-gray-500" dir="rtl">{"\u200Fاِزْدَدْتُ\u200F"}</p>
+                  </div>
+                  <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fاِزْدَدْتُ عِلْمًا\u200F"}</p>
+                  <p className="text-xs font-bold text-[#5E3C1E]">イズダドゥトゥ <span className="text-emerald-600 text-sm">イルマン</span></p>
+                  <p className="text-[10px] text-gray-500 mt-1">（私は知識が増しました／賢くなりました）</p>
+                </div>
+                <button onClick={() => playTableAudio("\u200Fاِزْدَدْتُ عِلْمًا\u200F")} className="w-10 h-10 min-w-[40px] bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center shadow-sm border border-emerald-200 hover:bg-emerald-100">
+                  <Volume2 size={16} />
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* --- 3. ハールとタムイーズの違い --- */}
+        <section>
+          <div className="bg-stone-50 border border-stone-200 p-5 rounded-xl shadow-sm mt-10">
+            <h4 className="font-bold text-stone-700 mb-3 text-md text-center border-b border-stone-200 pb-2">
+              🤔 ハール（状態）とタムイーズ（限定）はどう違うの？
+            </h4>
+            <p className="text-xs text-stone-600 leading-relaxed text-center mb-4">
+              どちらも「非限定・対格（〜アン）」になるので見た目はそっくりです！違いは<strong>「何を説明しているか」</strong>です。
+            </p>
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="bg-white p-3 rounded-lg border border-stone-200 w-full">
+                <p className="font-bold text-amber-700 text-sm mb-1">ハール（状態）</p>
+                <p className="text-xs text-gray-600"><strong>「人」や「モノ」の様子</strong>を説明します。<br/>例：男が【笑いながら】来た。</p>
+              </div>
+              <div className="bg-white p-3 rounded-lg border border-stone-200 w-full">
+                <p className="font-bold text-blue-700 text-sm mb-1">タムイーズ（限定）</p>
+                <p className="text-xs text-gray-600"><strong>「文の曖昧な部分」</strong>を説明します。<br/>例：彼は私より大きい【年齢の点で】。</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    ),
+
+    imageUrls: [],
     contentVoweled: "",
     sentences: [], 
     vocabList: [],
     questions: [
+      {
+        type: "grammar",
+        text: "\u200Fタムイーズ（限定・明確化）の文法ルールとして正しいものは？\u200F",
+        audio: "",
+        options: [
+          "常に「主格（ウ段）」で「定冠詞（アル）」が付く", 
+          "常に「属格（イ段）」で「定冠詞（アル）」が付く",
+          "常に「対格（ア段）」で「非限定（アルなし）」になる",
+          "前の名詞と性別・格が完全に一致する"
+        ],
+        correctIndex: 2,
+        explanation: "タムイーズはハールと同じように「非限定（アルなし）」かつ「対格（ア段・アン）」になるという絶対ルールがあります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私は彼より【年齢が】上だ」タムイーズとして正しい形は？\n※年齢：スィンヌン（\u200Fسِنٌّ\u200F）\u200F",
+        audio: "\u200Fأَنَا أَكْبَرُ مِنْهُ سِنًّا\u200F",
+        options: [
+          "\u200Fسِنٌّ\u200F", 
+          "\u200Fالسِّنَّ\u200F",
+          "\u200Fسِنًّا\u200F",
+          "\u200Fسِنٍّ\u200F"
+        ],
+        correctIndex: 2,
+        explanation: "比較級の後ろで「何の点で？」を補足するタムイーズなので、対格のスィンナン（\u200Fسِنًّا\u200F）になります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私は彼より【財産が】多い」タムイーズとして正しい形は？\n※財産：マールン（\u200Fمَالٌ\u200F）\u200F",
+        audio: "\u200Fأَنَا أَكْثَرُ مِنْهُ مَالًا\u200F",
+        options: [
+          "\u200Fمَالًا\u200F", 
+          "\u200Fمَالٌ\u200F",
+          "\u200Fالمَالَ\u200F",
+          "\u200Fمَالٍ\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "これも比較級の後ろのタムイーズなので、対格のマーラン（\u200Fمَالًا\u200F）になります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私は11の【星】を見た」タムイーズとして正しい形は？\n※星：カウカブン（\u200Fكَوْكَبٌ\u200F）\u200F",
+        audio: "\u200Fرَأَيْتُ أَحَدَ عَشَرَ كَوْكَبًا\u200F",
+        options: [
+          "\u200Fكَوْكَبٌ\u200F", 
+          "\u200Fكَوْكَبٍ\u200F",
+          "\u200Fكَوْكَبًا\u200F",
+          "\u200Fكَوَاكِبَ\u200F"
+        ],
+        correctIndex: 2,
+        explanation: "11から99までの数字の後ろに来る名詞は、単数・対格のタムイーズになります。カウカバン（\u200Fكَوْكَبًا\u200F）が正解です。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「彼には20人の【兄弟】がいる」タムイーズとして正しい形は？\n※兄弟：アフン（\u200Fأَخٌ\u200F）\u200F",
+        audio: "\u200Fلَهُ عِشْرُونَ أَخًا\u200F",
+        options: [
+          "\u200Fأَخًا\u200F", 
+          "\u200Fأَخٌ\u200F",
+          "\u200Fإِخْوَةٌ\u200F",
+          "\u200Fأَخٍ\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "20（数字）の後ろなので単数・対格のタムイーズになります。アハン（\u200Fأَخًا\u200F）が正解です。（※複数形にはしません）"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私は【知識が】増した」タムイーズとして正しい形は？\n※知識：イルムン（\u200Fعِلْمٌ\u200F）\u200F",
+        audio: "\u200Fاِزْدَدْتُ عِلْمًا\u200F",
+        options: [
+          "\u200Fعِلْمٌ\u200F", 
+          "\u200Fعِلْمًا\u200F",
+          "\u200Fعِلْمٍ\u200F",
+          "\u200Fالعِلْمَ\u200F"
+        ],
+        correctIndex: 1,
+        explanation: "「増す（イズダーダ）」などの動詞の後ろで「何の点で増したか」を説明するため、対格のイルマン（\u200Fعِلْمًا\u200F）になります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「コップが【水で】満ちた」タムイーズとして正しい形は？\n※水：マーウン（\u200Fمَاءٌ\u200F）\u200F",
+        audio: "\u200Fاِمْتَلَأَ الكَأْسُ مَاءً\u200F",
+        options: [
+          "\u200Fمَاءً\u200F", 
+          "\u200Fمَاءًا\u200F",
+          "\u200Fمَاءٌ\u200F",
+          "\u200Fمَاءٍ\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "「満ちる（イムタラア）」の後ろのタムイーズです。マーウンは語尾がハムザなので、対格のアンにする時に後ろにアリフを足さず、そのまま マーアン（\u200Fمَاءً\u200F） と書きます。"
+      },
+      {
+        type: "grammar",
+        text: "\u200Fタムイーズ（限定）とハール（状態）の違いについて、正しい説明はどれ？\u200F",
+        audio: "",
+        options: [
+          "タムイーズは主格、ハールは対格になる", 
+          "タムイーズは文の曖昧さを説明し、ハールは人やモノの様子を説明する",
+          "タムイーズはアルが付き、ハールはアルが付かない",
+          "タムイーズは動詞の前に置き、ハールは動詞の後に置く"
+        ],
+        correctIndex: 1,
+        explanation: "どちらも「非限定・対格」という形は同じですが、タムイーズは「何の点で？」という文の曖昧さを解消し、ハールは「〜しながら」と主語などの状態を説明します。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「カイロはエジプトで最も大きい【都市】だ」タムイーズとして正しい形は？\n※都市：マディーナツン（\u200Fمَدِينَةٌ\u200F）\u200F",
+        audio: "\u200Fالقَاهِرَةُ أَكْبَرُ مُدُنِ مِصْرَ مَدِينَةً\u200F",
+        options: [
+          "\u200Fمَدِينَةٌ\u200F", 
+          "\u200Fمَدِينَةٍ\u200F",
+          "\u200Fمَدِينَةً\u200F",
+          "\u200Fالمَدِينَةَ\u200F"
+        ],
+        correctIndex: 2,
+        explanation: "比較級・最上級（アクバル）の後ろで「何の点で大きいか」を説明するため、対格のマディーナタン（\u200Fمَدِينَةً\u200F）になります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F次のうち、タムイーズが【使われない】場面はどれ？\u200F",
+        audio: "",
+        options: [
+          "「〜より大きい」などの比較級の後", 
+          "11から99までの数字の後",
+          "「増える・満ちる」などの動詞の後",
+          "「〜の上に」などの前置詞の後"
+        ],
+        correctIndex: 3,
+        explanation: "前置詞（アラーなど）の後ろは属格（イ段）になるルールがあり、対格（ア段）を要求するタムイーズが置かれることはありません。"
+  },
       {
         type: "grammar",
         text: "\u200F「彼は私より『経験において』勝っています（経験豊富です）」\n（ヒント：比較級の曖昧さを説明する）\n「\u200Fهُوَ أَكْثَرُ مِنِّي ___\u200F」\u200F",
@@ -19256,21 +19917,370 @@ export const articles: Article[] = [
     id: 146,
     level: "文法",
     category: "絶対目的語",
-    title: "Lesson 46: 絶対目的語",
+    title: "Lesson 46: 絶対目的語（動詞を重ねて強調する）",
     contentPlain: "「彼は死ぬほど笑った（笑いを笑った）」のように、動詞の意味を強調するために、同じ語根の動名詞を重ねる表現です。強調だけでなく、「どんなふうに（種類）」や「何回（回数）」を説明する時にも使われます。常に対格（〜an）になります。",
-    imageUrls: [
-      "/image/grammar/lesson46_1.jpg", 
-      "/image/grammar/lesson46_2.jpg", 
-      "/image/grammar/lesson46_3.jpg", 
-      "/image/grammar/lesson46_4.jpg", 
-      "/image/grammar/lesson46_5.jpg", 
-      "/image/grammar/lesson46_6.jpg", 
-      "/image/grammar/lesson46_7.jpg", 
-    ],
+    
+    contentNode: (
+      <div className="space-y-10 text-[#5E3C1E] mt-6">
+        <p className="leading-relaxed">
+          「彼は激しく叩いた」「彼は死ぬほど笑った」のように、動詞の意味を強調したい時、アラビア語では<strong>「その動詞と同じ語根から作られた動名詞（マスダル）」</strong>を後ろにポンと置くという独特な表現をします。<br />
+          直訳すると「彼は叩くことを叩いた」「彼は笑いを笑った」となります。この強調のために置かれた動名詞を<strong>「絶対目的語（マフウール・ムトラク）」</strong>と呼びます。
+        </p>
+
+        {/* --- 1. 絶対目的語の基本ルール --- */}
+        <section>
+          <div className="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-r-xl shadow-sm mb-6">
+            <h4 className="font-bold text-[#764C28] mb-3 text-lg">
+              💡 基本ルール：動詞 ＋ 動名詞（対格）
+            </h4>
+            <p className="text-sm text-[#5E3C1E] leading-relaxed">
+              作り方はとても簡単です。使っている動詞の<strong>動名詞（〜すること）</strong>を、ハールやタムイーズと同じように<strong>非限定・対格（ア段・アン）</strong>の形にして後ろに置くだけです。
+            </p>
+          </div>
+
+          <div className="bg-[#FDFCF8] p-5 rounded-2xl border border-[#E5C9A8] shadow-sm flex flex-col items-center text-center">
+            <h4 className="font-bold text-[#764C28] mb-4 text-center border-b border-[#E5C9A8] pb-2 w-full">
+              基本の形：「彼はひどく叩いた」
+            </h4>
+            <div className="flex justify-center items-center gap-4 mb-4">
+              <div className="text-center">
+                <p className="text-xs font-bold text-gray-500 mb-1">彼は叩いた(動詞)</p>
+                <p className="text-3xl font-arabic text-gray-400" dir="rtl">{"\u200Fضَرَبَ\u200F"}</p>
+                <p className="text-[10px] font-bold text-[#5E3C1E] mt-1">ダラバ</p>
+              </div>
+              <span className="text-amber-500 font-bold">＋</span>
+              <div className="text-center bg-amber-50 p-3 rounded-lg border border-amber-200">
+                <p className="text-xs font-bold text-amber-800 mb-1">叩くことを(対格)</p>
+                <p className="text-4xl font-arabic text-amber-600 drop-shadow-sm" dir="rtl">{"\u200Fضَرْبًا\u200F"}</p>
+                <p className="text-xs font-bold text-[#5E3C1E] mt-2">ダル<span className="text-amber-600 text-lg">バン</span></p>
+              </div>
+            </div>
+            <div className="bg-white p-3 rounded-lg border border-[#E5C9A8] w-full flex justify-between items-center">
+              <div className="text-center w-full">
+                <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fضَرَبَ الرَّجُلُ ضَرْبًا\u200F"}</p>
+                <p className="text-xs font-bold text-[#5E3C1E]">ダラバ ル・ラジュル <strong>ダルバン</strong></p>
+                <p className="text-[10px] text-gray-500 mt-1">（男は【叩きを】叩いた ＝ 男はひどく叩いた）</p>
+              </div>
+              <button onClick={() => playTableAudio("\u200Fضَرَبَ الرَّجُلُ ضَرْبًا\u200F")} className="w-8 h-8 min-w-[32px] bg-amber-50 text-amber-600 rounded-full flex items-center justify-center shadow-sm border border-amber-200 hover:bg-amber-100">
+                <Volume2 size={14} />
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* --- 2. 絶対目的語の3つの役割 --- */}
+        <section>
+          <h3 className="text-xl font-bold text-[#4A3018] mt-12 mb-4 border-b-2 border-[#E5C9A8] pb-2">
+            🚀 絶対目的語の「3つの役割」
+          </h3>
+          <p className="text-sm text-[#764C28] leading-relaxed mb-6">
+            絶対目的語は、単なる「強調」だけでなく、後ろに形容詞などをくっつけることで<strong>「どんな風に（種類・様子）」</strong>や<strong>「何回（回数）」</strong>を詳しく説明する役割も持ちます。
+          </p>
+
+          <div className="space-y-6">
+            
+            {/* ① 強調 */}
+            <div className="bg-white border border-[#E5C9A8] p-5 rounded-xl shadow-sm">
+              <h4 className="font-bold text-[#764C28] mb-3 text-md border-b border-[#E5C9A8] pb-2">
+                ① 単純な「強調」（動詞＋動名詞）
+              </h4>
+              <p className="text-xs text-[#5E3C1E] mb-4">
+                動名詞をそのまま置くだけのパターンです。「〜を〜した」と繰り返すことで、その動作が確実に行われたこと、または激しく行われたことを強調します。
+              </p>
+              
+              <div className="bg-[#FFFDF9] p-4 rounded-xl border border-amber-200 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div className="text-center md:text-right w-full">
+                  <div className="flex justify-center md:justify-end items-center gap-2 mb-2">
+                    <span className="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-1 rounded">喜びを(絶対目的語)</span>
+                    <p className="text-3xl font-arabic text-amber-600 drop-shadow-sm" dir="rtl">{"\u200Fفَرَحًا\u200F"}</p>
+                    <span className="text-gray-400 font-bold mx-1">＋</span>
+                    <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">私は喜んだ</span>
+                    <p className="text-2xl font-arabic text-gray-500" dir="rtl">{"\u200Fفَرِحْتُ\u200F"}</p>
+                  </div>
+                  <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fفَرِحْتُ فَرَحًا\u200F"}</p>
+                  <p className="text-xs font-bold text-[#5E3C1E]">ファリフトゥ <span className="text-amber-600 text-sm">ファラハン</span></p>
+                  <p className="text-[10px] text-gray-500 mt-1">（私は【喜びを】喜んだ ＝ 私は大いに喜んだ）</p>
+                </div>
+                <button onClick={() => playTableAudio("\u200Fفَرِحْتُ فَرَحًا\u200F")} className="w-10 h-10 min-w-[40px] bg-amber-50 text-amber-600 rounded-full flex items-center justify-center shadow-sm border border-amber-200 hover:bg-amber-100">
+                  <Volume2 size={16} />
+                </button>
+              </div>
+            </div>
+
+            {/* ② 種類の描写 */}
+            <div className="bg-blue-50 border border-blue-200 p-5 rounded-xl shadow-sm">
+              <h4 className="font-bold text-blue-800 mb-3 text-md border-b border-blue-200 pb-2">
+                ② 「どんな風に（種類・様子）」を説明する
+              </h4>
+              <p className="text-xs text-blue-900 mb-4">
+                絶対目的語の後ろに<strong>形容詞</strong>を付け足して、「〜のような〜をした」と状態を詳しく説明します。形容詞なので、前の動名詞と同じ「対格（ア段）」になります。
+              </p>
+              
+              <div className="bg-white p-4 rounded-xl border border-blue-200 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div className="text-center md:text-right w-full">
+                  <div className="flex justify-center md:justify-end items-center gap-2 mb-2">
+                    <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-1 rounded">激しい(形容詞・対格)</span>
+                    <p className="text-2xl font-arabic text-emerald-600" dir="rtl">{"\u200Fشَدِيدًا\u200F"}</p>
+                    <span className="text-gray-400 font-bold mx-1">＋</span>
+                    <span className="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-1 rounded">叩きを(絶対目的語)</span>
+                    <p className="text-3xl font-arabic text-blue-600 drop-shadow-sm" dir="rtl">{"\u200Fضَرْبًا\u200F"}</p>
+                    <span className="text-gray-400 font-bold mx-1">＋</span>
+                    <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">彼は叩いた</span>
+                    <p className="text-2xl font-arabic text-gray-500" dir="rtl">{"\u200Fضَرَبَ\u200F"}</p>
+                  </div>
+                  <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fضَرَبَ ضَرْبًا شَدِيدًا\u200F"}</p>
+                  <p className="text-xs font-bold text-[#5E3C1E]">ダラバ <span className="text-blue-600 text-sm">ダルバン</span> <span className="text-emerald-600 text-sm">シャディーダン</span></p>
+                  <p className="text-[10px] text-gray-500 mt-1">（彼は【激しい叩きを】叩いた ＝ 彼は激しく叩いた）</p>
+                </div>
+                <button onClick={() => playTableAudio("\u200Fضَرَبَ ضَرْبًا شَدِيدًا\u200F")} className="w-10 h-10 min-w-[40px] bg-blue-50 text-blue-600 rounded-full flex items-center justify-center shadow-sm border border-blue-200 hover:bg-blue-100">
+                  <Volume2 size={16} />
+                </button>
+              </div>
+            </div>
+
+            {/* ③ 回数 */}
+            <div className="bg-emerald-50 border border-emerald-200 p-5 rounded-xl shadow-sm">
+              <h4 className="font-bold text-emerald-800 mb-3 text-md border-b border-emerald-200 pb-2">
+                ③ 「何回（回数）」を説明する
+              </h4>
+              <p className="text-xs text-emerald-900 mb-4">
+                「一回」を表す特別な形（語尾にター・マルブータ「{"\u200Fة\u200F"}」が付く）を使うことで、「〜回〜した」という回数を表すことができます。双数や複数形になることもあります。
+              </p>
+              
+              <div className="bg-white p-4 rounded-xl border border-emerald-200 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div className="text-center md:text-right w-full">
+                  <div className="flex justify-center md:justify-end items-center gap-2 mb-2">
+                    <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-1 rounded">2回の叩きを(双数・対格)</span>
+                    <p className="text-3xl font-arabic text-emerald-600 drop-shadow-sm" dir="rtl">{"\u200Fضَرْبَتَيْنِ\u200F"}</p>
+                    <span className="text-gray-400 font-bold mx-1">＋</span>
+                    <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">彼は叩いた</span>
+                    <p className="text-2xl font-arabic text-gray-500" dir="rtl">{"\u200Fضَرَبَ\u200F"}</p>
+                  </div>
+                  <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fضَرَبَ ضَرْبَتَيْنِ\u200F"}</p>
+                  <p className="text-xs font-bold text-[#5E3C1E]">ダラバ <span className="text-emerald-600 text-sm">ダルバタイニ</span></p>
+                  <p className="text-[10px] text-gray-500 mt-1">（彼は【2回の叩きを】叩いた ＝ 彼は2回叩いた）</p>
+                </div>
+                <button onClick={() => playTableAudio("\u200Fضَرَبَ ضَرْبَتَيْنِ\u200F")} className="w-10 h-10 min-w-[40px] bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center shadow-sm border border-emerald-200 hover:bg-emerald-100">
+                  <Volume2 size={16} />
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* --- 3. 動詞の省略（シュクランの正体） --- */}
+        <section>
+          <div className="bg-rose-50 border-l-4 border-rose-500 p-5 rounded-r-xl shadow-sm mt-12 mb-6">
+            <h4 className="font-bold text-rose-800 mb-3 text-lg">
+              🤯 【超重要】「シュクラン」は絶対目的語だった！
+            </h4>
+            <p className="text-sm text-rose-900 leading-relaxed">
+              アラビア語の日常会話で、動名詞の対格（アン）の形だけをポンと言う挨拶がよくあります。<br />
+              実はこれ、<strong>「分かりきっているから、頭の動詞を省略しちゃおう！」</strong>という、動詞が省略された絶対目的語の姿なのです。
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            
+            {/* シュクラン */}
+            <div className="bg-white border border-rose-200 p-4 rounded-xl shadow-sm flex flex-col items-center">
+              <h4 className="font-bold text-rose-700 mb-3 text-sm text-center border-b border-rose-100 pb-2 w-full">
+                ありがとう（シュクラン）
+              </h4>
+              <div className="flex justify-center items-center gap-2 mb-3">
+                <div className="text-center relative">
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[8px] font-bold text-rose-500 bg-rose-100 px-1 rounded whitespace-nowrap">私は感謝する(省略!)</span>
+                  <span className="text-xl font-arabic text-gray-400 line-through decoration-rose-400" dir="rtl">{"\u200Fأَشْكُرُ\u200F"}</span>
+                </div>
+                <span className="text-rose-500 font-bold mx-1">＋</span>
+                <p className="text-3xl font-arabic text-rose-600 drop-shadow-sm" dir="rtl">{"\u200Fشُكْرًا\u200F"}</p>
+              </div>
+              <p className="text-[10px] font-bold text-[#5E3C1E] text-center">（私は感謝を）<span className="text-rose-600 text-sm">シュクラン</span></p>
+              <button onClick={() => playTableAudio("\u200Fشُكْرًا\u200F")} className="mt-3 w-8 h-8 bg-rose-50 text-rose-600 rounded-full flex items-center justify-center shadow-sm border border-rose-200 hover:bg-rose-100">
+                <Volume2 size={14} />
+              </button>
+            </div>
+
+            {/* アファン */}
+            <div className="bg-white border border-rose-200 p-4 rounded-xl shadow-sm flex flex-col items-center">
+              <h4 className="font-bold text-rose-700 mb-3 text-sm text-center border-b border-rose-100 pb-2 w-full">
+                ごめんなさい（アファン）
+              </h4>
+              <div className="flex justify-center items-center gap-2 mb-3">
+                <div className="text-center relative">
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[8px] font-bold text-rose-500 bg-rose-100 px-1 rounded whitespace-nowrap">私は許しを乞う(省略!)</span>
+                  <span className="text-xl font-arabic text-gray-400 line-through decoration-rose-400" dir="rtl">{"\u200Fأَعْفُو\u200F"}</span>
+                </div>
+                <span className="text-rose-500 font-bold mx-1">＋</span>
+                <p className="text-3xl font-arabic text-rose-600 drop-shadow-sm" dir="rtl">{"\u200Fعَفْوًا\u200F"}</p>
+              </div>
+              <p className="text-[10px] font-bold text-[#5E3C1E] text-center">（私は許しを）<span className="text-rose-600 text-sm">アファン</span></p>
+              <button onClick={() => playTableAudio("\u200Fعَفْوًا\u200F")} className="mt-3 w-8 h-8 bg-rose-50 text-rose-600 rounded-full flex items-center justify-center shadow-sm border border-rose-200 hover:bg-rose-100">
+                <Volume2 size={14} />
+              </button>
+            </div>
+
+            {/* アフラン */}
+            <div className="bg-white border border-rose-200 p-4 rounded-xl shadow-sm flex flex-col items-center">
+              <h4 className="font-bold text-rose-700 mb-3 text-sm text-center border-b border-rose-100 pb-2 w-full">
+                ようこそ（アフラン）
+              </h4>
+              <div className="flex justify-center items-center gap-2 mb-3">
+                <div className="text-center relative">
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[8px] font-bold text-rose-500 bg-rose-100 px-1 rounded whitespace-nowrap">あなたは訪れた(省略!)</span>
+                  <span className="text-xl font-arabic text-gray-400 line-through decoration-rose-400" dir="rtl">{"\u200Fحَلَلْتَ\u200F"}</span>
+                </div>
+                <span className="text-rose-500 font-bold mx-1">＋</span>
+                <p className="text-3xl font-arabic text-rose-600 drop-shadow-sm" dir="rtl">{"\u200Fأَهْلًا\u200F"}</p>
+              </div>
+              <p className="text-[10px] font-bold text-[#5E3C1E] text-center">（あなたは家族を）<span className="text-rose-600 text-sm">アフラン</span></p>
+              <button onClick={() => playTableAudio("\u200Fأَهْلًا\u200F")} className="mt-3 w-8 h-8 bg-rose-50 text-rose-600 rounded-full flex items-center justify-center shadow-sm border border-rose-200 hover:bg-rose-100">
+                <Volume2 size={14} />
+              </button>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    ),
+
+    imageUrls: [],
     contentVoweled: "",
     sentences: [], 
     vocabList: [],
     questions: [
+      {
+        type: "grammar",
+        text: "\u200F絶対目的語（マフウール・ムトラク）の基本ルールとして正しいものはどれ？\u200F",
+        audio: "",
+        options: [
+          "使っている動詞と違う意味の単語を主格（ウ段）で置く", 
+          "使っている動詞と同じ語根の動名詞を対格（ア段）で置く",
+          "使っている動詞の現在形を属格（イ段）で置く",
+          "使っている動詞の命令形を無音（スクーン）で置く"
+        ],
+        correctIndex: 1,
+        explanation: "「叩くことを叩いた」のように、同じ語根の動名詞を対格（ア段・アン）の形で後ろに置くのが基本ルールです。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「彼は大いに喜んだ」絶対目的語として正しい形は？\n彼は喜んだ（ファリハ：\u200Fفَرِحَ\u200F）、喜び（ファラフン：\u200Fفَرَحٌ\u200F）\u200F",
+        audio: "\u200Fفَرِحَ فَرَحًا\u200F",
+        options: [
+          "\u200Fفَرِحَ فَرَحٌ\u200F", 
+          "\u200Fفَرِحَ فَرَحٍ\u200F",
+          "\u200Fفَرِحَ فَرَحًا\u200F",
+          "\u200Fفَرِحَ الفَرَحَ\u200F"
+        ],
+        correctIndex: 2,
+        explanation: "非限定（アルなし）かつ対格（ア段）にするため、ファラハン（\u200Fفَرَحًا\u200F）が正解です。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私はぐっすり（美しい眠りを）寝た」正しい形は？\n寝た（ニムトゥ：\u200Fنِمْتُ\u200F）、眠り（ナウムン：\u200Fنَوْمٌ\u200F）、美しい（ジャミールン：\u200Fجَمِيلٌ\u200F）\u200F",
+        audio: "\u200Fنِمْتُ نَوْمًا جَمِيلًا\u200F",
+        options: [
+          "\u200Fنِمْتُ نَوْمًا جَمِيلٌ\u200F", 
+          "\u200Fنِمْتُ نَوْمٌ جَمِيلًا\u200F",
+          "\u200Fنِمْتُ نَوْمًا جَمِيلًا\u200F",
+          "\u200Fنِمْتُ النَّوْمَ جَمِيلًا\u200F"
+        ],
+        correctIndex: 2,
+        explanation: "絶対目的語（ナウマン）が対格なので、それを修飾する形容詞（美しい）も対格（ジャミーラン）になります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「彼は2回叩いた」絶対目的語で回数を表す正しい形は？\n彼が叩いた（ダラバ：\u200Fضَرَبَ\u200F）、1回の叩き（ダルバツン：\u200Fضَرْبَةٌ\u200F）\u200F",
+        audio: "\u200Fضَرَبَ ضَرْبَتَيْنِ\u200F",
+        options: [
+          "\u200Fضَرَبَ ضَرْبَةً\u200F", 
+          "\u200Fضَرَبَ ضَرْبَتَانِ\u200F",
+          "\u200Fضَرَبَ ضَرْبَتَيْنِ\u200F",
+          "\u200Fضَرَبَ ضَرَبَاتٍ\u200F"
+        ],
+        correctIndex: 2,
+        explanation: "2回を表す双数の対格は、アニ（\u200Fـَانِ\u200F）ではなくアイニ（\u200Fـَيْنِ\u200F）になるため、ダルバタイニが正解です。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「ありがとう（シュクラン）」という言葉の正体について、正しい説明はどれ？\u200F",
+        audio: "",
+        options: [
+          "シュクランという独立した動詞である", 
+          "「私は感謝する」という動詞が省略された、絶対目的語である",
+          "「感謝」という主語が対格に変化したものである",
+          "ハール（状態）として「感謝しながら」という意味である"
+        ],
+        correctIndex: 1,
+        explanation: "シュクランは元々「私は感謝を感謝する（アシュクル・シュクラン）」という文の、動詞部分が省略されて残った絶対目的語です。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「ごめんなさい（アファン）」という言葉の正体は？\u200F",
+        audio: "",
+        options: [
+          "「私は許しを乞う」という動詞が省略された絶対目的語", 
+          "「私は忘れた」という動詞が省略された絶対目的語",
+          "「許し」という単語の複数形",
+          "「私は謝る」という動詞の現在形"
+        ],
+        correctIndex: 0,
+        explanation: "「私は許しを乞う（アアフー）」という動詞が省略され、動名詞の対格「アファン」だけが残った形です。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「彼は【ひどく】怒った」絶対目的語として正しい形は？\n彼は怒った（ガディバ：\u200Fغَضِبَ\u200F）、怒り（ガダブン：\u200Fغَضَبٌ\u200F）、ひどい（シャディードゥン：\u200Fشَدِيدٌ\u200F）\u200F",
+        audio: "\u200Fغَضِبَ غَضَبًا شَدِيدًا\u200F",
+        options: [
+          "\u200Fغَضِبَ شَدِيدًا\u200F", 
+          "\u200Fغَضِبَ غَضَبًا شَدِيدًا\u200F",
+          "\u200Fغَضِبَ غَضَبٌ شَدِيدٌ\u200F",
+          "\u200Fغَضِبَ الغَضَبَ الشَّدِيدَ\u200F"
+        ],
+        correctIndex: 1,
+        explanation: "動詞と同じ語根の動名詞（ガダバン）を置き、その後ろに形容詞（シャディーダン）を対格で繋げます。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「本当にありがとう！」正しい形はどれ？\nありがとう（シュクラン：\u200Fشُكْرًا\u200F）、多い（ジャズィールン：\u200Fجَزِيلٌ\u200F）\u200F",
+        audio: "\u200Fشُكْرًا جَزِيلًا\u200F",
+        options: [
+          "\u200Fشُكْرًا جَزِيلًا\u200F", 
+          "\u200Fشُكْرًا جَزِيلٌ\u200F",
+          "\u200Fشُكْرٌ جَزِيلًا\u200F",
+          "\u200Fالشُّكْرَ جَزِيلًا\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "シュクラン（絶対目的語・対格）を修飾する形容詞なので、同じく対格のジャズィーラン（\u200Fجَزِيلًا\u200F）を付けます。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F絶対目的語（マフウール・ムトラク）が持っている3つの役割として、正しくないものはどれ？\u200F",
+        audio: "",
+        options: [
+          "動詞の意味を強調する", 
+          "動作の「種類（どんな風に）」を説明する",
+          "動作の「回数（何回）」を説明する",
+          "動作が起きた「場所（どこで）」を説明する"
+        ],
+        correctIndex: 3,
+        explanation: "場所や時間を説明するのは「状況語（マフウール・フィーヒ）」と呼ばれる別の文法です。絶対目的語は「強調・種類・回数」の3つを表します。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私は【確実な理解で】それを理解した」正しい形はどれ？\n理解した（ファヒムトゥ：\u200Fفَهِمْتُ\u200F）、理解（ファフムン：\u200Fفَهْمٌ\u200F）、確実な（アキードゥン：\u200Fأَكِيدٌ\u200F）\u200F",
+        audio: "\u200Fفَهِمْتُهُ فَهْمًا أَكِيدًا\u200F",
+        options: [
+          "\u200Fفَهِمْتُهُ فَهْمٌ أَكِيدٌ\u200F", 
+          "\u200Fفَهِمْتُهُ فَهْمًا أَكِيدٌ\u200F",
+          "\u200Fفَهِمْتُهُ فَهْمًا أَكِيدًا\u200F",
+          "\u200Fفَهِمْتُهُ أَكِيدًا\u200F"
+        ],
+        correctIndex: 2,
+        explanation: "動詞と同じ語根の動名詞（ファフマン）と形容詞（アキーダン）を共に対格で置きます。"
+  },
       {
         type: "grammar",
         text: "\u200F「私はそのレッスンを完全に（強調）理解しました」\n（ヒント：動名詞を対格で重ねる）\n「\u200Fفَهِمْتُ الدَّرْسَ ___\u200F」\u200F",
@@ -19381,24 +20391,366 @@ export const articles: Article[] = [
     id: 147,
     level: "文法",
     category: "接続詞",
-    title: "Lesson 47: 接続詞",
+    title: "Lesson 47: 接続詞（ワ・ファ・スンマ などの使い分け）",
     contentPlain: "単語と単語、文と文をつなぐ「接続詞」のまとめです。「そして」だけでも、同時を表す「ワ」、順番を表す「ファ」、時間差を表す「スンマ」など、アラビア語は状況に応じて細かく使い分けます。",
-    imageUrls: [
-      "/image/grammar/lesson47_1.jpg", 
-      "/image/grammar/lesson47_2.jpg", 
-      "/image/grammar/lesson47_3.jpg", 
-      "/image/grammar/lesson47_4.jpg", 
-      "/image/grammar/lesson47_5.jpg", 
-      "/image/grammar/lesson47_6.jpg", 
-      "/image/grammar/lesson47_7.jpg", 
-      "/image/grammar/lesson47_8.jpg", 
-      "/image/grammar/lesson47_9.jpg", 
-      "/image/grammar/lesson47_10.jpg", 
-    ],
+    
+    contentNode: (
+      <div className="space-y-10 text-[#5E3C1E] mt-6">
+        <p className="leading-relaxed">
+          単語と単語、あるいは文と文をつなぐ接着剤を<strong>接続詞（ハルフ・アトフ）</strong>と呼びます。<br />
+          アラビア語の接続詞の最大の特徴は、<strong>「時間のつながり（同時か、直後か、後でか）」や「文脈（肯定か、否定か）」によって、使う単語を細かく使い分ける</strong>点にあります。代表的な8つの接続詞をマスターしましょう！
+        </p>
+
+        {/* --- 1. 3つの「そして」 --- */}
+        <section>
+          <div className="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-r-xl shadow-sm mb-6">
+            <h4 className="font-bold text-[#764C28] mb-3 text-lg">
+              ⏱️ ① 3種類の「そして」（ワ・ファ・スンマ）
+            </h4>
+            <p className="text-sm text-[#5E3C1E] leading-relaxed">
+              英語の「and」にあたる言葉ですが、アラビア語では<strong>「出来事の時間の開き」</strong>によって3つを使い分けます。
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* ワ */}
+            <div className="bg-[#FDFCF8] p-4 rounded-xl border border-[#E5C9A8] text-center shadow-sm flex flex-col items-center">
+              <h4 className="font-bold text-[#A67144] mb-2 text-sm border-b border-[#E5C9A8] pb-2 w-full">
+                同時・単なる並列
+              </h4>
+              <p className="text-4xl font-arabic text-[#8A5A33] mb-1 drop-shadow-sm" dir="rtl">{"\u200Fوَ\u200F"}</p>
+              <p className="font-bold text-sm text-[#5E3C1E] mb-3">ワ</p>
+              <p className="text-xs text-gray-600 bg-white p-2 rounded border border-[#E5C9A8] w-full text-left">
+                「AとB」のように単に並べるだけ。順番や時間差は気にしません。<br />
+                例：ペンと本（カラムン <strong>ワ</strong> キターブン）
+              </p>
+            </div>
+
+            {/* ファ */}
+            <div className="bg-[#FDFCF8] p-4 rounded-xl border border-[#E5C9A8] text-center shadow-sm flex flex-col items-center">
+              <h4 className="font-bold text-amber-600 mb-2 text-sm border-b border-[#E5C9A8] pb-2 w-full">
+                直後・結果（〜して、それから）
+              </h4>
+              <p className="text-4xl font-arabic text-amber-600 mb-1 drop-shadow-sm" dir="rtl">{"\u200Fفَـ\u200F"}</p>
+              <p className="font-bold text-sm text-[#5E3C1E] mb-3">ファ</p>
+              <p className="text-xs text-gray-600 bg-white p-2 rounded border border-[#E5C9A8] w-full text-left">
+                Aが起きた<strong>「すぐ直後に」</strong>Bが起きた時や、「AだからB」という結果を表します。<br />
+                例：彼が入り、(すぐ)座った（ダハラ <strong>ファ</strong>・ジャラサ）
+              </p>
+            </div>
+
+            {/* スンマ */}
+            <div className="bg-[#FDFCF8] p-4 rounded-xl border border-[#E5C9A8] text-center shadow-sm flex flex-col items-center">
+              <h4 className="font-bold text-amber-800 mb-2 text-sm border-b border-[#E5C9A8] pb-2 w-full">
+                時間差（〜して、その後で）
+              </h4>
+              <p className="text-4xl font-arabic text-amber-700 mb-1 drop-shadow-sm" dir="rtl">{"\u200Fثُمَّ\u200F"}</p>
+              <p className="font-bold text-sm text-[#5E3C1E] mb-3">スンマ</p>
+              <p className="text-xs text-gray-600 bg-white p-2 rounded border border-[#E5C9A8] w-full text-left">
+                Aが起きた後、<strong>「しばらく時間が経ってから」</strong>Bが起きた時に使います。<br />
+                例：食べて、(後で)寝た（アカラ <strong>スンマ</strong> ナーマ）
+              </p>
+            </div>
+          </div>
+          
+          <div className="bg-amber-50 p-3 rounded-lg border border-amber-200 mt-4 text-center">
+            <p className="text-xs text-amber-800 font-bold">
+              ※「ワ」と「ファ」は1文字なので、次の単語に直接くっつけて書きます。（例：{"\u200Fوَأَنَا\u200F"}）
+            </p>
+          </div>
+        </section>
+
+        {/* --- 2. 2つの「または」 --- */}
+        <section>
+          <div className="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-xl shadow-sm mt-12 mb-6">
+            <h4 className="font-bold text-blue-800 mb-3 text-lg">
+              ⚖️ ② 2種類の「または（or）」（アウ・アム）
+            </h4>
+            <p className="text-sm text-blue-900 leading-relaxed">
+              英語の「or」にあたる言葉ですが、<strong>「普通の文」で使うか、「疑問文」で使うか</strong>で明確に単語が分かれます。
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            {/* アウ */}
+            <div className="bg-white border border-blue-200 p-5 rounded-xl shadow-sm flex flex-col items-center">
+              <h4 className="font-bold text-blue-700 mb-3 text-md border-b border-blue-100 pb-2 w-full text-center">
+                普通の文での「または」：アウ
+              </h4>
+              <p className="text-3xl font-arabic text-blue-600 drop-shadow-sm mb-1" dir="rtl">{"\u200Fأَوْ\u200F"}</p>
+              <p className="font-bold text-sm text-[#5E3C1E] mb-4">アウ</p>
+              
+              <div className="bg-blue-50 p-3 rounded-lg border border-blue-100 w-full text-center">
+                <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fأُرِيدُ شَايًا أَوْ قَهْوَةً\u200F"}</p>
+                <p className="text-xs font-bold text-[#5E3C1E]">ウリードゥ シャーヤン <span className="text-blue-600 text-sm">アウ</span> カフワタン</p>
+                <p className="text-[10px] text-gray-500 mt-1">（お茶【か】コーヒーが欲しいです）</p>
+              </div>
+              <p className="text-[10px] text-blue-700 mt-2 text-center w-full">※平叙文（普通の文）で「AかBか」と並べる時に使います。</p>
+            </div>
+
+            {/* アム */}
+            <div className="bg-white border border-blue-200 p-5 rounded-xl shadow-sm flex flex-col items-center">
+              <h4 className="font-bold text-blue-700 mb-3 text-md border-b border-blue-100 pb-2 w-full text-center">
+                疑問文での「または」：アム
+              </h4>
+              <p className="text-3xl font-arabic text-blue-600 drop-shadow-sm mb-1" dir="rtl">{"\u200Fأَمْ\u200F"}</p>
+              <p className="font-bold text-sm text-[#5E3C1E] mb-4">アム</p>
+              
+              <div className="bg-blue-50 p-3 rounded-lg border border-blue-100 w-full text-center">
+                <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fهَلْ تُرِيدُ شَايًا أَمْ قَهْوَةً؟\u200F"}</p>
+                <p className="text-xs font-bold text-[#5E3C1E]">ハル トゥリードゥ シャーヤン <span className="text-blue-600 text-sm">アム</span> カフワタン？</p>
+                <p className="text-[10px] text-gray-500 mt-1">（お茶【と】コーヒー、どちらが欲しいですか？）</p>
+              </div>
+              <p className="text-[10px] text-blue-700 mt-2 text-center w-full">※疑問文で「Aですか、それともBですか？」と二者択一を迫る時に使います。</p>
+            </div>
+
+          </div>
+        </section>
+
+        {/* --- 3. 訂正・対比の接続詞 --- */}
+        <section>
+          <div className="bg-rose-50 border-l-4 border-rose-500 p-5 rounded-r-xl shadow-sm mt-12 mb-6">
+            <h4 className="font-bold text-rose-800 mb-3 text-lg">
+              🔄 ③ 対比・訂正の接続詞（ラー・ラキン・バル）
+            </h4>
+            <p className="text-sm text-rose-900 leading-relaxed">
+              「AではなくBだ」や「Aではなく、むしろBだ」のように、前の言葉を否定したり訂正したりする、少し高度な接続詞です。
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4">
+            
+            {/* ラー */}
+            <div className="bg-white p-4 rounded-xl border border-rose-200 shadow-sm flex flex-col md:flex-row items-center gap-4">
+              <div className="md:w-1/4 text-center">
+                <p className="text-3xl font-arabic text-rose-600 drop-shadow-sm" dir="rtl">{"\u200Fلَا\u200F"}</p>
+                <p className="text-sm font-bold text-[#5E3C1E] mt-1">ラー（〜ではなく）</p>
+              </div>
+              <div className="md:w-3/4 border-l border-rose-100 pl-4">
+                <p className="text-xs text-rose-700 font-bold mb-2">肯定文 ＋ ラー ＋ 否定したい物</p>
+                <div className="bg-rose-50 p-2 rounded flex justify-between items-center">
+                  <div className="text-center w-full">
+                    <p className="text-2xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fأُرِيدُ قَهْوَةً لَا شَايًا\u200F"}</p>
+                    <p className="text-[10px] font-bold text-[#5E3C1E]">ウリードゥ カフワタン <span className="text-rose-600 text-sm">ラー</span> シャーヤン</p>
+                    <p className="text-[10px] text-gray-500 mt-1">（私はコーヒーが欲しい、お茶【ではなく】）</p>
+                  </div>
+                  <button onClick={() => playTableAudio("\u200Fأُرِيدُ قَهْوَةً لَا شَايًا\u200F")} className="w-8 h-8 bg-white text-rose-600 rounded-full flex items-center justify-center hover:bg-rose-100 border border-rose-200">
+                    <Volume2 size={14} />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* ラキン */}
+            <div className="bg-white p-4 rounded-xl border border-rose-200 shadow-sm flex flex-col md:flex-row items-center gap-4">
+              <div className="md:w-1/4 text-center">
+                <p className="text-3xl font-arabic text-rose-600 drop-shadow-sm" dir="rtl">{"\u200Fلَكِنْ\u200F"}</p>
+                <p className="text-sm font-bold text-[#5E3C1E] mt-1">ラキン（しかし・〜ではなく）</p>
+              </div>
+              <div className="md:w-3/4 border-l border-rose-100 pl-4">
+                <p className="text-xs text-rose-700 font-bold mb-2">否定文 ＋ ラキン ＋ 肯定したい物</p>
+                <div className="bg-rose-50 p-2 rounded flex justify-between items-center">
+                  <div className="text-center w-full">
+                    <p className="text-2xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fمَا شَرِبْتُ شَايًا لَكِنْ قَهْوَةً\u200F"}</p>
+                    <p className="text-[10px] font-bold text-[#5E3C1E]">マー シャリブトゥ シャーヤン <span className="text-rose-600 text-sm">ラキン</span> カフワタン</p>
+                    <p className="text-[10px] text-gray-500 mt-1">（私はお茶を飲んでいない、【しかし】コーヒーを飲んだ）</p>
+                  </div>
+                  <button onClick={() => playTableAudio("\u200Fمَا شَرِبْتُ شَايًا لَكِنْ قَهْوَةً\u200F")} className="w-8 h-8 bg-white text-rose-600 rounded-full flex items-center justify-center hover:bg-rose-100 border border-rose-200">
+                    <Volume2 size={14} />
+                  </button>
+                </div>
+                <p className="text-[10px] text-gray-500 mt-1">※「ラー」とは逆に、先に否定形を持ってきて後から訂正します。</p>
+              </div>
+            </div>
+
+            {/* バル */}
+            <div className="bg-white p-4 rounded-xl border border-rose-200 shadow-sm flex flex-col md:flex-row items-center gap-4">
+              <div className="md:w-1/4 text-center">
+                <p className="text-3xl font-arabic text-rose-600 drop-shadow-sm" dir="rtl">{"\u200Fبَلْ\u200F"}</p>
+                <p className="text-sm font-bold text-[#5E3C1E] mt-1">バル（いや・むしろ）</p>
+              </div>
+              <div className="md:w-3/4 border-l border-rose-100 pl-4">
+                <p className="text-xs text-rose-700 font-bold mb-2">前の文脈をキャンセル ＋ むしろ〜だ</p>
+                <div className="bg-rose-50 p-2 rounded flex justify-between items-center">
+                  <div className="text-center w-full">
+                    <p className="text-2xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fجَاءَ الرَّجُلُ بَلِ الوَلَدُ\u200F"}</p>
+                    <p className="text-[10px] font-bold text-[#5E3C1E]">ジャーア ル・ラジュル <span className="text-rose-600 text-sm">バリ</span> ル・ワラドゥ</p>
+                    <p className="text-[10px] text-gray-500 mt-1">（男が来た、【いや、むしろ】少年が来た）</p>
+                  </div>
+                  <button onClick={() => playTableAudio("\u200Fجَاءَ الرَّجُلُ بَلِ الوَلَدُ\u200F")} className="w-8 h-8 bg-white text-rose-600 rounded-full flex items-center justify-center hover:bg-rose-100 border border-rose-200">
+                    <Volume2 size={14} />
+                  </button>
+                </div>
+                <p className="text-[10px] text-gray-500 mt-1">※自分の発言を訂正したり、相手の思い込みを「いや、そうじゃなくて」と打ち消す時に使います。（※後ろが定冠詞アルの場合、バルは「バリ」と読みます）</p>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* --- 4. 格のコピー（絶対ルール） --- */}
+        <section>
+          <div className="bg-emerald-50 border border-emerald-200 p-5 rounded-xl shadow-sm mt-10 text-center">
+            <h4 className="font-bold text-emerald-800 mb-2 text-md">
+              👑 接続詞の絶対ルール：格（母音）をコピーする！
+            </h4>
+            <p className="text-xs text-emerald-900 leading-relaxed">
+              接続詞の後ろに来る単語は、<strong>接続詞の前にあった単語の「格（ウ・ア・イ）」をそのままコピー</strong>します。
+            </p>
+            <div className="flex justify-center items-center gap-4 mt-4">
+              <div className="text-center bg-white p-2 rounded border border-emerald-100">
+                <p className="text-xl font-arabic text-emerald-700" dir="rtl">{"\u200Fكِتَابًا\u200F"}</p>
+                <p className="text-[10px] font-bold text-emerald-800">キター<span className="text-rose-500 text-sm">バン</span></p>
+              </div>
+              <span className="text-emerald-600 font-bold">وَ</span>
+              <div className="text-center bg-white p-2 rounded border border-emerald-100">
+                <p className="text-xl font-arabic text-emerald-700" dir="rtl">{"\u200Fقَلَمًا\u200F"}</p>
+                <p className="text-[10px] font-bold text-emerald-800">カラ<span className="text-rose-500 text-sm">マン</span></p>
+              </div>
+            </div>
+            <p className="text-[10px] text-gray-500 mt-2">（前が対格の「アン」なら、後ろも対格の「アン」になります）</p>
+          </div>
+        </section>
+
+      </div>
+    ),
+
+    imageUrls: [],
     contentVoweled: "",
     sentences: [], 
     vocabList: [],
     questions: [
+      {
+        type: "grammar",
+        text: "\u200F「彼が入ってきて、【すぐに】座った」正しい接続詞はどれ？\u200F",
+        audio: "",
+        options: [
+          "\u200Fوَ\u200F", 
+          "\u200Fفَـ\u200F",
+          "\u200Fثُمَّ\u200F",
+          "\u200Fأَوْ\u200F"
+        ],
+        correctIndex: 1,
+        explanation: "「ファ（\u200Fفَـ\u200F）」は、直後や結果（〜して、すぐに〜した）を表す接続詞です。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「彼はご飯を食べて、【しばらくして後で】寝た」正しい接続詞はどれ？\u200F",
+        audio: "",
+        options: [
+          "\u200Fوَ\u200F", 
+          "\u200Fفَـ\u200F",
+          "\u200Fثُمَّ\u200F",
+          "\u200Fبَلْ\u200F"
+        ],
+        correctIndex: 2,
+        explanation: "「スンマ（\u200Fثُمَّ\u200F）」は、時間差（〜して、その後で〜した）を表す接続詞です。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私は紅茶【か】コーヒーが欲しい」普通の文で使う「または」はどれ？\u200F",
+        audio: "",
+        options: [
+          "\u200Fأَمْ\u200F", 
+          "\u200Fلَكِنْ\u200F",
+          "\u200Fلَا\u200F",
+          "\u200Fأَوْ\u200F"
+        ],
+        correctIndex: 3,
+        explanation: "普通の文（平叙文）で「AまたはB」と言う時は「アウ（\u200Fأَوْ\u200F）」を使います。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「あなたは紅茶【と】コーヒー、どちらが欲しいですか？」疑問文で使う「または」はどれ？\u200F",
+        audio: "",
+        options: [
+          "\u200Fأَمْ\u200F", 
+          "\u200Fأَوْ\u200F",
+          "\u200Fثُمَّ\u200F",
+          "\u200Fبَلْ\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "疑問文で「Aですか、それともBですか？」と二者択一で聞く時は「アム（\u200Fأَمْ\u200F）」を使います。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私は紅茶が欲しい、コーヒー【ではなく】」肯定文の後に否定を付け足す接続詞はどれ？\u200F",
+        audio: "",
+        options: [
+          "\u200Fلَكِنْ\u200F", 
+          "\u200Fلَا\u200F",
+          "\u200Fبَلْ\u200F",
+          "\u200Fفَـ\u200F"
+        ],
+        correctIndex: 1,
+        explanation: "肯定文の後に「ラー（\u200Fلَا\u200F）」を置くことで、「Aが欲しい、Bではなく」という表現になります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私は紅茶を飲んでいない、【しかし】コーヒーを飲んだ」否定文の後に肯定を付け足す接続詞はどれ？\u200F",
+        audio: "",
+        options: [
+          "\u200Fلَا\u200F", 
+          "\u200Fوَ\u200F",
+          "\u200Fأَوْ\u200F",
+          "\u200Fلَكِنْ\u200F"
+        ],
+        correctIndex: 3,
+        explanation: "否定文（〜していない）の後ろに「ラキン（\u200Fلَكِنْ\u200F）」を置き、「しかし〜した」と対比させます。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「男が来た。【いや、むしろ】少年が来た」訂正を表す接続詞はどれ？\u200F",
+        audio: "",
+        options: [
+          "\u200Fبَلْ\u200F", 
+          "\u200Fثُمَّ\u200F",
+          "\u200Fلَا\u200F",
+          "\u200Fأَمْ\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "「バル（\u200Fبَلْ\u200F）」は、前の発言をキャンセルして「いや、むしろ〜だ」と訂正する時に使います。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F接続詞（ハルフ・アトフ）に関するルールで、正しいものはどれ？\u200F",
+        audio: "",
+        options: [
+          "接続詞の後ろの単語は、常に主格（ウ段）になる", 
+          "接続詞の後ろの単語は、常に属格（イ段）になる",
+          "接続詞の後ろの単語は、接続詞の前の単語と同じ格（母音）になる",
+          "接続詞の後ろの単語は、アル（定冠詞）を付けてはいけない"
+        ],
+        correctIndex: 2,
+        explanation: "接続詞で繋がれた単語は、前の単語の格（主格なら主格、対格なら対格）をそのままコピーします。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私は本とペンを買った（イシュタライトゥ キターバン ___ カラマン）」空欄に入る接続詞はどれ？\u200F",
+        audio: "",
+        options: [
+          "\u200Fوَ\u200F", 
+          "\u200Fأَمْ\u200F",
+          "\u200Fبَلْ\u200F",
+          "\u200Fلَكِنْ\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "単なる並列の「〜と」なので「ワ（\u200Fوَ\u200F）」が入ります。キターバン（対格）の後ろなので、カラマン（対格）になっています。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「彼は車【か】自転車を買うでしょう（サ・ヤシュタリー サイヤーラタン ___ ダッラージャタン）」空欄に入る接続詞はどれ？\u200F",
+        audio: "",
+        options: [
+          "\u200Fأَمْ\u200F", 
+          "\u200Fلَا\u200F",
+          "\u200Fأَوْ\u200F",
+          "\u200Fثُمَّ\u200F"
+        ],
+        correctIndex: 2,
+        explanation: "普通の文（疑問文ではない）での選択「AまたはB」なので、「アウ（\u200Fأَوْ\u200F）」が正解です。"
+  },
       {
         type: "grammar",
         text: "\u200F「イマーム（導師）が礼拝の動作に入り、『それからすぐに』信徒たちも続きました」\n（ヒント：間髪入れずに続く「そして」）\n「\u200Fكَبَّرَ الْإِمَامُ ___ الْمَأْمُومُونَ\u200F」\u200F",
@@ -19470,19 +20822,215 @@ export const articles: Article[] = [
     id: 148,
     level: "文法",
     category: "バダル（同格）",
-    title: "Lesson 48: バダル（同格）",
-    contentPlain: "",
-    imageUrls: [
-      "/image/grammar/lesson48_1.jpg", 
-      "/image/grammar/lesson48_2.jpg", 
-      "/image/grammar/lesson48_3.jpg", 
-      "/image/grammar/lesson48_4.jpg", 
-      "/image/grammar/lesson48_5.jpg", 
-      "/image/grammar/lesson48_6.jpg", 
-      "/image/grammar/lesson48_7.jpg", 
-      "/image/grammar/lesson48_8.jpg", 
-      "/image/grammar/lesson48_9.jpg", 
-    ],
+    title: "Lesson 48: バダル（同格・言い換え）",
+    contentPlain: "「私の友人、アフマド」のように、前の名詞を別の言葉で言い換える文法です。全体を言い換えるもの、一部を取り出すもの、性質を指すものの3種類があり、いずれも前の名詞の「格（ウ・ア・イ）」を完全にコピーします。",
+    
+    contentNode: (
+      <div className="space-y-10 text-[#5E3C1E] mt-6">
+        <p className="leading-relaxed">
+          「私の友人、<strong>アフマド</strong>が来た」「私はパンを食べた、<strong>その半分を</strong>」のように、前に置いた名詞を別の言葉で言い換えたり、特定の要素を取り出して説明したりする文法を<strong>「バダル（同格・代替）」</strong>と呼びます。<br />
+          バダルは、<strong>前に置かれた名詞の「格（ウ・ア・イ）」を完全にコピーする</strong>という絶対的なルールを持ち、大きく3つの種類に分けられます。
+        </p>
+
+        {/* --- 1. 全体のバダル --- */}
+        <section>
+          <div className="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-r-xl shadow-sm mb-6">
+            <h4 className="font-bold text-[#764C28] mb-3 text-lg">
+              👑 ① 全体のバダル（バダル・クッル・ミン・クッル）
+            </h4>
+            <p className="text-sm text-[#5E3C1E] leading-relaxed">
+              前の名詞とバダルが<strong>「全く同じもの（イコール）」</strong>であるパターンです。肩書きの後に名前を出したり、「この〜」と指示代名詞で指し示したりする時によく使われます。
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            {/* 肩書き＋名前 */}
+            <div className="bg-[#FDFCF8] border border-[#E5C9A8] p-5 rounded-xl shadow-sm flex flex-col items-center">
+              <h4 className="font-bold text-[#764C28] mb-3 text-md text-center border-b border-[#E5C9A8] pb-2 w-full">
+                例：私の友人、アフマド
+              </h4>
+              <div className="flex justify-center items-center gap-3 mb-4 w-full">
+                <div className="text-center">
+                  <span className="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-1 rounded">バダル(主格をコピー)</span>
+                  <p className="text-3xl font-arabic text-amber-600 drop-shadow-sm mt-1" dir="rtl">{"\u200Fأَحْمَدُ\u200F"}</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-xl font-[#8A5A33] font-bold">＝</p>
+                </div>
+                <div className="text-center">
+                  <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">私の友人が(主格)</span>
+                  <p className="text-2xl font-arabic text-gray-500 mt-1" dir="rtl">{"\u200Fصَدِيقِي\u200F"}</p>
+                </div>
+                <div className="text-center">
+                  <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">来た</span>
+                  <p className="text-2xl font-arabic text-gray-500 mt-1" dir="rtl">{"\u200Fجَاءَ\u200F"}</p>
+                </div>
+              </div>
+              <div className="bg-white p-3 rounded-lg border border-[#E5C9A8] text-center w-full">
+                <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fجَاءَ صَدِيقِي أَحْمَدُ\u200F"}</p>
+                <p className="text-xs font-bold text-[#5E3C1E]">ジャーア サディーキー <span className="text-amber-600 text-sm">アフマドゥ</span></p>
+                <p className="text-[10px] text-gray-500 mt-1">※「友人」＝「アフマド」です。友人が主語（主格）なので、アフマドも主格になります。</p>
+              </div>
+            </div>
+
+            {/* 指示代名詞＋アル付き名詞 */}
+            <div className="bg-[#FFFDF9] border border-amber-300 p-5 rounded-xl shadow-sm flex flex-col items-center relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-1 bg-amber-500"></div>
+              <h4 className="font-bold text-amber-800 mb-3 text-md text-center border-b border-amber-200 pb-2 w-full">
+                例：この本（指示代名詞 ＋ アル）
+              </h4>
+              <div className="flex justify-center items-center gap-3 mb-4 w-full">
+                <div className="text-center">
+                  <span className="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-1 rounded">バダル(主格コピー)</span>
+                  <p className="text-3xl font-arabic text-amber-600 drop-shadow-sm mt-1" dir="rtl">{"\u200Fالكِتَابُ\u200F"}</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-xl font-[#8A5A33] font-bold">＝</p>
+                </div>
+                <div className="text-center">
+                  <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">これが(主格)</span>
+                  <p className="text-2xl font-arabic text-gray-500 mt-1" dir="rtl">{"\u200Fهَٰذَا\u200F"}</p>
+                </div>
+              </div>
+              <div className="bg-white p-3 rounded-lg border border-amber-200 text-center w-full">
+                <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fهَٰذَا الكِتَابُ جَدِيدٌ\u200F"}</p>
+                <p className="text-xs font-bold text-[#5E3C1E]">ハーザー <span className="text-amber-600 text-sm">ル・キターブ</span> ジャディードゥン</p>
+                <p className="text-[10px] text-amber-700 mt-1 font-bold">※「指示代名詞」の後ろの「アル付き名詞」は、常に全体バダルになります！</p>
+              </div>
+            </div>
+            
+          </div>
+        </section>
+
+        {/* --- 2. 一部のバダル --- */}
+        <section>
+          <div className="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-xl shadow-sm mt-12 mb-6">
+            <h4 className="font-bold text-blue-800 mb-3 text-lg">
+              🍕 ② 一部のバダル（バダル・バアド・ミン・クッル）
+            </h4>
+            <p className="text-sm text-blue-900 leading-relaxed">
+              前の名詞の<strong>「物理的な一部（半分や大部分など）」</strong>を取り出して言い換えるパターンです。<br />
+              この場合、後ろのバダルには必ず<strong>「前の名詞を指し示す代名詞（フやハー）」</strong>がくっつきます。
+            </p>
+          </div>
+
+          <div className="bg-white border border-blue-200 p-5 rounded-xl shadow-sm flex flex-col items-center">
+            <h4 className="font-bold text-blue-700 mb-4 text-center border-b border-blue-100 pb-2 w-full">
+              例：私はパンを食べた、その半分を
+            </h4>
+            <div className="flex flex-col md:flex-row justify-center items-center gap-4 w-full">
+              
+              <div className="flex justify-center items-center gap-2">
+                <div className="text-center">
+                  <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">パンを(対格)</span>
+                  <p className="text-2xl font-arabic text-gray-500 mt-1" dir="rtl">{"\u200Fالرَّغِيفَ\u200F"}</p>
+                </div>
+                <div className="text-center">
+                  <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">私が食べた</span>
+                  <p className="text-2xl font-arabic text-gray-500 mt-1" dir="rtl">{"\u200Fأَكَلْتُ\u200F"}</p>
+                </div>
+              </div>
+              
+              <span className="text-blue-500 font-bold text-xl">＋</span>
+              
+              <div className="flex justify-center items-center gap-2">
+                <div className="text-center">
+                  <span className="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-1 rounded">その</span>
+                  <p className="text-2xl font-arabic text-blue-500 mt-1" dir="rtl">{"\u200Fـهُ\u200F"}</p>
+                </div>
+                <div className="text-center">
+                  <span className="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-1 rounded">半分を(バダル・対格)</span>
+                  <p className="text-3xl font-arabic text-blue-600 drop-shadow-sm mt-1" dir="rtl">{"\u200Fنِصْفَـ\u200F"}</p>
+                </div>
+              </div>
+
+            </div>
+            
+            <div className="bg-blue-50 p-4 rounded-lg border border-blue-200 text-center w-full mt-4 flex justify-between items-center">
+              <div className="w-full text-center">
+                <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fأَكَلْتُ الرَّغِيفَ نِصْفَهُ\u200F"}</p>
+                <p className="text-xs font-bold text-[#5E3C1E]">アカルトゥ ル・ラギーファ <span className="text-blue-600 text-sm">ニスファフ</span></p>
+                <p className="text-[10px] text-gray-500 mt-2">※「パンを（対格）」をコピーして、「半分を（ニスファ・対格）」になります。<br/>語尾の「フ」はパン（アッ・ラギーフ）を指しています。</p>
+              </div>
+              <button onClick={() => playTableAudio("\u200Fأَكَلْتُ الرَّغِيفَ نِصْفَهُ\u200F")} className="w-10 h-10 min-w-[40px] bg-white text-blue-600 rounded-full flex items-center justify-center shadow-sm border border-blue-200 hover:bg-blue-100 ml-2">
+                <Volume2 size={16} />
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* --- 3. 包含のバダル --- */}
+        <section>
+          <div className="bg-emerald-50 border-l-4 border-emerald-500 p-5 rounded-r-xl shadow-sm mt-12 mb-6">
+            <h4 className="font-bold text-emerald-800 mb-3 text-lg">
+              ✨ ③ 包含のバダル（バダル・イシュティマール）
+            </h4>
+            <p className="text-sm text-emerald-900 leading-relaxed">
+              前の名詞の物理的な一部ではなく、<strong>「その人やモノが持っている性質・状態・付属物」</strong>などを指し示すパターンです。<br />
+              これも、一部のバダルと同じように<strong>「前の名詞を指し示す代名詞」</strong>がくっつきます。
+            </p>
+          </div>
+
+          <div className="bg-white border border-emerald-200 p-5 rounded-xl shadow-sm flex flex-col items-center">
+            <h4 className="font-bold text-emerald-700 mb-4 text-center border-b border-emerald-100 pb-2 w-full">
+              例：私はその生徒が気に入った、彼の知性が
+            </h4>
+            <div className="flex flex-col md:flex-row justify-center items-center gap-4 w-full">
+              
+              <div className="flex justify-center items-center gap-2">
+                <div className="text-center">
+                  <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">生徒が(主格)</span>
+                  <p className="text-2xl font-arabic text-gray-500 mt-1" dir="rtl">{"\u200Fالطَّالِبُ\u200F"}</p>
+                </div>
+                <div className="text-center">
+                  <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">私を感心させた</span>
+                  <p className="text-2xl font-arabic text-gray-500 mt-1" dir="rtl">{"\u200Fأَعْجَبَنِي\u200F"}</p>
+                </div>
+              </div>
+              
+              <span className="text-emerald-500 font-bold text-xl">＋</span>
+              
+              <div className="flex justify-center items-center gap-2">
+                <div className="text-center">
+                  <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-1 rounded">彼の</span>
+                  <p className="text-2xl font-arabic text-emerald-500 mt-1" dir="rtl">{"\u200Fـهُ\u200F"}</p>
+                </div>
+                <div className="text-center">
+                  <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-1 rounded">知性が(バダル・主格)</span>
+                  <p className="text-3xl font-arabic text-emerald-600 drop-shadow-sm mt-1" dir="rtl">{"\u200Fذَكَاؤُ\u200F"}</p>
+                </div>
+              </div>
+
+            </div>
+            
+            <div className="bg-emerald-50 p-4 rounded-lg border border-emerald-200 text-center w-full mt-4 flex justify-between items-center">
+              <div className="w-full text-center">
+                <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fأَعْجَبَنِي الطَّالِبُ ذَكَاؤُهُ\u200F"}</p>
+                <p className="text-xs font-bold text-[#5E3C1E]">アアジャバニー ト・ターリブ <span className="text-emerald-600 text-sm">ザカーウフ</span></p>
+                <p className="text-[10px] text-gray-500 mt-2">※「生徒が（主格）」をコピーして、「知性が（ザカーウ・主格）」になります。<br/>（※ハムザの椅子ルールにより、ウ段なのでワーウの椅子に座っています）</p>
+              </div>
+              <button onClick={() => playTableAudio("\u200Fأَعْجَبَنِي الطَّالِبُ ذَكَاؤُهُ\u200F")} className="w-10 h-10 min-w-[40px] bg-white text-emerald-600 rounded-full flex items-center justify-center shadow-sm border border-emerald-200 hover:bg-emerald-100 ml-2">
+                <Volume2 size={16} />
+              </button>
+            </div>
+          </div>
+
+          <div className="mt-6 bg-stone-50 border border-stone-200 p-4 rounded-xl shadow-sm text-center">
+            <p className="text-sm text-stone-700 leading-relaxed font-bold">
+              💡 ハールやタムイーズとの違いは？
+            </p>
+            <p className="text-xs text-stone-600 mt-2">
+              ハール（状態）やタムイーズ（限定）は、文の中でどんな役割でも<strong>「常に対格（ア段）」</strong>になるというルールがありました。<br />
+              しかしバダルは、<strong>「前の名詞が主格なら主格、属格なら属格と、完全に格をコピーする」</strong>という点で大きく異なります！
+            </p>
+          </div>
+        </section>
+
+      </div>
+    ),
+
+    imageUrls: [],
     contentVoweled: "",
     sentences: [], 
     vocabList: [],
@@ -19551,6 +21099,201 @@ export const articles: Article[] = [
         ],
         correctIndex: 0,
         explanation: "「あなたの兄弟」は前置詞の後ろなので属格です。その同格である固有名詞「ザイド」も属格（in）になります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「預言者ムハンマドは言いました」\n（ヒント：預言者は主語で主格。全体のバダル）\n「\u200Fقَالَ النَّبِيُّ ___\u200F」\u200F",
+        audio: "قَالَ النَّبِيُّ مُحَمَّدٌ",
+        options: [
+          "\u200Fمُحَمَّدٌ\u200F",
+          "\u200Fمُحَمَّدًا\u200F",
+          "\u200Fمُحَمَّدٍ\u200F",
+          "\u200Fمُحَمَّدُ\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "「預言者」が主語で主格（ウ段）なので、肩書きの言い換えであるバダル「ムハンマド」も主格（〜un）になります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私は『この』家に住んでいます」\n（ヒント：指示代名詞は前置詞の後の属格の位置にあります）\n「\u200Fأَسْكُنُ فِي هَذَا ___\u200F」\u200F",
+        audio: "أَسْكُنُ فِي هَذَا الْبَيْتِ",
+        options: [
+          "\u200Fالْبَيْتِ\u200F",
+          "\u200Fالْبَيْتَ\u200F",
+          "\u200Fالْبَيْتُ\u200F",
+          "\u200Fبَيْتٍ\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "指示代名詞（この）の後ろのアル付き名詞は全体のバダルになります。指示代名詞が前置詞「フィー」の影響で属格の位置にあるため、バダルの「家」も属格（〜i）になります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私はその小鳥を聞きました、その『さえずり』を」\n（ヒント：小鳥は目的語で対格。バダルの包含）\n「\u200Fسَمِعْتُ الْعُصْفُورَ ___\u200F」\u200F",
+        audio: "سَمِعْتُ الْعُصْفُورَ تَغْرِيدَهُ",
+        options: [
+          "\u200Fتَغْرِيدَهُ\u200F",
+          "\u200Fتَغْرِيدُهُ\u200F",
+          "\u200Fتَغْرِيدِهِ\u200F",
+          "\u200Fتَغْرِيدًا\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "「小鳥」が目的語で対格（ア段）なので、その性質や状態を表す包含のバダル「さえずり」も対格（〜a）になります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私はその軍隊の、『三分の一』のそばを通りました」\n（ヒント：軍隊は前置詞の後の属格。バダルの一部）\n「\u200Fمَرَرْتُ بِالْجَيْشِ ___\u200F」\u200F",
+        audio: "مَرَرْتُ بِالْجَيْشِ ثُلُثِهِ",
+        options: [
+          "\u200Fثُلُثِهِ\u200F",
+          "\u200Fثُلُثُهُ\u200F",
+          "\u200Fثُلُثَهُ\u200F",
+          "\u200Fثُلُثًا\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "「軍隊」が前置詞「ビ」の後ろで属格（イ段）なので、その物理的な一部を表すバダル「三分の一」も属格（〜i）をコピーします。代名詞も影響を受けてヒ（hi）に変わります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「医者のハーリドが病院に来ました」\n（ヒント：医者は主語で主格。全体のバダル）\n「\u200Fحَضَرَ الطَّبِيبُ ___\u200F」\u200F",
+        audio: "حَضَرَ الطَّبِيبُ خَالِدٌ",
+        options: [
+          "\u200Fخَالِدٌ\u200F",
+          "\u200Fخَالِدًا\u200F",
+          "\u200Fخَالِدٍ\u200F",
+          "\u200Fخَالِدُ\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "「医者」が主語で主格なので、その言い換え（全体のバダル）である「ハーリド」も主格（〜un）をコピーします。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「その空は、その『美しさ』が私を驚かせた」\n（ヒント：空は主語（主格）。ハムザの座る椅子に注意！）\n「\u200Fأَدْهَشَتْنِي السَّمَاءُ ___\u200F」\u200F",
+        audio: "أَدْهَشَتْنِي السَّمَاءُ بَهَاؤُهَا",
+        options: [
+          "\u200Fبَهَاؤُهَا\u200F",
+          "\u200Fبَهَاءَهَا\u200F",
+          "\u200Fبَهَائِهَا\u200F",
+          "\u200Fبَهَاءًا\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "「空（アッ・サマーウ）」は主格です。その性質を言い換える包含のバダルも主格（ウ段）になります。ハムザがウ段の時、その椅子は「ワーウ（و）」になるため「バハーウハー」が正解です。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私はあなたの友人、『アフマド』に会いました」\n（ヒント：友人は目的語（対格）。アフマドは二段変化名詞です）\n「\u200Fقَابَلْتُ صَدِيقَكَ ___\u200F」\u200F",
+        audio: "قَابَلْتُ صَدِيقَكَ أَحْمَدَ",
+        options: [
+          "\u200Fأَحْمَدَ\u200F",
+          "\u200Fأَحْمَدًا\u200F",
+          "\u200Fأَحْمَدُ\u200F",
+          "\u200Fأَحْمَدِ\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "「友人（サディーカ）」は対格なので、全体のバダルである「アフマド」も対格になります。しかしアフマドは二段変化名詞なので、タンウィーンは付かず「アフマダ」となります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私は『これらの』モスク（複数）で祈りました」\n（ヒント：モスク（マサージド）は二段変化ですが、定冠詞アルが付くと…？）\n「\u200Fصَلَّيْتُ فِي هَذِهِ ___\u200F」\u200F",
+        audio: "صَلَّيْتُ فِي هَذِهِ الْمَسَاجِدِ",
+        options: [
+          "\u200Fالْمَسَاجِدِ\u200F",
+          "\u200Fالْمَسَاجِدَ\u200F",
+          "\u200Fالْمَسَاجِدُ\u200F",
+          "\u200Fمَسَاجِدَ\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "指示代名詞（ハーズィヒ）は前置詞「フィー」の影響で属格の位置にあります。後ろの「モスク」はバダルとして属格をコピーします。マサージドは二段変化名詞ですが、「アル」が付いているため魔法が解け、通常通りイ段のカスラ（アル・マサージディ）になります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私はあなたの両親、『あなたの父』と母を愛しています」\n（ヒント：両親（ワーリダイカ）は双数の対格。父は5つの特殊名詞です）\n「\u200Fأُحِبُّ وَالِدَيْكَ ___ وَأُمَّكَ\u200F」\u200F",
+        audio: "أُحِبُّ وَالِدَيْكَ أَبَاكَ وَأُمَّكَ",
+        options: [
+          "\u200Fأَبَاكَ\u200F",
+          "\u200Fأَبُوكَ\u200F",
+          "\u200Fأَبِيكَ\u200F",
+          "\u200Fأَبًا\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "「両親」は目的語なので対格です。その一部を具体的に言い換えるバダル（父）も対格になります。「アブ（父）」は5つの特殊名詞で、対格の時はアリフが伸びて「アバーカ」となります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私はその本を読みました、その『序文』を」\n（ヒント：本は目的語で対格。物理的な一部を取り出すバダル）\n「\u200Fقَرَأْتُ الْكِتَابَ ___\u200F」\u200F",
+        audio: "قَرَأْتُ الْكِتَابَ مُقَدِّمَتَهُ",
+        options: [
+          "\u200Fمُقَدِّمَتَهُ\u200F",
+          "\u200Fمُقَدِّمَتُهُ\u200F",
+          "\u200Fمُقَدِّمَتِهِ\u200F",
+          "\u200Fمُقَدِّمَةً\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "「本（アル・キターバ）」は対格なので、一部のバダルである「序文（ムカッディマ）」も対格になります。さらに、前の名詞を指す代名詞（フ）をくっつける必要があります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私はその先生から利益を得ました、彼の『知識』から」\n（ヒント：先生は前置詞の後の属格。包含のバダル）\n「\u200Fاسْتَفَدْتُ مِنَ الْمُعَلِّمِ ___\u200F」\u200F",
+        audio: "اسْتَفَدْتُ مِنَ الْمُعَلِّمِ عِلْمِهِ",
+        options: [
+          "\u200Fعِلْمِهِ\u200F",
+          "\u200Fعِلْمُهُ\u200F",
+          "\u200Fعِلْمَهُ\u200F",
+          "\u200Fعِلْمًا\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "「先生（アル・ムアッリミ）」は属格です。その性質を言い換える「知識」も属格になり、代名詞のフもイ段に引っ張られてヒ（イルミヒ）となります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私はその男の人から恩恵を受けました、彼の『贈り物』から」\n（ヒント：男の人は前置詞の後の属格。ハムザの椅子に注意！）\n「\u200Fانْتَفَعْتُ بِالرَّجُلِ ___\u200F」\u200F",
+        audio: "انْتَفَعْتُ بِالرَّجُلِ عَطَائِه",
+        options: [
+          "\u200Fعَطَائِه\u200F",
+          "\u200Fعَطَاؤُهُ\u200F",
+          "\u200Fعَطَاءَهُ\u200F",
+          "\u200Fعَطَاءًا\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "「男の人」が属格なので、バダルである「贈り物（アターウ）」も属格（イ段）になります。ハムザがイ段の時、その椅子は「点なしヤー（ئ）」になるため「アターイヒ」が正解です。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私は『この二人の』学生に賞をあげました」\n（ヒント：ハザイニ（この二人）は前置詞リの後の属格・双数です）\n「\u200Fأَعْطَيْتُ الْجَائِزَةَ لِهَذَيْنِ ___\u200F」\u200F",
+        audio: "أَعْطَيْتُ الْجَائِزَةَ لِهَذَيْنِ الطَّالِبَيْنِ",
+        options: [
+          "\u200Fالطَّالِبَيْنِ\u200F",
+          "\u200Fالطَّالِبَانِ\u200F",
+          "\u200Fالطَّالِبِينَ\u200F",
+          "\u200Fطَالِبَيْنِ\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "指示代名詞が属格なので、バダルの「学生（双数）」も属格になります。双数の属格は「〜アニ」ではなく「〜アイニ」になるため「アッ・ターリバイニ」となります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私は『この』男の人の家に行きました」\n（ヒント：「この」はイダーファの所有者（属格）の位置にあります）\n「\u200Fذَهَبْتُ إِلَى بَيْتِ هَذَا ___\u200F」\u200F",
+        audio: "ذَهَبْتُ إِلَى بَيْتِ هَذَا الرَّجُلِ",
+        options: [
+          "\u200Fالرَّجُلِ\u200F",
+          "\u200Fالرَّجُلَ\u200F",
+          "\u200Fالرَّجُلُ\u200F",
+          "\u200Fرَجُلٍ\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "「バイティ・ハーザー（この〜の家）」とイダーファを組んでおり、指示代名詞（ハーザー）は属格の位置にあります。そのため、バダルである「男の人」も属格になります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私たちの兄弟、『アブー・バクル』が来ました」\n（ヒント：兄弟は主語で主格。アブーは5つの特殊名詞です）\n「\u200Fجَاءَ أَخُونَا ___ بَكْرٍ\u200F」\u200F",
+        audio: "جَاءَ أَخُونَا أَبُو بَكْرٍ",
+        options: [
+          "\u200Fأَبُو\u200F",
+          "\u200Fأَبَا\u200F",
+          "\u200Fأَبِي\u200F",
+          "\u200Fأَبٌ\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "「私たちの兄弟（アフーナー）」が主格なので、その全体のバダルである「アブー・バクル」も主格になります。5つの特殊名詞の主格はワーウが伸びるため「アブー」が正解です。"
       }
     ]
   },
@@ -19558,21 +21301,352 @@ export const articles: Article[] = [
     id: 149,
     level: "文法",
     category: "種族否定のラー",
-    title: "Lesson 49: 種族否定のラー",
-    contentPlain: "",
-    imageUrls: [
-      "/image/grammar/lesson49_1.jpg", 
-      "/image/grammar/lesson49_2.jpg", 
-      "/image/grammar/lesson49_3.jpg", 
-      "/image/grammar/lesson49_4.jpg", 
-      "/image/grammar/lesson49_5.jpg", 
-      "/image/grammar/lesson49_6.jpg", 
-      "/image/grammar/lesson49_7.jpg", 
-    ],
+    title: "Lesson 49: 種族否定のラー（絶対的な否定）",
+    contentPlain: "「〜は全くない」「1つも存在しない」と、その種類全体を強く否定する「種族否定のラー（لا النافية للجنس）」です。日常会話の「問題ない（ラー・ムシュキラ）」「間違いない（ラー・シャッカ）」などの決まり文句で非常によく使われます。",
+    
+    contentNode: (
+      <div className="space-y-10 text-[#5E3C1E] mt-6">
+        <p className="leading-relaxed">
+          アラビア語で「男がいない」と言う時、普通の否定では「特定の男がいない」という意味になりますが、「男という生き物自体が（1人も）存在しない！」と、<strong>そのカテゴリー（種族）全体を100%否定する表現</strong>があります。<br />
+          これを<strong>「種族否定のラー（لا النافية للجنس：ラー・アン＝ナーフィヤ・リル＝ジンス）」</strong>と呼びます。
+        </p>
+
+        {/* --- 1. 2つの絶対ルール --- */}
+        <section>
+          <div className="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-r-xl shadow-sm mb-6">
+            <h4 className="font-bold text-[#764C28] mb-3 text-lg">
+              💡 種族否定のラー「2つの絶対ルール」
+            </h4>
+            <p className="text-sm text-[#5E3C1E] leading-relaxed">
+              この特別な「ラー（{"\u200Fلَا\u200F"}）」の後ろに来る名詞には、非常に厳格で特徴的な2つのルールがあります。
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-[#FDFCF8] p-5 rounded-2xl border border-[#E5C9A8] shadow-sm flex flex-col items-center text-center">
+              <h4 className="font-bold text-[#764C28] mb-4 text-center border-b border-[#E5C9A8] pb-2 w-full">
+                ルール①：絶対に「非限定」
+              </h4>
+              <p className="text-sm text-gray-600 mb-3">
+                特定のもの（その〜）を否定するわけではないので、<strong>定冠詞（アル）は絶対に付けません。</strong>
+              </p>
+              <div className="flex justify-center items-center gap-4">
+                <div className="text-center">
+                  <span className="text-2xl font-arabic text-gray-400 line-through decoration-red-500" dir="rtl">{"\u200Fلَا الرَّجُلَ\u200F"}</span>
+                  <p className="text-[10px] font-bold text-red-500 mt-1">アルはNG！</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-[#FFF9F0] p-5 rounded-2xl border border-amber-300 shadow-sm flex flex-col items-center text-center relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-1 bg-amber-500"></div>
+              <h4 className="font-bold text-amber-800 mb-4 text-center border-b border-amber-200 pb-2 w-full">
+                ルール②：ア段なのに「ン」がない！
+              </h4>
+              <p className="text-sm text-gray-600 mb-3">
+                ハールやタムイーズのように対格（ア段）になりますが、<strong>なぜかタンウィーン（ン）が消え、ただの「ア」で固定されます！</strong>
+              </p>
+              <div className="text-center bg-amber-50 p-3 rounded-lg border border-amber-200 w-full">
+                <p className="text-3xl font-arabic text-amber-600 drop-shadow-sm mb-1" dir="rtl">{"\u200Fلَا رَجُلَ\u200F"}</p>
+                <p className="text-xs font-bold text-[#5E3C1E]">ラー ラジュ<span className="text-amber-600 text-lg">ラ</span></p>
+              </div>
+              <p className="text-[10px] text-amber-700 mt-2 font-bold">※「ラジュラン」でも「ラジュルン」でもありません！</p>
+            </div>
+          </div>
+        </section>
+
+        {/* --- 2. 日常会話で超頻出のフレーズ --- */}
+        <section>
+          <h3 className="text-xl font-bold text-[#4A3018] mt-12 mb-4 border-b-2 border-[#E5C9A8] pb-2">
+            🗣️ 日常会話で超頻出のフレーズ
+          </h3>
+          <p className="text-sm text-[#764C28] leading-relaxed mb-6">
+            アラブ人が毎日使う「問題ない」「大丈夫」といった決まり文句は、ほぼ全てこの「種族否定のラー」で作られています！
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            
+            {/* ラー・ムシュキラ */}
+            <div className="bg-white border border-[#E5C9A8] p-4 rounded-xl shadow-sm flex flex-col items-center">
+              <h4 className="font-bold text-[#764C28] mb-3 text-sm text-center border-b border-[#E5C9A8] pb-2 w-full">
+                問題ない（ノープロブレム）
+              </h4>
+              <p className="text-3xl font-arabic text-[#8A5A33] drop-shadow-sm mb-1" dir="rtl">{"\u200Fلَا مُشْكِلَةَ\u200F"}</p>
+              <p className="text-xs font-bold text-[#5E3C1E] mb-2">ラー ムシュキラ<span className="text-amber-600 text-sm">タ</span></p>
+              <p className="text-[10px] text-gray-500 text-center">「問題」という存在が一切ない、という強い否定です。</p>
+              <button onClick={() => playTableAudio("\u200Fلَا مُشْكِلَةَ\u200F")} className="w-8 h-8 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center shadow-sm border border-amber-200 hover:bg-amber-100 mt-2">
+                <Volume2 size={14} />
+              </button>
+            </div>
+
+            {/* ラー・シャッカ */}
+            <div className="bg-white border border-[#E5C9A8] p-4 rounded-xl shadow-sm flex flex-col items-center">
+              <h4 className="font-bold text-[#764C28] mb-3 text-sm text-center border-b border-[#E5C9A8] pb-2 w-full">
+                間違いない（疑いなし）
+              </h4>
+              <p className="text-3xl font-arabic text-[#8A5A33] drop-shadow-sm mb-1" dir="rtl">{"\u200Fلَا شَكَّ\u200F"}</p>
+              <p className="text-xs font-bold text-[#5E3C1E] mb-2">ラー シャッ<span className="text-amber-600 text-sm">カ</span></p>
+              <p className="text-[10px] text-gray-500 text-center">「疑い（シャック）」が1ミリも存在しない、という意味です。</p>
+              <button onClick={() => playTableAudio("\u200Fلَا شَكَّ\u200F")} className="w-8 h-8 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center shadow-sm border border-amber-200 hover:bg-amber-100 mt-2">
+                <Volume2 size={14} />
+              </button>
+            </div>
+
+            {/* ラー・バウサ */}
+            <div className="bg-white border border-[#E5C9A8] p-4 rounded-xl shadow-sm flex flex-col items-center">
+              <h4 className="font-bold text-[#764C28] mb-3 text-sm text-center border-b border-[#E5C9A8] pb-2 w-full">
+                大丈夫（害はない）
+              </h4>
+              <p className="text-3xl font-arabic text-[#8A5A33] drop-shadow-sm mb-1" dir="rtl">{"\u200Fلَا بَأْسَ\u200F"}</p>
+              <p className="text-xs font-bold text-[#5E3C1E] mb-2">ラー バウ<span className="text-amber-600 text-sm">サ</span></p>
+              <p className="text-[10px] text-gray-500 text-center">誰かが怪我をした時などに「害（バウス）はないよ」と慰める言葉です。</p>
+              <button onClick={() => playTableAudio("\u200Fلَا بَأْسَ\u200F")} className="w-8 h-8 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center shadow-sm border border-amber-200 hover:bg-amber-100 mt-2">
+                <Volume2 size={14} />
+              </button>
+            </div>
+
+          </div>
+        </section>
+
+        {/* --- 3. クルアーンの有名な言葉 --- */}
+        <section>
+          <div className="bg-emerald-50 border-l-4 border-emerald-500 p-5 rounded-r-xl shadow-sm mt-12 mb-6">
+            <h4 className="font-bold text-emerald-800 mb-3 text-lg">
+              🕌 クルアーン（コーラン）に登場する代表例
+            </h4>
+            <p className="text-sm text-emerald-900 leading-relaxed">
+              イスラム教の信仰告白（シャハーダ）も、この「種族否定のラー」から始まります。「神」という存在を一度すべて否定し、その上で唯一の神（アッラー）だけを認めるという力強い構文です。
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            {/* ラー イラーハ イッラッラー */}
+            <div className="bg-white border border-emerald-200 p-5 rounded-xl shadow-sm flex flex-col items-center text-center">
+              <h4 className="font-bold text-emerald-700 mb-3 text-sm border-b border-emerald-100 pb-2 w-full">
+                信仰告白（シャハーダ）
+              </h4>
+              <p className="text-3xl font-arabic text-emerald-700 drop-shadow-sm mb-2" dir="rtl">{"\u200Fلَا إِلَٰهَ إِلَّا اللّٰهُ\u200F"}</p>
+              <p className="text-xs font-bold text-[#5E3C1E] mb-3">
+                ラー イラー<span className="text-emerald-600 text-sm">ハ</span> イッラッラー
+              </p>
+              <div className="bg-emerald-50 p-2 rounded w-full">
+                <p className="text-[10px] text-emerald-800">「神（イラーフ）」という存在は<span className="font-bold">全く存在しない</span>、アッラーを除いては。</p>
+              </div>
+              <button onClick={() => playTableAudio("\u200Fلَا إِلَٰهَ إِلَّا اللّٰهُ\u200F")} className="w-8 h-8 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center shadow-sm border border-emerald-300 hover:bg-emerald-200 mt-3">
+                <Volume2 size={14} />
+              </button>
+            </div>
+
+            {/* ラー ライバ フィーヒ */}
+            <div className="bg-white border border-emerald-200 p-5 rounded-xl shadow-sm flex flex-col items-center text-center">
+              <h4 className="font-bold text-emerald-700 mb-3 text-sm border-b border-emerald-100 pb-2 w-full">
+                クルアーン第2章の冒頭
+              </h4>
+              <p className="text-3xl font-arabic text-emerald-700 drop-shadow-sm mb-2" dir="rtl">{"\u200Fلَا رَيْبَ فِيهِ\u200F"}</p>
+              <p className="text-xs font-bold text-[#5E3C1E] mb-3">
+                ラー ライ<span className="text-emerald-600 text-sm">バ</span> フィーヒ
+              </p>
+              <div className="bg-emerald-50 p-2 rounded w-full">
+                <p className="text-[10px] text-emerald-800">それ（この書物）の中には、疑い（ライブ）が<span className="font-bold">一切存在しない。</span></p>
+              </div>
+              <button onClick={() => playTableAudio("\u200Fلَا رَيْبَ فِيهِ\u200F")} className="w-8 h-8 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center shadow-sm border border-emerald-300 hover:bg-emerald-200 mt-3">
+                <Volume2 size={14} />
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* --- 4. 複数形とイダーファの時の変化 --- */}
+        <section>
+          <h3 className="text-xl font-bold text-[#4A3018] mt-12 mb-4 border-b-2 border-[#E5C9A8] pb-2">
+            ⚠️ 【応用】複数形の時や、イダーファの時はどうなる？
+          </h3>
+          
+          <div className="space-y-4">
+            {/* 双数と男性複数 */}
+            <div className="bg-stone-50 p-4 rounded-xl border border-stone-200 flex flex-col md:flex-row items-center gap-4">
+              <div className="md:w-1/4 text-center">
+                <span className="bg-stone-200 text-stone-800 text-xs font-bold px-2 py-1 rounded">双数・男性複数</span>
+              </div>
+              <div className="md:w-3/4 flex items-center justify-between w-full">
+                <div>
+                  <p className="text-xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fلَا مُسْلِمِينَ\u200F"}</p>
+                  <p className="text-[10px] font-bold text-[#5E3C1E]">ラー ムスリミーナ</p>
+                  <p className="text-[10px] text-gray-500 mt-1">「アイニ」「イーナ」の対格の形になり、語尾の「ヌーン」はそのまま残ります。</p>
+                </div>
+              </div>
+            </div>
+
+            {/* 女性複数 */}
+            <div className="bg-stone-50 p-4 rounded-xl border border-stone-200 flex flex-col md:flex-row items-center gap-4">
+              <div className="md:w-1/4 text-center">
+                <span className="bg-stone-200 text-stone-800 text-xs font-bold px-2 py-1 rounded">女性複数</span>
+              </div>
+              <div className="md:w-3/4 flex items-center justify-between w-full">
+                <div>
+                  <p className="text-xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fلَا مُسْلِمَاتِ\u200F"}</p>
+                  <p className="text-[10px] font-bold text-[#5E3C1E]">ラー ムスリマー<span className="text-rose-500">ティ</span></p>
+                  <p className="text-[10px] text-gray-500 mt-1">対格なので「イ段」になりますが、<strong>タンウィーン（ン）は付かず「ティ」で止まります！</strong></p>
+                </div>
+              </div>
+            </div>
+
+            {/* イダーファ */}
+            <div className="bg-blue-50 p-4 rounded-xl border border-blue-200 flex flex-col md:flex-row items-center gap-4">
+              <div className="md:w-1/4 text-center">
+                <span className="bg-blue-200 text-blue-800 text-xs font-bold px-2 py-1 rounded">イダーファの時</span>
+              </div>
+              <div className="md:w-3/4 flex items-center justify-between w-full">
+                <div>
+                  <p className="text-xl font-arabic text-blue-700 mb-1" dir="rtl">{"\u200Fلَا طَالِبَ عِلْمٍ\u200F"}</p>
+                  <p className="text-[10px] font-bold text-[#5E3C1E]">ラー ターリバ イルミン</p>
+                  <p className="text-[10px] text-gray-500 mt-1">後ろに別の名詞をくっつけて「知識の学生」とする場合も、最初の単語は「ア段（タンウィーンなし）」になります。</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    ),
+
+    imageUrls: [],
     contentVoweled: "",
     sentences: [], 
     vocabList: [],
     questions: [
+      {
+        type: "grammar",
+        text: "\u200F種族否定のラー（لا النافية للجنس）の後ろに来る名詞の、正しい基本ルールはどれ？\u200F",
+        audio: "",
+        options: [
+          "定冠詞（アル）を付け、主格（ウ段）にする", 
+          "非限定（アルなし）で、対格（ア段・タンウィーンあり）にする",
+          "非限定（アルなし）で、ア段にするが「タンウィーン（ン）」は付けない",
+          "前置詞の後ろのように、属格（イ段）にする"
+        ],
+        correctIndex: 2,
+        explanation: "種族否定のラーの後ろの名詞は、非限定でありながら「ア段（ファトハ）」で固定され、タンウィーンは絶対に付きません。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「男が（1人も）いない」正しいアラビア語は？\n※男：ラジュルン（\u200Fرَجُلٌ\u200F）\u200F",
+        audio: "\u200Fلَا رَجُلَ\u200F",
+        options: [
+          "\u200Fلَا رَجُلٌ\u200F", 
+          "\u200Fلَا الرَّجُلَ\u200F",
+          "\u200Fلَا رَجُلًا\u200F",
+          "\u200Fلَا رَجُلَ\u200F"
+        ],
+        correctIndex: 3,
+        explanation: "アルを付けず、ア段でタンウィーンを付けない「ラー ラジュラ（\u200Fلَا رَجُلَ\u200F）」が正解です。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「問題ない（ノープロブレム）」日常会話でよく使う正しい形は？\n※問題：ムシュキラツン（\u200Fمُشْكِلَةٌ\u200F）\u200F",
+        audio: "\u200Fلَا مُشْكِلَةَ\u200F",
+        options: [
+          "\u200Fلَا مُشْكِلَةَ\u200F", 
+          "\u200Fلَا مُشْكِلَةً\u200F",
+          "\u200Fلَا مُشْكِلَةٌ\u200F",
+          "\u200Fلَا المُشْكِلَةَ\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "これも種族否定のラーのルールに従い、「ラー ムシュキラタ（\u200Fلَا مُشْكِلَةَ\u200F）」となります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「間違いない（疑いなし）」正しい形は？\n※疑い：シャックン（\u200Fشَكٌّ\u200F）\u200F",
+        audio: "\u200Fلَا شَكَّ\u200F",
+        options: [
+          "\u200Fلَا شَكًّا\u200F", 
+          "\u200Fلَا الشَّكَّ\u200F",
+          "\u200Fلَا شَكَّ\u200F",
+          "\u200Fلَا شَكٌّ\u200F"
+        ],
+        correctIndex: 2,
+        explanation: "「ラー シャッカ（\u200Fلَا شَكَّ\u200F）」が正解です。タンウィーンは付けません。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「アッラーの他に神はなし」正しい形は？\n※神：イラーフン（\u200Fإِلَٰهٌ\u200F）\u200F",
+        audio: "\u200Fلَا إِلَٰهَ إِلَّا اللّٰهُ\u200F",
+        options: [
+          "\u200Fلَا إِلَٰهًا إِلَّا اللّٰهُ\u200F", 
+          "\u200Fلَا إِلَٰهَ إِلَّا اللّٰهُ\u200F",
+          "\u200Fلَا إِلَٰهٌ إِلَّا اللّٰهُ\u200F",
+          "\u200Fلَا الإِلَٰهَ إِلَّا اللّٰهُ\u200F"
+        ],
+        correctIndex: 1,
+        explanation: "信仰告白（シャハーダ）も種族否定のラーで始まります。「ラー イラーハ（\u200Fلَا إِلَٰهَ\u200F）」と、ア段・タンウィーンなしになります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F次の文で【文法的に間違っている】ものはどれ？\u200F",
+        audio: "",
+        options: [
+          "\u200Fلَا كِتَابَ فِي الحَقِيبَةِ\u200F (カバンの中に本は1冊もない)", 
+          "\u200Fلَا بَأْسَ\u200F (大丈夫・害はない)",
+          "\u200Fلَا رَيْبَ فِيهِ\u200F (その中に疑いはない)",
+          "\u200Fلَا الوَلَدَ هُنَا\u200F (その少年はここにいない)"
+        ],
+        correctIndex: 3,
+        explanation: "種族否定のラーの後ろには、定冠詞（アル）の付いた名詞を置くことは絶対にできません。特定のものを否定する場合は別の文法を使います。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「ムスリムの男たち（複数）がいない」正しい形は？\n※ムスリム（複数）：ムスリムーナ（\u200Fمُسْلِمُونَ\u200F）\u200F",
+        audio: "\u200Fلَا مُسْلِمِينَ\u200F",
+        options: [
+          "\u200Fلَا مُسْلِمُونَ\u200F", 
+          "\u200Fلَا مُسْلِمِينَا\u200F",
+          "\u200Fلَا مُسْلِمِينَ\u200F",
+          "\u200Fلَا مُسْلِمِي\u200F"
+        ],
+        correctIndex: 2,
+        explanation: "対格と同じ「イーナ」の形になるため、「ラー ムスリミーナ（\u200Fلَا مُسْلِمِينَ\u200F）」が正解です。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「ムスリムの女たち（複数）がいない」正しい形は？\n※ムスリム女（複数）：ムスリマートゥン（\u200Fمُسْلِمَاتٌ\u200F）\u200F",
+        audio: "\u200Fلَا مُسْلِمَاتِ\u200F",
+        options: [
+          "\u200Fلَا مُسْلِمَاتٍ\u200F", 
+          "\u200Fلَا مُسْلِمَاتِ\u200F",
+          "\u200Fلَا مُسْلِمَاتَ\u200F",
+          "\u200Fلَا مُسْلِمَاتٌ\u200F"
+        ],
+        correctIndex: 1,
+        explanation: "女性複数の場合、対格と同じ「イ段（カスラ）」になりますが、種族否定のラーのルールによりタンウィーンが付かないため、「ラー ムスリマーティ（\u200Fلَا مُسْلِمَاتِ\u200F）」になります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F種族否定の「ラー（\u200Fلَا\u200F）」と名詞の間に、前置詞などが割り込んで離れてしまった場合、どうなりますか？\u200F",
+        audio: "",
+        options: [
+          "ルールは変わらず、ア段（タンウィーンなし）のままになる", 
+          "ア段だが、タンウィーンが付くようになる",
+          "ルールが無効になり、普通に主格（ウ段）に戻る",
+          "常に属格（イ段）になる"
+        ],
+        correctIndex: 2,
+        explanation: "種族否定のラーは「直後に名詞がくっついている」ことが発動条件です。間に別の言葉が割り込むと魔法が解け、普通の否定文として主格（ウ段）に戻ります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「家の中に男は（1人も）いない」正しいアラビア語は？\u200F",
+        audio: "\u200Fلَا رَجُلَ فِي البَيْتِ\u200F",
+        options: [
+          "\u200Fلَا رَجُلٌ فِي البَيْتِ\u200F", 
+          "\u200Fلَا رَجُلًا فِي البَيْتِ\u200F",
+          "\u200Fلَا الرَّجُلَ فِي البَيْتِ\u200F",
+          "\u200Fلَا رَجُلَ فِي البَيْتِ\u200F"
+        ],
+        correctIndex: 3,
+        explanation: "「ラー」の直後に非限定・ア段（タンウィーンなし）の名詞を置いた「ラー ラジュラ フィー ル・バイティ（\u200Fلَا رَجُلَ فِي البَيْتِ\u200F）」が完璧な形です。"
+      },
       {
         type: "grammar",
         text: "\u200F「アッラーの他に神はなし（シャハーダ）」\n「\u200Fلَا ___ إِلَّا اللهُ\u200F」\u200F",
@@ -19644,23 +21718,330 @@ export const articles: Article[] = [
     id: 150,
     level: "文法",
     category: "インナとその姉妹",
-    title: "Lesson 50: インナとその姉妹",
-    contentPlain: "",
-    imageUrls: [
-      "/image/grammar/lesson50_1.jpg", 
-      "/image/grammar/lesson50_2.jpg", 
-      "/image/grammar/lesson50_3.jpg", 
-      "/image/grammar/lesson50_4.jpg", 
-      "/image/grammar/lesson50_5.jpg", 
-      "/image/grammar/lesson50_6.jpg", 
-      "/image/grammar/lesson50_7.jpg", 
-      "/image/grammar/lesson50_8.jpg", 
-      "/image/grammar/lesson50_9.jpg", 
-    ],
+    title: "Lesson 50: インナとその姉妹（名詞文の主語をア段にする）",
+    contentPlain: "「確かに〜だ」「〜ということ」「まるで〜のようだ」など、名詞文の頭に付いて意味を付け足す6つの助詞のグループです。最大の特徴は、後ろに来る名詞（主語）の語尾を強制的に「対格（ア段）」に変えてしまうことです。",
+    
+    contentNode: (
+      <div className="space-y-10 text-[#5E3C1E] mt-6">
+        <p className="leading-relaxed">
+          アラビア語の名詞文（AはBだ）の頭に付き、「確かに〜だ」と強調したり、「まるで〜のようだ」と比喩を加えたりする特別な助詞のグループを<strong>「インナとその姉妹（إِنَّ وَأَخَوَاتُهَا）」</strong>と呼びます。<br />
+          彼女たちは、名詞文に入り込むと<strong>「主語を強制的にア段（対格）に変える」</strong>という非常に強力な魔法をかけます！
+        </p>
+
+        {/* --- 1. インナの魔法（基本ルール） --- */}
+        <section>
+          <div className="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-r-xl shadow-sm mb-6">
+            <h4 className="font-bold text-[#764C28] mb-3 text-lg">
+              ✨ インナの基本ルール：主語が「ア段」になる！
+            </h4>
+            <p className="text-sm text-[#5E3C1E] leading-relaxed">
+              普通の名詞文は「主語（ウ段）＋述語（ウ段）」です。<br />
+              しかし文頭にインナが付くと、<strong>主語だけが「ア段（対格）」に変化</strong>します。述語はウ段（主格）のまま変わりません。
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* 普通の名詞文 */}
+            <div className="bg-stone-50 border border-stone-200 p-5 rounded-xl shadow-sm flex flex-col items-center">
+              <h4 className="font-bold text-stone-700 mb-4 text-center border-b border-stone-200 pb-2 w-full">
+                普通の名詞文（ウ段 ＋ ウ段）
+              </h4>
+              <div className="flex justify-center items-center gap-4 mb-3 w-full">
+                <div className="text-center bg-white p-3 rounded-lg border border-stone-200 w-1/2">
+                  <p className="text-xs text-gray-500 mb-1">新しい(述語:主格)</p>
+                  <p className="text-2xl font-arabic text-gray-500" dir="rtl">{"\u200Fجَدِيدٌ\u200F"}</p>
+                  <p className="text-[10px] font-bold text-gray-600 mt-1">ジャディードゥン</p>
+                </div>
+                <div className="text-center bg-white p-3 rounded-lg border border-stone-200 w-1/2">
+                  <p className="text-xs text-gray-500 mb-1">家は(主語:主格)</p>
+                  <p className="text-2xl font-arabic text-gray-500" dir="rtl">{"\u200Fالبَيْتُ\u200F"}</p>
+                  <p className="text-[10px] font-bold text-gray-600 mt-1">アル・バイ<span className="text-gray-800 text-sm">トゥ</span></p>
+                </div>
+              </div>
+              <p className="text-xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fالبَيْتُ جَدِيدٌ\u200F"}</p>
+              <p className="text-xs font-bold text-[#5E3C1E]">アル・バイ<span className="text-gray-500">トゥ</span> ジャディードゥン</p>
+              <p className="text-[10px] text-gray-500 mt-1">（その家は新しい）</p>
+            </div>
+
+            {/* インナが付いた文 */}
+            <div className="bg-[#FFF9F0] border border-amber-300 p-5 rounded-xl shadow-sm flex flex-col items-center relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-1 bg-amber-500"></div>
+              <h4 className="font-bold text-amber-800 mb-4 text-center border-b border-amber-200 pb-2 w-full">
+                インナの魔法（ア段 ＋ ウ段）
+              </h4>
+              <div className="flex justify-center items-center gap-2 mb-3 w-full">
+                <div className="text-center bg-white p-2 rounded-lg border border-amber-200 w-1/3">
+                  <p className="text-[10px] text-gray-500 mb-1">新しい(ウ段のまま)</p>
+                  <p className="text-xl font-arabic text-gray-500" dir="rtl">{"\u200Fجَدِيدٌ\u200F"}</p>
+                </div>
+                <div className="text-center bg-amber-100 p-2 rounded-lg border border-amber-300 w-1/3 shadow-inner">
+                  <p className="text-[10px] font-bold text-amber-800 mb-1">家は(対格に変化!)</p>
+                  <p className="text-2xl font-arabic text-amber-600 drop-shadow-sm" dir="rtl">{"\u200Fالبَيْتَ\u200F"}</p>
+                </div>
+                <span className="text-amber-500 font-bold">＋</span>
+                <div className="text-center bg-amber-50 p-2 rounded-lg border border-amber-200 w-1/3">
+                  <p className="text-[10px] font-bold text-amber-800 mb-1">確かに</p>
+                  <p className="text-2xl font-arabic text-amber-600 drop-shadow-sm" dir="rtl">{"\u200Fإِنَّ\u200F"}</p>
+                </div>
+              </div>
+              <p className="text-xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fإِنَّ البَيْتَ جَدِيدٌ\u200F"}</p>
+              <p className="text-xs font-bold text-[#5E3C1E]">インナ ル・バイ<span className="text-amber-600 text-lg font-black">タ</span> ジャディードゥン</p>
+              <p className="text-[10px] text-gray-500 mt-1">（【確かに】その家は新しい）</p>
+              <button onClick={() => playTableAudio("\u200Fإِنَّ البَيْتَ جَدِيدٌ\u200F")} className="w-8 h-8 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center shadow-sm hover:bg-amber-100 transition-all border border-amber-200 mt-2">
+                <Volume2 size={14} />
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* --- 2. 6つの姉妹たち --- */}
+        <section>
+          <h3 className="text-xl font-bold text-[#4A3018] mt-12 mb-4 border-b-2 border-[#E5C9A8] pb-2">
+            👯‍♀️ インナとその姉妹（全6種類）
+          </h3>
+          <p className="text-sm text-[#764C28] leading-relaxed mb-6">
+            同じように「後ろの名詞をア段にする」働きを持つ助詞は、インナを含めて全部で6つあります。それぞれ意味が異なります。
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            
+            {/* インナ */}
+            <div className="bg-white p-4 rounded-xl border border-amber-200 shadow-sm flex flex-col items-center text-center">
+              <p className="text-3xl font-arabic text-amber-600 drop-shadow-sm mb-1" dir="rtl">{"\u200Fإِنَّ\u200F"}</p>
+              <p className="font-bold text-sm text-[#5E3C1E] mb-1">インナ</p>
+              <p className="text-xs text-amber-800 font-bold bg-amber-50 px-2 py-1 rounded w-full mb-2">確かに〜だ（強調）</p>
+              <p className="text-[10px] text-gray-600">文の最初に置き、発言を強調します。</p>
+            </div>
+
+            {/* アンナ */}
+            <div className="bg-white p-4 rounded-xl border border-blue-200 shadow-sm flex flex-col items-center text-center">
+              <p className="text-3xl font-arabic text-blue-600 drop-shadow-sm mb-1" dir="rtl">{"\u200Fأَنَّ\u200F"}</p>
+              <p className="font-bold text-sm text-[#5E3C1E] mb-1">アンナ</p>
+              <p className="text-xs text-blue-800 font-bold bg-blue-50 px-2 py-1 rounded w-full mb-2">〜ということ（名詞節）</p>
+              <p className="text-[10px] text-gray-600">「私は〜だと知っている」など、文の途中で使います。</p>
+            </div>
+
+            {/* カアンナ */}
+            <div className="bg-white p-4 rounded-xl border border-emerald-200 shadow-sm flex flex-col items-center text-center">
+              <p className="text-3xl font-arabic text-emerald-600 drop-shadow-sm mb-1" dir="rtl">{"\u200Fكَأَنَّ\u200F"}</p>
+              <p className="font-bold text-sm text-[#5E3C1E] mb-1">カアンナ</p>
+              <p className="text-xs text-emerald-800 font-bold bg-emerald-50 px-2 py-1 rounded w-full mb-2">まるで〜のようだ（比喩）</p>
+              <p className="text-[10px] text-gray-600">例：まるでその少女は月のようだ</p>
+            </div>
+
+            {/* ラーキンナ */}
+            <div className="bg-white p-4 rounded-xl border border-rose-200 shadow-sm flex flex-col items-center text-center">
+              <p className="text-3xl font-arabic text-rose-600 drop-shadow-sm mb-1" dir="rtl">{"\u200Fلَٰكِنَّ\u200F"}</p>
+              <p className="font-bold text-sm text-[#5E3C1E] mb-1">ラーキンナ</p>
+              <p className="text-xs text-rose-800 font-bold bg-rose-50 px-2 py-1 rounded w-full mb-2">しかし〜だ（逆接）</p>
+              <p className="text-[10px] text-gray-600">前の文を訂正・補足する時に使います。</p>
+            </div>
+
+            {/* ライタ */}
+            <div className="bg-white p-4 rounded-xl border border-purple-200 shadow-sm flex flex-col items-center text-center">
+              <p className="text-3xl font-arabic text-purple-600 drop-shadow-sm mb-1" dir="rtl">{"\u200Fلَيْتَ\u200F"}</p>
+              <p className="font-bold text-sm text-[#5E3C1E] mb-1">ライタ</p>
+              <p className="text-xs text-purple-800 font-bold bg-purple-50 px-2 py-1 rounded w-full mb-2">〜であればいいのに（願望）</p>
+              <p className="text-[10px] text-gray-600">実現が難しい、または不可能な強い願いを表します。</p>
+            </div>
+
+            {/* ラアッラ */}
+            <div className="bg-white p-4 rounded-xl border border-teal-200 shadow-sm flex flex-col items-center text-center">
+              <p className="text-3xl font-arabic text-teal-600 drop-shadow-sm mb-1" dir="rtl">{"\u200Fلَعَلَّ\u200F"}</p>
+              <p className="font-bold text-sm text-[#5E3C1E] mb-1">ラアッラ</p>
+              <p className="text-xs text-teal-800 font-bold bg-teal-50 px-2 py-1 rounded w-full mb-2">〜かもしれない（推測・期待）</p>
+              <p className="text-[10px] text-gray-600">実現の可能性がある事への期待や恐れを表します。</p>
+            </div>
+
+          </div>
+        </section>
+
+        {/* --- 3. 代名詞がくっつく場合 --- */}
+        <section>
+          <div className="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-xl shadow-sm mt-12 mb-6">
+            <h4 className="font-bold text-blue-800 mb-3 text-lg">
+              🔗 代名詞がくっつく時は「接続形」になる
+            </h4>
+            <p className="text-sm text-blue-900 leading-relaxed">
+              「確かに【彼は】賢い」のように代名詞を使いたい場合、独立形（フワなど）ではなく、<strong>接続形代名詞（フ、カ、イーなど）</strong>が直接インナのお尻にくっつきます。
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-white p-3 rounded-xl border border-blue-200 flex justify-between items-center shadow-sm">
+              <div className="text-center w-full">
+                <p className="text-xs text-gray-500 mb-1">インナ ＋ 彼（هُ）</p>
+                <p className="text-2xl font-arabic text-blue-600 mb-1" dir="rtl">{"\u200Fإِنَّهُ\u200F"}</p>
+                <p className="text-[10px] font-bold text-[#5E3C1E]">インナフ（確かに彼は）</p>
+              </div>
+            </div>
+            <div className="bg-white p-3 rounded-xl border border-blue-200 flex justify-between items-center shadow-sm">
+              <div className="text-center w-full">
+                <p className="text-xs text-gray-500 mb-1">インナ ＋ あなた男（كَ）</p>
+                <p className="text-2xl font-arabic text-blue-600 mb-1" dir="rtl">{"\u200Fإِنَّكَ\u200F"}</p>
+                <p className="text-[10px] font-bold text-[#5E3C1E]">インナカ（確かにあなたは）</p>
+              </div>
+            </div>
+            <div className="bg-white p-3 rounded-xl border border-blue-200 flex justify-between items-center shadow-sm relative">
+              <div className="text-center w-full">
+                <p className="text-xs text-gray-500 mb-1">インナ ＋ 私（ي / نِي）</p>
+                <p className="text-2xl font-arabic text-blue-600 mb-1" dir="rtl">{"\u200Fإِنِّي / إِنَّنِي\u200F"}</p>
+                <p className="text-[10px] font-bold text-[#5E3C1E]">インニー / インナニー</p>
+              </div>
+              <p className="absolute -bottom-2 left-1/2 -translate-x-1/2 text-[8px] bg-blue-100 text-blue-800 px-2 rounded-full whitespace-nowrap">※2パターンあります</p>
+            </div>
+          </div>
+          
+          <div className="mt-6 bg-[#FFFDF9] p-4 rounded-xl border border-[#E5C9A8] shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="text-center md:text-right">
+              <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fأَعْرِفُ أَنَّهُ مَرِيضٌ\u200F"}</p>
+              <p className="text-xs font-bold text-[#5E3C1E]">アアリフ <span className="text-blue-600 text-sm">アンナフ</span> マリードゥン</p>
+              <p className="text-[10px] text-gray-500 mt-1">（私は【彼が】病気だ【ということ】を知っている）</p>
+            </div>
+            <button onClick={() => playTableAudio("\u200Fأَعْرِفُ أَنَّهُ مَرِيضٌ\u200F")} className="w-10 h-10 min-w-[40px] bg-white text-[#A67144] rounded-full flex items-center justify-center shadow-sm border border-[#E5C9A8] hover:bg-amber-100">
+              <Volume2 size={16} />
+            </button>
+          </div>
+        </section>
+
+      </div>
+    ),
+
+    imageUrls: [],
     contentVoweled: "",
     sentences: [], 
     vocabList: [],
     questions: [
+      {
+        type: "grammar",
+        text: "\u200F「インナ（\u200Fإِنَّ\u200F）」が名詞文の頭に付いた時の、正しい文法ルールはどれ？\u200F",
+        audio: "",
+        options: [
+          "\u200F主語が「主格（ウ段）」になり、述語が「対格（ア段）」になる\u200F",
+          "\u200F主語が「対格（ア段）」になり、述語は「主格（ウ段）」のまま\u200F",
+          "\u200F主語も述語も両方とも「対格（ア段）」になる\u200F",
+          "\u200F主語が「属格（イ段）」になる\u200F"
+        ],
+        correctIndex: 1,
+        explanation: "インナとその姉妹は、名詞文の主語（イスム）を対格（ア段）に変える働きを持ちます。述語（ハバル）は主格のままです。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「男は金持ちだ（\u200Fالرَّجُلُ غَنِيٌّ\u200F）」という文に「インナ」を付けて「確かに男は金持ちだ」とする場合、正しい形は？\u200F",
+        audio: "إِنَّ الرَّجُلَ غَنِيٌّ",
+        options: [
+          "\u200Fإِنَّ الرَّجُلُ غَنِيٌّ\u200F",
+          "\u200Fإِنَّ الرَّجُلِ غَنِيًّا\u200F",
+          "\u200Fإِنَّ الرَّجُلَ غَنِيٌّ\u200F",
+          "\u200Fإِنَّ الرَّجُلَ غَنِيًّا\u200F"
+        ],
+        correctIndex: 2,
+        explanation: "主語の「男（アッ・ラジュル）」が対格のアッ・ラジュラになり、述語の「金持ち（ガニユン）」はそのままウ段を保ちます。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「〜ということ（名詞節）」を作り、「私は〜だと知っている」のように文の途中で使われる助詞はどれ？\u200F",
+        audio: "",
+        options: [
+          "\u200Fإِنَّ\u200F (インナ)",
+          "\u200Fلَكِنَّ\u200F (ラーキンナ)",
+          "\u200Fأَنَّ\u200F (アンナ)",
+          "\u200Fلَعَلَّ\u200F (ラアッラ)"
+        ],
+        correctIndex: 2,
+        explanation: "「アンナ（\u200Fأَنَّ\u200F）」は「〜ということ」という意味を作り、動詞の目的語などとして文の途中で使われます。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「まるでその少女は月のようだ」比喩（まるで〜のようだ）を表す助詞はどれ？\u200F",
+        audio: "كَأَنَّ الْبِنْتَ قَمَرٌ",
+        options: [
+          "\u200Fلَيْتَ\u200F (ライタ)",
+          "\u200Fكَأَنَّ\u200F (カアンナ)",
+          "\u200Fأَنَّ\u200F (アンナ)",
+          "\u200Fلَكِنَّ\u200F (ラーキンナ)"
+        ],
+        correctIndex: 1,
+        explanation: "「カアンナ（\u200Fكَأَنَّ\u200F）」は「まるで〜のようだ」という比喩を表します。後ろの主語はもちろん対格になります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「車は古いが、【しかし】それは速い」逆接を表す正しい形は？\n（ヒント：代名詞「それ(女性)」がくっつきます）\u200F",
+        audio: "السَّيَّارَةُ قَدِيمَةٌ لَكِنَّهَا سَرِيعَةٌ",
+        options: [
+          "\u200Fلَكِنَّهُ\u200F (ラーキンナフ)",
+          "\u200Fلَكِنَّكَ\u200F (ラーキンナカ)",
+          "\u200Fلَكِنَّهَا\u200F (ラーキンナハー)",
+          "\u200Fلَكِنَّنِي\u200F (ラーキンナニー)"
+        ],
+        correctIndex: 2,
+        explanation: "車（サイヤーラ）は女性名詞なので、接続形代名詞の「ハー（彼女・それ）」がラーキンナにくっつき「ラーキンナハー」となります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「若さが戻ればいいのに」実現不可能な強い願望を表す助詞はどれ？\u200F",
+        audio: "لَيْتَ الشَّبَابَ عَائِدٌ",
+        options: [
+          "\u200Fلَعَلَّ\u200F (ラアッラ)",
+          "\u200Fلَيْتَ\u200F (ライタ)",
+          "\u200Fكَأَنَّ\u200F (カアンナ)",
+          "\u200Fإِنَّ\u200F (インナ)"
+        ],
+        correctIndex: 1,
+        explanation: "「ライタ（\u200Fلَيْتَ\u200F）」は、叶わない願いや非現実的な願望（〜であればいいのに）を表します。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「明日は天気がいいかもしれない」実現の可能性がある推測や期待を表す助詞はどれ？\u200F",
+        audio: "لَعَلَّ الطَّقْسَ جَمِيلٌ غَدًا",
+        options: [
+          "\u200Fلَعَلَّ\u200F (ラアッラ)",
+          "\u200Fلَيْتَ\u200F (ライタ)",
+          "\u200Fأَنَّ\u200F (アンナ)",
+          "\u200Fلَكِنَّ\u200F (ラーキンナ)"
+        ],
+        correctIndex: 0,
+        explanation: "「ラアッラ（\u200Fلَعَلَّ\u200F）」は「〜かもしれない」「おそらく〜だろう」という推測や期待を表します。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「確かに【彼らは】家にいる」正しい形は？\u200F",
+        audio: "إِنَّهُمْ فِي الْبَيْتِ",
+        options: [
+          "\u200Fإِنَّهُ\u200F (インナフ)",
+          "\u200Fإِنَّنَا\u200F (インナナー)",
+          "\u200Fإِنَّكَ\u200F (インナカ)",
+          "\u200Fإِنَّهُمْ\u200F (インナフム)"
+        ],
+        correctIndex: 3,
+        explanation: "「彼ら（フム）」の接続形代名詞がそのままインナにくっつき、「インナフム」となります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「確かにムスリムたち（男性複数）は来ている」正しい形は？\n（ヒント：男性複数の対格の形はどうなりますか？）\u200F",
+        audio: "إِنَّ الْمُسْلِمِينَ قَادِمُونَ",
+        options: [
+          "\u200Fإِنَّ الْمُسْلِمُونَ قَادِمُونَ\u200F",
+          "\u200Fإِنَّ الْمُسْلِمِينَ قَادِمُونَ\u200F",
+          "\u200Fإِنَّ الْمُسْلِمِينَ قَادِمِينَ\u200F",
+          "\u200Fإِنَّ الْمُسْلِمَانِ قَادِمُونَ\u200F"
+        ],
+        correctIndex: 1,
+        explanation: "男性複数（ムスリムーナ）は、インナの後ろで対格になるため「ムスリミーナ」に変化します。述語の「来ている（カーディムーナ）」は主格のままです。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「確かにアフマドは先生だ」正しい形は？\n（ヒント：アフマドは二段変化名詞です）\u200F",
+        audio: "إِنَّ أَحْمَدَ مُدَرِّسٌ",
+        options: [
+          "\u200Fإِنَّ أَحْمَدًا مُدَرِّسٌ\u200F",
+          "\u200Fإِنَّ أَحْمَدُ مُدَرِّسٌ\u200F",
+          "\u200Fإِنَّ أَحْمَدَ مُدَرِّسٌ\u200F",
+          "\u200Fإِنَّ أَحْمَدِ مُدَرِّسٌ\u200F"
+        ],
+        correctIndex: 2,
+        explanation: "アフマドは対格（ア段）になりますが、二段変化名詞なのでタンウィーン（ン）は付かず「アフマダ」となります。"
+      },
       {
         type: "grammar",
         text: "\u200F「本当に、神はご存じであり、賢明な方です」\n「\u200Fإِنَّ ___ عَلِيمٌ حَكِيمٌ\u200F」\u200F",
@@ -19771,22 +22152,306 @@ export const articles: Article[] = [
     id: 151,
     level: "文法",
     category: "原因目的語",
-    title: "Lesson 51: 原因目的語",
-    contentPlain: "「勉強するために」「尊敬して」のように、動作の理由や目的を説明する文法です。前置詞（〜のために）を使わずに、動名詞をそのまま「対格」にして動詞の後ろに置くことで表現します。",            
-    imageUrls: [
-      "/image/grammar/lesson51_1.jpg", 
-      "/image/grammar/lesson51_2.jpg", 
-      "/image/grammar/lesson51_3.jpg", 
-      "/image/grammar/lesson51_4.jpg", 
-      "/image/grammar/lesson51_5.jpg", 
-      "/image/grammar/lesson51_6.jpg", 
-      "/image/grammar/lesson51_7.jpg", 
-      "/image/grammar/lesson51_8.jpg", 
-    ],
+    title: "Lesson 51: 原因目的語（〜のために、〜して）",
+    contentPlain: "「勉強するために」「尊敬して」のように、動作の理由や目的を説明する文法です。前置詞（〜のために）を使わずに、動名詞をそのまま「対格」にして動詞の後ろに置くことで表現します。",
+    
+    contentNode: (
+      <div className="space-y-10 text-[#5E3C1E] mt-6">
+        <p className="leading-relaxed">
+          「なぜ彼はお金を寄付したの？」「なぜ彼女は泣いているの？」という<strong>「動作の理由や目的」</strong>を説明する時、アラビア語では前置詞を使わずに表現するスマートな方法があります。<br />
+          それが<strong>「原因目的語（マフウール・リアジュリヒ）」</strong>です。動名詞をそのまま置くだけで「〜のために」「〜して」という意味を作り出します！
+        </p>
+
+        {/* --- 1. 基本ルール --- */}
+        <section>
+          <div className="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-r-xl shadow-sm mb-6">
+            <h4 className="font-bold text-[#764C28] mb-3 text-lg">
+              💡 基本ルール：動名詞を「対格（ア段）」で置く
+            </h4>
+            <p className="text-sm text-[#5E3C1E] leading-relaxed">
+              作り方はハール（状態）や絶対目的語と同じく、とてもシンプルです。理由となる<strong>動名詞（〜すること）を、非限定・対格（ア段・タンウィーン）</strong>にして文に付け足すだけです。
+            </p>
+          </div>
+
+          <div className="bg-[#FDFCF8] p-5 rounded-2xl border border-[#E5C9A8] shadow-sm flex flex-col items-center text-center">
+            <h4 className="font-bold text-[#764C28] mb-4 text-center border-b border-[#E5C9A8] pb-2 w-full">
+              基本の形：「知識を求めて旅をする」
+            </h4>
+            <div className="flex justify-center items-center gap-4 mb-4">
+              <div className="text-center">
+                <p className="text-xs font-bold text-gray-500 mb-1">求めること(動名詞:主格)</p>
+                <p className="text-3xl font-arabic text-gray-400" dir="rtl">{"\u200Fطَلَبٌ\u200F"}</p>
+                <p className="text-[10px] font-bold text-[#5E3C1E] mt-1">タラブン</p>
+              </div>
+              <span className="text-amber-500 font-bold">→</span>
+              <div className="text-center bg-amber-50 p-3 rounded-lg border border-amber-200">
+                <p className="text-xs font-bold text-amber-800 mb-1">求めて(原因目的語:対格)</p>
+                <p className="text-4xl font-arabic text-amber-600 drop-shadow-sm" dir="rtl">{"\u200Fطَلَبًا\u200F"}</p>
+                <p className="text-xs font-bold text-[#5E3C1E] mt-2">タラ<span className="text-amber-600 text-lg">バン</span></p>
+              </div>
+            </div>
+            
+            <div className="bg-white p-3 rounded-lg border border-[#E5C9A8] w-full flex justify-between items-center">
+              <div className="text-center w-full">
+                <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fيُسَافِرُ طَلَبًا لِلْعِلْمِ\u200F"}</p>
+                <p className="text-xs font-bold text-[#5E3C1E]">ユサーフィル <strong>タラバン</strong> リルイルミ</p>
+                <p className="text-[10px] text-gray-500 mt-1">（彼は知識を【求めて／求めるために】旅をする）</p>
+              </div>
+              <button onClick={() => playTableAudio("\u200Fيُسَافِرُ طَلَبًا لِلْعِلْمِ\u200F")} className="w-8 h-8 min-w-[32px] bg-amber-50 text-amber-600 rounded-full flex items-center justify-center shadow-sm border border-amber-200 hover:bg-amber-100">
+                <Volume2 size={14} />
+              </button>
+            </div>
+            <p className="text-[10px] text-gray-500 mt-2">※「〜のために（リ）」を使わなくても、タラバンだけで理由を表せます。</p>
+          </div>
+        </section>
+
+        {/* --- 2. よく使われる動名詞（心の動き） --- */}
+        <section>
+          <h3 className="text-xl font-bold text-[#4A3018] mt-12 mb-4 border-b-2 border-[#E5C9A8] pb-2">
+            ❤️ 心の動き（感情・動機）を表す言葉がよく使われる
+          </h3>
+          <p className="text-sm text-[#764C28] leading-relaxed mb-6">
+            原因目的語として使われる動名詞は、<strong>「恐れ」「敬意」「愛情」「希望」</strong>といった、目に見えない心の中の動機を表す言葉がよく選ばれます。日常的によく使う4つのパターンを見てみましょう。
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            {/* 尊敬して */}
+            <div className="bg-white border border-[#E5C9A8] p-4 rounded-xl shadow-sm">
+              <h4 className="font-bold text-[#764C28] mb-2 text-sm border-b border-[#E5C9A8] pb-1 w-full">
+                ① 尊敬して（イフティラーマン）
+              </h4>
+              <p className="text-2xl font-arabic text-amber-600 drop-shadow-sm mb-1 text-center" dir="rtl">{"\u200Fقُمْتُ احْتِرَامًا لِلْمُعَلِّمِ\u200F"}</p>
+              <p className="text-xs font-bold text-[#5E3C1E] text-center mb-1">クムトゥ <span className="text-amber-600 text-sm">イフティラーマン</span> リルムアッリミ</p>
+              <p className="text-[10px] text-gray-500 text-center">（私は先生に【敬意を表して／尊敬のために】立ち上がった）</p>
+              <div className="flex justify-center mt-2">
+                <button onClick={() => playTableAudio("\u200Fقُمْتُ احْتِرَامًا لِلْمُعَلِّمِ\u200F")} className="w-8 h-8 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center shadow-sm border border-amber-200 hover:bg-amber-100">
+                  <Volume2 size={14} />
+                </button>
+              </div>
+            </div>
+
+            {/* 恐れて */}
+            <div className="bg-white border border-blue-200 p-4 rounded-xl shadow-sm">
+              <h4 className="font-bold text-blue-700 mb-2 text-sm border-b border-blue-100 pb-1 w-full">
+                ② 恐れて（ハウファン）
+              </h4>
+              <p className="text-2xl font-arabic text-blue-600 drop-shadow-sm mb-1 text-center" dir="rtl">{"\u200Fبَكَى الطِّفْلُ خَوْفًا مِنَ الكَلْبِ\u200F"}</p>
+              <p className="text-xs font-bold text-[#5E3C1E] text-center mb-1">バカ ッ・ティフル <span className="text-blue-600 text-sm">ハウファン</span> ミナ ル・カルビ</p>
+              <p className="text-[10px] text-gray-500 text-center">（子どもは犬を【恐れて】泣いた）</p>
+              <div className="flex justify-center mt-2">
+                <button onClick={() => playTableAudio("\u200Fبَكَى الطِّفْلُ خَوْفًا مِنَ الكَلْبِ\u200F")} className="w-8 h-8 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center shadow-sm border border-blue-200 hover:bg-blue-100">
+                  <Volume2 size={14} />
+                </button>
+              </div>
+            </div>
+
+            {/* 愛して */}
+            <div className="bg-white border border-rose-200 p-4 rounded-xl shadow-sm">
+              <h4 className="font-bold text-rose-700 mb-2 text-sm border-b border-rose-100 pb-1 w-full">
+                ③ 愛して・好きで（フッバン）
+              </h4>
+              <p className="text-2xl font-arabic text-rose-600 drop-shadow-sm mb-1 text-center" dir="rtl">{"\u200Fأَقْرَأُ الكُتُبَ حُبًّا فِي القِرَاءَةِ\u200F"}</p>
+              <p className="text-xs font-bold text-[#5E3C1E] text-center mb-1">アクラウ ル・クトゥバ <span className="text-rose-600 text-sm">フッバン</span> フィー ル・キラーアティ</p>
+              <p className="text-[10px] text-gray-500 text-center">（私は読書が【好きで／読書への愛のために】本を読む）</p>
+              <div className="flex justify-center mt-2">
+                <button onClick={() => playTableAudio("\u200Fأَقْرَأُ الكُتُبَ حُبًّا فِي القِرَاءَةِ\u200F")} className="w-8 h-8 bg-rose-50 text-rose-600 rounded-full flex items-center justify-center shadow-sm border border-rose-200 hover:bg-rose-100">
+                  <Volume2 size={14} />
+                </button>
+              </div>
+            </div>
+
+            {/* 望んで */}
+            <div className="bg-white border border-emerald-200 p-4 rounded-xl shadow-sm">
+              <h4 className="font-bold text-emerald-700 mb-2 text-sm border-b border-emerald-100 pb-1 w-full">
+                ④ 望んで・希望して（ラグバタン）
+              </h4>
+              <p className="text-2xl font-arabic text-emerald-600 drop-shadow-sm mb-1 text-center" dir="rtl">{"\u200Fأَدْرُسُ رَغْبَةً فِي النَّجَاحِ\u200F"}</p>
+              <p className="text-xs font-bold text-[#5E3C1E] text-center mb-1">アドルス <span className="text-emerald-600 text-sm">ラグバタン</span> フィー ン・ナジャーヒ</p>
+              <p className="text-[10px] text-gray-500 text-center">（私は成功を【望んで／希望して】勉強する）</p>
+              <div className="flex justify-center mt-2">
+                <button onClick={() => playTableAudio("\u200Fأَدْرُسُ رَغْبَةً فِي النَّجَاحِ\u200F")} className="w-8 h-8 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center shadow-sm border border-emerald-200 hover:bg-emerald-100">
+                  <Volume2 size={14} />
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* --- 3. 状態や絶対目的語との違い --- */}
+        <section>
+          <div className="bg-stone-50 border border-stone-200 p-5 rounded-xl shadow-sm mt-10">
+            <h4 className="font-bold text-stone-700 mb-3 text-md text-center border-b border-stone-200 pb-2">
+              🤔 絶対目的語・ハール（状態）との違いは？
+            </h4>
+            <p className="text-xs text-stone-600 leading-relaxed text-center mb-4">
+              どれも「対格（ア段・アン）」で文に付け足すので似ていますが、<strong>「何を説明しているか」</strong>が全く違います！
+            </p>
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="bg-white p-3 rounded-lg border border-stone-200 w-full">
+                <p className="font-bold text-[#8A5A33] text-sm mb-1">絶対目的語</p>
+                <p className="text-xs text-gray-600"><strong>動詞と同じ語根</strong>を使い、動作を「強調」します。<br/>例：彼は激しく叩きを【叩いた】。</p>
+              </div>
+              <div className="bg-white p-3 rounded-lg border border-stone-200 w-full">
+                <p className="font-bold text-blue-700 text-sm mb-1">ハール（状態）</p>
+                <p className="text-xs text-gray-600">主語などの<strong>目に見える姿・状態</strong>を説明します。<br/>例：彼は【笑いながら】来た。</p>
+              </div>
+              <div className="bg-white p-3 rounded-lg border border-stone-200 w-full">
+                <p className="font-bold text-emerald-700 text-sm mb-1">原因目的語</p>
+                <p className="text-xs text-gray-600">動作の<strong>心の中の理由・目的</strong>を説明します。<br/>例：彼は犬を【恐れて】泣いた。</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-[#FFFDF9] border border-[#E5C9A8] p-4 rounded-xl shadow-sm text-center mt-6">
+            <p className="text-sm text-[#764C28] leading-relaxed font-bold">
+              💡 前置詞「リ（〜のために）」を使ってもOK！
+            </p>
+            <p className="text-xs text-[#5E3C1E] mt-1">
+              原因目的語（対格）を使う代わりに、前置詞「リ（\u200Fلِـ\u200F）」を使って<strong>「リタラビ（\u200Fلِطَلَبِ\u200F：求めることのために）」</strong>のように属格（イ段）で言うことも可能です。意味は同じですが、原因目的語を使うとより洗練された表現になります。
+            </p>
+          </div>
+        </section>
+
+      </div>
+    ),
+
+    imageUrls: [],
     contentVoweled: "",
     sentences: [], 
     vocabList: [],
     questions: [
+      {
+        type: "grammar",
+        text: "\u200F原因目的語（マフウール・リアジュリヒ）の文法的な特徴として正しいものはどれ？\u200F",
+        audio: "",
+        options: [
+          "動詞の前に置き、主格（ウ段）にする", 
+          "動名詞を使い、対格（ア段）にする",
+          "前置詞を使い、属格（イ段）にする",
+          "形容詞を使い、前の名詞の格をコピーする"
+        ],
+        correctIndex: 1,
+        explanation: "理由や目的を表す動名詞を、非限定・対格（ア段・タンウィーン）にして動詞の後ろに置きます。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私は先生に【敬意を表して】立ち上がった」正しい原因目的語の形は？\n※敬意・尊敬：イフティラームン（\u200Fاحْتِرَامٌ\u200F）\u200F",
+        audio: "\u200Fقُمْتُ احْتِرَامًا لِلْمُعَلِِّمِ\u200F",
+        options: [
+          "\u200Fاحْتِرَامٌ\u200F", 
+          "\u200Fالِاحْتِرَامَ\u200F",
+          "\u200Fاحْتِرَامًا\u200F",
+          "\u200Fاحْتِرَامٍ\u200F"
+        ],
+        correctIndex: 2,
+        explanation: "非限定（アルなし）かつ対格（ア段）にするため、イフティラーマン（\u200Fاحْتِرَامًا\u200F）が正解です。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「彼は知識を【求めて】旅をする」正しい形は？\n※求めること：タラブン（\u200Fطَلَبٌ\u200F）\u200F",
+        audio: "\u200Fيُسَافِرُ طَلَبًا لِلْعِلْمِ\u200F",
+        options: [
+          "\u200Fطَلَبًا\u200F", 
+          "\u200Fطَلَبٌ\u200F",
+          "\u200Fلِطَلَبًا\u200F",
+          "\u200Fالطَّلَبَ\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "理由を表す原因目的語なので、対格のタラバン（\u200Fطَلَبًا\u200F）になります。前置詞（リ）は付けません。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「子どもは犬を【恐れて】泣いた」正しい形は？\n※恐れ：ハウフン（\u200Fخَوْفٌ\u200F）\u200F",
+        audio: "\u200Fبَكَى الطِّفْلُ خَوْفًا مِنَ الكَلْبِ\u200F",
+        options: [
+          "\u200Fخَوْفٌ\u200F", 
+          "\u200Fالخَوْفَ\u200F",
+          "\u200Fخَوْفٍ\u200F",
+          "\u200Fخَوْفًا\u200F"
+        ],
+        correctIndex: 3,
+        explanation: "心の動き（理由）を表す原因目的語です。対格のハウファン（\u200Fخَوْفًا\u200F）が正解です。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私は成功を【望んで】勉強する」正しい形は？\n※望み：ラグバツン（\u200Fرَغْبَةٌ\u200F）\u200F",
+        audio: "\u200Fأَدْرُسُ رَغْبَةً فِي النَّجَاحِ\u200F",
+        options: [
+          "\u200Fرَغْبَةً\u200F", 
+          "\u200Fرَغْبَةٌ\u200F",
+          "\u200Fالرَّغْبَةَ\u200F",
+          "\u200Fرَغْبَةٍ\u200F"
+        ],
+        correctIndex: 0,
+        explanation: "語尾がター・マルブータ（ة）なので、アリフを足さずにそのままタンウィーンを付けて ラグバタン（\u200Fرَغْبَةً\u200F） にします。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「私は読書が【好きで】本を読む」正しい形は？\n※愛・好き：フッブン（\u200Fحُبٌّ\u200F）\u200F",
+        audio: "\u200Fأَقْرَأُ الكُتُبَ حُبًّا فِي القِرَاءَةِ\u200F",
+        options: [
+          "\u200Fحُبٌّ\u200F", 
+          "\u200Fحُبًّا\u200F",
+          "\u200Fحُبٍّ\u200F",
+          "\u200Fالحُبَّ\u200F"
+        ],
+        correctIndex: 1,
+        explanation: "理由・動機を表すため、対格のフッバン（\u200Fحُبًّا\u200F）になります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F次の文のうち、「原因目的語」が使われているものはどれ？\u200F",
+        audio: "",
+        options: [
+          "\u200Fجَاءَ الرَّجُلُ ضَاحِكًا\u200F (男が笑いながら来た)", 
+          "\u200Fأَنَا أَكْبَرُ مِنْهُ سِنًّا\u200F (私は彼より年齢が上だ)",
+          "\u200Fهَرَبَ خَوْفًا مِنَ الأَسَدِ\u200F (彼はライオンを恐れて逃げた)",
+          "\u200Fضَرَبَ ضَرْبًا شَدِيدًا\u200F (彼は激しい叩きを叩いた)"
+        ],
+        correctIndex: 2,
+        explanation: "「恐れて（ハウファン）」が逃げた理由を説明しているため、原因目的語です。他はハール、タムイーズ、絶対目的語です。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「ハール（状態）」と「原因目的語」の大きな違いは何ですか？\u200F",
+        audio: "",
+        options: [
+          "ハールは主格、原因目的語は対格になる", 
+          "ハールは状態や姿を説明し、原因目的語は心の中の理由や目的を説明する",
+          "ハールは定冠詞（アル）が付き、原因目的語は付かない",
+          "ハールは動詞の前に置き、原因目的語は動詞の後に置く"
+        ],
+        correctIndex: 1,
+        explanation: "どちらも「非限定・対格」という形は同じですが、ハールは「目に見える姿・状態」を、原因目的語は「心の中の動機・理由」を説明します。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F原因目的語として使われる動名詞には、ある共通点があります。それは何ですか？\u200F",
+        audio: "",
+        options: [
+          "必ず体の動き（走る、食べるなど）を表す言葉である", 
+          "必ず心の中の動きや感情（恐れ、尊敬など）を表す言葉である",
+          "必ず動詞と同じ語根から作られている",
+          "必ず複数形になっている"
+        ],
+        correctIndex: 1,
+        explanation: "原因目的語は、物理的な動作ではなく「心の中の動機（感情や意図）」を表す動名詞が使われるのが特徴です。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F原因目的語（対格）を使う代わりに、同じ意味を「前置詞」を使って表すこともできます。正しい前置詞はどれですか？\u200F",
+        audio: "",
+        options: [
+          "\u200Fفِي\u200F (〜の中に)", 
+          "\u200Fمِنْ\u200F (〜から)",
+          "\u200Fلِـ\u200F (〜のために)",
+          "\u200Fعَلَى\u200F (〜の上に)"
+        ],
+        correctIndex: 2,
+        explanation: "「〜のために（リ：\u200Fلِـ\u200F）」を使って、\u200Fلِطَلَبِ\u200F（リタラビ：求めることのために）と属格で表現することも可能です。"
+      },
       {
         type: "grammar",
         text: "\u200F「生徒たちは先生に敬意を表して立ち上がりました」\n「\u200Fقَامَ التَّلَامِيذُ ___ لِلْمُعَلِّمِ\u200F」\u200F",
@@ -19897,26 +22562,377 @@ export const articles: Article[] = [
     id: 152,
     level: "文法",
     category: "呼びかけ",
-    title: "Lesson 52: 呼びかけ（ニダー）",
+    title: "Lesson 52: 呼びかけ（ニダー：〜よ！）",
     contentPlain: "「やぁ」「おい」と相手を呼ぶ文法です。基本の粒子は「ヤー（يَا）」です。呼ばれる相手（ムナーダ）の種類によって、語尾が「主格（u）」の形で固定される場合と、本来の目的語としての「対格（a/an）」になる場合があります。「アル（ال）」のついた語を呼ぶときは「ヤー・アイユハ」を使います。",
-    imageUrls: [
-      "/image/grammar/lesson52_1.jpg", 
-      "/image/grammar/lesson52_2.jpg", 
-      "/image/grammar/lesson52_3.jpg", 
-      "/image/grammar/lesson52_4.jpg", 
-      "/image/grammar/lesson52_5.jpg", 
-      "/image/grammar/lesson52_6.jpg", 
-      "/image/grammar/lesson52_7.jpg", 
-      "/image/grammar/lesson52_8.jpg", 
-      "/image/grammar/lesson52_9.jpg", 
-      "/image/grammar/lesson52_10.jpg",
-      "/image/grammar/lesson52_11.jpg",
-    ],
+    
+    contentNode: (
+      <div className="space-y-10 text-[#5E3C1E] mt-6">
+        <p className="leading-relaxed">
+          誰かに「ムハンマドよ！」「おい、そこの男！」と呼びかける時、アラビア語では<strong>「呼びかけの助詞（ハルフ・ニダー）」</strong>を使います。最も代表的なのが<strong>「ヤー（{"\u200Fيَا\u200F"}）」</strong>です。<br />
+          この「ヤー」の後ろに来る名詞（呼ばれる人＝ムナーダ）は、その種類によって<strong>語尾の母音が「ウ段」になるか「ア段」になるか</strong>が厳密に決まっています！
+        </p>
+
+        {/* --- 1. ウ段（主格）で止まるパターン --- */}
+        <section>
+          <div className="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-r-xl shadow-sm mb-6">
+            <h4 className="font-bold text-[#764C28] mb-3 text-lg">
+              ✋ ルール①：固有名詞・特定の人は「ウ段（タンウィーンなし）」
+            </h4>
+            <p className="text-sm text-[#5E3C1E] leading-relaxed">
+              人の名前（固有名詞）や、目の前にいる特定の「男」や「先生」を呼ぶ時は、語尾が<strong>ウ段（ダンマ）</strong>で固定されます。この時、<strong>絶対にタンウィーン（ン）は付けません！</strong>
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* 固有名詞 */}
+            <div className="bg-[#FDFCF8] p-4 rounded-xl border border-[#E5C9A8] text-center shadow-sm flex flex-col items-center">
+              <h4 className="font-bold text-[#A67144] mb-2 text-sm border-b border-[#E5C9A8] pb-2 w-full">
+                例：ムハンマドよ！
+              </h4>
+              <div className="flex justify-center items-center gap-2 mb-2">
+                <div className="text-center">
+                  <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">ムハンマド</span>
+                  <p className="text-2xl font-arabic text-gray-400 mt-1" dir="rtl">{"\u200Fمُحَمَّدٌ\u200F"}</p>
+                </div>
+                <span className="text-amber-500 font-bold text-xl">＋</span>
+                <div className="text-center">
+                  <span className="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-1 rounded">〜よ</span>
+                  <p className="text-2xl font-arabic text-amber-600 mt-1" dir="rtl">{"\u200Fيَا\u200F"}</p>
+                </div>
+              </div>
+              <div className="bg-amber-50 p-3 rounded-lg border border-amber-200 w-full text-center mt-2">
+                <p className="text-3xl font-arabic text-[#8A5A33] drop-shadow-sm mb-1" dir="rtl">{"\u200Fيَا مُحَمَّدُ\u200F"}</p>
+                <p className="text-xs font-bold text-[#5E3C1E]">ヤー ムハンマ<span className="text-amber-600 text-lg font-black">ドゥ</span></p>
+                <p className="text-[10px] text-amber-800 mt-1 font-bold">※「ムハンマドゥン」の「ン」が消えます！</p>
+              </div>
+              <button onClick={() => playTableAudio("\u200Fيَا مُحَمَّدُ\u200F")} className="w-8 h-8 bg-white text-[#A67144] rounded-full inline-flex items-center justify-center shadow-sm hover:bg-amber-100 transition-all border border-[#E5C9A8] mt-2">
+                <Volume2 size={14} />
+              </button>
+            </div>
+
+            {/* 特定の人 */}
+            <div className="bg-[#FDFCF8] p-4 rounded-xl border border-[#E5C9A8] text-center shadow-sm flex flex-col items-center">
+              <h4 className="font-bold text-[#A67144] mb-2 text-sm border-b border-[#E5C9A8] pb-2 w-full">
+                例：そこの男よ！
+              </h4>
+              <div className="flex justify-center items-center gap-2 mb-2">
+                <div className="text-center">
+                  <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">男</span>
+                  <p className="text-2xl font-arabic text-gray-400 mt-1" dir="rtl">{"\u200Fرَجُلٌ\u200F"}</p>
+                </div>
+                <span className="text-amber-500 font-bold text-xl">＋</span>
+                <div className="text-center">
+                  <span className="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-1 rounded">〜よ</span>
+                  <p className="text-2xl font-arabic text-amber-600 mt-1" dir="rtl">{"\u200Fيَا\u200F"}</p>
+                </div>
+              </div>
+              <div className="bg-amber-50 p-3 rounded-lg border border-amber-200 w-full text-center mt-2">
+                <p className="text-3xl font-arabic text-[#8A5A33] drop-shadow-sm mb-1" dir="rtl">{"\u200Fيَا رَجُلُ\u200F"}</p>
+                <p className="text-xs font-bold text-[#5E3C1E]">ヤー ラジュ<span className="text-amber-600 text-lg font-black">ル</span></p>
+                <p className="text-[10px] text-amber-800 mt-1 font-bold">※特定の誰かを指差して呼ぶ場合はウ段です。</p>
+              </div>
+              <button onClick={() => playTableAudio("\u200Fيَا رَجُلُ\u200F")} className="w-8 h-8 bg-white text-[#A67144] rounded-full inline-flex items-center justify-center shadow-sm hover:bg-amber-100 transition-all border border-[#E5C9A8] mt-2">
+                <Volume2 size={14} />
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* --- 2. ア段（対格）に変化するパターン --- */}
+        <section>
+          <div className="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-xl shadow-sm mt-12 mb-6">
+            <h4 className="font-bold text-blue-800 mb-3 text-lg">
+              🔗 ルール②：イダーファ（所有格）の時は「ア段（対格）」
+            </h4>
+            <p className="text-sm text-blue-900 leading-relaxed">
+              「神の使徒よ」「私の主よ」のように、<strong>呼ばれる人がイダーファ（所有格）の最初の言葉になっている場合</strong>は、ウ段ではなく<strong>「ア段（対格）」</strong>に変化します。これは超重要ルールです！
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            {/* 神の使徒よ */}
+            <div className="bg-white border border-blue-200 p-5 rounded-xl shadow-sm flex flex-col items-center">
+              <h4 className="font-bold text-blue-700 mb-3 text-md border-b border-blue-100 pb-2 w-full text-center">
+                例：神の使徒（預言者）よ！
+              </h4>
+              <div className="flex justify-center items-center gap-2 mb-4">
+                <div className="text-center">
+                  <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">神の使徒(主格)</span>
+                  <p className="text-2xl font-arabic text-gray-400 mt-1" dir="rtl">{"\u200Fرَسُولُ اللّٰهِ\u200F"}</p>
+                </div>
+                <span className="text-blue-500 font-bold text-xl">＋</span>
+                <div className="text-center">
+                  <span className="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-1 rounded">〜よ</span>
+                  <p className="text-2xl font-arabic text-blue-500 mt-1" dir="rtl">{"\u200Fيَا\u200F"}</p>
+                </div>
+              </div>
+              <div className="bg-blue-50 p-3 rounded-lg border border-blue-200 w-full text-center">
+                <p className="text-3xl font-arabic text-blue-600 drop-shadow-sm mb-1" dir="rtl">{"\u200Fيَا رَسُولَ اللّٰهِ\u200F"}</p>
+                <p className="text-xs font-bold text-[#5E3C1E]">ヤー ラスー<span className="text-blue-600 text-xl font-black">ラ</span> ッラーヒ</p>
+                <p className="text-[10px] text-gray-500 mt-1">※イダーファなので「ラスール（ウ段）」が「ラスーラ（ア段）」になります。</p>
+              </div>
+              <button onClick={() => playTableAudio("\u200Fيَا رَسُولَ اللّٰهِ\u200F")} className="mt-3 w-10 h-10 bg-white text-blue-600 rounded-full flex items-center justify-center shadow-sm border border-blue-200 hover:bg-blue-100">
+                <Volume2 size={16} />
+              </button>
+            </div>
+
+            {/* アブー・バクルよ */}
+            <div className="bg-white border border-blue-200 p-5 rounded-xl shadow-sm flex flex-col items-center">
+              <h4 className="font-bold text-blue-700 mb-3 text-md border-b border-blue-100 pb-2 w-full text-center">
+                例：アブー・バクルよ！
+              </h4>
+              <div className="flex justify-center items-center gap-2 mb-4">
+                <div className="text-center">
+                  <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">アブー・バクル</span>
+                  <p className="text-2xl font-arabic text-gray-400 mt-1" dir="rtl">{"\u200Fأَبُو بَكْرٍ\u200F"}</p>
+                </div>
+                <span className="text-blue-500 font-bold text-xl">＋</span>
+                <div className="text-center">
+                  <span className="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-1 rounded">〜よ</span>
+                  <p className="text-2xl font-arabic text-blue-500 mt-1" dir="rtl">{"\u200Fيَا\u200F"}</p>
+                </div>
+              </div>
+              <div className="bg-blue-50 p-3 rounded-lg border border-blue-200 w-full text-center">
+                <p className="text-3xl font-arabic text-blue-600 drop-shadow-sm mb-1" dir="rtl">{"\u200Fيَا أَبَا بَكْرٍ\u200F"}</p>
+                <p className="text-xs font-bold text-[#5E3C1E]">ヤー ア<span className="text-blue-600 text-xl font-black">バー</span> バクリン</p>
+                <p className="text-[10px] text-gray-500 mt-1">※アブー（父）はLesson 43で学んだ特殊名詞です。イダーファの対格になるため「アバー」に変化します！</p>
+              </div>
+              <button onClick={() => playTableAudio("\u200Fيَا أَبَا بَكْرٍ\u200F")} className="mt-3 w-10 h-10 bg-white text-blue-600 rounded-full flex items-center justify-center shadow-sm border border-blue-200 hover:bg-blue-100">
+                <Volume2 size={16} />
+              </button>
+            </div>
+
+          </div>
+        </section>
+
+        {/* --- 3. 定冠詞（アル）がついた名詞を呼ぶ --- */}
+        <section>
+          <div className="bg-emerald-50 border-l-4 border-emerald-500 p-5 rounded-r-xl shadow-sm mt-12 mb-6">
+            <h4 className="font-bold text-emerald-800 mb-3 text-lg">
+              👑 ルール③：アル（ال）が付いた名詞を呼ぶ時のクッション
+            </h4>
+            <p className="text-sm text-emerald-900 leading-relaxed">
+              アラビア語では「ヤー ＋ アル付き名詞（例：ヤー アッ・ラジュル）」と<strong>直接つなげて呼ぶことは禁止</strong>されています。<br />
+              必ず間に<strong>「アイユハ（男性用）」</strong>か<strong>「アイヤトゥハ（女性用）」</strong>というクッション言葉を挟む必要があります！
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            {/* 男性用 */}
+            <div className="bg-white p-4 rounded-xl border border-emerald-200 shadow-sm flex flex-col items-center">
+              <h4 className="font-bold text-emerald-700 mb-3 text-sm border-b border-emerald-100 pb-2 w-full text-center">
+                男性名詞を呼ぶ（アイユハ）
+              </h4>
+              <div className="flex justify-center items-center gap-1 mb-3 w-full">
+                <span className="text-2xl font-arabic text-gray-400 line-through decoration-red-400" dir="rtl">{"\u200Fيَا الرَّجُلُ\u200F"}</span>
+                <span className="text-emerald-500 font-bold mx-2">→</span>
+                <p className="text-3xl font-arabic text-emerald-600 drop-shadow-sm" dir="rtl">{"\u200Fيَا أَيُّهَا الرَّجُلُ\u200F"}</p>
+              </div>
+              <p className="text-xs font-bold text-[#5E3C1E] text-center bg-emerald-50 w-full p-2 rounded">
+                ヤー <span className="text-emerald-600 text-sm">アイユハ</span> ル・ラジュル
+              </p>
+              <p className="text-[10px] text-gray-500 text-center mt-2">（おお、そこの男よ！）</p>
+              <button onClick={() => playTableAudio("\u200Fيَا أَيُّهَا الرَّجُلُ\u200F")} className="mt-2 w-8 h-8 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center shadow-sm border border-emerald-200 hover:bg-emerald-100">
+                <Volume2 size={14} />
+              </button>
+            </div>
+
+            {/* 女性用 */}
+            <div className="bg-white p-4 rounded-xl border border-emerald-200 shadow-sm flex flex-col items-center">
+              <h4 className="font-bold text-emerald-700 mb-3 text-sm border-b border-emerald-100 pb-2 w-full text-center">
+                女性名詞を呼ぶ（アイヤトゥハ）
+              </h4>
+              <div className="flex justify-center items-center gap-1 mb-3 w-full">
+                <span className="text-2xl font-arabic text-gray-400 line-through decoration-red-400" dir="rtl">{"\u200Fيَا النَّفْسُ\u200F"}</span>
+                <span className="text-emerald-500 font-bold mx-2">→</span>
+                <p className="text-3xl font-arabic text-emerald-600 drop-shadow-sm" dir="rtl">{"\u200Fيَا أَيَّتُهَا النَّفْسُ\u200F"}</p>
+              </div>
+              <p className="text-xs font-bold text-[#5E3C1E] text-center bg-emerald-50 w-full p-2 rounded">
+                ヤー <span className="text-emerald-600 text-sm">アイヤトゥハ</span> ン・ナフス
+              </p>
+              <p className="text-[10px] text-gray-500 text-center mt-2">（おお、魂よ！ ※クルアーン頻出）</p>
+              <button onClick={() => playTableAudio("\u200Fيَا أَيَّتُهَا النَّفْسُ\u200F")} className="mt-2 w-8 h-8 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center shadow-sm border border-emerald-200 hover:bg-emerald-100">
+                <Volume2 size={14} />
+              </button>
+            </div>
+
+          </div>
+        </section>
+
+        {/* --- 4. 様々な呼びかけの助詞 --- */}
+        <section>
+          <div className="bg-stone-50 border border-stone-200 p-5 rounded-xl shadow-sm mt-12">
+            <h4 className="font-bold text-stone-700 mb-3 text-md text-center border-b border-stone-200 pb-2">
+              🗣️ その他の呼びかけの助詞（距離や感情による使い分け）
+            </h4>
+            <p className="text-xs text-stone-600 leading-relaxed text-center mb-4">
+              「ヤー」以外にも、相手との距離や感情によって様々な助詞があります。
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div className="bg-white p-3 rounded-lg border border-stone-200 text-center">
+                <p className="font-bold text-[#8A5A33] text-sm mb-1">【近い相手へ】</p>
+                <p className="text-3xl font-arabic text-gray-500 mb-1" dir="rtl">{"\u200Fأَ / أَيْ\u200F"}</p>
+                <p className="text-xs font-bold text-[#5E3C1E]">ア / アイ</p>
+                <p className="text-[10px] text-gray-500 mt-1">「ねぇ」「ちょっと」と親しい距離で呼びます。</p>
+              </div>
+              <div className="bg-white p-3 rounded-lg border border-stone-200 text-center">
+                <p className="font-bold text-blue-700 text-sm mb-1">【遠い相手へ】</p>
+                <p className="text-3xl font-arabic text-gray-500 mb-1" dir="rtl">{"\u200Fأَيَا / هَيَّا\u200F"}</p>
+                <p className="text-xs font-bold text-[#5E3C1E]">アヤー / ハイヤー</p>
+                <p className="text-[10px] text-gray-500 mt-1">遠くにいる人や、群衆に呼びかける時に使います。</p>
+              </div>
+              <div className="bg-white p-3 rounded-lg border border-rose-200 text-center">
+                <p className="font-bold text-rose-700 text-sm mb-1">【悲嘆・嘆き】</p>
+                <p className="text-3xl font-arabic text-rose-500 mb-1" dir="rtl">{"\u200Fوَا\u200F"}</p>
+                <p className="text-xs font-bold text-[#5E3C1E]">ワー</p>
+                <p className="text-[10px] text-gray-500 mt-1">「ああ、悲しいかな！」と痛みや嘆き（ヌドゥバ）を表します。</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    ),
+
+    imageUrls: [],
     contentVoweled: "",
     sentences: [], 
     vocabList: [],
     questions: [
       {
+        type: "grammar",
+        text: "\u200F呼びかけの助詞「ヤー（\u200Fيَا\u200F）」の後ろに来る「固有名詞（人名）」の正しい語尾はどれですか？\u200F",
+        audio: "",
+        options: [
+          "対格（ア段）になり、タンウィーンが付く", 
+          "主格（ウ段）になるが、タンウィーンは付かない",
+          "主格（ウ段）になり、タンウィーンが付く",
+          "属格（イ段）になり、タンウィーンは付かない"
+        ],
+        correctIndex: 1,
+        explanation: "固有名詞や特定の相手を呼ぶ時は、主格（ウ段）で固定され、タンウィーン（ン）は絶対に付きません。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「ザイドよ！」正しいアラビア語の形はどれ？\n※ザイド（\u200Fزَيْدٌ\u200F）\u200F",
+        audio: "\u200Fيَا زَيْدُ\u200F",
+        options: [
+          "\u200Fيَا زَيْدٌ\u200F", 
+          "\u200Fيَا زَيْدًا\u200F",
+          "\u200Fيَا زَيْدُ\u200F",
+          "\u200Fيَا زَيْدِ\u200F"
+        ],
+        correctIndex: 2,
+        explanation: "固有名詞への呼びかけなので、タンウィーンを外したウ段の「ヤー ザイドゥ（\u200Fيَا زَيْدُ\u200F）」になります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「神の使徒よ！」正しいアラビア語の形はどれ？\n※使徒（\u200Fرَسُولُ\u200F）、神の（\u200Fاللّٰهِ\u200F）\u200F",
+        audio: "\u200Fيَا رَسُولَ اللّٰهِ\u200F",
+        options: [
+          "\u200Fيَا رَسُولُ اللّٰهِ\u200F", 
+          "\u200Fيَا رَسُولَ اللّٰهِ\u200F",
+          "\u200Fيَا رَسُولِ اللّٰهِ\u200F",
+          "\u200Fيَا الرَّسُولَ اللّٰهِ\u200F"
+        ],
+        correctIndex: 1,
+        explanation: "イダーファ（所有格）の最初の単語を呼ぶ時は「対格（ア段）」に変化する絶対ルールがあるため、「ヤー ラスーラッラーヒ」となります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「神のしもべ（アブド）よ！」正しい形はどれ？\n※しもべ（\u200Fعَبْدُ\u200F）、神の（\u200Fاللّٰهِ\u200F）\u200F",
+        audio: "\u200Fيَا عَبْدَ اللّٰهِ\u200F",
+        options: [
+          "\u200Fيَا عَبْدُ اللّٰهِ\u200F", 
+          "\u200Fيَا عَبْدَ اللّٰهِ\u200F",
+          "\u200Fيَا عَبْدِ اللّٰهِ\u200F",
+          "\u200Fيَا عَبْدًا اللّٰهِ\u200F"
+        ],
+        correctIndex: 1,
+        explanation: "これもイダーファの呼びかけなので、最初の単語「アブド」がア段（対格）になり、「ヤー アブダッラーヒ」となります。（※アブドゥッラーという名前の人を呼ぶ時もこの形になります）"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「アブー・バクルよ！」正しい形はどれ？\n※アブー（\u200Fأَبُو\u200F：父）は5つの特殊名詞です。\u200F",
+        audio: "\u200Fيَا أَبَا بَكْرٍ\u200F",
+        options: [
+          "\u200Fيَا أَبُو بَكْرٍ\u200F", 
+          "\u200Fيَا أَبِي بَكْرٍ\u200F",
+          "\u200Fيَا أَبَا بَكْرٍ\u200F",
+          "\u200Fيَا أَبًا بَكْرٍ\u200F"
+        ],
+        correctIndex: 2,
+        explanation: "イダーファの呼びかけなので対格になります。5つの特殊名詞の対格は「アリフが伸びる形」になるため、「ヤー アバー バクリン」が正解です。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F定冠詞（アル：\u200Fال\u200F）が付いた名詞を呼びかける際の、文法的に正しいルールはどれですか？\u200F",
+        audio: "",
+        options: [
+          "「ヤー（\u200Fيَا\u200F）」の後ろにそのまま直接アル付き名詞を置く", 
+          "アルを外してから「ヤー」を付ける",
+          "「ヤー」と名詞の間に「アイユハ（\u200Fأَيُّهَا\u200F）」などの言葉を挟む",
+          "アル付き名詞を呼ぶことはアラビア語では不可能"
+        ],
+        correctIndex: 2,
+        explanation: "「ヤー」とアル付き名詞を直接つなげることはできません。男性名詞なら「アイユハ」、女性名詞なら「アイヤトゥハ」というクッションを間に挟みます。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「おお、人々よ！」正しい形はどれ？\n※人々（\u200Fالنَّاسُ\u200F）はアルの付いた男性名詞です。\u200F",
+        audio: "\u200Fيَا أَيُّهَا النَّاسُ\u200F",
+        options: [
+          "\u200Fيَا النَّاسُ\u200F", 
+          "\u200Fيَا أَيَّتُهَا النَّاسُ\u200F",
+          "\u200Fيَا أَيُّهَا النَّاسُ\u200F",
+          "\u200Fيَا نَاسًا\u200F"
+        ],
+        correctIndex: 2,
+        explanation: "アル付きの男性名詞を呼ぶため、クッションの「アイユハ（\u200Fأَيُّهَا\u200F）」を挟んで「ヤー アイユハ ン・ナース」となります。クルアーンで非常に頻繁に出てくる表現です。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「おお、魂よ！」正しい形はどれ？\n※魂（\u200Fالنَّفْسُ\u200F）はアルの付いた女性名詞です。\u200F",
+        audio: "\u200Fيَا أَيَّتُهَا النَّفْسُ\u200F",
+        options: [
+          "\u200Fيَا النَّفْسُ\u200F", 
+          "\u200Fيَا أَيَّتُهَا النَّفْسُ\u200F",
+          "\u200Fيَا أَيُّهَا النَّفْسُ\u200F",
+          "\u200Fيَا نَفْسًا\u200F"
+        ],
+        correctIndex: 1,
+        explanation: "アル付きの女性名詞を呼ぶため、クッションの「アイヤトゥハ（\u200Fأَيَّتُهَا\u200F）」を挟んで「ヤー アイヤトゥハ ン・ナフス」となります。"
+      },
+      {
+        type: "grammar",
+        text: "\u200Fアラビア語の文法用語で、呼びかけられる名詞（相手）のことを何と呼びますか？\u200F",
+        audio: "",
+        options: [
+          "ムブタダ（\u200Fمُبْتَدَأ\u200F）", 
+          "ムナーダ（\u200Fمُنَادَى\u200F）",
+          "マスダル（\u200Fمَصْدَر\u200F）",
+          "ハール（\u200Fحَال\u200F）"
+        ],
+        correctIndex: 1,
+        explanation: "呼びかけの助詞（ハルフ・ニダー）の後ろに来る「呼ばれる対象」のことを、ムナーダ（\u200Fمُنَادَى\u200F）と呼びます。"
+      },
+      {
+        type: "grammar",
+        text: "\u200F「ああ、悲しいかな！」のように、痛みや悲嘆（ヌドゥバ）を表す時に使われる特別な呼びかけの助詞はどれですか？\u200F",
+        audio: "",
+        options: [
+          "\u200Fأَ / أَيْ\u200F (ア / アイ)", 
+          "\u200Fيَا\u200F (ヤー)",
+          "\u200Fوَا\u200F (ワー)",
+          "\u200Fهَيَّا\u200F (ハイヤー)"
+        ],
+        correctIndex: 2,
+        explanation: "「ワー（\u200Fوَا\u200F）」は嘆きや悲しみを叫ぶ時に使われる助詞です。（例：ワー イスラーマーフ！＝ああ、イスラムよ！）"
+      },
+           {
         type: "grammar",
         text: "\u200F「ムハンマドよ」\n「\u200Fيَا ___\u200F」\u200F",
         audio: "يَا مُحَمَّدُ",
@@ -20120,20 +23136,416 @@ export const articles: Article[] = [
               category: "数字",
               title: "Lesson 53: 1から10までの数字の文法",
               contentPlain: "アラビア語学習者の「最大の難関」とも言われる「数詞（数字の文法）」のレッスンです。混乱を招くのでここでは1から10までを学びます。アラビア語の数字は、「数える物が男か女か」によって形がコロコロ変わり、さらに「後ろに来る名詞の形」も数によって変わります。",
-              imageUrls: [
-                "/image/grammar/lesson53_1.jpg", 
-                "/image/grammar/lesson53_2.jpg", 
-                "/image/grammar/lesson53_3.jpg", 
-                "/image/grammar/lesson53_4.jpg", 
-                "/image/grammar/lesson53_5.jpg", 
-                "/image/grammar/lesson53_6.jpg", 
-                "/image/grammar/lesson53_7.jpg", 
-                "/image/grammar/lesson53_8.jpg", 
-              ],
+              
+              contentNode: (
+                <div className="space-y-10 text-[#5E3C1E] mt-6">
+                  <p className="leading-relaxed">
+                    アラビア語の数字の文法は、世界一複雑だと言われるほどユニークなルールを持っています。<br />
+                    一番のポイントは、<strong>「1と2」</strong>のグループと、<strong>「3から10」</strong>のグループで、文法ルールが全く異なるということです。まずはこの2つのグループの違いをハッキリと分けましょう！
+                  </p>
+          
+                  {/* --- 1. 1と2のルール --- */}
+                  <section>
+                    <div className="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-r-xl shadow-sm mb-6">
+                      <h4 className="font-bold text-[#764C28] mb-3 text-lg">
+                        1️⃣ 「1と2」のルール：ただの形容詞！
+                      </h4>
+                      <p className="text-sm text-[#5E3C1E] leading-relaxed">
+                        1（ワーヒド）と2（イスナーン）は、特別なルールはありません。普通の名詞と形容詞のルールと同じように、<strong>「名詞 ＋ 数字（形容詞）」</strong>の順番に並べ、<strong>「性別」も完全に一致</strong>させます。
+                      </p>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {/* 男性名詞の例 */}
+                      <div className="bg-[#FDFCF8] p-4 rounded-xl border border-[#E5C9A8] text-center shadow-sm">
+                        <h4 className="font-bold text-[#A67144] mb-3 text-sm border-b border-[#E5C9A8] pb-2 w-full">
+                          👨 男性名詞（本）を数える
+                        </h4>
+                        <div className="space-y-3">
+                          <div className="flex justify-center items-center gap-2">
+                            <div className="text-center">
+                              <p className="text-xs font-bold text-gray-500 mb-1">1(男性形)</p>
+                              <p className="text-2xl font-arabic text-gray-400" dir="rtl">{"\u200Fوَاحِدٌ\u200F"}</p>
+                            </div>
+                            <span className="text-[#A67144] font-bold">＋</span>
+                            <div className="text-center">
+                              <p className="text-xs font-bold text-gray-500 mb-1">本が(男性形)</p>
+                              <p className="text-2xl font-arabic text-gray-400" dir="rtl">{"\u200Fكِتَابٌ\u200F"}</p>
+                            </div>
+                            <span className="text-[#A67144] font-bold">→</span>
+                            <div className="text-center bg-white p-2 rounded-lg border border-[#E5C9A8]">
+                              <p className="text-xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fكِتَابٌ وَاحِدٌ\u200F"}</p>
+                              <p className="text-[10px] font-bold text-[#5E3C1E]">キターブン <span className="text-[#A67144]">ワーヒドゥン</span></p>
+                            </div>
+                          </div>
+                          <div className="flex justify-center items-center gap-2">
+                            <div className="text-center">
+                              <p className="text-xs font-bold text-gray-500 mb-1">2(男性双数)</p>
+                              <p className="text-2xl font-arabic text-gray-400" dir="rtl">{"\u200Fاثْنَانِ\u200F"}</p>
+                            </div>
+                            <span className="text-[#A67144] font-bold">＋</span>
+                            <div className="text-center">
+                              <p className="text-xs font-bold text-gray-500 mb-1">2冊の本</p>
+                              <p className="text-2xl font-arabic text-gray-400" dir="rtl">{"\u200Fكِتَابَانِ\u200F"}</p>
+                            </div>
+                            <span className="text-[#A67144] font-bold">→</span>
+                            <div className="text-center bg-white p-2 rounded-lg border border-[#E5C9A8]">
+                              <p className="text-xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fكِتَابَانِ اثْنَانِ\u200F"}</p>
+                              <p className="text-[10px] font-bold text-[#5E3C1E]">キターバーニ <span className="text-[#A67144]">イスナーニ</span></p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+          
+                      {/* 女性名詞の例 */}
+                      <div className="bg-[#FFF9F0] p-4 rounded-xl border border-amber-200 text-center shadow-sm">
+                        <h4 className="font-bold text-amber-700 mb-3 text-sm border-b border-amber-200 pb-2 w-full">
+                          👩 女性名詞（車）を数える
+                        </h4>
+                        <div className="space-y-3">
+                          <div className="flex justify-center items-center gap-2">
+                            <div className="text-center">
+                              <p className="text-xs font-bold text-gray-500 mb-1">1(女性形)</p>
+                              <p className="text-2xl font-arabic text-gray-400" dir="rtl">{"\u200Fوَاحِدَةٌ\u200F"}</p>
+                            </div>
+                            <span className="text-amber-600 font-bold">＋</span>
+                            <div className="text-center">
+                              <p className="text-xs font-bold text-gray-500 mb-1">車が(女性形)</p>
+                              <p className="text-2xl font-arabic text-gray-400" dir="rtl">{"\u200Fسَيَّارَةٌ\u200F"}</p>
+                            </div>
+                            <span className="text-amber-600 font-bold">→</span>
+                            <div className="text-center bg-white p-2 rounded-lg border border-amber-200">
+                              <p className="text-xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fسَيَّارَةٌ وَاحِدَةٌ\u200F"}</p>
+                              <p className="text-[10px] font-bold text-[#5E3C1E]">サイヤーラツン <span className="text-amber-600">ワーヒダツン</span></p>
+                            </div>
+                          </div>
+                          <div className="flex justify-center items-center gap-2">
+                            <div className="text-center">
+                              <p className="text-xs font-bold text-gray-500 mb-1">2(女性双数)</p>
+                              <p className="text-2xl font-arabic text-gray-400" dir="rtl">{"\u200Fاثْنَتَانِ\u200F"}</p>
+                            </div>
+                            <span className="text-amber-600 font-bold">＋</span>
+                            <div className="text-center">
+                              <p className="text-xs font-bold text-gray-500 mb-1">2台の車</p>
+                              <p className="text-2xl font-arabic text-gray-400" dir="rtl">{"\u200Fسَيَّارَتَانِ\u200F"}</p>
+                            </div>
+                            <span className="text-amber-600 font-bold">→</span>
+                            <div className="text-center bg-white p-2 rounded-lg border border-amber-200">
+                              <p className="text-xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fسَيَّارَتَانِ اثْنَتَانِ\u200F"}</p>
+                              <p className="text-[10px] font-bold text-[#5E3C1E]">サイヤーラターニ <span className="text-amber-600">イスナターニ</span></p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <p className="text-xs text-gray-500 mt-2 text-center">※アラビア語には双数（2つ）の形があるため、そもそも数字の「2」を書かなくても「2冊の本（キターバーニ）」という意味になりますが、強調したい時に数字を付け足します。</p>
+                  </section>
+          
+                  {/* --- 2. 3から10のルール --- */}
+                  <section>
+                    <div className="bg-rose-50 border-l-4 border-rose-500 p-5 rounded-r-xl shadow-sm mt-12 mb-6">
+                      <h4 className="font-bold text-rose-800 mb-3 text-lg">
+                        🤯 3から10のルール：「性が逆転」し「イダーファ」になる！
+                      </h4>
+                      <p className="text-sm text-rose-900 leading-relaxed">
+                        3〜10になるとルールが180度変わります。数字が前に来て、<strong>「数字 ＋ 数える名詞」のイダーファ（所有格）</strong>の形になります。<br />
+                        さらに、数字の性別が<strong>「数える名詞の単数形の性と【逆の性】になる（極性現象）」</strong>という超重要ルールがあります！
+                      </p>
+                    </div>
+          
+                    <div className="bg-white border border-rose-200 p-5 rounded-xl shadow-sm">
+                      <h4 className="font-bold text-rose-700 mb-4 text-center border-b border-rose-100 pb-2">
+                        徹底図解：3から10の構造
+                      </h4>
+                      <div className="flex flex-col md:flex-row justify-center items-center gap-6">
+                        <div className="bg-rose-50 p-4 rounded-xl border border-rose-200 text-center w-full">
+                          <p className="text-xs font-bold text-rose-800 mb-2">① 数字（前）</p>
+                          <p className="text-sm font-bold text-[#5E3C1E] mb-2">名詞と<span className="text-rose-600 text-lg font-black">【逆の性別】</span></p>
+                          <p className="text-[10px] text-gray-600">※タンウィーンは付かない（イダーファの頭だから）</p>
+                        </div>
+                        <span className="text-rose-500 font-bold text-2xl">＋</span>
+                        <div className="bg-blue-50 p-4 rounded-xl border border-blue-200 text-center w-full">
+                          <p className="text-xs font-bold text-blue-800 mb-2">② 数える名詞（後ろ）</p>
+                          <p className="text-sm font-bold text-[#5E3C1E] mb-2"><span className="text-blue-600 text-lg font-black">【複数形】かつ【属格(イ段)】</span></p>
+                          <p className="text-[10px] text-gray-600">※イダーファの後ろだから属格（〜イン）になる</p>
+                        </div>
+                      </div>
+                    </div>
+          
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                      
+                      {/* 男性名詞（本）の例 */}
+                      <div className="bg-[#FDFCF8] p-5 rounded-2xl border border-[#E5C9A8] shadow-sm flex flex-col items-center">
+                        <h4 className="font-bold text-[#A67144] mb-3 text-sm text-center border-b border-[#E5C9A8] pb-2 w-full">
+                          👨 男性名詞（本）を数える場合
+                        </h4>
+                        <p className="text-xs text-gray-600 mb-3 text-center">
+                          本（キターブ）は「男性」なので、<strong>数字はター・マルブータ（{"\u200Fة\u200F"}）を付けた【女性形】</strong>を使います！
+                        </p>
+                        <div className="flex justify-center items-center gap-2 mb-4 w-full">
+                          <div className="text-center bg-rose-50 p-2 rounded-lg border border-rose-200 w-1/2">
+                            <p className="text-[10px] font-bold text-rose-800 mb-1">3(女性形)</p>
+                            <p className="text-3xl font-arabic text-rose-600 drop-shadow-sm" dir="rtl">{"\u200Fثَلَاثَةُ\u200F"}</p>
+                          </div>
+                          <span className="text-gray-400 font-bold">＋</span>
+                          <div className="text-center bg-blue-50 p-2 rounded-lg border border-blue-200 w-1/2">
+                            <p className="text-[10px] font-bold text-blue-800 mb-1">本(複数・属格)</p>
+                            <p className="text-3xl font-arabic text-blue-600 drop-shadow-sm" dir="rtl">{"\u200Fكُتُبٍ\u200F"}</p>
+                          </div>
+                        </div>
+                        <div className="bg-white p-3 rounded-lg border border-[#E5C9A8] w-full text-center">
+                          <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fثَلَاثَةُ كُتُبٍ\u200F"}</p>
+                          <p className="text-xs font-bold text-[#5E3C1E]"><span className="text-rose-600">サラーサトゥ</span> <span className="text-blue-600">クトゥビン</span></p>
+                          <p className="text-[10px] text-gray-500 mt-1">（3冊の本）</p>
+                        </div>
+                        <button onClick={() => playTableAudio("\u200Fثَلَاثَةُ كُتُبٍ\u200F")} className="w-8 h-8 bg-[#F8F1E7] text-[#A67144] rounded-full flex items-center justify-center shadow-sm border border-[#E5C9A8] hover:bg-amber-100 mt-3">
+                          <Volume2 size={14} />
+                        </button>
+                      </div>
+          
+                      {/* 女性名詞（車）の例 */}
+                      <div className="bg-[#FFF9F0] p-5 rounded-2xl border border-amber-200 shadow-sm flex flex-col items-center">
+                        <h4 className="font-bold text-amber-700 mb-3 text-sm text-center border-b border-amber-200 pb-2 w-full">
+                          👩 女性名詞（車）を数える場合
+                        </h4>
+                        <p className="text-xs text-gray-600 mb-3 text-center">
+                          車（サイヤーラ）は「女性」なので、<strong>数字はター・マルブータを取った【男性形】</strong>を使います！
+                        </p>
+                        <div className="flex justify-center items-center gap-2 mb-4 w-full">
+                          <div className="text-center bg-rose-50 p-2 rounded-lg border border-rose-200 w-1/2">
+                            <p className="text-[10px] font-bold text-rose-800 mb-1">3(男性形)</p>
+                            <p className="text-3xl font-arabic text-rose-600 drop-shadow-sm" dir="rtl">{"\u200Fثَلَاثُ\u200F"}</p>
+                          </div>
+                          <span className="text-gray-400 font-bold">＋</span>
+                          <div className="text-center bg-blue-50 p-2 rounded-lg border border-blue-200 w-1/2">
+                            <p className="text-[10px] font-bold text-blue-800 mb-1">車(複数・属格)</p>
+                            <p className="text-3xl font-arabic text-blue-600 drop-shadow-sm" dir="rtl">{"\u200Fسَيَّارَاتٍ\u200F"}</p>
+                          </div>
+                        </div>
+                        <div className="bg-white p-3 rounded-lg border border-amber-200 w-full text-center">
+                          <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fثَلَاثُ سَيَّارَاتٍ\u200F"}</p>
+                          <p className="text-xs font-bold text-[#5E3C1E]"><span className="text-rose-600">サラース</span> <span className="text-blue-600">サイヤーラーティン</span></p>
+                          <p className="text-[10px] text-gray-500 mt-1">（3台の車）</p>
+                        </div>
+                        <button onClick={() => playTableAudio("\u200Fثَلَاثُ سَيَّارَاتٍ\u200F")} className="w-8 h-8 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center shadow-sm border border-amber-200 hover:bg-amber-100 mt-3">
+                          <Volume2 size={14} />
+                        </button>
+                      </div>
+          
+                    </div>
+                  </section>
+          
+                  {/* --- 3. 3〜10の数字一覧表 --- */}
+                  <section>
+                    <h3 className="text-xl font-bold text-[#4A3018] mt-12 mb-4 border-b-2 border-[#E5C9A8] pb-2">
+                      🔢 3〜10の数字の「男性形」と「女性形」一覧
+                    </h3>
+                    <p className="text-sm text-[#764C28] leading-relaxed mb-6">
+                      数字にも男性形と女性形があります。数える名詞と<strong>逆の形</strong>を使うことに注意して表を見てみましょう。
+                    </p>
+          
+                    <div className="overflow-x-auto rounded-xl border border-[#E5C9A8] shadow-sm mb-4">
+                      <table className="min-w-full border-collapse bg-white text-center">
+                        <thead className="bg-[#F8F1E7]">
+                          <tr>
+                            <th className="border-b border-[#E5C9A8] px-4 py-3 text-[#764C28] font-bold">数字</th>
+                            <th className="border-b border-[#E5C9A8] px-4 py-3 text-[#A67144] font-bold bg-[#FDFCF8]">男性形（女性名詞を数える用）</th>
+                            <th className="border-b border-[#E5C9A8] px-4 py-3 text-amber-700 font-bold bg-[#FFF9F0]">女性形（男性名詞を数える用）</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-[#F5F0E6]">
+                          <tr className="hover:bg-gray-50 transition-colors">
+                            <td className="px-4 py-3 text-sm font-bold text-gray-700">3</td>
+                            <td className="px-4 py-3 bg-[#FDFCF8]"><p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fثَلَاثُ\u200F"}</p><p className="text-[10px] text-[#A67144] font-bold">サラース</p></td>
+                            <td className="px-4 py-3 bg-[#FFF9F0]"><p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fثَلَاثَةُ\u200F"}</p><p className="text-[10px] text-amber-700 font-bold">サラーサトゥ</p></td>
+                          </tr>
+                          <tr className="hover:bg-gray-50 transition-colors">
+                            <td className="px-4 py-3 text-sm font-bold text-gray-700">4</td>
+                            <td className="px-4 py-3 bg-[#FDFCF8]"><p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fأَرْبَعُ\u200F"}</p><p className="text-[10px] text-[#A67144] font-bold">アルバウ</p></td>
+                            <td className="px-4 py-3 bg-[#FFF9F0]"><p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fأَرْبَعَةُ\u200F"}</p><p className="text-[10px] text-amber-700 font-bold">アルバアトゥ</p></td>
+                          </tr>
+                          <tr className="hover:bg-gray-50 transition-colors">
+                            <td className="px-4 py-3 text-sm font-bold text-gray-700">5</td>
+                            <td className="px-4 py-3 bg-[#FDFCF8]"><p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fخَمْسُ\u200F"}</p><p className="text-[10px] text-[#A67144] font-bold">ハムス</p></td>
+                            <td className="px-4 py-3 bg-[#FFF9F0]"><p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fخَمْسَةُ\u200F"}</p><p className="text-[10px] text-amber-700 font-bold">ハムサトゥ</p></td>
+                          </tr>
+                          <tr className="hover:bg-gray-50 transition-colors">
+                            <td className="px-4 py-3 text-sm font-bold text-gray-700">6</td>
+                            <td className="px-4 py-3 bg-[#FDFCF8]"><p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fسِتُّ\u200F"}</p><p className="text-[10px] text-[#A67144] font-bold">スィットゥ</p></td>
+                            <td className="px-4 py-3 bg-[#FFF9F0]"><p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fسِتَّةُ\u200F"}</p><p className="text-[10px] text-amber-700 font-bold">スィッタトゥ</p></td>
+                          </tr>
+                          <tr className="hover:bg-gray-50 transition-colors">
+                            <td className="px-4 py-3 text-sm font-bold text-gray-700">7</td>
+                            <td className="px-4 py-3 bg-[#FDFCF8]"><p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fسَبْعُ\u200F"}</p><p className="text-[10px] text-[#A67144] font-bold">サブウ</p></td>
+                            <td className="px-4 py-3 bg-[#FFF9F0]"><p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fسَبْعَةُ\u200F"}</p><p className="text-[10px] text-amber-700 font-bold">サブアトゥ</p></td>
+                          </tr>
+                          <tr className="hover:bg-gray-50 transition-colors">
+                            <td className="px-4 py-3 text-sm font-bold text-gray-700">8</td>
+                            <td className="px-4 py-3 bg-[#FDFCF8]"><p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fثَمَانِي\u200F"}</p><p className="text-[10px] text-[#A67144] font-bold">サマーニー</p></td>
+                            <td className="px-4 py-3 bg-[#FFF9F0]"><p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fثَمَانِيَةُ\u200F"}</p><p className="text-[10px] text-amber-700 font-bold">サマーニヤトゥ</p></td>
+                          </tr>
+                          <tr className="hover:bg-gray-50 transition-colors">
+                            <td className="px-4 py-3 text-sm font-bold text-gray-700">9</td>
+                            <td className="px-4 py-3 bg-[#FDFCF8]"><p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fتِسْعُ\u200F"}</p><p className="text-[10px] text-[#A67144] font-bold">ティスウ</p></td>
+                            <td className="px-4 py-3 bg-[#FFF9F0]"><p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fتِسْعَةُ\u200F"}</p><p className="text-[10px] text-amber-700 font-bold">ティスアトゥ</p></td>
+                          </tr>
+                          <tr className="hover:bg-gray-50 transition-colors">
+                            <td className="px-4 py-3 text-sm font-bold text-gray-700">10</td>
+                            <td className="px-4 py-3 bg-[#FDFCF8]"><p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fعَشْرُ\u200F"}</p><p className="text-[10px] text-[#A67144] font-bold">アシュル</p></td>
+                            <td className="px-4 py-3 bg-[#FFF9F0]"><p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fعَشَرَةُ\u200F"}</p><p className="text-[10px] text-amber-700 font-bold">アシャラトゥ</p></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    
+                    <div className="bg-stone-50 border border-stone-200 p-4 rounded-xl shadow-sm text-center">
+                      <p className="text-sm text-stone-700 leading-relaxed font-bold">
+                        💡 逆転の基準は「単数形の時の性別」！
+                      </p>
+                      <p className="text-xs text-stone-600 mt-2">
+                        数える名詞が男性か女性かを判断する時は、必ず<strong>「単数形の姿」</strong>を見て判断してください。複数形にした時にター・マルブータが消えたり付いたりしても、騙されてはいけません！
+                      </p>
+                    </div>
+                  </section>
+          
+                </div>
+              ),
+          
+              imageUrls: [],
               contentVoweled: "",
               sentences: [], 
               vocabList: [],
               questions: [
+                {
+                  type: "grammar",
+                  text: "\u200Fアラビア語の「1と2」の数字の文法的な扱いは、次のうちどれですか？\u200F",
+                  audio: "",
+                  options: [
+                    "名詞の前に置き、名詞を属格（イ段）にする", 
+                    "名詞の後ろに置き、形容詞として性と格を一致させる",
+                    "名詞の前に置き、名詞と逆の性別にする",
+                    "名詞の後ろに置き、常に対格（ア段）にする"
+                  ],
+                  correctIndex: 1,
+                  explanation: "1と2は普通の名詞＋形容詞と同じように、名詞の後ろに置いて性別や格を完全に一致させます。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「1冊の本」正しいアラビア語の形はどれ？\n※本（\u200Fكِتَابٌ\u200F：男性名詞）、1（\u200Fوَاحِدٌ\u200F）\u200F",
+                  audio: "\u200Fكِتَابٌ وَاحِدٌ\u200F",
+                  options: [
+                    "\u200Fوَاحِدٌ كِتَابٌ\u200F", 
+                    "\u200Fكِتَابٌ وَاحِدَةٌ\u200F",
+                    "\u200Fكِتَابٌ وَاحِدٌ\u200F",
+                    "\u200Fوَاحِدُ كِتَابٍ\u200F"
+                  ],
+                  correctIndex: 2,
+                  explanation: "名詞（キターブン）を先に置き、その後ろに男性形の形容詞として「ワーヒドゥン」を置きます。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「2台の車」正しいアラビア語の形はどれ？\n※車（\u200Fسَيَّارَةٌ\u200F：女性名詞）\u200F",
+                  audio: "\u200Fسَيَّارَتَانِ اثْنَتَانِ\u200F",
+                  options: [
+                    "\u200Fسَيَّارَتَانِ اثْنَتَانِ\u200F", 
+                    "\u200Fاثْنَتَانِ سَيَّارَتَانِ\u200F",
+                    "\u200Fسَيَّارَتَانِ اثْنَانِ\u200F",
+                    "\u200Fسَيَّارَةٌ اثْنَتَانِ\u200F"
+                  ],
+                  correctIndex: 0,
+                  explanation: "車を女性双数形（サイヤーラターニ）にし、その後ろに女性双数形の「イスナターニ」を置きます。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「3から10」の数字を使って名詞を数える時、数えられる名詞はどのような形になりますか？\u200F",
+                  audio: "",
+                  options: [
+                    "単数形 ＋ 対格（ア段）", 
+                    "複数形 ＋ 属格（イ段）",
+                    "複数形 ＋ 主格（ウ段）",
+                    "単数形 ＋ 属格（イ段）"
+                  ],
+                  correctIndex: 1,
+                  explanation: "3〜10の後ろに来る名詞は、イダーファの構造になるため「複数形・属格（〜イン）」の形になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「3から10」の数字の「性別」を選ぶ時の絶対ルールはどれですか？\u200F",
+                  audio: "",
+                  options: [
+                    "数える名詞の性と完全に一致させる", 
+                    "数える名詞の単数形の性と【逆】にする",
+                    "常に男性形を使う",
+                    "数える名詞の複数形の性と【逆】にする"
+                  ],
+                  correctIndex: 1,
+                  explanation: "アラビア語の数字の極性現象です。数える名詞の「単数形の性別」を確認し、数字はそれと逆の性別の形を使います。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「3冊の本」正しいアラビア語の形はどれ？\n※本（単数\u200Fكِتَابٌ\u200F：男性、複数\u200Fكُتُبٌ\u200F）\u200F",
+                  audio: "\u200Fثَلَاثَةُ كُتُبٍ\u200F",
+                  options: [
+                    "\u200Fثَلَاثُ كُتُبٍ\u200F", 
+                    "\u200Fكُتُبٌ ثَلَاثَةٌ\u200F",
+                    "\u200Fثَلَاثَةُ كُتُبٍ\u200F",
+                    "\u200Fثَلَاثَةُ كِتَابٍ\u200F"
+                  ],
+                  correctIndex: 2,
+                  explanation: "本は単数で男性名詞なので、数字は女性形（サラーサトゥ）を使います。本は複数・属格（クトゥビン）になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「5人の女の子たち」正しいアラビア語の形はどれ？\n※女の子（単数\u200Fبِنْتٌ\u200F：女性、複数\u200Fبَنَاتٌ\u200F）\u200F",
+                  audio: "\u200Fخَمْسُ بَنَاتٍ\u200F",
+                  options: [
+                    "\u200Fخَمْسَةُ بَنَاتٍ\u200F", 
+                    "\u200Fخَمْسُ بَنَاتٍ\u200F",
+                    "\u200Fبَنَاتٌ خَمْسٌ\u200F",
+                    "\u200Fخَمْسُ بِنْتٍ\u200F"
+                  ],
+                  correctIndex: 1,
+                  explanation: "女の子は単数で女性名詞なので、数字は男性形（ハムス）を使います。名詞は複数・属格（バナーティン）です。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「10人の男たち」正しいアラビア語の形はどれ？\n※男（単数\u200Fرَجُلٌ\u200F：男性、複数\u200Fرِجَالٌ\u200F）\u200F",
+                  audio: "\u200Fعَشَرَةُ رِجَالٍ\u200F",
+                  options: [
+                    "\u200Fعَشْرُ رِجَالٍ\u200F", 
+                    "\u200Fعَشَرَةُ رِجَالٍ\u200F",
+                    "\u200Fرِجَالٌ عَشَرَةٌ\u200F",
+                    "\u200Fعَشَرَةُ رَجُلٍ\u200F"
+                  ],
+                  correctIndex: 1,
+                  explanation: "男は男性名詞なので、数字は女性形（アシャラトゥ）を使います。名詞は複数・属格（リジャーリン）です。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「男性名詞」を数える時に使う「3（サラーサトゥ：\u200Fثَلَاثَةُ\u200F）」の形の特徴はどれですか？\u200F",
+                  audio: "",
+                  options: [
+                    "語尾にター・マルブータ（\u200Fة\u200F）が付いている", 
+                    "語尾がター・マルブータではなく普通の文字で終わっている",
+                    "語尾にアリフ（\u200Fا\u200F）が付いている",
+                    "必ずタンウィーンが付いている"
+                  ],
+                  correctIndex: 0,
+                  explanation: "男性名詞を数える時は逆の「女性形」の数字を使うため、語尾に女性のマークであるター・マルブータ（ة）が付きます。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「3から10」の数字と数えられる名詞の関係は、文法的にどのような構造（名前）で呼ばれますか？\u200F",
+                  audio: "",
+                  options: [
+                    "名詞文（ムブタダとハバル）", 
+                    "形容詞句（シファとマウースーフ）",
+                    "イダーファ（所有格の構造）",
+                    "ハール（状態の構造）"
+                  ],
+                  correctIndex: 2,
+                  explanation: "「数字＋名詞（属格）」という構造は「〜の〜」を表すイダーファ（所有格）と全く同じ構造です。（直訳すると「本の3」のようになります）"
+                },
                 {
                   type: "grammar",
                   text: "\u200F「一人の男の子（One boy）」正しい形は？\n（ヒント：1と2は形容詞と同じルール）\u200F",
@@ -20271,25 +23683,405 @@ export const articles: Article[] = [
               level: "文法",
               category: "数字",
               title: "Lesson 54: 数字（数詞）完全版",
-              contentPlain: "アラビア語の最難関、数字の完全版です。1-2は形容詞、3-10は逆転＆複数属格、11-99は単数対格、100以上は単数属格。さらに「二段変化名詞」が来る場合の格変化（属格でファトハになる）や、8の特殊変化、双数形の連結形など、高度な規則を含みます。",              
-              imageUrls: [
-                "/image/grammar/lesson54_1.jpg", 
-                "/image/grammar/lesson54_2.jpg", 
-                "/image/grammar/lesson54_3.jpg", 
-                "/image/grammar/lesson54_4.jpg", 
-                "/image/grammar/lesson54_5.jpg", 
-                "/image/grammar/lesson54_6.jpg", 
-                "/image/grammar/lesson54_7.jpg", 
-                "/image/grammar/lesson54_8.jpg", 
-                "/image/grammar/lesson54_9.jpg", 
-                "/image/grammar/lesson54_10.jpg",
-                "/image/grammar/lesson54_11.jpg", 
-                "/image/grammar/lesson54_12.jpg"
-              ],
+              contentPlain: "アラビア語の最難関、数字の完全版です。1-2は形容詞、3-10は逆転＆複数属格、11-99は単数対格、100以上は単数属格。さらに「二段変化名詞」が来る場合の格変化（属格でファトハになる）や、8の特殊変化、双数形の連結形など、高度な規則を含みます。",
+              
+              contentNode: (
+                <div className="space-y-10 text-[#5E3C1E] mt-6">
+                  <p className="leading-relaxed">
+                    アラビア語の数字は、数える数によって<strong>「後ろに来る名詞の形（単数か複数か、格は何か）」</strong>が4つのグループに分かれます。<br />
+                    これまでに学んだ「イダーファ」「タムイーズ」「二段変化名詞」のすべての知識を総動員して、数字の完全制覇を目指しましょう！
+                  </p>
+          
+                  {/* --- 1. 数字の4大グループ総まとめ --- */}
+                  <section>
+                    <div className="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-r-xl shadow-sm mb-6">
+                      <h4 className="font-bold text-[#764C28] mb-3 text-lg">
+                        🗺️ まずは全体像！数字の4大グループ
+                      </h4>
+                      <p className="text-sm text-[#5E3C1E] leading-relaxed">
+                        後ろにどんな名詞が続くか、この表の4パターンを暗記するのが一番の近道です。
+                      </p>
+                    </div>
+          
+                    <div className="overflow-x-auto rounded-xl border border-[#E5C9A8] shadow-sm mb-4">
+                      <table className="min-w-full border-collapse bg-white text-center">
+                        <thead className="bg-[#F8F1E7]">
+                          <tr>
+                            <th className="border-b border-[#E5C9A8] px-4 py-3 text-[#764C28] font-bold">グループ</th>
+                            <th className="border-b border-[#E5C9A8] px-4 py-3 text-[#764C28] font-bold">後ろの名詞の形</th>
+                            <th className="border-b border-[#E5C9A8] px-4 py-3 text-[#764C28] font-bold">文法の正体</th>
+                            <th className="border-b border-[#E5C9A8] px-4 py-3 text-[#764C28] font-bold">例</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-[#F5F0E6] text-sm text-[#5E3C1E]">
+                          <tr className="hover:bg-gray-50 transition-colors">
+                            <td className="px-4 py-3 font-bold">1 〜 2</td>
+                            <td className="px-4 py-3">前に置く</td>
+                            <td className="px-4 py-3 text-amber-700 font-bold">普通の形容詞</td>
+                            <td className="px-4 py-3 text-xs">本・1冊（キターブン・ワーヒドゥン）</td>
+                          </tr>
+                          <tr className="hover:bg-gray-50 transition-colors">
+                            <td className="px-4 py-3 font-bold">3 〜 10</td>
+                            <td className="px-4 py-3"><span className="text-blue-600 font-bold">複数形</span> ＋ <span className="text-blue-600 font-bold">属格 (イ段)</span></td>
+                            <td className="px-4 py-3 text-amber-700 font-bold">イダーファ</td>
+                            <td className="px-4 py-3 text-xs">3の・本たち（サラーサトゥ・クトゥビン）</td>
+                          </tr>
+                          <tr className="hover:bg-gray-50 transition-colors">
+                            <td className="px-4 py-3 font-bold">11 〜 99</td>
+                            <td className="px-4 py-3"><span className="text-emerald-600 font-bold">単数形</span> ＋ <span className="text-emerald-600 font-bold">対格 (ア段)</span></td>
+                            <td className="px-4 py-3 text-amber-700 font-bold">タムイーズ</td>
+                            <td className="px-4 py-3 text-xs">20・男の点で（イシュルーナ・ラジュラン）</td>
+                          </tr>
+                          <tr className="hover:bg-gray-50 transition-colors">
+                            <td className="px-4 py-3 font-bold">100以上</td>
+                            <td className="px-4 py-3"><span className="text-rose-600 font-bold">単数形</span> ＋ <span className="text-rose-600 font-bold">属格 (イ段)</span></td>
+                            <td className="px-4 py-3 text-amber-700 font-bold">イダーファ</td>
+                            <td className="px-4 py-3 text-xs">100の・本（ミアトゥ・キタービン）</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </section>
+          
+                  {/* --- 2. 11〜99（単数・対格）の解説 --- */}
+                  <section>
+                    <div className="bg-emerald-50 border-l-4 border-emerald-500 p-5 rounded-r-xl shadow-sm mt-12 mb-6">
+                      <h4 className="font-bold text-emerald-800 mb-3 text-lg">
+                        ✨ 11〜99のルール：タムイーズ（単数・対格）
+                      </h4>
+                      <p className="text-sm text-emerald-900 leading-relaxed">
+                        11から99までの数は、後ろの名詞が<strong>「単数形の対格（〜アン）」</strong>になります。これはLesson 45で学んだ「何の点で？（タムイーズ）」の文法が使われているからです。
+                      </p>
+                    </div>
+          
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="bg-white border border-emerald-200 p-5 rounded-xl shadow-sm flex flex-col items-center">
+                        <h4 className="font-bold text-emerald-700 mb-3 text-sm border-b border-emerald-100 pb-2 w-full text-center">
+                          例：11の星（クルアーンより）
+                        </h4>
+                        <div className="flex justify-center items-center gap-3 mb-4 w-full">
+                          <div className="text-center">
+                            <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">11</span>
+                            <p className="text-2xl font-arabic text-gray-400 mt-1" dir="rtl">{"\u200Fأَحَدَ عَشَرَ\u200F"}</p>
+                          </div>
+                          <span className="text-emerald-500 font-bold text-xl">＋</span>
+                          <div className="text-center">
+                            <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-1 rounded">星（単数・対格）</span>
+                            <p className="text-3xl font-arabic text-emerald-600 drop-shadow-sm mt-1" dir="rtl">{"\u200Fكَوْكَبًا\u200F"}</p>
+                          </div>
+                        </div>
+                        <div className="bg-emerald-50 p-3 rounded-lg border border-emerald-200 w-full text-center">
+                          <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fأَحَدَ عَشَرَ كَوْكَبًا\u200F"}</p>
+                          <p className="text-xs font-bold text-[#5E3C1E]">アハダ アシャラ <span className="text-emerald-600 text-sm">カウカバン</span></p>
+                        </div>
+                      </div>
+          
+                      <div className="bg-white border border-emerald-200 p-5 rounded-xl shadow-sm flex flex-col items-center">
+                        <h4 className="font-bold text-emerald-700 mb-3 text-sm border-b border-emerald-100 pb-2 w-full text-center">
+                          例：20人の男
+                        </h4>
+                        <div className="flex justify-center items-center gap-3 mb-4 w-full">
+                          <div className="text-center">
+                            <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">20</span>
+                            <p className="text-2xl font-arabic text-gray-400 mt-1" dir="rtl">{"\u200Fعِشْرُونَ\u200F"}</p>
+                          </div>
+                          <span className="text-emerald-500 font-bold text-xl">＋</span>
+                          <div className="text-center">
+                            <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-1 rounded">男（単数・対格）</span>
+                            <p className="text-3xl font-arabic text-emerald-600 drop-shadow-sm mt-1" dir="rtl">{"\u200Fرَجُلًا\u200F"}</p>
+                          </div>
+                        </div>
+                        <div className="bg-emerald-50 p-3 rounded-lg border border-emerald-200 w-full text-center">
+                          <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fعِشْرُونَ رَجُلًا\u200F"}</p>
+                          <p className="text-xs font-bold text-[#5E3C1E]">イシュルーナ <span className="text-emerald-600 text-sm">ラジュラン</span></p>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+          
+                  {/* --- 3. 100以上（単数・属格）の解説 --- */}
+                  <section>
+                    <div className="bg-rose-50 border-l-4 border-rose-500 p-5 rounded-r-xl shadow-sm mt-12 mb-6">
+                      <h4 className="font-bold text-rose-800 mb-3 text-lg">
+                        💯 100以上のルール：イダーファ（単数・属格）
+                      </h4>
+                      <p className="text-sm text-rose-900 leading-relaxed">
+                        100（ミア）や1000（アルフ）の後は、3〜10の時と同じく<strong>イダーファ（〜の）</strong>になりますが、後ろの名詞は複数形ではなく<strong>「単数形の属格（〜イン）」</strong>になります！
+                      </p>
+                    </div>
+          
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="bg-white border border-rose-200 p-5 rounded-xl shadow-sm flex flex-col items-center">
+                        <h4 className="font-bold text-rose-700 mb-3 text-sm border-b border-rose-100 pb-2 w-full text-center">
+                          例：100冊の本
+                        </h4>
+                        <div className="flex justify-center items-center gap-3 mb-4 w-full">
+                          <div className="text-center">
+                            <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">100の</span>
+                            <p className="text-2xl font-arabic text-gray-400 mt-1" dir="rtl">{"\u200Fمِائَةُ\u200F"}</p>
+                          </div>
+                          <span className="text-rose-500 font-bold text-xl">＋</span>
+                          <div className="text-center">
+                            <span className="bg-rose-100 text-rose-800 text-[10px] font-bold px-2 py-1 rounded">本（単数・属格）</span>
+                            <p className="text-3xl font-arabic text-rose-600 drop-shadow-sm mt-1" dir="rtl">{"\u200Fكِتَابٍ\u200F"}</p>
+                          </div>
+                        </div>
+                        <div className="bg-rose-50 p-3 rounded-lg border border-rose-200 w-full text-center">
+                          <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fمِائَةُ كِتَابٍ\u200F"}</p>
+                          <p className="text-xs font-bold text-[#5E3C1E]">ミアトゥ <span className="text-rose-600 text-sm">キタービン</span></p>
+                        </div>
+                      </div>
+          
+                      <div className="bg-white border border-rose-200 p-5 rounded-xl shadow-sm flex flex-col items-center">
+                        <h4 className="font-bold text-rose-700 mb-3 text-sm border-b border-rose-100 pb-2 w-full text-center">
+                          例：千と一夜
+                        </h4>
+                        <div className="flex justify-center items-center gap-3 mb-4 w-full">
+                          <div className="text-center">
+                            <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">1000の</span>
+                            <p className="text-2xl font-arabic text-gray-400 mt-1" dir="rtl">{"\u200Fأَلْفُ\u200F"}</p>
+                          </div>
+                          <span className="text-rose-500 font-bold text-xl">＋</span>
+                          <div className="text-center">
+                            <span className="bg-rose-100 text-rose-800 text-[10px] font-bold px-2 py-1 rounded">夜（単数・属格）</span>
+                            <p className="text-3xl font-arabic text-rose-600 drop-shadow-sm mt-1" dir="rtl">{"\u200Fلَيْلَةٍ\u200F"}</p>
+                          </div>
+                        </div>
+                        <div className="bg-rose-50 p-3 rounded-lg border border-rose-200 w-full text-center">
+                          <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fأَلْفُ لَيْلَةٍ\u200F"}</p>
+                          <p className="text-xs font-bold text-[#5E3C1E]">アルフ <span className="text-rose-600 text-sm">ライラティン</span></p>
+                          <p className="text-[10px] text-gray-500 mt-1">※物語「千夜一夜物語（アルフ・ライラ・ワ・ライラ）」の語源です。</p>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+          
+                  {/* --- 4. 高度な罠（二段変化・双数のヌーン脱落・8の特殊変化） --- */}
+                  <section>
+                    <h3 className="text-xl font-bold text-[#4A3018] mt-12 mb-4 border-b-2 border-[#E5C9A8] pb-2">
+                      ⚠️ 知らないと絶対間違える「3つの高度な罠」
+                    </h3>
+                    <p className="text-sm text-[#764C28] leading-relaxed mb-6">
+                      数字の文法には、他の文法ルールが組み合わさることで発生する「罠」が存在します。ここをクリアすれば上級者の仲間入りです！
+                    </p>
+          
+                    <div className="space-y-6">
+                      
+                      {/* 罠1：二段変化名詞 */}
+                      <div className="bg-[#FFFDF9] border border-[#E5C9A8] p-5 rounded-xl shadow-sm">
+                        <h4 className="font-bold text-[#764C28] mb-3 text-md border-b border-[#E5C9A8] pb-2">
+                          🪤 罠①：二段変化名詞の属格は「ア段」になる！
+                        </h4>
+                        <p className="text-xs text-[#5E3C1E] mb-3">
+                          3〜10の後ろは「複数・属格（〜イン）」になりますが、数える名詞が「モスク（マサージド）」のような<strong>二段変化名詞</strong>の場合、属格なのに<strong>「ア段（ファトハ）」</strong>になってしまいます！
+                        </p>
+                        
+                        <div className="bg-white p-4 rounded-xl border border-[#E5C9A8] flex flex-col md:flex-row justify-between items-center gap-4">
+                          <div className="text-center md:text-right w-full">
+                            <div className="flex justify-center md:justify-end items-center gap-2 mb-2">
+                              <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">モスク(複数・二段変化)</span>
+                              <p className="text-2xl font-arabic text-gray-500" dir="rtl">{"\u200Fمَسَاجِدُ\u200F"}</p>
+                              <span className="text-amber-500 font-bold mx-1">＋</span>
+                              <span className="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-1 rounded">3（女性形）</span>
+                              <p className="text-2xl font-arabic text-amber-600 drop-shadow-sm" dir="rtl">{"\u200Fثَلَاثَةُ\u200F"}</p>
+                            </div>
+                            <p className="text-2xl font-arabic text-rose-600 mb-1 drop-shadow-sm" dir="rtl">{"\u200Fثَلَاثَةُ مَسَاجِدَ\u200F"}</p>
+                            <p className="text-xs font-bold text-[#5E3C1E]">サラーサトゥ マサージ<span className="text-rose-600 text-lg font-black">ダ</span></p>
+                            <p className="text-[10px] text-gray-500 mt-1">（3つのモスク ※属格の場所なのにア段になります）</p>
+                          </div>
+                        </div>
+                      </div>
+          
+                      {/* 罠2：双数のヌーン脱落 */}
+                      <div className="bg-blue-50 border border-blue-200 p-5 rounded-xl shadow-sm">
+                        <h4 className="font-bold text-blue-800 mb-3 text-md border-b border-blue-200 pb-2">
+                          🪤 罠②：12や200は「イダーファでヌーン（ن）が消える」！
+                        </h4>
+                        <p className="text-xs text-blue-900 mb-3">
+                          12や200のように「双数（アニ）」の形を含む数字がイダーファになる時、<strong>語尾のヌーン（ن）が脱落</strong>します。
+                        </p>
+                        
+                        <div className="bg-white p-4 rounded-xl border border-blue-200 flex flex-col md:flex-row justify-between items-center gap-4">
+                          <div className="text-center md:text-right w-full">
+                            <div className="flex justify-center md:justify-end items-center gap-2 mb-2">
+                              <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">本（単数・属格）</span>
+                              <p className="text-2xl font-arabic text-gray-500" dir="rtl">{"\u200Fكِتَابٍ\u200F"}</p>
+                              <span className="text-blue-500 font-bold mx-1">＋</span>
+                              <span className="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-1 rounded">200（双数）</span>
+                              <p className="text-2xl font-arabic text-gray-400 line-through decoration-rose-500" dir="rtl">{"\u200Fمِائَتَانِ\u200F"}</p>
+                            </div>
+                            <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fمِائَتَا كِتَابٍ\u200F"}</p>
+                            <p className="text-xs font-bold text-[#5E3C1E]">ミアタ<span className="text-rose-500 text-lg font-black">ー</span> キタービン</p>
+                            <p className="text-[10px] text-gray-500 mt-1">（200冊の本 ※ミアターニの「ニ」が消えます）</p>
+                          </div>
+                        </div>
+                      </div>
+          
+                      {/* 罠3：数字の8 */}
+                      <div className="bg-emerald-50 border border-emerald-200 p-5 rounded-xl shadow-sm">
+                        <h4 className="font-bold text-emerald-800 mb-3 text-md border-b border-emerald-200 pb-2">
+                          🪤 罠③：「8」が女性名詞を数える時の特殊変化
+                        </h4>
+                        <p className="text-xs text-emerald-900 mb-3">
+                          「8（サマーニー）」は語尾がヤー（ي）で終わるため、女性名詞を数える時（男性形のサマーニーを使う時）に、後ろの名詞が省略されたりすると<strong>「ヤーが消えてインになる」</strong>という特殊な変化（カディン型）をします。
+                        </p>
+                        
+                        <div className="bg-white p-4 rounded-xl border border-emerald-200 flex flex-col justify-center items-center gap-4">
+                          <div className="w-full">
+                            <p className="text-[10px] font-bold text-emerald-700 mb-1">普通に「8人の女子学生」と言う場合（ヤーは残る）</p>
+                            <p className="text-2xl font-arabic text-[#8A5A33] text-center" dir="rtl">{"\u200Fثَمَانِي طَالِبَاتٍ\u200F"}</p>
+                            <p className="text-xs font-bold text-[#5E3C1E] text-center">サマーニー ターリバーティン</p>
+                          </div>
+                          <div className="w-full border-t border-dashed border-emerald-200 pt-3">
+                            <p className="text-[10px] font-bold text-rose-600 mb-1">名詞が後ろから離れたり省略された場合（ヤーが消える！）</p>
+                            <p className="text-2xl font-arabic text-rose-600 drop-shadow-sm text-center" dir="rtl">{"\u200Fجَاءَتْ ثَمَانٍ مِنَ الطَّالِبَاتِ\u200F"}</p>
+                            <p className="text-xs font-bold text-[#5E3C1E] text-center">ジャーアト サマー<span className="text-rose-600 text-lg font-black">ニン</span> ミナ ト・ターリバーティ</p>
+                            <p className="text-[10px] text-gray-500 mt-1 text-center">（女子学生のうちの8人が来た）</p>
+                          </div>
+                        </div>
+                      </div>
+          
+                    </div>
+                  </section>
+          
+                </div>
+              ),
+          
+              imageUrls: [],
               contentVoweled: "",
               sentences: [], 
               vocabList: [],
               questions: [
+                {
+                  type: "grammar",
+                  text: "\u200F「11から99」までの数字を使って名詞を数える時、後ろに来る名詞の形として正しいものはどれですか？\u200F",
+                  audio: "",
+                  options: [
+                    "複数形 ＋ 属格（イ段）", 
+                    "複数形 ＋ 対格（ア段）",
+                    "単数形 ＋ 対格（ア段）",
+                    "単数形 ＋ 属格（イ段）"
+                  ],
+                  correctIndex: 2,
+                  explanation: "11〜99の後ろの名詞は、タムイーズ（何の点で？）のルールに従い、「単数形・対格（〜アン）」になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「100以上（100、1000など）」の数字を使って名詞を数える時、後ろに来る名詞の形として正しいものはどれですか？\u200F",
+                  audio: "",
+                  options: [
+                    "複数形 ＋ 属格（イ段）", 
+                    "単数形 ＋ 対格（ア段）",
+                    "複数形 ＋ 対格（ア段）",
+                    "単数形 ＋ 属格（イ段）"
+                  ],
+                  correctIndex: 3,
+                  explanation: "100以上の後ろの名詞は、イダーファ構造になりますが、3〜10の時とは異なり「単数形・属格（〜イン）」になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「11の星」正しいアラビア語の形はどれ？\n※星：カウカブン（\u200Fكَوْكَبٌ\u200F）\u200F",
+                  audio: "\u200Fأَحَدَ عَشَرَ كَوْكَبًا\u200F",
+                  options: [
+                    "\u200Fأَحَدَ عَشَرَ كَوَاكِبٍ\u200F", 
+                    "\u200Fأَحَدَ عَشَرَ كَوْكَبًا\u200F",
+                    "\u200Fأَحَدَ عَشَرَ كَوْكَبٍ\u200F",
+                    "\u200Fأَحَدَ عَشَرَ كَوْكَبٌ\u200F"
+                  ],
+                  correctIndex: 1,
+                  explanation: "11の後ろは「単数・対格」になるため、カウカバン（\u200Fكَوْكَبًا\u200F）が正解です。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「20人の男」正しいアラビア語の形はどれ？\n※男：ラジュルン（\u200Fرَجُلٌ\u200F）\u200F",
+                  audio: "\u200Fعِشْرُونَ رَجُلًا\u200F",
+                  options: [
+                    "\u200Fعِشْرُونَ رِجَالٍ\u200F", 
+                    "\u200Fعِشْرُونَ رَجُلٍ\u200F",
+                    "\u200Fعِشْرُونَ رَجُلًا\u200F",
+                    "\u200Fعِشْرِينَ رَجُلٌ\u200F"
+                  ],
+                  correctIndex: 2,
+                  explanation: "20〜90の後ろも「単数・対格」になるため、ラジュラン（\u200Fرَجُلًا\u200F）が正解です。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「100冊の本」正しいアラビア語の形はどれ？\n※本：キターブン（\u200Fكِتَابٌ\u200F）\u200F",
+                  audio: "\u200Fمِائَةُ كِتَابٍ\u200F",
+                  options: [
+                    "\u200Fمِائَةُ كُتُبٍ\u200F", 
+                    "\u200Fمِائَةُ كِتَابًا\u200F",
+                    "\u200Fمِائَةُ كِتَابٍ\u200F",
+                    "\u200Fمِائَةِ كُتُبًا\u200F"
+                  ],
+                  correctIndex: 2,
+                  explanation: "100（ミア）の後ろは「単数・属格」のイダーファになるため、キタービン（\u200Fكِتَابٍ\u200F）が正解です。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「3つのモスク」二段変化名詞の罠に注意して正しい形を選んでください。\n※モスク：マサージドゥ（\u200Fمَسَاجِدُ\u200F：二段変化名詞・男性）\u200F",
+                  audio: "\u200Fثَلَاثَةُ مَسَاجِدَ\u200F",
+                  options: [
+                    "\u200Fثَلَاثَةُ مَسَاجِدٍ\u200F", 
+                    "\u200Fثَلَاثُ مَسَاجِدٍ\u200F",
+                    "\u200Fثَلَاثَةُ مَسَاجِدَ\u200F",
+                    "\u200Fثَلَاثُ مَسَاجِدَ\u200F"
+                  ],
+                  correctIndex: 2,
+                  explanation: "モスクは男性名詞なので数字は女性形（サラーサトゥ）を使います。後ろは複数・属格になりますが、マサージドゥは二段変化名詞なので属格の場所で「ア段」になり、マサージダ（\u200Fمَسَاجِدَ\u200F）になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「12ヶ月」双数の罠に注意して正しい形を選んでください。\n※月：シャフルン（\u200Fشَهْرٌ\u200F：男性）、12：イスナー アシャラ（\u200Fاثْنَا عَشَرَ\u200F）\u200F",
+                  audio: "\u200Fاثْنَا عَشَرَ شَهْرًا\u200F",
+                  options: [
+                    "\u200Fاثْنَانِ عَشَرَ شَهْرًا\u200F", 
+                    "\u200Fاثْنَا عَشَرَ شَهْرًا\u200F",
+                    "\u200Fاثْنَانِ عَشَرَ شُهُورٍ\u200F",
+                    "\u200Fاثْنَا عَشَرَ شَهْرٍ\u200F"
+                  ],
+                  correctIndex: 1,
+                  explanation: "12の「2」の部分は双数形なので、イダーファ構造によって語尾のヌーン（ن）が脱落し「イスナー」となります。後ろは11〜99のルールなので単数・対格（シャフラン）です。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「200冊の本」双数の罠に注意して正しい形を選んでください。\n※200：ミアターニ（\u200Fمِائَتَانِ\u200F）\u200F",
+                  audio: "\u200Fمِائَتَا كِتَابٍ\u200F",
+                  options: [
+                    "\u200Fمِائَتَانِ كِتَابٍ\u200F", 
+                    "\u200Fمِائَتَا كُتُبٍ\u200F",
+                    "\u200Fمِائَتَانِ كِتَابًا\u200F",
+                    "\u200Fمِائَتَا كِتَابٍ\u200F"
+                  ],
+                  correctIndex: 3,
+                  explanation: "200は双数形であり、イダーファになるため語尾のヌーンが脱落して「ミアター」になります。100以上のルールなので後ろは単数・属格（キタービン）です。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「8人の女子学生」正しいアラビア語の形はどれ？\n※女子学生（\u200Fطَالِبَةٌ\u200F）、8（男性形：\u200Fثَمَانِي\u200F サマーニー）\u200F",
+                  audio: "\u200Fثَمَانِي طَالِبَاتٍ\u200F",
+                  options: [
+                    "\u200Fثَمَانٍ طَالِبَاتٍ\u200F", 
+                    "\u200Fثَمَانِي طَالِبَاتٍ\u200F",
+                    "\u200Fثَمَانِيَةُ طَالِبَاتٍ\u200F",
+                    "\u200Fثَمَانِ طَالِبَةً\u200F"
+                  ],
+                  correctIndex: 1,
+                  explanation: "女子学生は女性なので、数字は男性形（サマーニー）を使います。名詞がすぐ後ろにくっつく場合は、語尾のヤー（ي）は消えずにそのまま「サマーニー ターリバーティン」となります。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200Fアラビア語の数字の文法（後ろに来る名詞の形）の組み合わせとして、【間違っている】ものはどれですか？\u200F",
+                  audio: "",
+                  options: [
+                    "3〜10 ＝ 複数・属格（イ段）", 
+                    "11〜99 ＝ 単数・対格（ア段）",
+                    "100以上 ＝ 複数・対格（ア段）",
+                    "1〜2 ＝ 前の名詞と完全に一致"
+                  ],
+                  correctIndex: 2,
+                  explanation: "100以上（ミアやアルフ）の後ろに来る名詞は「単数・属格（イ段）」になります。「複数・対格」という組み合わせは数字の文法には存在しません。"
+                },
                 {
                   type: "grammar",
                   text: "\u200F「ここに一冊の本があります」\n「\u200Fهُنَا ___\u200F」\u200F",
@@ -20803,19 +24595,328 @@ export const articles: Article[] = [
               id: 155,
               level: "文法",
               category: "感嘆文",
-              title: "Lesson 55: 感嘆文（مَا أَفْعَلَ / أَفْعِلْ بِـ / كَمْ など）",
-              contentPlain: "アラビア語で驚きや感動を表す感嘆文（أسلوب التعجب）の学習です。代表的な2つの公式「مَا أَفْعَلَ ＋ 対格」「أَفْعِلْ بِـ ＋ 属格」に加え、会話でよく使われる「يَا لَهُ مِنْ ＋ 名詞」や、多さを強調する「感嘆の كَمْ」の使い方と格変化のルールをマスターしましょう。",              
-              imageUrls: [
-                "/image/grammar/lesson55_1.jpg", 
-                "/image/grammar/lesson55_2.jpg", 
-                "/image/grammar/lesson55_3.jpg",
-                "/image/grammar/lesson55_4.jpg", 
-                "/image/grammar/lesson55_5.jpg",
-              ],
+              title: "Lesson 55: 感嘆文（なんて〜なんだ！）",
+              contentPlain: "アラビア語で驚きや感動を表す感嘆文（أسلوب التعجب）の学習です。代表的な2つの公式「مَا أَفْعَلَ ＋ 対格」「أَفْعِلْ بِـ ＋ 属格」に加え、会話でよく使われる「يَا لَهُ مِنْ ＋ 名詞」や、多さを強調する「感嘆の كَمْ」の使い方と格変化のルールをマスターしましょう。",
+              
+              contentNode: (
+                <div className="space-y-10 text-[#5E3C1E] mt-6">
+                  <p className="leading-relaxed">
+                    「なんて美しい空なんだ！」「なんと素晴らしい男だ！」のように、強い驚きや感動を表す文を<strong>感嘆文（タアッジュブ）</strong>と呼びます。<br />
+                    アラビア語の感嘆文には、計算式のようにピタッと当てはまる<strong>「2つの代表的な公式」</strong>があります。まずはこの2つからマスターしましょう！
+                  </p>
+          
+                  {/* --- 1. 公式①：マー・アフアラ --- */}
+                  <section>
+                    <div className="bg-rose-50 border-l-4 border-rose-500 p-5 rounded-r-xl shadow-sm mb-6">
+                      <h4 className="font-bold text-rose-800 mb-3 text-lg">
+                        ✨ 公式①：مَا أَفْعَلَ ＋ 【対格（ア段）】
+                      </h4>
+                      <p className="text-sm text-rose-900 leading-relaxed">
+                        一番よく使われる公式です。文の頭に<strong>「マー（{"\u200Fمَا\u200F"}）」</strong>を置き、形容詞を<strong>「アフアラ（{"\u200Fأَفْعَلَ\u200F"}）」</strong>の形に変えて置きます。そして、その後ろに感動した対象を<strong>「対格（ア段）」</strong>にして繋げます。
+                      </p>
+                    </div>
+                    
+                    <div className="bg-[#FDFCF8] p-5 rounded-2xl border border-[#E5C9A8] shadow-sm flex flex-col items-center">
+                      <h4 className="font-bold text-[#764C28] mb-4 text-center border-b border-[#E5C9A8] pb-2 w-full">
+                        例：「なんて美しい空なんだ！」
+                      </h4>
+                      <div className="flex justify-center items-center gap-3 mb-4 w-full">
+                        <div className="text-center bg-rose-100 p-2 rounded-lg border border-rose-200">
+                          <p className="text-[10px] font-bold text-rose-800 mb-1">空を(対格・ア段!)</p>
+                          <p className="text-3xl font-arabic text-rose-600 drop-shadow-sm" dir="rtl">{"\u200Fالسَّمَاءَ\u200F"}</p>
+                        </div>
+                        <span className="text-gray-400 font-bold">＋</span>
+                        <div className="text-center bg-white p-2 rounded-lg border border-[#E5C9A8]">
+                          <p className="text-[10px] font-bold text-gray-500 mb-1">美しい(アフアラ型)</p>
+                          <p className="text-3xl font-arabic text-[#8A5A33] drop-shadow-sm" dir="rtl">{"\u200Fأَجْمَلَ\u200F"}</p>
+                        </div>
+                        <span className="text-gray-400 font-bold">＋</span>
+                        <div className="text-center bg-white p-2 rounded-lg border border-[#E5C9A8]">
+                          <p className="text-[10px] font-bold text-gray-500 mb-1">感嘆のマー</p>
+                          <p className="text-3xl font-arabic text-[#8A5A33] drop-shadow-sm" dir="rtl">{"\u200Fمَا\u200F"}</p>
+                        </div>
+                      </div>
+                      <div className="bg-white p-3 rounded-lg border border-[#E5C9A8] w-full text-center">
+                        <p className="text-3xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fمَا أَجْمَلَ السَّمَاءَ!\u200F"}</p>
+                        <p className="text-xs font-bold text-[#5E3C1E]">マー アジュマラ <span className="text-rose-600 text-sm font-black">ス・サマーア</span>！</p>
+                        <p className="text-[10px] text-gray-500 mt-2">※美しい（ジャミール：{"\u200Fجَمِيلٌ\u200F"}）の語根「ج-م-ل」を「アフアラ」の型に当てはめて「アジュマラ」にします。</p>
+                      </div>
+                      <button onClick={() => playTableAudio("\u200Fمَا أَجْمَلَ السَّمَاءَ\u200F")} className="w-8 h-8 bg-[#F8F1E7] text-[#A67144] rounded-full flex items-center justify-center shadow-sm border border-[#E5C9A8] hover:bg-amber-100 mt-3">
+                        <Volume2 size={14} />
+                      </button>
+                    </div>
+                  </section>
+          
+                  {/* --- 2. 公式②：アフイル・ビ --- */}
+                  <section>
+                    <div className="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-xl shadow-sm mt-12 mb-6">
+                      <h4 className="font-bold text-blue-800 mb-3 text-lg">
+                        ✨ 公式②：أَفْعِلْ بِـ ＋ 【属格（イ段）】
+                      </h4>
+                      <p className="text-sm text-blue-900 leading-relaxed">
+                        もう一つの公式です。形容詞を<strong>「アフイル（{"\u200Fأَفْعِلْ\u200F"}）」</strong>という命令形のような形にし、前置詞の<strong>「ビ（{"\u200Fبِـ\u200F"}）」</strong>を付けます。前置詞の後ろなので、感動した対象は<strong>「属格（イ段）」</strong>になります。
+                      </p>
+                    </div>
+          
+                    <div className="bg-[#FDFCF8] p-5 rounded-2xl border border-[#E5C9A8] shadow-sm flex flex-col items-center">
+                      <h4 className="font-bold text-[#764C28] mb-4 text-center border-b border-[#E5C9A8] pb-2 w-full">
+                        例：「なんて美しい空なんだ！」（別パターン）
+                      </h4>
+                      <div className="flex justify-center items-center gap-3 mb-4 w-full">
+                        <div className="text-center bg-blue-100 p-2 rounded-lg border border-blue-200">
+                          <p className="text-[10px] font-bold text-blue-800 mb-1">空に(属格・イ段!)</p>
+                          <p className="text-3xl font-arabic text-blue-600 drop-shadow-sm" dir="rtl">{"\u200Fالسَّمَاءِ\u200F"}</p>
+                        </div>
+                        <span className="text-blue-500 font-bold text-xl">＋</span>
+                        <div className="text-center bg-white p-2 rounded-lg border border-[#E5C9A8]">
+                          <p className="text-[10px] font-bold text-gray-500 mb-1">前置詞ビ</p>
+                          <p className="text-3xl font-arabic text-[#8A5A33] drop-shadow-sm" dir="rtl">{"\u200Fبِـ\u200F"}</p>
+                        </div>
+                        <span className="text-gray-400 font-bold">＋</span>
+                        <div className="text-center bg-white p-2 rounded-lg border border-[#E5C9A8]">
+                          <p className="text-[10px] font-bold text-gray-500 mb-1">美しい(アフイル型)</p>
+                          <p className="text-3xl font-arabic text-[#8A5A33] drop-shadow-sm" dir="rtl">{"\u200Fأَجْمِلْ\u200F"}</p>
+                        </div>
+                      </div>
+                      <div className="bg-white p-3 rounded-lg border border-[#E5C9A8] w-full text-center">
+                        <p className="text-3xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fأَجْمِلْ بِالسَّمَاءِ!\u200F"}</p>
+                        <p className="text-xs font-bold text-[#5E3C1E]">アジュミル <span className="text-blue-600 text-sm font-black">ビス・サマーイ</span>！</p>
+                        <p className="text-[10px] text-gray-500 mt-2">※意味は公式①と全く同じですが、文法的な格がア段からイ段に変わります！</p>
+                      </div>
+                      <button onClick={() => playTableAudio("\u200Fأَجْمِلْ بِالسَّمَاءِ\u200F")} className="w-8 h-8 bg-[#F8F1E7] text-[#A67144] rounded-full flex items-center justify-center shadow-sm border border-[#E5C9A8] hover:bg-amber-100 mt-3">
+                        <Volume2 size={14} />
+                      </button>
+                    </div>
+                    
+                    <div className="mt-6 flex flex-col md:flex-row gap-4">
+                      <div className="bg-white border border-stone-200 p-4 rounded-xl flex-1 text-center shadow-sm">
+                        <p className="text-xs font-bold text-stone-500 mb-1">大きい（カビール：{"\u200Fكَبِير\u200F"}）</p>
+                        <p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fمَا أَكْبَرَ\u200F"} / {"\u200Fأَكْبِرْ بِـ\u200F"}</p>
+                      </div>
+                      <div className="bg-white border border-stone-200 p-4 rounded-xl flex-1 text-center shadow-sm">
+                        <p className="text-xs font-bold text-stone-500 mb-1">多い（カスィール：{"\u200Fكَثِير\u200F"}）</p>
+                        <p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fمَا أَكْثَرَ\u200F"} / {"\u200Fأَكْثِرْ بِـ\u200F"}</p>
+                      </div>
+                    </div>
+                  </section>
+          
+                  {/* --- 3. ヤー・ラフ・ミン --- */}
+                  <section>
+                    <div className="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-r-xl shadow-sm mt-12 mb-6">
+                      <h4 className="font-bold text-amber-800 mb-3 text-lg">
+                        🗣️ 会話でよく使う：「يَا لَهُ مِنْ ＋ 名詞」
+                      </h4>
+                      <p className="text-sm text-amber-900 leading-relaxed">
+                        「なんという〜だ！」と日常会話や物語で非常によく使われる表現です。<br />
+                        <strong>「ヤー（{"\u200Fيَا\u200F"}） ＋ リ（{"\u200Fلِـ\u200F"}） ＋ 代名詞 ＋ ミン（{"\u200Fمِنْ\u200F"}） ＋ 名詞」</strong>という形を作ります。代名詞は、驚いている対象の性別に合わせます。
+                      </p>
+                    </div>
+          
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {/* 男性名詞 */}
+                      <div className="bg-white border border-amber-200 p-5 rounded-xl shadow-sm flex flex-col items-center">
+                        <h4 className="font-bold text-amber-700 mb-3 text-sm border-b border-amber-100 pb-2 w-full text-center">
+                          男性名詞（男）の場合
+                        </h4>
+                        <p className="text-3xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fيَا لَهُ مِنْ رَجُلٍ شُجَاعٍ!\u200F"}</p>
+                        <p className="text-xs font-bold text-[#5E3C1E]">ヤー ラ<span className="text-amber-600 text-sm font-black">フ</span> ミン ラジュリン シュジャーイン！</p>
+                        <p className="text-[10px] text-gray-500 mt-2 text-center">（なんという勇敢な男なんだ！）<br/>※男は男性なので代名詞「フ（彼）」を使います。</p>
+                        <button onClick={() => playTableAudio("\u200Fيَا لَهُ مِنْ رَجُلٍ شُجَاعٍ\u200F")} className="w-8 h-8 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center shadow-sm border border-amber-200 hover:bg-amber-100 mt-3">
+                          <Volume2 size={14} />
+                        </button>
+                      </div>
+          
+                      {/* 女性名詞 */}
+                      <div className="bg-white border border-amber-200 p-5 rounded-xl shadow-sm flex flex-col items-center">
+                        <h4 className="font-bold text-amber-700 mb-3 text-sm border-b border-amber-100 pb-2 w-full text-center">
+                          女性名詞（少女）の場合
+                        </h4>
+                        <p className="text-3xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fيَا لَهَا مِنْ فَتَاةٍ جَمِيلَةٍ!\u200F"}</p>
+                        <p className="text-xs font-bold text-[#5E3C1E]">ヤー ラ<span className="text-amber-600 text-sm font-black">ハー</span> ミン ファターティン ジャミーラティン！</p>
+                        <p className="text-[10px] text-gray-500 mt-2 text-center">（なんという美しい少女なんだ！）<br/>※少女は女性なので代名詞「ハー（彼女）」を使います。</p>
+                        <button onClick={() => playTableAudio("\u200Fيَا لَهَا مِنْ فَتَاةٍ جَمِيلَةٍ\u200F")} className="w-8 h-8 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center shadow-sm border border-amber-200 hover:bg-amber-100 mt-3">
+                          <Volume2 size={14} />
+                        </button>
+                      </div>
+                    </div>
+                  </section>
+          
+                  {/* --- 4. 感嘆のカム --- */}
+                  <section>
+                    <div className="bg-emerald-50 border-l-4 border-emerald-500 p-5 rounded-r-xl shadow-sm mt-12 mb-6">
+                      <h4 className="font-bold text-emerald-800 mb-3 text-lg">
+                        🔢 多さを驚く：「感嘆の كَمْ（カム）」
+                      </h4>
+                      <p className="text-sm text-emerald-900 leading-relaxed">
+                        「カム（{"\u200Fكَمْ\u200F"}）」は「いくつ？」という疑問詞ですが、<strong>「なんと多くの〜！」と数の多さに驚く感嘆詞</strong>としても使われます。<br />
+                        疑問の時と違い、後ろの名詞は<strong>「前置詞ミン ＋ 属格（イ段）」</strong>または<strong>「そのまま属格（イ段）」</strong>になります！
+                      </p>
+                    </div>
+          
+                    <div className="bg-white border border-emerald-200 p-5 rounded-xl shadow-sm">
+                      <h4 className="font-bold text-emerald-700 mb-4 text-center border-b border-emerald-100 pb-2">
+                        徹底比較：疑問のカム VS 感嘆のカム
+                      </h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        
+                        <div className="text-center bg-gray-50 p-4 rounded-lg border border-gray-200">
+                          <p className="text-xs font-bold text-gray-600 mb-2">❓ 疑問のカム（いくつ？）</p>
+                          <p className="text-2xl font-arabic text-gray-500 mb-1" dir="rtl">{"\u200Fكَمْ كِتَابًا قَرَأْتَ؟\u200F"}</p>
+                          <p className="text-xs font-bold text-[#5E3C1E] mb-2">カム <span className="text-red-500">キターバン</span> カラアタ？</p>
+                          <p className="text-[10px] text-gray-500">（あなたは何冊の本を読みましたか？）</p>
+                          <p className="text-[10px] bg-white border border-gray-200 rounded px-2 py-1 mt-2 inline-block">※単数・対格（ア段）</p>
+                        </div>
+          
+                        <div className="text-center bg-emerald-100 p-4 rounded-lg border border-emerald-300 shadow-inner">
+                          <p className="text-xs font-bold text-emerald-800 mb-2">❗️ 感嘆のカム（なんと多くの！）</p>
+                          <p className="text-2xl font-arabic text-emerald-700 mb-1 drop-shadow-sm" dir="rtl">{"\u200Fكَمْ مِنْ كِتَابٍ قَرَأْتُ!\u200F"}</p>
+                          <p className="text-xs font-bold text-[#5E3C1E] mb-2">カム <span className="text-emerald-600 text-sm font-black">ミン キタービン</span> カラアトゥ！</p>
+                          <p className="text-[10px] text-emerald-800">（私はなんと多くの本を読んだことか！）</p>
+                          <p className="text-[10px] bg-white border border-emerald-200 rounded px-2 py-1 mt-2 inline-block text-emerald-700">※ミン＋属格（イ段） または 直接属格</p>
+                        </div>
+          
+                      </div>
+                    </div>
+                  </section>
+          
+                </div>
+              ),
+          
+              imageUrls: [],
               contentVoweled: "",
               sentences: [], 
               vocabList: [],
               questions: [
+                {
+                  type: "grammar",
+                  text: "\u200F感嘆文の公式「マー・アフアラ（\u200Fمَا أَفْعَلَ\u200F）」の後ろに来る名詞の正しい格はどれですか？\u200F",
+                  audio: "",
+                  options: [
+                    "主格（ウ段）", 
+                    "対格（ア段）",
+                    "属格（イ段）",
+                    "無音（スクーン）"
+                  ],
+                  correctIndex: 1,
+                  explanation: "「マー・アフアラ」の公式の後ろの対象は、必ず「対格（ア段）」になります。（例：マー アジュマラ ス・サマーア）"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「なんて美しい車なんだ！」正しいアラビア語はどれ？\n※美しい（\u200Fأَجْمَلَ\u200F）、車（\u200Fالسَّيَّارَة\u200F）\u200F",
+                  audio: "\u200Fمَا أَجْمَلَ السَّيَّارَةَ!\u200F",
+                  options: [
+                    "\u200Fمَا أَجْمَلَ السَّيَّارَةُ!\u200F", 
+                    "\u200Fمَا أَجْمَلَ السَّيَّارَةِ!\u200F",
+                    "\u200Fمَا أَجْمَلَ السَّيَّارَةَ!\u200F",
+                    "\u200Fمَا أَجْمَلُ السَّيَّارَةَ!\u200F"
+                  ],
+                  correctIndex: 2,
+                  explanation: "対象となる「車」を対格（ア段）にして、「マー アジュマラ ス・サイヤーラタ」とするのが正解です。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F感嘆文のもう一つの公式「アフイル・ビ（\u200Fأَفْعِلْ بِـ\u200F）」の後ろに来る名詞の正しい格はどれですか？\u200F",
+                  audio: "",
+                  options: [
+                    "主格（ウ段）", 
+                    "対格（ア段）",
+                    "属格（イ段）",
+                    "無音（スクーン）"
+                  ],
+                  correctIndex: 2,
+                  explanation: "前置詞の「ビ（\u200Fبِـ\u200F）」がくっついているため、後ろに来る名詞は「属格（イ段）」になります。（例：アジュミル ビス・サマーイ）"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「なんて素晴らしい男なんだ！」正しいアラビア語はどれ？\n※素晴らしい（\u200Fأَعْظِمْ\u200F）、男（\u200Fالرَّجُل\u200F）\u200F",
+                  audio: "\u200Fأَعْظِمْ بِالرَّجُلِ!\u200F",
+                  options: [
+                    "\u200Fأَعْظِمْ بِالرَّجُلَ!\u200F", 
+                    "\u200Fأَعْظِمْ بِالرَّجُلِ!\u200F",
+                    "\u200Fأَعْظِمْ بِالرَّجُلُ!\u200F",
+                    "\u200Fأَعْظِمَ بِالرَّجُلِ!\u200F"
+                  ],
+                  correctIndex: 1,
+                  explanation: "前置詞「ビ」の後ろなので属格（イ段）になり、「アアジム ビッ・ラジュリ」が正解です。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「なんという【美しい女の子】なんだ！」正しい代名詞を使った表現はどれ？\n※女の子（\u200Fفَتَاة\u200F：女性名詞）\u200F",
+                  audio: "\u200Fيَا لَهَا مِنْ فَتَاةٍ جَمِيلَةٍ!\u200F",
+                  options: [
+                    "\u200Fيَا لَهُ مِنْ فَتَاةٍ جَمِيلَةٍ!\u200F", 
+                    "\u200Fيَا لَهَا مِنْ فَتَاةٍ جَمِيلَةٍ!\u200F",
+                    "\u200Fيَا لَكَ مِنْ فَتَاةٍ جَمِيلَةٍ!\u200F",
+                    "\u200Fيَا لِي مِنْ فَتَاةٍ جَمِيلَةٍ!\u200F"
+                  ],
+                  correctIndex: 1,
+                  explanation: "驚きの対象が「女の子（女性名詞）」なので、「ヤー・ラフ（彼）」ではなく「ヤー・ラハー（彼女）」を使います。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F数の多さに驚く「感嘆のカム（\u200Fكَمْ\u200F）」の後ろに来る名詞の形として、正しいものはどれですか？\u200F",
+                  audio: "",
+                  options: [
+                    "単数・対格（ア段）", 
+                    "前置詞ミン（\u200Fمِنْ\u200F） ＋ 属格（イ段）",
+                    "複数・主格（ウ段）",
+                    "動詞の現在形"
+                  ],
+                  correctIndex: 1,
+                  explanation: "疑問のカム（いくつ？）は単数・対格になりますが、感嘆のカム（なんと多くの！）は「ミン＋属格」または「直接属格」になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「空にはなんと多くの星があることか！」正しいアラビア語はどれ？\n※星（\u200Fنَجْم\u200F）\u200F",
+                  audio: "\u200Fكَمْ مِنْ نَجْمٍ فِي السَّمَاءِ!\u200F",
+                  options: [
+                    "\u200Fكَمْ نَجْمًا فِي السَّمَاءِ!\u200F", 
+                    "\u200Fكَمْ مِنْ نَجْمٍ فِي السَّمَاءِ!\u200F",
+                    "\u200Fكَمْ النَّجْمَ فِي السَّمَاءِ!\u200F",
+                    "\u200Fكَمْ نَجْمُ فِي السَّمَاءِ!\u200F"
+                  ],
+                  correctIndex: 1,
+                  explanation: "多さを強調する感嘆のカムなので、「カム ミン ナジュミン（\u200Fكَمْ مِنْ نَجْمٍ\u200F）」とするのが正解です。（※「カム ナジュマン」だと「星はいくつある？」という疑問になります）"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F次の感嘆文の中で、文法的に【間違っている】ものはどれですか？\u200F",
+                  audio: "",
+                  options: [
+                    "\u200Fمَا أَطْوَلَ البُرْجَ!\u200F (なんて高い塔なんだ！)", 
+                    "\u200Fأَطْوِلْ بِالبُرْجِ!\u200F (なんて高い塔なんだ！)",
+                    "\u200Fمَا أَطْوَلَ البُرْجُ!\u200F (なんて高い塔なんだ！)",
+                    "\u200Fيَا لَهُ مِنْ بُرْجٍ طَوِيلٍ!\u200F (なんという高い塔なんだ！)"
+                  ],
+                  correctIndex: 2,
+                  explanation: "「マー・アフアラ」の公式の後ろは対格（ア段）でなければなりません。「アル・ブルジュ（ウ段）」になっている選択肢が間違いです。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「なんて大きい家なんだ！」という意味になる正しいアラビア語はどれ？\n※大きい（\u200Fكَبِيرٌ\u200F）、家（\u200Fالبَيْت\u200F）\u200F",
+                  audio: "\u200Fمَا أَكْبَرَ البَيْتَ!\u200F",
+                  options: [
+                    "\u200Fمَا كَبِيرَ البَيْتَ!\u200F", 
+                    "\u200Fمَا أَكْبَرَ البَيْتَ!\u200F",
+                    "\u200Fمَا كَبِيرٌ البَيْتُ!\u200F",
+                    "\u200Fأَكْبَرَ مَا البَيْتَ!\u200F"
+                  ],
+                  correctIndex: 1,
+                  explanation: "「カビールン（大きい）」の語根を「アフアラ」の型に当てはめて「アクバラ」にし、後ろに対格で「アル・バイタ」を繋げます。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「なんて（彼らは）美しいんだ！」代名詞を使って感嘆文を作る場合、正しい形はどれ？\u200F",
+                  audio: "\u200Fمَا أَجْمَلَهُمْ!\u200F",
+                  options: [
+                    "\u200Fمَا أَجْمَلَ هُمْ!\u200F", 
+                    "\u200Fمَا أَجْمَلَهُمْ!\u200F",
+                    "\u200Fمَا أَجْمَلَ أَنْتُمْ!\u200F",
+                    "\u200Fمَا أَجْمَلَ هُنَّ!\u200F"
+                  ],
+                  correctIndex: 1,
+                  explanation: "代名詞を対象にする場合、接続形代名詞（〜フム）を直接「アフアラ」の形にくっつけて「マー アジュマラフム（\u200Fمَا أَجْمَلَهُمْ\u200F）」とします。"
+                },
                 {
                   type: "grammar",
                   text: "\u200F「空はなんと美しいのだろう！」\n\u200F___ السَّمَاءَ!\u200F\u200F",
@@ -21010,6 +25111,345 @@ export const articles: Article[] = [
                   ],
                   correctIndex: 2,
                   explanation: "公式「مَا ＋ أَفْعَلَ（ファトハ） ＋ 感嘆の対象（対格：ファトハ）」を正確に満たしているのが正解です。"
+                }
+              ]
+            },
+            {
+              id: 156,
+              level: "文法",
+              category: "例外表現",
+              title: "Lesson 156: 例外表現（إلا / غير / سوى / ما عدا）",
+              contentPlain: "「〜を除いて」「〜以外」を表す例外の表現（أسلوب الاستثناء）のレッスンです。「イッラー（إلا）」を使った基本の形から、「ガイル（غير）」や「スワー（سوى）」、「マー・アダー（ما عدا）」などの使い方、そして後ろに続く名詞の格変化のルールを詳しく解説します。よくある間違い（الغير）についても触れています。",
+              
+              contentNode: (
+                <div className="space-y-10 text-[#5E3C1E] mt-6">
+                  <p className="leading-relaxed">
+                    「ザイド<strong>以外</strong>の学生が来た」「これ<strong>以外</strong>の方法」のように、ある集団から特定のものを除外する文法を<strong>例外表現（ウースルーブ・アル＝イスティスナーウ）</strong>と呼びます。<br />
+                    使う単語によって、<strong>後ろに来る名詞の格（ア段になるか、イ段になるか）</strong>が明確に変わるため、パズルを解くように論理的に覚えていきましょう！
+                  </p>
+          
+                  {/* --- 1. 基本の「イッラー」 --- */}
+                  <section>
+                    <div className="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-r-xl shadow-sm mb-6">
+                      <h4 className="font-bold text-[#764C28] mb-3 text-lg">
+                        ✨ ① 王道の例外：إِلَّا（イッラー）
+                      </h4>
+                      <p className="text-sm text-[#5E3C1E] leading-relaxed">
+                        例外表現で最も使われる基本の助詞です。肯定文（普通の文）で使われる場合、<strong>イッラーの後ろの名詞は必ず「対格（ア段）」</strong>になります！
+                      </p>
+                    </div>
+          
+                    <div className="bg-[#FDFCF8] p-5 rounded-2xl border border-[#E5C9A8] shadow-sm flex flex-col items-center">
+                      <h4 className="font-bold text-[#764C28] mb-4 text-center border-b border-[#E5C9A8] pb-2 w-full">
+                        例：「一人の学生を除いて、学生たちが来た」
+                      </h4>
+                      {/* flex-row-reverse で右から左に配置 */}
+                      <div className="flex flex-row-reverse justify-center items-center gap-3 mb-4 w-full">
+                        <div className="text-center">
+                          <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">学生たちが来た</span>
+                          <p className="text-2xl font-arabic text-gray-500 mt-1" dir="rtl">{"\u200Fحَضَرَ الطُّلَّابُ\u200F"}</p>
+                        </div>
+                        <span className="text-amber-500 font-bold text-xl">＋</span>
+                        <div className="text-center bg-amber-50 p-2 rounded-lg border border-amber-200">
+                          <span className="text-xs font-bold text-amber-800 mb-1">〜を除いて</span>
+                          <p className="text-3xl font-arabic text-amber-600 drop-shadow-sm mt-1" dir="rtl">{"\u200Fإِلَّا\u200F"}</p>
+                        </div>
+                        <span className="text-amber-500 font-bold text-xl">＋</span>
+                        <div className="text-center bg-amber-100 p-2 rounded-lg border border-amber-300 shadow-inner">
+                          <span className="text-[10px] font-bold text-amber-900 mb-1">一人の学生を(対格!)</span>
+                          <p className="text-3xl font-arabic text-amber-700 drop-shadow-sm mt-1" dir="rtl">{"\u200Fطَالِبًا\u200F"}</p>
+                        </div>
+                      </div>
+                      <div className="bg-white p-3 rounded-lg border border-[#E5C9A8] w-full text-center">
+                        <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fحَضَرَ الطُّلَّابُ إِلَّا طَالِبًا\u200F"}</p>
+                        <p className="text-xs font-bold text-[#5E3C1E]">ハダラ ッ・トゥッラーブ <span className="text-amber-600">イッラー</span> ターリ<span className="text-amber-700 text-sm font-black">バン</span></p>
+                      </div>
+                      <button onClick={() => playTableAudio("\u200Fحَضَرَ الطُّلَّابُ إِلَّا طَالِبًا\u200F")} className="w-8 h-8 bg-[#F8F1E7] text-[#A67144] rounded-full flex items-center justify-center shadow-sm border border-[#E5C9A8] hover:bg-amber-100 mt-3">
+                        <Volume2 size={14} />
+                      </button>
+                    </div>
+                    
+                    <div className="bg-stone-50 border border-stone-200 p-4 rounded-xl shadow-sm text-center mt-4">
+                      <p className="text-sm text-stone-700 leading-relaxed font-bold">
+                        💡 否定文での「イッラー」の特殊な使い方
+                      </p>
+                      {/* JSX内の \u200F を波括弧で囲んで修正 */}
+                      <p className="text-xs text-stone-600 mt-2">
+                        「ザイド以外は【誰も来なかった】（＝ザイドだけが来た）」のように、前に否定の「マー（{"\u200Fمَا\u200F"}）」などを伴う場合は、後ろの格が主語と同じ<strong>「主格（ウ段）」</strong>になります！<br />
+                        例：マー ハダラ イッラー ザイ<strong>ドゥン</strong>（{"\u200Fمَا حَضَرَ إِلَّا زَيْدٌ\u200F"}）
+                      </p>
+                    </div>
+                  </section>
+          
+                  {/* --- 2. ガイル と スワー --- */}
+                  <section>
+                    <div className="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-xl shadow-sm mt-12 mb-6">
+                      <h4 className="font-bold text-blue-800 mb-3 text-lg">
+                        🔗 ② イダーファを作る：غَيْر（ガイル）/ سِوَى（スワー）
+                      </h4>
+                      <p className="text-sm text-blue-900 leading-relaxed">
+                        「ガイル」と「スワー」も例外を表す名詞です。この2つを使う時の絶対ルールは、<strong>「後ろに続く名詞が必ず属格（イ段）になる」</strong>ということです。なぜなら、イダーファ（所有格の構造）になるからです！
+                      </p>
+                    </div>
+          
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {/* ガイルの例 */}
+                      <div className="bg-white border border-blue-200 p-5 rounded-xl shadow-sm flex flex-col items-center">
+                        <h4 className="font-bold text-blue-700 mb-3 text-sm border-b border-blue-100 pb-2 w-full text-center">
+                          غَيْر（ガイル）を使った例
+                        </h4>
+                        {/* flex-row-reverse で右から左に配置 */}
+                        <div className="flex flex-row-reverse justify-center items-center gap-2 mb-4 w-full">
+                          <div className="text-center">
+                            <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">皆が来た</span>
+                            <p className="text-xl font-arabic text-gray-500 mt-1" dir="rtl">{"\u200Fحَضَرَ الطُّلَّابُ\u200F"}</p>
+                          </div>
+                          <span className="text-blue-500 font-bold">＋</span>
+                          <div className="text-center bg-blue-50 p-2 rounded-lg border border-blue-200">
+                            <span className="text-[10px] font-bold text-blue-800 mb-1">〜を除いて</span>
+                            <p className="text-2xl font-arabic text-blue-600 mt-1" dir="rtl">{"\u200Fغَيْرَ\u200F"}</p>
+                          </div>
+                          <span className="text-blue-500 font-bold">＋</span>
+                          <div className="text-center bg-blue-100 p-2 rounded-lg border border-blue-300 shadow-inner">
+                            <span className="text-[10px] font-bold text-blue-900 mb-1">一人(属格)</span>
+                            <p className="text-2xl font-arabic text-blue-700 mt-1" dir="rtl">{"\u200Fطَالِبٍ\u200F"}</p>
+                          </div>
+                        </div>
+                        <div className="bg-blue-50 p-3 rounded-lg border border-blue-200 w-full text-center">
+                          <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fحَضَرَ الطُّلَّابُ غَيْرَ طَالِبٍ\u200F"}</p>
+                          <p className="text-xs font-bold text-[#5E3C1E]">ハダラ ッ・トゥッラーブ ガイラ ターリ<span className="text-blue-600 text-sm font-black">ビン</span></p>
+                          <p className="text-[10px] text-gray-500 mt-1">※イダーファなので、後ろの名詞は「ターリビン（イ段）」になります！</p>
+                        </div>
+                        <button onClick={() => playTableAudio("\u200Fحَضَرَ الطُّلَّابُ غَيْرَ طَالِبٍ\u200F")} className="mt-3 w-8 h-8 bg-white text-blue-600 rounded-full flex items-center justify-center shadow-sm border border-blue-200 hover:bg-blue-100">
+                          <Volume2 size={14} />
+                        </button>
+                      </div>
+          
+                      {/* スワーの例 */}
+                      <div className="bg-white border border-blue-200 p-5 rounded-xl shadow-sm flex flex-col items-center">
+                        <h4 className="font-bold text-blue-700 mb-3 text-sm border-b border-blue-100 pb-2 w-full text-center">
+                          سِوَى（スワー）を使った例
+                        </h4>
+                        <p className="text-xs text-gray-600 mb-4 text-center">
+                          「スワー」も「ガイル」と全く同じ働きをしますが、語尾がアリフ・マクスーラ（{"\u200Fى\u200F"}）なので、<strong>格変化（ウ・ア・イ）が表面に現れません。</strong>
+                        </p>
+                        <div className="bg-blue-50 p-3 rounded-lg border border-blue-200 w-full text-center mt-auto">
+                          <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fحَضَرَ الطُّلَّابُ سِوَى طَالِبٍ\u200F"}</p>
+                          <p className="text-xs font-bold text-[#5E3C1E]">ハダラ ッ・トゥッラーブ スワー ターリ<span className="text-blue-600 text-sm font-black">ビン</span></p>
+                        </div>
+                        <button onClick={() => playTableAudio("\u200Fحَضَرَ الطُّلَّابُ سِوَى طَالِبٍ\u200F")} className="mt-3 w-8 h-8 bg-white text-blue-600 rounded-full flex items-center justify-center shadow-sm border border-blue-200 hover:bg-blue-100">
+                          <Volume2 size={14} />
+                        </button>
+                      </div>
+                    </div>
+          
+                    {/* --- よくある間違い（الغير） --- */}
+                    <div className="bg-rose-50 border border-rose-300 p-6 rounded-2xl shadow-sm mt-8 relative overflow-hidden">
+                      <div className="absolute top-0 left-0 w-2 h-full bg-rose-500"></div>
+                      <h4 className="font-bold text-rose-800 mb-3 text-lg flex items-center gap-2">
+                        🚨 【超重要】よくある間違い（مِنَ الأَخْطَاءِ الشَّائِعَةِ）
+                      </h4>
+                      <p className="text-sm text-rose-900 leading-relaxed mb-4">
+                        アラブのネイティブスピーカーの文章でも頻繁に見かける間違いが、<strong>「ガイル（{"\u200Fغَيْر\u200F"}）に定冠詞（{"\u200Fال\u200F"}）を付けて『アル＝ガイル（{"\u200Fالغَيْر\u200F"}）』と書いてしまうこと」</strong>です！
+                      </p>
+                      <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
+                        <div className="bg-white p-4 rounded-xl border border-rose-200 text-center w-full shadow-sm">
+                          <p className="text-xl font-arabic text-gray-400 line-through decoration-rose-500 mb-1" dir="rtl">{"\u200Fاحْتِرَامُ الغَيْرِ\u200F"}</p>
+                          <p className="text-xs font-bold text-rose-700">❌ 間違い（他人を尊重すること）</p>
+                        </div>
+                        <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-200 text-center w-full shadow-sm">
+                          <p className="text-xl font-arabic text-emerald-700 mb-1" dir="rtl">{"\u200Fاحْتِرَامُ الآخَرِينَ\u200F"} / {"\u200Fغَيْرِهِ\u200F"}</p>
+                          <p className="text-xs font-bold text-emerald-800">✅ 正しい表現</p>
+                        </div>
+                      </div>
+                      <p className="text-xs text-rose-800 mt-4 leading-relaxed bg-white p-3 rounded border border-rose-100">
+                        <strong>💡 なぜダメなの？</strong><br />
+                        「ガイル」は本質的にとても曖昧な名詞なので、定冠詞「アル」を付けたところで特定（限定）することができません。文法的に正しく書きたい場合は、アルを付けずにイダーファにするか、「他の人々（{"\u200Fالآخَرِينَ\u200F"}）」などの別の言葉に言い換えましょう。
+                      </p>
+                    </div>
+                  </section>
+          
+                  {/* --- 3. マー・アダー --- */}
+                  <section>
+                    <div className="bg-emerald-50 border-l-4 border-emerald-500 p-5 rounded-r-xl shadow-sm mt-12 mb-6">
+                      <h4 className="font-bold text-emerald-800 mb-3 text-lg">
+                        🏃 ③ 動詞として働く：مَا عَدَا（マー・アダー）/ مَا خَلَا（マー・ハラー）
+                      </h4>
+                      <p className="text-sm text-emerald-900 leading-relaxed">
+                        「アダー（{"\u200Fعَدَا\u200F"}）」や「ハラー（{"\u200Fخَلَا\u200F"}）」の前に<strong>「マー（{"\u200Fمَا\u200F"}）」</strong>が付いている場合、これらは<strong>「動詞」</strong>として扱われます。<br />
+                        動詞の後ろなので、例外になる名詞は目的語となり<strong>「対格（ア段）」</strong>になります！
+                      </p>
+                    </div>
+          
+                    <div className="bg-white border border-emerald-200 p-5 rounded-xl shadow-sm flex flex-col items-center">
+                      <h4 className="font-bold text-emerald-700 mb-4 text-center border-b border-emerald-100 pb-2 w-full">
+                        例：「一人の学生を除いて、学生たちが来た」
+                      </h4>
+                      {/* flex-row-reverse で右から左に配置 */}
+                      <div className="flex flex-row-reverse justify-center items-center gap-3 mb-4 w-full">
+                        <div className="text-center">
+                          <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">学生たちが来た</span>
+                          <p className="text-2xl font-arabic text-gray-500 mt-1" dir="rtl">{"\u200Fحَضَرَ الطُّلَّابُ\u200F"}</p>
+                        </div>
+                        <span className="text-emerald-500 font-bold text-xl">＋</span>
+                        <div className="text-center bg-emerald-50 p-2 rounded-lg border border-emerald-200">
+                          <span className="text-[10px] font-bold text-emerald-800 mb-1">〜を除いて(動詞)</span>
+                          <p className="text-3xl font-arabic text-emerald-600 drop-shadow-sm mt-1" dir="rtl">{"\u200Fمَا عَدَا\u200F"}</p>
+                        </div>
+                        <span className="text-emerald-500 font-bold text-xl">＋</span>
+                        <div className="text-center bg-emerald-100 p-2 rounded-lg border border-emerald-300 shadow-inner">
+                          <span className="text-[10px] font-bold text-emerald-900 mb-1">一人を(目的語・対格)</span>
+                          <p className="text-3xl font-arabic text-emerald-700 drop-shadow-sm mt-1" dir="rtl">{"\u200Fطَالِبًا\u200F"}</p>
+                        </div>
+                      </div>
+                      <div className="bg-emerald-50 p-3 rounded-lg border border-emerald-200 w-full text-center">
+                        <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fحَضَرَ الطُّلَّابُ مَا عَدَا طَالِبًا\u200F"}</p>
+                        <p className="text-xs font-bold text-[#5E3C1E]">ハダラ ッ・トゥッラーブ マー アダー ターリ<span className="text-emerald-600 text-sm font-black">バン</span></p>
+                        <p className="text-[10px] text-gray-500 mt-1">（※マー・ハラー {"\u200Fمَا خَلَا\u200F"} を使っても同じ意味・同じ文法になります）</p>
+                      </div>
+                      <button onClick={() => playTableAudio("\u200Fحَضَرَ الطُّلَّابُ مَا عَدَا طَالِبًا\u200F")} className="w-8 h-8 bg-white text-emerald-600 rounded-full flex items-center justify-center shadow-sm border border-emerald-200 hover:bg-emerald-100 mt-3">
+                        <Volume2 size={14} />
+                      </button>
+                    </div>
+                  </section>
+          
+                </div>
+              ),
+          
+              imageUrls: [],
+              contentVoweled: "",
+              sentences: [], 
+              vocabList: [],
+              questions: [
+                {
+                  type: "grammar",
+                  text: "\u200F肯定文（普通の文）で、例外の助詞「イッラー（\u200Fإِلَّا\u200F）」の後ろに来る名詞の格は、基本的にどうなりますか？\u200F",
+                  audio: "",
+                  options: [
+                    "主格（ウ段）", 
+                    "対格（ア段）",
+                    "属格（イ段）",
+                    "無音（スクーン）"
+                  ],
+                  correctIndex: 1,
+                  explanation: "肯定文のイッラーの後ろは、必ず「対格（ア段）」になります。（例：イッラー ターリバン）"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F例外を表す名詞「ガイル（\u200Fغَيْر\u200F）」と「スワー（\u200Fسِوَى\u200F）」の後ろに来る名詞の格は、どうなりますか？\u200F",
+                  audio: "",
+                  options: [
+                    "主格（ウ段）", 
+                    "対格（ア段）",
+                    "属格（イ段）",
+                    "前の名詞と同じ格をコピーする"
+                  ],
+                  correctIndex: 2,
+                  explanation: "ガイルとスワーは「イダーファ（所有格）」の構造を作るため、後ろに来る名詞は必ず「属格（イ段）」になります。（例：ガイラ ターリビン）"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200Fアラビア語のネイティブスピーカーもよくやってしまう、「ガイル（\u200Fغَيْر\u200F）」に関する【よくある間違い（الأخطاء الشائعة）】はどれですか？\u200F",
+                  audio: "",
+                  options: [
+                    "ガイルの後ろを対格（ア段）にしてしまう", 
+                    "ガイルに定冠詞（アル）を付けて「アル＝ガイル（\u200Fالغَيْر\u200F）」としてしまう",
+                    "ガイルにタンウィーンを付けてしまう",
+                    "ガイルを動詞の前に置いてしまう"
+                  ],
+                  correctIndex: 1,
+                  explanation: "「他人」などを意味する時に「アル＝ガイル（\u200Fالغَيْر\u200F）」と定冠詞を付けるのは非常によくある間違いですが、文法的には誤りです。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「マー・アダー（\u200Fمَا عَدَا\u200F）」や「マー・ハラー（\u200Fمَا خَلَا\u200F）」の後ろに来る名詞の格は、どうなりますか？\u200F",
+                  audio: "",
+                  options: [
+                    "主格（ウ段）", 
+                    "対格（ア段）",
+                    "属格（イ段）",
+                    "前置詞がつく"
+                  ],
+                  correctIndex: 1,
+                  explanation: "頭に「マー（مَا）」が付いている場合、これらは「動詞」として扱われます。そのため、後ろの例外名詞は目的語となり「対格（ア段）」になります。（例：マー・アダー ターリバン）"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「ザイド以外は誰も来なかった（＝ザイドだけが来た）」という意味になる正しい文はどれ？\n※マー（\u200Fمَا\u200F）を使った否定文です。\u200F",
+                  audio: "\u200Fمَا حَضَرَ إِلَّا زَيْدٌ\u200F",
+                  options: [
+                    "\u200Fمَا حَضَرَ إِلَّا زَيْدًا\u200F", 
+                    "\u200Fمَا حَضَرَ إِلَّا زَيْدٌ\u200F",
+                    "\u200Fمَا حَضَرَ إِلَّا زَيْدٍ\u200F",
+                    "\u200Fحَضَرَ إِلَّا زَيْدٌ\u200F"
+                  ],
+                  correctIndex: 1,
+                  explanation: "否定のマーがあり、前に全体（学生など）が示されていない場合、イッラーの後ろの「ザイド」が文の主語として扱われるため「主格（ザイドゥン）」になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「一人の学生を除いて、皆が成功した（ナジャハ ッ・トゥッラーブ ___）」空欄に入る正しい形は？\n※学生（\u200Fطَالِب\u200F）\u200F",
+                  audio: "\u200Fنَجَحَ الطُّلَّابُ سِوَى طَالِبٍ\u200F",
+                  options: [
+                    "\u200Fإِلَّا طَالِبٍ\u200F", 
+                    "\u200Fغَيْرَ طَالِبًا\u200F",
+                    "\u200Fسِوَى طَالِبٍ\u200F",
+                    "\u200Fمَا عَدَا طَالِبٍ\u200F"
+                  ],
+                  correctIndex: 2,
+                  explanation: "スワー（\u200Fسِوَى\u200F）の後ろはイダーファになるため「ターリビン（属格）」になります。イッラーの後ならターリバン（対格）、マーアダーの後もターリバン（対格）が正解です。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F次の文のうち、文法的に【間違っている】ものはどれですか？\u200F",
+                  audio: "",
+                  options: [
+                    "\u200Fحَضَرَ القَوْمُ إِلَّا رَجُلًا\u200F (一人の男を除いて、人々が来た)", 
+                    "\u200Fحَضَرَ القَوْمُ غَيْرَ رَجُلٍ\u200F (一人の男を除いて、人々が来た)",
+                    "\u200Fحَضَرَ القَوْمُ مَا عَدَا رَجُلًا\u200F (一人の男を除いて、人々が来た)",
+                    "\u200Fحَضَرَ القَوْمُ غَيْرَ رَجُلًا\u200F (一人の男を除いて、人々が来た)"
+                  ],
+                  correctIndex: 3,
+                  explanation: "ガイル（\u200Fغَيْر\u200F）の後ろはイダーファなので必ず「属格（イ段）」になります。「ガイル ラジュラン（対格）」となっている選択肢が間違いです。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「マー・ハラー（\u200Fمَا خَلَا\u200F）」という例外表現において、「マー」の役割は何ですか？\u200F",
+                  audio: "",
+                  options: [
+                    "否定のマー（〜ない）", 
+                    "関係代名詞のマー（〜するもの）",
+                    "名詞化のマー（マースダリーヤ）",
+                    "疑問のマー（何？）"
+                  ],
+                  correctIndex: 2,
+                  explanation: "「マー・アダー」や「マー・ハラー」のマーは、後ろの単語を動詞として機能させる「マスダリーヤ（名詞化）」の役割を持っています。そのため、後ろの名詞が目的語（対格）になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「スワー（\u200Fسِوَى\u200F）」という単語の文法的な働きは、次のうちどれと全く同じですか？\u200F",
+                  audio: "",
+                  options: [
+                    "\u200Fإِلَّا\u200F (イッラー)", 
+                    "\u200Fغَيْر\u200F (ガイル)",
+                    "\u200Fمَا عَدَا\u200F (マー・アダー)",
+                    "\u200Fلَا\u200F (ラー)"
+                  ],
+                  correctIndex: 1,
+                  explanation: "「スワー」は「ガイル」と全く同じように、後ろの名詞を属格（イダーファ）にする働きを持ちます。違うのは、語尾がアリフ・マクスーラ（ى）なので格変化が見た目に現れない点だけです。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「他人の権利を尊重する」正しいアラビア語の表現として、文法的に推奨されるのはどちらですか？\u200F",
+                  audio: "",
+                  options: [
+                    "\u200Fاحْتِرَامُ الغَيْرِ\u200F (イフティラーム・アル＝ガイル)", 
+                    "\u200Fاحْتِرَامُ الآخَرِينَ\u200F (イフティラーム・アル＝アーハリーン)",
+                    "どちらも完全に正しい",
+                    "どちらも間違い"
+                  ],
+                  correctIndex: 1,
+                  explanation: "「アル＝ガイル（\u200Fالغَيْر\u200F）」と定冠詞をつけるのはよくある文法的な間違い（アハターウ・シャーイア）なので、「他の人々（\u200Fالآخَرِينَ\u200F）」と言い換える方が文法的に正確です。"
                 }
               ]
             },
