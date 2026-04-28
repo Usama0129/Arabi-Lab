@@ -1,12 +1,11 @@
-// data.tsx
-import React from "react"; // ★ 追加: JSXをデータとして扱うために必要
-import { Volume2 } from "lucide-react"; // ★ 追加: 音声再生アイコン
+import React from "react";
+import { Volume2 } from "lucide-react";
 
-// ★ 追加: 音声再生用の関数をここに配置します
+// --- 音声再生用ユーティリティ ---
 const playTableAudio = (text: string) => {
   if (typeof window !== "undefined" && "speechSynthesis" in window) {
     window.speechSynthesis.cancel();
-    // 制御文字(\u200Fなど)を取り除き、純粋なアラビア文字だけを読み上げます
+    // \u200F（制御文字）を除去してアラビア文字だけを抽出
     const cleanText = text.replace(/[^\u0600-\u06FF\s]/g, "").trim();
     const u = new SpeechSynthesisUtterance(cleanText);
     const voices = window.speechSynthesis.getVoices();
@@ -21,6 +20,7 @@ const playTableAudio = (text: string) => {
     window.speechSynthesis.speak(u);
   }
 };
+
 export type QuestionType = 
   | "reading" 
   | "vocabulary" 
@@ -30,25 +30,20 @@ export type QuestionType =
   | "grammar_advanced"
   | "listening"       
   | "grammar_basic"
-  | "reorder"; // ★ 追加: 並び替え問題用のタイプ
-
+  | "reorder";
+  
 export type QuizQuestion = {
   id?: number; 
   type: QuestionType;
   text: string;
-  
-  // ★ 変更: 並び替え問題では使わないため、オプショナル（?）に変更しておくと今後のデータ作成が楽になります
   options?: string[];
   correctIndex?: number;
-  
   explanation: string;
   audio?: string; 
   relatedGrammarId?: number; 
-
-  // ★★★ 追加: 並び替え問題専用のプロパティ（オプショナル） ★★★
-  correctOrder?: string[]; // 正解の単語の並び（例: ["\u200Fأنا\u200F", "\u200Fطالب\u200F", "\u200Fجديد\u200F"]）
-  acceptableOrders?: string[][]; // ★ ここを追加: 複数正解のパターン配列
-  distractors?: string[];  // ダミーの単語（例: ["\u200Fمدرسة\u200F", "\u200Fفي\u200F"]）
+  correctOrder?: string[]; 
+  acceptableOrders?: string[][]; 
+  distractors?: string[];  
 };
 
 export type Vocab = {
@@ -67,29 +62,21 @@ export type Sentence = {
   japanese: string;
   speaker?: string; 
   note?: string;    
-  // ★★★ 追加: 関連する文法記事のID（オプショナル） ★★★
   relatedGrammarId?: number;
 };
 
 export type Article = {
   id: number;
   title: string;
-  category: string;
-  // ★ "1フレーズ" を追加
-  level: "初級" | "会話" | "中級" | "上級" | "文法" | "Poetry" | "1フレーズ"; 
-  
+  category: string; 
+  level: "初級" | "会話" | "中級" | "上級" | "文法" | "Poetry" | "1フレーズ" | "物語"; // ★ "物語" を追加
   contentVoweled: string;
   contentPlain: string;
-  
-  // ★★★ 追加: コードで文法解説（JSX）を書くためのプロパティ ★★★
   contentNode?: React.ReactNode;
-  
   vocabList: Vocab[];
   questions: QuizQuestion[];
   sentences: Sentence[]; 
-  
   keyExpressions?: KeyExpression[];
-
   videoUrl?: string;     
   imageUrls?: string[];  
 };
@@ -25453,10 +25440,479 @@ export const articles: Article[] = [
                 }
               ]
             },
-  // =================================================================
-  //  PART 3: 中級コース (Intermediate Course) - 読解・物語
-  //  全10記事 × 各5問 = 50問 (ID 200 - 209)
-  // =================================================================
+            {
+              id: 157,
+              level: "文法",
+              category: "カーナとその姉妹",
+              title: "Lesson 157: カーナとその姉妹（كان وأخواتها）",
+              contentPlain: "Lesson 24・25で学んだ「カーナ（〜だった）」「ライサ（〜ではない）」と同じ働きをする動詞グループの総まとめです。これらは名詞文の先頭に付き、主語は主格（ウ段）のまま、述語を対格（ア段）に変える働き（インナの逆）をします。「〜になった」「まだ〜だ」などの状態の変化や継続を表します。",
+              
+              contentNode: (
+                <div className="space-y-10 text-[#5E3C1E] mt-6">
+                  <p className="leading-relaxed">
+                    以前のレッスンで、名詞文を過去形にする「カーナ（{"\u200Fكَانَ\u200F"}）」と、否定する「ライサ（{"\u200Fلَيْسَ\u200F"}）」を学びましたね。<br />
+                    アラビア語には、これらと<strong>全く同じ文法ルール（主語はウ段のまま、述語をア段に変える）</strong>を持つ動詞のグループがあり、それらを総称して<strong>「カーナとその姉妹（{"\u200Fكَانَ وَأَخَوَاتُهَا\u200F"}）」</strong>と呼びます。今回はその全貌をマスターしましょう！
+                  </p>
+          
+                  {/* --- 1. 基本ルールのおさらい --- */}
+                  <section>
+                    <div className="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-r-xl shadow-sm mb-6">
+                      <h4 className="font-bold text-[#764C28] mb-3 text-lg">
+                        ✨ 基本ルールのおさらい：述語が「ア段（対格）」になる！
+                      </h4>
+                      <p className="text-sm text-[#5E3C1E] leading-relaxed">
+                        インナ（Lesson 150）は「主語」をア段にしましたが、カーナとその姉妹は逆です。<strong>「述語（ニュースの部分）」をア段（対格）に変える</strong>という強力な魔法をかけます。
+                      </p>
+                    </div>
+          
+                    <div className="bg-[#FDFCF8] p-5 rounded-2xl border border-[#E5C9A8] shadow-sm flex flex-col items-center">
+                      <div className="flex flex-row-reverse justify-center items-center gap-3 mb-4 w-full">
+                        <div className="text-center">
+                          <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-1 rounded">天気は(主語:ウ段)</span>
+                          <p className="text-2xl font-arabic text-gray-500 mt-1" dir="rtl">{"\u200Fالطَّقْسُ\u200F"}</p>
+                        </div>
+                        <span className="text-amber-500 font-bold text-xl">＋</span>
+                        <div className="text-center bg-amber-100 p-2 rounded-lg border border-amber-300 shadow-inner">
+                          <span className="text-[10px] font-bold text-amber-900 mb-1">美しい(述語を対格に!)</span>
+                          <p className="text-3xl font-arabic text-amber-700 drop-shadow-sm mt-1" dir="rtl">{"\u200Fجَمِيلًا\u200F"}</p>
+                        </div>
+                      </div>
+                      <p className="text-xs text-gray-500 text-center">※この基本構造に、色々な「姉妹（動詞）」を当てはめていきます。</p>
+                    </div>
+                  </section>
+          
+                  {/* --- 2. 日常的によく使う姉妹たち --- */}
+                  <section>
+                    <h3 className="text-xl font-bold text-[#4A3018] mt-12 mb-4 border-b-2 border-[#E5C9A8] pb-2">
+                      🗣️ 日常会話でよく使う姉妹たち（変化と継続）
+                    </h3>
+                    <p className="text-sm text-[#764C28] leading-relaxed mb-6">
+                      まずは、日常会話でも非常によく使われる「〜になった」「〜のままだ」を表す4つの動詞を覚えましょう。
+                    </p>
+          
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      
+                      {/* アスバハ */}
+                      <div className="bg-white border border-blue-200 p-5 rounded-xl shadow-sm flex flex-col items-center">
+                        <h4 className="font-bold text-blue-700 mb-3 text-sm border-b border-blue-100 pb-2 w-full text-center">
+                          ① أَصْبَحَ（アスバハ）：〜になった
+                        </h4>
+                        <p className="text-[10px] text-gray-600 mb-3 text-center">
+                          本来は「朝を迎える」という意味ですが、現代では時間に関係なく<strong>「〜になった（変化）」</strong>を表す最も一般的な動詞として使われます。
+                        </p>
+                        <div className="bg-blue-50 p-3 rounded-lg border border-blue-200 w-full text-center">
+                          <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fأَصْبَحَ الطَّقْسُ جَمِيلًا\u200F"}</p>
+                          <p className="text-xs font-bold text-[#5E3C1E]"><span className="text-blue-600">アスバハ</span> ッ・タクス ジャミー<span className="text-blue-700 text-sm font-black">ラン</span></p>
+                          <p className="text-[10px] text-gray-500 mt-1">（天気が美しくなった）</p>
+                        </div>
+                        <button onClick={() => playTableAudio("\u200Fأَصْبَحَ الطَّقْسُ جَمِيلًا\u200F")} className="w-8 h-8 bg-white text-blue-600 rounded-full flex items-center justify-center shadow-sm border border-blue-200 hover:bg-blue-100 mt-3">
+                          <Volume2 size={14} />
+                        </button>
+                      </div>
+          
+                      {/* サーラ */}
+                      <div className="bg-white border border-blue-200 p-5 rounded-xl shadow-sm flex flex-col items-center">
+                        <h4 className="font-bold text-blue-700 mb-3 text-sm border-b border-blue-100 pb-2 w-full text-center">
+                          ② صَارَ（サーラ）：〜になった・変わった
+                        </h4>
+                        <p className="text-[10px] text-gray-600 mb-3 text-center">
+                          これも「〜になった」という<strong>状態の変化や移行</strong>を表します。「アスバハ」と同じように非常によく使われます。
+                        </p>
+                        <div className="bg-blue-50 p-3 rounded-lg border border-blue-200 w-full text-center">
+                          <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fصَارَ المَاءُ ثَلْجًا\u200F"}</p>
+                          <p className="text-xs font-bold text-[#5E3C1E]"><span className="text-blue-600">サーラ</span> ル・マーウ サル<span className="text-blue-700 text-sm font-black">ジャン</span></p>
+                          <p className="text-[10px] text-gray-500 mt-1">（水が氷になった）</p>
+                        </div>
+                        <button onClick={() => playTableAudio("\u200Fصَارَ المَاءُ ثَلْجًا\u200F")} className="w-8 h-8 bg-white text-blue-600 rounded-full flex items-center justify-center shadow-sm border border-blue-200 hover:bg-blue-100 mt-3">
+                          <Volume2 size={14} />
+                        </button>
+                      </div>
+          
+                      {/* ザッラ */}
+                      <div className="bg-white border border-emerald-200 p-5 rounded-xl shadow-sm flex flex-col items-center">
+                        <h4 className="font-bold text-emerald-700 mb-3 text-sm border-b border-emerald-100 pb-2 w-full text-center">
+                          ③ ظَلَّ（ザッラ）：〜のままである
+                        </h4>
+                        <p className="text-[10px] text-gray-600 mb-3 text-center">
+                          元々は「日中ずっと〜である」という意味ですが、現在では<strong>「ずっと〜のままである（継続）」</strong>を表します。
+                        </p>
+                        <div className="bg-emerald-50 p-3 rounded-lg border border-emerald-200 w-full text-center">
+                          <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fظَلَّ البَابُ مَفْتُوحًا\u200F"}</p>
+                          <p className="text-xs font-bold text-[#5E3C1E]"><span className="text-emerald-600">ザッラ</span> ル・バーブ マフトゥー<span className="text-emerald-700 text-sm font-black">ハン</span></p>
+                          <p className="text-[10px] text-gray-500 mt-1">（ドアは開いたままだった）</p>
+                        </div>
+                        <button onClick={() => playTableAudio("\u200Fظَلَّ البَابُ مَفْتُوحًا\u200F")} className="w-8 h-8 bg-white text-emerald-600 rounded-full flex items-center justify-center shadow-sm border border-emerald-200 hover:bg-emerald-100 mt-3">
+                          <Volume2 size={14} />
+                        </button>
+                      </div>
+          
+                      {/* マー・ザーラ */}
+                      <div className="bg-white border border-emerald-200 p-5 rounded-xl shadow-sm flex flex-col items-center">
+                        <h4 className="font-bold text-emerald-700 mb-3 text-sm border-b border-emerald-100 pb-2 w-full text-center">
+                          ④ مَا زَالَ（マー・ザーラ）：まだ〜である
+                        </h4>
+                        <p className="text-[10px] text-gray-600 mb-3 text-center">
+                          「ザーラ（消え去る）」に否定の「マー」が付き、「消え去っていない＝<strong>まだ〜である（継続）</strong>」という意味になります。
+                        </p>
+                        <div className="bg-emerald-50 p-3 rounded-lg border border-emerald-200 w-full text-center">
+                          <p className="text-2xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fمَا زَالَ المَرِيضُ نَائِمًا\u200F"}</p>
+                          <p className="text-xs font-bold text-[#5E3C1E]"><span className="text-emerald-600">マー ザーラ</span> ル・マリードゥ ナーイ<span className="text-emerald-700 text-sm font-black">マン</span></p>
+                          <p className="text-[10px] text-gray-500 mt-1">（病人はまだ眠っている）</p>
+                        </div>
+                        <button onClick={() => playTableAudio("\u200Fمَا زَالَ المَرِيضُ نَائِمًا\u200F")} className="w-8 h-8 bg-white text-emerald-600 rounded-full flex items-center justify-center shadow-sm border border-emerald-200 hover:bg-emerald-100 mt-3">
+                          <Volume2 size={14} />
+                        </button>
+                      </div>
+          
+                    </div>
+                  </section>
+          
+                  {/* --- 3. 応用セクション（あまり使われない姉妹たち） --- */}
+                  <section>
+                    <div className="bg-rose-50 border-l-4 border-rose-500 p-5 rounded-r-xl shadow-sm mt-12 mb-6">
+                      <h4 className="font-bold text-rose-800 mb-3 text-lg">
+                        📚 応用編：残りの姉妹たち
+                      </h4>
+                      <p className="text-sm text-rose-900 leading-relaxed">
+                        古典や文学、ニュースなどで見かける、時間帯に特化したものや、継続を表す少し硬い表現です。これらも全て<strong>「述語を対格（ア段）」</strong>にします。
+                      </p>
+                    </div>
+          
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      
+                      {/* 時間帯グループ */}
+                      <div className="bg-white border border-rose-200 p-4 rounded-xl shadow-sm">
+                        <h4 className="font-bold text-rose-700 mb-3 text-sm border-b border-rose-100 pb-2 text-center">
+                          時間帯に由来する「〜になった」
+                        </h4>
+                        <ul className="space-y-4">
+                          <li className="flex flex-row-reverse justify-between items-center bg-rose-50 p-2 rounded border border-rose-100">
+                            <div className="text-right w-full">
+                              <p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fأَمْسَى\u200F"}</p>
+                              <p className="text-xs font-bold text-[#5E3C1E] mt-1">アムサー</p>
+                              <p className="text-[10px] text-gray-500">夕方になる → 〜になった</p>
+                            </div>
+                          </li>
+                          <li className="flex flex-row-reverse justify-between items-center bg-rose-50 p-2 rounded border border-rose-100">
+                            <div className="text-right w-full">
+                              <p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fأَضْحَى\u200F"}</p>
+                              <p className="text-xs font-bold text-[#5E3C1E] mt-1">アドハー</p>
+                              <p className="text-[10px] text-gray-500">午前中になる → 〜になった</p>
+                            </div>
+                          </li>
+                          <li className="flex flex-row-reverse justify-between items-center bg-rose-50 p-2 rounded border border-rose-100">
+                            <div className="text-right w-full">
+                              <p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fبَاتَ\u200F"}</p>
+                              <p className="text-xs font-bold text-[#5E3C1E] mt-1">バータ</p>
+                              <p className="text-[10px] text-gray-500">夜を明かす → 〜になった</p>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+          
+                      {/* 継続グループ */}
+                      <div className="bg-white border border-rose-200 p-4 rounded-xl shadow-sm">
+                        <h4 className="font-bold text-rose-700 mb-3 text-sm border-b border-rose-100 pb-2 text-center">
+                          継続（まだ〜だ・〜する限り）
+                        </h4>
+                        <ul className="space-y-4">
+                          <li className="flex flex-row-reverse justify-between items-center bg-rose-50 p-2 rounded border border-rose-100">
+                            <div className="text-right w-full">
+                              <p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fمَا بَرِحَ\u200F"}</p>
+                              <p className="text-xs font-bold text-[#5E3C1E] mt-1">マー・バリハ</p>
+                              <p className="text-[10px] text-gray-500">〜し続ける（マー・ザーラと同じ）</p>
+                            </div>
+                          </li>
+                          <li className="flex flex-row-reverse justify-between items-center bg-rose-50 p-2 rounded border border-rose-100">
+                            <div className="text-right w-full">
+                              <p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fمَا انْفَكَّ / مَا فَتِئَ\u200F"}</p>
+                              <p className="text-xs font-bold text-[#5E3C1E] mt-1">マー・インファッカ / マー・ファティア</p>
+                              <p className="text-[10px] text-gray-500">〜し続ける（古典的な硬い表現）</p>
+                            </div>
+                          </li>
+                          <li className="flex flex-row-reverse justify-between items-center bg-blue-50 p-2 rounded border border-blue-200">
+                            <div className="text-right w-full">
+                              <p className="text-xl font-arabic text-blue-700" dir="rtl">{"\u200Fمَا دَامَ\u200F"}</p>
+                              <p className="text-xs font-bold text-[#5E3C1E] mt-1">マー・ダーマ</p>
+                              <p className="text-[10px] text-gray-600"><strong>〜である限り（期間の限定）</strong><br/>※例：私が生きている限り</p>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+          
+                    </div>
+                  </section>
+          
+                </div>
+              ),
+          
+              imageUrls: [],
+              contentVoweled: "",
+              sentences: [], 
+              vocabList: [],
+              questions: [
+                {
+                  type: "grammar",
+                  text: "\u200F「カーナとその姉妹（كان وأخواتها）」が名詞文の先頭に付いた時、文法的に正しいルールはどれですか？\u200F",
+                  audio: "",
+                  options: [
+                    "主語を対格（ア段）にし、述語を主格（ウ段）のままにする", 
+                    "主語を主格（ウ段）のままにし、述語を対格（ア段）にする",
+                    "主語も述語も対格（ア段）にする",
+                    "主語も述語も属格（イ段）にする"
+                  ],
+                  correctIndex: 1,
+                  explanation: "カーナとその姉妹は、主語（イスム）はそのまま（ウ段）で、述語（ハバル）を対格（ア段）に変える働きをします。（インナとその姉妹の逆です）"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「天気が美しくなった」正しいアラビア語はどれ？\n※天気（\u200Fالطَّقْسُ\u200F）、美しい（\u200Fجَمِيلٌ\u200F）、なった（\u200Fأَصْبَحَ\u200F）\u200F",
+                  audio: "\u200Fأَصْبَحَ الطَّقْسُ جَمِيلًا\u200F",
+                  options: [
+                    "\u200Fأَصْبَحَ الطَّقْسَ جَمِيلٌ\u200F", 
+                    "\u200Fأَصْبَحَ الطَّقْسُ جَمِيلٌ\u200F",
+                    "\u200Fأَصْبَحَ الطَّقْسِ جَمِيلًا\u200F",
+                    "\u200Fأَصْبَحَ الطَّقْسُ جَمِيلًا\u200F"
+                  ],
+                  correctIndex: 3,
+                  explanation: "主語（アッ・タクス）はウ段のまま、述語（ジャミールン）を対格（ア段）にしてジャミーランとします。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F本来は「朝を迎える」という意味ですが、現在では時間に関係なく「〜になった」という変化を表すためによく使われる動詞はどれですか？\u200F",
+                  audio: "",
+                  options: [
+                    "\u200Fصَارَ\u200F (サーラ)", 
+                    "\u200Fظَلَّ\u200F (ザッラ)",
+                    "\u200Fأَصْبَحَ\u200F (アスバハ)",
+                    "\u200Fمَا زَالَ\u200F (マー・ザーラ)"
+                  ],
+                  correctIndex: 2,
+                  explanation: "「アスバハ（\u200Fأَصْبَحَ\u200F）」は「朝（サバーフ）」に由来しますが、今では単に「〜になった」という変化を表す最もポピュラーな動詞です。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「水が氷になった」正しいアラビア語はどれ？\n※氷（\u200Fثَلْجٌ\u200F：サルジュン）、変化した（\u200Fصَارَ\u200F：サーラ）\u200F",
+                  audio: "\u200Fصَارَ المَاءُ ثَلْجًا\u200F",
+                  options: [
+                    "\u200Fصَارَ المَاءُ ثَلْجٌ\u200F", 
+                    "\u200Fصَارَ المَاءُ ثَلْجًا\u200F",
+                    "\u200Fصَارَ المَاءَ ثَلْجٌ\u200F",
+                    "\u200Fصَارَ المَاءِ ثَلْجًا\u200F"
+                  ],
+                  correctIndex: 1,
+                  explanation: "サーラ（\u200Fصَارَ\u200F）もカーナの姉妹なので、述語の「氷」を対格（ア段）にして「サルジャン」とします。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「ドアは開いたままだった」状態の継続を表す正しい動詞の組み合わせはどれ？\n※開いた（\u200Fمَفْتُوحٌ\u200F）\u200F",
+                  audio: "\u200Fظَلَّ البَابُ مَفْتُوحًا\u200F",
+                  options: [
+                    "\u200Fأَصْبَحَ البَابُ مَفْتُوحًا\u200F", 
+                    "\u200Fصَارَ البَابُ مَفْتُوحًا\u200F",
+                    "\u200Fظَلَّ البَابُ مَفْتُوحًا\u200F",
+                    "\u200Fلَيْسَ البَابُ مَفْتُوحًا\u200F"
+                  ],
+                  correctIndex: 2,
+                  explanation: "「ずっと〜のままだった」という継続を表すのは「ザッラ（\u200Fظَلَّ\u200F）」です。述語は対格（マフトゥーハン）になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「消え去る」という意味の動詞に否定の「マー」が付き、「まだ〜である（継続）」という意味で使われる姉妹はどれですか？\u200F",
+                  audio: "",
+                  options: [
+                    "\u200Fمَا دَامَ\u200F (マー・ダーマ)", 
+                    "\u200Fمَا بَرِحَ\u200F (マー・バリハ)",
+                    "\u200Fمَا زَالَ\u200F (マー・ザーラ)",
+                    "\u200Fمَا انْفَكَّ\u200F (マー・インファッカ)"
+                  ],
+                  correctIndex: 2,
+                  explanation: "「マー・ザーラ（\u200Fمَا زَالَ\u200F）」は「消え去っていない」、つまり「まだ〜である」「〜し続けている」という意味の非常によく使われる表現です。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「病人は【まだ】眠っている」正しいアラビア語はどれ？\n※病人（\u200Fالمَرِيضُ\u200F）、眠っている（\u200Fنَائِمٌ\u200F）\u200F",
+                  audio: "\u200Fمَا زَالَ المَرِيضُ نَائِمًا\u200F",
+                  options: [
+                    "\u200Fمَا زَالَ المَرِيضُ نَائِمٌ\u200F", 
+                    "\u200Fمَا زَالَ المَرِيضَ نَائِمًا\u200F",
+                    "\u200Fمَا زَالَ المَرِيضُ نَائِمًا\u200F",
+                    "\u200Fمَا زَالَ المَرِيضِ نَائِمًا\u200F"
+                  ],
+                  correctIndex: 2,
+                  explanation: "マー・ザーラもカーナの姉妹なので、主語はウ段のまま、述語を対格のア段にして「ナーイマン」とします。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F応用編の「アムサー（\u200Fأَمْسَى\u200F）」や「バータ（\u200Fبَاتَ\u200F）」は、本来どのような意味から派生して「〜になった」という意味を持っていますか？\u200F",
+                  audio: "",
+                  options: [
+                    "場所の移動", 
+                    "一日の時間帯（夕方や夜）",
+                    "天候の変化",
+                    "年齢の変化"
+                  ],
+                  correctIndex: 1,
+                  explanation: "アムサーは「夕方」、バータは「夜を明かす」という時間帯の概念から派生し、現在では「〜になった」という状態変化を表すのに使われます。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「私が生きている【限り】（期間の限定）」を表す時によく使われる、「〜である限り」という意味の姉妹はどれですか？\u200F",
+                  audio: "",
+                  options: [
+                    "\u200Fمَا دَامَ\u200F (マー・ダーマ)", 
+                    "\u200Fمَا زَالَ\u200F (マー・ザーラ)",
+                    "\u200Fمَا فَتِئَ\u200F (マー・ファティア)",
+                    "\u200Fمَا بَرِحَ\u200F (マー・バリハ)"
+                  ],
+                  correctIndex: 0,
+                  explanation: "「マー・ダーマ（\u200Fمَا دَامَ\u200F）」は、ある状態が「続いている限り」という期間の限定を表す特別な動詞です。（例：マー ダムトゥ ハイヤン ＝ 私が生きている限り）"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「カーナとその姉妹（\u200Fكَانَ وَأَخَوَاتُهَا\u200F）」に分類される動詞のグループとして、【間違っている】ものはどれですか？\u200F",
+                  audio: "",
+                  options: [
+                    "\u200Fأَصْبَحَ\u200F / \u200Fصَارَ\u200F / \u200Fلَيْسَ\u200F", 
+                    "\u200Fإِنَّ\u200F / \u200Fلَكِنَّ\u200F / \u200Fلَعَلَّ\u200F",
+                    "\u200Fمَا زَالَ\u200F / \u200Fظَلَّ\u200F / \u200Fمَا دَامَ\u200F",
+                    "\u200Fأَمْسَى\u200F / \u200Fأَضْحَى\u200F / \u200Fبَاتَ\u200F"
+                  ],
+                  correctIndex: 1,
+                  explanation: "「インナ / ラーキンナ / ラアッラ」のグループは、主語をア段にする「インナとその姉妹」であり、カーナの姉妹（述語をア段にする動詞グループ）ではありません。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「その少女は医者になった」正しいアラビア語はどれ？\n※少女は女性（\u200Fالبِنْتُ\u200F）、医者（\u200Fطَبِيبَةٌ\u200F）、なった（\u200Fأَصْبَحَ\u200F）\u200F",
+                  audio: "\u200Fأَصْبَحَتِ البِنْتُ طَبِيبَةً\u200F",
+                  options: [
+                    "\u200Fأَصْبَحَ البِنْتُ طَبِيبَةً\u200F", 
+                    "\u200Fأَصْبَحَتِ البِنْتُ طَبِيبَةً\u200F",
+                    "\u200Fأَصْبَحَتِ البِنْتَ طَبِيبَةٌ\u200F",
+                    "\u200Fأَصْبَحَ البِنْتَ طَبِيبَةً\u200F"
+                  ],
+                  correctIndex: 1,
+                  explanation: "主語の少女が女性なので、動詞も女性形「アスバハト（\u200Fأَصْبَحَتْ\u200F）」になります。述語は対格のア段（タビーバタン）です。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「天気が暑くなった（\u200Fصَارَ الطَّقْسُ ___\u200F）」空欄に入る正しい形は？\n※暑い（\u200Fحَارٌّ\u200F）\u200F",
+                  audio: "\u200Fصَارَ الطَّقْسُ حَارًّا\u200F",
+                  options: [
+                    "\u200Fحَارٌّ\u200F", 
+                    "\u200Fحَارًّا\u200F",
+                    "\u200Fحَارٍّ\u200F",
+                    "\u200Fالحَارُّ\u200F"
+                  ],
+                  correctIndex: 1,
+                  explanation: "サーラ（\u200Fصَارَ\u200F）の後ろの述語なので、対格（ア段・タンウィーン）の「ハールラン」になります。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「学生はまだ勉強している（\u200Fمَا زَالَ الطَّالِبُ ___\u200F）」空欄に入る正しい形は？\n※勉強している（\u200Fيَدْرُسُ\u200F：動詞の現在形）\u200F",
+                  audio: "\u200Fمَا زَالَ الطَّالِبُ يَدْرُسُ\u200F",
+                  options: [
+                    "\u200Fيَدْرُسَ\u200F", 
+                    "\u200Fيَدْرُسُ\u200F",
+                    "\u200Fيَدْرُسِ\u200F",
+                    "\u200Fدَارِسًا\u200F"
+                  ],
+                  correctIndex: 1,
+                  explanation: "述語が名詞ではなく「動詞文（現在形）」の場合、動詞そのものの語尾（ウ段）は変化しません。そのまま「ヤドルス」を置きます。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「彼らはまだ眠っている」正しいアラビア語はどれ？\n※彼らはまだ（\u200Fمَا زَالُوا\u200F）、眠っている（複数：\u200Fنَائِمُونَ\u200F）\u200F",
+                  audio: "\u200Fمَا زَالُوا نَائِمِينَ\u200F",
+                  options: [
+                    "\u200Fمَا زَالُوا نَائِمُونَ\u200F", 
+                    "\u200Fمَا زَالُوا نَائِمِينَ\u200F",
+                    "\u200Fمَا زَالَ نَائِمُونَ\u200F",
+                    "\u200Fمَا زَالُوا نَائِمًا\u200F"
+                  ],
+                  correctIndex: 1,
+                  explanation: "述語の複数形（ウーナ）が対格になるため、「イーナ」に変化して「ナーイミーナ」となります。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「私は生きている限り（\u200Fمَا دُمْتُ ___\u200F）」空欄に入る正しい形は？\n※生きている（\u200Fحَيٌّ\u200F）\u200F",
+                  audio: "\u200Fمَا دُمْتُ حَيًّا\u200F",
+                  options: [
+                    "\u200Fحَيٌّ\u200F", 
+                    "\u200Fحَيًّا\u200F",
+                    "\u200Fحَيٍّ\u200F",
+                    "\u200Fأَحْيَاءً\u200F"
+                  ],
+                  correctIndex: 1,
+                  explanation: "動詞マー・ダーマの主語が私（トゥ）になっている形です。述語は対格になるため「ハイヤン」となります。（クルアーンにも登場する有名な形です）"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F応用編の「マー・インファッカ（\u200Fمَا انْفَكَّ\u200F）」や「マー・バリハ（\u200Fمَا بَرِحَ\u200F）」の意味は、次のどれとほぼ同じですか？\u200F",
+                  audio: "",
+                  options: [
+                    "\u200Fأَصْبَحَ\u200F (〜になった)", 
+                    "\u200Fلَيْسَ\u200F (〜ではない)",
+                    "\u200Fمَا زَالَ\u200F (まだ〜だ・継続)",
+                    "\u200Fكَانَ\u200F (〜だった)"
+                  ],
+                  correctIndex: 2,
+                  explanation: "マー・バリハ、マー・インファッカ、マー・ファティアなどは全て「マー・ザーラ」と同じく「まだ〜だ（継続）」を表す古典的な姉妹たちです。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「彼は先生になった」正しい形はどれ？\n※先生（\u200Fمُدَرِّسٌ\u200F）\u200F",
+                  audio: "\u200Fصَارَ مُدَرِّسًا\u200F",
+                  options: [
+                    "\u200Fصَارَ مُدَرِّسٌ\u200F", 
+                    "\u200Fصَارَ مُدَرِّسًا\u200F",
+                    "\u200Fصَارَ هُوَ مُدَرِّسٌ\u200F",
+                    "\u200Fصَارَ الْمُدَرِّسَ\u200F"
+                  ],
+                  correctIndex: 1,
+                  explanation: "主語（彼）が動詞「サーラ」の中に隠れている場合、後ろに来る名詞は述語になるため対格の「ムダッリサン」となります。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「空は曇ったままだった」正しい形はどれ？\n※空（\u200Fالسَّمَاءُ\u200F：女性名詞）、曇った（\u200Fغَائِمٌ\u200F）\u200F",
+                  audio: "\u200Fظَلَّتِ السَّمَاءُ غَائِمَةً\u200F",
+                  options: [
+                    "\u200Fظَلَّ السَّمَاءُ غَائِمًا\u200F", 
+                    "\u200Fظَلَّتِ السَّمَاءُ غَائِمَةً\u200F",
+                    "\u200Fظَلَّتِ السَّمَاءَ غَائِمَةٌ\u200F",
+                    "\u200Fظَلَّ السَّمَاءِ غَائِمَةً\u200F"
+                  ],
+                  correctIndex: 1,
+                  explanation: "空（サマーウ）は女性名詞なので、動詞はザッラト（\u200Fظَلَّتْ\u200F）を使います。述語も女性形・対格にして「ガーイマタン」とします。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「問題は難しいままだ（\u200Fمَا بَرِحَتِ المُشْكِلَةُ ___\u200F）」空欄に入る正しい形は？\n※難しい（\u200Fصَعْبٌ\u200F）\u200F",
+                  audio: "\u200Fمَا بَرِحَتِ المُشْكِلَةُ صَعْبَةً\u200F",
+                  options: [
+                    "\u200Fصَعْبَةٌ\u200F", 
+                    "\u200Fصَعْبًا\u200F",
+                    "\u200Fصَعْبَةً\u200F",
+                    "\u200Fصَعْبٍ\u200F"
+                  ],
+                  correctIndex: 2,
+                  explanation: "主語の「問題（ムシュキラ）」が女性名詞なので、述語も女性形の対格になり「サアバタン」となります。"
+                },
+                {
+                  type: "grammar",
+                  text: "\u200F「カーナとその姉妹」について、これらは名詞文の「何」を変える魔法を持っていますか？\u200F",
+                  audio: "",
+                  options: [
+                    "主語の性別を変える", 
+                    "述語の格（ウ段からア段）を変える",
+                    "主語の格（ウ段からア段）を変える",
+                    "述語を動詞に変える"
+                  ],
+                  correctIndex: 1,
+                  explanation: "これが最も重要なポイントです。「カーナとその姉妹」は名詞文に入り込み、述語（ニュースの部分）をア段（対格）に変える働きをします。"
+                }
+              ]
+            },
 
   // --- 1. ジュハーの笑い話 (200) ---
   // =================================================================
@@ -27548,7 +28004,7 @@ export const articles: Article[] = [
       category: "物語", 
       level: "中級",
       contentVoweled: "أَرَادَ الرَّاعِي أَنْ يَمْزَحَ مَعَ أَهْلِ الْقَرْيَةِ. صَرَخَ: ذِئْبٌ! سَاعِدُونِي! جَاءَ النَّاسُ، فَضَحِكَ الْوَلَدُ. فِي الْمَرَّةِ الثَّالِثَةِ، جَاءَ الذِّئْبُ حَقًّا. صَرَخَ الْوَلَدُ، لَكِنْ لَمْ يَأْتِ أَحَدٌ.",
-      contentPlain: "أراد الراعي أن يمزح مع أهل القرية. صرخ: ذئب! ساعدوني! جاء الناس، فضحك الولد. في المرة الثالثة، جاء الذئب حقا. صرخ الولد، لكن لم يأت أحد.",
+      contentPlain: "أراد الراعي أن يمزح مع أهل القرية. صرخ: ذئب! ساعدوني! جاء الناس، فضحك الولد. في المرة الثالثة، جاء الذئب حقا. صرخ الولد، لكن لم بئبت أحد.",
       vocabList: [
         { word: "ذِئْب", meaning: "オオカミ" },
         { word: "كَذِب", meaning: "嘘" },
@@ -27633,6 +28089,861 @@ export const articles: Article[] = [
           japanese: "少年は叫びましたが、誰も来ませんでした。",
           note: "「لَمْ يَأْتِ (lam ya'ti)」: 過去否定の lam。lam の後は要求法になるため、弱動詞「来た (ya'tī)」の語末のヤーが切り落とされています。",
           relatedGrammarId: 141 
+        }
+      ]
+    },
+    {
+      id: 223, 
+      title: "アラブの格言", 
+      category: "文学", 
+      level: "中級",
+      contentVoweled: "الْأَمْثَالُ تَعْكِسُ ثَقَافَةَ الشُّعُوبِ. الصَّبْرُ مِفْتَاحُ الْفَرَجِ. مَنْ جَدَّ وَجَدَ، وَمَنْ زَرَعَ حَصَدَ. الْعِلْمُ نُورٌ وَالْجَهْلُ ظَلَامٌ. يَدٌ وَاحِدَةٌ لَا تُصَفِّقُ.",
+      contentPlain: "الأمثال تعكس ثقافة الشعوب. الصبر مفتاح الفرج. من جد وجد، ومن زرع حصد. العلم نور والجهل ظلام. يد واحدة لا تصفق.",
+      vocabList: [
+        { word: "صَبْر", meaning: "忍耐" },
+        { word: "مِفْتَاح", meaning: "鍵" },
+        { word: "فَرَج", meaning: "安らぎ/解決" }
+      ],
+      questions: [
+        { 
+          id: 2231, type: "reading", 
+          text: "\u200Fأَكْمِلِ الْمَثَلَ: الصَّبْرُ مِفْتَاحُ ...\u200F", 
+          options: ["النَّجَاح", "الْفَرَج", "الْبَيْت", "الْمَال"], 
+          correctIndex: 1, 
+          explanation: "「الْفَرَج (解決/安らぎ)」です。" 
+        },
+        { 
+          id: 2232, type: "reading", 
+          text: "\u200Fمَنْ جَدَّ ...؟\u200F", 
+          options: ["وَجَدَ", "خَسِرَ", "تَعِبَ", "بَكَى"], 
+          correctIndex: 0, 
+          explanation: "「وَجَدَ (見つけた＝報われた)」です。" 
+        },
+        { 
+          id: 2233, type: "vocabulary", 
+          text: "\u200Fمَا مَعْنَى 'حِكْمَة'؟\u200F", 
+          options: ["غَبَاء", "عَقْل / مَعْرِفَة (Wisdom)", "قُوَّة", "سُرْعَة"], 
+          correctIndex: 1, 
+          explanation: "Wisdom（知恵）です。" 
+        },
+        { 
+          id: 2234, type: "reading", 
+          text: "\u200Fأَيُّ جُمْلَةٍ صَحِيحَةٌ؟\u200F", 
+          options: ["الْعِلْمُ نُورٌ", "الْعِلْمُ ظَلَامٌ", "الْجَهْلُ نُورٌ", "الْمَالُ نُورٌ"], 
+          correctIndex: 0, 
+          explanation: "「Al-'ilmu nūr」です。" 
+        },
+        { 
+          id: 2235, type: "grammar", 
+          text: "\u200Fمَا هِيَ أَدَاةُ الشَّرْطِ بِمَعْنَى 'Whoever'؟\u200F", 
+          options: ["مَنْ", "مَا", "أَيْنَ", "كَيْفَ"], 
+          correctIndex: 0, 
+          explanation: "関係代名詞的な「Man (Whoever)」です。" 
+        },
+        { 
+          id: 2236, type: "grammar", 
+          text: "\u200Fمَا نَوْعُ الْفِعْلِ 'جَدَّ'؟\u200F", 
+          options: ["مُعْتَلّ", "مُضَعَّف", "مَهْمُوز", "سَالِم"], 
+          correctIndex: 1, 
+          explanation: "第2語根と第3語根が同じで、シャッダが付く動詞（Jaddaなど）は倍化動詞（Muḍa'af）と呼ばれます。" 
+        }
+      ],
+      sentences: [
+        { 
+          speaker: "ナレーター", 
+          arabic: "الْأَمْثَالُ تَعْكِسُ ثَقَافَةَ الشُّعُوبِ.", 
+          japanese: "ことわざは人々の文化を反映します。",
+          note: "「تَعْكِسُ (ta'kisu)」: 「反映する/反射する」。主語「amthāl（複数）」が非人間なので動詞は女性単数（Ta-）で受けています。",
+          relatedGrammarId: 111 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "الصَّبْرُ مِفْتَاحُ الْفَرَجِ.", 
+          japanese: "忍耐は解決（安らぎ）への鍵である。",
+          note: "「مِفْتَاحُ الْفَرَجِ」: イダーファ構造（所有格構文）で「安らぎの鍵」。1語目に定冠詞がなく、2語目が属格（i）になります。",
+          relatedGrammarId: 118 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "مَنْ جَدَّ وَجَدَ، وَمَنْ زَرَعَ حَصَدَ.", 
+          japanese: "努力した者は見つけ（報われ）、種を蒔いた者は刈り取る。",
+          note: "「مَنْ (man)」: 条件や関係を表す「〜する者は誰でも」。",
+          relatedGrammarId: 131 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "الْعِلْمُ نُورٌ وَالْجَهْلُ ظَلَامٌ.", 
+          japanese: "知識は光であり、無知は闇である。",
+          note: "名詞文の基本形（主語＋述語）。動詞はなく、主語（知識）と述語（光）の両方が主格（u/un）になります。",
+          relatedGrammarId: 115 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "يَدٌ وَاحِدَةٌ لَا تُصَفِّقُ.", 
+          japanese: "片手では拍手できない（協力が必要）。",
+          note: "「يَدٌ وَاحِدَةٌ」: 数詞の1。手（yad）は体の対になる器官なので女性名詞扱いとなり、数字も女性形（wāḥida）で一致させています。",
+          relatedGrammarId: 153 
+        }
+      ]
+    },
+    {
+      id: 224, 
+      title: "読書の重要性", 
+      category: "記事", 
+      level: "中級",
+      contentVoweled: "الْقِرَاءَةُ رِحْلَةٌ عَبْرَ الزَّمَنِ. تَفْتَحُ لَنَا أَبْوَابَ الْعِلْمِ. الْكِتَابُ هُوَ خَيْرُ جَلِيسٍ. يَجِبُ أَنْ نَقْرَأَ كُلَّ يَوْمٍ. أُمَّةٌ تَقْرَأُ، أُمَّةٌ تَرْقَى.",
+      contentPlain: "القراءة رحلة عبر الزمن. تفتح لنا أبواب العلم. الكتاب هو خير جليس. يجب أن نقرأ كل يوم. أمة تقرأ، أمة ترقى.",
+      vocabList: [
+        { word: "قِرَاءَة", meaning: "読書" },
+        { word: "عَقْل", meaning: "理性/頭脳" },
+        { word: "كِتَاب", meaning: "本" }
+      ],
+      questions: [
+        { 
+          id: 2241, type: "reading", 
+          text: "\u200Fمَاذَا تُغَذِّي الْقِرَاءَةُ؟\u200F", 
+          options: ["الْجِسْم", "الْعَقْل", "الْعَضَلَات", "الْمَعِدَة"], 
+          correctIndex: 1, 
+          explanation: "「الْعَقْل (理性/頭脳)」です。" 
+        },
+        { 
+          id: 2242, type: "reading", 
+          text: "\u200Fمَاذَا تَزِيدُ الْقِرَاءَةُ؟\u200F", 
+          options: ["الْمَال", "الْمَعْرِفَة", "الْأَصْدِقَاء", "الْأَعْدَاء"], 
+          correctIndex: 1, 
+          explanation: "「الْمَعْرِفَة (知識)」です。" 
+        },
+        { 
+          id: 2243, type: "reading", 
+          text: "\u200Fبِمَاذَا وُصِفَ الْكِتَابُ؟\u200F", 
+          options: ["خَيْرُ جَلِيسٍ (صَدِيق)", "حِمْلٌ ثَقِيل", "شَيْءٌ غَالٍ", "عَدُوّ"], 
+          correctIndex: 0, 
+          explanation: "「خَيْرُ جَلِيسٍ (最高の座り相手＝友)」と言われます。" 
+        },
+        { 
+          id: 2244, type: "vocabulary", 
+          text: "\u200Fمَا مَعْنَى 'مَكْتَبَة'؟\u200F", 
+          options: ["مَدْرَسَة", "مَكَانُ الْكُتُبِ", "مَطْبَخ", "حَدِيقَة"], 
+          correctIndex: 1, 
+          explanation: "Library/Bookstoreです。" 
+        },
+        { 
+          id: 2245, type: "grammar", 
+          text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Increase'؟\u200F", 
+          options: ["تَزِيدُ", "تَنْقُصُ", "تَذْهَبُ", "تَأْتِي"], 
+          correctIndex: 0, 
+          explanation: "「Tazīdu」です。" 
+        },
+        { 
+          id: 2246, type: "grammar", 
+          text: "\u200Fمَا نَوْعُ التَّرْكِيبِ فِي 'خَيْرُ جَلِيسٍ'؟\u200F", 
+          options: ["إِضَافَة", "صِفَة وَمَوْصُوف", "مُبْتَدَأ وَخَبَر", "جَارٌّ وَمَجْرُور"], 
+          correctIndex: 0, 
+          explanation: "「最高の〜（〜の中で最良のもの）」という表現で、イダーファ構造を使っています。" 
+        }
+      ],
+      sentences: [
+        { 
+          speaker: "ナレーター", 
+          arabic: "الْقِرَاءَةُ رِحْلَةٌ عَبْرَ الزَّمَنِ.", 
+          japanese: "読書は時を超えた旅です。",
+          note: "名詞文の基本形。主語（読書）と述語（旅）の両方が女性名詞で対応しています。",
+          relatedGrammarId: 115 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "تَفْتَحُ لَنَا أَبْوَابَ الْعِلْمِ.", 
+          japanese: "それは私たちに知識の扉を開きます。",
+          note: "「تَفْتَحُ (taftaḥu)」: 「開く」。主語は「読書（女性名詞）」なので現在形は Ta- で始まります。",
+          relatedGrammarId: 121 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "الْكِتَابُ هُوَ خَيْرُ جَلِيسٍ.", 
+          japanese: "本は最高の友人です。",
+          note: "「خَيْرُ جَلِيسٍ (khayru jalīsin)」: khayr は比較級・最上級の不規則な形です。イダーファ構造で「最も良い・座る相手」という意味になります。",
+          relatedGrammarId: 134 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "يَجِبُ أَنْ نَقْرَأَ كُلَّ يَوْمٍ.", 
+          japanese: "私たちは毎日読むべきです。",
+          note: "「يَجِبُ أَنْ (yajibu an)」: 「〜しなければならない（義務）」。「an」の後なので「naqra'a（a段）」になる接続法が適用されています。",
+          relatedGrammarId: 126 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "أُمَّةٌ تَقْرَأُ، أُمَّةٌ تَرْقَى.", 
+          japanese: "読む民（共同体）は、向上する民です。",
+          note: "「تَرْقَى (tarqā)」: 「向上する」。語末がアリフマクスーラで終わる弱動詞の現在形です。",
+          relatedGrammarId: 141 
+        }
+      ]
+    },
+    {
+      id: 225, 
+      title: "アラビア語の日", 
+      category: "ニュース", 
+      level: "中級",
+      contentVoweled: "تَحْتَفِلُ الْأُمَمُ الْمُتَّحِدَةُ بِاللُّغَةِ الْعَرَبِيَّةِ. إِنَّهَا إِحْدَى اللُّغَاتِ الرَّسْمِيَّةِ السِّتِّ. يَتَحَدَّثُ بِهَا أَكْثَرُ مِنْ 400 مِلْيُونِ شَخْصٍ. هِيَ لُغَةٌ غَنِيَّةٌ وَعَرِيقَةٌ. نَحْنُ نَفْتَخِرُ بِلُغَتِنَا.",
+      contentPlain: "تحتفل الأمم المتحدة باللغة العربية. إنها إحدى اللغات الرسمية الست. يتحدث بها أكثر من 400 مليون شخص. هي لغة غنية وعريقة. نحن نفتخر بلغتنا.",
+      vocabList: [
+        { word: "يَوْم", meaning: "日" },
+        { word: "لُغَة", meaning: "言語" },
+        { word: "اِحْتِفَال", meaning: "お祝い" }
+      ],
+      questions: [
+        { 
+          id: 2251, type: "reading", 
+          text: "\u200Fمَتَى الْيَوْمُ الْعَالَمِيُّ لِلُّغَةِ الْعَرَبِيَّةِ؟\u200F", 
+          options: ["1 يَنَايِر", "18 دِيسَمْبَر", "23 سِبْتَمْبَر", "5 مَايُو"], 
+          correctIndex: 1, 
+          explanation: "「18 دِيسَمْبَر」です。" 
+        },
+        { 
+          id: 2252, type: "reading", 
+          text: "\u200Fاللُّغَةُ الْعَرَبِيَّةُ هِيَ لُغَةُ...؟\u200F", 
+          options: ["الْأُمَم الْمُتَّحِدَة", "الْقُرْآن", "الْعِلْم فَقَط", "أُورُوبَّا"], 
+          correctIndex: 1, 
+          explanation: "「لُغَةُ الْقُرْآنِ」です。" 
+        },
+        { 
+          id: 2253, type: "reading", 
+          text: "\u200Fكَمْ عَدَدُ الْمُتَحَدِّثِينَ بِهَا؟\u200F", 
+          options: ["قَلِيل", "مَلَايِين (أَكْثَر مِنْ 400 مِلْيُون)", "مِائَة", "لَا أَحَد"], 
+          correctIndex: 1, 
+          explanation: "「الْمَلَايِين (数百万以上＝実際は数億)」です。" 
+        },
+        { 
+          id: 2254, type: "vocabulary", 
+          text: "\u200Fمَا مَعْنَى 'رَسْمِيّ'؟\u200F", 
+          options: ["حُكُومِيّ / مُعْتَمَد", "شَخْصِيّ", "لَعِب", "مُزَيَّف"], 
+          correctIndex: 0, 
+          explanation: "Official（公式）です。" 
+        },
+        { 
+          id: 2255, type: "grammar", 
+          text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Speaks'؟\u200F", 
+          options: ["يَتَحَدَّثُ", "يَكْتُبُ", "يَسْمَعُ", "يَمْشِي"], 
+          correctIndex: 0, 
+          explanation: "「Yataḥaddathu」です。" 
+        },
+        { 
+          id: 2256, type: "grammar", 
+          text: "\u200Fأَيُّ حَرْفِ جَرٍّ نَسْتَخْدِمُهُ مَعَ 'نَفْتَخِرُ'؟\u200F", 
+          options: ["بِـ", "لِـ", "عَلَى", "فِي"], 
+          correctIndex: 0, 
+          explanation: "「Iftakhara bi-」で「〜を誇る」という熟語になります。" 
+        }
+      ],
+      sentences: [
+        { 
+          speaker: "ナレーター", 
+          arabic: "تَحْتَفِلُ الْأُمَمُ الْمُتَّحِدَةُ بِاللُّغَةِ الْعَرَبِيَّةِ.", 
+          japanese: "国連はアラビア語を祝います。",
+          note: "「تَحْتَفِلُ بِـ (taḥtafilu bi-)」: 第8形（iḥtafala）の現在形。「〜を祝う」という意味で前置詞 bi を伴います。",
+          relatedGrammarId: 130 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "إِنَّهَا إِحْدَى اللُّغَاتِ الرَّسْمِيَّةِ السِّتِّ.", 
+          japanese: "それは6つの公用語の一つです。",
+          note: "「إِنَّهَا (inna-hā)」: 強調のインナ。後ろにつく代名詞（hā）が文の主語になり、「実にそれは」という意味を作ります。",
+          relatedGrammarId: 150 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "يَتَحَدَّثُ بِهَا أَكْثَرُ مِنْ 400 مِلْيُونِ شَخْصٍ.", 
+          japanese: "4億人以上の人々が話しています。",
+          note: "「مِلْيُونِ شَخْصٍ」: 100万（milyūn）。100以上の数詞のルールとして、後ろの名詞（shakhṣ）は単数・属格になります。",
+          relatedGrammarId: 154 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "هِيَ لُغَةٌ غَنِيَّةٌ وَعَرِيقَةٌ.", 
+          japanese: "それは豊かで由緒ある言語です。",
+          note: "「غَنِيَّةٌ (ghaniyyatun)」: 形容詞。名詞の「言語（lugha）」が女性形・主格なので、形容詞も女性形・主格で揃えています。",
+          relatedGrammarId: 114 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "نَحْنُ نَفْتَخِرُ بِلُغَتِنَا.", 
+          japanese: "私たちは自分たちの言語を誇りに思います。",
+          note: "「نَفْتَخِرُ (naftakhiru)」: 「誇る」という第8形動詞の現在形。「私たち（na-）」の活用です。",
+          relatedGrammarId: 130 
+        }
+      ]
+    },
+    {
+      id: 226, 
+      title: "スマートシティ", 
+      category: "ニュース", 
+      level: "中級",
+      contentVoweled: "تَقَعُ نِيُوم شَمَالَ غَرْبِ الْمَمْلَكَةِ. سَتَكُونُ مَدِينَةً ذَكِيَّةً بِالْكَامِلِ. تَعْتَمِدُ عَلَى الطَّاقَةِ النَّظِيفَةِ. لَا تُوجَدُ فِيهَا سَيَّارَاتٌ تَقْلِيدِيَّةٌ. إِنَّهَا مَشْرُوعٌ طَمُوحٌ جِدًّا.",
+      contentPlain: "تقع نيوم شمال غرب المملكة. ستكون مدينة ذكية بالكامل. تعتمد على الطاقة النظيفة. لا توجد فيها سيارات تقليدية. إنها مشروع طموح جدا.",
+      vocabList: [
+        { word: "مَدِينَة", meaning: "都市" },
+        { word: "مُسْتَقْبَل", meaning: "未来" },
+        { word: "تِكْنُولُوجِيَا", meaning: "技術" }
+      ],
+      questions: [
+        { 
+          id: 2261, type: "reading", 
+          text: "\u200Fمَا هِيَ نِيُوم؟\u200F", 
+          options: ["قَرْيَة قَدِيمَة", "مَدِينَةُ الْمُسْتَقْبَلِ", "بَحْر", "جَبَل"], 
+          correctIndex: 1, 
+          explanation: "「مَدِينَةُ الْمُسْتَقْبَلِ」です。" 
+        },
+        { 
+          id: 2262, type: "reading", 
+          text: "\u200Fأَيْنَ تَقَعُ؟\u200F", 
+          options: ["الْيَابَان", "السُّعُودِيَّة", "أَمْرِيكَا", "مِصْر"], 
+          correctIndex: 1, 
+          explanation: "「فِي السُّعُودِيَّةِ」です。" 
+        },
+        { 
+          id: 2263, type: "reading", 
+          text: "\u200Fعَلَى مَاذَا تَعْتَمِدُ؟\u200F", 
+          options: ["النِّفْط", "الطَّاقَةِ النَّظِيفَةِ", "الْفَحْم", "الْغَاز"], 
+          correctIndex: 1, 
+          explanation: "「الطَّاقَة الْمُتَجَدِّدَة」です。" 
+        },
+        { 
+          id: 2264, type: "vocabulary", 
+          text: "\u200Fمَا مَعْنَى 'ذَكِيّ'؟\u200F", 
+          options: ["غَبِيّ", "سَرِيعُ الْفَهْمِ / مُتَطَوِّر", "قَدِيم", "بَطِيء"], 
+          correctIndex: 1, 
+          explanation: "Smart/Intelligentです。" 
+        },
+        { 
+          id: 2265, type: "grammar", 
+          text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Uses'؟\u200F", 
+          options: ["تَسْتَخْدِمُ", "تَأْكُلُ", "تَنَامُ", "تَلْعَبُ"], 
+          correctIndex: 0, 
+          explanation: "「Tastakhdimu」です。" 
+        },
+        { 
+          id: 2266, type: "grammar", 
+          text: "\u200Fمَاذَا يُفِيدُ حَرْفُ السِّينِ فِي 'سَتَكُونُ'؟\u200F", 
+          options: ["الْمَاضِي", "الْحَاضِر", "الْمُسْتَقْبَل", "النَّفْي"], 
+          correctIndex: 2, 
+          explanation: "動詞の頭につく「Sa」は未来を表す接頭辞です。" 
+        }
+      ],
+      sentences: [
+        { 
+          speaker: "ナレーター", 
+          arabic: "تَقَعُ نِيُوم شَمَالَ غَرْبِ الْمَمْلَكَةِ.", 
+          japanese: "NEOMは王国の北西に位置します。",
+          note: "「تَقَعُ (taqa'u)」: 「位置する/ある」。地理的な場所を言う時の定番の現在形動詞です。",
+          relatedGrammarId: 121 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "سَتَكُونُ مَدِينَةً ذَكِيَّةً بِالْكَامِلِ.", 
+          japanese: "完全にスマートな都市になるでしょう。",
+          note: "「سَتَكُونُ (sa-takūnu)」: 未来の Sa ＋カーナの現在形。述語である「都市（madīnatan）」を対格（an）にするルールが働いています。",
+          relatedGrammarId: 125 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "تَعْتَمِدُ عَلَى الطَّاقَةِ النَّظِيفَةِ.", 
+          japanese: "クリーンエネルギーに依存します。",
+          note: "「تَعْتَمِدُ عَلَى (ta'tamidu 'alā)」: 第8形動詞。「〜に頼る/依存する」というセットで使われます。",
+          relatedGrammarId: 130 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "لَا تُوجَدُ فِيهَا سَيَّارَاتٌ تَقْلِيدِيَّةٌ.", 
+          japanese: "そこには従来の車はありません。",
+          note: "「تُوجَدُ (tūjadu)」: 「見つけられる＝存在する」。受動態なので語頭が Tu- になっています。",
+          relatedGrammarId: 129 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "إِنَّهَا مَشْرُوعٌ طَمُوحٌ جِدًّا.", 
+          japanese: "それは非常に野心的なプロジェクトです。",
+          note: "「إِنَّهَا (inna-hā)」: 「実にそれは〜だ」。強調の inna + 代名詞の形で、名詞文の主語となります。",
+          relatedGrammarId: 150 
+        }
+      ]
+    },
+    {
+      id: 227, 
+      title: "SNSの影響", 
+      category: "記事", 
+      level: "中級",
+      contentVoweled: "أَصْبَحَ الْعَالَمُ قَرْيَةً صَغِيرَةً. نَسْتَطِيعُ مَعْرِفَةَ الْأَخْبَارِ فَوْرًا. نُشَارِكُ الصُّوَرَ وَالْأَفْكَارَ. وَلَكِنْ يَجِبُ الْحَذَرُ مِنَ الْشَّائِعَاتِ. لَا تُصَدِّقْ كُلَّ مَا تَقْرَأُ.",
+      contentPlain: "أصبح العالم قرية صغيرة. نستطيع معرفة الأخبار فورا. نشارك الصور والأفكار. ولكن يجب الحذر من الشائعات. لا تصدق كل ما تقرأ.",
+      vocabList: [
+        { word: "تَوَاصُل", meaning: "通信/交流" },
+        { word: "خَبَر", meaning: "ニュース" },
+        { word: "عَالَم", meaning: "世界" }
+      ],
+      questions: [
+        { 
+          id: 2271, type: "reading", 
+          text: "\u200Fمَاذَا تَفْعَلُ وَسَائِلُ التَّوَاصُلِ؟\u200F", 
+          options: ["تُقَرِّبُ الْبَعِيدَ (الْعَالَم قَرْيَة)", "تُفَرِّقُ النَّاسَ", "تُوَزِّعُ الْمَالَ", "تَصْنَعُ الطَّعَامَ"], 
+          correctIndex: 0, 
+          explanation: "「تُقَرِّبُ الْبَعِيدَ」です。" 
+        },
+        { 
+          id: 2272, type: "reading", 
+          text: "\u200Fكَيْفَ تَنْتَشِرُ الْأَخْبَارُ؟\u200F", 
+          options: ["بِبُطْءٍ", "بِسُرْعَةٍ فَائِقَةٍ", "تَتَوَقَّفُ", "تَخْتَفِي"], 
+          correctIndex: 1, 
+          explanation: "「بِسُرْعَةٍ فَائِقَةٍ (超高速で)」です。" 
+        },
+        { 
+          id: 2273, type: "reading", 
+          text: "\u200Fمِمَّ يَجِبُ أَنْ نَحْذَرَ؟\u200F", 
+          options: ["كَثْرَةِ الِاسْتِخْدَامِ", "الْأَخْبَارِ الْكَاذِبَةِ (الشَّائِعَات)", "الْهَوَاتِفِ الْجَدِيدَةِ", "التَّصْوِيرِ"], 
+          correctIndex: 1, 
+          explanation: "「الْأَخْبَارِ الْكَاذِبَةِ (嘘のニュース)」です。" 
+        },
+        { 
+          id: 2274, type: "vocabulary", 
+          text: "\u200Fمَا مَعْنَى 'صُورَة'؟\u200F", 
+          options: ["صَوْت", "رَسْم / لَقْطَة", "حَرْف", "كِتَاب"], 
+          correctIndex: 1, 
+          explanation: "Picture/Imageです。" 
+        },
+        { 
+          id: 2275, type: "grammar", 
+          text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Spread'؟\u200F", 
+          options: ["تَنْتَشِرُ", "تَجْلِسُ", "تَأْكُلُ", "تَنَامُ"], 
+          correctIndex: 0, 
+          explanation: "「Tantashiru」です。" 
+        },
+        { 
+          id: 2276, type: "grammar", 
+          text: "\u200Fلِمَاذَا الْفِعْلُ 'تُصَدِّقْ' مَجْزُومٌ (بِالسُّكُون)؟\u200F", 
+          options: ["لِأَنَّ قَبْلَهُ 'لَا' النَّاهِيَة", "لِأَنَّ قَبْلَهُ 'لَا' النَّافِيَة", "لِأَنَّهُ مَاضٍ", "لِأَنَّهُ أَمْر"], 
+          correctIndex: 0, 
+          explanation: "「〜するな」という禁止の「Lā」の後では、動詞は要求法（Majzum）になり、語末がスクーンになります。" 
+        }
+      ],
+      sentences: [
+        { 
+          speaker: "ナレーター", 
+          arabic: "أَصْبَحَ الْعَالَمُ قَرْيَةً صَغِيرَةً.", 
+          japanese: "世界は小さな村になりました。",
+          note: "「أَصْبَحَ (aṣbaḥa)」: 「〜になった」。「kāna」の姉妹語で、述語「qarya」は対格になります。",
+          relatedGrammarId: 125 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "نَسْتَطِيعُ مَعْرِفَةَ الْأَخْبَارِ فَوْرًا.", 
+          japanese: "私たちはすぐにニュースを知ることができます。",
+          note: "「فَوْرًا (fawran)」: 「直ちに/すぐに」という意味の副詞。",
+          relatedGrammarId: 119 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "نُشَارِكُ الصُّوَرَ وَالْأَفْكَارَ.", 
+          japanese: "写真や考えを共有します。",
+          note: "「نُشَارِكُ (nushāriku)」: 「共有する/参加する」。第3形動詞。",
+          relatedGrammarId: 130 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "وَلَكِنْ يَجِبُ الْحَذَرُ مِنَ الْشَّائِعَاتِ.", 
+          japanese: "しかし、噂には注意しなければなりません。",
+          note: "「الْحَذَر (al-ḥadhar)」: 「用心/注意」という第1形の動名詞。ここでは yajibu（〜が必須である）の主語になっています。",
+          relatedGrammarId: 133 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "لَا تُصَدِّقْ كُلَّ مَا تَقْرَأُ.", 
+          japanese: "読むものすべてを信じてはいけません。",
+          note: "「لَا تُصَدِّقْ (lā tuṣaddiq)」: 「信じるな」。禁止のLa＋要求法（スクーン）。",
+          relatedGrammarId: 127 
+        }
+      ]
+    },
+    {
+      id: 228, 
+      title: "スポーツの重要性", 
+      category: "健康", 
+      level: "中級",
+      contentVoweled: "الْحَرَكَةُ بَرَكَةٌ. الْمَشْيُ رِيَاضَةٌ سَهْلَةٌ وَمُفِيدَةٌ. تُسَاعِدُ الرِّيَاضَةُ فِي إِنْقَاصِ الْوَزْنِ. تَحْمِي مِنَ الْأَمْرَاضِ. اِجْعَلِ الرِّيَاضَةَ جُزْءًا مِنْ يَوْمِكَ.",
+      contentPlain: "الحركة بركة. المشي رياضة سهلة ومفيدة. تساعد الرياضة في إنقاص الوزن. تحمي من الأمراض. اجعل الرياضة جزءا من يومك.",
+      vocabList: [
+        { word: "رِيَاضَة", meaning: "スポーツ" },
+        { word: "جِسْم", meaning: "体" },
+        { word: "نَشَاط", meaning: "活動/活力" }
+      ],
+      questions: [
+        { 
+          id: 2281, type: "reading", 
+          text: "\u200Fمَاذَا تُقَوِّي الرِّيَاضَةُ؟\u200F", 
+          options: ["الْمَلَابِس", "الْجِسْم", "الْبَيْت", "السَّيَّارَة"], 
+          correctIndex: 1, 
+          explanation: "「الْجِسْم (体)」です。" 
+        },
+        { 
+          id: 2282, type: "reading", 
+          text: "\u200Fكَيْفَ تُؤَثِّرُ عَلَى النَّفْسِيَّةِ؟\u200F", 
+          options: ["تَجْعَلُهَا سَيِّئَةً", "تُحَسِّنُهَا", "تُشْعِرُكَ بِالنُّعَاسِ", "تُغْضِبُكَ"], 
+          correctIndex: 1, 
+          explanation: "「تُحَسِّنُ النَّفْسِيَّةَ (気分/精神を良くする)」です。" 
+        },
+        { 
+          id: 2283, type: "reading", 
+          text: "\u200Fكَمْ يَجِبُ أَنْ نُمَارِسَ الرِّيَاضَةَ؟\u200F", 
+          options: ["كُلَّ يَوْمٍ (قَلِيلًا)", "مَرَّةً فِي السَّنَةِ", "طَوَالَ الْيَوْمِ", "لَا يَجِبُ"], 
+          correctIndex: 0, 
+          explanation: "「نِصْف سَاعَة يَوْمِيًّا (毎日30分)」が推奨されています。" 
+        },
+        { 
+          id: 2284, type: "vocabulary", 
+          text: "\u200Fمَا مَعْنَى 'مَشْي'؟\u200F", 
+          options: ["جَرْي", "سَيْرٌ عَلَى الْأَقْدَامِ", "سِبَاحَة", "قَفْز"], 
+          correctIndex: 1, 
+          explanation: "Walkingです。" 
+        },
+        { 
+          id: 2285, type: "grammar", 
+          text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Protects'؟\u200F", 
+          options: ["تَحْمِي", "تَهْدِمُ", "تَنْسَى", "تَأْكُلُ"], 
+          correctIndex: 0, 
+          explanation: "「Taḥmī (Protect)」です。" 
+        },
+        { 
+          id: 2286, type: "grammar", 
+          text: "\u200Fلِمَاذَا كُسِرَ آخِرُ فِعْلِ الْأَمْرِ 'اِجْعَلِ'؟\u200F", 
+          options: ["خَطَأ", "لِمَنْعِ الْتِقَاءِ السَّاكِنَيْنِ", "لِأَنَّهُ مُؤَنَّث", "لِأَنَّهُ مُعْتَلّ"], 
+          correctIndex: 1, 
+          explanation: "本来はスクーン（無母音）ですが、次に来る「الرِّيَاضَةَ」も無母音で始まるため、発音の便宜上カスラ（i）をつけてつなげます。" 
+        }
+      ],
+      sentences: [
+        { 
+          speaker: "ナレーター", 
+          arabic: "الْحَرَكَةُ بَرَكَةٌ.", 
+          japanese: "運動（動き）は祝福です。",
+          note: "主語(u)＋述語(un) のシンプルな名詞文です。韻を踏んだアラブの有名な格言です。",
+          relatedGrammarId: 115 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "الْمَشْيُ رِيَاضَةٌ سَهْلَةٌ وَمُفِيدَةٌ.", 
+          japanese: "ウォーキングは簡単で有益なスポーツです。",
+          note: "「الْمَشْي (al-mashy)」: 歩く（mashā）という動詞の動名詞（マスダル）。主語として使われています。",
+          relatedGrammarId: 133 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "تُسَاعِدُ الرِّيَاضَةُ فِي إِنْقَاصِ الْوَزْنِ.", 
+          japanese: "スポーツは体重を減らすのに役立ちます。",
+          note: "「إِنْقَاصِ (inqāṣ)」: 減らす（anqaṣa）という第4形動詞の動名詞。if'āl のパターンです。",
+          relatedGrammarId: 133 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "تَحْمِي مِنَ الْأَمْرَاضِ.", 
+          japanese: "病気から守ります。",
+          note: "「تَحْمِي (taḥmī)」: 守る（ḥamā）という弱動詞の現在形。語末の Yā が維持されています。",
+          relatedGrammarId: 141 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "اِجْعَلِ الرِّيَاضَةَ جُزْءًا مِنْ يَوْمِكَ.", 
+          japanese: "スポーツを1日の一部にしなさい。",
+          note: "「اِجْعَلِ (ij'ali)」: 命令形。本来は ij'al とスクーンで終わりますが、次に定冠詞 Al が続くため、音の衝突を避けてカスラ(i)で繋いでいます。",
+          relatedGrammarId: 135 
+        }
+      ]
+    },
+    {
+      id: 229, 
+      title: "交通ルール", 
+      category: "社会", 
+      level: "中級",
+      contentVoweled: "اِرْبِطْ حِزَامَ الْأَمَانِ دَائِمًا. لَا تَتَجَاوَزِ السُّرْعَةَ الْمُحَدَّدَةَ. اِحْتَرِمْ إِشَارَةَ الْمُرُورِ. لَا تَسْتَخْدِمِ الْجَوَّالَ أَثْنَاءَ الْقِيَادَةِ. الْقِيَادَةُ فَنٌّ وَذَوْقٌ وَأَخْلَاقٌ.",
+      contentPlain: "اربط حزام الأمان دائما. لا تتجاوز السرعة المحددة. احترم إشارة المرور. لا تستخدم الجوال أثناء القيادة. القيادة فن وذوق وأخلاق.",
+      vocabList: [
+        { word: "مُرُور", meaning: "交通" },
+        { word: "إِشَارَة", meaning: "信号" },
+        { word: "حِزَام", meaning: "ベルト" }
+      ],
+      questions: [
+        { 
+          id: 2291, type: "reading", 
+          text: "\u200Fمَا فَائِدَةُ اتِّبَاعِ قَوَاعِدِ الْمُرُورِ؟\u200F", 
+          options: ["زِيَادَةُ الْحَوَادِثِ", "حِمَايَةُ الْأَرْوَاحِ", "التَّأَخُّر", "دَفْعُ الْمَالِ"], 
+          correctIndex: 1, 
+          explanation: "「يَحْمِي الْأَرْوَاحَ (命を守る)」です。" 
+        },
+        { 
+          id: 2292, type: "reading", 
+          text: "\u200Fمَاذَا نَفْعَلُ عِنْدَ الْإِشَارَةِ الْحَمْرَاءِ؟\u200F", 
+          options: ["نَتَقَدَّمُ", "نَتَوَقَّفُ", "نَجْرِي", "نَنْعَطِفُ"], 
+          correctIndex: 1, 
+          explanation: "「تَوَقَّفْ (止まれ)」です。" 
+        },
+        { 
+          id: 2293, type: "reading", 
+          text: "\u200Fمَاذَا يَجِبُ أَلَّا نَفْعَلَهُ أَثْنَاءَ الْقِيَادَةِ؟\u200F", 
+          options: ["التَّحَدُّث", "اِسْتِخْدَام الْهَاتِف", "شُرْب الْمَاء", "الْغِنَاء"], 
+          correctIndex: 1, 
+          explanation: "「اِسْتِخْدَام الْهَاتِف (電話の使用)」です。" 
+        },
+        { 
+          id: 2294, type: "vocabulary", 
+          text: "\u200Fمَا مَعْنَى 'سُرْعَة'؟\u200F", 
+          options: ["بُطْء", "انْطِلَاق / عَجَلَة (Speed)", "اِرْتِفَاع", "ثِقَل"], 
+          correctIndex: 1, 
+          explanation: "スピードです。" 
+        },
+        { 
+          id: 2295, type: "grammar", 
+          text: "\u200Fكَيْفَ نَقُولُ 'Tie/Fasten' (Command)؟\u200F", 
+          options: ["اِرْبِطْ", "اِفْتَحْ", "اِكْسِرْ", "اِمْشِ"], 
+          correctIndex: 0, 
+          explanation: "「Irbiṭ (結べ/締めろ)」です。" 
+        },
+        { 
+          id: 2296, type: "grammar", 
+          text: "\u200Fلِمَاذَا كُسِرَتْ الزَّايُ فِي 'لَا تَتَجَاوَزِ'؟\u200F", 
+          options: ["لِأَنَّهُ لِلْمُؤَنَّث", "لِالْتِقَاءِ السَّاكِنَيْنِ", "لِأَنَّهُ مَجْرُور", "خَطَأ"], 
+          correctIndex: 1, 
+          explanation: "禁止の「Lā」によりスクーンになるところですが、次の単語「السُّرْعَةَ」との連結（Waṣl）のため、カスラ（i）でつなげて発音します。" 
+        }
+      ],
+      sentences: [
+        { 
+          speaker: "ナレーター", 
+          arabic: "اِرْبِطْ حِزَامَ الْأَمَانِ دَائِمًا.", 
+          japanese: "いつもシートベルトを締めなさい。",
+          note: "「اِرْبِطْ (irbiṭ)」: 第1形の命令形。語頭の Alif はハムザトゥル・ワスル（消えるハムザ）なので記号（ء）は書きません。",
+          relatedGrammarId: 128 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "لَا تَتَجَاوَزِ السُّرْعَةَ الْمُحَدَّدَةَ.", 
+          japanese: "制限速度を超えてはいけません。",
+          note: "「لَا تَتَجَاوَزِ (lā tatajāwazi)」: 禁止の Lā による要求法（スクーン）ですが、定冠詞 Al との連続を避けるためカスラ（i）になっています。",
+          relatedGrammarId: 135 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "اِحْتَرِمْ إِشَارَةَ الْمُرُورِ.", 
+          japanese: "交通信号を尊重しなさい。",
+          note: "「اِحْتَرِمْ (iḥtarim)」: 第8形（ifta'ala）の命令形。5文字以上の動詞の命令形も頭のアリフにハムザは書きません。",
+          relatedGrammarId: 128 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "لَا تَسْتَخْدِمِ الْجَوَّالَ أَثْنَاءَ الْقِيَادَةِ.", 
+          japanese: "運転中に携帯を使ってはいけません。",
+          note: "「لَا تَسْتَخْدِمِ (lā tastakhdimi)」: こちらも要求法＋音の連結（カスラ）の組み合わせです。",
+          relatedGrammarId: 127 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "الْقِيَادَةُ فَنٌّ وَذَوْقٌ وَأَخْلَاقٌ.", 
+          japanese: "運転は技術であり、センスであり、道徳です。",
+          note: "「الْقِيَادَة (qiyāda)」: 運転する（qāda）という中空動詞の動名詞です。",
+          relatedGrammarId: 133
+        }
+      ]
+    },
+    {
+      id: 230, 
+      title: "鷹狩り", 
+      category: "文化", 
+      level: "中級",
+      contentVoweled: "الصَّيْدُ بِالصُّقُورِ جُزْءٌ مِنَ التُّرَاثِ الْعَرَبِيِّ. يُدَرِّبُ الصَّيَّادُ الصَّقْرَ بِعِنَايَةٍ. يَتَمَيَّزُ الصَّقْرُ بِبَصَرٍ حَادٍّ. إِنَّهُ رَمْزٌ لِلْقُوَّةِ وَالْحُرِّيَّةِ. تُقَامُ مَهْرَجَانَاتٌ خَاصَّةٌ لِلصُّقُورِ.",
+      contentPlain: "الصيد بالصقور جزء من التراث العربي. يدرب الصياد الصقر بعناية. يتميز الصقر ببصر حاد. إنه رمز للقوة والحرية. تقام مهرجانات خاصة للصقور.",
+      vocabList: [
+        { word: "صَقْر", meaning: "鷹（タカ/ハヤブサ）" },
+        { word: "صَيْد", meaning: "狩り" },
+        { word: "تُرَاث", meaning: "遺産/伝統" }
+      ],
+      questions: [
+        { 
+          id: 2301, type: "reading", 
+          text: "\u200Fمَا هُوَ الصَّيْدُ بِالصُّقُورِ؟\u200F", 
+          options: ["لُعْبَةٌ حَدِيثَةٌ", "رِيَاضَةٌ تُرَاثِيَّةٌ", "عَمَل", "حَرْب"], 
+          correctIndex: 1, 
+          explanation: "「رِيَاضَة تَقْلِيدِيَّة (伝統的なスポーツ)」です。" 
+        },
+        { 
+          id: 2302, type: "reading", 
+          text: "\u200Fعِنْدَ مَنْ هَذِهِ الرِّيَاضَةُ مَشْهُورَةٌ؟\u200F", 
+          options: ["الْأُورُوبِيِّين", "الْعَرَب", "الْآسِيَوِيِّين", "الْأَمْرِيكِيِّين"], 
+          correctIndex: 1, 
+          explanation: "「عِنْدَ الْعَرَبِ (アラブ人の間で)」です。" 
+        },
+        { 
+          id: 2303, type: "reading", 
+          text: "\u200Fبِمَاذَا يَتَمَيَّزُ الصَّقْرُ؟\u200F", 
+          options: ["بُطْء", "ضَعْف", "بَصَرٍ حَادٍّ وَسُرْعَةٍ", "سِبَاحَة"], 
+          correctIndex: 2, 
+          explanation: "「بَصَرٍ حَادٍّ وَسُرْعَةٍ (鋭い視力と速さ)」です。" 
+        },
+        { 
+          id: 2304, type: "vocabulary", 
+          text: "\u200Fمَا مَعْنَى 'رَمْز'؟\u200F", 
+          options: ["عَدُوّ", "عَلَامَة / شِعَار (Symbol)", "أَدَاة", "طَعَام"], 
+          correctIndex: 1, 
+          explanation: "Symbol（象徴）です。" 
+        },
+        { 
+          id: 2305, type: "grammar", 
+          text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Trains'؟\u200F", 
+          options: ["يُدَرِّبُ", "يَلْعَبُ", "يَأْكُلُ", "يَنَامُ"], 
+          correctIndex: 0, 
+          explanation: "「Yudarribu (Train)」です。" 
+        },
+        { 
+          id: 2306, type: "grammar", 
+          text: "\u200Fمَا هُوَ الْمَبْنِيُّ لِلْمَعْلُومِ مِنْ 'تُقَامُ'؟\u200F", 
+          options: ["أَقَامَ", "قَامَ", "قَوَّمَ", "قَيَّمَ"], 
+          correctIndex: 0, 
+          explanation: "「行う/開催する」は第4形「Aqāma」で、その受動態が「Tuqāmu」です。" 
+        }
+      ],
+      sentences: [
+        { 
+          speaker: "ナレーター", 
+          arabic: "الصَّيْدُ بِالصُّقُورِ جُزْءٌ مِنَ التُّرَاثِ الْعَرَبِيِّ.", 
+          japanese: "鷹狩りはアラブの遺産の一部です。",
+          note: "「الصَّيْدُ (aṣ-ṣaydu)」: 動名詞（狩ること）。ここでは名詞文の主語になっています。",
+          relatedGrammarId: 133 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "يُدَرِّبُ الصَّيَّادُ الصَّقْرَ بِعِنَايَةٍ.", 
+          japanese: "猟師は鷹を注意深く訓練します。",
+          note: "「يُدَرِّبُ (yudarribu)」: 第2形動詞。真ん中の文字がシャッダで強調され、他動詞（〜を訓練させる）になっています。",
+          relatedGrammarId: 130 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "يَتَمَيَّزُ الصَّقْرُ بِبَصَرٍ حَادٍّ.", 
+          japanese: "鷹は鋭い視力が特徴です。",
+          note: "「حَادٍّ (ḥāddin)」: 鋭い。語末にシャッダを持つダブル動詞の能動分詞です。属格（in）になっています。",
+          relatedGrammarId: 140 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "إِنَّهُ رَمْزٌ لِلْقُوَّةِ وَالْحُرِّيَّةِ.", 
+          japanese: "それは力と自由の象徴です。",
+          note: "「إِنَّهُ (inna-hu)」: インナの姉妹語。代名詞 hu（鷹）が主語として機能しています。",
+          relatedGrammarId: 150 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "تُقَامُ مَهْرَجَانَاتٌ خَاصَّةٌ لِلصُّقُورِ.", 
+          japanese: "鷹のための特別なフェスティバルが開催されます。",
+          note: "「تُقَامُ (tuqāmu)」: 第4形中空動詞（Aqāma）の現在受動態。主語のフェスティバルが女性複数形なので Tu- となっています。",
+          relatedGrammarId: 129 
+        }
+      ]
+    },
+    {
+      id: 231,
+      title: "アラビア馬",
+      category: "文化",
+      level: "中級",
+      contentVoweled: "يُعْرَفُ الْحِصَانُ الْعَرَبِيُّ بِجَمَالِهِ. لَهُ رَأْسٌ صَغِيرٌ وَعَيْنَانِ كَبِيرَتَانِ. إِنَّهُ حَيَوَانٌ ذَكِيٌّ وَوَفِيٌّ لِصَاحِبِهِ. يُشَارِكُ فِي سِبَاقَاتِ السُّرْعَةِ وَالْقُدْرَةِ. الْعَرَبُ يُحِبُّونَ الْخَيْلَ كَثِيرًا.",
+      contentPlain: "يعرف الحصان العربي بجماله. له رأس صغير وعينان كبيرتان. إنه حيوان ذكي ووفي لصاحبه. يشارك في سباقات السرعة والقدرة. العرب يحبون الخيل كثيرا.",
+      vocabList: [
+        { word: "حِصَان", meaning: "馬" },
+        { word: "سَبَاق", meaning: "レース" },
+        { word: "أَصِيل", meaning: "純血の/本物の" },
+        { word: "قُدْرَة", meaning: "能力/耐久力" }, 
+        { word: "وَفِيّ", meaning: "忠実な" } 
+      ],
+      questions: [
+        { 
+          id: 2311, type: "reading", 
+          text: "\u200Fبِمَاذَا يَتَّصِفُ الْحِصَانُ الْعَرَبِيُّ؟\u200F", 
+          options: ["بِالثِّقَل", "بِالْجَمَالِ", "بِالْبُطْء", "بِالضَّعْف"], 
+          correctIndex: 1, 
+          explanation: "「مِنْ أَجْمَلِ الْخُيُولِ」や「يُعْرَفُ بِجَمَالِهِ」から分かります。" 
+        },
+        { 
+          id: 2312, type: "reading", 
+          text: "\u200Fفِيمَ يُسْتَخْدَمُ الْحِصَانُ؟\u200F", 
+          options: ["الزِّرَاعَة", "السِّبَاقَات", "حَمْلُ الْأَثْقَال", "الْأَكْل"], 
+          correctIndex: 1, 
+          explanation: "「السِّبَاقَات (レース)」や美容コンテストです。" 
+        },
+        { 
+          id: 2313, type: "reading", 
+          text: "\u200Fمَا هِيَ طَبِيعَتُهُ؟\u200F", 
+          options: ["شَرِس", "ذَكِيٌّ وَوَفِيٌّ", "جَبَان", "كَسُول"], 
+          correctIndex: 1, 
+          explanation: "「ذَكِيٌّ وَوَفِيٌّ (賢くて忠実)」です。" 
+        },
+        { 
+          id: 2314, type: "vocabulary", 
+          text: "\u200Fمَا مَعْنَى 'قُوَّة'؟\u200F", 
+          options: ["ضَعْف", "شِدَّة / طَاقَة", "سُرْعَة", "لَوْن"], 
+          correctIndex: 1, 
+          explanation: "Power/Strengthです。" 
+        },
+        { 
+          id: 2315, type: "grammar", 
+          text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Runs'؟\u200F", 
+          options: ["يَجْرِي", "يَطِيرُ", "يَسْبَحُ", "يَزْحَفُ"], 
+          correctIndex: 0, 
+          explanation: "「يَجْرِي (yajrī)」です。" 
+        },
+        { 
+          id: 2316, type: "grammar", 
+          text: "\u200Fلِمَاذَا انْتَهَتْ 'كَبِيرَتَانِ' بِـ 'ـانِ'؟\u200F", 
+          options: ["جَمْع", "مُثَنَّى (Dual)", "إِضَاعَة", "مُؤَنَّث"], 
+          correctIndex: 1, 
+          explanation: "目は2つあるため、双数形（Dual）のアリフとヌーンが使われています。" 
+        },
+        { 
+          id: 2317, type: "grammar", 
+          text: "\u200Fمَا نَوْعُ الْفِعْلِ 'يُحِبُّونَ'؟\u200F", 
+          options: ["مَاضٍ", "أَمْر", "مِنَ الْأَفْعَالِ الْخَمْسَةِ", "مَجْهُول"], 
+          correctIndex: 2, 
+          explanation: "語尾が「ـُونَ（-ūna）」で終わる現在形は「五つの動詞（الأَفْعَالُ الخَمْسَة）」と呼ばれます。" 
+        }
+      ],
+      sentences: [
+        { 
+          speaker: "ナレーター", 
+          arabic: "يُعْرَفُ الْحِصَانُ الْعَرَبِيُّ بِجَمَالِهِ.", 
+          japanese: "アラビア馬はその美しさで知られています。",
+          note: "「يُعْرَفُ (yu'rafu)」: 知る（'arafa）の受動態。「知られている」という意味で Yu'falu のリズムになっています。",
+          relatedGrammarId: 129 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "لَهُ رَأْسٌ صَغِيرٌ وَعَيْنَانِ كَبِيرَتَانِ.", 
+          japanese: "（それには）小さな頭と大きな二つの目があります。",
+          note: "「عَيْنَانِ كَبِيرَتَانِ」: 目（'ayn）は二つあるため双数形。形容詞の「大きい（kabīra）」も双数形（〜atāni）で一致しています。",
+          relatedGrammarId: 111 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "إِنَّهُ حَيَوَانٌ ذَكِيٌّ وَوَفِيٌّ لِصَاحِبِهِ.", 
+          japanese: "それは賢く、飼い主に忠実な動物です。",
+          note: "「إِنَّهُ (inna-hu)」: 強調のインナの後に代名詞（彼＝馬）がつき、それが主語になります。",
+          relatedGrammarId: 150 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "يُشَارِكُ فِي سِبَاقَاتِ السُّرْعَةِ وَالْقُدْرَةِ.", 
+          japanese: "スピードや耐久力のレースに参加します。",
+          note: "「يُشَارِكُ (yushāriku)」: 第3形動詞（参加する）。第3形は他者との関わりを表す時によく使われます。",
+          relatedGrammarId: 130 
+        },
+        { 
+          speaker: "ナレーター", 
+          arabic: "الْعَرَبُ يُحِبُّونَ الْخَيْلَ كَثِيرًا.", 
+          japanese: "アラブ人は馬をとても愛しています。",
+          note: "「يُحِبُّونَ (yuḥibbūna)」: ダブル動詞（ḥabba）の第4形現在。主語が「アラブ人（複数）」なので動詞も ūna となっています。",
+          relatedGrammarId: 121 
         }
       ]
     },
@@ -29199,20 +30510,20 @@ export const articles: Article[] = [
       { 
         id: 2471, type: "reading", 
         text: "\u200Fمَا هُوَ حَيَوَانُ الْمَهَا؟\u200F", 
-        options: ["أَسَد", "نَوْعٌ مِنَ الظِّبَاءِ (Oryx)", "جَمَل", "صَقْر"], 
+        options: ["أَسَد", "نَوْعٌ مِنَ الظِّبَاءِ", "جَمَل", "صَقْر"], 
         correctIndex: 1, 
         explanation: "オリックス（レイヨウの一種）です。" 
       },
       { 
         id: 2472, type: "reading", 
-        text: "\u200Fمَا لَوْنُهُ؟\u200F", 
+        text: "\u200Fمَا لَوْنُ الْمَهَا؟\u200F", 
         options: ["أَسْوَد", "أَبْيَض", "أَحْمَر", "أَزْرَق"], 
         correctIndex: 1, 
         explanation: "「أَبْيَض (白)」です。" 
       },
       { 
         id: 2473, type: "reading", 
-        text: "\u200Fأَيْنَ يَعِيشُ؟\u200F", 
+        text: "\u200Fأَيْنَ يَعِيشُ الْمَهَا؟\u200F", 
         options: ["الْغَابَة", "الْبَحْر", "الصَّحْرَاء", "الْمَدِينَة"], 
         correctIndex: 2, 
         explanation: "「فِي الصَّحْرَاءِ (砂漠)」です。" 
@@ -29226,1655 +30537,7 @@ export const articles: Article[] = [
       },
       { 
         id: 2475, type: "grammar", 
-        text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Lives'؟\u200F", 
-        options: ["يَعِيشُ", "يَمُوتُ", "يَذْهَبُ", "يَأْتِي"], 
-        correctIndex: 0, 
-        explanation: "「Ya'īshu」です。" 
-      },
-      { 
-        id: 2476, type: "grammar", 
-        text: "\u200Fلِمَاذَا وُصِفَتِ 'الْقُرُون' بِـ 'طَوِيلَة' (مُفْرَد مُؤَنَّث)؟\u200F", 
-        options: ["لِأَنَّهَا مُؤَنَّث", "لِأَنَّهَا جَمْعُ غَيْرِ عَاقِلٍ", "خَطَأ", "لِلتَّوْكِيدِ"], 
-        correctIndex: 1, 
-        explanation: "「Qurūn（角）」は人間以外の複数形（Jam' Ghayr 'Aqil）なので、形容詞は女性単数形で受けます。" 
-      },
-      { 
-        id: 2477, type: "grammar", 
-        text: "\u200Fلِمَاذَا 'مُهَدَّدًا' مَنْصُوبَةٌ بَعْدَ 'كَانَ'؟\u200F", 
-        options: ["اِسْمُ كَانَ", "خَبَرُ كَانَ", "مَفْعُول بِهِ", "صِفَة"], 
-        correctIndex: 1, 
-        explanation: "「Kāna」の述語（Khabar Kāna）は常に対格（Manṣūb）になります。" 
-      }
-    ],
-    sentences: [
-      { 
-        speaker: "ナレーター", 
-        arabic: "يَتَمَيَّزُ الْمَهَا بِلَوْنِهِ الْأَبْيَضِ النَّاصِعِ.", 
-        japanese: "オリックスは真っ白な（鮮やかな白の）色が特徴です。",
-        note: "「يَتَمَيَّزُ (yatamayyazu)」: 第5形動詞。「〜で区別される/特徴づけられる」。",
-        relatedGrammarId: 130
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "لَهُ قُرُونٌ طَوِيلَةٌ وَمُسْتَقِيمَةٌ.", 
-        japanese: "長くまっすぐな角を持っています。",
-        note: "「قُرُونٌ طَوِيلَةٌ (qurūnun ṭawīlatun)」: 角（複数）は非理性的複数なので、修飾する形容詞（長い）は女性単数形になります。",
-        relatedGrammarId: 114
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "تَغَزَّلَ الشُّعَرَاءُ بِعُيُونِ الْمَهَا.", 
-        japanese: "詩人たちはオリックスの目の美しさを（恋愛詩のように）詠いました。",
-        note: "「تَغَزَّلَ (taghazzala)」: 第5形動詞。「恋の詩を詠む」。",
-        relatedGrammarId: 130
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "كَانَ مُهَدَّدًا بِالِانْقِرَاضِ.", 
-        japanese: "それは絶滅の危機に瀕していました。",
-        note: "「كَانَ مُهَدَّدًا (kāna muhaddadan)」: カーナ＋受動分詞。カーナの働きで、述語（脅かされている）が対格（an）になっています。",
-        relatedGrammarId: 125
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "الْآنَ تُوجَدُ مَحْمِيَّاتٌ لِلْحِفَاظِ عَلَيْهِ.", 
-        japanese: "今は保護するための保護区があります。",
-        note: "「تُوجَدُ (tūjadu)」: 受動態の現在形。「存在する（見つけられる）」という意味です。",
-        relatedGrammarId: 129
-      }
-    ]
-  },
-  {
-    id: 248,
-    title: "ホスピタリティ（おもてなし）",
-    category: "文化",
-    level: "中級",
-    contentVoweled: "بَابُ الْعَرَبِيِّ مَفْتُوحٌ دَائِمًا لِلضَّيْفِ. يُقَدِّمُونَ الْقَهْوَةَ وَالتَّمْرَ أَوَّلًا. ثُمَّ يُجَهِّزُونَ الْوَلِيمَةَ. الضَّيْفُ فِي حِمَايَةِ الْمُضِيفِ. هَذِهِ عَادَةٌ قَدِيمَةٌ وَأَصِيلَةٌ.",
-    contentPlain: "باب العربي مفتوح دائما للضيف. يقدمون القهوة والتمر أولا. ثم يجهزون الوليمة. الضيف في حماية المضيف. هذه عادة قديمة وأصيلة.",
-    vocabList: [
-      { word: "ضَيْف", meaning: "客" },
-      { word: "كَرَم", meaning: "気前の良さ/寛大さ" },
-      { word: "طَعَام", meaning: "食事" },
-      { word: "مُضِيف", meaning: "ホスト/主人" }, 
-      { word: "عَادَة", meaning: "習慣" } 
-    ],
-    questions: [
-      { 
-        id: 2481, type: "reading", 
-        text: "\u200Fمَا هِيَ الصِّفَةُ الْمَشْهُورَةُ لِلْعَرَبِ؟\u200F", 
-        options: ["الْقُوَّة", "كَرَمُ الضِّيَافَةِ", "السُّرْعَة", "الْهُدُوء"], 
-        correctIndex: 1, 
-        explanation: "「كَرَمُ الضِّيَافَةِ」です。" 
-      },
-      { 
-        id: 2482, type: "reading", 
-        text: "\u200Fمَاذَا يَفْعَلُونَ عِنْدَ وُصُولِ الضَّيْفِ؟\u200F", 
-        options: ["يَطْرُدُونَهُ", "يُكْرِمُونَهُ وَيُطْعِمُونَهُ", "يَتَجَاهَلُونَهُ", "يَنَامُونَ"], 
-        correctIndex: 1, 
-        explanation: "「يُكْرِمُونَ الضَّيْفَ (客をもてなす)」です。" 
-      },
-      { 
-        id: 2483, type: "reading", 
-        text: "\u200Fمَاذَا يُقَدَّمُ لِلضَّيْفِ أَوَّلًا؟\u200F", 
-        options: ["الْمَاء", "الْقَهْوَة وَالتَّمْر", "اللَّحْم", "الْخُبْز"], 
-        correctIndex: 1, 
-        explanation: "「الْقَهْوَة وَالتَّمْر」です。" 
-      },
-      { 
-        id: 2484, type: "vocabulary", 
-        text: "\u200Fمَا مَعْنَى 'بَاب'؟\u200F", 
-        options: ["نَافِذَة", "مَدْخَلُ الْبَيْتِ (Door)", "جِدَار", "أَرْض"], 
-        correctIndex: 1, 
-        explanation: "Doorです。" 
-      },
-      { 
-        id: 2485, type: "grammar", 
-        text: "\u200Fكَيْفَ نَقُولُ 'Open' (Adjective)؟\u200F", 
-        options: ["مَفْتُوح", "مُغْلَق", "صَغِير", "بَعِيد"], 
-        correctIndex: 0, 
-        explanation: "「Maftūḥ」です。" 
-      },
-      { 
-        id: 2486, type: "grammar", 
-        text: "\u200Fمَنْ هُمُ الَّذِينَ 'يُقَدِّمُونَ'؟\u200F", 
-        options: ["هُوَ", "هُمْ", "أَنْتُمْ", "نَحْنُ"], 
-        correctIndex: 1, 
-        explanation: "「ūna」で終わる動詞は、三人称男性複数の主語（彼ら）を表します。" 
-      },
-      { 
-        id: 2487, type: "grammar", 
-        text: "\u200Fمَا نَوْعُ كَلِمَة 'أَوَّلًا'؟\u200F", 
-        options: ["فِعْل", "صِفَة", "ظَرْف (حَال)", "حَرْف جَرّ"], 
-        correctIndex: 2, 
-        explanation: "「まず最初に」という意味で、副詞的に使われています。" 
-      }
-    ],
-    sentences: [
-      { 
-        speaker: "ナレーター", 
-        arabic: "بَابُ الْعَرَبِيِّ مَفْتُوحٌ دَائِمًا لِلضَّيْفِ.", 
-        japanese: "アラブ人の（家の）ドアは常に客のために開かれています。",
-        note: "「مَفْتُوحٌ (maftūḥun)」: 「開かれた」という第1形受動分詞。名詞文の述語として主格（un）になっています。",
-        relatedGrammarId: 132
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "يُقَدِّمُونَ الْقَهْوَةَ وَالتَّمْرَ أَوَّلًا.", 
-        japanese: "まずコーヒーとデーツを出します。",
-        note: "「يُقَدِّمُونَ (yuqaddimūna)」: 第2形動詞の現在形複数。「彼らは提供する」という意味です。",
-        relatedGrammarId: 121
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "ثُمَّ يُجَهِّزُونَ الْوَلِيمَةَ.", 
-        japanese: "それから宴（食事）を準備します。",
-        note: "「يُجَهِّزُونَ (yujahhizūna)」: こちらも第2形動詞の現在形複数です。",
-        relatedGrammarId: 130
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "الضَّيْفُ فِي حِمَايَةِ الْمُضِيفِ.", 
-        japanese: "客はホストの保護下にあります。",
-        note: "「مُضِيف (muḍīf)」: 「ホスト/もてなす人」。第4形動詞 aḍāfa の能動分詞です。",
-        relatedGrammarId: 132
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "هَذِهِ عَادَةٌ قَدِيمَةٌ وَأَصِيلَةٌ.", 
-        japanese: "これは古くからの正統な習慣です。",
-        note: "「هَذِهِ (hādhihi)」: 女性単数の指示代名詞。「習慣（'āda）」が女性名詞なので、指示代名詞も女性形を使います。",
-        relatedGrammarId: 113
-      }
-    ]
-  },
-  {
-    id: 249,
-    title: "未来の技術",
-    category: "記事",
-    level: "中級",
-    contentVoweled: "الرُّوبُوتَاتُ تَعْمَلُ بَدَلًا مِنَ الْإِنْسَانِ. نَسْتَخْدِمُ الذَّكَاءَ الِاصْطِنَاعِيَّ فِي الْهَوَاتِفِ. يُسَاعِدُ الْأَطِبَّاءَ فِي التَّشْخِيصِ. يَجْعَلُ الْحَيَاةَ أَسْهَلَ وَأَسْرَعَ. لَكِنْ يَجِبُ أَنْ نَتَحَكَّمَ فِيهِ.",
-    contentPlain: "الروبوتات تعمل بدلا من الإنسان. نستخدم الذكاء الاصطناعي في الهواتف. يساعد الأطباء في التشخيص. يجعل الحياة أسهل وأسرع. لكن يجب أن نتحكم فيه.",
-    vocabList: [
-      { word: "ذَكَاء", meaning: "知能" },
-      { word: "حَاسُوب", meaning: "コンピュータ" },
-      { word: "رُوبُوت", meaning: "ロボット" },
-      { word: "تَشْخِيص", meaning: "診断" }, 
-      { word: "تَحَكُّم", meaning: "制御/コントロール" } 
-    ],
-    questions: [
-      { 
-        id: 2491, type: "reading", 
-        text: "\u200Fمَا هُوَ الذَّكَاءُ الِاصْطِنَاعِيُّ؟\u200F", 
-        options: ["قُوَّةُ الطَّبِيعَةِ", "تِكْنُولُوجِيَا (Artificial Intelligence)", "فَضَائِيُّونَ", "سِحْر"], 
-        correctIndex: 1, 
-        explanation: "「الذَّكَاء الِاصْطِنَاعِيّ」です。" 
-      },
-      { 
-        id: 2492, type: "reading", 
-        text: "\u200Fمَاذَا يَفْعَلُ فِي حَيَاتِنَا؟\u200F", 
-        options: ["يُغَيِّرُهَا وَيُسَهِّلُهَا", "لَا شَيْءَ", "يَنَامُ", "يَتَعَطَّلُ"], 
-        correctIndex: 0, 
-        explanation: "「يُغَيِّرُ حَيَاتَنَا (生活を変えている)」です。" 
-      },
-      { 
-        id: 2493, type: "reading", 
-        text: "\u200Fأَيْنَ يُسْتَخْدَمُ؟\u200F", 
-        options: ["فِي الْبَيْتِ فَقَط", "فِي الْمَدْرَسَةِ فَقَط", "فِي كُلِّ الْمَجَالَاتِ", "لَا يُوجَدُ"], 
-        correctIndex: 2, 
-        explanation: "「فِي كُلِّ الْمَجَالَاتِ (あらゆる分野で)」です。" 
-      },
-      { 
-        id: 2494, type: "vocabulary", 
-        text: "\u200Fمَا مَعْنَى 'سَهْل'؟\u200F", 
-        options: ["صَعْب", "بَسِيط (Easy)", "بَعِيد", "ثَقِيل"], 
-        correctIndex: 1, 
-        explanation: "Easy（簡単）です。" 
-      },
-      { 
-        id: 2495, type: "grammar", 
-        text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Helps'؟\u200F", 
-        options: ["يُسَاعِدُ", "يَضُرُّ", "يَأْخُذُ", "يُعْطِي"], 
-        correctIndex: 0, 
-        explanation: "「Yusā'idu」です。" 
-      },
-      { 
-        id: 2496, type: "grammar", 
-        text: "\u200Fمَا نَوْعُ كَلِمَة 'أَسْهَل'؟\u200F", 
-        options: ["اِسْمُ تَفْضِيلٍ (Comparative)", "مَاضٍ", "جَمْع", "أَمْر"], 
-        correctIndex: 0, 
-        explanation: "「Af'al」パターンは比較級（より簡単、より速い）を表します。" 
-      },
-      { 
-        id: 2497, type: "grammar", 
-        text: "\u200Fلِمَاذَا نُصِبَ الْفِعْلُ 'نَتَحَكَّمَ'؟\u200F", 
-        options: ["لِوُجُودِ 'أَنْ' النَّاصِبَةِ", "لِأَنَّهُ مَاضٍ", "لِأَنَّهُ جَمْع", "خَطَأ"], 
-        correctIndex: 0, 
-        explanation: "「An (〜すること)」という接続助詞の後の動詞は接続法（Manṣūb）になり、通常Fathaで終わります。" 
-      }
-    ],
-    sentences: [
-      { 
-        speaker: "ナレーター", 
-        arabic: "الرُّوبُوتَاتُ تَعْمَلُ بَدَلًا مِنَ الْإِنْسَانِ.", 
-        japanese: "ロボットが人間の代わりに働きます。",
-        note: "「تَعْمَلُ (ta'malu)」: 主語「ロボット（複数）」が非理性的複数なので、動詞は「彼女（女性単数）」の活用で受けています。",
-        relatedGrammarId: 121
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "نَسْتَخْدِمُ الذَّكَاءَ الِاصْطِنَاعِيَّ فِي الْهَوَاتِفِ.", 
-        japanese: "私たちは電話でAIを使用します。",
-        note: "「نَسْتَخْدِمُ (nastakhdimu)」: 第10形動詞「使う」の現在形・一人称複数（私たち）。",
-        relatedGrammarId: 130
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "يُسَاعِدُ الْأَطِبَّاءَ فِي التَّشْخِيصِ.", 
-        japanese: "それは医師の診断を助けます。",
-        note: "「تَشْخِيص (tashkhīṣ)」: 第2形動詞「診断する」の動名詞。taf'īl パターンです。",
-        relatedGrammarId: 133
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "يَجْعَلُ الْحَيَاةَ أَسْهَلَ وَأَسْرَعَ.", 
-        japanese: "それは生活をより簡単に、より速くします。",
-        note: "「أَسْهَلَ وَأَسْرَعَ (ashala wa asra'a)」: 簡単（sahl）と速い（sarī'）の比較級（アフアル形）。",
-        relatedGrammarId: 134
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "لَكِنْ يَجِبُ أَنْ نَتَحَكَّمَ فِيهِ.", 
-        japanese: "しかし、私たちはそれを制御しなければなりません。",
-        note: "「أَنْ نَتَحَكَّمَ (an nataḥakkama)」: an の影響で、第5形動詞が接続法（語末が a）になっています。",
-        relatedGrammarId: 126
-      }
-    ]
-  },
-  {
-    id: 250,
-    title: "ジェッダ歴史地区",
-    category: "歴史",
-    level: "中級",
-    contentVoweled: "تَقَعُ الْمِنْطَقَةُ التَّارِيخِيَّةُ فِي وَسَطِ جِدَّةَ. الْبُيُوتُ مَبْنِيَّةٌ مِنْ حَجَرِ الْكَاشُورِ. تَزَيَّنُ النَّوَافِذُ بِالرَّوَاشِينِ الْخَشَبِيَّةِ. الشَّوَارِعُ ضَيِّقَةٌ وَجَمِيلَةٌ. إِنَّهَا مُسَجَّلَةٌ فِي الْيُونِسْكُو.",
-    contentPlain: "تقع المنطقة التاريخية في وسط جدة. البيوت مبنية من حجر الكاشور. تزين النوافذ بالرواشين الخشبية. الشوارع ضيقة وجميلة. إنها مسجلة في اليونسكو.",
-    vocabList: [
-      { word: "تَارِيخ", meaning: "歴史" },
-      { word: "بِنَاء", meaning: "建物/建築" },
-      { word: "خَشَب", meaning: "木" },
-      { word: "رَوَاشِين", meaning: "ラワーシーン（木の出窓）" }, 
-      { word: "ضَيِّق", meaning: "狭い" } 
-    ],
-    questions: [
-      { 
-        id: 2501, type: "reading", 
-        text: "\u200Fمَا هِيَ 'جِدَّةُ الْبَلَد'؟\u200F", 
-        options: ["مَطَارٌ جَدِيد", "مِنْطَقَةٌ تَارِيخِيَّةٌ", "سُوقٌ كَبِير", "صَحْرَاء"], 
-        correctIndex: 1, 
-        explanation: "「مِنْطَقَة تَارِيخِيَّة」です。" 
-      },
-      { 
-        id: 2502, type: "reading", 
-        text: "\u200Fمَا الَّذِي يُمَيِّزُ عِمَارَتَهَا؟\u200F", 
-        options: ["زُجَاج", "خِيَام", "الرَّوَاشِينُ الْخَشَبِيَّةُ", "قِلَاع"], 
-        correctIndex: 2, 
-        explanation: "「الرَّوَاشِين (Rawashin)」という木の装飾窓が有名です。" 
-      },
-      { 
-        id: 2503, type: "reading", 
-        text: "\u200Fمِمَّا بُنِيَتِ الْبُيُوتُ؟\u200F", 
-        options: ["أَسْمَنْت", "حَجَرِ الْكَاشُورِ (الْمَرْجَان)", "حَدِيد", "طِين"], 
-        correctIndex: 1, 
-        explanation: "海に近いのでサンゴ石（カアシュール）が使われていました。" 
-      },
-      { 
-        id: 2504, type: "vocabulary", 
-        text: "\u200Fمَا مَعْنَى 'ضَيِّق'؟\u200F", 
-        options: ["وَاسِع", "غَيْرُ وَاسِعٍ (Narrow)", "عَالٍ", "مُنْخَفِض"], 
-        correctIndex: 1, 
-        explanation: "Narrow（狭い）です。" 
-      },
-      { 
-        id: 2505, type: "grammar", 
-        text: "\u200Fكَيْفَ نَقُولُ 'I like walking'؟\u200F", 
-        options: ["أُحِبُّ الْمَشْيَ", "أَكْرَهُ الْمَشْيَ", "أُحِبُّ النَّوْمَ", "أَمْشِي بِسُرْعَةٍ"], 
-        correctIndex: 0, 
-        explanation: "「Uḥibbu al-mashya」です。" 
-      },
-      { 
-        id: 2506, type: "grammar", 
-        text: "\u200Fمَا نَوْعُ كَلِمَة 'مَبْنِيَّة'؟\u200F", 
-        options: ["اِسْمُ فَاعِل", "اِسْمُ مَفْعُولٍ (Built)", "اِسْمُ مَكَان", "اِسْمُ آلَة"], 
-        correctIndex: 1, 
-        explanation: "「Banā（建てた）」の受動分詞「Mabniyy（建てられた）」の女性形です。" 
-      },
-      { 
-        id: 2507, type: "grammar", 
-        text: "\u200Fمَا مُفْرَدُ 'النَّوَافِذ'؟\u200F", 
-        options: ["نَافِذَة", "نَافِذ", "نَفْذ", "مَنْفَذ"], 
-        correctIndex: 0, 
-        explanation: "「Nāfidha（窓）」の不規則複数形（Jam' Taksīr）が「Nawāfidh」です。" 
-      }
-    ],
-    sentences: [
-      { 
-        speaker: "ナレーター", 
-        arabic: "تَقَعُ الْمِنْطَقَةُ التَّارِيخِيَّةُ فِي وَسَطِ جِدَّةَ.", 
-        japanese: "歴史地区はジェッダの中心に位置しています。",
-        note: "「جِدَّةَ (Jiddata)」: 都市名は二段変化名詞のため、イダーファの2語目（属格）でもカスラではなくファトハ（a）になります。",
-        relatedGrammarId: 142
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "الْبُيُوتُ مَبْنِيَّةٌ مِنْ حَجَرِ الْكَاشُورِ.", 
-        japanese: "家々はカアシュール石（サンゴ石）で建てられています。",
-        note: "「مَبْنِيَّةٌ (mabniyyatun)」: 弱動詞 banā（建てる）の受動分詞。主語の「家々」が女性単数扱いなので女性形になっています。",
-        relatedGrammarId: 132
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "تَزَيَّنُ النَّوَافِذُ بِالرَّوَاشِينِ الْخَشَبِيَّةِ.", 
-        japanese: "窓は木のラワーシーン（出窓）で飾られています。",
-        note: "「بِالرَّوَاشِينِ (bi-r-rawāshīni)」: 不規則複数形ですが、定冠詞 Al がついているため、二段変化名詞の禁止ルールが解除され属格が i になっています。",
-        relatedGrammarId: 136
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "الشَّوَارِعُ ضَيِّقَةٌ وَجَمِيلَةٌ.", 
-        japanese: "通りは狭くて美しいです。",
-        note: "「ضَيِّقَةٌ وَجَمِيلَةٌ」: 主語の「通り（複数）」が非理性的複数なので、述語の形容詞はどちらも女性単数形（atun）で受けています。",
-        relatedGrammarId: 114
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "إِنَّهَا مُسَجَّلَةٌ فِي الْيُونِسْكُو.", 
-        japanese: "それはユネスコに登録されています。",
-        note: "「إِنَّهَا (inna-hā)」: インナの姉妹語。代名詞 hā（それ＝歴史地区）が主語として機能しています。",
-        relatedGrammarId: 150
-      }
-    ]
-  },
-  {
-    id: 251,
-    title: "建国記念日",
-    category: "歴史",
-    level: "中級",
-    contentVoweled: "وَحَّدَ الْمَلِكُ عَبْدُ الْعَزِيزِ الْبِلَادَ. غَيَّرَ الِاسْمَ إِلَى الْمَمْلَكَةِ الْعَرَبِيَّةِ السُّعُودِيَّةِ. يَحْتَفِلُ السُّعُودِيُّونَ بِهَذَا الْيَوْمِ كُلَّ عَامٍ. يَرْفَعُونَ الْأَعْلَامَ الْخَضْرَاءَ. إِنَّهُ يَوْمُ الْفَخْرِ وَالِاعْتِزَازِ.",
-    contentPlain: "وحد الملك عبد العزيز البلاد. غير الاسم إلى المملكة العربية السعودية. يحتفل السعوديون بهذا اليوم كل عام. يرفعون الأعلام الخضراء. إنه يوم الفخر والاعتزاز.",
-    vocabList: [
-      { word: "وَطَن", meaning: "祖国" },
-      { word: "تَوْحِيد", meaning: "統一" },
-      { word: "مَلِك", meaning: "王" },
-      { word: "فَخْر", meaning: "誇り" }, 
-      { word: "عَلَم", meaning: "国旗" } 
-    ],
-    questions: [
-      { 
-        id: 2511, type: "reading", 
-        text: "\u200Fمَتَى الْيَوْمُ الْوَطَنِيُّ السُّعُودِيُّ؟\u200F", 
-        options: ["1 يَنَايِر", "23 سِبْتَمْبِر", "12 دِيسَمْبَر", "22 فِبْرَايِر"], 
-        correctIndex: 1, 
-        explanation: "「23 سِبْتَمْبِر」です（一般知識として）。" 
-      },
-      { 
-        id: 2512, type: "reading", 
-        text: "\u200Fبِمَاذَا نَحْتَفِلُ فِي هَذَا الْيَوْمِ؟\u200F", 
-        options: ["بِالِاسْتِقْلَال", "بِتَوْحِيدِ الْمَمْلَكَةِ", "بِنِهَايَةِ الْحَرْبِ", "بِرَأْسِ السَّنَةِ"], 
-        correctIndex: 1, 
-        explanation: "「تَوْحِيد (統一)」を祝います。" 
-      },
-      { 
-        id: 2513, type: "reading", 
-        text: "\u200Fمَنْ هُوَ الْمُؤَسِّسُ؟\u200F", 
-        options: ["الْمَلِك عَبْدُ الله", "الْمَلِك عَبْدُ الْعَزِيز", "الْمَلِك فَهَد", "الْمَلِك سَلْمَان"], 
-        correctIndex: 1, 
-        explanation: "「الْمَلِك عَبْدُ الْعَزِيز」です。" 
-      },
-      { 
-        id: 2514, type: "vocabulary", 
-        text: "\u200Fمَا مَعْنَى 'عَلَم'؟\u200F", 
-        options: ["قَلَم", "عِلْم", "رَايَة / بَيْرَق (Flag)", "جَبَل"], 
-        correctIndex: 2, 
-        explanation: "Flag（国旗）です。" 
-      },
-      { 
-        id: 2515, type: "grammar", 
-        text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'We celebrate'؟\u200F", 
-        options: ["نَحْتَفِلُ", "نَبْكِي", "نَعْمَلُ", "نَأْكُلُ"], 
-        correctIndex: 0, 
-        explanation: "「Naḥtafilu」です。" 
-      },
-      { 
-        id: 2516, type: "grammar", 
-        text: "\u200Fلِمَاذَا انْتَهَتْ 'السُّعُودِيُّونَ' بِـ 'ـونَ'؟\u200F", 
-        options: ["لِأَنَّهَا فَاعِلٌ (جَمْعُ مُذَكَّرٍ سَالِمٌ)", "مَفْعُول", "مُضَاف", "مَقْصُور"], 
-        correctIndex: 0, 
-        explanation: "動詞「يَحْتَفِلُ」の主語（Fā'il）であるため、主格です。男性規則複数なので「ūna」となります。" 
-      },
-      { 
-        id: 2517, type: "grammar", 
-        text: "\u200Fمَا وَزْنُ الْفِعْلِ 'وَحَّدَ'؟\u200F", 
-        options: ["فَعَلَ (I)", "فَعَّلَ (II)", "فَاعَلَ (III)", "أَفْعَلَ (IV)"], 
-        correctIndex: 1, 
-        explanation: "真ん中の文字にシャッダ（強調）がある第2形（Fa''ala）は、「〜させる（使役）」や「変化させる」意味を持つことが多いです。" 
-      }
-    ],
-    sentences: [
-      { 
-        speaker: "ナレーター", 
-        arabic: "وَحَّدَ الْمَلِكُ عَبْدُ الْعَزِيزِ الْبِلَادَ.", 
-        japanese: "アブドゥルアズィーズ王が国を統一しました。",
-        note: "「وَحَّدَ (waḥḥada)」: 「統一する」という第2形動詞。wāḥid（一つ）に由来します。",
-        relatedGrammarId: 130
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "غَيَّرَ الِاسْمَ إِلَى الْمَمْلَكَةِ الْعَرَبِيَّةِ السُّعُودِيَّةِ.", 
-        japanese: "（彼は）名前をサウジアラビア王国に変えました。",
-        note: "「غَيَّرَ (ghayyara)」: 「変える/変更する」という第2形動詞。",
-        relatedGrammarId: 130
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "يَحْتَفِلُ السُّعُودِيُّونَ بِهَذَا الْيَوْمِ كُلَّ عَامٍ.", 
-        japanese: "サウジ人は毎年この日を祝います。",
-        note: "「يَحْتَفِلُ (yaḥtafilu)」: 「祝う」という第8形動詞の現在形。",
-        relatedGrammarId: 130
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "يَرْفَعُونَ الْأَعْلَامَ الْخَضْرَاءَ.", 
-        japanese: "彼らは緑の国旗を掲げます。",
-        note: "「الْخَضْرَاءَ (al-khaḍrā'a)」: 緑（Akhḍar）の女性形。色は二段変化名詞ですが、定冠詞がついているので通常の対格（a）になっています。",
-        relatedGrammarId: 142
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "إِنَّهُ يَوْمُ الْفَخْرِ وَالِاعْتِزَازِ.", 
-        japanese: "それは誇りと名誉の日です。",
-        note: "「اِعْتِزَاز (i'tizāz)」: 第8形動詞（i'tazza＝誇りに思う）の動名詞。ifti'āl パターンです。",
-        relatedGrammarId: 133
-      }
-    ]
-  },
-  {
-    id: 252,
-    title: "ディルイーヤ",
-    category: "歴史",
-    level: "中級",
-    contentVoweled: "تَقَعُ الدِّرْعِيَّةُ بِالْقُرْبِ مِنَ الرِّيَاضِ. هِيَ عَاصِمَةُ الدَّوْلَةِ السُّعُودِيَّةِ الْأُولَى. بُيُوتُهَا مَبْنِيَّةٌ مِنَ الطِّينِ. حَيُّ الطُّرَيْفِ فِيهَا مَوْقِعُ تُرَاثٍ عَالَمِيٍّ. تَمَّ تَجْدِيدُهَا لِتُصْبِحَ وِجْهَةً سِيَاحِيَّةً.",
-    contentPlain: "تقع الدرعية بالقرب من الرياض. هي عاصمة الدولة السعودية الأولى. بيوتها مبنية من الطين. حي الطريف فيها موقع تراث عالمي. تم تجديدها لتصبح وجهة سياحية.",
-    vocabList: [
-      { word: "طِين", meaning: "泥/土" },
-      { word: "تُرَاث", meaning: "遺産" },
-      { word: "عَاصِمَة", meaning: "首都" },
-      { word: "تَجْدِيد", meaning: "リニューアル/更新" },
-      { word: "وِجْهَة", meaning: "目的地/ディスティネーション" }
-    ],
-    questions: [
-      { 
-        id: 2521, type: "reading", 
-        text: "\u200Fمَا هِيَ الدِّرْعِيَّةُ؟\u200F", 
-        options: ["عَاصِمَةٌ جَدِيدَة", "عَاصِمَةُ الدَّوْلَةِ السُّعُودِيَّةِ الْأُولَى", "مَدِينَةٌ سَاحِلِيَّة", "بِئْرُ نِفْط"], 
-        correctIndex: 1, 
-        explanation: "本文に「هِيَ عَاصِمَةُ الدَّوْلَةِ السُّعُودِيَّةِ الْأُولَى (それは第一サウジ王国の首都です)」とあります。" 
-      },
-      { 
-        id: 2522, type: "reading", 
-        text: "\u200Fمَا هِيَ مَادَّةُ بِنَاءِ بُيُوتِهَا؟\u200F", 
-        options: ["زُجَاج", "طِين", "حَدِيد", "خَشَب"], 
-        correctIndex: 1, 
-        explanation: "「مِنَ الطِّينِ (泥から)」です。" 
-      },
-      { 
-        id: 2523, type: "reading", 
-        text: "\u200Fمَا اسْمُ الْحَيِّ التُّرَاثِيِّ؟\u200F", 
-        options: ["حَيُّ الطُّرَيْف", "حَيُّ الْحَمْرَاء", "الْعُلَا", "الْخُبَر"], 
-        correctIndex: 0, 
-        explanation: "「حَيُّ الطُّرَيْف」です。" 
-      },
-      { 
-        id: 2524, type: "vocabulary", 
-        text: "\u200Fمَا مَعْنَى 'تَجْدِيد'؟\u200F", 
-        options: ["هَدْم", "تَرْمِيم / تَحْدِيث (Renovation)", "بِنَاء", "بَيْع"], 
-        correctIndex: 1, 
-        explanation: "Renovation（修復・更新）です。" 
-      },
-      { 
-        id: 2525, type: "grammar", 
-        text: "\u200Fكَيْفَ نَقُولُ 'It is possible'؟\u200F", 
-        options: ["يُمْكِنُ", "لَا يُمْكِنُ", "زَارَ", "يَزُورُ"], 
-        correctIndex: 0, 
-        explanation: "「Yumkinu (可能である)」です。" 
-      },
-      { 
-        id: 2526, type: "grammar", 
-        text: "\u200Fلِمَاذَا نُصِبَ الْفِعْلُ 'تُصْبِحَ'؟\u200F", 
-        options: ["لِأَنَّهُ أَمْر", "لِوُجُودِ لَامِ التَّعْلِيلِ (لِـ)", "لِأَنَّهُ مَاضٍ", "مَجْهُول"], 
-        correctIndex: 1, 
-        explanation: "「Li- (〜するために)」の後、現在形動詞は接続法（Manṣūb）になります。" 
-      },
-      { 
-        id: 2527, type: "grammar", 
-        text: "\u200Fلِمَاذَا الْخَبَرُ 'مَبْنِيَّة' مُؤَنَّثٌ مَعَ 'بُيُوت'؟\u200F", 
-        options: ["خَطَأ", "لِأَنَّ 'بُيُوت' جَمْعُ غَيْرِ عَاقِلٍ", "لِأَنَّهَا مُفْرَد", "لِأَنَّهَا لِلتَّوْكِيد"], 
-        correctIndex: 1, 
-        explanation: "人間以外の複数形（Buyūt = 家々）は、文法的に女性単数扱いとなり、述語も女性単数形になります。" 
-      }
-    ],
-    sentences: [
-      { 
-        speaker: "ナレーター", 
-        arabic: "تَقَعُ الدِّرْعِيَّةُ بِالْقُرْبِ مِنَ الرِّيَاضِ.", 
-        japanese: "ディルイーヤはリヤドの近くにあります。",
-        note: "「تَقَعُ (taqa'u)」: 過去形が waqa'a となる弱動詞の現在形。「位置する」という意味です。",
-        relatedGrammarId: 141
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "هِيَ عَاصِمَةُ الدَّوْلَةِ السُّعُودِيَّةِ الْأُولَى.", 
-        japanese: "それは第一サウジ王国の首都です。",
-        note: "「الْأُولَى (al-ūlā)」: 「第一の」。awwal の女性形で、比較級・最上級の不規則な変化です。",
-        relatedGrammarId: 134
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "بُيُوتُهَا مَبْنِيَّةٌ مِنَ الطِّينِ.", 
-        japanese: "その家々は泥（日干しレンガ）で建てられています。",
-        note: "「مَبْنِيَّةٌ (mabniyyatun)」: 「建てられた」という受動分詞。主語の家々が女性扱いなので女性形になっています。",
-        relatedGrammarId: 132
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "حَيُّ الطُّرَيْفِ فِيهَا مَوْقِعُ تُرَاثٍ عَالَمِيٍّ.", 
-        japanese: "その中のトライフ地区は世界遺産です。",
-        note: "「مَوْقِع (mawqi')」: 「場所/サイト」。maf'il パターンを持つ場所の副詞（ザルフ）から派生した名詞です。",
-        relatedGrammarId: 119
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "تَمَّ تَجْدِيدُهَا لِتُصْبِحَ وِجْهَةً سِيَاحِيَّةً.", 
-        japanese: "それは観光地になるよう修復されました。",
-        note: "「لِتُصْبِحَ (li-tuṣbiḥa)」: 目的の Li ＋ 接続法（a段）。カーナの姉妹語 aṣbaḥa の現在形なので、後ろの述語を対格（an）にします。",
-        relatedGrammarId: 126
-      }
-    ]
-  },
-  {
-    id: 253,
-    title: "イブン・アル・ハイサム",
-    category: "歴史",
-    level: "中級",
-    contentVoweled: "أَثْبَتَ ابْنُ الْهَيْثَمِ أَنَّ الضَّوْءَ يَأْتِي مِنَ الْأَشْيَاءِ إِلَى الْعَيْنِ. صَحَّحَ الْمَفَاهِيمَ الْقَدِيمَةَ عَنِ الرُّؤْيَةِ. اخْتَرَعَ الْقُمْرَةَ (الْغُرْفَةَ الْمُظْلِمَةَ). هَذَا الِاخْتِرَاعُ سَاعَدَ فِي تَطْوِيرِ الْكَامِيرَا. لَهُ إِسْهَامَاتٌ كَبِيرَةٌ فِي الْفِيزِيَاءِ.",
-    contentPlain: "أثبت ابن الهيثم أن الضوء يأتي من الأشياء إلى العين. صحح المفاهيم القديمة عن الرؤية. اخترع القمرة (الغرفة المظلمة). هذا الاختراع ساعد في تطوير الكاميرا. له إسهامات كبيرة في الفيزياء.",
-    vocabList: [
-      { word: "بَصَر", meaning: "視覚" },
-      { word: "ضَوْء", meaning: "光" },
-      { word: "كِتَاب", meaning: "本" },
-      { word: "أَثْبَتَ", meaning: "証明した" }, 
-      { word: "اِخْتِرَاع", meaning: "発明" } 
-    ],
-    questions: [
-      { 
-        id: 2531, type: "reading", 
-        text: "\u200Fمَا هُوَ الْعِلْمُ الَّذِي أَسَّسَهُ؟\u200F", 
-        options: ["الرِّيَاضِيَّات", "الْبَصَرِيَّات (Optics)", "الطِّبّ", "الْكِيمِيَاء"], 
-        correctIndex: 1, 
-        explanation: "「عِلْمِ الْبَصَرِيَّاتِ (光学)」です。" 
-      },
-      { 
-        id: 2532, type: "reading", 
-        text: "\u200Fمَاذَا دَرَسَ ابْنُ الْهَيْثَمِ؟\u200F", 
-        options: ["الصَّوْت", "الضَّوْءَ وَالرُّؤْيَةَ", "الرِّيَاح", "النُّجُوم"], 
-        correctIndex: 1, 
-        explanation: "「الضَّوْء (光)」について研究しました。" 
-      },
-      { 
-        id: 2533, type: "reading", 
-        text: "\u200Fمَا اسْمُ كِتَابِهِ الشَّهِيرِ؟\u200F", 
-        options: ["الْقَانُون", "كِتَابُ الْمَنَاظِرِ", "الرِّحْلَة", "الشِّعْر"], 
-        correctIndex: 1, 
-        explanation: "一般知識として「Kitāb al-Manāẓir（光学の書）」です。" 
-      },
-      { 
-        id: 2534, type: "vocabulary", 
-        text: "\u200Fمَا أَصْلُ كَلِمَةِ 'كَامِيرَا'؟\u200F", 
-        options: ["قَمَر", "قُمْرَة (Dark room)", "كِتَاب", "قَلْب"], 
-        correctIndex: 1, 
-        explanation: "「Qumrah (暗い部屋)」がカメラの語源と言われています。" 
-      },
-      { 
-        id: 2535, type: "grammar", 
-        text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Proved'؟\u200F", 
-        options: ["أَثْبَتَ", "نَفَى", "قَالَ", "سَمِعَ"], 
-        correctIndex: 0, 
-        explanation: "「Athbata (Proved)」です。" 
-      },
-      { 
-        id: 2536, type: "grammar", 
-        text: "\u200Fلِمَاذَا اسْتُخْدِمَتْ 'أَنَّ' بَدَلًا مِنْ 'إِنَّ'؟\u200F", 
-        options: ["لِأَنَّهَا فِي بِدَايَةِ الْجُمْلَةِ", "لِأَنَّهَا وَقَعَتْ بَعْدَ فِعْلٍ (أَثْبَتَ)", "لِلسُّؤَالِ", "لِلنَّفْيِ"], 
-        correctIndex: 1, 
-        explanation: "「Athbata (証明した)」という動詞の後に続き、「〜であることを」という名詞節を作るため、Hamzaが上の「Anna」を使います。" 
-      },
-      { 
-        id: 2537, type: "grammar", 
-        text: "\u200Fمَا إِعْرَابُ 'الِاخْتِرَاعُ' فِي 'هَذَا الِاخْتِرَاعُ'؟\u200F", 
-        options: ["خَبَر", "بَدَل (Badal)", "مُضَافٌ إِلَيْهِ", "صِفَة"], 
-        correctIndex: 1, 
-        explanation: "指示代名詞（Hādhā）の後に定冠詞（Al）付きの名詞が来ると、それはBadal（同格）となり、「この発明は〜」と一つのまとまりになります。" 
-      }
-    ],
-    sentences: [
-      { 
-        speaker: "ナレーター", 
-        arabic: "أَثْبَتَ ابْنُ الْهَيْثَمِ أَنَّ الضَّوْءَ يَأْتِي مِنَ الْأَشْيَاءِ إِلَى الْعَيْنِ.", 
-        japanese: "イブン・アル・ハイサムは、光が物体から目に来ることを証明しました。",
-        note: "「أَنَّ (anna)」: インナの姉妹語。動詞の目的語節（〜ということ）を作るために使われ、直後の主語「光」を対格（a）にします。",
-        relatedGrammarId: 150 
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "صَحَّحَ الْمَفَاهِيمَ الْقَدِيمَةَ عَنِ الرُّؤْيَةِ.", 
-        japanese: "彼は視覚に関する古い概念を訂正しました。",
-        note: "「صَحَّحَ (ṣaḥḥaḥa)」: 第2形動詞。ṣaḥīḥ（正しい）から派生し、「正しくする/訂正する」という意味になります。",
-        relatedGrammarId: 130 
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "اخْتَرَعَ الْقُمْرَةَ (الْغُرْفَةَ الْمُظْلِمَةَ).", 
-        japanese: "彼はクムラ（暗い部屋＝カメラ・オブスクラ）を発明しました。",
-        note: "「اخْتَرَعَ (ikhtara'a)」: 第8形動詞（ifta'ala）。「発明する」。",
-        relatedGrammarId: 130 
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "هَذَا الِاخْتِرَاعُ سَاعَدَ فِي تَطْوِيرِ الْكَامِيرَا.", 
-        japanese: "この発明はカメラの発展に役立ちました。",
-        note: "「هَذَا الِاخْتِرَاعُ (hādha l-ikhtirā'u)」: バダル（同格）。指示代名詞と定冠詞つき名詞がセットになり「この発明」という主語になっています。",
-        relatedGrammarId: 148 
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "لَهُ إِسْهَامَاتٌ كَبِيرَةٌ فِي الْفِيزِيَاءِ.", 
-        japanese: "彼には物理学における多大な貢献があります。",
-        note: "「لَهُ (lahu)」: 「彼には〜がある」。前置詞＋代名詞が文頭に置かれ、非限定の主語（貢献）が後ろにくる倒置の名詞文です。",
-        relatedGrammarId: 115 
-      }
-    ]
-  },
-  {
-    id: 254,
-    title: "アラビア数字",
-    category: "歴史",
-    level: "中級",
-    contentVoweled: "الْأَرْقَامُ (1, 2, 3) تُسَمَّى الْأَرْقَامَ الْعَرَبِيَّةَ فِي الْغَرْبِ. طَوَّرَهَا الْعُلَمَاءُ الْمُسْلِمُونَ. تَعْتَمِدُ عَلَى عَدَدِ الزَّوَايَا فِي الرَّقْمِ. سَهَّلَتْ هَذِهِ الْأَرْقَامُ عَمَلِيَّةَ الْحِسَابِ. انْتَقَلَتْ إِلَى أُورُوبَّا عَبْرَ الْأَنْدَلُسِ.",
-    contentPlain: "الأرقام (1, 2, 3) تسمى الأرقام العربية في الغرب. طورها العلماء المسلمون. تعتمد على عدد الزوايا في الرقم. سهلت هذه الأرقام عملية الحساب. انتقلت إلى أوروبا عبر الأندلس.",
-    vocabList: [
-      { word: "رَقْم", meaning: "数字/番号" },
-      { word: "أَصْل", meaning: "起源" },
-      { word: "عَالَم", meaning: "世界" },
-      { word: "زَاوِيَة", meaning: "角（アングル）" }, 
-      { word: "سَهَّلَ", meaning: "容易にした" } 
-    ],
-    questions: [
-      { 
-        id: 2541, type: "reading", 
-        text: "\u200Fمَا أَصْلُ الْأَرْقَامِ الْمُسْتَخْدَمَةِ عَالَمِيًّا؟\u200F", 
-        options: ["رُومَانِيّ", "عَرَبِيّ", "يُونَانِيّ", "صِينِيّ"], 
-        correctIndex: 1, 
-        explanation: "「أَصْلُهَا عَرَبِيٌّ」です。" 
-      },
-      { 
-        id: 2542, type: "reading", 
-        text: "\u200Fمَنْ طَوَّرَ هَذِهِ الْأَرْقَامَ؟\u200F", 
-        options: ["التُّجَّار", "الْعُلَمَاءُ الْمُسْلِمُونَ", "الْمُلُوك", "الْجُنُود"], 
-        correctIndex: 1, 
-        explanation: "「الْعُلَمَاءُ الْمُسْلِمُونَ」です。" 
-      },
-      { 
-        id: 2543, type: "reading", 
-        text: "\u200Fمَا هُوَ أَهَمُّ رَقْمٍ فِي هَذَا النِّظَامِ؟\u200F", 
-        options: ["وَاحِد", "تِسْعَة", "الصِّفْر", "مِائَة"], 
-        correctIndex: 2, 
-        explanation: "「الصِّفْر (ゼロ)」の概念です。" 
-      },
-      { 
-        id: 2544, type: "vocabulary", 
-        text: "\u200Fمَا مَعْنَى 'شَكْل'؟\u200F", 
-        options: ["لَوْن", "هَيْئَة (Shape)", "صَوْت", "عَدَد"], 
-        correctIndex: 1, 
-        explanation: "Shape（形）です。" 
-      },
-      { 
-        id: 2545, type: "grammar", 
-        text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Uses'؟\u200F", 
-        options: ["نَسْتَخْدِمُ", "نَأْخُذُ", "نُعْطِي", "نَكْتُبُ"], 
-        correctIndex: 0, 
-        explanation: "「Nastakhdimu」です。" 
-      },
-      { 
-        id: 2546, type: "grammar", 
-        text: "\u200Fمَا صِيغَةُ الْفِعْلِ 'تُسَمَّى'؟\u200F", 
-        options: ["مَبْنِيٌّ لِلْمَجْهُولِ (Passive)", "مَبْنِيٌّ لِلْمَعْلُومِ", "أَمْر", "مَاضٍ"], 
-        correctIndex: 0, 
-        explanation: "現在形の受動態です。「Tu-」で始まり、最後が「-ā」になっています。" 
-      },
-      { 
-        id: 2547, type: "grammar", 
-        text: "\u200Fلِمَاذَا الْفِعْلُ 'سَهَّلَتْ' مُؤَنَّثٌ؟\u200F", 
-        options: ["لِأَنَّ الْفَاعِلَ 'هَذِهِ الْأَرْقَامُ' (جَمْعُ غَيْرِ عَاقِلٍ)", "لِأَنَّ الْأَرْقَامَ مُؤَنَّث", "لِأَنَّهُ مَاضٍ", "خَطَأ"], 
-        correctIndex: 0, 
-        explanation: "主語である指示代名詞「Hādhihi（これら）」が、非理性的複数の名詞（Al-Arqām）を受けて女性単数扱いになっているため、動詞も女性形になります。" 
-      }
-    ],
-    sentences: [
-      { 
-        speaker: "ナレーター", 
-        arabic: "الْأَرْقَامُ (1, 2, 3) تُسَمَّى الْأَرْقَامَ الْعَرَبِيَّةَ فِي الْغَرْبِ.", 
-        japanese: "数字(1, 2, 3)は西洋ではアラビア数字と呼ばれています。",
-        note: "「تُسَمَّى (tusammā)」: 弱動詞 sammā の現在形受動態。「〜と呼ばれる/名付けられる」。",
-        relatedGrammarId: 129 
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "طَوَّرَهَا الْعُلَمَاءُ الْمُسْلِمُونَ.", 
-        japanese: "イスラムの学者たちがそれを発展させました。",
-        note: "「طَوَّرَهَا (ṭawwara-hā)」: 第2形動詞 ṭawwara に代名詞の hā（数字）が接続した形です。",
-        relatedGrammarId: 122 
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "تَعْتَمِدُ عَلَى عَدَدِ الزَّوَايَا فِي الرَّقْمِ.", 
-        japanese: "（その形は）数字の角（アングル）の数に基づいています。",
-        note: "「تَعْتَمِدُ (ta'tamidu)」: 第8形動詞。「〜に依存する/基づく」という意味です。",
-        relatedGrammarId: 130 
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "سَهَّلَتْ هَذِهِ الْأَرْقَامُ عَمَلِيَّةَ الْحِسَابِ.", 
-        japanese: "これらの数字は計算プロセスを容易にしました。",
-        note: "「سَهَّلَتْ (sahhalat)」: 第2形動詞 sahhala（簡単にする）の女性形。主語の「これらの数字」が非理性的複数なので女性単数扱いです。",
-        relatedGrammarId: 130 
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "انْتَقَلَتْ إِلَى أُورُوبَّا عَبْرَ الْأَنْدَلُسِ.", 
-        japanese: "それらはアンダルス（スペイン）を通ってヨーロッパに伝わりました。",
-        note: "「أُورُوبَّا (Ūrūbbā)」: 外国の地名なので二段変化名詞。属格（前置詞の後ろ）でも形は変わりません（語尾がアリフなので母音は隠れます）。",
-        relatedGrammarId: 142 
-      }
-    ]
-  },
-  {
-    id: 255,
-    title: "オンラインショッピング",
-    category: "社会",
-    level: "中級",
-    contentVoweled: "يُفَضِّلُ الْكَثِيرُ مِنَ النَّاسِ الشِّرَاءَ مِنَ الْمَوَاقِعِ. يُمْكِنُكَ مُقَارَنَةُ الْأَسْعَارِ بِسُهُولَةٍ. خِدْمَةُ التَّوْصِيلِ سَرِيعَةٌ وَمُرِيحَةٌ. لَا حَاجَةَ لِلْخُرُوجِ مِنَ الْبَيْتِ. وَلَكِنْ يَجِبُ التَّأَكُّدُ مِنْ مِصْدَاقِيَّةِ الْمَوْقِعِ.",
-    contentPlain: "يفضل الكثير من الناس الشراء من المواقع. يمكنك مقارنة الأسعار بسهولة. خدمة التوصيل سريعة ومريحة. لا حاجة للخروج من البيت. ولكن يجب التأكد من مصداقية الموقع.",
-    vocabList: [
-      { word: "تَسَوُّق", meaning: "買い物" },
-      { word: "مَوْقِع", meaning: "サイト/場所" },
-      { word: "تَوْصِيل", meaning: "配達" },
-      { word: "مُقَارَنَة", meaning: "比較" }, 
-      { word: "مِصْدَاقِيَّة", meaning: "信憑性/信頼性" } 
-    ],
-    questions: [
-      { 
-        id: 2551, type: "reading", 
-        text: "\u200Fمَاذَا يُفَضِّلُ النَّاسُ الْيَوْمَ؟\u200F", 
-        options: ["الذَّهَابَ لِلسُّوقِ", "الشِّرَاءَ عَبْرَ الْإِنْتَرْنِت (الْمَوَاقِع)", "الْمُقَايَضَة", "صُنْعَ الْأَشْيَاءِ"], 
-        correctIndex: 1, 
-        explanation: "「الشِّرَاءَ مِنَ الْمَوَاقِعِ (サイトから買う)」です。" 
-      },
-      { 
-        id: 2552, type: "reading", 
-        text: "\u200Fلِمَاذَا يُحِبُّونَ التَّسَوُّقَ الْإِلِكْتِرُونِيَّ؟\u200F", 
-        options: ["لِأَنَّهُ غَالٍ", "لِأَنَّهُ صَعْب", "لِلسُّهُولَةِ وَالسُّرْعَةِ", "لِعَدَمِ وُجُودِ مَتَاجِرَ"], 
-        correctIndex: 2, 
-        explanation: "「سَرِيعَة وَمُرِيحَة」です。" 
-      },
-      { 
-        id: 2553, type: "reading", 
-        text: "\u200Fأَيْنَ تَصِلُ الْبَضَائِعُ؟\u200F", 
-        options: ["إِلَى الْمَدْرَسَة", "إِلَى السُّوق", "إِلَى بَابِ الْبَيْتِ", "إِلَى الْبَحْر"], 
-        correctIndex: 2, 
-        explanation: "文脈上、家に届きます。" 
-      },
-      { 
-        id: 2554, type: "vocabulary", 
-        text: "\u200Fمَا مَعْنَى 'تَطْبِيق'؟\u200F", 
-        options: ["هَاتِف", "بَرْنَامَج (App)", "كِتَاب", "شَاشَة"], 
-        correctIndex: 1, 
-        explanation: "Application（アプリ）です。" 
-      },
-      { 
-        id: 2555, type: "grammar", 
-        text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Became'؟\u200F", 
-        options: ["أَصْبَحَ", "كَانَ", "مَا زَالَ", "لَيْسَ"], 
-        correctIndex: 0, 
-        explanation: "「Aṣbaḥa (Became)」です。" 
-      },
-      { 
-        id: 2556, type: "grammar", 
-        text: "\u200Fلِمَاذَا 'حَاجَةَ' مَبْنِيَّةٌ عَلَى الْفَتْحِ فِي 'لَا حَاجَةَ'؟\u200F", 
-        options: ["لِأَنَّهَا مَفْعُول", "لِاسْمِ 'لَا' النَّافِيَةِ لِلْجِنْسِ", "لِلنَّهْيِ", "خَطَأ"], 
-        correctIndex: 1, 
-        explanation: "「〜は全くない」という意味の絶対否定のLa（Lā Nāfiya lil-Jins）の後では、名詞はタンウィーンなしの対格（Manṣūb）になります。" 
-      },
-      { 
-        id: 2557, type: "grammar", 
-        text: "\u200Fمَا إِعْرَابُ 'التَّأَكُّدُ' فِي 'يَجِبُ التَّأَكُّدُ'؟\u200F", 
-        options: ["فَاعِل (Subject)", "مَفْعُول (Object)", "مُضَافٌ إِلَيْهِ", "تَمْيِيز"], 
-        correctIndex: 0, 
-        explanation: "動詞「Yajibu（必要である）」の主語（Fā'il）なので、主格（Marfū'）となります。「確認すること・が必要である」という構造です。" 
-      }
-    ],
-    sentences: [
-      { 
-        speaker: "ナレーター", 
-        arabic: "يُفَضِّلُ الْكَثِيرُ مِنَ النَّاسِ الشِّرَاءَ مِنَ الْمَوَاقِعِ.", 
-        japanese: "多くの人がサイトから買うことを好みます。",
-        note: "「يُفَضِّلُ (yufaḍḍilu)」: 第2形動詞 faḍḍala の現在形。「〜を好む/優先する」。",
-        relatedGrammarId: 130 
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "يُمْكِنُكَ مُقَارَنَةُ الْأَسْعَارِ بِسُهُولَةٍ.", 
-        japanese: "（あなたは）簡単に価格を比較できます。",
-        note: "「مُقَارَنَة (muqārana)」: 第3形動詞 qārana（比較する）の動名詞。mufā'ala パターンです。",
-        relatedGrammarId: 133 
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "خِدْمَةُ التَّوْصِيلِ سَرِيعَةٌ وَمُرِيحَةٌ.", 
-        japanese: "配達サービスは速くて快適です。",
-        note: "「تَوْصِيل (tawṣīl)」: 第2形動詞 waṣṣala（届ける）の動名詞。taf'īl パターンです。",
-        relatedGrammarId: 133 
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "لَا حَاجَةَ لِلْخُرُوجِ مِنَ الْبَيْتِ.", 
-        japanese: "家から出る必要がありません。",
-        note: "「لَا حَاجَةَ (lā ḥājata)」: 「〜は一切ない」という種族否定（絶対否定）のラー。後ろの名詞はタンウィーンなしの対格（a）になります。",
-        relatedGrammarId: 149 
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "وَلَكِنْ يَجِبُ التَّأَكُّدُ مِنْ مِصْدَاقِيَّةِ الْمَوْقِعِ.", 
-        japanese: "しかし、サイトの信頼性を確認する必要があります。",
-        note: "「تَأَكُّد (ta'akkud)」: 第5形動詞 ta'akkada（確かめる）の動名詞。tufa''ul パターンです。",
-        relatedGrammarId: 133 
-      }
-    ]
-  },
-  {
-    id: 240,
-    title: "親切な男",
-    category: "物語",
-    level: "中級",
-    contentVoweled: "كَانَ الرَّجُلُ يَمْشِي فِي الصَّحْرَاءِ. رَأَى كَلْبًا يَلْهَثُ مِنَ الْعَطَشِ. نَزَلَ الرَّجُلُ إِلَى الْبِئْرِ. مَلَأَ حِذَاءَهُ بِالْمَاءِ وَسَقَى الْكَلْبَ. شَكَرَ اللهُ لَهُ وَغَفَرَ ذَنْبَهُ.",
-    contentPlain: "كان الرجل يمشي في الصحراء. رأى كلبا يلهث من العطش. نزل الرجل إلى البئر. ملأ حذاءه بالماء وسقى الكلب. شكر الله له وغفر ذنبه.",
-    vocabList: [
-      { word: "كَلْب", meaning: "犬" },
-      { word: "مَاء", meaning: "水" },
-      { word: "رَحْمَة", meaning: "慈悲" },
-      { word: "عَطَش", meaning: "渇き" }, 
-      { word: "حِذَاء", meaning: "靴" } 
-    ],
-    questions: [
-      { 
-        id: 2401, type: "reading", 
-        text: "\u200Fمَاذَا وَجَدَ الرَّجُلُ فِي الصَّحْرَاءِ؟\u200F", 
-        options: ["قِطَّة", "طَائِرًا", "كَلْبًا عَطْشَانَ", "أَسَدًا"], 
-        correctIndex: 2, 
-        explanation: "「كَلْبًا عَطْشَانَ」です。" 
-      },
-      { 
-        id: 2402, type: "reading", 
-        text: "\u200Fمَاذَا فَعَلَ الرَّجُلُ لِلْكَلْبِ؟\u200F", 
-        options: ["هَرَبَ", "سَقَاهُ الْمَاءَ", "ضَرَبَهُ", "أَخَذَهُ لِلْبَيْتِ"], 
-        correctIndex: 1, 
-        explanation: "「سَقَاهُ الْمَاءَ (彼に水を飲ませた)」です。" 
-      },
-      { 
-        id: 2403, type: "reading", 
-        text: "\u200Fكَيْفَ أَخْرَجَ الْمَاءَ؟\u200F", 
-        options: ["بِالْكَأْسِ", "بِحِذَائِهِ", "بِيَدِهِ", "بِالدَّلْوِ"], 
-        correctIndex: 1, 
-        explanation: "「بِحِذَائِهِ (彼の靴で)」です。" 
-      },
-      { 
-        id: 2404, type: "vocabulary", 
-        text: "\u200Fمَا مَعْنَى 'بِئْر'؟\u200F", 
-        options: ["حُفْرَةٌ فِيهَا مَاءٌ (Well)", "نَهْر", "بَحْر", "جَبَل"], 
-        correctIndex: 0, 
-        explanation: "Well（井戸）です。" 
-      },
-      { 
-        id: 2405, type: "grammar", 
-        text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Went down'؟\u200F", 
-        options: ["نَزَلَ", "صَعِدَ", "دَخَلَ", "خَرَجَ"], 
-        correctIndex: 0, 
-        explanation: "「Nazala」です。" 
-      },
-      { 
-        id: 2406, type: "grammar", 
-        text: "\u200Fمَا إِعْرَابُ جُمْلَة 'يَلْهَثُ' بَعْدَ 'كَلْبًا'؟\u200F", 
-        options: ["خَبَر", "صِفَة (نَعْت)", "اِسْم", "حَرْف جَرّ"], 
-        correctIndex: 1, 
-        explanation: "非限定名詞（Kalban）の後の動詞文は、その名詞を修飾する形容詞（Siifah）の役割を果たします。「喘いでいる犬」となります。" 
-      },
-      { 
-        id: 2407, type: "grammar", 
-        text: "\u200Fمَا جَذْرُ (أَصْلُ) الْفِعْلِ 'سَقَى'؟\u200F", 
-        options: ["س-ق-ي", "س-ك-ن", "س-ر-ق", "ق-و-ل"], 
-        correctIndex: 0, 
-        explanation: "「水をやる」という意味の動詞の語根は Sīn-Qāf-Yā です。" 
-      }
-    ],
-    sentences: [
-      { 
-        speaker: "ナレーター", 
-        arabic: "كَانَ الرَّجُلُ يَمْشِي فِي الصَّحْرَاءِ.", 
-        japanese: "男は砂漠を歩いていました。",
-        note: "「كَانَ يَمْشِي (kāna yamshī)」: カーナの過去形に動詞の現在形を続けることで、「〜していた」という過去進行形を作ります。",
-        relatedGrammarId: 125
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "رَأَى كَلْبًا يَلْهَثُ مِنَ الْعَطَشِ.", 
-        japanese: "彼は渇きで喘いでいる犬を見ました。",
-        note: "「يَلْهَثُ (yalhathu)」: 「喘ぐ」。前の名詞「犬（kalban）」が非限定なので、この動詞文は「喘いでいる（犬）」と形容詞のように名詞を修飾しています。",
-        relatedGrammarId: 144
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "نَزَلَ الرَّجُلُ إِلَى الْبِئْرِ.", 
-        japanese: "男は井戸に降りました。",
-        note: "「إِلَى الْبِئْرِ (ilā al-bi'ri)」: 前置詞 ilā の後ろなので、井戸（bi'r）の語尾は属格（i）になっています。",
-        relatedGrammarId: 116
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "مَلَأَ حِذَاءَهُ بِالْمَاءِ وَسَقَى الْكَلْبَ.", 
-        japanese: "靴を水で満たし、犬に飲ませました。",
-        note: "「سَقَى (saqā)」: 「飲ませた」。語尾がアリフ・マクスーラ（ى）で終わる弱動詞の過去形です。",
-        relatedGrammarId: 141
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "شَكَرَ اللهُ لَهُ وَغَفَرَ ذَنْبَهُ.", 
-        japanese: "神は彼に感謝し、罪を許しました。",
-        note: "「لَهُ (la-hu)」: 前置詞 Li ＋ 代名詞 hu。前置詞 Li に代名詞が接続する場合、母音 i が a に変化して lahu となります。",
-        relatedGrammarId: 135
-      }
-    ]
-  },
-  {
-    id: 241,
-    title: "金持ちと貧乏人",
-    category: "物語",
-    level: "中級",
-    contentVoweled: "عَاشَ رَجُلٌ غَنِيٌّ فِي قَصْرٍ كَبِيرٍ. كَانَ يَخَافُ عَلَى مَالِهِ فَلَا يَنَامُ. بِجَانِبِهِ رَجُلٌ فَقِيرٌ يَنَامُ بِعُمْقٍ. سَأَلَهُ الْغَنِيُّ: كَيْفَ تَسْعَدُ وَأَنْتَ فَقِيرٌ؟ قَالَ: الْقَنَاعَةُ كَنْزٌ لَا يَفْنَى.",
-    contentPlain: "عاش رجل غني في قصر كبير. كان يخاف على ماله فلا ينام. بجانبه رجل فقير ينام بعمق. سأله الغني: كيف تسعد وأنت فقير؟ قال: القناعة كنز لا يفنى.",
-    vocabList: [
-      { word: "مَال", meaning: "お金/財産" },
-      { word: "سَعَادَة", meaning: "幸せ" },
-      { word: "قَنَاعَة", meaning: "満足/納得" },
-      { word: "يَفْنَى", meaning: "尽きる/滅びる" }, 
-      { word: "عُمْق", meaning: "深さ/深く" } 
-    ],
-    questions: [
-      { 
-        id: 2411, type: "reading", 
-        text: "\u200Fمَا هِيَ السَّعَادَةُ الْحَقِيقِيَّةُ؟\u200F", 
-        options: ["الْمَالُ الْكَثِيرُ", "رَاحَةُ الْبَالِ وَالْقَنَاعَةُ", "الْبَيْتُ الْكَبِيرُ", "السَّيَّارَةُ الْغَالِيَةُ"], 
-        correctIndex: 1, 
-        explanation: "「رَاحَة الْبَال (心の安らぎ)」や「الْقَنَاعَة (満足)」です。" 
-      },
-      { 
-        id: 2412, type: "reading", 
-        text: "\u200Fكَيْفَ كَانَ حَالُ الرَّجُلِ الْغَنِيِّ؟\u200F", 
-        options: ["سَعِيدًا", "قَلِقًا لَا يَنَامُ", "يَنَامُ جَيِّدًا", "فَقِيرًا"], 
-        correctIndex: 1, 
-        explanation: "「يَخَافُ عَلَى مَالِهِ (財産を心配していた)」です。" 
-      },
-      { 
-        id: 2413, type: "reading", 
-        text: "\u200Fكَيْفَ كَانَ حَالُ الرَّجُلِ الْفَقِيرِ؟\u200F", 
-        options: ["يَبْكِي", "يَنَامُ بِعُمْقٍ", "غَاضِبًا", "مَرِيضًا"], 
-        correctIndex: 1, 
-        explanation: "「يَنَامُ بِعُمْقٍ (深く眠っていた)」です。" 
-      },
-      { 
-        id: 2414, type: "vocabulary", 
-        text: "\u200Fمَا مَعْنَى 'كَنْز'؟\u200F", 
-        options: ["ثَرْوَةٌ / مَالٌ مَدْفُونٌ (Treasure)", "قُمَامَة", "حَجَر", "رَمْل"], 
-        correctIndex: 0, 
-        explanation: "Treasure（宝）です。" 
-      },
-      { 
-        id: 2415, type: "grammar", 
-        text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Owns/Possesses'؟\u200F", 
-        options: ["يَمْلِكُ", "يَفْقِدُ", "يُعْطِي", "يَأْخُذُ"], 
-        correctIndex: 0, 
-        explanation: "「Yamliku (所有する)」です。" 
-      },
-      { 
-        id: 2416, type: "grammar", 
-        text: "\u200Fمَا نَوْعُ الْجُمْلَةِ 'الْقَنَاعَةُ كَنْزٌ'؟\u200F", 
-        options: ["جُمْلَةٌ فِعْلِيَّةٌ", "جُمْلَةٌ اسْمِيَّةٌ", "سُؤَال", "أَمْر"], 
-        correctIndex: 1, 
-        explanation: "名詞（Al-Qanā'a）で始まっているため、名詞文です。主語（Mubtada'）と述語（Khabar）で構成されています。" 
-      },
-      { 
-        id: 2417, type: "grammar", 
-        text: "\u200Fمَا نَوْعُ 'لَا' فِي 'لَا يَفْنَى'؟\u200F", 
-        options: ["لَا النَّاهِيَة", "لَا النَّافِيَة", "لَا لِلْمَاضِي", "تَوْكِيد"], 
-        correctIndex: 1, 
-        explanation: "動詞の語尾がスクーン（省略）になっていないため、禁止（Nahiya）ではなく、単なる否定（Nafiya）のLaです。" 
-      }
-    ],
-    sentences: [
-      { 
-        speaker: "ナレーター", 
-        arabic: "عَاشَ رَجُلٌ غَنِيٌّ فِي قَصْرٍ كَبِيرٍ.", 
-        japanese: "ある金持ちが大きな宮殿に住んでいました。",
-        note: "「قَصْرٍ كَبِيرٍ (qaṣrin kabīrin)」: 形容詞修飾。前置詞 fī の影響で宮殿（qaṣr）が属格（in）になり、形容詞（kabīr）も属格（in）で一致しています。",
-        relatedGrammarId: 114
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "كَانَ يَخَافُ عَلَى مَالِهِ فَلَا يَنَامُ.", 
-        japanese: "彼はお金の心配で眠れませんでした。",
-        note: "「كَانَ يَخَافُ (kāna yakhāfu)」: 過去進行形（〜していた）。yakhāfu は「خَافَ (khāfa:恐れた)」という中空動詞の現在形です。",
-        relatedGrammarId: 139
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "بِجَانِبِهِ رَجُلٌ فَقِيرٌ يَنَامُ بِعُمْقٍ.", 
-        japanese: "隣には深く眠る貧しい男がいました。",
-        note: "「بِجَانِبِهِ (bi-jānibi-hi)」: 前置詞 bi ＋名詞 jānib ＋代名詞 hu。前置詞の i 音に引きずられ、代名詞も hi に変化しています。",
-        relatedGrammarId: 135
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "سَأَلَهُ الْغَنِيُّ: كَيْفَ تَسْعَدُ وَأَنْتَ فَقِيرٌ؟", 
-        japanese: "金持ちは聞きました。「貧しいのになぜ幸せ（になれる）なんだ？」",
-        note: "「وَأَنْتَ فَقِيرٌ (wa anta faqīrun)」: 「ワウ・ル・ハール（状態のワウ）」。文全体で「あなたが貧しい状態で」という状況（ハール）を表しています。",
-        relatedGrammarId: 144
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "قَالَ: الْقَنَاعَةُ كَنْزٌ لَا يَفْنَى.", 
-        japanese: "彼は言いました。「足るを知ることは尽きない宝です。」",
-        note: "「لَا يَفْنَى (lā yafnā)」: 否定の Lā ＋ 弱動詞の現在形。「滅びない/尽きない」という意味です。語末の弱い文字はそのまま残ります。",
-        relatedGrammarId: 141
-      }
-    ]
-  },
-  {
-    id: 242,
-    title: "ハトとアリ",
-    category: "物語",
-    level: "中級",
-    contentVoweled: "أَنْقَذَتِ الْحَمَامَةُ النَّمْلَةَ مِنَ الْغَرَقِ. بَعْدَ أَيَّامٍ، جَاءَ صَيَّادٌ. أَرَادَ صَيْدَ الْحَمَامَةِ. لَدَغَتِ النَّمْلَةُ قَدَمَ الصَّيَّادِ. صَرَخَ الصَّيَّادُ وَهَرَبَتِ الْحَمَامَةُ.",
-    contentPlain: "أنقذت الحمامة النملة من الغرق. بعد أيام، جاء صياد. أراد صيد الحمامة. لدغت النملة قدم الصياد. صرخ الصياد وهربت الحمامة.",
-    vocabList: [
-      { word: "حَمَامَة", meaning: "ハト" },
-      { word: "نَمْلَة", meaning: "アリ" },
-      { word: "غَرِقَ", meaning: "溺れた" },
-      { word: "أَنْقَذَ", meaning: "助けた" }, 
-      { word: "لَدَغَ", meaning: "刺した/噛んだ" } 
-    ],
-    questions: [
-      { 
-        id: 2421, type: "reading", 
-        text: "\u200Fمَاذَا حَدَثَ لِلنَّمْلَةِ فِي الْبِدَايَةِ؟\u200F", 
-        options: ["طَارَتْ", "كَادَتْ تَغْرَقُ", "تَسَلَّقَتْ شَجَرَةً", "نَامَتْ"], 
-        correctIndex: 1, 
-        explanation: "「مِنَ الْغَرَقِ (溺れることから)」助けられました。" 
-      },
-      { 
-        id: 2422, type: "reading", 
-        text: "\u200Fمَاذَا فَعَلَتِ الْحَمَامَةُ؟\u200F", 
-        options: ["شَاهَدَتْ", "أَنْقَذَتِ النَّمْلَةَ", "أَكَلَتْ", "هَرَبَتْ"], 
-        correctIndex: 1, 
-        explanation: "「أَنْقَذَتِ ... النَّمْلَةَ (アリを救った)」です。" 
-      },
-      { 
-        id: 2423, type: "reading", 
-        text: "\u200Fكَيْفَ رَدَّتِ النَّمْلَةُ الْجَمِيلَ؟\u200F", 
-        options: ["أَنْقَذَتِ الْحَمَامَةَ (لَدَغَتِ الصَّيَّادَ)", "نَسِيَتْ", "هَرَبَتْ", "مَاتَتْ"], 
-        correctIndex: 0, 
-        explanation: "猟師を噛んでハトを救いました。" 
-      },
-      { 
-        id: 2424, type: "vocabulary", 
-        text: "\u200Fمَا مَعْنَى 'صَيَّاد'؟\u200F", 
-        options: ["فَلَّاح", "شَخْصٌ يَصِيدُ (Hunter)", "طَبِيب", "مَلِك"], 
-        correctIndex: 1, 
-        explanation: "Hunter（猟師）です。" 
-      },
-      { 
-        id: 2425, type: "grammar", 
-        text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Threw'؟\u200F", 
-        options: ["أَلْقَى / رَمَى", "أَخَذَ", "أَمْسَكَ", "وَجَدَ"], 
-        correctIndex: 0, 
-        explanation: "「Alqā」または「Ramā」です。" 
-      },
-      { 
-        id: 2426, type: "grammar", 
-        text: "\u200Fلِمَاذَا كُسِرَتْ التَّاءُ فِي 'أَنْقَذَتِ'؟\u200F", 
-        options: ["لِأَنَّهَا مُؤَنَّث", "لِأَنَّهَا مَاضٍ", "لِمَنْعِ الْتِقَاءِ السَّاكِنَيْنِ", "إِضَافَة"], 
-        correctIndex: 2, 
-        explanation: "本来「Anqadhat」ですが、次の「al-」のSukoonとぶつかるため（Iltiqa' al-Sakinayn）、発音しやすくするためにKasra（i）に変えています。" 
-      },
-      { 
-        id: 2427, type: "grammar", 
-        text: "\u200Fلِمَاذَا 'أَيَّامٍ' مَجْرُورَةٌ فِي 'بَعْدَ أَيَّامٍ'؟\u200F", 
-        options: ["صِفَة", "مَفْعُول", "مُضَافٌ إِلَيْهِ", "فَاعِل"], 
-        correctIndex: 2, 
-        explanation: "「Ba'da（〜の後）」などの副詞的名詞は、後ろに来る名詞をイダーファの第2要素（Muḍāf Ilayhi）として属格（Majrur）にします。" 
-      }
-    ],
-    sentences: [
-      { 
-        speaker: "ナレーター", 
-        arabic: "أَنْقَذَتِ الْحَمَامَةُ النَّمْلَةَ مِنَ الْغَرَقِ.", 
-        japanese: "ハトはアリを溺死から救いました。",
-        note: "「أَنْقَذَتِ (anqadhati)」: 女性の過去形語尾 at が、次の Al との連続による発音の難しさを避けるため ati に変わっています。",
-        relatedGrammarId: 135
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "بَعْدَ أَيَّامٍ، جَاءَ صَيَّادٌ.", 
-        japanese: "数日後、猟師が来ました。",
-        note: "「بَعْدَ أَيَّامٍ (ba'da ayyāmin)」: 時の副詞「〜の後」が作るイダーファ構造。2語目の「日々の（ayyām）」は属格（in）になります。",
-        relatedGrammarId: 119
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "أَرَادَ صَيْدَ الْحَمَامَةِ.", 
-        japanese: "彼はハトを捕まえようとしました。",
-        note: "「صَيْدَ الْحَمَامَةِ」: ハトの狩猟。イダーファ構造で、1語目が対格（目的語）、2語目が属格（i）になっています。",
-        relatedGrammarId: 118
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "لَدَغَتِ النَّمْلَةُ قَدَمَ الصَّيَّادِ.", 
-        japanese: "アリは猟師の足を噛みました。",
-        note: "「قَدَمَ الصَّيَّادِ (qadama aṣ-ṣayyādi)」: こちらも猟師の・足というイダーファ構造です。足（qadam）は目的語なので対格（a）です。",
-        relatedGrammarId: 118
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "صَرَخَ الصَّيَّادُ وَهَرَبَتِ الْحَمَامَةُ.", 
-        japanese: "猟師は叫び、ハトは逃げました。",
-        note: "「وَهَرَبَتِ (wa harabati)」: 逃げた。これも女性過去形 at が、次の定冠詞との衝突を避けて ati と発音されています。",
-        relatedGrammarId: 135
-      }
-    ]
-  },
-  {
-    id: 243,
-    title: "知識の旅",
-    category: "文学",
-    level: "中級",
-    contentVoweled: "الْعِلْمُ لَا يَأْتِي وَأَنْتَ جَالِسٌ. كَانَ الْعُلَمَاءُ يُسَافِرُونَ لِطَلَبِ الْحَدِيثِ. تَحَمَّلُوا الْجُوعَ وَالتَّعَبَ. الْعِلْمُ يَرْفَعُ بَيْتًا لَا عِمَادَ لَهُ. بِالْعِلْمِ تَتَقَدَّمُ الْأُمَمُ.",
-    contentPlain: "العلم لا يأتي وأنت جالس. كان العلماء يسافرون لطلب الحديث. تحملوا الجوع والتعب. العلم يرفع بيتا لا عماد له. بالعلم تتقدم الأمم.",
-    vocabList: [
-      { word: "عِلْم", meaning: "知識/学問" },
-      { word: "مَهْد", meaning: "ゆりかご" },
-      { word: "لَحْد", meaning: "墓" },
-      { word: "جَالِس", meaning: "座っている" }, 
-      { word: "عِمَاد", meaning: "柱" } 
-    ],
-    questions: [
-      { 
-        id: 2431, type: "reading", 
-        text: "\u200Fمَا مَعْنَى 'مِنَ الْمَهْدِ إِلَى اللَّحْدِ'؟\u200F", 
-        options: ["النَّوْمُ طَوَالَ الْحَيَاةِ", "طَلَبُ الْعِلْمِ طَوَالَ الْحَيَاةِ", "الدِّرَاسَةُ فِي الصِّغَرِ فَقَط", "الذَّهَابُ لِلْمَدْرَسَةِ"], 
-        correctIndex: 1, 
-        explanation: "「مِنَ الْمَهْدِ إِلَى اللَّحْدِ」は生涯学習を意味します。" 
-      },
-      { 
-        id: 2432, type: "reading", 
-        text: "\u200Fكَيْفَ نَحْصُلُ عَلَى الْعِلْمِ؟\u200F", 
-        options: ["بِالِانْتِظَارِ", "بِالسَّفَرِ وَالطَّلَبِ", "بِالشِّرَاءِ", "بِالسَّرِقَةِ"], 
-        correctIndex: 1, 
-        explanation: "「سَافَرَ (旅した)」「اُطْلُبُوا (求めよ)」です。" 
-      },
-      { 
-        id: 2433, type: "reading", 
-        text: "\u200Fمَاذَا فَعَلَ الْعُلَمَاءُ قَدِيمًا؟\u200F", 
-        options: ["بَحَثُوا فِي الْإِنْتَرْنِت", "سَافَرُوا مَسَافَاتٍ طَوِيلَةً", "اِسْتَسْلَمُوا", "أَحْرَقُوا الْكُتُبَ"], 
-        correctIndex: 1, 
-        explanation: "「يُسَافِرُونَ (旅をしていた)」です。" 
-      },
-      { 
-        id: 2434, type: "vocabulary", 
-        text: "\u200Fمَا مَعْنَى 'سَفَر'؟\u200F", 
-        options: ["كِتَاب", "رِحْلَة / انْتِقَال", "بَيْت", "قَلَم"], 
-        correctIndex: 1, 
-        explanation: "Travel（旅行）です。" 
-      },
-      { 
-        id: 2435, type: "grammar", 
-        text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Seek/Ask for' (Command)؟\u200F", 
-        options: ["اُطْلُبْ", "اُتْرُكْ", "اِنْسَ", "اِبْكِ"], 
-        correctIndex: 0, 
-        explanation: "「Uṭlub」です。" 
-      },
-      { 
-        id: 2436, type: "grammar", 
-        text: "\u200Fمَا إِعْرَابُ جُمْلَة 'وَأَنْتَ جَالِسٌ'؟\u200F", 
-        options: ["صِفَة", "حَال", "مَفْعُول", "فَاعِل"], 
-        correctIndex: 1, 
-        explanation: "「Wāw al-Ḥāl」＋名詞文で、「あなたが座っている状態で」という様子を表します。" 
-      },
-      { 
-        id: 2437, type: "grammar", 
-        text: "\u200Fمَا جَذْرُ الْفِعْلِ 'تَحَمَّلُوا'؟\u200F", 
-        options: ["ح-م-ل", "ج-م-ل", "ت-م-ل", "أ-م-ل"], 
-        correctIndex: 0, 
-        explanation: "「耐える・背負う」の語根は Ḥā-Mīm-Lām (Ḥ-M-L) です。" 
-      }
-    ],
-    sentences: [
-      { 
-        speaker: "ナレーター", 
-        arabic: "الْعِلْمُ لَا يَأْتِي وَأَنْتَ جَالِسٌ.", 
-        japanese: "知識は（あなたが）座っているだけでは来ません。",
-        note: "「وَأَنْتَ جَالِسٌ (wa anta jālisun)」: 状態のワウ（〜している状態で）に導かれる名詞文ハール。jālis は能動分詞「座っている人」です。",
-        relatedGrammarId: 144
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "كَانَ الْعُلَمَاءُ يُسَافِرُونَ لِطَلَبِ الْحَدِيثِ.", 
-        japanese: "学者たちはハディース（伝承）を求めて旅をしていました。",
-        note: "「كَانَ... يُسَافِرُونَ」: カーナ＋現在形で過去の習慣（〜していた）。主語の学者たちは複数なので動詞も yusāfirūna となっています。",
-        relatedGrammarId: 125
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "تَحَمَّلُوا الْجُوعَ وَالتَّعَبَ.", 
-        japanese: "彼らは飢えと疲れに耐えました。",
-        note: "「تَحَمَّلُوا (taḥammalū)」: 第5形動詞 taḥammala（耐える/背負う）の過去複数形です。語頭に Ta、真ん中にシャッダがあります。",
-        relatedGrammarId: 130
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "الْعِلْمُ يَرْفَعُ بَيْتًا لَا عِمَادَ لَهُ.", 
-        japanese: "知識は柱のない家をも高くします（高めます）。",
-        note: "「لَا عِمَادَ لَهُ (lā 'imāda lahu)」: 種族否定のラー。「柱が（全く）ない」。直後の名詞は対格（a）に固定されます。",
-        relatedGrammarId: 149
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "بِالْعِلْمِ تَتَقَدَّمُ الْأُمَمُ.", 
-        japanese: "知識によって国々は発展します。",
-        note: "「تَتَقَدَّمُ (tataqaddamu)」: 第5形動詞（発展する/前進する）。主語が非理性的複数（国々/umam）なので女性単数で受けます。",
-        relatedGrammarId: 111
-      }
-    ]
-  },
-  {
-    id: 244,
-    title: "母の恩恵",
-    category: "文化",
-    level: "中級",
-    contentVoweled: "الْأُمُّ هِيَ مَصْدَرُ الْحَنَانِ. سَهِرَتْ اللَّيَالِيَ مِنْ أَجْلِ رَاحَتِنَا. وَصَّى الْإِسْلَامُ بِالْإِحْسَانِ إِلَيْهَا. رِضَا اللهِ فِي رِضَا الْوَالِدَيْنِ. لَا نَسْتَطِيعُ رَدَّ جَمِيلِهَا.",
-    contentPlain: "الأم هي مصدر الحنان. سهرت الليالي من أجل راحتنا. وصى الإسلام بالإحسان إليها. رضا الله في رضا الوالدين. لا نستطيع رد جميلها.",
-    vocabList: [
-      { word: "أُمّ", meaning: "母" },
-      { word: "جَنَّة", meaning: "天国" },
-      { word: "قَدَم", meaning: "足" },
-      { word: "حَنَان", meaning: "優しさ/愛情" }, 
-      { word: "إِحْسَان", meaning: "善行/親切" } 
-    ],
-    questions: [
-      { 
-        id: 2441, type: "reading", 
-        text: "\u200Fأَيْنَ الْجَنَّةُ كَمَا وَرَدَ فِي الْأَثَرِ؟\u200F", 
-        options: ["فِي السَّمَاءِ", "تَحْتَ أَقْدَامِ الْأُمَّهَاتِ", "فِي الْبَحْرِ", "فَوْقَ الْجَبَلِ"], 
-        correctIndex: 1, 
-        explanation: "「تَحْتَ أَقْدَامِ الْأُمَّهَاتِ」という有名なハディースがあります。" 
-      },
-      { 
-        id: 2442, type: "reading", 
-        text: "\u200Fكَيْفَ يَجِبُ أَنْ نُعَامِلَ الْأُمَّ؟\u200F", 
-        options: ["نَتَجَاهَلُهَا", "نُحْسِنُ إِلَيْهَا (بِرُّ الْوَالِدَيْنِ)", "نَغْضَبُ عَلَيْهَا", "نَبْتَعِدُ عَنْهَا"], 
-        correctIndex: 1, 
-        explanation: "「بِرُّ الْوَالِدَيْنِ (親孝行)」や「الْإِحْسَان」が重要です。" 
-      },
-      { 
-        id: 2443, type: "reading", 
-        text: "\u200Fمَاذَا فَعَلَتِ الْأُمُّ مِنْ أَجْلِنَا؟\u200F", 
-        options: ["لَعِبَتْ", "سَهِرَتْ اللَّيَالِيَ لِرَاحَتِنَا", "نَامَتْ", "نَسِيَتْ"], 
-        correctIndex: 1, 
-        explanation: "「سَهِرَتْ اللَّيَالِيَ (夜を徹して起きていた)」です。" 
-      },
-      { 
-        id: 2444, type: "vocabulary", 
-        text: "\u200Fمَا مَعْنَى 'قَلْب'؟\u200F", 
-        options: ["رَأْس", "فُؤَاد (Heart)", "يَد", "عَيْن"], 
-        correctIndex: 1, 
-        explanation: "Heart（心）です。" 
-      },
-      { 
-        id: 2445, type: "grammar", 
-        text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'I love'؟\u200F", 
-        options: ["أُحِبُّ", "أَكْرَهُ", "أَضْرِبُ", "أَقْتُلُ"], 
-        correctIndex: 0, 
-        explanation: "「Uḥibbu」です。" 
-      },
-      { 
-        id: 2446, type: "grammar", 
-        text: "\u200Fمَا مُفْرَدُ 'اللَّيَالِي'؟\u200F", 
-        options: ["لَيْلَة", "لَيْل", "نَهَار", "يَوْم"], 
-        correctIndex: 0, 
-        explanation: "「Layla (Night)」の不規則複数形（Jam' Taksīr）が「Layālī」です。" 
-      },
-      { 
-        id: 2447, type: "grammar", 
-        text: "\u200Fلِمَاذَا لَا تَظْهَرُ الْحَرَكَةُ عَلَى آخِرِ 'رِضَا'؟\u200F", 
-        options: ["مَحْذُوفَة", "لِلتَّعَذُّرِ (مَقْصُور)", "لِلثِّقَلِ", "سُكُون"], 
-        correctIndex: 1, 
-        explanation: "Alif（アリフ）で終わる名詞（Ism Maqsur）は、母音を乗せることが物理的に不可能なため、推定母音（Harakat Muqaddara）となります。" 
-      }
-    ],
-    sentences: [
-      { 
-        speaker: "ナレーター", 
-        arabic: "الْأُمُّ هِيَ مَصْدَرُ الْحَنَانِ.", 
-        japanese: "母は優しさの源です。",
-        note: "「هِيَ (hiya)」: 主語（母）と述語（源）の間に入る分離代名詞。コピュラ（〜である）の働きをします。",
-        relatedGrammarId: 115
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "سَهِرَتْ اللَّيَالِيَ مِنْ أَجْلِ رَاحَتِنَا.", 
-        japanese: "彼女は私たちの安らぎのために夜通し起きていました。",
-        note: "「اللَّيَالِيَ (al-layāliya)」: 夜（layla）の複数形。対格なので語末に a がつきます。マファーイール型不規則複数です。",
-        relatedGrammarId: 136
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "وَصَّى الْإِسْلَامُ بِالْإِحْسَانِ إِلَيْهَا.", 
-        japanese: "イスラムは彼女への善行を推奨しました（命じました）。",
-        note: "「إِلَيْهَا (ilay-hā)」: 前置詞 ilā に彼女（hā）が接続し、音が ilayya のように変化するルールに基づいています。",
-        relatedGrammarId: 135
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "رِضَا اللهِ فِي رِضَا الْوَالِدَيْنِ.", 
-        japanese: "神の満足は両親の満足にあります。",
-        note: "「الْوَالِدَيْنِ (al-wālidayni)」: 「両親」。双数形の属格です。イダーファの第2要素として置かれています。",
-        relatedGrammarId: 111
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "لَا نَسْتَطِيعُ رَدَّ جَمِيلِهَا.", 
-        japanese: "私たちは彼女の恩を返しきることはできません。",
-        note: "「نَسْتَطِيعُ (nastaṭī'u)」: 第10形の中空動詞。「〜できる」の意味です。",
-        relatedGrammarId: 139
-      }
-    ]
-  },
-  {
-    id: 245,
-    title: "サウジの結婚式",
-    category: "文化",
-    level: "中級",
-    contentVoweled: "يَجْتَمِعُ الْأَقَارِبُ وَالْأَصْدِقَاءُ لِلتَّهْنِئَةِ. يَرْتَدِي الرِّجَالُ الْمَلَابِسَ التَّقْلِيدِيَّةَ. تُقَامُ الْعَرْضَةُ النَّجْدِيَّةُ بِالسُّيُوفِ. الْوَلِيمَةُ تَكُونُ كَبِيرَةً وَدَسِمَةً. يَفْرَحُ الْجَمِيعُ بِالْعَرِيسَيْنِ.",
-    contentPlain: "يجتمع الأقارب والأصدقاء للتهنئة. يرتدي الرجال الملابس التقليدية. تقام العرضة النجدية بالسيوف. الوليمة تكون كبيرة ودسمة. يفرح الجميع بالعريسين.",
-    vocabList: [
-      { word: "عُرْس", meaning: "結婚式" },
-      { word: "وَلِيمَة", meaning: "宴/食事" },
-      { word: "رَقْص", meaning: "踊り" },
-      { word: "تَهْنِئَة", meaning: "お祝い" }, 
-      { word: "تَقْلِيدِيّ", meaning: "伝統的な" } 
-    ],
-    questions: [
-      { 
-        id: 2451, type: "reading", 
-        text: "\u200Fبِمَاذَا يَتَمَيَّزُ الْعُرْسُ السُّعُودِيُّ؟\u200F", 
-        options: ["بِالْهُدُوءِ", "بِتَقَالِيدَ خَاصَّةٍ (عَرْضَة وَوَلِيمَة)", "قَصِيرٌ جِدًّا", "حَزِين"], 
-        correctIndex: 1, 
-        explanation: "「تَقَالِيد خَاصَّة」や伝統的な踊りがあります。" 
-      },
-      { 
-        id: 2452, type: "reading", 
-        text: "\u200Fمَاذَا يَرْقُصُ الرِّجَالُ؟\u200F", 
-        options: ["السَّالْسَا", "الْعَرْضَة (رَقْصَةُ السَّيْفِ)", "التَّانْغُو", "الْبَالِيه"], 
-        correctIndex: 1, 
-        explanation: "「الْعَرْضَة (アルダ)」です。" 
-      },
-      { 
-        id: 2453, type: "reading", 
-        text: "\u200Fمَاذَا يُقَدَّمُ فِي الْوَلِيمَةِ عَادَةً؟\u200F", 
-        options: ["شَطَائِر", "ذَبَائِح (لَحْم وَأَرُزّ)", "حِسَاء", "خُبْز فَقَط"], 
-        correctIndex: 1, 
-        explanation: "「وَلِيمَة ... كَبِيرَة وَدَسِمَة」で、通常は羊肉料理が出ます。" 
-      },
-      { 
-        id: 2454, type: "vocabulary", 
-        text: "\u200Fمَا مَعْنَى 'عَرِيس'؟\u200F", 
-        options: ["عَرُوس", "زَوْج (Groom)", "أَب", "ضَيْف"], 
-        correctIndex: 1, 
-        explanation: "新郎のことです。" 
-      },
-      { 
-        id: 2455, type: "grammar", 
-        text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Dances'؟\u200F", 
-        options: ["يَرْقُصُ", "يَأْكُلُ", "يَجْلِسُ", "يَبْكِي"], 
-        correctIndex: 0, 
-        explanation: "「Yarquṣu」です。" 
-      },
-      { 
-        id: 2456, type: "grammar", 
-        text: "\u200Fلِمَاذَا لَا تَظْهَرُ الضَّمَّةُ عَلَى 'يَرْتَدِي'؟\u200F", 
-        options: ["لِلثِّقَلِ (فِعْل نَاقِص بِالْيَاء)", "لِلتَّعَذُّرِ", "مَنْصُوب", "مَجْزُوم"], 
-        correctIndex: 0, 
-        explanation: "「Ya」で終わる動詞（Naqis）の現在形・主格は、Dammaの発音が重く感じる（Thiqal）ため、表記・発音されません。" 
-      },
-      { 
-        id: 2457, type: "grammar", 
-        text: "\u200Fعَلَى مَاذَا تَدُلُّ 'الْعَرِيسَيْنِ'؟\u200F", 
-        options: ["جَمْع", "مُثَنَّى (Two people)", "مُفْرَد", "مُؤَنَّث"], 
-        correctIndex: 1, 
-        explanation: "新郎と新婦の2人を指すため、双数形（Dual）の属格（Majrur）の形になっています。" 
-      }
-    ],
-    sentences: [
-      { 
-        speaker: "ナレーター", 
-        arabic: "يَجْتَمِعُ الْأَقَارِبُ وَالْأَصْدِقَاءُ لِلتَّهْنِئَةِ.", 
-        japanese: "親戚や友人がお祝いのために集まります。",
-        note: "「يَجْتَمِعُ (yajtami'u)」: 第8形動詞（Ifta'ala）。「集まる」という意味です。",
-        relatedGrammarId: 130
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "يَرْتَدِي الرِّجَالُ الْمَلَابِسَ التَّقْلِيدِيَّةَ.", 
-        japanese: "男性は伝統的な服を着ます。",
-        note: "「يَرْتَدِي (yartadī)」: 第8形かつ弱動詞。語末のヤーは主格でも維持され、ダンマは発音されません。",
-        relatedGrammarId: 141
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "تُقَامُ الْعَرْضَةُ النَّجْدِيَّةُ بِالسُّيُوفِ.", 
-        japanese: "剣を使ったナジュドのアルダ（踊り）が行われます。",
-        note: "「تُقَامُ (tuqāmu)」: 中空動詞 aqāma（行う）の現在形受動態。「行われる」という意味です。",
-        relatedGrammarId: 129
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "الْوَلِيمَةُ تَكُونُ كَبِيرَةً وَدَسِمَةً.", 
-        japanese: "宴は大きく、豪華（脂っこい＝ご馳走）です。",
-        note: "「تَكُونُ كَبِيرَةً (takūnu kabīratan)」: カーナの現在形。述語である「大きな」と「豪華な」を対格（an）にしています。",
-        relatedGrammarId: 125
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "يَفْرَحُ الْجَمِيعُ بِالْعَرِيسَيْنِ.", 
-        japanese: "皆が新郎新婦（のことで）喜びます。",
-        note: "「بِالْعَرِيسَيْنِ (bi-l-'arīsayni)」: 新郎新婦（双数）に前置詞 bi が付いて属格（ayni）になっています。",
-        relatedGrammarId: 111
-      }
-    ]
-  },
-  {
-    id: 246,
-    title: "石油の発見",
-    category: "歴史",
-    level: "中級",
-    contentVoweled: "بَدَأَ التَّنْقِيبُ عَنِ النِّفْطِ مُنْذُ زَمَنٍ. فِي عَامِ 1938، تَدَفَّقَ النِّفْطُ بِكَمِّيَّاتٍ تِجَارِيَّةٍ. أَصْبَحَتِ الْمَمْلَكَةُ مِنْ أَغْنَى الدُّوَلِ. تَطَوَّرَ التَّعْلِيمُ وَالصِّحَّةُ وَالْعُمْرَانُ. أُرَامْكُو هِيَ أَكْبَرُ شَرِكَةِ نِفْطٍ فِي الْعَالَمِ.",
-    contentPlain: "بدأ التنقيب عن النفط منذ زمن. في عام 1938، تدفق النفط بكميات تجارية. أصبحت المملكة من أغنى الدول. تطور التعليم والصحة والعمران. أرامكو هي أكبر شركة نفط في العالم.",
-    vocabList: [
-      { word: "نِفْط", meaning: "石油" },
-      { word: "اِكْتِشَاف", meaning: "発見" },
-      { word: "ثَرْوَة", meaning: "富/財産" },
-      { word: "تَنَقِيب", meaning: "探査/掘削" }, 
-      { word: "تَدَفَّقَ", meaning: "あふれ出た/噴出した" } 
-    ],
-    questions: [
-      { 
-        id: 2461, type: "reading", 
-        text: "\u200Fمَاذَا اكْتُشِفَ فِي الْمَمْلَكَةِ؟\u200F", 
-        options: ["ذَهَب", "مَاء", "نِفْط", "أَلْمَاس"], 
-        correctIndex: 2, 
-        explanation: "「النِّفْط (石油)」です。" 
-      },
-      { 
-        id: 2462, type: "reading", 
-        text: "\u200Fكَيْفَ أَثَّرَ الِاكْتِشَافُ عَلَى الْبَلَدِ؟\u200F", 
-        options: ["لَمْ يَتَغَيَّرْ شَيْءٌ", "أَصْبَحَتْ غَنِيَّةً وَتَطَوَّرَتْ", "أَصْبَحَتْ فَقِيرَةً", "قَلَّ السُّكَّانُ"], 
-        correctIndex: 1, 
-        explanation: "「أَغْنَى الدُّوَلِ (最も豊かな国)」の一つになりました。" 
-      },
-      { 
-        id: 2463, type: "reading", 
-        text: "\u200Fمَا اسْمُ بِئْرِ النِّفْطِ الْأَوَّلِ؟\u200F", 
-        options: ["الرِّيَاض", "بِئْرُ الدَّمَّامِ رَقْم 7 (بِئْرُ الْخَيْرِ)", "مَكَّة", "جِدَّة"], 
-        correctIndex: 1, 
-        explanation: "一般知識として「Dammam No.7」です。" 
-      },
-      { 
-        id: 2464, type: "vocabulary", 
-        text: "\u200Fمَا مَعْنَى 'اِقْتِصَاد'؟\u200F", 
-        options: ["سِيَاسَة", "مَالٌ وَأَعْمَالٌ (Economy)", "ثَقَافَة", "دِين"], 
-        correctIndex: 1, 
-        explanation: "Economy（経済）です。" 
-      },
-      { 
-        id: 2465, type: "grammar", 
-        text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Changed'؟\u200F", 
-        options: ["تَغَيَّرَ", "بَقِيَ", "نَامَ", "ذَهَبَ"], 
-        correctIndex: 0, 
-        explanation: "「Taghayyara」です。" 
-      },
-      { 
-        id: 2466, type: "grammar", 
-        text: "\u200Fمَا وَزْنُ الْمَبْنِيِّ لِلْمَجْهُولِ فِي الْمَاضِي (مِثْل 'كُتِبَ')؟\u200F", 
-        options: ["فَعَلَ (a-a-a)", "فُعِلَ (u-i-a)", "فِعِلَ (i-i-a)", "فُعُلَ (u-u-u)"], 
-        correctIndex: 1, 
-        explanation: "過去形の受動態は、最初がダンマ(u)、最後から2番目がカスラ(i)になる「u-i-a」パターンが基本です（例：Kutiba）。" 
-      },
-      { 
-        id: 2467, type: "grammar", 
-        text: "\u200Fلِمَاذَا 'كَمِّيَّاتٍ' مَجْرُورَةٌ فِي 'بِكَمِّيَّاتٍ'؟\u200F", 
-        options: ["لِأَنَّ قَبْلَهَا حَرْفَ جَرٍّ (بِـ)", "لِأَنَّهَا مَفْعُول", "لِأَنَّهَا فَاعِل", "لِأَنَّهَا حَال"], 
-        correctIndex: 0, 
-        explanation: "前置詞（Harf Jarr）の後の名詞は常に属格（Majrur）になります。" 
-      }
-    ],
-    sentences: [
-      { 
-        speaker: "ナレーター", 
-        arabic: "بَدَأَ التَّنْقِيبُ عَنِ النِّفْطِ مُنْذُ زَمَنٍ.", 
-        japanese: "石油の探査は昔始まりました。",
-        note: "「تَنْقِيب (tanqīb)」: 第2形動詞 naqqaba（掘削する）の動名詞。taf'īlパターンです。",
-        relatedGrammarId: 133
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "فِي عَامِ 1938، تَدَفَّقَ النِّفْطُ بِكَمِّيَّاتٍ تِجَارِيَّةٍ.", 
-        japanese: "1938年、商業量の石油が噴出しました。",
-        note: "「تَدَفَّقَ (tadaffaqa)」: 第5形動詞。自然に「あふれ出る」という自動詞的なニュアンスを持ちます。",
-        relatedGrammarId: 130
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "أَصْبَحَتِ الْمَمْلَكَةُ مِنْ أَغْنَى الدُّوَلِ.", 
-        japanese: "王国は最も豊かな国の一つになりました。",
-        note: "「أَغْنَى (aghnā)」: 形容詞 ghaniyy（豊かな）の最上級（アフアル形）。",
-        relatedGrammarId: 134
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "تَطَوَّرَ التَّعْلِيمُ وَالصِّحَّةُ وَالْعُمْرَانُ.", 
-        japanese: "教育、健康、建設（都市開発）が発展しました。",
-        note: "「تَطَوَّرَ (taṭawwara)」: こちらも第5形動詞。「自ら発展する」という意味です。",
-        relatedGrammarId: 130
-      },
-      { 
-        speaker: "ナレーター", 
-        arabic: "أُرَامْكُو هِيَ أَكْبَرُ شَرِكَةِ نِفْطٍ فِي الْعَالَمِ.", 
-        japanese: "アラムコは世界最大の石油会社です。",
-        note: "「أَكْبَر (akbar)」: 大きい（kabīr）の最上級（アフアル形）。",
-        relatedGrammarId: 134
-      }
-    ]
-  },
-  {
-    id: 247,
-    title: "アラビアン・オリックス",
-    category: "自然",
-    level: "中級",
-    contentVoweled: "يَتَمَيَّزُ الْمَهَا بِلَوْنِهِ الْأَبْيَضِ النَّاصِعِ. لَهُ قُرُونٌ طَوِيلَةٌ وَمُسْتَقِيمَةٌ. تَغَزَّلَ الشُّعَرَاءُ بِعُيُونِ الْمَهَا. كَانَ مُهَدَّدًا بِالِانْقِرَاضِ. الْآنَ تُوجَدُ مَحْمِيَّاتٌ لِلْحِفَاظِ عَلَيْهِ.",
-    contentPlain: "يتميز المها بلونه الأبيض الناصع. له قرون طويلة ومستقيمة. تغزل الشعراء بعيون المها. كان مهددا بالانقراض. الآن توجد محميات للحفاظ عليه.",
-    vocabList: [
-      { word: "مَهَا", meaning: "オリックス（動物）" },
-      { word: "قَرْن", meaning: "角" },
-      { word: "أَبْيَض", meaning: "白い" },
-      { word: "نَاصِع", meaning: "明るい/純粋な" }, 
-      { word: "اِنْقِرَاض", meaning: "絶滅" } 
-    ],
-    questions: [
-      { 
-        id: 2471, type: "reading", 
-        text: "\u200Fمَا هُوَ حَيَوَانُ الْمَهَا؟\u200F", 
-        options: ["أَسَد", "نَوْعٌ مِنَ الظِّبَاءِ (Oryx)", "جَمَل", "صَقْر"], 
-        correctIndex: 1, 
-        explanation: "オリックス（レイヨウの一種）です。" 
-      },
-      { 
-        id: 2472, type: "reading", 
-        text: "\u200Fمَا لَوْنُهُ؟\u200F", 
-        options: ["أَسْوَد", "أَبْيَض", "أَحْمَر", "أَزْرَق"], 
-        correctIndex: 1, 
-        explanation: "「أَبْيَض (白)」です。" 
-      },
-      { 
-        id: 2473, type: "reading", 
-        text: "\u200Fأَيْنَ يَعِيشُ؟\u200F", 
-        options: ["الْغَابَة", "الْبَحْر", "الصَّحْرَاء", "الْمَدِينَة"], 
-        correctIndex: 2, 
-        explanation: "「فِي الصَّحْرَاءِ (砂漠)」です。" 
-      },
-      { 
-        id: 2474, type: "vocabulary", 
-        text: "\u200Fمَا مَعْنَى 'عَيْن'؟\u200F", 
-        options: ["أُذُن", "عُضْوُ الْبَصَرِ (Eye)", "أَنْف", "فَم"], 
-        correctIndex: 1, 
-        explanation: "目です。オリックスは美しい目で有名です。" 
-      },
-      { 
-        id: 2475, type: "grammar", 
-        text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Lives'؟\u200F", 
+        text: "\u200Fأَيُّ فِعْلٍ يَعْنِي '住む'؟\u200F", 
         options: ["يَعِيشُ", "يَمُوتُ", "يَذْهَبُ", "يَأْتِي"], 
         correctIndex: 0, 
         explanation: "「Ya'īshu」です。" 
@@ -32271,861 +31934,6 @@ export const articles: Article[] = [
       }
     ]
   },
-    {
-      id: 223, 
-      title: "アラブの格言", 
-      category: "文学", 
-      level: "中級",
-      contentVoweled: "الْأَمْثَالُ تَعْكِسُ ثَقَافَةَ الشُّعُوبِ. الصَّبْرُ مِفْتَاحُ الْفَرَجِ. مَنْ جَدَّ وَجَدَ، وَمَنْ زَرَعَ حَصَدَ. الْعِلْمُ نُورٌ وَالْجَهْلُ ظَلَامٌ. يَدٌ وَاحِدَةٌ لَا تُصَفِّقُ.",
-      contentPlain: "الأمثال تعكس ثقافة الشعوب. الصبر مفتاح الفرج. من جد وجد، ومن زرع حصد. العلم نور والجهل ظلام. يد واحدة لا تصفق.",
-      vocabList: [
-        { word: "صَبْر", meaning: "忍耐" },
-        { word: "مِفْتَاح", meaning: "鍵" },
-        { word: "فَرَج", meaning: "安らぎ/解決" }
-      ],
-      questions: [
-        { 
-          id: 2231, type: "reading", 
-          text: "\u200Fأَكْمِلِ الْمَثَلَ: الصَّبْرُ مِفْتَاحُ ...\u200F", 
-          options: ["النَّجَاح", "الْفَرَج", "الْبَيْت", "الْمَال"], 
-          correctIndex: 1, 
-          explanation: "「الْفَرَج (解決/安らぎ)」です。" 
-        },
-        { 
-          id: 2232, type: "reading", 
-          text: "\u200Fمَنْ جَدَّ ...؟\u200F", 
-          options: ["وَجَدَ", "خَسِرَ", "تَعِبَ", "بَكَى"], 
-          correctIndex: 0, 
-          explanation: "「وَجَدَ (見つけた＝報われた)」です。" 
-        },
-        { 
-          id: 2233, type: "vocabulary", 
-          text: "\u200Fمَا مَعْنَى 'حِكْمَة'؟\u200F", 
-          options: ["غَبَاء", "عَقْل / مَعْرِفَة (Wisdom)", "قُوَّة", "سُرْعَة"], 
-          correctIndex: 1, 
-          explanation: "Wisdom（知恵）です。" 
-        },
-        { 
-          id: 2234, type: "reading", 
-          text: "\u200Fأَيُّ جُمْلَةٍ صَحِيحَةٌ؟\u200F", 
-          options: ["الْعِلْمُ نُورٌ", "الْعِلْمُ ظَلَامٌ", "الْجَهْلُ نُورٌ", "الْمَالُ نُورٌ"], 
-          correctIndex: 0, 
-          explanation: "「Al-'ilmu nūr」です。" 
-        },
-        { 
-          id: 2235, type: "grammar", 
-          text: "\u200Fمَا هِيَ أَدَاةُ الشَّرْطِ بِمَعْنَى 'Whoever'؟\u200F", 
-          options: ["مَنْ", "مَا", "أَيْنَ", "كَيْفَ"], 
-          correctIndex: 0, 
-          explanation: "関係代名詞的な「Man (Whoever)」です。" 
-        },
-        { 
-          id: 2236, type: "grammar", 
-          text: "\u200Fمَا نَوْعُ الْفِعْلِ 'جَدَّ'؟\u200F", 
-          options: ["مُعْتَلّ", "مُضَعَّف", "مَهْمُوز", "سَالِم"], 
-          correctIndex: 1, 
-          explanation: "第2語根と第3語根が同じで、シャッダが付く動詞（Jaddaなど）は倍化動詞（Muḍa'af）と呼ばれます。" 
-        }
-      ],
-      sentences: [
-        { 
-          speaker: "ナレーター", 
-          arabic: "الْأَمْثَالُ تَعْكِسُ ثَقَافَةَ الشُّعُوبِ.", 
-          japanese: "ことわざは人々の文化を反映します。",
-          note: "「تَعْكِسُ (ta'kisu)」: 「反映する/反射する」。主語「amthāl（複数）」が非人間なので動詞は女性単数（Ta-）で受けています。",
-          relatedGrammarId: 111 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "الصَّبْرُ مِفْتَاحُ الْفَرَجِ.", 
-          japanese: "忍耐は解決（安らぎ）への鍵である。",
-          note: "「مِفْتَاحُ الْفَرَجِ」: イダーファ構造（所有格構文）で「安らぎの鍵」。1語目に定冠詞がなく、2語目が属格（i）になります。",
-          relatedGrammarId: 118 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "مَنْ جَدَّ وَجَدَ، وَمَنْ زَرَعَ حَصَدَ.", 
-          japanese: "努力した者は見つけ（報われ）、種を蒔いた者は刈り取る。",
-          note: "「مَنْ (man)」: 条件や関係を表す「〜する者は誰でも」。",
-          relatedGrammarId: 131 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "الْعِلْمُ نُورٌ وَالْجَهْلُ ظَلَامٌ.", 
-          japanese: "知識は光であり、無知は闇である。",
-          note: "名詞文の基本形（主語＋述語）。動詞はなく、主語（知識）と述語（光）の両方が主格（u/un）になります。",
-          relatedGrammarId: 115 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "يَدٌ وَاحِدَةٌ لَا تُصَفِّقُ.", 
-          japanese: "片手では拍手できない（協力が必要）。",
-          note: "「يَدٌ وَاحِدَةٌ」: 数詞の1。手（yad）は体の対になる器官なので女性名詞扱いとなり、数字も女性形（wāḥida）で一致させています。",
-          relatedGrammarId: 153 
-        }
-      ]
-    },
-    {
-      id: 224, 
-      title: "読書の重要性", 
-      category: "記事", 
-      level: "中級",
-      contentVoweled: "الْقِرَاءَةُ رِحْلَةٌ عَبْرَ الزَّمَنِ. تَفْتَحُ لَنَا أَبْوَابَ الْعِلْمِ. الْكِتَابُ هُوَ خَيْرُ جَلِيسٍ. يَجِبُ أَنْ نَقْرَأَ كُلَّ يَوْمٍ. أُمَّةٌ تَقْرَأُ، أُمَّةٌ تَرْقَى.",
-      contentPlain: "القراءة رحلة عبر الزمن. تفتح لنا أبواب العلم. الكتاب هو خير جليس. يجب أن نقرأ كل يوم. أمة تقرأ، أمة ترقى.",
-      vocabList: [
-        { word: "قِرَاءَة", meaning: "読書" },
-        { word: "عَقْل", meaning: "理性/頭脳" },
-        { word: "كِتَاب", meaning: "本" }
-      ],
-      questions: [
-        { 
-          id: 2241, type: "reading", 
-          text: "\u200Fمَاذَا تُغَذِّي الْقِرَاءَةُ؟\u200F", 
-          options: ["الْجِسْم", "الْعَقْل", "الْعَضَلَات", "الْمَعِدَة"], 
-          correctIndex: 1, 
-          explanation: "「الْعَقْل (理性/頭脳)」です。" 
-        },
-        { 
-          id: 2242, type: "reading", 
-          text: "\u200Fمَاذَا تَزِيدُ الْقِرَاءَةُ؟\u200F", 
-          options: ["الْمَال", "الْمَعْرِفَة", "الْأَصْدِقَاء", "الْأَعْدَاء"], 
-          correctIndex: 1, 
-          explanation: "「الْمَعْرِفَة (知識)」です。" 
-        },
-        { 
-          id: 2243, type: "reading", 
-          text: "\u200Fبِمَاذَا وُصِفَ الْكِتَابُ؟\u200F", 
-          options: ["خَيْرُ جَلِيسٍ (صَدِيق)", "حِمْلٌ ثَقِيل", "شَيْءٌ غَالٍ", "عَدُوّ"], 
-          correctIndex: 0, 
-          explanation: "「خَيْرُ جَلِيسٍ (最高の座り相手＝友)」と言われます。" 
-        },
-        { 
-          id: 2244, type: "vocabulary", 
-          text: "\u200Fمَا مَعْنَى 'مَكْتَبَة'؟\u200F", 
-          options: ["مَدْرَسَة", "مَكَانُ الْكُتُبِ", "مَطْبَخ", "حَدِيقَة"], 
-          correctIndex: 1, 
-          explanation: "Library/Bookstoreです。" 
-        },
-        { 
-          id: 2245, type: "grammar", 
-          text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Increase'؟\u200F", 
-          options: ["تَزِيدُ", "تَنْقُصُ", "تَذْهَبُ", "تَأْتِي"], 
-          correctIndex: 0, 
-          explanation: "「Tazīdu」です。" 
-        },
-        { 
-          id: 2246, type: "grammar", 
-          text: "\u200Fمَا نَوْعُ التَّرْكِيبِ فِي 'خَيْرُ جَلِيسٍ'؟\u200F", 
-          options: ["إِضَافَة", "صِفَة وَمَوْصُوف", "مُبْتَدَأ وَخَبَر", "جَارٌّ وَمَجْرُور"], 
-          correctIndex: 0, 
-          explanation: "「最高の〜（〜の中で最良のもの）」という表現で、イダーファ構造を使っています。" 
-        }
-      ],
-      sentences: [
-        { 
-          speaker: "ナレーター", 
-          arabic: "الْقِرَاءَةُ رِحْلَةٌ عَبْرَ الزَّمَنِ.", 
-          japanese: "読書は時を超えた旅です。",
-          note: "名詞文の基本形。主語（読書）と述語（旅）の両方が女性名詞で対応しています。",
-          relatedGrammarId: 115 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "تَفْتَحُ لَنَا أَبْوَابَ الْعِلْمِ.", 
-          japanese: "それは私たちに知識の扉を開きます。",
-          note: "「تَفْتَحُ (taftaḥu)」: 「開く」。主語は「読書（女性名詞）」なので現在形は Ta- で始まります。",
-          relatedGrammarId: 121 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "الْكِتَابُ هُوَ خَيْرُ جَلِيسٍ.", 
-          japanese: "本は最高の友人です。",
-          note: "「خَيْرُ جَلِيسٍ (khayru jalīsin)」: khayr は比較級・最上級の不規則な形です。イダーファ構造で「最も良い・座る相手」という意味になります。",
-          relatedGrammarId: 134 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "يَجِبُ أَنْ نَقْرَأَ كُلَّ يَوْمٍ.", 
-          japanese: "私たちは毎日読むべきです。",
-          note: "「يَجِبُ أَنْ (yajibu an)」: 「〜しなければならない（義務）」。「an」の後なので「naqra'a（a段）」になる接続法が適用されています。",
-          relatedGrammarId: 126 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "أُمَّةٌ تَقْرَأُ، أُمَّةٌ تَرْقَى.", 
-          japanese: "読む民（共同体）は、向上する民です。",
-          note: "「تَرْقَى (tarqā)」: 「向上する」。語末がアリフマクスーラで終わる弱動詞の現在形です。",
-          relatedGrammarId: 141 
-        }
-      ]
-    },
-    {
-      id: 225, 
-      title: "アラビア語の日", 
-      category: "ニュース", 
-      level: "中級",
-      contentVoweled: "تَحْتَفِلُ الْأُمَمُ الْمُتَّحِدَةُ بِاللُّغَةِ الْعَرَبِيَّةِ. إِنَّهَا إِحْدَى اللُّغَاتِ الرَّسْمِيَّةِ السِّتِّ. يَتَحَدَّثُ بِهَا أَكْثَرُ مِنْ 400 مِلْيُونِ شَخْصٍ. هِيَ لُغَةٌ غَنِيَّةٌ وَعَرِيقَةٌ. نَحْنُ نَفْتَخِرُ بِلُغَتِنَا.",
-      contentPlain: "تحتفل الأمم المتحدة باللغة العربية. إنها إحدى اللغات الرسمية الست. يتحدث بها أكثر من 400 مليون شخص. هي لغة غنية وعريقة. نحن نفتخر بلغتنا.",
-      vocabList: [
-        { word: "يَوْم", meaning: "日" },
-        { word: "لُغَة", meaning: "言語" },
-        { word: "اِحْتِفَال", meaning: "お祝い" }
-      ],
-      questions: [
-        { 
-          id: 2251, type: "reading", 
-          text: "\u200Fمَتَى الْيَوْمُ الْعَالَمِيُّ لِلُّغَةِ الْعَرَبِيَّةِ؟\u200F", 
-          options: ["1 يَنَايِر", "18 دِيسَمْبَر", "23 سِبْتَمْبَر", "5 مَايُو"], 
-          correctIndex: 1, 
-          explanation: "「18 دِيسَمْبَر」です。" 
-        },
-        { 
-          id: 2252, type: "reading", 
-          text: "\u200Fاللُّغَةُ الْعَرَبِيَّةُ هِيَ لُغَةُ...؟\u200F", 
-          options: ["الْأُمَم الْمُتَّحِدَة", "الْقُرْآن", "الْعِلْم فَقَط", "أُورُوبَّا"], 
-          correctIndex: 1, 
-          explanation: "「لُغَةُ الْقُرْآنِ」です。" 
-        },
-        { 
-          id: 2253, type: "reading", 
-          text: "\u200Fكَمْ عَدَدُ الْمُتَحَدِّثِينَ بِهَا؟\u200F", 
-          options: ["قَلِيل", "مَلَايِين (أَكْثَر مِنْ 400 مِلْيُون)", "مِائَة", "لَا أَحَد"], 
-          correctIndex: 1, 
-          explanation: "「الْمَلَايِين (数百万以上＝実際は数億)」です。" 
-        },
-        { 
-          id: 2254, type: "vocabulary", 
-          text: "\u200Fمَا مَعْنَى 'رَسْمِيّ'؟\u200F", 
-          options: ["حُكُومِيّ / مُعْتَمَد", "شَخْصِيّ", "لَعِب", "مُزَيَّف"], 
-          correctIndex: 0, 
-          explanation: "Official（公式）です。" 
-        },
-        { 
-          id: 2255, type: "grammar", 
-          text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Speaks'؟\u200F", 
-          options: ["يَتَحَدَّثُ", "يَكْتُبُ", "يَسْمَعُ", "يَمْشِي"], 
-          correctIndex: 0, 
-          explanation: "「Yataḥaddathu」です。" 
-        },
-        { 
-          id: 2256, type: "grammar", 
-          text: "\u200Fأَيُّ حَرْفِ جَرٍّ نَسْتَخْدِمُهُ مَعَ 'نَفْتَخِرُ'؟\u200F", 
-          options: ["بِـ", "لِـ", "عَلَى", "فِي"], 
-          correctIndex: 0, 
-          explanation: "「Iftakhara bi-」で「〜を誇る」という熟語になります。" 
-        }
-      ],
-      sentences: [
-        { 
-          speaker: "ナレーター", 
-          arabic: "تَحْتَفِلُ الْأُمَمُ الْمُتَّحِدَةُ بِاللُّغَةِ الْعَرَبِيَّةِ.", 
-          japanese: "国連はアラビア語を祝います。",
-          note: "「تَحْتَفِلُ بِـ (taḥtafilu bi-)」: 第8形（iḥtafala）の現在形。「〜を祝う」という意味で前置詞 bi を伴います。",
-          relatedGrammarId: 130 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "إِنَّهَا إِحْدَى اللُّغَاتِ الرَّسْمِيَّةِ السِّتِّ.", 
-          japanese: "それは6つの公用語の一つです。",
-          note: "「إِنَّهَا (inna-hā)」: 強調のインナ。後ろにつく代名詞（hā）が文の主語になり、「実にそれは」という意味を作ります。",
-          relatedGrammarId: 150 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "يَتَحَدَّثُ بِهَا أَكْثَرُ مِنْ 400 مِلْيُونِ شَخْصٍ.", 
-          japanese: "4億人以上の人々が話しています。",
-          note: "「مِلْيُونِ شَخْصٍ」: 100万（milyūn）。100以上の数詞のルールとして、後ろの名詞（shakhṣ）は単数・属格になります。",
-          relatedGrammarId: 154 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "هِيَ لُغَةٌ غَنِيَّةٌ وَعَرِيقَةٌ.", 
-          japanese: "それは豊かで由緒ある言語です。",
-          note: "「غَنِيَّةٌ (ghaniyyatun)」: 形容詞。名詞の「言語（lugha）」が女性形・主格なので、形容詞も女性形・主格で揃えています。",
-          relatedGrammarId: 114 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "نَحْنُ نَفْتَخِرُ بِلُغَتِنَا.", 
-          japanese: "私たちは自分たちの言語を誇りに思います。",
-          note: "「نَفْتَخِرُ (naftakhiru)」: 「誇る」という第8形動詞の現在形。「私たち（na-）」の活用です。",
-          relatedGrammarId: 130 
-        }
-      ]
-    },
-    {
-      id: 226, 
-      title: "スマートシティ", 
-      category: "ニュース", 
-      level: "中級",
-      contentVoweled: "تَقَعُ نِيُوم شَمَالَ غَرْبِ الْمَمْلَكَةِ. سَتَكُونُ مَدِينَةً ذَكِيَّةً بِالْكَامِلِ. تَعْتَمِدُ عَلَى الطَّاقَةِ النَّظِيفَةِ. لَا تُوجَدُ فِيهَا سَيَّارَاتٌ تَقْلِيدِيَّةٌ. إِنَّهَا مَشْرُوعٌ طَمُوحٌ جِدًّا.",
-      contentPlain: "تقع نيوم شمال غرب المملكة. ستكون مدينة ذكية بالكامل. تعتمد على الطاقة النظيفة. لا توجد فيها سيارات تقليدية. إنها مشروع طموح جدا.",
-      vocabList: [
-        { word: "مَدِينَة", meaning: "都市" },
-        { word: "مُسْتَقْبَل", meaning: "未来" },
-        { word: "تِكْنُولُوجِيَا", meaning: "技術" }
-      ],
-      questions: [
-        { 
-          id: 2261, type: "reading", 
-          text: "\u200Fمَا هِيَ نِيُوم؟\u200F", 
-          options: ["قَرْيَة قَدِيمَة", "مَدِينَةُ الْمُسْتَقْبَلِ", "بَحْر", "جَبَل"], 
-          correctIndex: 1, 
-          explanation: "「مَدِينَةُ الْمُسْتَقْبَلِ」です。" 
-        },
-        { 
-          id: 2262, type: "reading", 
-          text: "\u200Fأَيْنَ تَقَعُ؟\u200F", 
-          options: ["الْيَابَان", "السُّعُودِيَّة", "أَمْرِيكَا", "مِصْر"], 
-          correctIndex: 1, 
-          explanation: "「فِي السُّعُودِيَّةِ」です。" 
-        },
-        { 
-          id: 2263, type: "reading", 
-          text: "\u200Fعَلَى مَاذَا تَعْتَمِدُ؟\u200F", 
-          options: ["النِّفْط", "الطَّاقَةِ النَّظِيفَةِ", "الْفَحْم", "الْغَاز"], 
-          correctIndex: 1, 
-          explanation: "「الطَّاقَة الْمُتَجَدِّدَة」です。" 
-        },
-        { 
-          id: 2264, type: "vocabulary", 
-          text: "\u200Fمَا مَعْنَى 'ذَكِيّ'؟\u200F", 
-          options: ["غَبِيّ", "سَرِيعُ الْفَهْمِ / مُتَطَوِّر", "قَدِيم", "بَطِيء"], 
-          correctIndex: 1, 
-          explanation: "Smart/Intelligentです。" 
-        },
-        { 
-          id: 2265, type: "grammar", 
-          text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Uses'؟\u200F", 
-          options: ["تَسْتَخْدِمُ", "تَأْكُلُ", "تَنَامُ", "تَلْعَبُ"], 
-          correctIndex: 0, 
-          explanation: "「Tastakhdimu」です。" 
-        },
-        { 
-          id: 2266, type: "grammar", 
-          text: "\u200Fمَاذَا يُفِيدُ حَرْفُ السِّينِ فِي 'سَتَكُونُ'؟\u200F", 
-          options: ["الْمَاضِي", "الْحَاضِر", "الْمُسْتَقْبَل", "النَّفْي"], 
-          correctIndex: 2, 
-          explanation: "動詞の頭につく「Sa」は未来を表す接頭辞です。" 
-        }
-      ],
-      sentences: [
-        { 
-          speaker: "ナレーター", 
-          arabic: "تَقَعُ نِيُوم شَمَالَ غَرْبِ الْمَمْلَكَةِ.", 
-          japanese: "NEOMは王国の北西に位置します。",
-          note: "「تَقَعُ (taqa'u)」: 「位置する/ある」。地理的な場所を言う時の定番の現在形動詞です。",
-          relatedGrammarId: 121 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "سَتَكُونُ مَدِينَةً ذَكِيَّةً بِالْكَامِلِ.", 
-          japanese: "完全にスマートな都市になるでしょう。",
-          note: "「سَتَكُونُ (sa-takūnu)」: 未来の Sa ＋カーナの現在形。述語である「都市（madīnatan）」を対格（an）にするルールが働いています。",
-          relatedGrammarId: 125 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "تَعْتَمِدُ عَلَى الطَّاقَةِ النَّظِيفَةِ.", 
-          japanese: "クリーンエネルギーに依存します。",
-          note: "「تَعْتَمِدُ عَلَى (ta'tamidu 'alā)」: 第8形動詞。「〜に頼る/依存する」というセットで使われます。",
-          relatedGrammarId: 130 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "لَا تُوجَدُ فِيهَا سَيَّارَاتٌ تَقْلِيدِيَّةٌ.", 
-          japanese: "そこには従来の車はありません。",
-          note: "「تُوجَدُ (tūjadu)」: 「見つけられる＝存在する」。受動態なので語頭が Tu- になっています。",
-          relatedGrammarId: 129 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "إِنَّهَا مَشْرُوعٌ طَمُوحٌ جِدًّا.", 
-          japanese: "それは非常に野心的なプロジェクトです。",
-          note: "「إِنَّهَا (inna-hā)」: 「実にそれは〜だ」。強調の inna + 代名詞の形で、名詞文の主語となります。",
-          relatedGrammarId: 150 
-        }
-      ]
-    },
-    {
-      id: 227, 
-      title: "SNSの影響", 
-      category: "記事", 
-      level: "中級",
-      contentVoweled: "أَصْبَحَ الْعَالَمُ قَرْيَةً صَغِيرَةً. نَسْتَطِيعُ مَعْرِفَةَ الْأَخْبَارِ فَوْرًا. نُشَارِكُ الصُّوَرَ وَالْأَفْكَارَ. وَلَكِنْ يَجِبُ الْحَذَرُ مِنَ الْشَّائِعَاتِ. لَا تُصَدِّقْ كُلَّ مَا تَقْرَأُ.",
-      contentPlain: "أصبح العالم قرية صغيرة. نستطيع معرفة الأخبار فورا. نشارك الصور والأفكار. ولكن يجب الحذر من الشائعات. لا تصدق كل ما تقرأ.",
-      vocabList: [
-        { word: "تَوَاصُل", meaning: "通信/交流" },
-        { word: "خَبَر", meaning: "ニュース" },
-        { word: "عَالَم", meaning: "世界" }
-      ],
-      questions: [
-        { 
-          id: 2271, type: "reading", 
-          text: "\u200Fمَاذَا تَفْعَلُ وَسَائِلُ التَّوَاصُلِ؟\u200F", 
-          options: ["تُقَرِّبُ الْبَعِيدَ (الْعَالَم قَرْيَة)", "تُفَرِّقُ النَّاسَ", "تُوَزِّعُ الْمَالَ", "تَصْنَعُ الطَّعَامَ"], 
-          correctIndex: 0, 
-          explanation: "「تُقَرِّبُ الْبَعِيدَ」です。" 
-        },
-        { 
-          id: 2272, type: "reading", 
-          text: "\u200Fكَيْفَ تَنْتَشِرُ الْأَخْبَارُ؟\u200F", 
-          options: ["بِبُطْءٍ", "بِسُرْعَةٍ فَائِقَةٍ", "تَتَوَقَّفُ", "تَخْتَفِي"], 
-          correctIndex: 1, 
-          explanation: "「بِسُرْعَةٍ فَائِقَةٍ (超高速で)」です。" 
-        },
-        { 
-          id: 2273, type: "reading", 
-          text: "\u200Fمِمَّ يَجِبُ أَنْ نَحْذَرَ؟\u200F", 
-          options: ["كَثْرَةِ الِاسْتِخْدَامِ", "الْأَخْبَارِ الْكَاذِبَةِ (الشَّائِعَات)", "الْهَوَاتِفِ الْجَدِيدَةِ", "التَّصْوِيرِ"], 
-          correctIndex: 1, 
-          explanation: "「الْأَخْبَارِ الْكَاذِبَةِ (嘘のニュース)」です。" 
-        },
-        { 
-          id: 2274, type: "vocabulary", 
-          text: "\u200Fمَا مَعْنَى 'صُورَة'؟\u200F", 
-          options: ["صَوْت", "رَسْم / لَقْطَة", "حَرْف", "كِتَاب"], 
-          correctIndex: 1, 
-          explanation: "Picture/Imageです。" 
-        },
-        { 
-          id: 2275, type: "grammar", 
-          text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Spread'؟\u200F", 
-          options: ["تَنْتَشِرُ", "تَجْلِسُ", "تَأْكُلُ", "تَنَامُ"], 
-          correctIndex: 0, 
-          explanation: "「Tantashiru」です。" 
-        },
-        { 
-          id: 2276, type: "grammar", 
-          text: "\u200Fلِمَاذَا الْفِعْلُ 'تُصَدِّقْ' مَجْزُومٌ (بِالسُّكُون)؟\u200F", 
-          options: ["لِأَنَّ قَبْلَهُ 'لَا' النَّاهِيَة", "لِأَنَّ قَبْلَهُ 'لَا' النَّافِيَة", "لِأَنَّهُ مَاضٍ", "لِأَنَّهُ أَمْر"], 
-          correctIndex: 0, 
-          explanation: "「〜するな」という禁止の「Lā」の後では、動詞は要求法（Majzum）になり、語末がスクーンになります。" 
-        }
-      ],
-      sentences: [
-        { 
-          speaker: "ナレーター", 
-          arabic: "أَصْبَحَ الْعَالَمُ قَرْيَةً صَغِيرَةً.", 
-          japanese: "世界は小さな村になりました。",
-          note: "「أَصْبَحَ (aṣbaḥa)」: 「〜になった」。「kāna」の姉妹語で、述語「qarya」は対格になります。",
-          relatedGrammarId: 125 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "نَسْتَطِيعُ مَعْرِفَةَ الْأَخْبَارِ فَوْرًا.", 
-          japanese: "私たちはすぐにニュースを知ることができます。",
-          note: "「فَوْرًا (fawran)」: 「直ちに/すぐに」という意味の副詞。",
-          relatedGrammarId: 119 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "نُشَارِكُ الصُّوَرَ وَالْأَفْكَارَ.", 
-          japanese: "写真や考えを共有します。",
-          note: "「نُشَارِكُ (nushāriku)」: 「共有する/参加する」。第3形動詞。",
-          relatedGrammarId: 130 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "وَلَكِنْ يَجِبُ الْحَذَرُ مِنَ الْشَّائِعَاتِ.", 
-          japanese: "しかし、噂には注意しなければなりません。",
-          note: "「الْحَذَر (al-ḥadhar)」: 「用心/注意」という第1形の動名詞。ここでは yajibu（〜が必須である）の主語になっています。",
-          relatedGrammarId: 133 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "لَا تُصَدِّقْ كُلَّ مَا تَقْرَأُ.", 
-          japanese: "読むものすべてを信じてはいけません。",
-          note: "「لَا تُصَدِّقْ (lā tuṣaddiq)」: 「信じるな」。禁止のLa＋要求法（スクーン）。",
-          relatedGrammarId: 127 
-        }
-      ]
-    },
-    {
-      id: 228, 
-      title: "スポーツの重要性", 
-      category: "健康", 
-      level: "中級",
-      contentVoweled: "الْحَرَكَةُ بَرَكَةٌ. الْمَشْيُ رِيَاضَةٌ سَهْلَةٌ وَمُفِيدَةٌ. تُسَاعِدُ الرِّيَاضَةُ فِي إِنْقَاصِ الْوَزْنِ. تَحْمِي مِنَ الْأَمْرَاضِ. اِجْعَلِ الرِّيَاضَةَ جُزْءًا مِنْ يَوْمِكَ.",
-      contentPlain: "الحركة بركة. المشي رياضة سهلة ومفيدة. تساعد الرياضة في إنقاص الوزن. تحمي من الأمراض. اجعل الرياضة جزءا من يومك.",
-      vocabList: [
-        { word: "رِيَاضَة", meaning: "スポーツ" },
-        { word: "جِسْم", meaning: "体" },
-        { word: "نَشَاط", meaning: "活動/活力" }
-      ],
-      questions: [
-        { 
-          id: 2281, type: "reading", 
-          text: "\u200Fمَاذَا تُقَوِّي الرِّيَاضَةُ؟\u200F", 
-          options: ["الْمَلَابِس", "الْجِسْم", "الْبَيْت", "السَّيَّارَة"], 
-          correctIndex: 1, 
-          explanation: "「الْجِسْم (体)」です。" 
-        },
-        { 
-          id: 2282, type: "reading", 
-          text: "\u200Fكَيْفَ تُؤَثِّرُ عَلَى النَّفْسِيَّةِ؟\u200F", 
-          options: ["تَجْعَلُهَا سَيِّئَةً", "تُحَسِّنُهَا", "تُشْعِرُكَ بِالنُّعَاسِ", "تُغْضِبُكَ"], 
-          correctIndex: 1, 
-          explanation: "「تُحَسِّنُ النَّفْسِيَّةَ (気分/精神を良くする)」です。" 
-        },
-        { 
-          id: 2283, type: "reading", 
-          text: "\u200Fكَمْ يَجِبُ أَنْ نُمَارِسَ الرِّيَاضَةَ؟\u200F", 
-          options: ["كُلَّ يَوْمٍ (قَلِيلًا)", "مَرَّةً فِي السَّنَةِ", "طَوَالَ الْيَوْمِ", "لَا يَجِبُ"], 
-          correctIndex: 0, 
-          explanation: "「نِصْف سَاعَة يَوْمِيًّا (毎日30分)」が推奨されています。" 
-        },
-        { 
-          id: 2284, type: "vocabulary", 
-          text: "\u200Fمَا مَعْنَى 'مَشْي'؟\u200F", 
-          options: ["جَرْي", "سَيْرٌ عَلَى الْأَقْدَامِ", "سِبَاحَة", "قَفْز"], 
-          correctIndex: 1, 
-          explanation: "Walkingです。" 
-        },
-        { 
-          id: 2285, type: "grammar", 
-          text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Protects'؟\u200F", 
-          options: ["تَحْمِي", "تَهْدِمُ", "تَنْسَى", "تَأْكُلُ"], 
-          correctIndex: 0, 
-          explanation: "「Taḥmī (Protect)」です。" 
-        },
-        { 
-          id: 2286, type: "grammar", 
-          text: "\u200Fلِمَاذَا كُسِرَ آخِرُ فِعْلِ الْأَمْرِ 'اِجْعَلِ'؟\u200F", 
-          options: ["خَطَأ", "لِمَنْعِ الْتِقَاءِ السَّاكِنَيْنِ", "لِأَنَّهُ مُؤَنَّث", "لِأَنَّهُ مُعْتَلّ"], 
-          correctIndex: 1, 
-          explanation: "本来はスクーン（無母音）ですが、次に来る「الرِّيَاضَةَ」も無母音で始まるため、発音の便宜上カスラ（i）をつけてつなげます。" 
-        }
-      ],
-      sentences: [
-        { 
-          speaker: "ナレーター", 
-          arabic: "الْحَرَكَةُ بَرَكَةٌ.", 
-          japanese: "運動（動き）は祝福です。",
-          note: "主語(u)＋述語(un) のシンプルな名詞文です。韻を踏んだアラブの有名な格言です。",
-          relatedGrammarId: 115 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "الْمَشْيُ رِيَاضَةٌ سَهْلَةٌ وَمُفِيدَةٌ.", 
-          japanese: "ウォーキングは簡単で有益なスポーツです。",
-          note: "「الْمَشْي (al-mashy)」: 歩く（mashā）という動詞の動名詞（マスダル）。主語として使われています。",
-          relatedGrammarId: 133 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "تُسَاعِدُ الرِّيَاضَةُ فِي إِنْقَاصِ الْوَزْنِ.", 
-          japanese: "スポーツは体重を減らすのに役立ちます。",
-          note: "「إِنْقَاصِ (inqāṣ)」: 減らす（anqaṣa）という第4形動詞の動名詞。if'āl のパターンです。",
-          relatedGrammarId: 133 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "تَحْمِي مِنَ الْأَمْرَاضِ.", 
-          japanese: "病気から守ります。",
-          note: "「تَحْمِي (taḥmī)」: 守る（ḥamā）という弱動詞の現在形。語末の Yā が維持されています。",
-          relatedGrammarId: 141 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "اِجْعَلِ الرِّيَاضَةَ جُزْءًا مِنْ يَوْمِكَ.", 
-          japanese: "スポーツを1日の一部にしなさい。",
-          note: "「اِجْعَلِ (ij'ali)」: 命令形。本来は ij'al とスクーンで終わりますが、次に定冠詞 Al が続くため、音の衝突を避けてカスラ(i)で繋いでいます。",
-          relatedGrammarId: 135 
-        }
-      ]
-    },
-    {
-      id: 229, 
-      title: "交通ルール", 
-      category: "社会", 
-      level: "中級",
-      contentVoweled: "اِرْبِطْ حِزَامَ الْأَمَانِ دَائِمًا. لَا تَتَجَاوَزِ السُّرْعَةَ الْمُحَدَّدَةَ. اِحْتَرِمْ إِشَارَةَ الْمُرُورِ. لَا تَسْتَخْدِمِ الْجَوَّالَ أَثْنَاءَ الْقِيَادَةِ. الْقِيَادَةُ فَنٌّ وَذَوْقٌ وَأَخْلَاقٌ.",
-      contentPlain: "اربط حزام الأمان دائما. لا تتجاوز السرعة المحددة. احترم إشارة المرور. لا تستخدم الجوال أثناء القيادة. القيادة فن وذوق وأخلاق.",
-      vocabList: [
-        { word: "مُرُور", meaning: "交通" },
-        { word: "إِشَارَة", meaning: "信号" },
-        { word: "حِزَام", meaning: "ベルト" }
-      ],
-      questions: [
-        { 
-          id: 2291, type: "reading", 
-          text: "\u200Fمَا فَائِدَةُ اتِّبَاعِ قَوَاعِدِ الْمُرُورِ؟\u200F", 
-          options: ["زِيَادَةُ الْحَوَادِثِ", "حِمَايَةُ الْأَرْوَاحِ", "التَّأَخُّر", "دَفْعُ الْمَالِ"], 
-          correctIndex: 1, 
-          explanation: "「يَحْمِي الْأَرْوَاحَ (命を守る)」です。" 
-        },
-        { 
-          id: 2292, type: "reading", 
-          text: "\u200Fمَاذَا نَفْعَلُ عِنْدَ الْإِشَارَةِ الْحَمْرَاءِ؟\u200F", 
-          options: ["نَتَقَدَّمُ", "نَتَوَقَّفُ", "نَجْرِي", "نَنْعَطِفُ"], 
-          correctIndex: 1, 
-          explanation: "「تَوَقَّفْ (止まれ)」です。" 
-        },
-        { 
-          id: 2293, type: "reading", 
-          text: "\u200Fمَاذَا يَجِبُ أَلَّا نَفْعَلَهُ أَثْنَاءَ الْقِيَادَةِ؟\u200F", 
-          options: ["التَّحَدُّث", "اِسْتِخْدَام الْهَاتِف", "شُرْب الْمَاء", "الْغِنَاء"], 
-          correctIndex: 1, 
-          explanation: "「اِسْتِخْدَام الْهَاتِف (電話の使用)」です。" 
-        },
-        { 
-          id: 2294, type: "vocabulary", 
-          text: "\u200Fمَا مَعْنَى 'سُرْعَة'؟\u200F", 
-          options: ["بُطْء", "انْطِلَاق / عَجَلَة (Speed)", "اِرْتِفَاع", "ثِقَل"], 
-          correctIndex: 1, 
-          explanation: "スピードです。" 
-        },
-        { 
-          id: 2295, type: "grammar", 
-          text: "\u200Fكَيْفَ نَقُولُ 'Tie/Fasten' (Command)؟\u200F", 
-          options: ["اِرْبِطْ", "اِفْتَحْ", "اِكْسِرْ", "اِمْشِ"], 
-          correctIndex: 0, 
-          explanation: "「Irbiṭ (結べ/締めろ)」です。" 
-        },
-        { 
-          id: 2296, type: "grammar", 
-          text: "\u200Fلِمَاذَا كُسِرَتْ الزَّايُ فِي 'لَا تَتَجَاوَزِ'؟\u200F", 
-          options: ["لِأَنَّهُ لِلْمُؤَنَّث", "لِالْتِقَاءِ السَّاكِنَيْنِ", "لِأَنَّهُ مَجْرُور", "خَطَأ"], 
-          correctIndex: 1, 
-          explanation: "禁止の「Lā」によりスクーンになるところですが、次の単語「السُّرْعَةَ」との連結（Waṣl）のため、カスラ（i）でつなげて発音します。" 
-        }
-      ],
-      sentences: [
-        { 
-          speaker: "ナレーター", 
-          arabic: "اِرْبِطْ حِزَامَ الْأَمَانِ دَائِمًا.", 
-          japanese: "いつもシートベルトを締めなさい。",
-          note: "「اِرْبِطْ (irbiṭ)」: 第1形の命令形。語頭の Alif はハムザトゥル・ワスル（消えるハムザ）なので記号（ء）は書きません。",
-          relatedGrammarId: 128 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "لَا تَتَجَاوَزِ السُّرْعَةَ الْمُحَدَّدَةَ.", 
-          japanese: "制限速度を超えてはいけません。",
-          note: "「لَا تَتَجَاوَزِ (lā tatajāwazi)」: 禁止の Lā による要求法（スクーン）ですが、定冠詞 Al との連続を避けるためカスラ（i）になっています。",
-          relatedGrammarId: 135 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "اِحْتَرِمْ إِشَارَةَ الْمُرُورِ.", 
-          japanese: "交通信号を尊重しなさい。",
-          note: "「اِحْتَرِمْ (iḥtarim)」: 第8形（ifta'ala）の命令形。5文字以上の動詞の命令形も頭のアリフにハムザは書きません。",
-          relatedGrammarId: 128 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "لَا تَسْتَخْدِمِ الْجَوَّالَ أَثْنَاءَ الْقِيَادَةِ.", 
-          japanese: "運転中に携帯を使ってはいけません。",
-          note: "「لَا تَسْتَخْدِمِ (lā tastakhdimi)」: こちらも要求法＋音の連結（カスラ）の組み合わせです。",
-          relatedGrammarId: 127 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "الْقِيَادَةُ فَنٌّ وَذَوْقٌ وَأَخْلَاقٌ.", 
-          japanese: "運転は技術であり、センスであり、道徳です。",
-          note: "「الْقِيَادَة (qiyāda)」: 運転する（qāda）という中空動詞の動名詞です。",
-          relatedGrammarId: 133
-        }
-      ]
-    },
-    {
-      id: 230, 
-      title: "鷹狩り", 
-      category: "文化", 
-      level: "中級",
-      contentVoweled: "الصَّيْدُ بِالصُّقُورِ جُزْءٌ مِنَ التُّرَاثِ الْعَرَبِيِّ. يُدَرِّبُ الصَّيَّادُ الصَّقْرَ بِعِنَايَةٍ. يَتَمَيَّزُ الصَّقْرُ بِبَصَرٍ حَادٍّ. إِنَّهُ رَمْزٌ لِلْقُوَّةِ وَالْحُرِّيَّةِ. تُقَامُ مَهْرَجَانَاتٌ خَاصَّةٌ لِلصُّقُورِ.",
-      contentPlain: "الصيد بالصقور جزء من التراث العربي. يدرب الصياد الصقر بعناية. يتميز الصقر ببصر حاد. إنه رمز للقوة والحرية. تقام مهرجانات خاصة للصقور.",
-      vocabList: [
-        { word: "صَقْر", meaning: "鷹（タカ/ハヤブサ）" },
-        { word: "صَيْد", meaning: "狩り" },
-        { word: "تُرَاث", meaning: "遺産/伝統" }
-      ],
-      questions: [
-        { 
-          id: 2301, type: "reading", 
-          text: "\u200Fمَا هُوَ الصَّيْدُ بِالصُّقُورِ؟\u200F", 
-          options: ["لُعْبَةٌ حَدِيثَةٌ", "رِيَاضَةٌ تُرَاثِيَّةٌ", "عَمَل", "حَرْب"], 
-          correctIndex: 1, 
-          explanation: "「رِيَاضَة تَقْلِيدِيَّة (伝統的なスポーツ)」です。" 
-        },
-        { 
-          id: 2302, type: "reading", 
-          text: "\u200Fعِنْدَ مَنْ هَذِهِ الرِّيَاضَةُ مَشْهُورَةٌ؟\u200F", 
-          options: ["الْأُورُوبِيِّين", "الْعَرَب", "الْآسِيَوِيِّين", "الْأَمْرِيكِيِّين"], 
-          correctIndex: 1, 
-          explanation: "「عِنْدَ الْعَرَبِ (アラブ人の間で)」です。" 
-        },
-        { 
-          id: 2303, type: "reading", 
-          text: "\u200Fبِمَاذَا يَتَمَيَّزُ الصَّقْرُ؟\u200F", 
-          options: ["بُطْء", "ضَعْف", "بَصَرٍ حَادٍّ وَسُرْعَةٍ", "سِبَاحَة"], 
-          correctIndex: 2, 
-          explanation: "「بَصَرٍ حَادٍّ وَسُرْعَةٍ (鋭い視力と速さ)」です。" 
-        },
-        { 
-          id: 2304, type: "vocabulary", 
-          text: "\u200Fمَا مَعْنَى 'رَمْز'؟\u200F", 
-          options: ["عَدُوّ", "عَلَامَة / شِعَار (Symbol)", "أَدَاة", "طَعَام"], 
-          correctIndex: 1, 
-          explanation: "Symbol（象徴）です。" 
-        },
-        { 
-          id: 2305, type: "grammar", 
-          text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Trains'؟\u200F", 
-          options: ["يُدَرِّبُ", "يَلْعَبُ", "يَأْكُلُ", "يَنَامُ"], 
-          correctIndex: 0, 
-          explanation: "「Yudarribu (Train)」です。" 
-        },
-        { 
-          id: 2306, type: "grammar", 
-          text: "\u200Fمَا هُوَ الْمَبْنِيُّ لِلْمَعْلُومِ مِنْ 'تُقَامُ'؟\u200F", 
-          options: ["أَقَامَ", "قَامَ", "قَوَّمَ", "قَيَّمَ"], 
-          correctIndex: 0, 
-          explanation: "「行う/開催する」は第4形「Aqāma」で、その受動態が「Tuqāmu」です。" 
-        }
-      ],
-      sentences: [
-        { 
-          speaker: "ナレーター", 
-          arabic: "الصَّيْدُ بِالصُّقُورِ جُزْءٌ مِنَ التُّرَاثِ الْعَرَبِيِّ.", 
-          japanese: "鷹狩りはアラブの遺産の一部です。",
-          note: "「الصَّيْدُ (aṣ-ṣaydu)」: 動名詞（狩ること）。ここでは名詞文の主語になっています。",
-          relatedGrammarId: 133 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "يُدَرِّبُ الصَّيَّادُ الصَّقْرَ بِعِنَايَةٍ.", 
-          japanese: "猟師は鷹を注意深く訓練します。",
-          note: "「يُدَرِّبُ (yudarribu)」: 第2形動詞。真ん中の文字がシャッダで強調され、他動詞（〜を訓練させる）になっています。",
-          relatedGrammarId: 130 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "يَتَمَيَّزُ الصَّقْرُ بِبَصَرٍ حَادٍّ.", 
-          japanese: "鷹は鋭い視力が特徴です。",
-          note: "「حَادٍّ (ḥāddin)」: 鋭い。語末にシャッダを持つダブル動詞の能動分詞です。属格（in）になっています。",
-          relatedGrammarId: 140 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "إِنَّهُ رَمْزٌ لِلْقُوَّةِ وَالْحُرِّيَّةِ.", 
-          japanese: "それは力と自由の象徴です。",
-          note: "「إِنَّهُ (inna-hu)」: インナの姉妹語。代名詞 hu（鷹）が主語として機能しています。",
-          relatedGrammarId: 150 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "تُقَامُ مَهْرَجَانَاتٌ خَاصَّةٌ لِلصُّقُورِ.", 
-          japanese: "鷹のための特別なフェスティバルが開催されます。",
-          note: "「تُقَامُ (tuqāmu)」: 第4形中空動詞（Aqāma）の現在受動態。主語のフェスティバルが女性複数形なので Tu- となっています。",
-          relatedGrammarId: 129 
-        }
-      ]
-    },
-    {
-      id: 231,
-      title: "アラビア馬",
-      category: "文化",
-      level: "中級",
-      contentVoweled: "يُعْرَفُ الْحِصَانُ الْعَرَبِيُّ بِجَمَالِهِ. لَهُ رَأْسٌ صَغِيرٌ وَعَيْنَانِ كَبِيرَتَانِ. إِنَّهُ حَيَوَانٌ ذَكِيٌّ وَوَفِيٌّ لِصَاحِبِهِ. يُشَارِكُ فِي سِبَاقَاتِ السُّرْعَةِ وَالْقُدْرَةِ. الْعَرَبُ يُحِبُّونَ الْخَيْلَ كَثِيرًا.",
-      contentPlain: "يعرف الحصان العربي بجماله. له رأس صغير وعينان كبيرتان. إنه حيوان ذكي ووفي لصاحبه. يشارك في سباقات السرعة والقدرة. العرب يحبون الخيل كثيرا.",
-      vocabList: [
-        { word: "حِصَان", meaning: "馬" },
-        { word: "سَبَاق", meaning: "レース" },
-        { word: "أَصِيل", meaning: "純血の/本物の" },
-        { word: "قُدْرَة", meaning: "能力/耐久力" }, 
-        { word: "وَفِيّ", meaning: "忠実な" } 
-      ],
-      questions: [
-        { 
-          id: 2311, type: "reading", 
-          text: "\u200Fبِمَاذَا يَتَّصِفُ الْحِصَانُ الْعَرَبِيُّ؟\u200F", 
-          options: ["بِالثِّقَل", "بِالْجَمَالِ", "بِالْبُطْء", "بِالضَّعْف"], 
-          correctIndex: 1, 
-          explanation: "「مِنْ أَجْمَلِ الْخُيُولِ」や「يُعْرَفُ بِجَمَالِهِ」から分かります。" 
-        },
-        { 
-          id: 2312, type: "reading", 
-          text: "\u200Fفِيمَ يُسْتَخْدَمُ الْحِصَانُ؟\u200F", 
-          options: ["الزِّرَاعَة", "السِّبَاقَات", "حَمْلُ الْأَثْقَال", "الْأَكْل"], 
-          correctIndex: 1, 
-          explanation: "「السِّبَاقَات (レース)」や美容コンテストです。" 
-        },
-        { 
-          id: 2313, type: "reading", 
-          text: "\u200Fمَا هِيَ طَبِيعَتُهُ؟\u200F", 
-          options: ["شَرِس", "ذَكِيٌّ وَوَفِيٌّ", "جَبَان", "كَسُول"], 
-          correctIndex: 1, 
-          explanation: "「ذَكِيٌّ وَوَفِيٌّ (賢くて忠実)」です。" 
-        },
-        { 
-          id: 2314, type: "vocabulary", 
-          text: "\u200Fمَا مَعْنَى 'قُوَّة'؟\u200F", 
-          options: ["ضَعْف", "شِدَّة / طَاقَة", "سُرْعَة", "لَوْن"], 
-          correctIndex: 1, 
-          explanation: "Power/Strengthです。" 
-        },
-        { 
-          id: 2315, type: "grammar", 
-          text: "\u200Fأَيُّ فِعْلٍ يَعْنِي 'Runs'؟\u200F", 
-          options: ["يَجْرِي", "يَطِيرُ", "يَسْبَحُ", "يَزْحَفُ"], 
-          correctIndex: 0, 
-          explanation: "「يَجْرِي (yajrī)」です。" 
-        },
-        { 
-          id: 2316, type: "grammar", 
-          text: "\u200Fلِمَاذَا انْتَهَتْ 'كَبِيرَتَانِ' بِـ 'ـانِ'؟\u200F", 
-          options: ["جَمْع", "مُثَنَّى (Dual)", "إِضَاعَة", "مُؤَنَّث"], 
-          correctIndex: 1, 
-          explanation: "目は2つあるため、双数形（Dual）のアリフとヌーンが使われています。" 
-        },
-        { 
-          id: 2317, type: "grammar", 
-          text: "\u200Fمَا نَوْعُ الْفِعْلِ 'يُحِبُّونَ'؟\u200F", 
-          options: ["مَاضٍ", "أَمْر", "مِنَ الْأَفْعَالِ الْخَمْسَةِ", "مَجْهُول"], 
-          correctIndex: 2, 
-          explanation: "語尾が「ـُونَ（-ūna）」で終わる現在形は「五つの動詞（الأَفْعَالُ الخَمْسَة）」と呼ばれます。" 
-        }
-      ],
-      sentences: [
-        { 
-          speaker: "ナレーター", 
-          arabic: "يُعْرَفُ الْحِصَانُ الْعَرَبِيُّ بِجَمَالِهِ.", 
-          japanese: "アラビア馬はその美しさで知られています。",
-          note: "「يُعْرَفُ (yu'rafu)」: 知る（'arafa）の受動態。「知られている」という意味で Yu'falu のリズムになっています。",
-          relatedGrammarId: 129 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "لَهُ رَأْسٌ صَغِيرٌ وَعَيْنَانِ كَبِيرَتَانِ.", 
-          japanese: "（それには）小さな頭と大きな二つの目があります。",
-          note: "「عَيْنَانِ كَبِيرَتَانِ」: 目（'ayn）は二つあるため双数形。形容詞の「大きい（kabīra）」も双数形（〜atāni）で一致しています。",
-          relatedGrammarId: 111 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "إِنَّهُ حَيَوَانٌ ذَكِيٌّ وَوَفِيٌّ لِصَاحِبِهِ.", 
-          japanese: "それは賢く、飼い主に忠実な動物です。",
-          note: "「إِنَّهُ (inna-hu)」: 強調のインナの後に代名詞（彼＝馬）がつき、それが主語になります。",
-          relatedGrammarId: 150 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "يُشَارِكُ فِي سِبَاقَاتِ السُّرْعَةِ وَالْقُدْرَةِ.", 
-          japanese: "スピードや耐久力のレースに参加します。",
-          note: "「يُشَارِكُ (yushāriku)」: 第3形動詞（参加する）。第3形は他者との関わりを表す時によく使われます。",
-          relatedGrammarId: 130 
-        },
-        { 
-          speaker: "ナレーター", 
-          arabic: "الْعَرَبُ يُحِبُّونَ الْخَيْلَ كَثِيرًا.", 
-          japanese: "アラブ人は馬をとても愛しています。",
-          note: "「يُحِبُّونَ (yuḥibbūna)」: ダブル動詞（ḥabba）の第4形現在。主語が「アラブ人（複数）」なので動詞も ūna となっています。",
-          relatedGrammarId: 121 
-        }
-      ]
-    },
     {
       id: 276,
       title: "春の砂漠",
@@ -71409,7 +70217,120 @@ export const articles: Article[] = [
     }
   ]
 },
-
+  // --- 【中級】並び替えドリル 3 ---
+  {
+    id: 10503,
+    title: "中級3",
+    category: "並び替え",
+    level: "中級",
+    contentVoweled: "条件文（إِنْ）、動名詞、数詞（11〜99）を用いた長文の並び替え問題です。",
+    contentPlain: "条件文、動名詞、数詞（11〜99）を用いた長文の並び替え問題です。",
+    vocabList: [],
+    sentences: [],
+    questions: [
+      {
+        type: "reorder",
+        text: "\u200Fもしあなたがその難しい本を読めば、多くのアラビア語の単語を理解するでしょう。\u200F",
+        correctOrder: ["إِنْ", "تَقْرَأْ", "ذَلِكَ", "الْكِتَابَ", "الصَّعْبَ", "تَفْهَمْ", "كَلِمَاتٍ", "عَرَبِيَّةً", "كَثِيرَةً"],
+        acceptableOrders: [
+          ["إِنْ", "تَقْرَأْ", "ذَلِكَ", "الْكِتَابَ", "الصَّعْبَ", "تَفْهَمْ", "كَثِيرَةً", "كَلِمَاتٍ", "عَرَبِيَّةً"]
+        ],
+        distractors: ["تَقْرَأُ", "تَفْهَمُ", "كَثِيرَةٍ"],
+        explanation: "条件詞 إِنْ の後は、条件節と帰結節の動詞がいずれも要求形（最後がスクーン）になります。كَلِمَات は女性複数ですが、非人間複数として扱われるため、修飾する形容詞は女性単数対格の عَرَبِيَّةً كَثِيرَةً になります。"
+      },
+      {
+        type: "reorder",
+        text: "\u200F私の兄はサウジアラビアの大学で25人の男子学生に日本語を教えています。\u200F",
+        correctOrder: ["يُدَرِّسُ", "أَخِي", "اللُّغَةَ", "الْيَابَانِيَّةَ", "لِخَمْسَةٍ", "وَعِشْرِينَ", "طَالِبًا", "فِي", "جَامِعَةٍ", "سُعُودِيَّةٍ"],
+        acceptableOrders: [
+          ["أَخِي", "يُدَرِّسُ", "اللُّغَةَ", "الْيَابَانِيَّةَ", "لِخَمْسَةٍ", "وَعِشْرِينَ", "طَالِبًا", "فِي", "جَامِعَةٍ", "سُعُودِيَّةٍ"]
+        ],
+        distractors: ["خَمْسَةً", "طَالِبٍ", "تُدَرِّسُ"],
+        explanation: "「25人の学生に」は前置詞 لِـ に続くため属格となり لِخَمْسَةٍ وَعِشْرِينَ となります。11から99までの数詞の後に続く名詞は単数・対格になるため طَالِبًا を使います。"
+      },
+      {
+        type: "reorder",
+        text: "\u200F図書館での静かな勉強は、カフェでの勉強よりも集中に良いです。\u200F",
+        correctOrder: ["الدِّرَاسَةُ", "الْهَادِئَةُ", "فِي", "الْمَكْتَبَةِ", "أَفْضَلُ", "لِلتَّرْكِيزِ", "مِنَ", "الدِّرَاسَةِ", "فِي", "الْمَقْهَى"],
+        distractors: ["أَحْسَنَ", "هَادِئَةٌ", "يَدْرُسُ"],
+        explanation: "主語は الدِّرَاسَةُ (勉強・女性名詞) なので形容詞も الْهَادِئَةُ となります。比較級 أَفْضَلُ を用いて「〜より良い」を表します。"
+      },
+      {
+        type: "reorder",
+        text: "\u200F私は、彼が昨日新しい車を買ったということを新聞で読みました。\u200F",
+        correctOrder: ["قَرَأْتُ", "فِي", "الصَّحِيفَةِ", "أَنَّهُ", "اشْتَرَى", "سَيَّارَةً", "جَدِيدَةً", "أَمْسِ"],
+        acceptableOrders: [
+          ["قَرَأْتُ", "أَنَّهُ", "اشْتَرَى", "سَيَّارَةً", "جَدِيدَةً", "أَمْسِ", "فِي", "الصَّحِيفَةِ"]
+        ],
+        distractors: ["إِنَّهُ", "تَشْتَرِي", "جَدِيدَةٍ"],
+        explanation: "動詞 قَرَأَ の後に「〜ということ」を続ける場合は أَنَّ を使います。إِنَّ は文頭や動詞 قَالَ の直後で使われます。"
+      },
+      {
+        type: "reorder",
+        text: "\u200F彼らはアラビア語を学ぶためにエジプトへ旅行することを決定しました。\u200F",
+        correctOrder: ["قَرَّرُوا", "السَّفَرَ", "إِلَى", "مِصْرَ", "لِتَعَلُّمِ", "اللُّغَةِ", "الْعَرَبِيَّةِ"],
+        acceptableOrders: [
+          ["قَرَّرُوا", "السَّفَرَ", "لِتَعَلُّمِ", "اللُّغَةِ", "الْعَرَبِيَّةِ", "إِلَى", "مِصْرَ"]
+        ],
+        distractors: ["قَرَّرَ", "سَافَرُوا", "لِيَتَعَلَّمَ"],
+        explanation: "動詞 قَرَّرَ (決定した) の主語は彼らなので複数形の قَرَّرُوا となります。目的語に動名詞 السَّفَرَ (旅行すること) を置き、لِتَعَلُّمِ (学習のために) とイダーファで続けます。"
+      }
+    ]
+  },
+  // --- 【中級】並び替えドリル 4 ---
+  {
+    id: 10504,
+    title: "中級4",
+    category: "並び替え",
+    level: "中級",
+    contentVoweled: "二重目的語を取る動詞、関係代名詞の目的語、状況を表す文（حَال）を問う実践的な問題です。",
+    contentPlain: "二重目的語を取る動詞、関係代名詞の目的語、状況を表す文を問う実践的な問題です。",
+    vocabList: [],
+    sentences: [],
+    questions: [
+      {
+        type: "reorder",
+        text: "\u200F彼女は笑顔で、その小さな子供に美味しいりんごを与えました。\u200F",
+        correctOrder: ["أَعْطَتِ", "الطِّفْلَ", "الصَّغِيرَ", "تُفَّاحَةً", "لَذِيذَةً", "وَهِيَ", "مُبْتَسِمَةٌ"],
+        distractors: ["أَعْطَى", "الطِّفْلِ", "مُبْتَسِمَةً"],
+        explanation: "動詞 أَعْطَى は「人に」「物を」という2つの目的語を対格で取ります。後半の وَهِيَ مُبْتَسِمَةٌ は状況（〜しながら）を表すハール（名詞文）です。"
+      },
+      {
+        type: "reorder",
+        text: "\u200Fこれは私が先月カイロで住んでいた古いアパートです。\u200F",
+        correctOrder: ["هَذِهِ", "هِيَ", "الشَّقَّةُ", "الْقَدِيمَةُ", "الَّتِي", "سَكَنْتُ", "فِيهَا", "فِي", "الْقَاهِرَةِ", "الشَّهْرَ", "الْمَاضِيَ"],
+        distractors: ["الَّذِي", "سَكَنْتُهُ", "هَذَا"],
+        explanation: "アパート (شَقَّة) は女性名詞なので、指示代名詞 هَذِهِ と関係代名詞 الَّتِي を使います。また「そこに住む」は سَكَنَ فِي なので関係節内では فِيهَا で受けます。"
+      },
+      {
+        type: "reorder",
+        text: "\u200F私は3番目の授業の後に、大学の食堂で昼食を食べます。\u200F",
+        correctOrder: ["أَتَنَاوَلُ", "طَعَامَ", "الْغَدَاءِ", "فِي", "مَطْعَمِ", "الْجَامِعَةِ", "بَعْدَ", "الدَّرْسِ", "الثَّالِثِ"],
+        acceptableOrders: [
+          ["بَعْدَ", "الدَّرْسِ", "الثَّالِثِ", "أَتَنَاوَلُ", "طَعَامَ", "الْغَدَاءِ", "فِي", "مَطْعَمِ", "الْجَامِعَةِ"]
+        ],
+        distractors: ["ثَلَاثَةِ", "طَعَامُ", "يَتَنَاوَلُ"],
+        explanation: "「昼食」は طَعَامَ الْغَدَاءِ とイダーファになります。「3番目の」という序数は、修飾する名詞に合わせて الدَّرْسِ الثَّالِثِ と属格で一致させます。"
+      },
+      {
+        type: "reorder",
+        text: "\u200F彼は忙しかったにもかかわらず、手紙を素早く書きました。\u200F",
+        correctOrder: ["كَتَبَ", "الرِّسَالَةَ", "بِسُرْعَةٍ", "عَلَى", "الرَّغْمِ", "مِنْ", "أَنَّهُ", "كَانَ", "مَشْغُولًا"],
+        acceptableOrders: [
+          ["عَلَى", "الرَّغْمِ", "مِنْ", "أَنَّهُ", "كَانَ", "مَشْغُولًا", "كَتَبَ", "الرِّسَالَةَ", "بِسُرْعَةٍ"]
+        ],
+        distractors: ["كَتَبَتْ", "مَشْغُولٌ", "سَرِيعٌ"],
+        explanation: "「素早く」は بِسُرْعَةٍ と前置詞＋名詞で表します。「〜にもかかわらず」は عَلَى الرَّغْمِ مِنْ أَنَّهُ という決まり文句です。كَانَ の述語にあたるため مَشْغُولًا (対格) になります。"
+      },
+      {
+        type: "reorder",
+        text: "\u200Fアラビア語の文法を理解することは、アラビア語の新聞を読むために必要です。\u200F",
+        correctOrder: ["فَهْمُ", "قَوَاعِدِ", "اللُّغَةِ", "الْعَرَبِيَّةِ", "ضَرُورِيٌّ", "لِقِرَاءَةِ", "الصُّحُفِ", "الْعَرَبِيَّةِ"],
+        distractors: ["ضَرُورِيَّةٌ", "يَفْهَمُ", "قِرَاءَةَ"],
+        explanation: "主語は動名詞 فَهْمُ (理解すること・男性名詞) なので、述語は男性形の ضَرُورِيٌّ になります。「新聞(複数形)」الصُّحُف は非人間複数なので、修飾する形容詞は女性単数 الْعَرَبِيَّةِ となります。"
+      }
+    ]
+  },
 // --- 【中級】並び替えドリル 5 ---
 {
   id: 10505,
@@ -73925,4 +72846,12636 @@ export const articles: Article[] = [
       }
     ]
   },
+  // --- 初級単語テスト専用データ (12000 〜 13000) ---
+  {
+    id: 12000,
+    title: "初級基本単語集（挨拶と名詞）",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fأَهْلاً\u200F", meaning: "こんにちは" },
+      { word: "\u200Fشُكْراً\u200F", meaning: "ありがとう" },
+      { word: "\u200Fكِتَاب\u200F", meaning: "本" },
+      { word: "\u200Fقَلَم\u200F", meaning: "ペン" },
+      { word: "\u200Fمَدْرَسَة\u200F", meaning: "学校" },
+      { word: "\u200Fطَالِب\u200F", meaning: "学生" }
+    ],
+    questions: [],
+    sentences: []
+  },
+  {
+    id: 12001,
+    title: "初級基本単語集（家の中のもの）",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fبَيْت\u200F", meaning: "家" },
+      { word: "\u200Fبَاب\u200F", meaning: "ドア" },
+      { word: "\u200Fنَافِذَة\u200F", meaning: "窓" },
+      { word: "\u200Fكُرْسِيّ\u200F", meaning: "椅子" },
+      { word: "\u200Fطَاوِلَة\u200F", meaning: "テーブル" },
+      { word: "\u200Fمِفْتَاح\u200F", meaning: "鍵" }
+    ],
+    questions: [],
+    sentences: []
+  },
+  {
+    id: 12002,
+    title: "初級基本単語集（場所と方向）",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fمَدِينَة\u200F", meaning: "街・都市" },
+      { word: "\u200Fشَارِع\u200F", meaning: "通り" },
+      { word: "\u200Fمَطَار\u200F", meaning: "空港" },
+      { word: "\u200Fمُسْتَشْفَى\u200F", meaning: "病院" },
+      { word: "\u200Fفُنْدُق\u200F", meaning: "ホテル" },
+      { word: "\u200Fجَامِعَة\u200F", meaning: "大学" }
+    ],
+    questions: [],
+    sentences: []
+  },
+  // --- 初級：基本動詞 (ID: 12003) ---
+  {
+    id: 12003,
+    title: "初級必須：基本の動作（動詞）",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fذَهَبَ\u200F", meaning: "行く" },
+      { word: "\u200Fرَجَعَ\u200F", meaning: "帰る・戻る" },
+      { word: "\u200Fأَكَلَ\u200F", meaning: "食べる" },
+      { word: "\u200Fشَرِبَ\u200F", meaning: "飲む" },
+      { word: "\u200Fقَرَأَ\u200F", meaning: "読む" },
+      { word: "\u200Fكَتَبَ\u200F", meaning: "書く" },
+      { word: "\u200Fدَرَسَ\u200F", meaning: "勉強する" },
+      { word: "\u200Fفَهِمَ\u200F", meaning: "理解する" },
+      { word: "\u200Fجَلَسَ\u200F", meaning: "座る" },
+      { word: "\u200Fخَرَجَ\u200F", meaning: "出る・外出する" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：名詞の単数形と複数形 (ID: 12004) ---
+  {
+    id: 12004,
+    title: "初級：名詞の複数形に慣れる",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fكُتُب\u200F", meaning: "本（複数形）" },
+      { word: "\u200Fأَقْلَام\u200F", meaning: "ペン（複数形）" },
+      { word: "\u200Fبُيُوت\u200F", meaning: "家（複数形）" },
+      { word: "\u200Fطُلَّاب\u200F", meaning: "学生（複数形）" },
+      { word: "\u200Fأَبْوَاب\u200F", meaning: "ドア（複数形）" },
+      { word: "\u200Fمُدُن\u200F", meaning: "都市（複数形）" },
+      { word: "\u200Fأَصْدِقَاء\u200F", meaning: "友達（複数形）" },
+      { word: "\u200Fرِجَال\u200F", meaning: "男たち（複数形）" },
+      { word: "\u200Fنِسَاء\u200F", meaning: "女たち（複数形）" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：食べ物と飲み物 (ID: 12005) ---
+  {
+    id: 12005,
+    title: "初級：食べ物と飲み物",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fخُبْز\u200F", meaning: "パン" },
+      { word: "\u200Fلَحْم\u200F", meaning: "肉" },
+      { word: "\u200Fسَمَك\u200F", meaning: "魚" },
+      { word: "\u200Fمَاء\u200F", meaning: "水" },
+      { word: "\u200Fقَهْوَة\u200F", meaning: "コーヒー" },
+      { word: "\u200Fشَاي\u200F", meaning: "紅茶・お茶" },
+      { word: "\u200Fحَلِيب\u200F", meaning: "牛乳" },
+      { word: "\u200Fفَاكِهَة\u200F", meaning: "果物" },
+      { word: "\u200Fرُزّ\u200F", meaning: "米・ごはん" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：形容詞（反対語） (ID: 12006) ---
+  {
+    id: 12006,
+    title: "初級：基本の形容詞",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fكَبِير\u200F", meaning: "大きい" },
+      { word: "\u200Fصَغِير\u200F", meaning: "小さい" },
+      { word: "\u200Fجَدِيد\u200F", meaning: "新しい" },
+      { word: "\u200Fقَدِيم\u200F", meaning: "古い" },
+      { word: "\u200Fجَمِيل\u200F", meaning: "美しい・きれいな" },
+      { word: "\u200Fقَرِيب\u200F", meaning: "近い" },
+      { word: "\u200Fبَعِيد\u200F", meaning: "遠い" },
+      { word: "\u200Fسَهْل\u200F", meaning: "簡単な" },
+      { word: "\u200Fصَعْب\u200F", meaning: "難しい" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：時間と曜日 (ID: 12007) ---
+  {
+    id: 12007,
+    title: "初級：時を表す言葉",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fاليَوْم\u200F", meaning: "今日" },
+      { word: "\u200Fأَمْس\u200F", meaning: "昨日" },
+      { word: "\u200Fغَداً\u200F", meaning: "明日" },
+      { word: "\u200Fصَبَاح\u200F", meaning: "朝" },
+      { word: "\u200Fمَسَاء\u200F", meaning: "夕方・晩" },
+      { word: "\u200Fلَيْل\u200F", meaning: "夜" },
+      { word: "\u200Fأُسْبُوع\u200F", meaning: "週" },
+      { word: "\u200Fشَهْر\u200F", meaning: "月（カレンダー）" },
+      { word: "\u200Fسَنَة\u200F", meaning: "年" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：職業と人々 (ID: 12008) ---
+  {
+    id: 12008,
+    title: "初級：職業と人々",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fمُدِير\u200F", meaning: "部長・マネージャー" },
+      { word: "\u200Fطَبِيب\u200F", meaning: "医者" },
+      { word: "\u200Fمُهَنْدِس\u200F", meaning: "エンジニア" },
+      { word: "\u200Fمُوَظَّف\u200F", meaning: "会社員・職員" },
+      { word: "\u200Fأَب\u200F", meaning: "父" },
+      { word: "\u200Fأُم\u200F", meaning: "母" },
+      { word: "\u200Fأَخ\u200F", meaning: "兄・弟" },
+      { word: "\u200Fأُخْت\u200F", meaning: "姉・妹" },
+      { word: "\u200Fوَلَد\u200F", meaning: "男の子" },
+      { word: "\u200Fبِنْت\u200F", meaning: "女の子" }
+    ],
+    questions: [],
+    sentences: []
+  },
+  // --- 初級：色 (ID: 12009) ---
+  {
+    id: 12009,
+    title: "初級：色を表す言葉",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fأَبْيَض\u200F", meaning: "白" },
+      { word: "\u200Fأَسْوَد\u200F", meaning: "黒" },
+      { word: "\u200Fأَحْمَر\u200F", meaning: "赤" },
+      { word: "\u200Fأَزْرَق\u200F", meaning: "青" },
+      { word: "\u200Fأَخْضَر\u200F", meaning: "緑" },
+      { word: "\u200Fأَصْفَر\u200F", meaning: "黄色" },
+      { word: "\u200Fبُنِّي\u200F", meaning: "茶色" },
+      { word: "\u200Fرَمَادِي\u200F", meaning: "灰色" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：体の一部 (ID: 12010) ---
+  {
+    id: 12010,
+    title: "初級：体の一部",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fرَأْس\u200F", meaning: "頭" },
+      { word: "\u200Fوَجْه\u200F", meaning: "顔" },
+      { word: "\u200Fعَيْن\u200F", meaning: "目" },
+      { word: "\u200Fأَنْف\u200F", meaning: "鼻" },
+      { word: "\u200Fفَم\u200F", meaning: "口" },
+      { word: "\u200Fأُذُن\u200F", meaning: "耳" },
+      { word: "\u200Fيَد\u200F", meaning: "手" },
+      { word: "\u200Fرِجْل\u200F", meaning: "足" },
+      { word: "\u200Fقَلْب\u200F", meaning: "心臓・心" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：数字 1-10 (ID: 12011) ---
+  {
+    id: 12011,
+    title: "初級：数字 (1〜10)",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fوَاحِد\u200F", meaning: "1 (一)" },
+      { word: "\u200Fاِثْنَان\u200F", meaning: "2 (二)" },
+      { word: "\u200Fثَلَاثَة\u200F", meaning: "3 (三)" },
+      { word: "\u200Fأَرْبَعَة\u200F", meaning: "4 (四)" },
+      { word: "\u200Fخَمْسَة\u200F", meaning: "5 (五)" },
+      { word: "\u200Fسِتَّة\u200F", meaning: "6 (六)" },
+      { word: "\u200Fسَبْعَة\u200F", meaning: "7 (七)" },
+      { word: "\u200Fثَمَانِيَة\u200F", meaning: "8 (八)" },
+      { word: "\u200Fتِسْعَة\u200F", meaning: "9 (九)" },
+      { word: "\u200Fعَشَرَة\u200F", meaning: "10 (十)" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：自然と天気 (ID: 12012) ---
+  {
+    id: 12012,
+    title: "初級：自然と天気",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fشَمْس\u200F", meaning: "太陽" },
+      { word: "\u200Fقَمَر\u200F", meaning: "月" },
+      { word: "\u200Fسَمَاء\u200F", meaning: "空" },
+      { word: "\u200Fبَحْر\u200F", meaning: "海" },
+      { word: "\u200Fجَبَل\u200F", meaning: "山" },
+      { word: "\u200Fنَهْر\u200F", meaning: "川" },
+      { word: "\u200Fشَجَرَة\u200F", meaning: "木" },
+      { word: "\u200Fمَطَر\u200F", meaning: "雨" },
+      { word: "\u200Fحَار\u200F", meaning: "暑い" },
+      { word: "\u200Fبَارِد\u200F", meaning: "寒い・冷たい" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：衣服 (ID: 12013) ---
+  {
+    id: 12013,
+    title: "初級：服と身の回りのもの",
+    category: "単_データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fثَوْب\u200F", meaning: "服（アラブの伝統衣装）" },
+      { word: "\u200Fقَمِيص\u200F", meaning: "シャツ" },
+      { word: "\u200Fفُسْتَان\u200F", meaning: "ドレス・ワンピース" },
+      { word: "\u200Fحِذَاء\u200F", meaning: "靴" },
+      { word: "\u200Fحَقِيبَة\u200F", meaning: "鞄・バッグ" },
+      { word: "\u200Fنَظَّارَة\u200F", meaning: "眼鏡" },
+      { word: "\u200Fسَاعَة\u200F", meaning: "時計" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：感情と状態 (ID: 12014) ---
+  {
+    id: 12014,
+    title: "初級：気持ちと体調",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fسَعِيد\u200F", meaning: "幸せな・嬉しい" },
+      { word: "\u200Fحَزِين\u200F", meaning: "悲しい" },
+      { word: "\u200Fتَعْبَان\u200F", meaning: "疲れている" },
+      { word: "\u200Fجَوْعَان\u200F", meaning: "お腹が空いている" },
+      { word: "\u200Fعَطْشَان\u200F", meaning: "喉が渇いている" },
+      { word: "\u200Fمَشْغُول\u200F", meaning: "忙しい" },
+      { word: "\u200Fمَرِيض\u200F", meaning: "病気の" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：家の中の場所 (ID: 12015) ---
+  {
+    id: 12015,
+    title: "初級：家の中の部屋",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fغُرْفَة\u200F", meaning: "部屋" },
+      { word: "\u200Fمَطْبَخ\u200F", meaning: "台所" },
+      { word: "\u200Fحَمَّام\u200F", meaning: "トイレ・浴室" },
+      { word: "\u200Fغُرْفَةُ النَّوْم\u200F", meaning: "寝室" },
+      { word: "\u200Fغُرْفَةُ الجُلُوس\u200F", meaning: "居間・リビング" },
+      { word: "\u200Fحَدِيقَة\u200F", meaning: "庭・公園" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：学校・オフィス用品 (ID: 12016) ---
+  {
+    id: 12016,
+    title: "初級：学校と仕事の道具",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fوَرَقَة\u200F", meaning: "紙" },
+      { word: "\u200Fدَفْتَر\u200F", meaning: "ノート" },
+      { word: "\u200Fقَامُوس\u200F", meaning: "辞書" },
+      { word: "\u200Fمَكْتَب\u200F", meaning: "机・事務所" },
+      { word: "\u200Fحَاسُوب\u200F", meaning: "パソコン" },
+      { word: "\u200Fهَاتِف\u200F", meaning: "電話" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：交通手段 (ID: 12017) ---
+  {
+    id: 12017,
+    title: "初級：乗り物",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fحَافِلَة\u200F", meaning: "バス" },
+      { word: "\u200Fقِطَار\u200F", meaning: "電車・列車" },
+      { word: "\u200Fطَائِرَة\u200F", meaning: "飛行機" },
+      { word: "\u200Fدَرَّاجَة\u200F", meaning: "自転車" },
+      { word: "\u200Fسَفِينَة\u200F", meaning: "船" },
+      { word: "\u200Fتَاكْسِي\u200F", meaning: "タクシー" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：動物 (ID: 12018) ---
+  {
+    id: 12018,
+    title: "初級：動物",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fكَلْب\u200F", meaning: "犬" },
+      { word: "\u200Fقِطَّة\u200F", meaning: "猫" },
+      { word: "\u200Fحِصَان\u200F", meaning: "馬" },
+      { word: "\u200Fجَمَل\u200F", meaning: "ラクダ" },
+      { word: "\u200Fأَسَد\u200F", meaning: "ライオン" },
+      { word: "\u200Fطَائِر\u200F", meaning: "鳥" },
+      { word: "\u200Fسَمَكَة\u200F", meaning: "魚（一匹）" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：動作（動詞セット2） (ID: 12019) ---
+  {
+    id: 12019,
+    title: "初級必須：生活の動作（動詞2）",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fنَامَ\u200F", meaning: "寝る" },
+      { word: "\u200Fقَامَ\u200F", meaning: "起きる・立つ" },
+      { word: "\u200Fشَاهَدَ\u200F", meaning: "見る（テレビ等）" },
+      { word: "\u200Fسَمِعَ\u200F", meaning: "聞く" },
+      { word: "\u200Fتَكَلَّمَ\u200F", meaning: "話す" },
+      { word: "\u200Fاشْتَرَى\u200F", meaning: "買う" },
+      { word: "\u200Fطَبَخَ\u200F", meaning: "料理する" },
+      { word: "\u200Fلَعِبَ\u200F", meaning: "遊ぶ" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：家族と親戚 (ID: 12020) ---
+  {
+    id: 12020,
+    title: "初級：家族の呼び方",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fجَد\u200F", meaning: "祖父" },
+      { word: "\u200Fجَدَّة\u200F", meaning: "祖母" },
+      { word: "\u200Fزَوْج\u200F", meaning: "夫" },
+      { word: "\u200Fزَوْجَة\u200F", meaning: "妻" },
+      { word: "\u200Fاِبْن\u200F", meaning: "息子" },
+      { word: "\u200Fاِبْنَة\u200F", meaning: "娘" },
+      { word: "\u200Fعَم\u200F", meaning: "父方の叔父" },
+      { word: "\u200Fخَال\u200F", meaning: "母方の叔父" }
+    ],
+    questions: [],
+    sentences: []
+  },
+  // --- 初級：曜日 (ID: 12021) ---
+  {
+    id: 12021,
+    title: "初級：曜日の名前",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fيَوْمُ الأَحَد\u200F", meaning: "日曜日" },
+      { word: "\u200Fيَوْمُ الاِثْنَيْن\u200F", meaning: "月曜日" },
+      { word: "\u200Fيَوْمُ الثُّلَاثَاء\u200F", meaning: "火曜日" },
+      { word: "\u200Fيَوْمُ الأَرْبِعَاء\u200F", meaning: "水曜日" },
+      { word: "\u200Fيَوْمُ الخَمِيس\u200F", meaning: "木曜日" },
+      { word: "\u200Fيَوْمُ جُمُعَة\u200F", meaning: "金曜日" },
+      { word: "\u200Fيَوْمُ السَّبْت\u200F", meaning: "土曜日" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：質問の言葉（疑問詞） (ID: 12022) ---
+  {
+    id: 12022,
+    title: "初級：質問で使う言葉",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fمَنْ\u200F", meaning: "誰" },
+      { word: "\u200Fمَاذَا\u200F", meaning: "何（動詞を伴う時）" },
+      { word: "\u200Fمَا\u200F", meaning: "何（名詞を伴う時）" },
+      { word: "\u200Fأَيْنَ\u200F", meaning: "どこ" },
+      { word: "\u200Fمَتَى\u200F", meaning: "いつ" },
+      { word: "\u200Fكَيْفَ\u200F", meaning: "どのように・どう" },
+      { word: "\u200Fلِمَاذَا\u200F", meaning: "なぜ" },
+      { word: "\u200Fكَمْ\u200F", meaning: "いくら・いくつ" },
+      { word: "\u200Fأَيّ\u200F", meaning: "どの" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：位置と方向 (ID: 12023) ---
+  {
+    id: 12023,
+    title: "初級：場所・位置・方向",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fفَوْقَ\u200F", meaning: "〜の上に" },
+      { word: "\u200Fتَحْتَ\u200F", meaning: "〜の下に" },
+      { word: "\u200Fأَمَامَ\u200F", meaning: "〜の前に" },
+      { word: "\u200Fخَلْفَ\u200F", meaning: "〜の後ろに" },
+      { word: "\u200Fبِجَانِب\u200F", meaning: "〜の隣に" },
+      { word: "\u200Fبَيْنَ\u200F", meaning: "〜の間に" },
+      { word: "\u200Fيَمِين\u200F", meaning: "右" },
+      { word: "\u200Fيَسَار\u200F", meaning: "左" },
+      { word: "\u200Fهُنَا\u200F", meaning: "ここ" },
+      { word: "\u200Fهُنَاكَ\u200F", meaning: "あそこ・そこ" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：果物と野菜 (ID: 12024) ---
+  {
+    id: 12024,
+    title: "初級：果物と野菜",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fتُفَّاحَة\u200F", meaning: "リンゴ" },
+      { word: "\u200Fمَوْزَة\u200F", meaning: "バナナ" },
+      { word: "\u200Fبُرْتُقَال\u200F", meaning: "オレンジ" },
+      { word: "\u200Fعِنَب\u200F", meaning: "ぶどう" },
+      { word: "\u200Fطَمَاطِم\u200F", meaning: "トマト" },
+      { word: "\u200Fخِيَار\u200F", meaning: "きゅうり" },
+      { word: "\u200Fبَصَل\u200F", meaning: "玉ねぎ" },
+      { word: "\u200Fبَطَاطِس\u200F", meaning: "じゃがいも" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：家の中の家具 (ID: 12025) ---
+  {
+    id: 12025,
+    title: "初級：家具と家電",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fسَرِير\u200F", meaning: "ベッド" },
+      { word: "\u200Fدُولاب\u200F", meaning: "クローゼット・棚" },
+      { word: "\u200Fسِجَّادَة\u200F", meaning: "カーペット・絨毯" },
+      { word: "\u200Fسِتَارَة\u200F", meaning: "カーテン" },
+      { word: "\u200Fمِصْبَاح\u200F", meaning: "ランプ・電灯" },
+      { word: "\u200Fثَلَّاجَة\u200F", meaning: "冷蔵庫" },
+      { word: "\u200Fتِلِفِزْيُون\u200F", meaning: "テレビ" },
+      { word: "\u200Fمُرَيَّة\u200F", meaning: "鏡" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：学校と学習 (ID: 12026) ---
+  {
+    id: 12026,
+    title: "初級：学校生活の言葉",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fدَرْس\u200F", meaning: "授業・レッスン" },
+      { word: "\u200Fفَصْل\u200F", meaning: "教室・クラス" },
+      { word: "\u200Fاِمْتِحَان\u200F", meaning: "試験・テスト" },
+      { word: "\u200Fصَفْحَة\u200F", meaning: "ページ" },
+      { word: "\u200Fمَكْتَبَة\u200F", meaning: "図書館・本屋" },
+      { word: "\u200Fعُطْلَة\u200F", meaning: "休み・休暇" },
+      { word: "\u200Fوَاجِب\u200F", meaning: "宿題" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：基本の形容詞 2 (ID: 12027) ---
+  {
+    id: 12027,
+    title: "初級：便利な形容詞セット2",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fكَثِير\u200F", meaning: "多い・たくさん" },
+      { word: "\u200Fقَلِيل\u200F", meaning: "少ない・少し" },
+      { word: "\u200Fسَرِيع\u200F", meaning: "速い" },
+      { word: "\u200Fبَطِيء\u200F", meaning: "遅い" },
+      { word: "\u200Fغَالِي\u200F", meaning: "（値段が）高い" },
+      { word: "\u200Fرَخِيص\u200F", meaning: "安い" },
+      { word: "\u200Fنَظِيف\u200F", meaning: "きれいな・清潔な" },
+      { word: "\u200Fوَسِخ\u200F", meaning: "汚い" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：副詞と便利な表現 (ID: 12028) ---
+  {
+    id: 12028,
+    title: "初級：よく使う副詞",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fجِدًّا\u200F", meaning: "とても" },
+      { word: "\u200Fأَيْضاً\u200F", meaning: "〜もまた" },
+      { word: "\u200Fفَقَط\u200F", meaning: "〜だけ・のみ" },
+      { word: "\u200Fدَائِماً\u200F", meaning: "いつも" },
+      { word: "\u200Fأَحْيَاناً\u200F", meaning: "時々" },
+      { word: "\u200Fرُبَّمَا\u200F", meaning: "たぶん・おそらく" },
+      { word: "\u200Fطَبْعاً\u200F", meaning: "もちろん" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：身体の状態 (ID: 12029) ---
+  {
+    id: 12029,
+    title: "初級：健康と体調",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fأَلَم\u200F", meaning: "痛み" },
+      { word: "\u200Fصِحَّة\u200F", meaning: "健康" },
+      { word: "\u200Fدَوَاء\u200F", meaning: "薬" },
+      { word: "\u200Fقَوِيّ\u200F", meaning: "強い" },
+      { word: "\u200Fضَعِيف\u200F", meaning: "弱い" },
+      { word: "\u200Fطَوِيل\u200F", meaning: "背が高い・長い" },
+      { word: "\u200Fقَصِير\u200F", meaning: "背が低い・短い" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：動詞セット 3 (ID: 12030) ---
+  {
+    id: 12030,
+    title: "初級：日常の動作（動詞3）",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fفَعَلَ\u200F", meaning: "する・行う" },
+      { word: "\u200Fعَمِلَ\u200F", meaning: "働く・仕事する" },
+      { word: "\u200Fعَرَفَ\u200F", meaning: "知っている" },
+      { word: "\u200Fوَجَدَ\u200F", meaning: "見つける" },
+      { word: "\u200Fسَافَرَ\u200F", meaning: "旅行する" },
+      { word: "\u200Fاِنْتَظَرَ\u200F", meaning: "待つ" },
+      { word: "\u200Fسَاعَدَ\u200F", meaning: "手伝う・助ける" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：自然と地理 (ID: 12031) ---
+  {
+    id: 12031,
+    title: "初級：世界と自然",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fعَالَم\u200F", meaning: "世界" },
+      { word: "\u200Fدَوْلَة\u200F", meaning: "国" },
+      { word: "\u200Fقَرْيَة\u200F", meaning: "村" },
+      { word: "\u200Fبَرّ\u200F", meaning: "陸・砂漠地帯" },
+      { word: "\u200Fغَابَة\u200F", meaning: "森" },
+      { word: "\u200Fجَزِيرَة\u200F", meaning: "島" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：代名詞（人称） (ID: 12032) ---
+  {
+    id: 12032,
+    title: "初級：私、あなた、彼（人称代名詞）",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fأَنَا\u200F", meaning: "私" },
+      { word: "\u200Fأَنْتَ\u200F", meaning: "あなた（男性）" },
+      { word: "\u200Fأَنْتِ\u200F", meaning: "あなた（女性）" },
+      { word: "\u200Fهُوَ\u200F", meaning: "彼" },
+      { word: "\u200Fهِيَ\u200F", meaning: "彼女" },
+      { word: "\u200Fنَحْنُ\u200F", meaning: "私たち" },
+      { word: "\u200Fأَنْتُمْ\u200F", meaning: "あなたたち（男性）" },
+      { word: "\u200Fهُمْ\u200F", meaning: "彼ら" }
+    ],
+    questions: [],
+    sentences: []
+  },
+  // --- 初級：コミュニケーションの動詞 (ID: 12033) ---
+  {
+    id: 12033,
+    title: "初級：伝える・聞く（動詞）",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fقَالَ\u200F", meaning: "言う" },
+      { word: "\u200Fسَأَلَ\u200F", meaning: "質問する・尋ねる" },
+      { word: "\u200Fأَجَابَ\u200F", meaning: "答える" },
+      { word: "\u200Fطَلَبَ\u200F", meaning: "頼む・注文する" },
+      { word: "\u200Fأَرْسَلَ\u200F", meaning: "送る" },
+      { word: "\u200Fإِتَّصَلَ\u200F", meaning: "電話する・連絡する" },
+      { word: "\u200Fنَادَى\u200F", meaning: "呼ぶ" },
+      { word: "\u200Fشَرَحَ\u200F", meaning: "説明する" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：性格と特徴の形容詞 (ID: 12034) ---
+  {
+    id: 12034,
+    title: "初級：人や物の特徴（形容詞）",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fطَيِّب\u200F", meaning: "良い・親切な・美味しい" },
+      { word: "\u200Fذَكِيّ\u200F", meaning: "頭が良い" },
+      { word: "\u200Fكَسْلَان\u200F", meaning: "怠惰な・怠け者の" },
+      { word: "\u200Fنَشِيط\u200F", meaning: "活発な・元気な" },
+      { word: "\u200Fمَشْهُور\u200F", meaning: "有名な" },
+      { word: "\u200Fلَطِيف\u200F", meaning: "優しい・穏やかな" },
+      { word: "\u200Fغَنِيّ\u200F", meaning: "金持ちの" },
+      { word: "\u200Fفَقِير\u200F", meaning: "貧しい" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：街の中の場所 (ID: 12035) ---
+  {
+    id: 12035,
+    title: "初級：街で見かける建物",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fبَنْك\u200F", meaning: "銀行" },
+      { word: "\u200Fصَيْدَلِيَّة\u200F", meaning: "薬局" },
+      { word: "\u200Fمَرْكَزُ الشُّرْطَة\u200F", meaning: "警察署" },
+      { word: "\u200Fمَسْجِد\u200F", meaning: "モスク" },
+      { word: "\u200Fسُوق\u200F", meaning: "市場（スーク）" },
+      { word: "\u200Fمَحَلّ\u200F", meaning: "店" },
+      { word: "\u200Fمَطْعَم\u200F", meaning: "レストラン" },
+      { word: "\u200Fمَقْهَى\u200F", meaning: "カフェ" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：キッチン用品 (ID: 12036) ---
+  {
+    id: 12036,
+    title: "初級：台所と食事の道具",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fطَبَق\u200F", meaning: "皿" },
+      { word: "\u200Fمِلْعَقَة\u200F", meaning: "スプーン" },
+      { word: "\u200Fشَوْكَة\u200F", meaning: "フォーク" },
+      { word: "\u200Fسِكِّين\u200F", meaning: "ナイフ" },
+      { word: "\u200Fكُوب\u200F", meaning: "コップ・カップ" },
+      { word: "\u200Fقِدْر\u200F", meaning: "鍋" },
+      { word: "\u200Fفُرْن\u200F", meaning: "オーブン" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：基本の動作 4 (ID: 12037) ---
+  {
+    id: 12037,
+    title: "初級：体を使った動き（動詞4）",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fمَشَى\u200F", meaning: "歩く" },
+      { word: "\u200Fجَرَى\u200F", meaning: "走る" },
+      { word: "\u200Fوَقَفَ\u200F", meaning: "止まる・立つ" },
+      { word: "\u200Fفَتَحَ\u200F", meaning: "開ける" },
+      { word: "\u200Fأَغْلَقَ\u200F", meaning: "閉める" },
+      { word: "\u200Fأَعْطَى\u200F", meaning: "与える・あげる" },
+      { word: "\u200Fأَخَذَ\u200F", meaning: "取る・受け取る" },
+      { word: "\u200Fحَمَلَ\u200F", meaning: "運ぶ・持つ" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：学習と知識 (ID: 12038) ---
+  {
+    id: 12038,
+    title: "初級：学びに関する動詞",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fبَدَأَ\u200F", meaning: "始まる・始める" },
+      { word: "\u200Fاِنْتَهَى\u200F", meaning: "終わる" },
+      { word: "\u200Fنَسِيَ\u200F", meaning: "忘れる" },
+      { word: "\u200Fتَذَكَّرَ\u200F", meaning: "思い出す・覚えている" },
+      { word: "\u200Fحَاوَلَ\u200F", meaning: "試みる・やってみる" },
+      { word: "\u200Fنَجَحَ\u200F", meaning: "成功する・合格する" },
+      { word: "\u200Fخَسِرَ\u200F", meaning: "失う・負ける" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：文房具と道具 (ID: 12039) ---
+  {
+    id: 12039,
+    title: "初級：筆箱の中身と道具",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fمِمْحَاة\u200F", meaning: "消しゴム" },
+      { word: "\u200Fمِسْطَرَة\u200F", meaning: "定規" },
+      { word: "\u200Fمِقَصّ\u200F", meaning: "ハサミ" },
+      { word: "\u200Fخَرِيطَة\u200F", meaning: "地図" },
+      { word: "\u200Fصُورَة\u200F", meaning: "写真・絵" },
+      { word: "\u200Fعَلَم\u200F", meaning: "旗" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：時間の単位 (ID: 12040) ---
+  {
+    id: 12040,
+    title: "初級：時間の細かい単位",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fثَانِيَة\u200F", meaning: "秒" },
+      { word: "\u200Fدَقِيقَة\u200F", meaning: "分" },
+      { word: "\u200Fسَاعَة\u200F", meaning: "時間・時・時計" },
+      { word: "\u200Fمُنْتَصَفُ اللَّيْل\u200F", meaning: "真夜中" },
+      { word: "\u200Fظُهْر\u200F", meaning: "正午・昼" },
+      { word: "\u200Fفَجْر\u200F", meaning: "夜明け" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：便利な名詞セット (ID: 12041) ---
+  {
+    id: 12041,
+    title: "初級：身近なモノ",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fنُقُود\u200F", meaning: "お金" },
+      { word: "\u200Fهَدِيَّة\u200F", meaning: "プレゼント・贈り物" },
+      { word: "\u200Fتَذْكِرَة\u200F", meaning: "切符・チケット" },
+      { word: "\u200Fجَوَازُ سَفَر\u200F", meaning: "パスポート" },
+      { word: "\u200Fرِسَالَة\u200F", meaning: "手紙・メッセージ" },
+      { word: "\u200Fخَبَر\u200F", meaning: "ニュース・知らせ" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：形容詞 3 (ID: 12042) ---
+  {
+    id: 12042,
+    title: "初級：状態を表す形容詞",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fمَفْتُوح\u200F", meaning: "開いている" },
+      { word: "\u200Fمُغْلَق\u200F", meaning: "閉まっている" },
+      { word: "\u200Fمُمْتِع\u200F", meaning: "楽しい・面白い" },
+      { word: "\u200Fمُمِلّ\u200F", meaning: "退屈な" },
+      { word: "\u200Fهَادِئ\u200F", meaning: "静かな" },
+      { word: "\u200Fمُزْعِج\u200F", meaning: "うるさい・迷惑な" },
+      { word: "\u200Fوَاسِع\u200F", meaning: "広い" },
+      { word: "\u200Fضَيِّق\u200F", meaning: "狭い" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：飲み物と調味料 (ID: 12043) ---
+  {
+    id: 12043,
+    title: "初級：カフェと食卓の言葉",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fعَصِير\u200F", meaning: "ジュース" },
+      { word: "\u200Fسُكَّر\u200F", meaning: "砂糖" },
+      { word: "\u200Fمِلْح\u200F", meaning: "塩" },
+      { word: "\u200Fفِلْفِل\u200F", meaning: "胡椒" },
+      { word: "\u200Fزَيْت\u200F", meaning: "油" },
+      { word: "\u200Fبَيْض\u200F", meaning: "卵" },
+      { word: "\u200Fجُبْن\u200F", meaning: "チーズ" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：場所の追加 (ID: 12044) ---
+  {
+    id: 12044,
+    title: "初級：公共の場所",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fمَحَطَّة\u200F", meaning: "駅" },
+      { word: "\u200Fمَلْعَب\u200F", meaning: "競技場・グラウンド" },
+      { word: "\u200Fمُتْحَف\u200F", meaning: "博物館・美術館" },
+      { word: "\u200Fحَدِيقَةُ الحَيَوَان\u200F", meaning: "動物園" },
+      { word: "\u200Fمَسْرَح\u200F", meaning: "劇場" },
+      { word: "\u200Fمَسْبَح\u200F", meaning: "プール" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：指示代名詞 (ID: 12045) ---
+  {
+    id: 12045,
+    title: "初級：これ、あれ（指示語）",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fهَذَا\u200F", meaning: "これ（男性名詞）" },
+      { word: "\u200Fهَذِهِ\u200F", meaning: "これ（女性名詞）" },
+      { word: "\u200Fذَلِكَ\u200F", meaning: "あれ（男性名詞）" },
+      { word: "\u200Fتِلْكَ\u200F", meaning: "あれ（女性名詞）" },
+      { word: "\u200Fهَؤُلَاءِ\u200F", meaning: "これら（人々）" },
+      { word: "\u200Fأُولَئِكَ\u200F", meaning: "あれら（人々）" }
+    ],
+    questions: [],
+    sentences: []
+  },
+  // --- 初級：一日のルーティン 1 (ID: 12046) ---
+  {
+    id: 12046,
+    title: "初級：朝のルーティン（動詞）",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fاِسْتَيْقَظَ\u200F", meaning: "起きる・目が覚める" },
+      { word: "\u200Fغَسَلَ\u200F", meaning: "洗う" },
+      { word: "\u200Fتَنَاوَلَ\u200F", meaning: "摂る（食事など）" },
+      { word: "\u200Fاِسْتَحَمَّ\u200F", meaning: "シャワーを浴びる・入浴する" },
+      { word: "\u200Fلَبِسَ\u200F", meaning: "着る" },
+      { word: "\u200Fنَظَّفَ\u200F", meaning: "掃除する・磨く" },
+      { word: "\u200Fفَرَشَ الأَسْنَان\u200F", meaning: "歯を磨く" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：天気と季節 (ID: 12047) ---
+  {
+    id: 12047,
+    title: "初級：四季と天候",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fرَبِيع\u200F", meaning: "春" },
+      { word: "\u200Fصَيْف\u200F", meaning: "夏" },
+      { word: "\u200Fخَرِيف\u200F", meaning: "秋" },
+      { word: "\u200Fشِتَاء\u200F", meaning: "冬" },
+      { word: "\u200Fمُشْمِس\u200F", meaning: "晴れ" },
+      { word: "\u200Fغَائِم\u200F", meaning: "曇り" },
+      { word: "\u200Fثَلْج\u200F", meaning: "雪" },
+      { word: "\u200Fرِيح\u200F", meaning: "風" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：形とサイズ (ID: 12048) ---
+  {
+    id: 12048,
+    title: "初級：形と大きさ",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fدَائِرَة\u200F", meaning: "円・丸" },
+      { word: "\u200Fمُرَبَّع\u200F", meaning: "正方形" },
+      { word: "\u200Fمُثَلَّث\u200F", meaning: "三角形" },
+      { word: "\u200Fخَطّ\u200F", meaning: "線" },
+      { word: "\u200Fنُقْطَة\u200F", meaning: "点" },
+      { word: "\u200Fثَقِيل\u200F", meaning: "重い" },
+      { word: "\u200Fخَفِيف\u200F", meaning: "軽い" },
+      { word: "\u200Fعَرِيض\u200F", meaning: "幅広い" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：材料と物質 (ID: 12049) ---
+  {
+    id: 12049,
+    title: "初級：素材の名前",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fحَدِيد\u200F", meaning: "鉄" },
+      { word: "\u200Fخَشَب\u200F", meaning: "木材" },
+      { word: "\u200Fزُجَاج\u200F", meaning: "ガラス" },
+      { word: "\u200Fبِلَاسْتِيك\u200F", meaning: "プラスチック" },
+      { word: "\u200Fذَهَب\u200F", meaning: "金" },
+      { word: "\u200Fفِضَّة\u200F", meaning: "銀" },
+      { word: "\u200Fوَرَق\u200F", meaning: "紙・葉" },
+      { word: "\u200Fقُمَاش\u200F", meaning: "布" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：オフィスと仕事 (ID: 12050) ---
+  {
+    id: 12050,
+    title: "初級：仕事の現場で",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fشَرِكَة\u200F", meaning: "会社" },
+      { word: "\u200Fاِجْتِمَاع\u200F", meaning: "会議" },
+      { word: "\u200Fمُدِير\u200F", meaning: "管理者・マネージャー" },
+      { word: "\u200Fزَمِيل\u200F", meaning: "同僚" },
+      { word: "\u200Fمَشْرُوع\u200F", meaning: "プロジェクト・計画" },
+      { word: "\u200Fخِدْمَة\u200F", meaning: "サービス" },
+      { word: "\u200Fرَاتِب\u200F", meaning: "給与" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：医学と体調 (ID: 12051) ---
+  {
+    id: 12051,
+    title: "初級：病院・健康の言葉",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fمُمَرِّضَة\u200F", meaning: "看護師" },
+      { word: "\u200Fإِسْعَاف\u200F", meaning: "救急車・救急" },
+      { word: "\u200Fصَيْدَلِيَّة\u200F", meaning: "薬局" },
+      { word: "\u200Fعِلَاج\u200F", meaning: "治療" },
+      { word: "\u200Fرُوشِتَّة\u200F", meaning: "処方箋" },
+      { word: "\u200Fحَرَارَة\u200F", meaning: "熱・温度" },
+      { word: "\u200Fسُعَال\u200F", meaning: "咳" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：ITとメディア (ID: 12052) ---
+  {
+    id: 12052,
+    title: "初級：パソコンとインターネット",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fإِنْتَرْنِت\u200F", meaning: "インターネット" },
+      { word: "\u200Fمَوْقِع\u200F", meaning: "サイト・場所" },
+      { word: "\u200Fبَرِيدٌ إِلِكْتُرُونِيّ\u200F", meaning: "メール" },
+      { word: "\u200Fرَقَمٌ سِرِّيّ\u200F", meaning: "パスワード" },
+      { word: "\u200Fشَاشَة\u200F", meaning: "画面・スクリーン" },
+      { word: "\u200Fلَوْحَةُ المَفَاتِيح\u200F", meaning: "キーボード" },
+      { word: "\u200Fفَأْرَة\u200F", meaning: "マウス" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：重要な前置詞 (ID: 12053) ---
+  {
+    id: 12053,
+    title: "初級：よく使うつなぎの言葉",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fمِنْ\u200F", meaning: "〜から" },
+      { word: "\u200Fإِلَى\u200F", meaning: "〜へ・まで" },
+      { word: "\u200Fفِي\u200F", meaning: "〜の中に" },
+      { word: "\u200Fعَلَى\u200F", meaning: "〜の上に" },
+      { word: "\u200Fمَعَ\u200F", meaning: "〜と一緒に" },
+      { word: "\u200Fعَنْ\u200F", meaning: "〜について" },
+      { word: "\u200Fلِـ\u200F", meaning: "〜のために・〜の" },
+      { word: "\u200Fبِـ\u200F", meaning: "〜で（手段）" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：頻度と程度の言葉 (ID: 12054) ---
+  {
+    id: 12054,
+    title: "初級：頻度を表す言葉",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fمَرَّة\u200F", meaning: "一回・度" },
+      { word: "\u200Fدَوْماً\u200F", meaning: "常に" },
+      { word: "\u200Fغَالِباً\u200F", meaning: "しばしば・たいてい" },
+      { word: "\u200Fنَادِراً\u200F", meaning: "めったに〜ない" },
+      { word: "\u200Fأَبَداً\u200F", meaning: "決して〜ない" },
+      { word: "\u200Fقَرِيباً\u200F", meaning: "すぐに・まもなく" },
+      { word: "\u200Fجِدًّا\u200F", meaning: "とても" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 初級：旅行とホテル (ID: 12055) ---
+  {
+    id: 12055,
+    title: "初級：旅の言葉",
+    category: "単語データ",
+    level: "初級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fحَجْز\u200F", meaning: "予約" },
+      { word: "\u200Fفُنْدُق\u200F", meaning: "ホテル" },
+      { word: "\u200Fجَوَازُ سَفَر\u200F", meaning: "パスポート" },
+      { word: "\u200Fخَرِيطَة\u200F", meaning: "地図" },
+      { word: "\u200Fسَائِح\u200F", meaning: "観光客" },
+      { word: "\u200Fاِمْتِعَة\u200F", meaning: "荷物" },
+      { word: "\u200Fطَرِيق\u200F", meaning: "道" }
+    ],
+    questions: [],
+    sentences: []
+  },
+  // --- 中級：経済とビジネス (ID: 13001) ---
+  {
+    id: 13001,
+    title: "中級：経済と金融の言葉",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fاِسْتِثْمَار\u200F", meaning: "投資" },
+      { word: "\u200Fاِقْتِصَاد\u200F", meaning: "経済" },
+      { word: "\u200Fتَضَخُّم\u200F", meaning: "インフレ・膨張" },
+      { word: "\u200Fمِيزَانِيَّة\u200F", meaning: "予算" },
+      { word: "\u200Fتِجَارَة\u200F", meaning: "貿易・商業" },
+      { word: "\u200Fسُوقُ الأَسْهُم\u200F", meaning: "株式市場" },
+      { word: "\u200Fأَرْبَاح\u200F", meaning: "利益" },
+      { word: "\u200Fضَرِيبَة\u200F", meaning: "税金" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：政治と国際関係 (ID: 13002) ---
+  {
+    id: 13002,
+    title: "中級：政治・外交の言葉",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fاِنْتِخَابَات\u200F", meaning: "選挙" },
+      { word: "\u200Fسِيَاسَة\u200F", meaning: "政治・政策" },
+      { word: "\u200Fسِفَارَة\u200F", meaning: "大使館" },
+      { word: "\u200Fدِبْلُومَاسِيَّة\u200F", meaning: "外交" },
+      { word: "\u200Fعَلَاقَاتٌ دُوَلِيَّة\u200F", meaning: "国際関係" },
+      { word: "\u200Fمُفَاوَضَات\u200F", meaning: "交渉" },
+      { word: "\u200Fدِيمُوقْرَاطِيَّة\u200F", meaning: "民主主義" },
+      { word: "\u200Fمُجْتَمَع\u200F", meaning: "社会" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：社会問題と開発 (ID: 13003) ---
+  {
+    id: 13003,
+    title: "中級：社会と発展の言葉",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fتَنْمِيَة\u200F", meaning: "開発・発展" },
+      { word: "\u200Fبِيئَة\u200F", meaning: "環境" },
+      { word: "\u200Fتَعْلِيم\u200F", meaning: "教育" },
+      { word: "\u200Fثَقَافَة\u200F", meaning: "文化" },
+      { word: "\u200Fعَدَالَة\u200F", meaning: "正義・裁判" },
+      { word: "\u200Fحُقُوق\u200F", meaning: "権利" },
+      { word: "\u200Fقَانُون\u200F", meaning: "法律" },
+      { word: "\u200Fتَحَدِّي\u200F", meaning: "挑戦・課題" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：メディアとニュース (ID: 13004) ---
+  {
+    id: 13004,
+    title: "中級：ニュース・報道の言葉",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fصِحَافَة\u200F", meaning: "ジャーナリズム・報道" },
+      { word: "\u200Fمَقَال\u200F", meaning: "記事" },
+      { word: "\u200Fقَنَاة\u200F", meaning: "チャンネル・運河" },
+      { word: "\u200Fبَثٌّ مُبَاشِر\u200F", meaning: "生放送" },
+      { word: "\u200Fإِعْلَام\u200F", meaning: "メディア・広報" },
+      { word: "\u200Fمُؤْتَمَرٌ صُحُفِيّ\u200F", meaning: "記者会見" },
+      { word: "\u200Fتَقْرِير\u200F", meaning: "レポート・報告書" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：高度な動詞（精神・認知） (ID: 13005) ---
+  {
+    id: 13005,
+    title: "中級：思考・感情の動詞",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fفَكَّرَ\u200F", meaning: "考える" },
+      { word: "\u200Fقَرَّرَ\u200F", meaning: "決める・決定する" },
+      { word: "\u200Fاِعْتَقَدَ\u200F", meaning: "信じる・思う" },
+      { word: "\u200Fشَعَرَ\u200F", meaning: "感じる" },
+      { word: "\u200Fتَمَنَّى\u200F", meaning: "願う・希望する" },
+      { word: "\u200Fخَطَّطَ\u200F", meaning: "計画する" },
+      { word: "\u200Fتَأَكَّدَ\u200F", meaning: "確認する・確信する" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：形容詞（抽象・評価） (ID: 13006) ---
+  {
+    id: 13006,
+    title: "中級：複雑な状態の形容詞",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fمُهِمّ\u200F", meaning: "重要な" },
+      { word: "\u200Fضَرُورِيّ\u200F", meaning: "必要な・不可欠な" },
+      { word: "\u200Fمُعَقَّد\u200F", meaning: "複雑な" },
+      { word: "\u200Fمُخْتَلِف\u200F", meaning: "異なる" },
+      { word: "\u200Fمُتَشَابِه\u200F", meaning: "似ている" },
+      { word: "\u200Fإِيجَابِيّ\u200F", meaning: "ポジティブな・肯定的な" },
+      { word: "\u200Fسَلْبِيّ\u200F", meaning: "ネガティブな・否定的な" },
+      { word: "\u200Fمُنَاسِب\u200F", meaning: "適切な" }
+    ],
+    questions: [],
+    sentences: []
+  },
+  // --- 中級：形容詞（論理・質） (ID: 13007) ---
+  {
+    id: 13007,
+    title: "中級：論理と性質の形容詞",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fمَنْطِقِيّ\u200F", meaning: "論理的な" },
+      { word: "\u200Fوَاقِعِيّ\u200F", meaning: "現実的な" },
+      { word: "\u200Fمِثَالِيّ\u200F", meaning: "理想的な" },
+      { word: "\u200Fنَادِر\u200F", meaning: "珍しい・稀な" },
+      { word: "\u200Fشَائِع\u200F", meaning: "一般的な・普及している" },
+      { word: "\u200Fوَاضِح\u200F", meaning: "明確な" },
+      { word: "\u200Fغَامِض\u200F", meaning: "曖昧な・謎めいた" },
+      { word: "\u200Fدَقِيق\u200F", meaning: "正確な・細かい" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：形容詞（影響・価値） (ID: 13008) ---
+  {
+    id: 13008,
+    title: "中級：影響と価値の形容詞",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fفَعَّال\u200F", meaning: "効果的な・有効な" },
+      { word: "\u200Fمُفِيد\u200F", meaning: "有益な・役に立つ" },
+      { word: "\u200Fضَارّ\u200F", meaning: "有害な" },
+      { word: "\u200Fشَامِل\u200F", meaning: "包括的な・総合的な" },
+      { word: "\u200Fكَافٍ\u200F", meaning: "十分な" },
+      { word: "\u200Fنَاقِص\u200F", meaning: "不十分な・欠けている" },
+      { word: "\u200Fمُسْتَمِرّ\u200F", meaning: "継続的な" },
+      { word: "\u200Fمُؤَقَّت\u200F", meaning: "一時的な" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：形容詞（社会・能力） (ID: 13009) ---
+  {
+    id: 13009,
+    title: "中級：社会と能力の形容詞",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fمَشْهُور\u200F", meaning: "有名な" },
+      { word: "\u200Fمَجْهُول\u200F", meaning: "未知の・不明な" },
+      { word: "\u200Fخَاصّ\u200F", meaning: "特別な・私的な" },
+      { word: "\u200Fعَامّ\u200F", meaning: "一般的な・公的な" },
+      { word: "\u200Fقَادِر\u200F", meaning: "能力がある" },
+      { word: "\u200Fعَاجِز\u200F", meaning: "無力な・できない" },
+      { word: "\u200Fمُسْتَقِلّ\u200F", meaning: "独立した" },
+      { word: "\u200Fمَسْؤُول\u200F", meaning: "責任のある" }
+    ],
+    questions: [],
+    sentences: []
+  },
+  // --- 中級：ビジネス・計画 (ID: 13014) ---
+  {
+    id: 13014,
+    title: "中級：仕事と計画の単語",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fنَجَحَ / يَنْجَحُ\u200F", meaning: "成功する" },
+      { word: "\u200Fفَشِلَ / يَفْشَلُ\u200F", meaning: "失敗する" },
+      { word: "\u200Fخَطَّطَ / يُخَطِّطُ\u200F", meaning: "計画する" },
+      { word: "\u200Fمَشْرُوع\u200F", meaning: "プロジェクト・事業" },
+      { word: "\u200Fخُطَّة\u200F", meaning: "計画・プラン" },
+      { word: "\u200Fمُنَافِس\u200F", meaning: "競合相手・ライバル" },
+      { word: "\u200Fتَعَاوَنَ / يَتَعَاوَنُ\u200F", meaning: "協力する" },
+      { word: "\u200Fخِبْرَة\u200F", meaning: "経験・キャリア" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：変化・プロセス (ID: 13015) ---
+  {
+    id: 13015,
+    title: "中級：変化と過程を表す単語",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fتَغَيَّرَ / يَتَغَيَّرُ\u200F", meaning: "変わる・変化する" },
+      { word: "\u200Fحَسَّنَ / يُحَسِّنُ\u200F", meaning: "改善する・向上させる" },
+      { word: "\u200Fتَقَدَّمَ / يَتَقَدَّمُ\u200F", meaning: "進歩する・前進する" },
+      { word: "\u200Fاسْتَمَرَّ / يَسْتَمِرُّ\u200F", meaning: "続く・継続する" },
+      { word: "\u200Fتَطَوُّر\u200F", meaning: "発展・進展" },
+      { word: "\u200Fمَرْحَلَة\u200F", meaning: "段階・フェーズ" },
+      { word: "\u200Fنُمُوّ\u200F", meaning: "成長" },
+      { word: "\u200Fانْتَهَى / يَنْتَهِي\u200F", meaning: "終わる・完了する" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：分析・思考 (ID: 13016) ---
+  {
+    id: 13016,
+    title: "中級：思考と分析の単語",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fحَلَّلَ / يُحَلِّلُ\u200F", meaning: "分析する" },
+      { word: "\u200Fاكْتَشَفَ / يَكْتَشِفُ\u200F", meaning: "発見する" },
+      { word: "\u200Fاخْتَارَ / يَخْتَارُ\u200F", meaning: "選ぶ・選択する" },
+      { word: "\u200Fقَارَنَ / يُقَارِنُ\u200F", meaning: "比較する" },
+      { word: "\u200Fتَحْلِيل\u200F", meaning: "分析（名詞）" },
+      { word: "\u200Fمَنْطِق\u200F", meaning: "論理・ロジック" },
+      { word: "\u200Fفِكْرَة\u200F", meaning: "考え・アイデア" },
+      { word: "\u200Fلاحَظَ / يُلاحِظُ\u200F", meaning: "気づく・注視する" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：社会・交流 (ID: 13017) ---
+  {
+    id: 13017,
+    title: "中級：社会生活と交流の単語",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fشَارَكَ / يُشَارِكُ\u200F", meaning: "参加する・共有する" },
+      { word: "\u200Fسَاعَدَ / يُسَاعِدُ\u200F", meaning: "助ける・手伝う" },
+      { word: "\u200Fنَاقَشَ / يُنَاقِشُ\u200F", meaning: "議論する" },
+      { word: "\u200Fمُجْتَمَع\u200F", meaning: "社会・コミュニティ" },
+      { word: "\u200Fعَلَاقَة\u200F", meaning: "関係・つながり" },
+      { word: "\u200Fمَسْؤُولِيَّة\u200F", meaning: "責任" },
+      { word: "\u200Fنَشَاط\u200F", meaning: "活動・アクティビティ" },
+      { word: "\u200Fدَعَمَ / يَدْعَمُ\u200F", meaning: "支援する・サポートする" }
+    ],
+    questions: [],
+    sentences: []
+  },
+  // --- 中級：ビジネス・計画 (ID: 13014) ---
+  {
+    id: 13014,
+    title: "中級：仕事と計画の単語",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fنَجَحَ / يَنْجَحُ فِي\u200F", meaning: "〜に成功する" },
+      { word: "\u200Fفَشِلَ / يَفْشَلُ فِي\u200F", meaning: "〜に失敗する" },
+      { word: "\u200Fخَطَّطَ / يُخَطِّطُ لِـ\u200F", meaning: "〜を計画する" },
+      { word: "\u200Fمَشْرُوع\u200F", meaning: "プロジェクト・事業" },
+      { word: "\u200Fخُطَّة\u200F", meaning: "計画・プラン" },
+      { word: "\u200Fمُنَافِس\u200F", meaning: "競合相手・ライバル" },
+      { word: "\u200Fتَعَاوَنَ / يَتَعَاوَنُ مَعَ\u200F", meaning: "〜と協力する" },
+      { word: "\u200Fخِبْرَة\u200F", meaning: "経験・キャリア" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：変化・プロセス (ID: 13015) ---
+  {
+    id: 13015,
+    title: "中級：変化と過程を表す単語",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fتَغَيَّرَ / يَتَغَيَّرُ إِلَى\u200F", meaning: "〜へと変わる" },
+      { word: "\u200Fحَسَّنَ / يُحَسِّنُ\u200F", meaning: "改善する・向上させる" },
+      { word: "\u200Fتَقَدَّمَ / يَتَقَدَّمُ فِي\u200F", meaning: "〜において進歩する" },
+      { word: "\u200Fاسْتَمَرَّ / يَسْتَمِرُّ فِي\u200F", meaning: "〜を継続する・し続ける" },
+      { word: "\u200Fتَطَوُّر\u200F", meaning: "発展・進展" },
+      { word: "\u200Fمَرْحَلَة\u200F", meaning: "段階・フェーズ" },
+      { word: "\u200Fنُمُوّ\u200F", meaning: "成長" },
+      { word: "\u200Fانْتَهَى / يَنْتَهِي مِنْ\u200F", meaning: "〜を終える・完了する" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：分析・思考 (ID: 13016) ---
+  {
+    id: 13016,
+    title: "中級：思考と分析の単語",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fحَلَّلَ / يُحَلِّلُ\u200F", meaning: "分析する" },
+      { word: "\u200Fاكْتَشَفَ / يَكْتَشِفُ\u200F", meaning: "発見する" },
+      { word: "\u200Fاخْتَارَ / يَخْتَارُ\u200F", meaning: "選ぶ・選択する" },
+      { word: "\u200Fقَارَنَ / يُقَارِنُ بَيْنَ\u200F", meaning: "〜の間を比較する" },
+      { word: "\u200Fتَحْلِيل\u200F", meaning: "分析（名詞）" },
+      { word: "\u200Fمَنْطِق\u200F", meaning: "論理・ロジック" },
+      { word: "\u200Fفِكْرَة\u200F", meaning: "考え・アイデア" },
+      { word: "\u200Fلاحَظَ / يُلاحِظُ\u200F", meaning: "気づく・注視する" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：社会・交流 (ID: 13017) ---
+  {
+    id: 13017,
+    title: "中級：社会生活と交流の単語",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fشَارَكَ / يُشَارِكُ فِي\u200F", meaning: "〜に参加する" },
+      { word: "\u200Fسَاعَدَ / يُسَاعِدُ فِي\u200F", meaning: "〜を助ける・手伝う" },
+      { word: "\u200Fنَاقَشَ / يُنَاقِشُ\u200F", meaning: "議論する" },
+      { word: "\u200Fمُجْتَمَع\u200F", meaning: "社会・コミュニティ" },
+      { word: "\u200Fعَلَاقَة\u200F", meaning: "関係・つながり" },
+      { word: "\u200Fمَسْؤُولِيَّة\u200F", meaning: "責任" },
+      { word: "\u200Fنَشَاط\u200F", meaning: "活動・アクティビティ" },
+      { word: "\u200Fدَعَمَ / يَدْعَمُ\u200F", meaning: "支援する・サポートする" }
+    ],
+    questions: [],
+    sentences: []
+  },
+  // --- 中級：前置詞を伴う動詞（思考・探求） (ID: 13031) ---
+  {
+    id: 13031,
+    title: "中級：前置詞と共に使う動詞１",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fبَحَثَ / يَبْحَثُ عَنْ\u200F", meaning: "〜を探す・捜索する" },
+      { word: "\u200Fفَكَّرَ / يُفَكِّرُ فِي\u200F", meaning: "〜について考える" },
+      { word: "\u200Fحَصَلَ / يَحْصُلُ عَلَى\u200F", meaning: "〜を手に入れる・獲得する" },
+      { word: "\u200Fتَحَدَّثَ / يَتَحَدَّثُ عَنْ\u200F", meaning: "〜について話す" },
+      { word: "\u200Fشَعَرَ / يَشْعُرُ بِـ\u200F", meaning: "〜を感じる" },
+      { word: "\u200Fتَخَلَّى / يَتَخَلَّى عَنْ\u200F", meaning: "〜を諦める・見捨てる" },
+      { word: "\u200Fرَغِبَ / يَرْغَبُ فِي\u200F", meaning: "〜を欲する・したいと思う" },
+      { word: "\u200Fاعْتَمَدَ / يَعْتَمِدُ عَلَى\u200F", meaning: "〜を頼る・〜に依存する" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：前置詞を伴う動詞（社会・同意） (ID: 13032) ---
+  {
+    id: 13032,
+    title: "中級：前置詞と共に使う動詞２",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fوَافَقَ / يُوَافِقُ عَلَى\u200F", meaning: "〜に同意する・承諾する" },
+      { word: "\u200Fاعْتَرَضَ / يَعْتَرِضُ عَلَى\u200F", meaning: "〜に反対する・異議を唱える" },
+      { word: "\u200Fشَارَكَ / يُشَارِكُ فِي\u200F", meaning: "〜に参加する" },
+      { word: "\u200Fأَدَّى / يُؤَدِّي إِلَى\u200F", meaning: "〜につながる・〜を引き起こす" },
+      { word: "\u200Fتَعَرَّفَ / يَتَعَرَّفُ عَلَى\u200F", meaning: "〜を知る・〜と知り合う" },
+      { word: "\u200Fتَأَكَّدَ / يَتَأَكَّدُ مِنْ\u200F", meaning: "〜を確認する・確かめる" },
+      { word: "\u200Fاسْتَفَادَ / يَسْتَفِيدُ مِنْ\u200F", meaning: "〜を活用する・から利益を得る" },
+      { word: "\u200Fحَافَظَ / يُحَافِظُ عَلَى\u200F", meaning: "〜を維持する・守る" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：前置詞を伴う動詞（移動・心理） (ID: 13033) ---
+  {
+    id: 13033,
+    title: "中級：前置詞と共に使う動詞３",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fانْتَقَلَ / يَنْتَقِلُ إِلَى\u200F", meaning: "〜へ移る・引っ越す" },
+      { word: "\u200Fتَخَرَّجَ / يَتَخَرَّجُ فِي\u200F", meaning: "（大学など）を卒業する" },
+      { word: "\u200Fتَوَقَّفَ / يَتَوَقَّفُ عَنْ\u200F", meaning: "〜をやめる・中止する" },
+      { word: "\u200Fبَدَأَ / يَبْدَأُ بِـ\u200F", meaning: "〜から始める" },
+      { word: "\u200Fآمَنَ / يُؤْمِنُ بِـ\u200F", meaning: "〜を信じる・信仰する" },
+      { word: "\u200Fتَحَمَّسَ / يَتَحَمَّسُ لِـ\u200F", meaning: "〜に熱中する・ワクワクする" },
+      { word: "\u200Fاعْتَذَرَ / يَعْتَذِرُ عَنْ\u200F", meaning: "〜について謝罪する" },
+      { word: "\u200Fسَيْطَرَ / يُسَيْطِرُ عَلَى\u200F", meaning: "〜を支配する・コントロールする" }
+    ],
+    questions: [],
+    sentences: []
+  },
+  // --- 中級：メディア・コミュニケーション (ID: 13034) ---
+  {
+    id: 13034,
+    title: "中級：メディアと情報伝達",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fتَوَاصَلَ / يَتَوَاصَلُ مَعَ\u200F", meaning: "〜と連絡を取り合う・意思疎通する" },
+      { word: "\u200Fأَبْلَغَ / يُبْلِغُ عَنْ\u200F", meaning: "〜について報告する・通報する" },
+      { word: "\u200Fتَعَامَلَ / يَتَعَامَلُ مَعَ\u200F", meaning: "〜を扱う・（人と）接する" },
+      { word: "\u200Fإِعْلَام\u200F", meaning: "メディア・報道" },
+      { word: "\u200Fمَصْدَر\u200F", meaning: "情報源・ソース" },
+      { word: "\u200Fتَقْرِير\u200F", meaning: "レポート・報告書" },
+      { word: "\u200Fمَقَال\u200F", meaning: "記事・コラム" },
+      { word: "\u200Fنَشْرَة\u200F", meaning: "掲示・ニュース放送" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：テクノロジー・研究 (ID: 13035) ---
+  {
+    id: 13035,
+    title: "中級：科学技術と研究",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fتَوَصَّلَ / يَتَوَصَّلُ إِلَى\u200F", meaning: "（結論などに）到達する・たどり着く" },
+      { word: "\u200Fبَحَثَ / يَبْحَثُ فِي\u200F", meaning: "〜について研究する・調査する" },
+      { word: "\u200Fاخْتَبَرَ / يَخْتَبِرُ\u200F", meaning: "テストする・試験する" },
+      { word: "\u200Fتَقْنِيَّة\u200F", meaning: "テクノロジー・技術" },
+      { word: "\u200Fنِظَام\u200F", meaning: "システム・制度" },
+      { word: "\u200Fجِهَاز\u200F", meaning: "装置・デバイス" },
+      { word: "\u200Fتَطْبِيقِيّ\u200F", meaning: "応用的な・実用的な" },
+      { word: "\u200Fبَحْثٌ عِلْمِيّ\u200F", meaning: "科学的研究" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：国際政治・外交 (ID: 13036) ---
+  {
+    id: 13036,
+    title: "中級：国際社会と外交",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fفَاوَضَ / يُفَاوِضُ\u200F", meaning: "交渉する" },
+      { word: "\u200Fوَقَّعَ / يُوَقِّعُ عَلَى\u200F", meaning: "〜に署名する（条約など）" },
+      { word: "\u200Fانْضَمَّ / يَنْضَمُّ إِلَى\u200F", meaning: "〜に加入する・加わる" },
+      { word: "\u200Fاتِّفَاقِيَّة\u200F", meaning: "協定・合意書" },
+      { word: "\u200Fمُؤْتَمَر\u200F", meaning: "会議・カンファレンス" },
+      { word: "\u200Fعُضْو\u200F", meaning: "メンバー・会員" },
+      { word: "\u200Fعَلَاقَاتٌ دُوَلِيَّة\u200F", meaning: "国際関係" },
+      { word: "\u200Fسِفَارَة\u200F", meaning: "大使館" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：環境問題 (ID: 13037) ---
+  {
+    id: 13037,
+    title: "中級：環境と自然保護",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fحَمَى / يَحْمِي مِن\u200F", meaning: "〜から守る・保護する" },
+      { word: "\u200Fتَلَوَّثَ / يَتَلَوَّثُ بِـ\u200F", meaning: "〜で汚染される" },
+      { word: "\u200Fأَعَادَ / يُعِيدُ تَدْوِيرَ\u200F", meaning: "〜を再利用（リサイクル）する" },
+      { word: "\u200Fتَغَيُّرُ الْمُنَاخ\u200F", meaning: "気候変動" },
+      { word: "\u200Fطَاقَةٌ مُتَجَدِّدَة\u200F", meaning: "再生可能エネルギー" },
+      { word: "\u200Fاحْتِبَاسٌ حَرَارِيّ\u200F", meaning: "地球温暖化" },
+      { word: "\u200Fمَوَارِدُ طَبِيعِيَّة\u200F", meaning: "自然資源" },
+      { word: "\u200Fتَوَفَّرَ / يَتَوَفَّرُ\u200F", meaning: "利用可能である・手に入る" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：キャリア・就職 (ID: 13038) ---
+  {
+    id: 13038,
+    title: "中級：仕事探しとキャリア",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fتَقَدَّمَ / يَتَقَدَّمُ لِـ\u200F", meaning: "〜に申し込む・応募する" },
+      { word: "\u200Fوَظَّفَ / يُوَظِّفُ\u200F", meaning: "雇用する・採用する" },
+      { word: "\u200Fاسْتَقَالَ / يَسْتَقِيلُ مِنْ\u200F", meaning: "〜を辞職する・辞める" },
+      { word: "\u200Fسِيرَةٌ ذَاتِيَّة\u200F", meaning: "履歴書（CV）" },
+      { word: "\u200Fمُقَابَلَة\u200F", meaning: "面接・インタビュー" },
+      { word: "\u200Fخِبْرَةٌ مِهْنِيَّة\u200F", meaning: "職務経験" },
+      { word: "\u200Fمُؤَهِّلَات\u200F", meaning: "資格・適性" },
+      { word: "\u200Fرَاتِب\u200F", meaning: "給与・月給" }
+    ],
+    questions: [],
+    sentences: []
+  },
+  // --- 中級：健康と医療の動詞・名詞 (ID: 13039) ---
+  {
+    id: 13039,
+    title: "中級：医療と身体のケア",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fعَانَى / يُعَانِي مِنْ\u200F", meaning: "〜に苦しむ・（病気を）患う" },
+      { word: "\u200Fتَعَافَى / يَتَعَافَى مِنْ\u200F", meaning: "〜から回復する" },
+      { word: "\u200Fاسْتَشَارَ / يَسْتَشِيرُ\u200F", meaning: "相談する・（医師に）診てもらう" },
+      { word: "\u200Fوَصْفَةٌ طِبِّيَّة\u200F", meaning: "処方箋" },
+      { word: "\u200Fعَدْوَى\u200F", meaning: "感染" },
+      { word: "\u200Fوِقَايَة\u200F", meaning: "予防" },
+      { word: "\u200Fأَعْرَاض\u200F", meaning: "症状" },
+      { word: "\u200Fضَغْطُ الدَّم\u200F", meaning: "血圧" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：法律と司法 (ID: 13040) ---
+  {
+    id: 13040,
+    title: "中級：法律と権利の語彙",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fاتَّهَمَ / يَتَّهِمُ بِـ\u200F", meaning: "〜の罪で告訴する・非難する" },
+      { word: "\u200Fارْتَكَبَ / يَرْتَكِبُ\u200F", meaning: "（罪などを）犯す" },
+      { word: "\u200Fانْتَهَكَ / يَنْتَهِكُ\u200F", meaning: "（法や権利を）侵害する・違反する" },
+      { word: "\u200Fدَلِيل\u200F", meaning: "証拠・ガイド" },
+      { word: "\u200Fجَرِيمَة\u200F", meaning: "犯罪" },
+      { word: "\u200Fعُقُوبَة\u200F", meaning: "罰・刑罰" },
+      { word: "\u200Fبَرِيء\u200F", meaning: "無実の・潔白な" },
+      { word: "\u200Fمُذْنِب\u200F", meaning: "有罪の・罪を犯した" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：抽象的な思考と評価 (ID: 13041) ---
+  {
+    id: 13041,
+    title: "中級：高度な思考プロセス",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fمَيَّزَ / يُمَيِّزُ بَيْنَ\u200F", meaning: "〜の間を区別する・識別する" },
+      { word: "\u200Fبَالَغَ / يُبَالِغُ فِي\u200F", meaning: "〜を誇張する・やりすぎる" },
+      { word: "\u200Fتَجَاهَلَ / يَتَجَاهَلُ\u200F", meaning: "無視する・知らないふりをする" },
+      { word: "\u200Fتَأْثِير\u200F", meaning: "影響・効果" },
+      { word: "\u200Fمُسَاهَمَة\u200F", meaning: "貢献・寄付" },
+      { word: "\u200Fحَلّ\u200F", meaning: "解決策・回答" },
+      { word: "\u200Fأَزْمَة\u200F", meaning: "危機（クリシス）" },
+      { word: "\u200Fظَاهِرَة\u200F", meaning: "現象" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：人間関係と性格 (ID: 13042) ---
+  {
+    id: 13042,
+    title: "中級：信頼と社会的行動",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fوَثِقَ / يَثِقُ بِـ\u200F", meaning: "〜を信頼する" },
+      { word: "\u200Fتَسَامَحَ / يَتَسَامَحُ مَعَ\u200F", meaning: "〜に対して寛容になる・許す" },
+      { word: "\u200Fتَوَقَّعَ / يَتَوَقَّعُ\u200F", meaning: "期待する・予期する" },
+      { word: "\u200Fطُمُوح\u200F", meaning: "野心・志" },
+      { word: "\u200Fسُمْعَة\u200F", meaning: "評判" },
+      { word: "\u200Fاحْتِرَام\u200F", meaning: "尊敬・リスペクト" },
+      { word: "\u200Fإِخْلَاص\u200F", meaning: "誠実さ・忠誠" },
+      { word: "\u200Fتَعَاوُن\u200F", meaning: "協力・共同" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：経済と金融 (ID: 13043) ---
+  {
+    id: 13043,
+    title: "中級：お金と市場の動き",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fاقْتَرَضَ / يَقْتَرِضُ مِنْ\u200F", meaning: "〜から借金する・借りる" },
+      { word: "\u200Fسَدَّدَ / يُسَدِّدُ\u200F", meaning: "（借金を）返済する・支払う" },
+      { word: "\u200Fضَرِيبَة\u200F", meaning: "税金" },
+      { word: "\u200Fفَائِدَة\u200F", meaning: "利息・利益" },
+      { word: "\u200Fتَضَخُّم\u200F", meaning: "インフレ・膨張" },
+      { word: "\u200Fرَأْسُ مَال\u200F", meaning: "資本" },
+      { word: "\u200Fتَوْفِير\u200F", meaning: "節約・貯金" },
+      { word: "\u200Fقِيمَة\u200F", meaning: "価値" }
+    ],
+    questions: [],
+    sentences: []
+  },
+  // --- 中級：科学と宇宙 (ID: 13044) ---
+  {
+    id: 13044,
+    title: "中級：科学的探求と宇宙",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fتَحَقَّقَ / يَتَحَقَّقُ مِنْ\u200F", meaning: "〜を確かめる・検証する" },
+      { word: "\u200Fرَصَدَ / يَرْصُدُ\u200F", meaning: "観測する・監視する" },
+      { word: "\u200Fفَضَاء\u200F", meaning: "宇宙" },
+      { word: "\u200Fنَظَرِيَّة\u200F", meaning: "理論" },
+      { word: "\u200Fبُرْهَان\u200F", meaning: "証明・根拠" },
+      { word: "\u200Fعَالِم\u200F", meaning: "科学者" },
+      { word: "\u200Fمِجْهَر\u200F", meaning: "顕微鏡" },
+      { word: "\u200Fتَفَاعُل\u200F", meaning: "反応・相互作用" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：メディアと批評 (ID: 13045) ---
+  {
+    id: 13045,
+    title: "中級：メディアの役割と分析",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fنَقَدَ / يَنْقُدُ\u200F", meaning: "批判する・論評する" },
+      { word: "\u200Fبَثَّ / يَبُثُّ\u200F", meaning: "放送する・配信する" },
+      { word: "\u200Fدِعَايَة\u200F", meaning: "宣伝・プロパガンダ" },
+      { word: "\u200Fجُمْهُور\u200F", meaning: "観客・大衆" },
+      { word: "\u200Fمَوْضُوعِيَّة\u200F", meaning: "客観性" },
+      { word: "\u200Fتَحَيُّز\u200F", meaning: "偏見・バイアス" },
+      { word: "\u200Fتَصْرِيح\u200F", meaning: "声明・発言" },
+      { word: "\u200Fشَائِعَة\u200F", meaning: "噂・流言" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：社会正義と権利 (ID: 13046) ---
+  {
+    id: 13046,
+    title: "中級：社会的な権利と義務",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fنَاضَلَ / يُنَاضِلُ مِنْ أَجْلِ\u200F", meaning: "〜のために闘う・奮闘する" },
+      { word: "\u200Fطَالَبَ / يُطَالِبُ بِـ\u200F", meaning: "〜を要求する・請求する" },
+      { word: "\u200Fتَمْيِيز\u200F", meaning: "差別" },
+      { word: "\u200Fمُسَاوَاة\u200F", meaning: "平等" },
+      { word: "\u200Fوَاجِب\u200F", meaning: "義務" },
+      { word: "\u200Fكَرَامَة\u200F", meaning: "尊厳" },
+      { word: "\u200Fتَضَامُن\u200F", meaning: "連帯" },
+      { word: "\u200Fإِصْلَاح\u200F", meaning: "改革" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：複雑な感情 (ID: 13047) ---
+  {
+    id: 13047,
+    title: "中級：複雑な心境の表現",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fاشْتَاقَ / يَشْتَاقُ إِلَى\u200F", meaning: "〜を懐かしむ・恋しく思う" },
+      { word: "\u200Fأَحْبَطَ / يُحْبِطُ\u200F", meaning: "挫折させる・落胆させる" },
+      { word: "\u200Fإِحْسَاس\u200F", meaning: "感覚・フィーリング" },
+      { word: "\u200Fنَدَم\u200F", meaning: "後悔" },
+      { word: "\u200Fيَأْس\u200F", meaning: "絶望" },
+      { word: "\u200Fغَيْرَة\u200F", meaning: "嫉妬" },
+      { word: "\u200Fحَنِين\u200F", meaning: "郷愁・ノスタルジー" },
+      { word: "\u200Fتَقْدِير\u200F", meaning: "感謝・評価" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：教育と研究手法 (ID: 13048) ---
+  {
+    id: 13048,
+    title: "中級：学術活動と研究",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fالْتَحَقَ / يَلْتَحِقُ بِـ\u200F", meaning: "〜に入学する・加わる" },
+      { word: "\u200Fاقْتَبَسَ / يَقْتَبِسُ مِنْ\u200F", meaning: "〜から引用する" },
+      { word: "\u200Fمَرْجِع\u200F", meaning: "参考文献・典拠" },
+      { word: "\u200Fمَنْهَجِيَّة\u200F", meaning: "手法・メソドロジー" },
+      { word: "\u200Fأُطْرُوحَة\u200F", meaning: "論文・学位論文" },
+      { word: "\u200Fنَدْوَة\u200F", meaning: "セミナー・座談会" },
+      { word: "\u200Fمِنْحَة\u200F", meaning: "奨学金・助成金" },
+      { word: "\u200Fذَكَاء\u200F", meaning: "知能・インテリジェンス" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：産業と生産 (ID: 13049) ---
+  {
+    id: 13049,
+    title: "中級：産業とモノづくり",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fصَنَعَ / يَصْنَعُ\u200F", meaning: "製造する・作る" },
+      { word: "\u200Fأَنْتَجَ / يُنْتِجُ\u200F", meaning: "生産する" },
+      { word: "\u200Fاسْتَهْلَكَ / يَسْتَهْلِكُ\u200F", meaning: "消費する" },
+      { word: "\u200Fمَصْنَع\u200F", meaning: "工場" },
+      { word: "\u200Fمُنْتَج\u200F", meaning: "製品" },
+      { word: "\u200Fمَوَادُّ خَام\u200F", meaning: "原料・素材" },
+      { word: "\u200Fجَوْدَة\u200F", meaning: "品質" },
+      { word: "\u200Fتَصْدِير\u200F", meaning: "輸出" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：観光とホスピタリティ (ID: 13050) ---
+  {
+    id: 13050,
+    title: "中級：観光とサービス",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fاسْتَضَافَ / يَسْتَضِيفُ\u200F", meaning: "招待する・主催する" },
+      { word: "\u200Fأَقَامَ / يُقِيمُ فِي\u200F", meaning: "〜に滞在する" },
+      { word: "\u200Fمَعْلَم\u200F", meaning: "名所・ランドマーク" },
+      { word: "\u200Fمُرْشِد\u200F", meaning: "ガイド" },
+      { word: "\u200Fضِيَافَة\u200F", meaning: "おもてなし・接待" },
+      { word: "\u200Fرِحْلَة\u200F", meaning: "旅・遠足" },
+      { word: "\u200Fمَوْسِم\u200F", meaning: "シーズン・季節" },
+      { word: "\u200Fتَذْكِار\u200F", meaning: "お土産・記念品" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：論理と哲学 (ID: 13051) ---
+  {
+    id: 13051,
+    title: "中級：思考と存在の哲学",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fتَسَاءَلَ / يَتَسَاءَلُ عَنْ\u200F", meaning: "〜について疑問に思う" },
+      { word: "\u200Fاسْتَنْتَجَ / يَسْتَنْتِجُ\u200F", meaning: "結論づける・推論する" },
+      { word: "\u200Fوُجُود\u200F", meaning: "存在" },
+      { word: "\u200Fمَنْطِق\u200F", meaning: "論理" },
+      { word: "\u200Fأَخْلَاق\u200F", meaning: "倫理・道徳" },
+      { word: "\u200Fوَعْي\u200F", meaning: "意識" },
+      { word: "\u200Fفَلْسَفَة\u200F", meaning: "哲学" },
+      { word: "\u200Fمَبْدَأ\u200F", meaning: "原則・主義" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：都市とインフラ (ID: 13052) ---
+  {
+    id: 13052,
+    title: "中級：都市生活と基盤",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fازْدَحَمَ / يَزْدَحِمُ بِـ\u200F", meaning: "〜で混雑する" },
+      { word: "\u200Fشَيَّدَ / يُشَيِّدُ\u200F", meaning: "建設する・築く" },
+      { word: "\u200Fمُوَاصَلَات\u200F", meaning: "交通機関" },
+      { word: "\u200Fبِنْيَةٌ تَحْتِيَّة\u200F", meaning: "インフラ・社会基盤" },
+      { word: "\u200Fمِنْطَقَة\u200F", meaning: "地域・ゾーン" },
+      { word: "\u200Fمَسْكَن\u200F", meaning: "住居" },
+      { word: "\u200Fتَخْطِيطٌ عُمْرَانِيّ\u200F", meaning: "都市計画" },
+      { word: "\u200Fمَرَافِق\u200F", meaning: "施設・設備" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：災害と安全 (ID: 13053) ---
+  {
+    id: 13053,
+    title: "中級：危機管理と安全",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fأَنْقَذَ / يُنْقِذُ\u200F", meaning: "救助する・助ける" },
+      { word: "\u200Fحَذَّرَ / يُحَذِّرُ مِنْ\u200F", meaning: "〜を警告する" },
+      { word: "\u200Fكَارِثَة\u200F", meaning: "災害・惨事" },
+      { word: "\u200Fزِلْزَال\u200F", meaning: "地震" },
+      { word: "\u200Fفَيَضَان\u200F", meaning: "洪水" },
+      { word: "\u200Fإِجْلَاء\u200F", meaning: "避難・立ち退き" },
+      { word: "\u200Fأَمْن\u200F", meaning: "安全・警備" },
+      { word: "\u200Fطَوَارِئ\u200F", meaning: "緊急事態" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：芸術と批評 (ID: 13054) ---
+  {
+    id: 13054,
+    title: "中級：芸術表現と鑑賞",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fجَسَّدَ / يُجَسِّدُ\u200F", meaning: "体現する・具現化する" },
+      { word: "\u200Fأَبْدَعَ / يُبْدِعُ\u200F", meaning: "創造する・生み出す" },
+      { word: "\u200Fلَوْحَة\u200F", meaning: "絵画・パネル" },
+      { word: "\u200Fمَعْرِض\u200F", meaning: "展示会・ギャラリー" },
+      { word: "\u200Fنَحْت\u200F", meaning: "彫刻" },
+      { word: "\u200Fأُسْلُوب\u200F", meaning: "スタイル・作風" },
+      { word: "\u200Fمَوْهِبَة\u200F", meaning: "才能" },
+      { word: "\u200Fإِعْجَاب\u200F", meaning: "感嘆・賞賛" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：グローバルな課題 (ID: 13055) ---
+  {
+    id: 13055,
+    title: "中級：世界の諸問題",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fهَاجَرَ / يُهَاجِرُ\u200F", meaning: "移住する" },
+      { word: "\u200Fتَعَاوَنَ / يَتَعَاوَنُ دُوَلِيًّا\u200F", meaning: "国際的に協力する" },
+      { word: "\u200Fفَقْر\u200F", meaning: "貧困" },
+      { word: "\u200Fلَاجِئ\u200F", meaning: "難民" },
+      { word: "\u200Fجُوع\u200F", meaning: "飢え・飢餓" },
+      { word: "\u200Fصِرَاع\u200F", meaning: "紛争・葛藤" },
+      { word: "\u200Fإِرْهَاب\u200F", meaning: "テロリズム" },
+      { word: "\u200Fسَلَامٌ عَالَمِيّ\u200F", meaning: "世界平和" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：スポーツと競争 (ID: 13056) ---
+  {
+    id: 13056,
+    title: "中級：スポーツと競技",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fنَافَسَ / يُنَافِسُ\u200F", meaning: "競い合う" },
+      { word: "\u200Fفَازَ / يَفُوزُ بِـ\u200F", meaning: "〜に勝つ・〜を勝ち取る" },
+      { word: "\u200Fخَسِرَ / يَخْسَرُ\u200F", meaning: "負ける・失う" },
+      { word: "\u200Fبُطُولَة\u200F", meaning: "選手権・トーナメント" },
+      { word: "\u200Fمُبَارَاة\u200F", meaning: "試合" },
+      { word: "\u200Fلَاقَةٌ بَدَنِيَّة\u200F", meaning: "体力・フィジカルフィットネス" },
+      { word: "\u200Fمُدَرِّب\u200F", meaning: "監督・コーチ" },
+      { word: "\u200Fإِنْجَاز\u200F", meaning: "達成・業績" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：文学と表現 (ID: 13057) ---
+  {
+    id: 13057,
+    title: "中級：文学の世界",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fرَوَى / يَرْوِي\u200F", meaning: "語る・語り聞かせる" },
+      { word: "\u200Fأَلَّفَ / يُؤَلِّفُ\u200F", meaning: "執筆する・構成する" },
+      { word: "\u200Fرِوَايَة\u200F", meaning: "小説" },
+      { word: "\u200Fشِعْر\u200F", meaning: "詩" },
+      { word: "\u200Fكَاتِب\u200F", meaning: "作家" },
+      { word: "\u200Fخَيَال\u200F", meaning: "想像力・フィクション" },
+      { word: "\u200Fرَمْز\u200F", meaning: "シンボル・象徴" },
+      { word: "\u200Fبَلَاغَة\u200F", meaning: "修辞学・雄弁" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：ビジネス交渉 (ID: 13058) ---
+  {
+    id: 13058,
+    title: "中級：商談と交渉",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fفَاوَضَ / يُفَاوِضُ عَلَى\u200F", meaning: "〜について交渉する" },
+      { word: "\u200Fأَقْنَعَ / يُقْنِعُ بِـ\u200F", meaning: "〜で納得させる・説得する" },
+      { word: "\u200Fعَقْد\u200F", meaning: "契約" },
+      { word: "\u200Fشَرَاكَة\u200F", meaning: "パートナーシップ" },
+      { word: "\u200Fصَفْقَة\u200F", meaning: "取引・ディール" },
+      { word: "\u200Fزَبُون\u200F", meaning: "顧客・クライアント" },
+      { word: "\u200Fمِيزَة\u200F", meaning: "強み・メリット" },
+      { word: "\u200Fتَنَافُسِيَّة\u200F", meaning: "競争力" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：自然と生物 (ID: 13059) ---
+  {
+    id: 13059,
+    title: "中級：生態系と生物",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fتَكَايَفَ / يَتَكَايَفُ مَعَ\u200F", meaning: "〜に適応する" },
+      { word: "\u200Fتَكَاثَرَ / يَتَكَاثَرُ\u200F", meaning: "増殖する・繁殖する" },
+      { word: "\u200Fنَوْع\u200F", meaning: "種（しゅ）・種類" },
+      { word: "\u200Fغَابَة\u200F", meaning: "森・森林" },
+      { word: "\u200Fتَنَوُّعٌ بِيُولُوجِيّ\u200F", meaning: "生物多様性" },
+      { word: "\u200Fنِظَامٌ بِيئِيّ\u200F", meaning: "エコシステム" },
+      { word: "\u200Fانْقِرَاض\u200F", meaning: "絶滅" },
+      { word: "\u200Fمَحْمِيَّة\u200F", meaning: "保護区" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：未来とイノベーション (ID: 13060) ---
+  {
+    id: 13060,
+    title: "中級：次世代の技術",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fابْتَكَرَ / يَبْتَكِرُ\u200F", meaning: "革新する・創り出す" },
+      { word: "\u200Fطَوَّرَ / يُطَوِّرُ\u200F", meaning: "開発する・向上させる" },
+      { word: "\u200Fذَكاءٌ اصْطِنَاعِيّ\u200F", meaning: "人工知能（AI）" },
+      { word: "\u200Fرُوبُوت\u200F", meaning: "ロボット" },
+      { word: "\u200Fأَتْمَتَة\u200F", meaning: "自動化（オートメーション）" },
+      { word: "\u200Fإِمْكَانِيَّة\u200F", meaning: "可能性" },
+      { word: "\u200Fرَقْمِيّ\u200F", meaning: "デジタルの" },
+      { word: "\u200Fتَحَوُّل\u200F", meaning: "変革・転換" }
+    ],
+    questions: [],
+    sentences: []
+  },
+  // --- 中級：歴史と遺産 (ID: 13061) ---
+  {
+    id: 13061,
+    title: "中級：歴史の記録と継承",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fأَرَّخَ / يُؤَرِّخُ\u200F", meaning: "記録する・年代を記す" },
+      { word: "\u200Fوَرِثَ / يَرِثُ\u200F", meaning: "相続する・受け継ぐ" },
+      { word: "\u200Fتُرَاث\u200F", meaning: "遺産・伝統" },
+      { word: "\u200Fمَخْطُوطَة\u200F", meaning: "手稿・写本" },
+      { word: "\u200Fأَثَر\u200F", meaning: "跡・遺跡・影響" },
+      { word: "\u200Fقَرْن\u200F", meaning: "世紀" },
+      { word: "\u200Fحِقْبَة\u200F", meaning: "時代・時期" },
+      { word: "\u200Fتَذْكَارِيّ\u200F", meaning: "記念の" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：心理と行動 (ID: 13062) ---
+  {
+    id: 13062,
+    title: "中級：心の動きと行動",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fحَفَّزَ / يُحَفِّزُ عَلَى\u200F", meaning: "〜を刺激する・動機づける" },
+      { word: "\u200Fتَصَرَّفَ / يَتَصَرَّفُ\u200F", meaning: "振る舞う・行動する" },
+      { word: "\u200Fدَافِع\u200F", meaning: "動機・モチベーション" },
+      { word: "\u200Fسُلُوك\u200F", meaning: "態度・行儀" },
+      { word: "\u200Fطِبَاع\u200F", meaning: "性質・気質" },
+      { word: "\u200Fثِقَةٌ بِالنَّفْسِ\u200F", meaning: "自己肯定・自信" },
+      { word: "\u200Fلاوَعْي\u200F", meaning: "無意識" },
+      { word: "\u200Fتَرَدَّدَ / يَتَرَدَّدُ فِي\u200F", meaning: "〜をためらう" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：論理と議論 (ID: 13063) ---
+  {
+    id: 13063,
+    title: "中級：論理的な議論",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fبَرْهَنَ / يُبَرْهِنُ عَلَى\u200F", meaning: "〜を証明・立証する" },
+      { word: "\u200Fنَاقَضَ / يُنَاقِضُ\u200F", meaning: "矛盾する・反論する" },
+      { word: "\u200Fحُجَّة\u200F", meaning: "根拠・論拠" },
+      { word: "\u200Fبُرْهَان\u200F", meaning: "証拠" },
+      { word: "\u200Fجَدَل\u200F", meaning: "論争・議論" },
+      { word: "\u200Fفَرَضِيَّة\u200F", meaning: "仮説" },
+      { word: "\u200Fإِقْنَاع\u200F", meaning: "説得" },
+      { word: "\u200Fخُلَاصَة\u200F", meaning: "要約・結論" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：リーダーシップと組織 (ID: 13064) ---
+  {
+    id: 13064,
+    title: "中級：指導力と組織管理",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fأَدَارَ / يُدِيرُ\u200F", meaning: "経営する・管理する" },
+      { word: "\u200Fتَوَلَّى / يَتَوَلَّى\u200F", meaning: "（職務を）引き受ける" },
+      { word: "\u200Fقِيَادَة\u200F", meaning: "リーダーシップ" },
+      { word: "\u200Fمَسْؤُول\u200F", meaning: "責任者・担当者" },
+      { word: "\u200Fصَلَاحِيَّة\u200F", meaning: "権限・有効性" },
+      { word: "\u200Fهَيْكَل\u200F", meaning: "構造・フレームワーク" },
+      { word: "\u200Fفَرِيقُ عَمَلٍ\u200F", meaning: "チーム・作業部会" },
+      { word: "\u200Fكِفَاءَة\u200F", meaning: "能力・効率" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：デジタル・IT社会 (ID: 13065) ---
+  {
+    id: 13065,
+    title: "中級：ITとデジタルライフ",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fخَزَّنَ / يُخَزِّنُ\u200F", meaning: "保存する・ストレージする" },
+      { word: "\u200Fبَرْمَجَ / يُبَرْمِجُ\u200F", meaning: "プログラミングする" },
+      { word: "\u200Fمُحَرِّكُ بَحْثٍ\u200F", meaning: "検索エンジン" },
+      { word: "\u200Fخُصُوصِيَّة\u200F", meaning: "プライバシー" },
+      { word: "\u200Fتَشْفِير\u200F", meaning: "暗号化" },
+      { word: "\u200Fتَقْنِيَّةٌ سَحَابِيَّة\u200F", meaning: "クラウド技術" },
+      { word: "\u200Fوَاقِعٌ افْتِرَاضِيّ\u200F", meaning: "仮想現実（VR）" },
+      { word: "\u200Fخَرْق\u200F", meaning: "侵害・ハッキング" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：環境保護と持続性 (ID: 13066) ---
+  {
+    id: 13066,
+    title: "中級：環境保護と持続可能性",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fاسْتَهْلَكَ / يَسْتَهْلِكُ\u200F", meaning: "消費する" },
+      { word: "\u200Fاسْتَدَامَ / يَسْتَدِيمُ\u200F", meaning: "持続する" },
+      { word: "\u200Fاسْتِدَامَة\u200F", meaning: "サステナビリティ" },
+      { word: "\u200Fتَصَحُّر\u200F", meaning: "砂漠化" },
+      { word: "\u200Fتَنَوُّعٌ أَحْيَائِيّ\u200F", meaning: "生物多様性" },
+      { word: "\u200Fنِفَايَات\u200F", meaning: "ゴミ・廃棄物" },
+      { word: "\u200Fفَرْز\u200F", meaning: "分別・仕分け" },
+      { word: "\u200Fبَصْمَةٌ كَرْبُونِيَّة\u200F", meaning: "カーボンフットプリント" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：経済指標と金融 (ID: 13067) ---
+  {
+    id: 13067,
+    title: "中級：経済の動きと指標",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fضَارَبَ / يُضَارِبُ فِي\u200F", meaning: "〜に投機する" },
+      { word: "\u200Fأَفْلَسَ / يُفْلِسُ\u200F", meaning: "倒産する・破産する" },
+      { word: "\u200Fقَرْض\u200F", meaning: "ローン・融資" },
+      { word: "\u200Fبُورْصَة\u200F", meaning: "証券取引所" },
+      { word: "\u200Fتَدَفُّقٌ نَقْدِيّ\u200F", meaning: "キャッシュフロー" },
+      { word: "\u200Fإِيرَادَات\u200F", meaning: "収益・歳入" },
+      { word: "\u200Fنُمُوٌّ اقْتِصَادِيّ\u200F", meaning: "経済成長" },
+      { word: "\u200Fسُوقٌ نَاشِئَة\u200F", meaning: "新興市場" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：法律と手続き (ID: 13068) ---
+  {
+    id: 13068,
+    title: "中級：法的手続きと概念",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fشَرَّعَ / يُشَرِّعُ\u200F", meaning: "立法する" },
+      { word: "\u200Fقَاضَى / يُقَاضِي\u200F", meaning: "告訴する" },
+      { word: "\u200Fدُسْتُور\u200F", meaning: "憲法" },
+      { word: "\u200Fثَغْرَة\u200F", meaning: "抜け穴・ギャップ" },
+      { word: "\u200Fبَدَل\u200F", meaning: "賠償・手当" },
+      { word: "\u200Fتَوْكِيل\u200F", meaning: "委任状" },
+      { word: "\u200Fنَزَاهَة\u200F", meaning: "清廉さ・誠実さ" },
+      { word: "\u200Fتَحْقِيق\u200F", meaning: "調査・捜査" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：思考の柔軟性 (ID: 13069) ---
+  {
+    id: 13069,
+    title: "中級：柔軟な思考と対応",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fتَجَاوَبَ / يَتَجَاوَبُ مَعَ\u200F", meaning: "〜に呼応する・反応する" },
+      { word: "\u200Fتَجَاهَلَ / يَتَجَاهَلُ\u200F", meaning: "無視する" },
+      { word: "\u200Fمُرُونَة\u200F", meaning: "柔軟性" },
+      { word: "\u200Fبَدِيل\u200F", meaning: "代替案・代わりの" },
+      { word: "\u200Fرُؤْيَة\u200F", meaning: "ビジョン・展望" },
+      { word: "\u200Fوَاقِعِيَّة\u200F", meaning: "リアリズム・現実性" },
+      { word: "\u200Fإِيجَابِيَّة\u200F", meaning: "ポジティブさ" },
+      { word: "\u200Fتَحَيُّز\u200F", meaning: "偏り・バイアス" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：メディア・出版 (ID: 13070) ---
+  {
+    id: 13070,
+    title: "中級：情報の拡散と出版",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fحَرَّرَ / يُحَرِّرُ\u200F", meaning: "編集する" },
+      { word: "\u200Fصَاغَ / يَصِيغُ\u200F", meaning: "起草する・表現する" },
+      { word: "\u200Fمُؤَلَّف\u200F", meaning: "著作物" },
+      { word: "\u200Fدَارُ نَشْرٍ\u200F", meaning: "出版社" },
+      { word: "\u200Fنُسْخَة\u200F", meaning: "コピー・版" },
+      { word: "\u200Fفِهْرِس\u200F", meaning: "索引・目次" },
+      { word: "\u200Fرِقَابَة\u200F", meaning: "検閲・監視" },
+      { word: "\u200Fمِصْدَاقِيَّة\u200F", meaning: "信頼性" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：物流と交通 (ID: 13071) ---
+  {
+    id: 13071,
+    title: "中級：物流とサプライチェーン",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fشَحَنَ / يَشْحَنُ\u200F", meaning: "出荷する・充電する" },
+      { word: "\u200Fوَزَّعَ / يُوَزِّعُ\u200F", meaning: "分配する・配送する" },
+      { word: "\u200Fمَخْزَن\u200F", meaning: "倉庫" },
+      { word: "\u200Fجَمَارِك\u200F", meaning: "税関" },
+      { word: "\u200Fتَوْرِيد\u200F", meaning: "供給・仕入れ" },
+      { word: "\u200Fرَسُوم\u200F", meaning: "手数料・料金" },
+      { word: "\u200Fتَأْمِين\u200F", meaning: "保険" },
+      { word: "\u200Fمَسَار\u200F", meaning: "ルート・経路" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：医学と生命科学 (ID: 13072) ---
+  {
+    id: 13072,
+    title: "中級：バイオと言語科学",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fوَرِثَ / يَرِثُ\u200F", meaning: "（遺伝的に）受け継ぐ" },
+      { word: "\u200Fحَقَنَ / يَحْقِنُ\u200F", meaning: "注入する・注射する" },
+      { word: "\u200Fخَلِيَّة\u200F", meaning: "細胞" },
+      { word: "\u200Fجِين\u200F", meaning: "遺伝子" },
+      { word: "\u200Fمَنَاعَة\u200F", meaning: "免疫" },
+      { word: "\u200Fفَيْرُوس\u200F", meaning: "ウイルス" },
+      { word: "\u200Fمُخْتَبَر\u200F", meaning: "実験室" },
+      { word: "\u200Fآثَارٌ جَانِبِيَّة\u200F", meaning: "副作用" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：教育とキャリア発達 (ID: 13073) ---
+  {
+    id: 13073,
+    title: "中級：継続教育と発達",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fأَهَّلَ / يُؤَهِّلُ\u200F", meaning: "資格を与える・養成する" },
+      { word: "\u200Fدَرَّبَ / يُدَرِّبُ\u200F", meaning: "トレーニングする" },
+      { word: "\u200Fوَرْشَةُ عَمَلٍ\u200F", meaning: "ワークショップ" },
+      { word: "\u200Fتَدْرِيبٌ مِهْنِيّ\u200F", meaning: "職業訓練" },
+      { word: "\u200Fطُمُوح\u200F", meaning: "野心・向上心" },
+      { word: "\u200Fتَقْيِيم\u200F", meaning: "評価・アセスメント" },
+      { word: "\u200Fمِنْحَةٌ دِرَاسِيَّة\u200F", meaning: "奨学金" },
+      { word: "\u200Fإِبْدَاع\u200F", meaning: "クリエイティビティ" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：政治制度と外交 (ID: 13074) ---
+  {
+    id: 13074,
+    title: "中級：統治と外交交渉",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fتَحَالَفَ / يَتَحَالَفُ مَعَ\u200F", meaning: "〜と同盟を組む" },
+      { word: "\u200Fصَوَّتَ / يُصَوِّتُ لِـ\u200F", meaning: "〜に投票する" },
+      { word: "\u200Fسِيَادَة\u200F", meaning: "主権" },
+      { word: "\u200Fدِبْلُومَاسِيَّة\u200F", meaning: "外交" },
+      { word: "\u200Fمُعَارَضَة\u200F", meaning: "野党・反対派" },
+      { word: "\u200Fفَسَاد\u200F", meaning: "汚職・腐敗" },
+      { word: "\u200Fمُعَاهَدَة\u200F", meaning: "条約" },
+      { word: "\u200Fبَرْلَمَان\u200F", meaning: "議会" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：健康と栄養 (ID: 13075) ---
+  {
+    id: 13075,
+    title: "中級：食生活とウェルネス",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fهَضَمَ / يَهْضِمُ\u200F", meaning: "消化する" },
+      { word: "\u200Fامْتَصَّ / يَمْتَصُّ\u200F", meaning: "吸収する" },
+      { word: "\u200Fتَغْذِيَة\u200F", meaning: "栄養" },
+      { word: "\u200Fبَرُوتِين\u200F", meaning: "タンパク質" },
+      { word: "\u200Fسُعْرَاتٌ حَرَارِيَّة\u200F", meaning: "カロリー" },
+      { word: "\u200Fسِمْنَة\u200F", meaning: "肥満" },
+      { word: "\u200Fلِيَاقَة\u200F", meaning: "フィットネス" },
+      { word: "\u200Fمُكَمِّلٌ غِذَائِيّ\u200F", meaning: "サプリメント" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：社会学とコミュニティ (ID: 13076) ---
+  {
+    id: 13076,
+    title: "中級：社会構造と相互作用",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fانْدَمَجَ / يَنْدَمِجُ فِي\u200F", meaning: "〜に溶け込む・統合する" },
+      { word: "\u200Fتَعَايَشَ / يَتَعَايَشُ مَعَ\u200F", meaning: "〜と共生する" },
+      { word: "\u200Fطَبَقَةٌ اجْتِمَاعِيَّة\u200F", meaning: "社会階層" },
+      { word: "\u200Fتَنَوُّع\u200F", meaning: "多様性" },
+      { word: "\u200Fقِيَم\u200F", meaning: "価値観" },
+      { word: "\u200Fتَقَالِيد\u200F", meaning: "伝統・しきたり" },
+      { word: "\u200Fأَقَلِّيَّة\u200F", meaning: "少数派" },
+      { word: "\u200Fأَغْلَبِيَّة\u200F", meaning: "多数派" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：言語とコミュニケーション (ID: 13077) ---
+  {
+    id: 13077,
+    title: "中級：高度な言語伝達",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fتَرْجَمَ / يُتَرْجِمُ\u200F", meaning: "翻訳する" },
+      { word: "\u200Fفَسَّرَ / يُفَسِّرُ\u200F", meaning: "解釈する" },
+      { word: "\u200Fلَهْجَة\u200F", meaning: "方言" },
+      { word: "\u200Fمُصْطَلَح\u200F", meaning: "用語" },
+      { word: "\u200Fبَلَاغَة\u200F", meaning: "雄弁さ・修辞" },
+      { word: "\u200Fنَبْرَة\u200F", meaning: "口調・トーン" },
+      { word: "\u200Fإِيمَاءَة\u200F", meaning: "身振り・ジェスチャー" },
+      { word: "\u200Fحَاجِزٌ لُغَوِيّ\u200F", meaning: "言葉の壁" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：倫理と哲学 (ID: 13078) ---
+  {
+    id: 13078,
+    title: "中級：倫理観と哲学的思考",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fأَخْلَقَ / يُؤَخْلِقُ\u200F", meaning: "道徳化する" },
+      { word: "\u200Fتَأَمَّلَ / يَتَأَمَّلُ\u200F", meaning: "熟考する・瞑想する" },
+      { word: "\u200Fضَمِير\u200F", meaning: "良心" },
+      { word: "\u200Fمِثَالِيَّة\u200F", meaning: "理想主義" },
+      { word: "\u200Fمَنْطِق\u200F", meaning: "ロジック" },
+      { word: "\u200Fعَدَالَة\u200F", meaning: "正義" },
+      { word: "\u200Fحِكْمَة\u200F", meaning: "知恵" },
+      { word: "\u200Fجَوْهَر\u200F", meaning: "本質" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：産業とオートメーション (ID: 13079) ---
+  {
+    id: 13079,
+    title: "中級：産業革命と自動化",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fأَتْمَتَ / يُؤَتْمِتُ\u200F", meaning: "自動化する" },
+      { word: "\u200Fأَنْتَجَ / يُنْتِجُ\u200F", meaning: "生産する" },
+      { word: "\u200Fكَتْلَة\u200F", meaning: "（生産などの）塊・マス" },
+      { word: "\u200Fخَطُّ إِنْتَاجٍ\u200F", meaning: "生産ライン" },
+      { word: "\u200Fتَصْنِيع\u200F", meaning: "マニュファクチャリング" },
+      { word: "\u200Fمُعَدَّات\u200F", meaning: "設備・機材" },
+      { word: "\u200Fصِيَانَة\u200F", meaning: "メンテナンス" },
+      { word: "\u200Fتَكْلِفَة\u200F", meaning: "コスト" }
+    ],
+    questions: [],
+    sentences: []
+  },
+
+  // --- 中級：未来予測と計画 (ID: 13080) ---
+  {
+    id: 13080,
+    title: "中級：未来展望と戦略",
+    category: "単語データ",
+    level: "中級",
+    contentVoweled: "",
+    contentPlain: "",
+    vocabList: [
+      { word: "\u200Fتَنَبَّأَ / يَتَنَبَّأُ بِـ\u200F", meaning: "〜を予測する" },
+      { word: "\u200Fاسْتَشْرَفَ / يَسْتَشْرِفُ\u200F", meaning: "見通す・展望する" },
+      { word: "\u200Fسِيناريو\u200F", meaning: "シナリオ" },
+      { word: "\u200Fاسْتِرَاتِيجيَّة\u200F", meaning: "戦略" },
+      { word: "\u200Fخُطَّةُ طَوَارِئ\u200F", meaning: "緊急時計画" },
+      { word: "\u200Fأَوْلَوِيَّة\u200F", meaning: "優先順位" },
+      { word: "\u200Fمَصِير\u200F", meaning: "運命" },
+      { word: "\u200Fأُفُق\u200F", meaning: "地平・展望" }
+    ],
+    questions: [],
+    sentences: []
+  },
+// --- 中級：複合語（社会・国際） (ID: 13081) ---
+{
+  id: 13081,
+  title: "中級：社会と国際関係の複合語",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fحُقُوقُ الْإِنْسَان\u200F", meaning: "人権" },
+    { word: "\u200Fالْأُمَمُ الْمُتَّحِدَة\u200F", meaning: "国際連合（国連）" },
+    { word: "\u200Fالْمُجْتَمَعُ الدُّوَلِيّ\u200F", meaning: "国際社会" },
+    { word: "\u200Fوَسَائِلُ الْإِعْلَام\u200F", meaning: "報道機関・メディア" },
+    { word: "\u200Fالرَّأْيُ الْعَامّ\u200F", meaning: "世論" },
+    { word: "\u200Fالْعَلَاقَاتُ الدُّوَلِيَّة\u200F", meaning: "国際関係" },
+    { word: "\u200Fالشَّرْقُ الْأَوْسَط\u200F", meaning: "中東" },
+    { word: "\u200Fالْأَمْنُ الْقَوْمِيّ\u200F", meaning: "国家安全保障" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：複合語（ビジネス・労働） (ID: 13082) ---
+{
+  id: 13082,
+  title: "中級：仕事とキャリアの専門表現",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fدَوَامٌ كَامِل\u200F", meaning: "フルタイム" },
+    { word: "\u200Fدَوَامٌ جُزْئِيّ\u200F", meaning: "パートタイム" },
+    { word: "\u200Fسَاعَاتُ الْعَمَل\u200F", meaning: "労働時間" },
+    { word: "\u200Fبِيئَةُ الْعَمَل\u200F", meaning: "職場環境" },
+    { word: "\u200Fرِحْلَةُ عَمَل\u200F", meaning: "出張" },
+    { word: "\u200Fفَرِيقُ الْعَمَل\u200F", meaning: "ワークチーム" },
+    { word: "\u200Fالْمَوَارِدُ الْبَشَرِيَّة\u200F", meaning: "人事・人的資源" },
+    { word: "\u200Fالسُّوقُ الْحُرَّة\u200F", meaning: "自由市場" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：動詞（前置詞重視：変化・依存） (ID: 13083) ---
+{
+  id: 13083,
+  title: "中級：関係性を表す動詞句",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاعْتَمَدَ / يَعْتَمِدُ عَلَى\u200F", meaning: "〜に依存する・頼る" },
+    { word: "\u200Fتَخَصَّصَ / يَتَخَصَّصُ فِي\u200F", meaning: "〜を専門とする" },
+    { word: "\u200Fتَرَدَّدَ / يَتَرَدَّدُ فِي\u200F", meaning: "〜をためらう" },
+    { word: "\u200Fتَعَوَّدَ / يَتَعَوَّدُ عَلَى\u200F", meaning: "〜に慣れる" },
+    { word: "\u200Fسَاهَمَ / يُسَاهِمُ فِي\u200F", meaning: "〜に貢献する" },
+    { word: "\u200Fتَأَثَّرَ / يَتَأَثَّرُ بِـ\u200F", meaning: "〜に影響を受ける" },
+    { word: "\u200Fأَدَّى / يُؤَدِّي إِلَى\u200F", meaning: "〜につながる・〜を引き起こす" },
+    { word: "\u200Fتَمَيَّزَ / يَتَمَيَّزُ بِـ\u200F", meaning: "〜に特徴がある・優れている" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：複合語（IT・デジタル） (ID: 13084) ---
+{
+  id: 13084,
+  title: "中級：デジタル社会の用語",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fشَبَكَةُ الِانْتِرْنِت\u200F", meaning: "インターネット網" },
+    { word: "\u200Fحِمايةُ الْبَيَانَات\u200F", meaning: "データ保護" },
+    { word: "\u200Fالْبَرِيدُ الْإِلِكْتُرُونِيّ\u200F", meaning: "電子メール" },
+    { word: "\u200Fتَحْمِيلُ الْمَلَفَّات\u200F", meaning: "ファイルのダウンロード" },
+    { word: "\u200Fمَوَاقِعُ التَّوَاصُل\u200F", meaning: "交流サイト（SNS）" },
+    { word: "\u200Fالذَّكَاءُ الِاصْطِنَاعِيّ\u200F", meaning: "人工知能" },
+    { word: "\u200Fقَاعِدَةُ بَيَانَات\u200F", meaning: "データベース" },
+    { word: "\u200Fتَحْدِيثُ النِّظَام\u200F", meaning: "システムアップデート" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：形容詞（高度な状態・評価） (ID: 13085) ---
+{
+  id: 13085,
+  title: "中級：高度な状態を表す形容詞",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fمُسْتَدَام\u200F", meaning: "持続可能な" },
+    { word: "\u200Fمَنْطِقِيّ\u200F", meaning: "論理的な" },
+    { word: "\u200Fفَعَّال\u200F", meaning: "効果的な" },
+    { word: "\u200Fجَوْهَرِيّ\u200F", meaning: "本質的な・不可欠な" },
+    { word: "\u200Fمَوْضُوعِيّ\u200F", meaning: "客観的な" },
+    { word: "\u200Fشَامِل\u200F", meaning: "包括的な" },
+    { word: "\u200Fحَسَّاس\u200F", meaning: "敏感な・デリケートな" },
+    { word: "\u200Fتَقْلِيدِيّ\u200F", meaning: "伝統的な" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：複合語（経済・金融） (ID: 13086) ---
+{
+  id: 13086,
+  title: "中級：経済と市場の動き",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالتَّضَخُّمُ الْمَالِيّ\u200F", meaning: "インフレーション" },
+    { word: "\u200Fالنُّمُوُّ الِاقْتِصَادِيّ\u200F", meaning: "経済成長" },
+    { word: "\u200Fتَبَادُلٌ تِجَارِيّ\u200F", meaning: "貿易取引" },
+    { word: "\u200Fالْقُوَّةُ الشِّرَائِيَّة\u200F", meaning: "購買力" },
+    { word: "\u200Fالْأَزْمَةُ الْمَالِيَّة\u200F", meaning: "金融危機" },
+    { word: "\u200Fرَأْسُ الْمَال\u200F", meaning: "資本金" },
+    { word: "\u200Fسِعْرُ الصَّرْف\u200F", meaning: "為替レート" },
+    { word: "\u200Fالِاسْتِثْمَارُ الْأَجْنَبِيّ\u200F", meaning: "外国投資" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：複合語（環境・エネルギー） (ID: 13087) ---
+{
+  id: 13087,
+  title: "中級：地球環境とエネルギー",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَغَيُّرُ الْمُنَاخ\u200F", meaning: "気候変動" },
+    { word: "\u200Fالِاحْتِبَاسُ الْحَرَارِيّ\u200F", meaning: "地球温暖化" },
+    { word: "\u200Fالطَّاقَةُ الْمُتَجَدِّدَة\u200F", meaning: "再生可能エネルギー" },
+    { word: "\u200Fحِمَايَةُ الْبِيئَة\u200F", meaning: "環境保護" },
+    { word: "\u200Fالْمَوَارِدُ الطَّبِيعِيَّة\u200F", meaning: "自然資源" },
+    { word: "\u200Fالتَّلَوُّثُ الْبِيئِيّ\u200F", meaning: "環境汚染" },
+    { word: "\u200Fإِعَادَةُ التَّدْوِير\u200F", meaning: "リサイクル" },
+    { word: "\u200Fالْحَيَاةُ الْبَرِّيَّة\u200F", meaning: "野生生物" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：複合語（法律・権利） (ID: 13088) ---
+{
+  id: 13088,
+  title: "中級：法律と市民権",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fسِيَادَةُ الْقَانُون\u200F", meaning: "法の支配" },
+    { word: "\u200Fالْمُسَاوَاةُ أَمَامَ الْقَانُون\u200F", meaning: "法の下の平等" },
+    { word: "\u200Fحُرِّيَّةُ التَّعْبِير\u200F", meaning: "表現の自由" },
+    { word: "\u200Fالْقَانُونُ الدُّوَلِيّ\u200F", meaning: "国際法" },
+    { word: "\u200Fمَحْكَمَةُ الْعَدْل\u200F", meaning: "裁判所" },
+    { word: "\u200Fالْقَضَايَا الِاجْتِمَاعِيَّة\u200F", meaning: "社会問題" },
+    { word: "\u200Fالْحُقُوقُ الْمَدَنِيَّة\u200F", meaning: "市民権" },
+    { word: "\u200Fالْعُقُوبَةُ الْجِنَائِيَّة\u200F", meaning: "刑事罰" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：複合語（教育・心理） (ID: 13089) ---
+{
+  id: 13089,
+  title: "中級：教育と自己啓発",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالتَّعْلِيمُ الْعَالِي\u200F", meaning: "高等教育" },
+    { word: "\u200Fالتَّطْوِيرُ الذَّاتِيّ\u200F", meaning: "自己啓発・自己開発" },
+    { word: "\u200Fالْمَهَارَاتُ اللُّغَوِيَّة\u200F", meaning: "言語スキル" },
+    { word: "\u200Fالثِّقَةُ بِالنَّفْس\u200F", meaning: "自信" },
+    { word: "\u200Fالتَّفْكِيرُ النَّقْدِيّ\u200F", meaning: "批判的思考" },
+    { word: "\u200Fالْبَحْثُ الْعِلْمِيّ\u200F", meaning: "科学的研究" },
+    { word: "\u200Fالْمَنْهَجُ الدِّرَاسِيّ\u200F", meaning: "カリキュラム" },
+    { word: "\u200Fالذَّكاءُ الْعَاطِفِيّ\u200F", meaning: "感情的知能（EQ）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：動詞（前置詞重視：思考・伝達） (ID: 13090) ---
+{
+  id: 13090,
+  title: "中級：思考と言葉の動詞句",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَحَدَّثَ / يَتَحَدَّثُ عَنْ\u200F", meaning: "〜について話す" },
+    { word: "\u200Fوَافَقَ / يُوَافِقُ عَلَى\u200F", meaning: "〜に同意する" },
+    { word: "\u200Fاعْتَرَضَ / يَعْتَرِضُ عَلَى\u200F", meaning: "〜に反対する" },
+    { word: "\u200Fاسْتَفَادَ / يَسْتَفِيدُ مِنْ\u200F", meaning: "〜を活用する・から利益を得る" },
+    { word: "\u200Fبَحَثَ / يَبْحَثُ عَنْ\u200F", meaning: "〜を探す" },
+    { word: "\u200Fعَبَّرَ / يُعَبِّرُ عَنْ\u200F", meaning: "〜を表現する" },
+    { word: "\u200Fتَأَكَّدَ / يَتَأَكَّدُ مِنْ\u200F", meaning: "〜を確認する" },
+    { word: "\u200Fرَكَّزَ / يُرَكِّزُ عَلَى\u200F", meaning: "〜に集中する・重点を置く" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：複合語（健康・生活） (ID: 13091) ---
+{
+  id: 13091,
+  title: "中級：健康とライフスタイル",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالنِّظَامُ الْغِذَائِيّ\u200F", meaning: "食生活・ダイエット" },
+    { word: "\u200Fالرِّعَايَةُ الصِّحِّيَّة\u200F", meaning: "ヘルスケア" },
+    { word: "\u200Fالصِّحَّةُ النَّفْسِيَّة\u200F", meaning: "メンタルヘルス" },
+    { word: "\u200Fأُسْلُوبُ الْحَيَاة\u200F", meaning: "ライフスタイル" },
+    { word: "\u200Fاللَّيَاقَةُ الْبَدَنِيَّة\u200F", meaning: "フィジカルフィットネス" },
+    { word: "\u200Fالتَّأْمِينُ الصِّحِّيّ\u200F", meaning: "健康保険" },
+    { word: "\u200Fالْإِسْعَافَاتُ الْأَوَّلِيَّة\u200F", meaning: "応急処置" },
+    { word: "\u200Fالرَّاحَةُ النَّفْسِيَّة\u200F", meaning: "心の安らぎ" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：複合語（都市・インフラ） (ID: 13092) ---
+{
+  id: 13092,
+  title: "中級：都市機能と交通インフラ",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fوَسَائِلُ النَّقْل\u200F", meaning: "交通手段" },
+    { word: "\u200Fالنَّقْلُ الْعَامّ\u200F", meaning: "公共交通機関" },
+    { word: "\u200Fمَحَطَّةُ الْقِطَار\u200F", meaning: "鉄道駅" },
+    { word: "\u200Fإِشَارَةُ الْمُرُور\u200F", meaning: "交通信号" },
+    { word: "\u200Fازْدِحَامٌ مُرُورِيّ\u200F", meaning: "交通渋滞" },
+    { word: "\u200Fتَخْطِيطُ الْمُدُن\u200F", meaning: "都市計画" },
+    { word: "\u200Fالْبِنْيَةُ التَّحْتِيَّة\u200F", meaning: "インフラ" },
+    { word: "\u200Fالْمَنَاطِقُ السَّكَنِيَّة\u200F", meaning: "居住区" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：複合語（ニュース・メディア） (ID: 13093) ---
+{
+  id: 13093,
+  title: "中級：ニュース報道の重要語句",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fآخِرُ الْأَخْبَار\u200F", meaning: "最新ニュース" },
+    { word: "\u200Fخَبَرٌ عَاجِل\u200F", meaning: "ブレーキングニュース（速報）" },
+    { word: "\u200Fتَقْرِيرٌ إِخْبَارِيّ\u200F", meaning: "ニュースレポート" },
+    { word: "\u200Fمُؤْتَمَرٌ صَحَفِيّ\u200F", meaning: "記者会見" },
+    { word: "\u200Fحُرِّيَّةُ الصَّحَافَة\u200F", meaning: "報道の自由" },
+    { word: "\u200Fمَقَالَةُ الرَّأْي\u200F", meaning: "社説・オピニオン記事" },
+    { word: "\u200Fوَسَائِلُ التَّوَاصُل\u200F", meaning: "通信・交流手段" },
+    { word: "\u200Fتَغْطِيَةٌ حَيَّة\u200F", meaning: "ライブ中継" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：複合語（文化・芸術） (ID: 13094) ---
+{
+  id: 13094,
+  title: "中級：文化遺産と芸術活動",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالتُّرَاثُ الْعَالَمِيّ\u200F", meaning: "世界遺産" },
+    { word: "\u200Fالْفُنُونُ الْجَمِيلَة\u200F", meaning: "ファインアート（美術）" },
+    { word: "\u200Fالْهُوِيَّةُ الثَّقَافِيَّة\u200F", meaning: "文化的アイデンティティ" },
+    { word: "\u200Fالتَّنَوُّعُ الثَّقَافِيّ\u200F", meaning: "文化的多様性" },
+    { word: "\u200Fالْمَعَالِمُ التَّارِيخِيَّة\u200F", meaning: "歴史的名所" },
+    { word: "\u200Fالْمَهْرَجَانُ الثَّقَافِيّ\u200F", meaning: "文化祭・フェスティバル" },
+    { word: "\u200Fالْأَدَبُ الْعَرَبِيّ\u200F", meaning: "アラビア文学" },
+    { word: "\u200Fالْعُرُوضُ الْمَسْرَحِيَّة\u200F", meaning: "演劇公演" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：形容詞（対人・性格） (ID: 13095) ---
+{
+  id: 13095,
+  title: "中級：人の性質を表す複合表現",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fوَاسِعُ الْخَيَال\u200F", meaning: "想像力豊かな" },
+    { word: "\u200Fسَرِيعُ الْغَضَب\u200F", meaning: "怒りっぽい" },
+    { word: "\u200Fطَيِّبُ الْقَلْب\u200F", meaning: "心が優しい" },
+    { word: "\u200Fصَعْبُ الْمِرَاس\u200F", meaning: "扱いにくい・頑固な" },
+    { word: "\u200Fقَوِيُّ الشَّخْصِيَّة\u200F", meaning: "性格が強い・個性が強い" },
+    { word: "\u200Fمُنْفَتِحُ الْعَقْل\u200F", meaning: "オープンマインドな" },
+    { word: "\u200Fطَوِيلُ الْبَال\u200F", meaning: "気が長い・忍耐強い" },
+    { word: "\u200Fحَادُّ الذَّكَاء\u200F", meaning: "頭の切れる・非常に賢い" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：複合語（時間・頻度） (ID: 13096) ---
+{
+  id: 13096,
+  title: "中級：時間的経過の表現",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fمَدَى الْحَيَاة\u200F", meaning: "生涯・一生" },
+    { word: "\u200Fبِشَكْلٍ مُسْتَمِرّ\u200F", meaning: "継続的に" },
+    { word: "\u200Fفِي الْوَقْتِ الْحَالِيّ\u200F", meaning: "現時点で" },
+    { word: "\u200Fعَلَى الْمَدَى الطَّوِيل\u200F", meaning: "長期的に" },
+    { word: "\u200Fعَلَى الْمَدَى الْقَصِير\u200F", meaning: "短期的に" },
+    { word: "\u200Fفِي أَسْرَعِ وَقْت\u200F", meaning: "できるだけ早く" },
+    { word: "\u200Fمِنْ وَقْتٍ لِآخَر\u200F", meaning: "時々" },
+    { word: "\u200Fفِي الْمُسْتَقْبَلِ الْقَرِيب\u200F", meaning: "近い将来" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：動詞（前置詞重視：社会・行動） (ID: 13097) ---
+{
+  id: 13097,
+  title: "中級：社会的な動作の動詞句",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fانْضَمَّ / يَنْضَمُّ إِلَى\u200F", meaning: "〜に加わる・入会する" },
+    { word: "\u200Fتَعَاوَنَ / يَتَعَاوَنُ مَعَ\u200F", meaning: "〜と協力する" },
+    { word: "\u200Fحَصَلَ / يَحْصُلُ عَلَى\u200F", meaning: "〜を取得する・得る" },
+    { word: "\u200Fبَحَثَ / يَبْحَثُ فِي\u200F", meaning: "〜を調査・研究する" },
+    { word: "\u200Fتَخَلَّى / يَتَخَلَّى عَنْ\u200F", meaning: "〜を捨てる・あきらめる" },
+    { word: "\u200Fدَافَعَ / يُدَافِعُ عَنْ\u200F", meaning: "〜を擁護・防衛する" },
+    { word: "\u200Fأَشْرَفَ / يُشْرِفُ عَلَى\u200F", meaning: "〜を監督・管理する" },
+    { word: "\u200Fاعْتَذَرَ / يَعْتَذِرُ عَنْ\u200F", meaning: "〜について謝罪する" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：複合語（科学・論理） (ID: 13098) ---
+{
+  id: 13098,
+  title: "中級：論理的思考と科学用語",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fنَقْطَةُ التَّحَوُّل\u200F", meaning: "転換点（ターニングポイント）" },
+    { word: "\u200Fرَدُّ فِعْل\u200F", meaning: "反応・リアクション" },
+    { word: "\u200Fتَحْلِيلُ الْبَيَانَات\u200F", meaning: "データ分析" },
+    { word: "\u200Fالتَّجْرِبَةُ وَالْخَطَأ\u200F", meaning: "試行錯誤" },
+    { word: "\u200Fالِاسْتِنْتَاجُ الْمَنْطِقِيّ\u200F", meaning: "論理的結論" },
+    { word: "\u200Fالْقِيَاسُ الْعِلْمِيّ\u200F", meaning: "科学的測定" },
+    { word: "\u200Fظَاهِرَةٌ طَبِيعِيَّة\u200F", meaning: "自然現象" },
+    { word: "\u200Fالْبَحْثُ وَالتَّطْوِير\u200F", meaning: "研究開発（R&D）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：複合語（生活・慣用表現） (ID: 13099) ---
+{
+  id: 13099,
+  title: "中級：日常生活の慣用的な表現",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fرَأْسًا عَلَى عَقِب\u200F", meaning: "（上下）真っ逆さまに" },
+    { word: "\u200Fوَجْهًا لِوَجْه\u200F", meaning: "対面で・顔を合わせて" },
+    { word: "\u200Fجَنْبًا إِلَى جَنْب\u200F", meaning: "隣り合って・共に" },
+    { word: "\u200Fبِغَضِّ النَّظَر\u200F", meaning: "〜はさておき・に関わらず" },
+    { word: "\u200Fمِنْ نَاحِيَةٍ أُخْرَى\u200F", meaning: "一方で（他方では）" },
+    { word: "\u200Fعَلَى أَيِّ حَال\u200F", meaning: "いずれにせよ" },
+    { word: "\u200Fبِشَكْلٍ عَامّ\u200F", meaning: "一般的に" },
+    { word: "\u200Fبِكُلِّ تَأْكِيد\u200F", meaning: "確かに・もちろん" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：総括（総合語彙） (ID: 13100) ---
+{
+  id: 13100,
+  title: "中級：総合語彙の総仕上げ",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fمُسْتَوَى الْمَعِيشَة\u200F", meaning: "生活水準" },
+    { word: "\u200Fالتَّنْمِيَةُ الْمُسْتَدَامَة\u200F", meaning: "持続可能な開発" },
+    { word: "\u200Fالْمَسْؤُولِيَّةُ الِاجْتِمَاعِيَّة\u200F", meaning: "社会的責任" },
+    { word: "\u200Fصِنَاعَةُ الْقَرَار\u200F", meaning: "意思決定" },
+    { word: "\u200Fالِاسْتِقْرَارُ السِّيَاسِيّ\u200F", meaning: "政治的安定" },
+    { word: "\u200Fالتَّوَازُنُ النَّفْسِيّ\u200F", meaning: "心のバランス" },
+    { word: "\u200Fالْقِيمَةُ الْمُضَافَة\u200F", meaning: "付加価値" },
+    { word: "\u200Fنُقْطَةُ الضَّعْف\u200F", meaning: "弱点" }
+  ],
+  questions: [],
+  sentences: []
+},
+// --- 中級：契約と労働条件 (ID: 13101) ---
+{
+  id: 13101,
+  title: "中級：労働契約と諸条件",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fعَقْدُ الْعَمَل\u200F", meaning: "労働契約" },
+    { word: "\u200Fفَسَخَ / يَفْسَخُ الْعَقْد\u200F", meaning: "契約を解除する" },
+    { word: "\u200Fبَنْد / بُنُود\u200F", meaning: "条項" },
+    { word: "\u200Fتَعْوِيضَات\u200F", meaning: "手当・補償金" },
+    { word: "\u200Fإِجَازَةٌ مَدْفُوعَة\u200F", meaning: "有給休暇" },
+    { word: "\u200Fتَأْمِينٌ اجْتِمَاعِيّ\u200F", meaning: "社会保険" },
+    { word: "\u200Fاسْتَقَالَ / يَسْتَقِيلُ مِنْ\u200F", meaning: "〜を辞職する" },
+    { word: "\u200Fتَقَاعَدَ / يَتَقَاعَدُ\u200F", meaning: "退職する・定年になる" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：司法と法的紛争 (ID: 13102) ---
+{
+  id: 13102,
+  title: "中級：司法手続きと法廷",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fرَفَعَ / يَرْفَعُ دَعْوَى\u200F", meaning: "訴訟を起こす" },
+    { word: "\u200Fمُحَامِي الدِّفَاع\u200F", meaning: "弁護人" },
+    { word: "\u200Fحُكْمٌ نِهَائِيّ\u200F", meaning: "確定判決" },
+    { word: "\u200Fاسْتَأْنَفَ / يَسْتَأْنِفُ\u200F", meaning: "控訴する" },
+    { word: "\u200Fبَرَاءَة\u200F", meaning: "無罪" },
+    { word: "\u200Fإِدَانَة\u200F", meaning: "有罪判決" },
+    { word: "\u200Fشَهَادَةُ الزُّور\u200F", meaning: "偽証" },
+    { word: "\u200Fتَسْوِيَةٌ قَانُونِيَّة\u200F", meaning: "法的和解" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：高度なITセキュリティ (ID: 13103) ---
+{
+  id: 13103,
+  title: "中級：デジタル保護とリスク",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَهْدِيدٌ سِيْبِرَانِيّ\u200F", meaning: "サイバー脅威" },
+    { word: "\u200Fاخْتَرَقَ / يَخْتَرِقُ\u200F", meaning: "ハッキングする・突破する" },
+    { word: "\u200Fتَشْفِيرُ الْبَيَانَات\u200F", meaning: "データ暗号化" },
+    { word: "\u200Fجِدَارُ الْحِمَايَة\u200F", meaning: "ファイアウォール" },
+    { word: "\u200Fمُصَادَقَة\u200F", meaning: "認証" },
+    { word: "\u200Fقَرْصَنَة\u200F", meaning: "海賊行為・不正コピー" },
+    { word: "\u200Fفَيْرُوسُ الْحَاسُوب\u200F", meaning: "コンピュータウイルス" },
+    { word: "\u200Fبَرْمَجِيَّاتٌ خَبِيثَة\u200F", meaning: "マルウェア" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：環境保護と資源 (ID: 13104) ---
+{
+  id: 13104,
+  title: "中級：資源の持続性と環境",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَرْشِيدُ الِاسْتِهْلَاك\u200F", meaning: "消費の合理化・節約" },
+    { word: "\u200Fنُدْرَةُ الْمِيَاه\u200F", meaning: "水不足" },
+    { word: "\u200Fطَاقَةٌ شَمْسِيَّة\u200F", meaning: "太陽光エネルギー" },
+    { word: "\u200Fانْبِعَاثَاتُ الْكَرْبُون\u200F", meaning: "二酸化炭素排出" },
+    { word: "\u200Fتَقْلِيلُ النِّفَايَات\u200F", meaning: "ゴミの削減" },
+    { word: "\u200Fحِمَايَةُ التَّنَوُّع\u200F", meaning: "多様性の保護" },
+    { word: "\u200Fتَدَهْوُرُ الْبِيئَة\u200F", meaning: "環境悪化" },
+    { word: "\u200Fاسْتِغْلَالُ الْمَوَارِد\u200F", meaning: "資源の活用・搾取" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：高度な経済概念 (ID: 13105) ---
+{
+  id: 13105,
+  title: "中級：市場経済の深掘り",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالْعَرْضُ وَالطَّلَب\u200F", meaning: "需要と供給" },
+    { word: "\u200Fالْمِيزَانُ التِّجَارِيّ\u200F", meaning: "貿易収支" },
+    { word: "\u200Fالْقُطَاعُ الْخَاصّ\u200F", meaning: "民間部門" },
+    { word: "\u200Fالْقُطَاعُ الْعَامّ\u200F", meaning: "公共部門" },
+    { word: "\u200Fاحْتِكَار\u200F", meaning: "独占" },
+    { word: "\u200Fخَصْخَصَة\u200F", meaning: "民営化" },
+    { word: "\u200Fتَنَافُسِيَّة\u200F", meaning: "競争力" },
+    { word: "\u200Fتَوْزِيعُ الثَّرْوَة\u200F", meaning: "富の再分配" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：心理状態と葛藤 (ID: 13106) ---
+{
+  id: 13106,
+  title: "中級：内面的な心理描写",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fصِرَاعٌ دَاخِلِيّ\u200F", meaning: "葛藤・内的対立" },
+    { word: "\u200Fعُقْدَةُ الذَّنْب\u200F", meaning: "罪悪感" },
+    { word: "\u200Fتَقْدِيرُ الذَّات\u200F", meaning: "自尊心" },
+    { word: "\u200Fتَعَرَّضَ / يَتَعَرَّضُ لِـ\u200F", meaning: "〜にさらされる・直面する" },
+    { word: "\u200Fقَمَعَ / يَقْمَعُ\u200F", meaning: "抑圧する" },
+    { word: "\u200Fاضْطِرَاب\u200F", meaning: "混乱・障害" },
+    { word: "\u200Fانْطِبَاع\u200F", meaning: "印象" },
+    { word: "\u200Fصَدْمَةٌ نَفْسِيَّة\u200F", meaning: "トラウマ" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：外交と国際平和 (ID: 13107) ---
+{
+  id: 13107,
+  title: "中級：外交努力と平和構築",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fمُعَاهَدَةُ السَّلَام\u200F", meaning: "平和条約" },
+    { word: "\u200Fوَسَاطَة\u200F", meaning: "仲裁" },
+    { word: "\u200Fتَبَادُلٌ دِبْلُومَاسِيّ\u200F", meaning: "外交交換" },
+    { word: "\u200Fفَرَضَ / يَفْرِضُ عُقُوبَات\u200F", meaning: "制裁を科す" },
+    { word: "\u200Fتَسْوِيَةٌ سِيَاسِيَّة\u200F", meaning: "政治的和解" },
+    { word: "\u200Fقُوَّاتُ حِفْظِ السَّلَام\u200F", meaning: "平和維持軍" },
+    { word: "\u200Fتَحَالُفٌ دُوَلِيّ\u200F", meaning: "国際同盟" },
+    { word: "\u200Fبَعْثَةٌ دِبْلُومَاسِيَّة\u200F", meaning: "外交使節団" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：学術研究の応用 (ID: 13108) ---
+{
+  id: 13108,
+  title: "中級：学術調査と言語分析",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fعَيِّنَةُ الدِّرَاسَة\u200F", meaning: "調査サンプル" },
+    { word: "\u200Fإِحْصَائِيَّاتٌ دَقِيقَة\u200F", meaning: "正確な統計" },
+    { word: "\u200Fتَحْلِيلٌ نَوْعِيّ\u200F", meaning: "質的分析" },
+    { word: "\u200Fتَحْلِيلٌ كَمِّيّ\u200F", meaning: "量的分析" },
+    { word: "\u200Fاسْتِبْيَان\u200F", meaning: "アンケート・質問票" },
+    { word: "\u200Fمَوْضُوعِيَّةٌ عِلْمِيَّة\u200F", meaning: "科学的客観性" },
+    { word: "\u200Fمُصْطَلَحَاتٌ تَقْنِيَّة\u200F", meaning: "専門用語" },
+    { word: "\u200Fنَقْدٌ بَنَّاء\u200F", meaning: "建設的な批判" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：社会階層と格差 (ID: 13109) ---
+{
+  id: 13109,
+  title: "中級：社会構造と変化",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالطَّبَقَةُ الْوُسْطَى\u200F", meaning: "中産階級" },
+    { word: "\u200Fالْفَجْوَةُ الِاجْتِمَاعِيَّة\u200F", meaning: "社会的な格差" },
+    { word: "\u200Fالْحِرَاكُ الِاجْتِمَاعِيّ\u200F", meaning: "社会的流動性" },
+    { word: "\u200Fمُسْتَوَى الْمَعِيشَة\u200F", meaning: "生活水準" },
+    { word: "\u200Fالْعَدَالَةُ الِاجْتِمَاعِيَّة\u200F", meaning: "社会正義" },
+    { word: "\u200Fتَهْمِيش\u200F", meaning: "疎外・周縁化" },
+    { word: "\u200Fتَمَاسُكٌ اجْتِمَاعِيّ\u200F", meaning: "社会的連帯" },
+    { word: "\u200Fالْعَادَاتُ وَالتَّقَالِيد\u200F", meaning: "慣習と伝統" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：イノベーションと特許 (ID: 13110) ---
+{
+  id: 13110,
+  title: "中級：知財と未来技術",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fبَرَاءَةُ اخْتِرَاع\u200F", meaning: "特許" },
+    { word: "\u200Fالْمِلْكِيَّةُ الْفِكْرِيَّة\u200F", meaning: "知的財産権" },
+    { word: "\u200Fتَقْنِيَّةٌ رَائِدَة\u200F", meaning: "最先端技術" },
+    { word: "\u200Fحَاضِنَةُ أَعْمَال\u200F", meaning: "ビジネスインキュベーター" },
+    { word: "\u200Fرِيَادَةُ الْأَعْمَال\u200F", meaning: "起業家精神" },
+    { word: "\u200Fتَمْوِيلٌ جَمَاعِيّ\u200F", meaning: "クラウドファンディング" },
+    { word: "\u200Fمُنَافَسَةٌ شَرِيفَة\u200F", meaning: "公正な競争" },
+    { word: "\u200Fنَمُوذَجٌ مَبْدَئِيّ\u200F", meaning: "プロトタイプ" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：メディア倫理 (ID: 13111) ---
+{
+  id: 13111,
+  title: "中級：ジャーナリズムの責任",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fأَخْلَاقِيَّاتُ الْمِهْنَة\u200F", meaning: "職業倫理" },
+    { word: "\u200Fتَحَرِّي الدِّقَّة\u200F", meaning: "正確さの追求" },
+    { word: "\u200Fتَضْلِيل\u200F", meaning: "誤解を招くこと・欺瞞" },
+    { word: "\u200Fحِيَاد\u200F", meaning: "中立" },
+    { word: "\u200Fتَشْوِيهُ السُّمْعَة\u200F", meaning: "名誉毀損" },
+    { word: "\u200Fتَسْرِيبَات\u200F", meaning: "リーク・漏洩" },
+    { word: "\u200Fحَقُّ الرَّدّ\u200F", meaning: "反論権" },
+    { word: "\u200Fمَصْدَرٌ مَوْثُوق\u200F", meaning: "信頼できる情報源" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：歴史的考察 (ID: 13112) ---
+{
+  id: 13112,
+  title: "中級：歴史の流れと教訓",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fنُقْطَةُ تَحَوُّل\u200F", meaning: "転換点" },
+    { word: "\u200Fعَصْرُ النَّهْضَة\u200F", meaning: "ルネサンス・覚醒の時代" },
+    { word: "\u200Fالِاسْتِعْمَار\u200F", meaning: "植民地主義" },
+    { word: "\u200Fالِاسْتِقْلَال\u200F", meaning: "独立" },
+    { word: "\u200Fثَوْرَة\u200F", meaning: "革命" },
+    { word: "\u200Fإِبَادَة\u200F", meaning: "根絶・虐殺" },
+    { word: "\u200Fصِرَاعٌ طَوِيل\u200F", meaning: "長年の紛争" },
+    { word: "\u200Fتَأْرِيخ\u200F", meaning: "歴史記述" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：産業と品質管理 (ID: 13113) ---
+{
+  id: 13113,
+  title: "中級：生産現場の専門語",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fمَعَايِيرُ الْجَوْدَة\u200F", meaning: "品質基準" },
+    { word: "\u200Fكَفَاءَةُ الْإِنْتَاج\u200F", meaning: "生産効率" },
+    { word: "\u200Fصِيَانَةٌ دَوْرِيَّة\u200F", meaning: "定期メンテナンス" },
+    { word: "\u200Fقِطَعُ الْغِيَار\u200F", meaning: "スペアパーツ" },
+    { word: "\u200Fخَطُّ التَّجْمِيع\u200F", meaning: "組立ライン" },
+    { word: "\u200Fالْأَمْنُ الصِّنَاعِيّ\u200F", meaning: "産業安全" },
+    { word: "\u200Fفَحْصٌ فَنِّيّ\u200F", meaning: "技術検査" },
+    { word: "\u200Fتَحْسِينٌ مُسْتَمِرّ\u200F", meaning: "継続的改善" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：高度なコミュニケーション (ID: 13114) ---
+{
+  id: 13114,
+  title: "中級：対話と交渉の技術",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fبَنَى / يَبْنِي جُسُورًا\u200F", meaning: "架け橋を築く" },
+    { word: "\u200Fتَقْرِيبُ وُجْهَاتِ النَّظَر\u200F", meaning: "意見の歩み寄り" },
+    { word: "\u200Fلُغَةُ الْجَسَد\u200F", meaning: "ボディランゲージ" },
+    { word: "\u200Fإِقْنَاعٌ مَنْطِقِيّ\u200F", meaning: "論理的な説得" },
+    { word: "\u200Fسُوءُ فَهْم\u200F", meaning: "誤解" },
+    { word: "\u200Fشَفَافِيَّة\u200F", meaning: "透明性" },
+    { word: "\u200Fلَبَاقَة\u200F", meaning: "如才なさ・機転" },
+    { word: "\u200Fتَفَاوُضٌ مُثْمِر\u200F", meaning: "実りある交渉" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：思想と存在 (ID: 13115) ---
+{
+  id: 13115,
+  title: "中級：実存的・抽象的概念",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fمَفْهُومٌ جَوْهَرِيّ\u200F", meaning: "本質的概念" },
+    { word: "\u200Fالْوُجُودِيَّة\u200F", meaning: "実存主義" },
+    { word: "\u200Fتَنَاقُض\u200F", meaning: "矛盾" },
+    { word: "\u200Fتَجْرِيد\u200F", meaning: "抽象化" },
+    { word: "\u200Fقَنَاعَة\u200F", meaning: "確信・満足" },
+    { word: "\u200Fانْعِكَاس\u200F", meaning: "反映・反射" },
+    { word: "\u200Fغَايَة\u200F", meaning: "目的・究極の目標" },
+    { word: "\u200Fمَذْهَب\u200F", meaning: "学説・教義" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：都市のダイナミズム (ID: 13116) ---
+{
+  id: 13116,
+  title: "中級：都市の発展と課題",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَوَسُّعٌ عُمْرَانِيّ\u200F", meaning: "都市の拡大" },
+    { word: "\u200Fنَاطِحَةُ سَحَاب\u200F", meaning: "摩天楼・超高層ビル" },
+    { word: "\u200Fأَحْيَاءٌ فَقِيرَة\u200F", meaning: "スラム街・貧困地区" },
+    { word: "\u200Fمَسَاحَةٌ خَضْرَاء\u200F", meaning: "緑地スペース" },
+    { word: "\u200Fكُتْلَةٌ سَكَانِيَّة\u200F", meaning: "人口塊" },
+    { word: "\u200Fتَلَوُّثٌ ضَوْضَائِيّ\u200F", meaning: "騒音公害" },
+    { word: "\u200Fإِعَادَةُ تَأْهِيل\u200F", meaning: "再開発・修復" },
+    { word: "\u200Fمَدِينَةٌ ذَكِيَّة\u200F", meaning: "スマートシティ" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：人的資源の管理 (ID: 13117) ---
+{
+  id: 13117,
+  title: "中級：人事と組織運営",
+  category: "単語データ",
+  level: "中級",
+    contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَقْيِيمُ الْأَدَاء\u200F", meaning: "業績評価" },
+    { word: "\u200Fهَيْكَلٌ تَنْظِيمِيّ\u200F", meaning: "組織構造" },
+    { word: "\u200Fتَبَادُلُ الْخِبْرَات\u200F", meaning: "経験の交換" },
+    { word: "\u200Fوَلَاءٌ مُؤَسَّسِيّ\u200F", meaning: "組織への忠誠心" },
+    { word: "\u200Fفُرَصُ التَّرْقِيَة\u200F", meaning: "昇進の機会" },
+    { word: "\u200Fدَوَرَانُ الْعَمَالَة\u200F", meaning: "離職率" },
+    { word: "\u200Fبِيئَةٌ مُحَفِّزَة\u200F", meaning: "意欲を高める環境" },
+    { word: "\u200Fمُسَاوَاةٌ فِي الْأُجُور\u200F", meaning: "賃金の平等" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：言語と翻訳の深奥 (ID: 13118) ---
+{
+  id: 13118,
+  title: "中級：言葉のニュアンスと翻訳",
+  category: "単語データ",
+  level: "中級",
+    contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fأَمَانَةٌ لُغَوِيَّة\u200F", meaning: "言語的忠実さ" },
+    { word: "\u200Fسِيَاقُ الْكَلَام\u200F", meaning: "文脈" },
+    { word: "\u200Fدَلَالَة\u200F", meaning: "意味合い・含意" },
+    { word: "\u200Fتَرْجَمَةٌ فَوْرِيَّة\u200F", meaning: "同時通訳" },
+    { word: "\u200Fتَعْرِيب\u200F", meaning: "アラビア語化" },
+    { word: "\u200Fبَلَاغَةٌ لِسَانِيَّة\u200F", meaning: "言語的雄弁さ" },
+    { word: "\u200Fمُتَرَادِفَات\u200F", meaning: "類義語" },
+    { word: "\u200Fمُتَضَادَّات\u200F", meaning: "対義語" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：宇宙探査と未来 (ID: 13119) ---
+{
+  id: 13119,
+  title: "中級：未知への探求",
+  category: "単語データ",
+  level: "中級",
+    contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fمِسْبَارٌ فَضَائِيّ\u200F", meaning: "宇宙探査機" },
+    { word: "\u200Fمَحَطَّةُ الْفَضَاء\u200F", meaning: "宇宙ステーション" },
+    { word: "\u200Fثَقْبٌ أَسْوَد\u200F", meaning: "ブラックホール" },
+    { word: "\u200Fجَاذِبِيَّة\u200F", meaning: "重力" },
+    { word: "\u200Fغِلَافٌ جَوِّيّ\u200F", meaning: "大気層" },
+    { word: "\u200Fرِحْلَةٌ مَأْهُولَة\u200F", meaning: "有人飛行" },
+    { word: "\u200Fمَجَرَّة\u200F", meaning: "銀河" },
+    { word: "\u200Fاسْتِعْمَارُ الْمِرِّيخ\u200F", meaning: "火星移住・植民" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：動詞（前置詞重視：探求と検証） (ID: 13120) ---
+{
+  id: 13120,
+  title: "中級：真理を追究する動作",
+  category: "単語データ",
+  level: "中級",
+    contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fبَحَثَ / يَبْحَثُ فِي\u200F", meaning: "〜について調査する" },
+    { word: "\u200Fدَقَّقَ / يُدَقِّقُ فِي\u200F", meaning: "〜を精査する" },
+    { word: "\u200Fتَأَكَّدَ / يَتَأَكَّدُ مِنْ\u200F", meaning: "〜を確かめる" },
+    { word: "\u200Fتَحَرَّى / يَتَحَرَّى عَنْ\u200F", meaning: "〜を捜査・探る" },
+    { word: "\u200Fكَشَفَ / يَكْشِفُ عَنْ\u200F", meaning: "〜を明らかにする・暴露する" },
+    { word: "\u200Fتَوَصَّلَ / يَتَوَصَّلُ إِلَى\u200F", meaning: "〜にたどり着く（結論など）" },
+    { word: "\u200Fاسْتَنْتَجَ / يَسْتَنْتِجُ مِنْ\u200F", meaning: "〜から推論する" },
+    { word: "\u200Fأَثْبَتَ / يُثْبِتُ\u200F", meaning: "証明する" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：金融リスクと投資 (ID: 13121) ---
+{
+  id: 13121,
+  title: "中級：資産運用とリスク",
+  category: "単語データ",
+  level: "中級",
+    contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fمَحْفَظَةٌ اسْتِثْمَارِيَّة\u200F", meaning: "投資ポートフォリオ" },
+    { word: "\u200Fتَنْوِيعُ الْمَخَاطِر\u200F", meaning: "リスク分散" },
+    { word: "\u200Fأَسْهُمٌ وَسَنَدَات\u200F", meaning: "株式と債券" },
+    { word: "\u200Fسُوقٌ صَاعِدَة\u200F", meaning: "ブルマーケット（強気市場）" },
+    { word: "\u200Fسُوقٌ هَابِطَة\u200F", meaning: "ベアマーケット（弱気市場）" },
+    { word: "\u200Fصُنْدُوقٌ سِيَادِيّ\u200F", meaning: "政府系ファンド" },
+    { word: "\u200Fتَقَلُّبَاتُ السُّوق\u200F", meaning: "市場の変動" },
+    { word: "\u200Fعَائِدُ الِاسْتِثْمَار\u200F", meaning: "投資収益率（ROI）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：社会問題と支援 (ID: 13122) ---
+{
+  id: 13122,
+  title: "中級：人道支援と格差",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fمُسَاعَدَاتٌ إِنْسَانِيَّة\u200F", meaning: "人道支援" },
+    { word: "\u200Fالْقَضَاءُ عَلَى الْفَقْر\u200F", meaning: "貧困撲滅" },
+    { word: "\u200Fالْأَمْنُ الْغِذَائِيّ\u200F", meaning: "食料安全保障" },
+    { word: "\u200Fمَلْجَأ / مَلَاجِئ\u200F", meaning: "避難所・シェルター" },
+    { word: "\u200Fمُنَظَّمَةٌ غَيْرُ حُكُومِيَّة\u200F", meaning: "NGO" },
+    { word: "\u200Fتَطَوُّع\u200F", meaning: "ボランティア" },
+    { word: "\u200Fالْأُمِّيَّة\u200F", meaning: "非識字" },
+    { word: "\u200Fرَعَايَةُ الْأَيْتَام\u200F", meaning: "孤児の保護" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：高度な法務手続き (ID: 13123) ---
+{
+  id: 13123,
+  title: "中級：法の下の権利行使",
+  category: "単語データ",
+  level: "中級",
+    contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fصِيَاغَةٌ قَانُونِيَّة\u200F", meaning: "法的起草" },
+    { word: "\u200Fشَهَادَةُ مِيلَاد\u200F", meaning: "出生証明書" },
+    { word: "\u200Fبِطَاقَةُ هُوِيَّة\u200F", meaning: "身分証明書" },
+    { word: "\u200Fتَصْرِيحُ إِقَامَة\u200F", meaning: "居住許可" },
+    { word: "\u200Fجِنْسِيَّة\u200F", meaning: "国籍" },
+    { word: "\u200Fلُجُوءٌ سِيَاسِيّ\u200F", meaning: "政治亡命" },
+    { word: "\u200Fتَسْلِيمُ الْمُجْرِمِين\u200F", meaning: "犯人引き渡し" },
+    { word: "\u200Fقَانُونُ الْأَحْوَال\u200F", meaning: "身分法・親族法" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：精神の健康と調和 (ID: 13124) ---
+{
+  id: 13124,
+  title: "中級：心の平穏と回復",
+  category: "単語データ",
+  level: "中級",
+    contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالتَّوَازُنُ النَّفْسِيّ\u200F", meaning: "心のバランス" },
+    { word: "\u200Fالِاسْتِرْخَاء\u200F", meaning: "リラクゼーション" },
+    { word: "\u200Fالتَّخَلُّصُ مِنَ التَّوَتُّر\u200F", meaning: "ストレス解消" },
+    { word: "\u200Fالدَّعْمُ الْمَعْنَوِيّ\u200F", meaning: "心の支え" },
+    { word: "\u200Fالْمَشَاعِرُ الْمَكْبُوتَة\u200F", meaning: "抑圧された感情" },
+    { word: "\u200Fالْعِلَاجُ النَّفْسِيّ\u200F", meaning: "心理療法" },
+    { word: "\u200Fالنُّضْجُ الْعَاطِفِيّ\u200F", meaning: "感情的な成熟" },
+    { word: "\u200Fالسَّلَامُ الدَّاخِلِيّ\u200F", meaning: "内なる平和" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：複合的な動詞（影響と変化） (ID: 13125) ---
+{
+  id: 13125,
+  title: "中級：相互に作用する動作",
+  category: "単語データ",
+  level: "中級",
+    contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَفَاعَلَ / يَتَفَاعَلُ مَعَ\u200F", meaning: "〜と相互作用する" },
+    { word: "\u200Fتَضَارَبَ / يَتَضَارَبُ مَعَ\u200F", meaning: "〜と衝突する・矛盾する" },
+    { word: "\u200Fتَنَاسَقَ / يَتَنَاسَقُ مَعَ\u200F", meaning: "〜と調和する" },
+    { word: "\u200Fتَأَقْلَمَ / يَتَأَقْلَمُ مَعَ\u200F", meaning: "〜に順応する・慣れる" },
+    { word: "\u200Fانْسَجَمَ / يَنْسَجِمُ مَعَ\u200F", meaning: "〜と溶け込む・調和する" },
+    { word: "\u200Fتَبَادَلَ / يَتَبَادَلُ\u200F", meaning: "交換する" },
+    { word: "\u200Fتَعَارَضَ / يَتَعَارَضُ مَعَ\u200F", meaning: "〜と対立する・相反する" },
+    { word: "\u200Fتَزَامَنَ / يَتَزَامَنُ مَعَ\u200F", meaning: "〜と同時に起こる" }
+  ],
+  questions: [],
+  sentences: []
+},
+// --- 中級：メディアの力と影響 (ID: 13126) ---
+{
+  id: 13126,
+  title: "中級：メディアの影響力",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fأَثَّرَ / يُؤَثِّرُ عَلَى\u200F", meaning: "〜に影響を与える" },
+    { word: "\u200Fرَوَّجَ / يُرَوِّجُ لِـ\u200F", meaning: "〜を宣伝・普及させる" },
+    { word: "\u200Fمَنَصَّاتُ التَّوَاصُل\u200F", meaning: "交流プラットフォーム（SNS）" },
+    { word: "\u200Fالرَّأْيُ الْعَامّ\u200F", meaning: "世論" },
+    { word: "\u200Fصِنَاعَةُ الْمُحْتَوَى\u200F", meaning: "コンテンツ制作" },
+    { word: "\u200Fخَبَرٌ مُفَبْرَك\u200F", meaning: "捏造されたニュース（フェイクニュース）" },
+    { word: "\u200Fانْتَقَدَ / يَنْتَقِدُ\u200F", meaning: "批判する" },
+    { word: "\u200Fتَوْعِيَة\u200F", meaning: "意識向上・啓発" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：哲学的な問い (ID: 13127) ---
+{
+  id: 13127,
+  title: "中級：思考と存在の問い",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَسَاءَلَ / يَتَسَاءَلُ عَنْ\u200F", meaning: "〜について自問する・疑問に思う" },
+    { word: "\u200Fبَحَثَ / يَبْحَثُ عَنْ\u200F", meaning: "（真理などを）探究する" },
+    { word: "\u200Fمَعْنَى الْحَيَاة\u200F", meaning: "生の意味" },
+    { word: "\u200Fالْقِيمَةُ الْأَخْلَاقِيَّة\u200F", meaning: "倫理的価値" },
+    { word: "\u200Fالْمَصِيرُ الْمُشْتَرَك\u200F", meaning: "共通の運命" },
+    { word: "\u200Fجَوْهَرُ الشَّيْء\u200F", meaning: "物の本質" },
+    { word: "\u200Fآمَنَ / يُؤْمِنُ بِـ\u200F", meaning: "〜を信じる" },
+    { word: "\u200Fنَظْرَةٌ فَلْسَفِيَّة\u200F", meaning: "哲学的視点" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：技術革新と未来 (ID: 13128) ---
+{
+  id: 13128,
+  title: "中級：デジタル変革と未来",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fابْتَكَرَ / يَبْتَكِرُ\u200F", meaning: "革新する・発明する" },
+    { word: "\u200Fالذَّكَاءُ الِاصْطِنَاعِيّ\u200F", meaning: "人工知能" },
+    { word: "\u200Fالْأَمْنُ السِّيبِرَانِيّ\u200F", meaning: "サイバーセキュリティ" },
+    { word: "\u200Fتَحْلِيلُ الْبَيَانَات\u200F", meaning: "データ分析" },
+    { word: "\u200Fأَتْمَتَةُ الْعَمَلِيَّات\u200F", meaning: "プロセスの自動化" },
+    { word: "\u200Fطَوَّرَ / يُطَوِّرُ\u200F", meaning: "開発・向上させる" },
+    { word: "\u200Fخُصُوصِيَّةُ الْمُسْتَخْدِم\u200F", meaning: "ユーザーのプライバシー" },
+    { word: "\u200Fالْوَاقِعُ الِافْتِرَاضِيّ\u200F", meaning: "仮想現実（VR）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：国際協力とグローバル課題 (ID: 13129) ---
+{
+  id: 13129,
+  title: "中級：地球規模の課題",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَعَاوَنَ / يَتَعَاوَنُ مَعَ\u200F", meaning: "〜と協力する" },
+    { word: "\u200Fالْمُسَاعَدَاتُ الدُّوَلِيَّة\u200F", meaning: "国際援助" },
+    { word: "\u200Fمُكَافَحَةُ الْفَقْر\u200F", meaning: "貧困との闘い" },
+    { word: "\u200Fالتَّغَيُّرُ الْمُنَاخِيّ\u200F", meaning: "気候変動" },
+    { word: "\u200Fتَبَادُلٌ ثَقَافِيّ\u200F", meaning: "文化交流" },
+    { word: "\u200Fدَعَمَ / يَدْعَمُ\u200F", meaning: "支援・サポートする" },
+    { word: "\u200Fالْأَمْنُ الْغِذَائِيّ\u200F", meaning: "食料安全保障" },
+    { word: "\u200Fمُنَظَّمَةٌ عَالَمِيَّة\u200F", meaning: "国際組織" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：キャリアと専門性 (ID: 13130) ---
+{
+  id: 13130,
+  title: "中級：専門的なキャリア",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَخَصَّصَ / يَتَخَصَّصُ فِي\u200F", meaning: "〜を専門にする" },
+    { word: "\u200Fاكْتَسَبَ / يَكْتَسِبُ مَهَارَة\u200F", meaning: "スキルを習得する" },
+    { word: "\u200Fخِبْرَةٌ مِهْنِيَّة\u200F", meaning: "職業上の経験" },
+    { word: "\u200Fسُوقُ الْعَمَل\u200F", meaning: "労働市場" },
+    { word: "\u200Fتَرَقَّى / يَتَرَقَّى فِي الْعَمَل\u200F", meaning: "仕事で昇進する" },
+    { word: "\u200Fمُؤَهِّلَاتٌ عِلْمِيَّة\u200F", meaning: "学術的資格" },
+    { word: "\u200Fانْضَمَّ / يَنْضَمُّ إِلَى\u200F", meaning: "〜に加入する（チームなど）" },
+    { word: "\u200Fبِيئَةُ الْعَمَل\u200F", meaning: "職場環境" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：心理と自己成長 (ID: 13131) ---
+{
+  id: 13131,
+  title: "中級：メンタルと自己研鑽",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَغَلَّبَ / يَتَغَلَّبُ عَلَى\u200F", meaning: "〜を克服する・打ち勝つ" },
+    { word: "\u200Fالصِّحَّةُ النَّفْسِيَّة\u200F", meaning: "メンタルヘルス" },
+    { word: "\u200Fتَقْدِيرُ الذَّات\u200F", meaning: "自尊心" },
+    { word: "\u200Fتَجَاوَزَ / يَتَجَاوَزُ الْعَقَبَات\u200F", meaning: "障害を乗り越える" },
+    { word: "\u200Fتَحْفِيزٌ ذَاتِيّ\u200F", meaning: "自己モチベーション" },
+    { word: "\u200Fوَاجَهَ / يُوَاجِهُ التَّحَدِّي\u200F", meaning: "挑戦に立ち向かう" },
+    { word: "\u200Fالِاسْتِقْرَارُ الْعَاطِفِيّ\u200F", meaning: "情緒的安定" },
+    { word: "\u200Fنَمَا / يَنْمُو شَخْصِيًّا\u200F", meaning: "個人的に成長する" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：論理と分析的思考 (ID: 13132) ---
+{
+  id: 13132,
+  title: "中級：論理とクリティカルシンキング",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fحَلَّلَ / يُحَلِّلُ الْمَوْقِف\u200F", meaning: "状況を分析する" },
+    { word: "\u200Fاسْتَنْتَجَ / يَسْتَنْتِجُ مِنْ\u200F", meaning: "〜から推論する" },
+    { word: "\u200Fالتَّفْكِيرُ النَّقْدِيّ\u200F", meaning: "批判的思考" },
+    { word: "\u200Fبَرْهَنَ / يُبَرْهِنُ عَلَى\u200F", meaning: "〜を証明する" },
+    { word: "\u200Fوَجْهَةُ نَظَر\u200F", meaning: "見解・視点" },
+    { word: "\u200Fمَنْطِقٌ سَلِيم\u200F", meaning: "健全な論理" },
+    { word: "\u200Fقَارَنَ / يُقَارِنُ بَيْنَ\u200F", meaning: "〜を比較する" },
+    { word: "\u200Fخُلَاصَةُ الْقَوْل\u200F", meaning: "結論・要約" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：社会構造と力学 (ID: 13133) ---
+{
+  id: 13133,
+  title: "中級：社会の仕組み",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fانْدَمَجَ / يَنْدَمِجُ فِي\u200F", meaning: "〜に溶け込む・統合する" },
+    { word: "\u200Fالطَّبَقَةُ الِاجْتِمَاعِيَّة\u200F", meaning: "社会階層" },
+    { word: "\u200Fالْعَدَالَةُ الِاجْتِمَاعِيَّة\u200F", meaning: "社会正義" },
+    { word: "\u200Fتَفَاعَلَ / يَتَفَاعَلُ مَعَ\u200F", meaning: "〜と相互作用する" },
+    { word: "\u200Fالْقِيَمُ الْمُشْتَرَكَة\u200F", meaning: "共通の価値観" },
+    { word: "\u200Fالْحِرَاكُ الِاجْتِمَاعِيّ\u200F", meaning: "社会的流動性" },
+    { word: "\u200Fعَزَّزَ / يُعَزِّزُ الرَّوَابِط\u200F", meaning: "絆を強化する" },
+    { word: "\u200Fالْهُوِيَّةُ الْجَمَاعِيَّة\u200F", meaning: "集団的アイデンティティ" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：金融と経済指標 (ID: 13134) ---
+{
+  id: 13134,
+  title: "中級：経済とファイナンス",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاسْتَثْمَرَ / يَسْتَثْمِرُ فِي\u200F", meaning: "〜に投資する" },
+    { word: "\u200Fالنُّمُوُّ الِاقْتِصَادِيّ\u200F", meaning: "経済成長" },
+    { word: "\u200Fالتَّضَخُّمُ الْمَالِيّ\u200F", meaning: "インフレ" },
+    { word: "\u200Fرَأْسُ الْمَال\u200F", meaning: "資本" },
+    { word: "\u200Fتَبَادُلٌ تِجَارِيّ\u200F", meaning: "貿易取引" },
+    { word: "\u200Fالْقُوَّةُ الشِّرَائِيَّة\u200F", meaning: "購買力" },
+    { word: "\u200Fسِعْرُ الصَّرْف\u200F", meaning: "為替レート" },
+    { word: "\u200Fمِيزَانِيَّةُ الدَّوْلَة\u200F", meaning: "国家予算" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：文学と高度な表現 (ID: 13135) ---
+{
+  id: 13135,
+  title: "中級：文学的な表現力",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fرَوَى / يَرْوِي قِصَّة\u200F", meaning: "物語を語る" },
+    { word: "\u200Fاسْتَخْدَمَ / يَسْتَخْدِمُ الِاسْتِعَارَة\u200F", meaning: "比喩（隠喩）を使う" },
+    { word: "\u200Fالْخَيَالُ الْأَدَبِيّ\u200F", meaning: "文学的想像力" },
+    { word: "\u200Fالنَّقْدُ الْأَدَبِيّ\u200F", meaning: "文芸批評" },
+    { word: "\u200Fبَلَاغَةُ اللُّغَة\u200F", meaning: "言語の雄弁さ" },
+    { word: "\u200Fجَسَّدَ / يُجَسِّدُ\u200F", meaning: "具現化・象徴する" },
+    { word: "\u200Fالْإِبْدَاعُ الْفَنِّيّ\u200F", meaning: "芸術的創造性" },
+    { word: "\u200Fأُسْلُوبُ الْكَاتِب\u200F", meaning: "作家のスタイル" }
+  ],
+  questions: [],
+  sentences: []
+},
+// --- 中級：統治と政策 (ID: 13136) ---
+{
+  id: 13136,
+  title: "中級：統治と政策の語彙",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fسَنَّ / يَسُنُّ قَانُونًا\u200F", meaning: "法律を制定する" },
+    { word: "\u200Fإِجْرَاءَاتٌ حُكُومِيَّة\u200F", meaning: "政府の手続き" },
+    { word: "\u200Fنَفَّذَ / يُنَفِّذُ السِّيَاسَة\u200F", meaning: "政策を実行する" },
+    { word: "\u200Fإِصْلَاحٌ إِدَارِيّ\u200F", meaning: "行政改革" },
+    { word: "\u200Fتَحَمَّلَ / يَتَحَمَّلُ الْمَسْؤُولِيَّة\u200F", meaning: "責任を負う" },
+    { word: "\u200Fخِدْمَةٌ مَدَنِيَّة\u200F", meaning: "公務・公共サービス" },
+    { word: "\u200Fرَقَابَةٌ بَرْلَمَانِيَّة\u200F", meaning: "議会による監視" },
+    { word: "\u200Fمَصْلَحَةٌ عَامَّة\u200F", meaning: "公共の利益" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：環境保護の具体策 (ID: 13137) ---
+{
+  id: 13137,
+  title: "中級：環境保護と具体的アクション",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fقَلَّلَ / يُقَلِّلُ مِنَ الِانْبِعَاثَات\u200F", meaning: "排出量を削減する" },
+    { word: "\u200Fتَبَنَّى / يَتَبَنَّى مَصَادِرَ الطَّاقَة\u200F", meaning: "エネルギー源を採用する" },
+    { word: "\u200Fنُدْرَةُ الْمَوَارِد\u200F", meaning: "資源の希少性" },
+    { word: "\u200Fتَدْوِيرُ النِّفَايَات\u200F", meaning: "廃棄物のリサイクル" },
+    { word: "\u200Fحَمَى / يَحْمِي الْبِيئَة\u200F", meaning: "環境を保護する" },
+    { word: "\u200Fتَوَعَّى / يَتَوَعَّى بِـ\u200F", meaning: "〜について意識を持つ" },
+    { word: "\u200Fاحْتِبَاسٌ حَرَارِيّ\u200F", meaning: "地球温暖化" },
+    { word: "\u200Fبِيئَةٌ مُسْتَدَامَة\u200F", meaning: "持続可能な環境" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：高度な法的手続き (ID: 13138) ---
+{
+  id: 13138,
+  title: "中級：専門的な法的手続き",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fقَاضَى / يُقَاضِي شَخْصًا\u200F", meaning: "人を告訴する" },
+    { word: "\u200Fبَرَأَ / يُبَرِّئُ\u200F", meaning: "無罪を証明する・放免する" },
+    { word: "\u200Fأَدَانَ / يُدِينُ بِـ\u200F", meaning: "〜で有罪判決を下す" },
+    { word: "\u200Fحُكْمٌ قَضَائِيّ\u200F", meaning: "司法判断・判決" },
+    { word: "\u200Fاسْتَأْنَفَ / يَسْتَأْنِفُ الْحُكْم\u200F", meaning: "判決を控訴する" },
+    { word: "\u200Fمُحَامِي الدِّفَاع\u200F", meaning: "弁護人" },
+    { word: "\u200Fشَهَادَةُ الزُّور\u200F", meaning: "偽証" },
+    { word: "\u200Fدَلِيلٌ قَاطِع\u200F", meaning: "決定的な証拠" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：歴史と文明の考察 (ID: 13139) ---
+{
+  id: 13139,
+  title: "中級：歴史の流れと文明",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَطَوَّرَ / يَتَطَوَّرُ عَبْرَ الزَّمَن\u200F", meaning: "時を経て発展する" },
+    { word: "\u200Fازْدَهَرَ / يَزْدَهِرُ\u200F", meaning: "繁栄する" },
+    { word: "\u200Fسُقُوطُ الْإِمْبِرَاطُورِيَّة\u200F", meaning: "帝国の崩壊" },
+    { word: "\u200Fآثَارٌ تَارِيخِيَّة\u200F", meaning: "歴史的遺跡" },
+    { word: "\u200Fتُرَاثٌ ثَقَافِيّ\u200F", meaning: "文化遺産" },
+    { word: "\u200Fشَهِدَ / يَشْهَدُ عَلَى\u200F", meaning: "〜を目撃・証言する" },
+    { word: "\u200Fعَصْرٌ ذَهَبِيّ\u200F", meaning: "黄金時代" },
+    { word: "\u200Fحَضَارَةٌ قَدِيمَة\u200F", meaning: "古代文明" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：学術研究と言語学 (ID: 13140) ---
+{
+  id: 13140,
+  title: "中級：研究と知的な活動",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fدَقَّقَ / يُدَقِّقُ فِي\u200F", meaning: "〜を精査する" },
+    { word: "\u200Fصَاغَ / يَصِيغُ نَظَرِيَّة\u200F", meaning: "理論を構築（起草）する" },
+    { word: "\u200Fمَنْهَجِيَّةُ الْبَحْث\u200F", meaning: "研究手法" },
+    { word: "\u200Fمَصْدَرٌ مَوْثُوق\u200F", meaning: "信頼できる情報源" },
+    { word: "\u200Fاقْتَبَسَ / يَقْتَبِسُ مِنْ\u200F", meaning: "〜から引用する" },
+    { word: "\u200Fتَحْلِيلٌ مَنْطِقِيّ\u200F", meaning: "論理的分析" },
+    { word: "\u200Fأُطْرُوحَةٌ عِلْمِيَّة\u200F", meaning: "学術論文（学位論文）" },
+    { word: "\u200Fإِسْهَامٌ مَعْرِفِيّ\u200F", meaning: "知識への貢献" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：経済政策とグローバル化 (ID: 13141) ---
+{
+  id: 13141,
+  title: "中級：経済の仕組みと動向",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَحَكَّمَ / يَتَحَكَّمُ فِي السُّوق\u200F", meaning: "市場をコントロールする" },
+    { word: "\u200Fتَقَلُّبَاتٌ مَالِيَّة\u200F", meaning: "金融の変動" },
+    { word: "\u200Fقُوَّةٌ شِرَائِيَّة\u200F", meaning: "購買力" },
+    { word: "\u200Fجَذَبَ / يَجْذِبُ الِاسْتِثْمَار\u200F", meaning: "投資を惹きつける" },
+    { word: "\u200Fاقْتِصَادٌ رَقْمِيّ\u200F", meaning: "デジタル経済" },
+    { word: "\u200Fإِجْمَالِيُّ النَّاتِج\u200F", meaning: "総生産（GDP等）" },
+    { word: "\u200Fتَبَادُلٌ حُرّ\u200F", meaning: "自由貿易" },
+    { word: "\u200Fأَزْمَةٌ نَقْدِيَّة\u200F", meaning: "通貨危機" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：人権と社会運動 (ID: 13142) ---
+{
+  id: 13142,
+  title: "中級：権利の擁護と社会活動",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fدَافَعَ / يُدَافِعُ عَنْ حَقّ\u200F", meaning: "権利を擁護する" },
+    { word: "\u200Fنَاضَلَ / يُنَاضِلُ مِنْ أَجْلِ\u200F", meaning: "〜のために闘う" },
+    { word: "\u200Fمُسَاوَاةٌ جِنْسِيَّة\u200F", meaning: "ジェンダー平等" },
+    { word: "\u200Fحُرِّيَّةُ التَّعْبِير\u200F", meaning: "表現の自由" },
+    { word: "\u200Fتَعَرَّضَ / يَتَعَرَّضُ لِلتَّمْيِيز\u200F", meaning: "差別にさらされる" },
+    { word: "\u200Fمُنَظَّمَةٌ حُقُوقِيَّة\u200F", meaning: "人権団体" },
+    { word: "\u200Fنَاشِطٌ اجْتِمَاعِيّ\u200F", meaning: "社会活動家" },
+    { word: "\u200Fكَرَامَةٌ إِنْسَانِيَّة\u200F", meaning: "人間の尊厳" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：思考のプロセス (ID: 13143) ---
+{
+  id: 13143,
+  title: "中級：高度な思考過程",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَأَمَّلَ / يَتَأَمَّلُ فِي\u200F", meaning: "〜を熟考・瞑想する" },
+    { word: "\u200Fفَسَّرَ / يُفَسِّرُ الظَّاهِرَة\u200F", meaning: "現象を解釈・説明する" },
+    { word: "\u200Fتَوَقَّعَ / يَتَوَقَّعُ النَّتِيجَة\u200F", meaning: "結果を予想する" },
+    { word: "\u200Fفَرَضِيَّةٌ مَنْطِقِيَّة\u200F", meaning: "論理的な仮説" },
+    { word: "\u200Fحُجَّةٌ قَوِيَّة\u200F", meaning: "強い論拠" },
+    { word: "\u200Fاقْتَنَعَ / يَقْتَنِعُ بِـ\u200F", meaning: "〜に納得する" },
+    { word: "\u200Fشَكَّكَ / يُشَكِّكُ فِي\u200F", meaning: "〜を疑う" },
+    { word: "\u200Fرُؤْيَةٌ شَامِلَة\u200F", meaning: "包括的なビジョン" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：メディアの誠実性 (ID: 13144) ---
+{
+  id: 13144,
+  title: "中級：情報の質とジャーナリズム",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fحَقَّقَ / يُحَقِّقُ فِي الْخَبَر\u200F", meaning: "ニュースを調査（裏取り）する" },
+    { word: "\u200Fمِصْدَاقِيَّةُ الصَّحَافَة\u200F", meaning: "報道の信憑性" },
+    { word: "\u200Fتَحَيُّزٌ إِعْلَامِيّ\u200F", meaning: "メディアの偏向" },
+    { word: "\u200Fنَشَرَ / يَنْشُرُ الْوَعْي\u200F", meaning: "意識を広める" },
+    { word: "\u200Fتَسْرِيبُ الْمَعْلُومَات\u200F", meaning: "情報の漏洩（リーク）" },
+    { word: "\u200Fمَوْضُوعِيَّة\u200F", meaning: "客観性" },
+    { word: "\u200Fرِقَابَةٌ ذَاتِيَّة\u200F", meaning: "自己検閲" },
+    { word: "\u200Fتَقْرِيرٌ حَصْرِيّ\u200F", meaning: "独占レポート" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：心理状態とレジリエンス (ID: 13145) ---
+{
+  id: 13145,
+  title: "中級：精神面と回復力",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَأَقْلَمَ / يَتَأَقْلَمُ مَعَ الْوَضْع\u200F", meaning: "状況に順応する" },
+    { word: "\u200Fتَجَاوَزَ / يَتَجَاوَزُ الصَّدْمَة\u200F", meaning: "ショックを乗り越える" },
+    { word: "\u200Fقُوَّةُ الْإِرَادَة\u200F", meaning: "意思の力" },
+    { word: "\u200Fتَوَازُنٌ عاطِفِيّ\u200F", meaning: "感情のバランス" },
+    { word: "\u200Fأَحْبَطَ / يُحْبِطُ\u200F", meaning: "挫折させる・落胆させる" },
+    { word: "\u200Fشُعُورٌ بِالِانْتِمَاء\u200F", meaning: "帰属意識" },
+    { word: "\u200Fثِقَةٌ مُتَبَادَلَة\u200F", meaning: "相互の信頼" },
+    { word: "\u200Fنُضْجٌ نَفْسِيّ\u200F", meaning: "精神的な成熟" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：芸術の批評と美学 (ID: 13146) ---
+{
+  id: 13146,
+  title: "中級：芸術的感性と美学",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fجَسَّدَ / يُجَسِّدُ الْمَعْنَى\u200F", meaning: "意味を具現化する" },
+    { word: "\u200Fقَدَّرَ / يُقَدِّرُ الْفَنّ\u200F", meaning: "芸術を鑑賞（評価）する" },
+    { word: "\u200Fذَوْقٌ فَنِّيّ\u200F", meaning: "芸術的センス" },
+    { word: "\u200Fتَعْبِيرٌ رَمْزِيّ\u200F", meaning: "象徴的な表現" },
+    { word: "\u200Fأَلْهَمَ / يُلْهِمُ\u200F", meaning: "インスピレーションを与える" },
+    { word: "\u200Fلَوْحَةٌ زَيْتِيَّة\u200F", meaning: "油絵" },
+    { word: "\u200Fنَقْدٌ بَنَّاء\u200F", meaning: "建設的な批評" },
+    { word: "\u200Fإِبْدَاعٌ بِلَا حُدُود\u200F", meaning: "無限の創造性" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：物流とグローバル・サプライ (ID: 13147) ---
+{
+  id: 13147,
+  title: "中級：物流と世界の動き",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fشَحَنَ / يَشْحَنُ الْبَضَائِع\u200F", meaning: "商品を発送する" },
+    { word: "\u200Fسِلْسِلَةُ التَّوْرِيد\u200F", meaning: "サプライチェーン" },
+    { word: "\u200Fوَزَّعَ / يُوَズِّعُ\u200F", meaning: "分配・配送する" },
+    { word: "\u200Fتَأْمِينٌ جُمْرُكِيّ\u200F", meaning: "通関保険" },
+    { word: "\u200Fنَقْلٌ بَحْرِيّ\u200F", meaning: "海上輸送" },
+    { word: "\u200Fمَخْزَنٌ رَقْمِيّ\u200F", meaning: "デジタル倉庫" },
+    { word: "\u200Fتَوْصِيلٌ سَرِيع\u200F", meaning: "スピード配送" },
+    { word: "\u200Fإِدَارَةُ اللَّوْجِسْتِيَّات\u200F", meaning: "物流管理" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：次世代テクノロジー (ID: 13148) ---
+{
+  id: 13148,
+  title: "中級：最新テクノロジーの動向",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fطَوَّرَ / يُطَوِّرُ بَرْمَجِيَّة\u200F", meaning: "ソフトウェアを開発する" },
+    { word: "\u200Fذَكَاءٌ اصْطِنَاعِيّ\u200F", meaning: "人工知能（AI）" },
+    { word: "\u200Fتَعَلُّمُ الْآلَة\u200F", meaning: "機械学習" },
+    { word: "\u200Fتَشْفِيرُ الْبَيَانَات\u200F", meaning: "データの暗号化" },
+    { word: "\u200Fاخْتَرَقَ / يَخْتَرِقُ النِّظَام\u200F", meaning: "システムをハッキングする" },
+    { word: "\u200Fحِمَايَةُ الْخُصُوصِيَّة\u200F", meaning: "プライバシー保護" },
+    { word: "\u200Fثَوْرَةٌ تِكْنُولُوجِيَّة\u200F", meaning: "技術革命" },
+    { word: "\u200Fتَقْنِيَّةُ السَّحَابَة\u200F", meaning: "クラウド技術" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：教育と将来のスキル (ID: 13149) ---
+{
+  id: 13149,
+  title: "中級：学びと将来の技能",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fأَهَّلَ / يُؤَهِّلُ لِـ\u200F", meaning: "〜の資格を与える・養成する" },
+    { word: "\u200Fمَهَارَاتٌ نَاعِمَة\u200F", meaning: "ソフトスキル" },
+    { word: "\u200Fتَعَلُّمٌ عَنْ بُعْد\u200F", meaning: "遠隔学習（eラーニング）" },
+    { word: "\u200Fتَفَوَّقَ / يَتَفَوَّقُ أَكَادِيمِيًّا\u200F", meaning: "学問的に秀でる" },
+    { word: "\u200Fمَنْهَجٌ دِرَاسِيّ\u200F", meaning: "カリキュラム" },
+    { word: "\u200Fتَدْرِيبٌ مِهْنِيّ\u200F", meaning: "職業訓練" },
+    { word: "\u200Fامْتَحَنَ / يَمْتَحِنُ\u200F", meaning: "試験をする" },
+    { word: "\u200Fإِتْقَانُ اللُّغَة\u200F", meaning: "言語のマスター（精通）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：社会の統合と多様性 (ID: 13150) ---
+{
+  id: 13150,
+  title: "中級：社会のまとまりと多様性",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fانْدَمَجَ / يَنْدَمِجُ فِي الْمُجْتَمَع\u200F", meaning: "社会に統合される・溶け込む" },
+    { word: "\u200Fتَعَايُشٌ سِلْمِيّ\u200F", meaning: "平和的共存" },
+    { word: "\u200Fتَعَدُّدِيَّةٌ ثَقَافِيَّة\u200F", meaning: "文化的多元主義（多様性）" },
+    { word: "\u200Fقَبُولُ الْآخَر\u200F", meaning: "他者の受容" },
+    { word: "\u200Fاحْتَرَمَ / يَحْتَرِمُ الِاخْتِلَاف\u200F", meaning: "違いを尊重する" },
+    { word: "\u200Fتَمَاسُكٌ اجْتِمَاعِيّ\u200F", meaning: "社会的結束" },
+    { word: "\u200Fحِوَارُ الْأَدْيَان\u200F", meaning: "宗教間対話" },
+    { word: "\u200Fهُوِيَّةٌ وَطَنِيَّة\u200F", meaning: "国家的アイデンティティ" }
+  ],
+  questions: [],
+  sentences: []
+},
+// --- 中級：外交と国際交渉 (ID: 13151) ---
+{
+  id: 13151,
+  title: "中級：外交と国際交渉",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَفَاوَضَ / يَتَفَاوَضُ مَعَ\u200F", meaning: "〜と交渉する" },
+    { word: "\u200Fبَذَلَ / يَبْذُلُ جُهْدًا\u200F", meaning: "努力を払う" },
+    { word: "\u200Fوَسَاطَةٌ دُوَلِيَّة\u200F", meaning: "国際的な仲裁" },
+    { word: "\u200Fتَقْرِيبُ وُجْهَاتِ النَّظَر\u200F", meaning: "見解の歩み寄り" },
+    { word: "\u200Fاتِّفَاقٌ ثُنَائِيّ\u200F", meaning: "二国間合意" },
+    { word: "\u200Fبَعْثَةٌ دِبْلُومَاسِيَّة\u200F", meaning: "外交使節団" },
+    { word: "\u200Fهَدْنَةٌ دَائِمَة\u200F", meaning: "恒久的な休戦" },
+    { word: "\u200Fتَسْوِيَةُ النِّزَاعَات\u200F", meaning: "紛争の解決" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：法律と正義 (ID: 13152) ---
+{
+  id: 13152,
+  title: "中級：正義と司法制度",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fحَقَّقَ / يُحَقِّقُ الْعَدَالَة\u200F", meaning: "正義を実現する" },
+    { word: "\u200Fنَزَاهَةُ الْقَضَاء\u200F", meaning: "司法の清廉さ（独立性）" },
+    { word: "\u200Fانْتَهَكَ / يَنْتَهِكُ الْقَانُون\u200F", meaning: "法律を侵害する" },
+    { word: "\u200Fدُسْتُورُ الدَّوْلَة\u200F", meaning: "国家憲法" },
+    { word: "\u200Fسِيَادَةُ الْقَانُون\u200F", meaning: "法の支配" },
+    { word: "\u200Fطَعَنَ / يَطْعَنُ فِي الْحُكْم\u200F", meaning: "判決に異議を申し立てる" },
+    { word: "\u200Fتَعْوِيضٌ مَالِيّ\u200F", meaning: "金銭的賠償" },
+    { word: "\u200Fبَرَاءَةُ الْمُتَّهَم\u200F", meaning: "被告人の無罪" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：宇宙と科学技術 (ID: 13153) ---
+{
+  id: 13153,
+  title: "中級：宇宙探査と先端科学",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fأَطْلَقَ / يُطْلِقُ مَكُّوكًا\u200F", meaning: "（宇宙船を）打ち上げる" },
+    { word: "\u200Fغَزْوُ الْفَضَاء\u200F", meaning: "宇宙進出・征服" },
+    { word: "\u200Fكَوْكَبٌ صَالِحٌ لِلْحَيَاة\u200F", meaning: "居住可能な惑星" },
+    { word: "\u200Fانْعِدَامُ الْجَاذِبِيَّة\u200F", meaning: "無重力" },
+    { word: "\u200Fتَقْنِيَّةُ النَّانُو\u200F", meaning: "ナノテクノロジー" },
+    { word: "\u200Fرَصَدَ / يَرْصُدُ النُّجُوم\u200F", meaning: "星を観測する" },
+    { word: "\u200Fثَقْبٌ أَسْوَد\u200F", meaning: "ブラックホール" },
+    { word: "\u200Fمَرْكَبَةٌ فَضَائِيَّة\u200F", meaning: "宇宙船" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：経済の変動と投資 (ID: 13154) ---
+{
+  id: 13154,
+  title: "中級：市場のダイナミクス",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fضَارَبَ / يُضَارِبُ فِي الْبُورْصَة\u200F", meaning: "証券取引所で投機する" },
+    { word: "\u200Fتَنَوُّعُ الْمَحْفَظَة\u200F", meaning: "ポートフォリオの多様化" },
+    { word: "\u200Fأَسْهُمٌ وَسَنَدَات\u200F", meaning: "株式と債券" },
+    { word: "\u200Fإِفْلَاسُ الشَّرِكَة\u200F", meaning: "会社の倒産" },
+    { word: "\u200Fانْتَعَشَ / يَنْتَعِشُ الِاقْتِصَاد\u200F", meaning: "経済が回復（活性化）する" },
+    { word: "\u200Fقَرْضٌ عَقَارِيّ\u200F", meaning: "不動産ローン" },
+    { word: "\u200Fتَدَفُّقٌ نَقْدِيّ\u200F", meaning: "キャッシュフロー" },
+    { word: "\u200Fرُكُودٌ اقْتِصَادِيّ\u200F", meaning: "経済停滞（リセッション）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：現代社会の課題 (ID: 13155) ---
+{
+  id: 13155,
+  title: "中級：現代社会の諸相",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fهَاجَرَ / يُهَاجِرُ لِأَسْبَابٍ سِيَاسِيَّة\u200F", meaning: "政治的理由で移住する" },
+    { word: "\u200Fتَهْمِيشُ الْأَقَلِّيَّات\u200F", meaning: "少数派の疎外" },
+    { word: "\u200Fفَجْوَةٌ بَيْنَ الْأَجْيَال\u200F", meaning: "ジェネレーションギャップ" },
+    { word: "\u200Fتَمْيِيزٌ عُنْصُرِيّ\u200F", meaning: "人種差別" },
+    { word: "\u200Fانْدَمَجَ / يَنْدَمِجُ فِي الْمُجْتَمَع\u200F", meaning: "社会に溶け込む" },
+    { word: "\u200Fأَزْمَةُ السَّكَن\u200F", meaning: "住宅危機" },
+    { word: "\u200Fبِطَالَةُ الشَّبَاب\u200F", meaning: "若者の失業" },
+    { word: "\u200Fضَمَانٌ اجْتِمَاعِيّ\u200F", meaning: "社会保障" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：精神分析と感情 (ID: 13156) ---
+{
+  id: 13156,
+  title: "中級：精神面と心の深層",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fعَالَجَ / يُعَالِجُ عَقْلِيًّا\u200F", meaning: "心理療法を行う" },
+    { word: "\u200Fلاوَعْي\u200F", meaning: "無意識（アンコンシャス）" },
+    { word: "\u200Fكَبَتَ / يَكْبِتُ الْمَشَاعِر\u200F", meaning: "感情を抑圧する" },
+    { word: "\u200Fاضْطِرَابُ الْقَلَق\u200F", meaning: "不安障害" },
+    { word: "\u200Fنُضْجٌ عاطِفِيّ\u200F", meaning: "情緒的成熟" },
+    { word: "\u200Fثِقَةٌ مُطْلَقَة\u200F", meaning: "絶対的な信頼" },
+    { word: "\u200Fانْعِزَالٌ اجْتِمَاعِيّ\u200F", meaning: "社会的孤立" },
+    { word: "\u200Fتَقْدِيرُ الذَّات\u200F", meaning: "自尊心" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：デジタル倫理とセキュリティ (ID: 13157) ---
+{
+  id: 13157,
+  title: "中級：デジタルの光と影",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاخْتَرَقَ / يَخْتَرِقُ الْخُصُوصِيَّة\u200F", meaning: "プライバシーを侵害する" },
+    { word: "\u200Fقَرْصَنَةٌ إِلِكْتُرُونِيَّة\u200F", meaning: "電子海賊行為（ハッキング）" },
+    { word: "\u200Fتَشْفِيرُ الرَّسَائِل\u200F", meaning: "メッセージの暗号化" },
+    { word: "\u200Fأَمْنُ الْمَعْلُومَات\u200F", meaning: "情報セキュリティ" },
+    { word: "\u200Fبَصْمَةٌ رَقْمِيَّة\u200F", meaning: "デジタルフットプリント" },
+    { word: "\u200Fجِدَارُ الْحِمَايَة\u200F", meaning: "ファイアウォール" },
+    { word: "\u200Fتَحَقَّقَ / يَتَحَقَّقُ مِنَ الْهُوِيَّة\u200F", meaning: "身元を確認する" },
+    { word: "\u200Fبَرْمَجِيَّاتٌ خَبِيثَة\u200F", meaning: "マルウェア" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：キャリア戦略 (ID: 13158) ---
+{
+  id: 13158,
+  title: "中級：プロフェッショナルの成長",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَرَقَّى / يَتَرَقَّى إِلَى مَنْصِب\u200F", meaning: "役職に昇進する" },
+    { word: "\u200Fمَهَارَاتٌ قِيَادِيَّة\u200F", meaning: "リーダーシップスキル" },
+    { word: "\u200Fتَحَمَّلَ / يَتَحَمَّلُ الْمَسْؤُولِيَّة\u200F", meaning: "責任を負う" },
+    { word: "\u200Fخِبْرَةٌ مُتَرَاكِمَة\u200F", meaning: "蓄積された経験" },
+    { word: "\u200Fوَرْشَةُ تَدْرِيب\u200F", meaning: "トレーニングワークショップ" },
+    { word: "\u200Fانْتَاجِيَّةُ الْعَمَل\u200F", meaning: "仕事の生産性" },
+    { word: "\u200Fرِيَادَةُ الْأَعْمَال\u200F", meaning: "起業家精神" },
+    { word: "\u200Fبِيئَةٌ مُحَفِّزَة\u200F", meaning: "意欲を高める環境" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：環境再生とエネルギー (ID: 13159) ---
+{
+  id: 13159,
+  title: "中級：持続可能な未来への道",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَبَنَّى / يَتَبَنَّى طَاقَةً خَضْرَاء\u200F", meaning: "グリーンエネルギーを採用する" },
+    { word: "\u200Fتَقْلِيلُ الْبَصْمَةِ الْكَرْبُونِيَّة\u200F", meaning: "カーボンフットプリントの削減" },
+    { word: "\u200Fاسْتِثْمَارٌ مُسْتَدَام\u200F", meaning: "持続可能な投資" },
+    { word: "\u200Fتَدَهْوُرُ النِّظَامِ الْبِيئِيّ\u200F", meaning: "生態系の悪化" },
+    { word: "\u200Fحَافَظَ / يُحَافِظُ عَلَى الْمَوَارِد\u200F", meaning: "資源を維持（保存）する" },
+    { word: "\u200Fطَاقَةٌ كَهْرُومَائِيَّة\u200F", meaning: "水力発電" },
+    { word: "\u200Fتَصَحُّرُ الْأَرَاضِي\u200F", meaning: "土地の砂漠化" },
+    { word: "\u200Fإِعَادَةُ تَأْهِيل\u200F", meaning: "再開発・リハビリテーション" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：論理学と言語分析 (ID: 13160) ---
+{
+  id: 13160,
+  title: "中級：言葉と論理の深掘り",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fفَنَّدَ / يُفَنِّدُ الْحُجَّة\u200F", meaning: "論拠を論破（論駁）する" },
+    { word: "\u200Fدَلَالَةُ اللَّفْظ\u200F", meaning: "語の含意（セマンティクス）" },
+    { word: "\u200Fبَلَاغَةٌ لِسَانِيَّة\u200F", meaning: "言語的雄弁さ" },
+    { word: "\u200Fتَنَاقُضٌ مَنْطِقِيّ\u200F", meaning: "論理的矛盾" },
+    { word: "\u200Fاسْتَدَلَّ / يَسْتَدِلُّ بِـ\u200F", meaning: "〜を根拠として推論する" },
+    { word: "\u200Fإِيجَازٌ وَاخْتِصَار\u200F", meaning: "簡潔さと短縮" },
+    { word: "\u200Fجَوْهَرُ الْمَوْضُوع\u200F", meaning: "話題の本質" },
+    { word: "\u200Fتَعْرِيفٌ دَقِيق\u200F", meaning: "正確な定義" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：国際紛争と平和構築 (ID: 13161) ---
+{
+  id: 13161,
+  title: "中級：紛争と平和の課題",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَوَسَّطَ / يَتَوَسَّطُ لِحَلِّ النِّزَاع\u200F", meaning: "紛争解決のために仲裁する" },
+    { word: "\u200Fقُوَّاتُ حِفْظِ السَّلَام\u200F", meaning: "平和維持軍" },
+    { word: "\u200Fصِرَاعٌ مُسَلَّح\u200F", meaning: "武装紛争" },
+    { word: "\u200Fضَحَايَا الْحَرْب\u200F", meaning: "戦争の犠牲者" },
+    { word: "\u200Fنَزَعَ / يَنْزِعُ السِّلَاح\u200F", meaning: "武装解除する" },
+    { word: "\u200Fمُعَاهَدَةُ عَدَمِ الِاعْتِدَاء\u200F", meaning: "不可侵条約" },
+    { word: "\u200Fإِعْمَارُ مَا دَمَّرَتْهُ الْحَرْب\u200F", meaning: "戦後復興" },
+    { word: "\u200Fلُجُوءٌ إِنْسَانِيّ\u200F", meaning: "人道的亡命" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：医学とバイオテクノロジー (ID: 13162) ---
+{
+  id: 13162,
+  title: "中級：先端医療と生命科学",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fهَنْدَسَةٌ وِرَاثِيَّة\u200F", meaning: "遺伝子工学" },
+    { word: "\u200Fتَطْوِيرُ لِقَاح\u200F", meaning: "ワクチンの開発" },
+    { word: "\u200Fمَنَاعَةٌ جَمَاعِيَّة\u200F", meaning: "集団免疫" },
+    { word: "\u200Fأَصَابَ / يُصِيبُ بِالْعَدْوَى\u200F", meaning: "感染させる" },
+    { word: "\u200Fأَخْلَاقِيَّاتُ الطِّبّ\u200F", meaning: "医学倫理" },
+    { word: "\u200Fزِرَاعَةُ الْأَعْضَاء\u200F", meaning: "臓器移植" },
+    { word: "\u200Fخَلَايَا جِذْعِيَّة\u200F", meaning: "幹細胞" },
+    { word: "\u200Fعِلَاجٌ جِينِيّ\u200F", meaning: "遺伝子治療" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：都市計画とインフラ (ID: 13163) ---
+{
+  id: 13163,
+  title: "中級：未来都市と基盤設備",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fخَطَّطَ / يُخَطِّطُ عُمْرَانِيًّا\u200F", meaning: "都市計画を立てる" },
+    { word: "\u200Fبِنْيَةٌ تَحْتِيَّةٌ رَقْمِيَّة\u200F", meaning: "デジタルインフラ" },
+    { word: "\u200Fنَاطِحَةُ سَحَاب\u200F", meaning: "摩天楼" },
+    { word: "\u200Fمَدِينَةٌ ذَكِيَّة\u200F", meaning: "スマートシティ" },
+    { word: "\u200Fشَيَّدَ / يُشَيِّدُ الْجُسُور\u200F", meaning: "橋を建設する" },
+    { word: "\u200Fتَلَوُّثٌ ضَوْضَائِيّ\u200F", meaning: "騒音公害" },
+    { word: "\u200Fنَقْلٌ جَمَاعِيّ\u200F", meaning: "公共交通機関" },
+    { word: "\u200Fتَوَسُّعٌ حَضَرِيّ\u200F", meaning: "都市の拡大（スプロール）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：思考の柔軟性とレジリエンス (ID: 13164) ---
+{
+  id: 13164,
+  title: "中級：精神の柔軟性",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fمُرُونةٌ ذِهْنِيَّة\u200F", meaning: "精神的柔軟性" },
+    { word: "\u200Fتَكَيَّفَ / يَتَكَيَّفُ مَعَ التَّغْيِير\u200F", meaning: "変化に適応する" },
+    { word: "\u200Fتَجَاوَزَ / يَتَجَاوَزُ الْمِحْنَة\u200F", meaning: "逆境を乗り越える" },
+    { word: "\u200Fتَفَاؤُلٌ وَاقِعِيّ\u200F", meaning: "現実的な楽観主義" },
+    { word: "\u200Fالصُّمُودُ النَّفْسِيّ\u200F", meaning: "心の回復力（レジリエンス）" },
+    { word: "\u200Fسَيْطَرَ / يُسَيْطِرُ عَلَى أَعْصَابِهِ\u200F", meaning: "自制する" },
+    { word: "\u200Fقُوَّةُ الشَّخْصِيَّة\u200F", meaning: "人格の強さ" },
+    { word: "\u200Fتَحَمُّلُ الضُّغُوط\u200F", meaning: "プレッシャーへの耐性" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：グローバル・マーケティング (ID: 13165) ---
+{
+  id: 13165,
+  title: "中級：市場戦略と消費",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fرَوَّجَ / يُرَوِّجُ لِلْعَلَامَة\u200F", meaning: "ブランドを宣伝する" },
+    { word: "\u200Fاسْتَهْدَفَ / يَسْتَهْدِفُ الزَّبَائِن\u200F", meaning: "顧客をターゲットにする" },
+    { word: "\u200Fبَحْثُ السُّوق\u200F", meaning: "市場調査" },
+    { word: "\u200Fتَنَافُسِيَّةٌ عَالِيَة\u200F", meaning: "高い競争力" },
+    { word: "\u200Fوَلَاءُ الْمُسْتَهْلِك\u200F", meaning: "消費者ロイヤリティ" },
+    { word: "\u200Fحَمْلَةٌ إِعْلَانِيَّة\u200F", meaning: "広告キャンペーン" },
+    { word: "\u200Fشَرِيحَةٌ مِنَ الْمُجْتَمَع\u200F", meaning: "社会の層（セグメント）" },
+    { word: "\u200Fقِيمَةٌ مُضَافَة\u200F", meaning: "付加価値" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：歴史的記憶と記録 (ID: 13166) ---
+{
+  id: 13166,
+  title: "中級：歴史の保存",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fأَرَّخَ / يُؤَرِّخُ لِلْحِقْبَة\u200F", meaning: "時代を記録（編纂）する" },
+    { word: "\u200Fمَخْطُوطَةٌ نَادِرَة\u200F", meaning: "稀少な手稿" },
+    { word: "\u200Fأَرْشِيفٌ وَطَنِيّ\u200F", meaning: "国立公文書館" },
+    { word: "\u200Fتَنَاقَلَ / يَتَنَاقَلُ الرِّوَايَات\u200F", meaning: "物語（伝承）を語り継ぐ" },
+    { word: "\u200Fإِحْيَاءُ التُّرَاث\u200F", meaning: "遺産の復興" },
+    { word: "\u200Fذَاكِرَةٌ جَمَاعِيَّة\u200F", meaning: "集合的記憶" },
+    { word: "\u200Fمَعْلَمٌ أَثَرِيّ\u200F", meaning: "考古学的遺跡" },
+    { word: "\u200Fتَوْثِيقٌ دَقِيق\u200F", meaning: "正確なドキュメンテーション" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：高度なIT応用 (ID: 13167) ---
+{
+  id: 13167,
+  title: "中級：ITの高度な活用",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fخَزَّنَ / يُخَزِّنُ فِي السَّحَابَة\u200F", meaning: "クラウドに保存する" },
+    { word: "\u200Fمُعَالَجَةُ الْبَيَانَات\u200F", meaning: "データ処理" },
+    { word: "\u200Fخَوَارِزْمِيَّةٌ مُعَقَّدَة\u200F", meaning: "複雑なアルゴリズム" },
+    { word: "\u200Fتَحْدِيثٌ تِلْقَائِيّ\u200F", meaning: "自動アップデート" },
+    { word: "\u200Fوَاجِهَةُ الْمُسْتَخْدِم\u200F", meaning: "ユーザーインターフェース（UI）" },
+    { word: "\u200Fبَرْمَجَ / يُبَرْمِجُ التَّطْبِيق\u200F", meaning: "アプリをプログラミングする" },
+    { word: "\u200Fتَوَافُقُ النِّظَام\u200F", meaning: "システムの互換性" },
+    { word: "\u200Fبَيَانَاتٌ ضَخْمَة\u200F", meaning: "ビッグデータ" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：法学の概念 (ID: 13168) ---
+{
+  id: 13168,
+  title: "中級：法学と権利の概念",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fشَرَّعَ / يُشَرِّعُ لِلْمُسْتَقْبَل\u200F", meaning: "将来のために立法する" },
+    { word: "\u200Fثَغْرَةٌ قَانُونِيَّة\u200F", meaning: "法の抜け穴" },
+    { word: "\u200Fمَسْؤُولِيَّةٌ تَقْصِيرِيَّة\u200F", meaning: "不法行為責任" },
+    { word: "\u200Fإِجْرَاءٌ احْتِرَازِيّ\u200F", meaning: "予防措置" },
+    { word: "\u200Fنَقَضَ / يَنْقُضُ الْقَرَار\u200F", meaning: "決定を破棄（取り消し）する" },
+    { word: "\u200Fحَقُّ الِامْتِيَاز\u200F", meaning: "特権・優先権" },
+    { word: "\u200Fتَسْوِيَةٌ وِدِّيَّة\u200F", meaning: "円満な解決（和解）" },
+    { word: "\u200Fتَوْكِيلٌ رَسْمِيّ\u200F", meaning: "公式な委任状" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：抽象的な思考プロセス (ID: 13169) ---
+{
+  id: 13169,
+  title: "中級：思考の深化",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَجَرَّدَ / يَتَجَرَّدُ مِنَ التَّحَيُّز\u200F", meaning: "偏見を捨て去る（中立になる）" },
+    { word: "\u200Fتَصَوُّرٌ ذِهْنِيّ\u200F", meaning: "メンタルイメージ（想像）" },
+    { word: "\u200Fاسْتِنْبَاطُ الْمَعَانِي\u200F", meaning: "意味の導出（推論）" },
+    { word: "\u200Fإِدْرَاكٌ حِسِّيّ\u200F", meaning: "知覚" },
+    { word: "\u200Fنَظَرِيَّةٌ نِسْبِيَّة\u200F", meaning: "相対的な理論" },
+    { word: "\u200Fصَاغَ / يَصِيغُ رُؤْيَة\u200F", meaning: "ビジョンを練り上げる" },
+    { word: "\u200Fمَبْدَأُ السَّبَبِيَّة\u200F", meaning: "因果関係の原則" },
+    { word: "\u200Fشُمُولِيَّةُ الْفِكْر\u200F", meaning: "思考の包括性" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：組織の管理と効率 (ID: 13170) ---
+{
+  id: 13170,
+  title: "中級：組織運営の語彙",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fأَدَارَ / يُدِيرُ بِكَفَاءَة\u200F", meaning: "効率的に管理する" },
+    { word: "\u200Fتَفْوِيضُ الصَّلَاحِيَّات\u200F", meaning: "権限の委譲" },
+    { word: "\u200Fهَيْكَلَةُ الْمُؤَسَّسَة\u200F", meaning: "組織の構造化（再編）" },
+    { word: "\u200Fتَقْيِيمُ الْأَدَاء\u200F", meaning: "パフォーマンス評価" },
+    { word: "\u200Fانْسِجَامُ الْفَرِيق\u200F", meaning: "チームの調和" },
+    { word: "\u200Fوَضَعَ / يَضَعُ مَعَايِير\u200F", meaning: "基準を設定する" },
+    { word: "\u200Fتَحْسِينُ الْجَوْدَة\u200F", meaning: "品質改善" },
+    { word: "\u200Fتَوْفِيرُ النَّفَقَات\u200F", meaning: "経費の削減（節約）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：メディアと倫理 (ID: 13171) ---
+{
+  id: 13171,
+  title: "中級：ジャーナリズムと倫理",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَحَرَّى / يَتَحَرَّى الدِّقَّة\u200F", meaning: "正確さを追求する" },
+    { word: "\u200Fأَخْلَاقِيَّاتُ الْمِهْنَة\u200F", meaning: "職業倫理" },
+    { word: "\u200Fتَصْرِيحٌ رَسْمِيّ\u200F", meaning: "公式声明" },
+    { word: "\u200Fنَشَرَ / يَنْشُرُ شَائِعَة\u200F", meaning: "噂を流す" },
+    { word: "\u200Fحِيادِيَّةُ الْخَبَر\u200F", meaning: "ニュースの中立性" },
+    { word: "\u200Fرَدُّ فِعْلِ الْجُمْهُور\u200F", meaning: "大衆の反応" },
+    { word: "\u200Fمِصْدَاقِيَّةُ الْمَصْدَر\u200F", meaning: "情報源の信憑性" },
+    { word: "\u200Fإِثَارَةٌ إِعْلَامِيَّة\u200F", meaning: "メディアのセンセーショナリズム" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：産業とモノづくり (ID: 13172) ---
+{
+  id: 13172,
+  title: "中級：生産と技術の語彙",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fصَنَعَ / يَصْنَعُ بِمَهَارَة\u200F", meaning: "巧みに製造する" },
+    { word: "\u200Fخَطُّ إِنْتَاج\u200F", meaning: "生産ライン" },
+    { word: "\u200Fمَوَادُّ خَام\u200F", meaning: "原材料" },
+    { word: "\u200Fأَتْمَتَةُ الْمَصَانِع\u200F", meaning: "工場のオートメーション化" },
+    { word: "\u200Fفَحَصَ / يَفْحَصُ الْعُيُوب\u200F", meaning: "欠陥を検査する" },
+    { word: "\u200Fتَصْمِيمٌ هَنْدَسِيّ\u200F", meaning: "工学的デザイン" },
+    { word: "\u200Fتَوْرِيدُ الْمُعَدَّات\u200F", meaning: "設備の供給" },
+    { word: "\u200Fمُنْتَجٌ نِهَائِيّ\u200F", meaning: "最終製品" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：社会学と人間関係 (ID: 13173) ---
+{
+  id: 13173,
+  title: "中級：社会構造と相互作用",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَفَاعَلَ / يَتَفَاعَلُ مَعَ الْآخَرِين\u200F", meaning: "他者と相互作用する" },
+    { word: "\u200Fطَبَقَةٌ مُتَوَسِّطَة\u200F", meaning: "中産階級" },
+    { word: "\u200Fتَمَاسُكٌ اجْتِمَاعِيّ\u200F", meaning: "社会的結束" },
+    { word: "\u200Fتَعَايَشَ / يَتَعَايَشُ سِلْمِيًّا\u200F", meaning: "平和的に共存する" },
+    { word: "\u200Fقِيَمٌ تَقْلِيدِيَّة\u200F", meaning: "伝統的価値観" },
+    { word: "\u200Fانْحِرَافٌ سُلُوكِيّ\u200F", meaning: "行動の逸脱" },
+    { word: "\u200Fعُرْفٌ اجْتِمَاعِيّ\u200F", meaning: "社会的慣習（ノルム）" },
+    { word: "\u200Fتَضَامُنٌ إِنْسَانِيّ\u200F", meaning: "人間的連帯" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：金融政策と国家 (ID: 13174) ---
+{
+  id: 13174,
+  title: "中級：国家経済と金融",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fفَرَضَ / يَفْرِضُ ضَرِيبَة\u200F", meaning: "税金を課す" },
+    { word: "\u200Fمِيزَانِيَّةٌ تَقَشُّفِيَّة\u200F", meaning: "緊縮予算" },
+    { word: "\u200Fتَضَخُّمٌ جَامِح\u200F", meaning: "ハイパーインフレ" },
+    { word: "\u200Fدَيْنٌ عَامّ\u200F", meaning: "公的債務" },
+    { word: "\u200Fدَعَمَ / يَدْعَمُ السِّلَع\u200F", meaning: "物資に補助金を出す（支援する）" },
+    { word: "\u200Fبَنْكٌ مَرْكَزِيّ\u200F", meaning: "中央銀行" },
+    { word: "\u200Fتَقْلِصُ النَّفَقَات\u200F", meaning: "歳出の削減" },
+    { word: "\u200Fنُمُوٌّ مُسْتَدَام\u200F", meaning: "持続的成長" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：高度な言語習得 (ID: 13175) ---
+{
+  id: 13175,
+  title: "中級：言語の習熟",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fأَتْقَنَ / يُتْقِنُ اللُّغَة\u200F", meaning: "言語をマスターする" },
+    { word: "\u200Fطَلَاقَةٌ فِي التَّحَدُّث\u200F", meaning: "話す流暢さ" },
+    { word: "\u200Fمُفْرَدَاتٌ غَنِيَّة\u200F", meaning: "豊かな語彙" },
+    { word: "\u200Fتَرْجَمَ / يُتَرْجِمُ بِدِقَّة\u200F", meaning: "正確に翻訳する" },
+    { word: "\u200Fفَهْمٌ عَمِيق\u200F", meaning: "深い理解" },
+    { word: "\u200Fاسْتَوْعَبَ / يَسْتَوْعِبُ الْقَوَاعِد\u200F", meaning: "ルールを吸収（理解）する" },
+    { word: "\u200Fلَهْجَةٌ مَحَلِّيَّة\u200F", meaning: "地元のアクセント（方言）" },
+    { word: "\u200Fبَلَاغَةُ التَّعْبِير\u200F", meaning: "表現の巧みさ" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：生物の適応と進化 (ID: 13176) ---
+{
+  id: 13176,
+  title: "中級：生物学の視点",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَكَايَفَ / يَتَكَايَفُ مَعَ الْبِيئَة\u200F", meaning: "環境に適応する" },
+    { word: "\u200Fانْقِرَاضُ الْأَنْوَاع\u200F", meaning: "種の絶滅" },
+    { word: "\u200Fتَنَوُّعٌ بِيُولُوجِيّ\u200F", meaning: "生物多様性" },
+    { word: "\u200Fتَكَاثَرَ / يَتَكَاثَرُ سَرِيعًا\u200F", meaning: "急速に増殖する" },
+    { word: "\u200Fنِظَامٌ بِيئِيّ\u200F", meaning: "エコシステム" },
+    { word: "\u200Fوِرَاثَةُ الصِّفَات\u200F", meaning: "形質の遺伝" },
+    { word: "\u200Fتَطَوَّرَ / يَتَطَوَّرُ جِينِيًّا\u200F", meaning: "遺伝的に進化する" },
+    { word: "\u200Fتَوَازُنٌ طَبِيِعِيّ\u200F", meaning: "自然のバランス" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：グローバルな商取引 (ID: 13177) ---
+{
+  id: 13177,
+  title: "中級：国際貿易の語彙",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fصَدَّرَ / يُصَدِّرُ لِلْخَارِج\u200F", meaning: "海外へ輸出する" },
+    { word: "\u200Fاسْتَوْرَدَ / يَسْتَوْرِدُ السِّلَع\u200F", meaning: "商品を輸入する" },
+    { word: "\u200Fعَجْزٌ تِجَارِيّ\u200F", meaning: "貿易赤字" },
+    { word: "\u200Fتَعْرِيفَةٌ جُمْرُكِيَّة\u200F", meaning: "関税（タリフ）" },
+    { word: "\u200Fوَقَّعَ / يُوَقِّعُ اتِّفَاقِيَّة\u200F", meaning: "協定に署名する" },
+    { word: "\u200Fمَنْطِقَةُ تِجَارَةٍ حُرَّة\u200F", meaning: "自由貿易圏" },
+    { word: "\u200Fمُنَاخٌ اسْتِثْمَارِيّ\u200F", meaning: "投資環境" },
+    { word: "\u200Fمُقَاطَعَةٌ تِجَارِيَّة\u200F", meaning: "貿易ボイコット" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：心理的な癒やしと回復 (ID: 13178) ---
+{
+  id: 13178,
+  title: "中級：心の回復と健康",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَعَافَى / يَتَعَافَى مِنَ الصَّدْمَة\u200F", meaning: "トラウマから回復する" },
+    { word: "\u200Fتَأَمُّلٌ وَاسْتِرْخَاء\u200F", meaning: "瞑想とリラクゼーション" },
+    { word: "\u200Fدَعْمٌ مَعْنَوِيّ\u200F", meaning: "心の支え（精神的支援）" },
+    { word: "\u200Fتَخَلَّصَ / يَتَخَلَّصُ مِنَ التَّوَتُّر\u200F", meaning: "ストレスを取り除く" },
+    { word: "\u200Fرَاحَةٌ نَفْسِيَّة\u200F", meaning: "精神的な安らぎ" },
+    { word: "\u200Fتَفْرِيغُ الطَّاقَة\u200F", meaning: "エネルギーの発散（カタルシス）" },
+    { word: "\u200Fإِيجَابِيَّةُ التَّفْكِير\u200F", meaning: "思考のポジティブさ" },
+    { word: "\u200Fتَوَازُنٌ حَيَاتِيّ\u200F", meaning: "ライフバランス" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：科学的な検証と事実 (ID: 13179) ---
+{
+  id: 13179,
+  title: "中級：科学的真理の探求",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fبَرْهَنَ / يُبَرْهِنُ عِلْمِيًّا\u200F", meaning: "科学的に証明する" },
+    { word: "\u200Fتَجْرِبَةٌ مِخْبَرِيَّة\u200F", meaning: "研究所での実験" },
+    { word: "\u200Fحَقِيقَةٌ مُطْلَقَة\u200F", meaning: "絶対的な真実" },
+    { word: "\u200Fنَظَرِيَّةٌ قَابِلَةٌ لِلتَّطْبِيق\u200F", meaning: "応用可能な理論" },
+    { word: "\u200Fدَقَّقَ / يُدَقِّقُ فِي الْبَيَانَات\u200F", meaning: "データを精査する" },
+    { word: "\u200Fمُخْتَبَرٌ مُتَقَدِّم\u200F", meaning: "高度な実験室" },
+    { word: "\u200Fمُؤَشِّرٌ قَوِيّ\u200F", meaning: "強い指標" },
+    { word: "\u200Fاسْتِنْتَاجٌ نِهَائِيّ\u200F", meaning: "最終的な結論" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：未来の展望と戦略 (ID: 13180) ---
+{
+  id: 13180,
+  title: "中級：未来への戦略",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاسْتَشْرَفَ / يَسْتَشْرِفُ الْمُسْتَقْبَل\u200F", meaning: "未来を展望（予測）する" },
+    { word: "\u200Fخُطَّةٌ اسْتِرَاتِيجيَّة\u200F", meaning: "戦略的計画" },
+    { word: "\u200Fرُؤْيَةٌ بَعِيدَةُ الْمَدَى\u200F", meaning: "長期的なビジョン" },
+    { word: "\u200Fأَوْلَوِيَّاتُ الْعَمَل\u200F", meaning: "業務の優先順位" },
+    { word: "\u200Fاسْتَعَدَّ / يَسْتَعِدُّ لِلطَّوَارِئ\u200F", meaning: "緊急事態に備える" },
+    { word: "\u200Fتَحَدِّيَاتٌ جَدِيدَة\u200F", meaning: "新しい挑戦" },
+    { word: "\u200Fمَسَارُ التَّطَوُّر\u200F", meaning: "発展の進路（トラック）" },
+    { word: "\u200Fفُرَصٌ وَاعِدَة\u200F", meaning: "有望な機会" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：文化的多様性と統合 (ID: 13181) ---
+{
+  id: 13181,
+  title: "中級：多文化社会の語彙",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَعَدُّدِيَّةٌ ثَقَافِيَّة\u200F", meaning: "文化的多元主義" },
+    { word: "\u200Fاحْتَرَمَ / يَحْتَرِمُ الِاخْتِلَاف\u200F", meaning: "違いを尊重する" },
+    { word: "\u200Fهُوِيَّةٌ وَطَنِيَّة\u200F", meaning: "国家的アイデンティティ" },
+    { word: "\u200Fتَحَاوَرَ / يَتَحَاوَرُ مَعَ الْآخَر\u200F", meaning: "他者と対話する" },
+    { word: "\u200Fقَبُولُ التَّنَوُّع\u200F", meaning: "多様性の受容" },
+    { word: "\u200Fانْدِمَاجٌ سَلِس\u200F", meaning: "スムーズな統合" },
+    { word: "\u200Fتَقَالِيدُ مُتَوَارَثَة\u200F", meaning: "受け継がれた伝統" },
+    { word: "\u200Fتَبَادُلٌ حَضَارِيّ\u200F", meaning: "文明間の交流" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：デジタル経済とビットコイン (ID: 13182) ---
+{
+  id: 13182,
+  title: "中級：デジタル金融の新潮流",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fعُمْلَةٌ رَقْمِيَّة\u200F", meaning: "暗号資産（デジタル通貨）" },
+    { word: "\u200Fتَقْنِيَّةُ الْبُلُوكْشَيْن\u200F", meaning: "ブロックチェーン技術" },
+    { word: "\u200Fاسْتَثْمَرَ / يَسْتَثْمِرُ فِي الْأُصُول\u200F", meaning: "資産に投資する" },
+    { word: "\u200Fمَحْفَظَةٌ إِلِكْتُرُونِيَّة\u200F", meaning: "電子ウォレット" },
+    { word: "\u200Fتَحْوِيلٌ مَالِيٌّ سَرِيع\u200F", meaning: "迅速な送金" },
+    { word: "\u200Fأَمْنُ الْمُعَامَلَات\u200F", meaning: "取引のセキュリティ" },
+    { word: "\u200Fتَقَلُّبُ الْأَسْعَار\u200F", meaning: "価格の変動" },
+    { word: "\u200Fالِاقْتِصَادُ اللَّامَرْكَزِيّ\u200F", meaning: "分散型経済" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：高度な社会インフラ (ID: 13183) ---
+{
+  id: 13183,
+  title: "中級：社会基盤の高度化",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fطَوَّرَ / يُطَوِّرُ الْمَرَافِق\u200F", meaning: "施設を開発・改善する" },
+    { word: "\u200Fشَبَكَةُ الْمُوَاصَلَات\u200F", meaning: "交通網" },
+    { word: "\u200Fطَاقَةٌ مُتَجَدِّدَة\u200F", meaning: "再生可能エネルギー" },
+    { word: "\u200Fصِيَانَةُ الْجُسُور\u200F", meaning: "橋のメンテナンス" },
+    { word: "\u200Fتَوْفِيرُ الْمِيَاه\u200F", meaning: "水の供給" },
+    { word: "\u200Fرَبَطَ / يَرْبِطُ الْمُدُن\u200F", meaning: "都市を結ぶ" },
+    { word: "\u200Fخِدْمَاتٌ لُوجِسْتِيَّة\u200F", meaning: "物流サービス" },
+    { word: "\u200Fتَخْطِيطٌ بِيئِيّ\u200F", meaning: "環境計画" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：リーダーシップと動機づけ (ID: 13184) ---
+{
+  id: 13184,
+  title: "中級：指導力とモチベーション",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fأَلْهَمَ / يُلْهِمُ الْفَرِيق\u200F", meaning: "チームを鼓舞する" },
+    { word: "\u200Fتَحْفِيزٌ مَعْنَوِيّ\u200F", meaning: "精神的な動機づけ" },
+    { word: "\u200Fقُدْوَةٌ حَسَنَة\u200F", meaning: "良いお手本（ロールモデル）" },
+    { word: "\u200Fصَنَعَ / يَصْنَعُ الْقَرَار\u200F", meaning: "意思決定を行う" },
+    { word: "\u200Fإِدَارَةُ الْأَزَمَات\u200F", meaning: "危機管理" },
+    { word: "\u200Fوَثِقَ / يَثِقُ فِي الْقَائِد\u200F", meaning: "リーダーを信頼する" },
+    { word: "\u200Fرُؤْيَةٌ ثَاقِبَة\u200F", meaning: "鋭い洞察力（ビジョン）" },
+    { word: "\u200Fمَسْؤُولِيَّةٌ تِجَاهَ الْآخَرِين\u200F", meaning: "他者への責任" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：科学的倫理と社会 (ID: 13185) ---
+{
+  id: 13185,
+  title: "中級：科学と社会の倫理",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fأَخْلَاقِيَّاتُ الْبَحْث\u200F", meaning: "研究倫理" },
+    { word: "\u200Fتَحَمَّلَ / يَتَحَمَّلُ عَبْءَ الِاكْتِشَاف\u200F", meaning: "発見の責任を負う" },
+    { word: "\u200Fجَدَلٌ عِلْمِيّ\u200F", meaning: "科学的論争" },
+    { word: "\u200Fمَوْقِفٌ حَسَّاس\u200F", meaning: "デリケートな立場" },
+    { word: "\u200Fاحْتَرَمَ / يَحْتَرِمُ الْحَيَاة\u200F", meaning: "生命を尊重する" },
+    { word: "\u200Fمَصْلَحَةُ الْبَشَرِيَّة\u200F", meaning: "人類の利益" },
+    { word: "\u200Fتَطْبِيقٌ سِلْمِيّ\u200F", meaning: "平和的利用（応用）" },
+    { word: "\u200Fمَعَايِيرُ السَّلَامَة\u200F", meaning: "安全基準" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：キャリアと自己実現 (ID: 13186) ---
+{
+  id: 13186,
+  title: "中級：自己実現のプロセス",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fحَقَّقَ / يُحَقِّقُ طُمُوحَهُ\u200F", meaning: "野心を達成する" },
+    { word: "\u200Fذَاتٌ مُبْدِعَة\u200F", meaning: "創造的な自己" },
+    { word: "\u200Fشَغَفٌ مِهْنِيّ\u200F", meaning: "職業的な情熱" },
+    { word: "\u200Fتَطَوَّرَ / يَتَطَوَّرُ ذَاتِيًّا\u200F", meaning: "自己啓発（成長）する" },
+    { word: "\u200Fاكْتَشَفَ / يَكْتَشِفُ مَوْهِبَتَهُ\u200F", meaning: "才能を発見する" },
+    { word: "\u200Fإِنْجَازٌ شَخْصِيّ\u200F", meaning: "個人的な業績" },
+    { word: "\u200Fرِضًا عَنِ النَّفْس\u200F", meaning: "自己満足・納得" },
+    { word: "\u200Fمَسَارٌ وَظِيفِيّ\u200F", meaning: "キャリアパス" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：法的手続きと証拠 (ID: 13187) ---
+{
+  id: 13187,
+  title: "中級：裁判と証拠の語彙",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fقَدَّمَ / يُقَدِّمُ أَدِلَّة\u200F", meaning: "証拠を提示する" },
+    { word: "\u200Fشَهَادَةُ عَيَان\u200F", meaning: "目撃証言" },
+    { word: "\u200Fتَحْقِيقٌ شَامِل\u200F", meaning: "徹底的な調査" },
+    { word: "\u200Fاعْتَرَفَ / يَعْتَرِفُ بِالْجَرِيمَة\u200F", meaning: "罪を認める（自白する）" },
+    { word: "\u200Fبَرَأَ / يُبَرِّئُ السَّاحَة\u200F", meaning: "潔白を証明する" },
+    { word: "\u200Fحُكْمٌ قَطْعِيّ\u200F", meaning: "最終的な（断定的な）判決" },
+    { word: "\u200Fتَلَاعُبٌ بِالْحَقَائِق\u200F", meaning: "事実の改ざん" },
+    { word: "\u200Fمُحَاكَمَةٌ عَادِلَة\u200F", meaning: "公正な裁判" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：環境政策と市民意識 (ID: 13188) ---
+{
+  id: 13188,
+  title: "中級：環境保護への意識",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fرَفَعَ / يَرْفَعُ سَقْفَ التَّوَقُّعَات\u200F", meaning: "期待（の基準）を上げる" },
+    { word: "\u200Fحَمْلَةُ تَوْعِيَة\u200F", meaning: "啓発キャンペーン" },
+    { word: "\u200Fفَرْزُ النِّفَايَات\u200F", meaning: "ゴミの分別" },
+    { word: "\u200Fحَمَى / يَحْمِي الْمَحْمِيَّات\u200F", meaning: "保護区を守る" },
+    { word: "\u200Fتَقْلِيلُ الِاسْتِهْلَاك\u200F", meaning: "消費の削減" },
+    { word: "\u200Fمَسْؤُولِيَّةٌ فَرْدِيَّة\u200F", meaning: "個人の責任" },
+    { word: "\u200Fتَطَوَّعَ / يَتَطَوَّعُ لِلْبِيئَة\u200F", meaning: "環境のためにボランティアをする" },
+    { word: "\u200Fاسْتِدَامَةُ الْمَوَارِد\u200F", meaning: "資源の持続可能性" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：抽象的な論証と批評 (ID: 13189) ---
+{
+  id: 13189,
+  title: "中級：高度な議論の技術",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fنَاقَضَ / يُنَاقِضُ نَفْسَهُ\u200F", meaning: "自己矛盾する" },
+    { word: "\u200Fحُجَّةٌ بَالِغَة\u200F", meaning: "説得力のある論拠" },
+    { word: "\u200Fنَقْدٌ مَوْضُوعِيّ\u200F", meaning: "客観的な批評" },
+    { word: "\u200Fخَلَصَ / يَخْلُصُ إِلَى نَتِيجَة\u200F", meaning: "結果（結論）に至る" },
+    { word: "\u200Fدَحَضَ / يَدْحَضُ الْفِكْرَة\u200F", meaning: "考えを論破する" },
+    { word: "\u200Fإِطَارٌ نَظَرِيّ\u200F", meaning: "理論的枠組み（フレームワーク）" },
+    { word: "\u200Fجَوْهَرُ الْخِلَاف\u200F", meaning: "対立の本質" },
+    { word: "\u200Fمَنْطِقٌ اسْتِقْرَائِيّ\u200F", meaning: "帰納的な論理" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：産業革命とAI (ID: 13190) ---
+{
+  id: 13190,
+  title: "中級：第四次産業革命",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fأَحْدَثَ / يُحْدِثُ ثَوْرَة\u200F", meaning: "革命を起こす" },
+    { word: "\u200Fذَكَاءٌ اصْطِنَاعِيٌّ تَوْلِيدِيّ\u200F", meaning: "生成AI" },
+    { word: "\u200Fأَتْمَتَةُ الْوَظَائِف\u200F", meaning: "職務の自動化" },
+    { word: "\u200Fتَعَلُّمُ الْآلَة\u200F", meaning: "機械学習" },
+    { word: "\u200Fتَحَوُّلٌ رَقْمِيٌّ شَامِل\u200F", meaning: "包括的なデジタルトランスフォーメーション" },
+    { word: "\u200Fرُوبُوتَاتٌ ذَكِيَّة\u200F", meaning: "知能ロボット" },
+    { word: "\u200Fمُسْتَقْبَلُ الْبَشَرِيَّة\u200F", meaning: "人類の未来" },
+    { word: "\u200Fتَعَايُشٌ مَعَ التِّكْنُولُوجِيَا\u200F", meaning: "技術との共生" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：国際協力と支援 (ID: 13191) ---
+{
+  id: 13191,
+  title: "中級：人道支援と協力",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fقَدَّمَ / يُقَدِّمُ مَعُونَة\u200F", meaning: "援助（手助け）を提供する" },
+    { word: "\u200Fإِغَاثَةٌ عَاجِلَة\u200F", meaning: "緊急救済" },
+    { word: "\u200Fتَبَرَّعَ / يَتَبَرَّعُ بِالْمَال\u200F", meaning: "お金を寄付する" },
+    { word: "\u200Fمُنَظَّمَةٌ غَيْرُ رِبْحِيَّة\u200F", meaning: "非営利組織（NPO）" },
+    { word: "\u200Fكَارِثَةٌ طَبِيعِيَّة\u200F", meaning: "自然災害" },
+    { word: "\u200Fتَطَوَّعَ / يَتَطَوَّعُ لِلْخِدْمَة\u200F", meaning: "奉仕（サービス）のために志願する" },
+    { word: "\u200Fتَضَامُنٌ دُوَلِيّ\u200F", meaning: "国際的な連帯" },
+    { word: "\u200Fتَوْزِيعُ الْمُسَاعَدَات\u200F", meaning: "支援物資の配布" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：経済のグローバル競争 (ID: 13192) ---
+{
+  id: 13192,
+  title: "中級：グローバル競争と独占",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fنَافَسَ / يُنَافِسُ بِقُوَّة\u200F", meaning: "力強く競い合う" },
+    { word: "\u200Fاحْتِكَارُ السُّوق\u200F", meaning: "市場の独占" },
+    { word: "\u200Fانْدِمَاجُ الشَّرِكَات\u200F", meaning: "企業の合併" },
+    { word: "\u200Fحِصَّةٌ سُوقِيَّة\u200F", meaning: "市場シェア" },
+    { word: "\u200Fهَيْمَنَ / يَهْيَمِنُ عَلَى الْقِطَاع\u200F", meaning: "セクターを支配（席巻）する" },
+    { word: "\u200Fشَرِكَةٌ عَابِرَةٌ لِلْقَارَّات\u200F", meaning: "多国籍企業" },
+    { word: "\u200Fقَانُونُ حِمَايَةِ الْمُنَافَسَة\u200F", meaning: "競争保護法（独占禁止法）" },
+    { word: "\u200Fتَفَوُّقٌ تِجَارِيّ\u200F", meaning: "貿易上の優位" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：医学の倫理性 (ID: 13193) ---
+{
+  id: 13193,
+  title: "中級：医療倫理の課題",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاحْتَرَمَ / يَحْتَرِمُ قَرَارَ الْمَرِيض\u200F", meaning: "患者の決定を尊重する" },
+    { word: "\u200Fأَخْلَاقِيَّاتُ مِهْنَةِ الطِّبّ\u200F", meaning: "医師の職業倫理" },
+    { word: "\u200Fقَتْلٌ رَحِيم\u200F", meaning: "安楽死" },
+    { word: "\u200Fمُوَافَقَةٌ مُسْبَقَة\u200F", meaning: "インフォームド・コンセント（事前の同意）" },
+    { word: "\u200Fتَجَارِبُ سَرِيرِيَّة\u200F", meaning: "臨床試験" },
+    { word: "\u200Fعَدَالَةُ الرِّعَايَة\u200F", meaning: "ケアの公平性" },
+    { word: "\u200Fحِمَايَةُ بَيَانَاتِ الْمَرِيض\u200F", meaning: "患者データの保護" },
+    { word: "\u200Fمَسْؤُولِيَّةٌ طِبِّيَّة\u200F", meaning: "医療上の責任" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：心理学と社会行動 (ID: 13194) ---
+{
+  id: 13194,
+  title: "中級：群衆心理と行動",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَأَثَّرَ / يَتَأَثَّرُ بِرَأْيِ الْآخَرِين\u200F", meaning: "他人の意見に影響される" },
+    { word: "\u200Fعِلْمُ نَفْسِ الْجَمَاهِير\u200F", meaning: "群衆心理学" },
+    { word: "\u200Fضَغْطُ الْأَقْرَان\u200F", meaning: "同調圧力（ピア・プレッシャー）" },
+    { word: "\u200Fانْتَمَى / يَنْتَمِي إِلَى مَجْمُوعَة\u200F", meaning: "グループに属する" },
+    { word: "\u200Fتَقْلِيدٌ أَعْمَى\u200F", meaning: "盲目的な模倣" },
+    { word: "\u200Fقِيَادَةٌ كَارِيزْمِيَّة\u200F", meaning: "カリスマ的リーダーシップ" },
+    { word: "\u200Fتَوَجُّهٌ فِكْرِيّ\u200F", meaning: "思想的傾向" },
+    { word: "\u200Fقِيَمٌ مُشْتَرَكَة\u200F", meaning: "共通の価値観" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：高度な法務交渉 (ID: 13195) ---
+{
+  id: 13195,
+  title: "中級：法的な合意と交渉",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fصَاغَ / يَصِيغُ بَنُودَ الْعَقْد\u200F", meaning: "契約条項を起草する" },
+    { word: "\u200Fتَوَصَّلَ / يَتَوَصَّلُ إِلَى حَلٍّ وَسَط\u200F", meaning: "妥協案にたどり着く" },
+    { word: "\u200Fنَقَضَ / يَنْقُضُ الْعَهْد\u200F", meaning: "約束（契約）を破る" },
+    { word: "\u200Fشَرْطٌ جَزَائِيّ\u200F", meaning: "違約金条項" },
+    { word: "\u200Fتَفَاوَضَ / يَتَفَاوَضُ بِشَأْنِ الثَّمَن\u200F", meaning: "価格について交渉する" },
+    { word: "\u200Fاتِّفَاقِيَّةٌ سِرِّيَّة\u200F", meaning: "秘密保持契約" },
+    { word: "\u200Fفَتْرَةُ صَلَاحِيَّة\u200F", meaning: "有効期間" },
+    { word: "\u200Fإِلْزَامٌ قَانُونِيّ\u200F", meaning: "法的義務" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：環境再生と都市緑化 (ID: 13196) ---
+{
+  id: 13196,
+  title: "中級：都市と自然の共生",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fزَرَعَ / يَزْرَعُ الْمِسَاحَاتِ الْخَضْرَاء\u200F", meaning: "緑地を植樹する" },
+    { word: "\u200Fتَشْجِيرُ الْمُدُن\u200F", meaning: "都市の植林" },
+    { word: "\u200Fحَدَائِقُ مُعَلَّقَة\u200F", meaning: "空中庭園" },
+    { word: "\u200Fتَحْسِينُ جَوْدَةِ الْهَوَاء\u200F", meaning: "空気の質の改善" },
+    { word: "\u200Fاسْتَمْتَعَ / يَسْتَمْتِعُ بِالطَّبِيعَة\u200F", meaning: "自然を楽しむ" },
+    { word: "\u200Fبِيئَةٌ حَضَرِيَّةٌ مُسْتَدَامَة\u200F", meaning: "持続可能な都市環境" },
+    { word: "\u200Fتَوْفِيرُ الظِّلّ\u200F", meaning: "日陰の提供" },
+    { word: "\u200Fتَخْطِيطٌ جَمَالِيّ\u200F", meaning: "美的な計画" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：技術の進歩とプライバシー (ID: 13197) ---
+{
+  id: 13197,
+  title: "中級：テクノロジーと権利",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fحَمَى / يَحْمِي الْخُصُوصِيَّة\u200F", meaning: "プライバシーを保護する" },
+    { word: "\u200Fمُشَارَكَةُ الْمَوْقِع\u200F", meaning: "位置情報の共有" },
+    { word: "\u200Fتَحْدِيثُ الْأَمْن\u200F", meaning: "セキュリティの更新" },
+    { word: "\u200Fتَعَرَّفَ / يَتَعَرَّفُ عَلَى الْوَجْه\u200F", meaning: "顔を認識する" },
+    { word: "\u200Fبَيَانَاتٌ شَخْصِيَّة\u200F", meaning: "個人データ" },
+    { word: "\u200Fمُوَافَقَةُ الْمُسْتَخْدِم\u200F", meaning: "ユーザーの同意" },
+    { word: "\u200Fرِقَابَةٌ رَقْمِيَّة\u200F", meaning: "デジタル監視" },
+    { word: "\u200Fحَقُّ النِّسْيَان\u200F", meaning: "忘れられる権利" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：教育と生涯学習 (ID: 13198) ---
+{
+  id: 13198,
+  title: "中級：継続的な学び",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَعَلَّمَ / يَتَعَلَّمُ مَدَى الْحَيَاة\u200F", meaning: "生涯にわたって学ぶ" },
+    { word: "\u200Fمِنَصَّةٌ تَعْلِيمِيَّة\u200F", meaning: "教育プラットフォーム" },
+    { word: "\u200Fمَهَارَاتٌ مُسْتَقْبَلِيَّة\u200F", meaning: "未来のスキル" },
+    { word: "\u200Fنَمَا / يَنْمُو فِكْرِيًّا\u200F", meaning: "知的に成長する" },
+    { word: "\u200Fدَوْرَةٌ تَدْرِيبِيَّةٌ عَبْرَ الْإِنْتِرْنِت\u200F", meaning: "オンライン・トレーニングコース" },
+    { word: "\u200Fشَهَادَةٌ مُعْتَمَدَة\u200F", meaning: "認定された証明書（学位）" },
+    { word: "\u200Fتَبَادُلُ الْمَعْرِفَة\u200F", meaning: "知識の交換" },
+    { word: "\u200Fشَغَفُ الِاسْتِطْلَاع\u200F", meaning: "知的好奇心の情熱" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：社会福祉と平等 (ID: 13199) ---
+{
+  id: 13199,
+  title: "中級：社会的な平等",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fحَقَّقَ / يُحَقِّقُ الْمُسَاوَاة\u200F", meaning: "平等を達成する" },
+    { word: "\u200Fتَكَافُؤُ الْفُرَص\u200F", meaning: "機会の平等" },
+    { word: "\u200Fرِعَايَةٌ اجْتِمَاعِيَّة\u200F", meaning: "社会福祉" },
+    { word: "\u200Fتَقْلِيصُ الْفَوَارِق\u200F", meaning: "格差の縮小" },
+    { word: "\u200Fدَعَمَ / يَدْعَمُ الْفُقَرَاء\u200F", meaning: "貧困層を支援する" },
+    { word: "\u200Fخِدْمَاتٌ مَجَّانِيَّة\u200F", meaning: "無料サービス" },
+    { word: "\u200Fبِيئَةٌ شَامِلَة\u200F", meaning: "インクルーシブな環境" },
+    { word: "\u200Fالْعَدْلُ بَيْنَ النَّاس\u200F", meaning: "人々の間の正義" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：総括：未来への展望 (ID: 13200) ---
+{
+  id: 13200,
+  title: "中級：21世紀の展望",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاسْتَعَدَّ / يَسْتَعِدُّ لِلقَرْنِ الْقَادِم\u200F", meaning: "来世紀に備える" },
+    { word: "\u200Fإِنْسَانِيَّةٌ جَمْعَاء\u200F", meaning: "全人類" },
+    { word: "\u200Fحَلٌّ جِذْرِيّ\u200F", meaning: "根本的な解決策" },
+    { word: "\u200Fتَعَاوُنٌ بَيْنَ الشُّعُوب\u200F", meaning: "諸国民の間の協力" },
+    { word: "\u200Fعَالَمٌ أَكْثَرُ سَلَامًا\u200F", meaning: "より平和な世界" },
+    { word: "\u200Fنَهْضَةٌ حَضَارِيَّة\u200F", meaning: "文明の復興（ルネサンス）" },
+    { word: "\u200Fتَحَقَّقَ / يَتَحَقَّقُ الْأَمَل\u200F", meaning: "希望がかなう" },
+    { word: "\u200Fمُسْتَقْبَلٌ مُشْرِق\u200F", meaning: "明るい未来" }
+  ],
+  questions: [],
+  sentences: []
+},
+// --- 中級：高等教育と学術 (ID: 13201) ---
+{
+  id: 13201,
+  title: "中級：高等教育と学位",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالْتَحَقَ / يَلْتَحِقُ بِالْجَامِعَة\u200F", meaning: "大学に入学する" },
+    { word: "\u200Fنَالَ / يَنَالُ شَهَادَةً\u200F", meaning: "学位を取得する" },
+    { word: "\u200Fبَحْثٌ أَكَادِيمِيّ\u200F", meaning: "学術研究" },
+    { word: "\u200Fمِنْحَةٌ دِرَاسِيَّة\u200F", meaning: "奨学金" },
+    { word: "\u200Fمُحَاضَرَةٌ عِلْمِيَّة\u200F", meaning: "学術講義" },
+    { word: "\u200Fنِظَامُ السَّاعَات\u200F", meaning: "単位制" },
+    { word: "\u200Fأُطْرُوحَةُ الدُّكْتُورَاه\u200F", meaning: "博士論文" },
+    { word: "\u200Fتَخَصُّصٌ دَقِيق\u200F", meaning: "専門分野" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：異文化理解 (ID: 13202) ---
+{
+  id: 13202,
+  title: "中級：異文化との交流",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَقَبَّلَ / يَتَقَبَّلُ الِاخْتِلَاف\u200F", meaning: "違いを受け入れる" },
+    { word: "\u200Fصَدْمَةٌ ثَقَافِيَّة\u200F", meaning: "カルチャーショック" },
+    { word: "\u200Fحِوَارُ الْحَضَارَات\u200F", meaning: "文明間の対話" },
+    { word: "\u200Fتَعَايُشٌ سِلْمِيّ\u200F", meaning: "平和的共存" },
+    { word: "\u200Fتَقَالِيدُ شَعْبِيَّة\u200F", meaning: "民俗伝統" },
+    { word: "\u200Fانْدَمَجَ / يَنْدَمِجُ فِي الْغُرْبَة\u200F", meaning: "異郷の地に馴染む" },
+    { word: "\u200Fتَبَادُلٌ مَعْرِفِيّ\u200F", meaning: "知識の交換" },
+    { word: "\u200Fاحْتَرَمَ / يَحْتَرِمُ الْقِيَم\u200F", meaning: "価値観を尊重する" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：環境再生と自然 (ID: 13203) ---
+{
+  id: 13203,
+  title: "中級：環境保護の取り組み",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fأَعَادَ / يُعِيدُ تَأْهِيلَ الْغَابَة\u200F", meaning: "森を再生させる" },
+    { word: "\u200Fمَحْمِيَّةٌ طَبِيعِيَّة\u200F", meaning: "自然保護区" },
+    { word: "\u200Fكَائِنَاتٌ مُهَدَّدَة\u200F", meaning: "絶滅危惧種" },
+    { word: "\u200Fتَوَازُنٌ بِيئِيّ\u200F", meaning: "生態系のバランス" },
+    { word: "\u200Fكَافَحَ / يُكَافِحُ التَّلَوُّث\u200F", meaning: "汚染と闘う" },
+    { word: "\u200Fتَغَيُّرُ الْمُنَاخ\u200F", meaning: "気候変動" },
+    { word: "\u200Fطَاقَةٌ نَظِيفَة\u200F", meaning: "クリーンエネルギー" },
+    { word: "\u200Fاسْتِهْلَاكٌ مَسْؤُول\u200F", meaning: "責任ある消費" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：ソフトウェアと開発 (ID: 13204) ---
+{
+  id: 13204,
+  title: "中級：ITとシステム開発",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fصَمَّمَ / يُصَمِّمُ التَّطْبِيق\u200F", meaning: "アプリを設計する" },
+    { word: "\u200Fبَرْمَجِيَّاتٌ مَفْتُوحَة\u200F", meaning: "オープンソフトウェア" },
+    { word: "\u200Fتَحْدِيثُ النُّظُم\u200F", meaning: "システムの更新" },
+    { word: "\u200Fحَلَّ / يَحُلُّ الْمُشْكِلَة\u200F", meaning: "（バグ等を）解決する" },
+    { word: "\u200Fتَجْرِبَةُ الْمُسْتَخْدِم\u200F", meaning: "ユーザーエクスペリエンス" },
+    { word: "\u200Fتَطْوِيرٌ مُسْتَمِرّ\u200F", meaning: "継続的な開発" },
+    { word: "\u200Fقَاعِدَةُ بَيَانَات\u200F", meaning: "データベース" },
+    { word: "\u200Fخَادِمٌ سَحَابِيّ\u200F", meaning: "クラウドサーバー" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：人権と市民活動 (ID: 13205) ---
+{
+  id: 13205,
+  title: "中級：市民の権利と義務",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fطَالَبَ / يُطَالِبُ بِالْعَدَالَة\u200F", meaning: "正義を要求する" },
+    { word: "\u200Fحُرِّيَّةُ الصَّحَافَة\u200F", meaning: "報道の自由" },
+    { word: "\u200Fوَاجِبٌ وَطَنِيّ\u200F", meaning: "国民の義務" },
+    { word: "\u200Fمُسَاوَاةٌ أَمَامَ الْقَانُون\u200F", meaning: "法の下の平等" },
+    { word: "\u200Fتَطَوَّعَ / يَتَطَوَّعُ فِي النَّقَابَة\u200F", meaning: "組合でボランティアする" },
+    { word: "\u200Fنَاشِطٌ حُقُوقِيّ\u200F", meaning: "人権活動家" },
+    { word: "\u200Fكَرَامَةٌ مَصُونَة\u200F", meaning: "守られた尊厳" },
+    { word: "\u200Fمُجْتَمَعٌ مَدَنِيّ\u200F", meaning: "市民社会" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：ビジネスと提携 (ID: 13206) ---
+{
+  id: 13206,
+  title: "中級：ビジネスの戦略と提携",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fعَقَدَ / يَعْقِدُ شَرَاكَة\u200F", meaning: "パートナーシップを結ぶ" },
+    { word: "\u200Fصَفْقَةٌ تِجَارِيَّة\u200F", meaning: "ビジネス取引" },
+    { word: "\u200Fتَوَسَّعَ / يَتَوَسَّعُ فِي السُّوق\u200F", meaning: "市場を拡大する" },
+    { word: "\u200Fمُنَافَسَةٌ شَرِيفَة\u200F", meaning: "公正な競争" },
+    { word: "\u200Fخُطَّةُ اسْتِثْمَار\u200F", meaning: "投資計画" },
+    { word: "\u200Fرِبْحٌ صَافٍ\u200F", meaning: "純利益" },
+    { word: "\u200Fخَسَارَةٌ فَادِحَة\u200F", meaning: "甚大な損失" },
+    { word: "\u200Fمِيزَةٌ تَنَافُسِيَّة\u200F", meaning: "競争上の優位" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：健康と慢性疾患 (ID: 13207) ---
+{
+  id: 13207,
+  title: "中級：健康管理と医療",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fعَانَى / يُعَانِي مِنَ السُّكَّرِيّ\u200F", meaning: "糖尿病に苦しむ" },
+    { word: "\u200Fوِقَايَةٌ خَيْرٌ مِنَ الْعِلَاج\u200F", meaning: "予防は治療に勝る" },
+    { word: "\u200Fفَحْصٌ دَوْرِيّ\u200F", meaning: "定期検診" },
+    { word: "\u200Fضَغْطُ الدَّم\u200F", meaning: "血圧" },
+    { word: "\u200Fنِظَامٌ غِذَائِيّ\u200F", meaning: "食生活（ダイエット）" },
+    { word: "\u200Fعِلَاجٌ طَبِيعِيّ\u200F", meaning: "物理療法（理学療法）" },
+    { word: "\u200Fأَعْرَاضٌ جَانِبِيَّة\u200F", meaning: "副作用" },
+    { word: "\u200Fشُفِيَ / يَشْفَى بَعْدَ الْجِرَاحَة\u200F", meaning: "手術後に回復する" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：ストレスと心理 (ID: 13208) ---
+{
+  id: 13208,
+  title: "中級：現代のストレスと心",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَعَامَلَ / يَتَعَامَلُ مَعَ الضَّغْط\u200F", meaning: "ストレス（圧力）に対処する" },
+    { word: "\u200Fإِرْهَاقٌ ذِهْنِيّ\u200F", meaning: "精神的疲労" },
+    { word: "\u200Fرَاحَةٌ نَفْسِيَّة\u200F", meaning: "心の安らぎ" },
+    { word: "\u200Fتَخَلَّصَ / يَتَخَلَّصُ مِنَ الْقَلَق\u200F", meaning: "不安を取り除く" },
+    { word: "\u200Fثِقَةٌ بِالنَّفْس\u200F", meaning: "自己肯定（自信）" },
+    { word: "\u200Fمَوْجَةُ اكْتِئَاب\u200F", meaning: "うつの波" },
+    { word: "\u200Fدَعْمٌ مَعْنَوِيّ\u200F", meaning: "精神的支援" },
+    { word: "\u200Fاسْتَرْخَى / يَسْتَرْخِي فِي الْبَيْت\u200F", meaning: "家でリラックスする" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：不動産と法律 (ID: 13209) ---
+{
+  id: 13209,
+  title: "中級：不動産と契約の語彙",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fامْتَلَكَ / يَمْتَلِكُ عَقَارًا\u200F", meaning: "不動産を所有する" },
+    { word: "\u200Fعَقْدُ إِيجَار\u200F", meaning: "賃貸契約" },
+    { word: "\u200Fرَهْنٌ عَقَارِيّ\u200F", meaning: "住宅ローン（抵当権）" },
+    { word: "\u200Fتَوْثِيقٌ رَسْمِيّ\u200F", meaning: "公証（公式な記録）" },
+    { word: "\u200Fدَفَعَ / يَدْفَعُ الْعُرْبُونَ\u200F", meaning: "手付金を払う" },
+    { word: "\u200Fوَسِيطٌ عَقَارِيّ\u200F", meaning: "不動産仲介業者" },
+    { word: "\u200Fمِلْكِيَّةٌ خَاصَّة\u200F", meaning: "私有財産" },
+    { word: "\u200Fنَقَلَ / يَنْقُلُ الْمِلْكِيَّة\u200F", meaning: "所有権を移転する" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：都市化と社会 (ID: 13210) ---
+{
+  id: 13210,
+  title: "中級：都市化と居住環境",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fانْتَقَلَ / يَنْتَقِلُ إِلَى الْمَدِينَة\u200F", meaning: "都市へ移住する" },
+    { word: "\u200Fازْدِحَامٌ سُكَّانِيّ\u200F", meaning: "人口密集" },
+    { word: "\u200Fبِنْيَةٌ تَحْتِيَّة\u200F", meaning: "インフラ" },
+    { word: "\u200Fتَخْطِيطٌ عُمْرَانِيّ\u200F", meaning: "都市計画" },
+    { word: "\u200Fضَاحِيَةٌ هَادِئَة\u200F", meaning: "静かな郊外" },
+    { word: "\u200Fتَوَفَّرَ / يَتَوَفَّرُ الْخِدَمَات\u200F", meaning: "サービスが提供される" },
+    { word: "\u200Fنَقْلٌ جَمَاعِيّ\u200F", meaning: "公共交通" },
+    { word: "\u200Fمُسْتَوَى الْمَعِيشَة\u200F", meaning: "生活水準" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：物理学と自然現象 (ID: 13211) ---
+{
+  id: 13211,
+  title: "中級：科学と自然の法則",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَحَرَّكَ / يَتَحَرَّكُ بِسُرْعَة\u200F", meaning: "速く動く" },
+    { word: "\u200Fقَانُونُ الْجَاذِبِيَّة\u200F", meaning: "重力の法則" },
+    { word: "\u200Fطَاقَةٌ حَرَارِيَّة\u200F", meaning: "熱エネルギー" },
+    { word: "\u200Fتَفَاعُلٌ كِيمْيَائِيّ\u200F", meaning: "化学反応" },
+    { word: "\u200Fمَوْجَةٌ ضَوْئِيَّة\u200F", meaning: "光の波" },
+    { word: "\u200Fاخْتَرَعَ / يَخْتَرِعُ آلَةً\u200F", meaning: "機械を発明する" },
+    { word: "\u200Fنَظَرِيَّةٌ نِسْبِيَّة\u200F", meaning: "相対性理論" },
+    { word: "\u200Fقِيَاسٌ دَقِيق\u200F", meaning: "精密な測定" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：演劇と芸術 (ID: 13212) ---
+{
+  id: 13212,
+  title: "中級：演劇と舞台芸術",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fمَثَّلَ / يُمَثِّلُ عَلَى الْمَسْرَح\u200F", meaning: "舞台で演じる" },
+    { word: "\u200Fنَصٌّ مَسْرَحِيّ\u200F", meaning: "戯曲（台本）" },
+    { word: "\u200Fإِخْرَاجٌ فَنِّيّ\u200F", meaning: "演出" },
+    { word: "\u200Fتَصْفِيقُ الْجُمْهُور\u200F", meaning: "観客の拍手" },
+    { word: "\u200Fأَدَّى / يُؤَدِّي دَوْرًا\u200F", meaning: "役を演じる" },
+    { word: "\u200Fكَالِيسُ الْمَسْرَح\u200F", meaning: "舞台裏" },
+    { word: "\u200Fإِضَاءَةٌ خَافِتَة\u200F", meaning: "控えめな照明" },
+    { word: "\u200Fإِبْدَاعٌ بَشَرِيّ\u200F", meaning: "人間の創造性" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：メディアの倫理 (ID: 13213) ---
+{
+  id: 13213,
+  title: "中級：メディアと倫理観",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَحَرَّى / يَتَحَرَّى الدِّقَّة\u200F", meaning: "正確さを追求する" },
+    { word: "\u200Fأَخْلَاقِيَّاتُ الْمِهْنَة\u200F", meaning: "職業倫理" },
+    { word: "\u200Fمِصْدَاقِيَّةُ الْخَبَر\u200F", meaning: "ニュースの信憑性" },
+    { word: "\u200Fتَحَيُّزٌ إِعْلَامِيّ\u200F", meaning: "メディアの偏向" },
+    { word: "\u200Fنَشَرَ / يَنْشُرُ الْوَعْي\u200F", meaning: "意識を広める" },
+    { word: "\u200Fحِيادٌ تَامّ\u200F", meaning: "完全な中立" },
+    { word: "\u200Fتَشْوِيهُ السُّمْعَة\u200F", meaning: "名誉毀損" },
+    { word: "\u200Fمَصْدَرٌ مَجْهُول\u200F", meaning: "匿名の情報源" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：古代文明 (ID: 13214) ---
+{
+  id: 13214,
+  title: "中級：歴史と古代文明",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fبَنَى / يَبْنِي الْأَهْرَام\u200F", meaning: "ピラミッドを建てる" },
+    { word: "\u200Fحَضَارَةٌ عَرِيقَة\u200F", meaning: "古き良き文明" },
+    { word: "\u200Fآثَارٌ خَالِدَة\u200F", meaning: "不朽の遺跡" },
+    { word: "\u200Fنَقَشَ / يَنْقُشُ عَلَى الْحَجَر\u200F", meaning: "石に刻む" },
+    { word: "\u200Fبَحْثٌ أَثَرِيّ\u200F", meaning: "考古学調査" },
+    { word: "\u200Fاكْتَشَفَ / يَكْتَشِفُ مَقْبَرَة\u200F", meaning: "墓を発見する" },
+    { word: "\u200Fتُرَاثٌ إِنْسَانِيّ\u200F", meaning: "人類の遺産" },
+    { word: "\u200Fمَتْحَفٌ وَطَنِيّ\u200F", meaning: "国立博物館" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：グローバル経済 (ID: 13215) ---
+{
+  id: 13215,
+  title: "中級：国際経済とグローバル化",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَعَامَلَ / يَتَعَامَلُ دُوَلِيًّا\u200F", meaning: "国際的に取引する" },
+    { word: "\u200Fنِظَامٌ مَالِيّ\u200F", meaning: "金融システム" },
+    { word: "\u200Fتَبَادُلٌ حُرّ\u200F", meaning: "自由貿易" },
+    { word: "\u200Fارْتَفَعَ / يَرْتَفِعُ سِعْرُ الصَّرْف\u200F", meaning: "為替レートが上がる" },
+    { word: "\u200Fأَزْمَةٌ اقْتِصَادِيَّة\u200F", meaning: "経済危機" },
+    { word: "\u200Fتَضَخُّمٌ مَالِيّ\u200F", meaning: "インフレーション" },
+    { word: "\u200Fمُنَظَّمَةُ التِّجَارَة\u200F", meaning: "貿易機関" },
+    { word: "\u200Fقُوَّةٌ اقْتِصَادِيَّة\u200F", meaning: "経済力" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：民主主義と政治 (ID: 13216) ---
+{
+  id: 13216,
+  title: "中級：政治と民主主義",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fانْتَخَبَ / يَنْتَخِبُ الرَّئِيس\u200F", meaning: "大統領を選出する" },
+    { word: "\u200Fتَصْوِيتٌ حُرّ\u200F", meaning: "自由投票" },
+    { word: "\u200Fحِزْبٌ مُعَارِض\u200F", meaning: "野党" },
+    { word: "\u200Fحُكُومَةٌ ائْتِلَافِيَّة\u200F", meaning: "連立政権" },
+    { word: "\u200Fصَوَّتَ / يُصَوِّتُ لِـ\u200F", meaning: "〜に投票する" },
+    { word: "\u200Fبَرْلَمَانٌ مُنْتَخَب\u200F", meaning: "選出された議会" },
+    { word: "\u200Fدُسْتُورٌ دِيمُقْرَاطِيّ\u200F", meaning: "民主的な憲法" },
+    { word: "\u200Fمُشَارَكَةٌ سِيَاسِيَّة\u200F", meaning: "政治参加" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：技術とセキュリティ (ID: 13217) ---
+{
+  id: 13217,
+  title: "中級：情報セキュリティ",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fحَمَى / يَحْمِي الْبَيَانَات\u200F", meaning: "データを保護する" },
+    { word: "\u200Fتَشْفِيرٌ رَقْمِيّ\u200F", meaning: "デジタル暗号化" },
+    { word: "\u200Fكَلِمَةُ الْمُرُور\u200F", meaning: "パスワード" },
+    { word: "\u200Fاخْتَرَقَ / يَخْتَرِقُ الْحِسَاب\u200F", meaning: "アカウントをハッキングする" },
+    { word: "\u200Fخُصُوصِيَّةٌ مَحْفُوظَة\u200F", meaning: "守られたプライバシー" },
+    { word: "\u200Fتَهْدِيدٌ أَمْنِيّ\u200F", meaning: "セキュリティ上の脅威" },
+    { word: "\u200Fبَرْمَجِيَّاتٌ حَدِيثَة\u200F", meaning: "最新のソフトウェア" },
+    { word: "\u200Fفَيْرُوسٌ مُدَمِّر\u200F", meaning: "破壊的なウイルス" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：教育と識字 (ID: 13218) ---
+{
+  id: 13218,
+  title: "中級：教育の普及と識字",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fقَضَى / يَقْضِي عَلَى الْأُمِّيَّة\u200F", meaning: "非識字を撲滅する" },
+    { word: "\u200Fمَحْوُ الْأُمِّيَّة\u200F", meaning: "識字教育" },
+    { word: "\u200Fتَعْلِيمٌ مَجَّانِيّ\u200F", meaning: "義務教育（無料教育）" },
+    { word: "\u200Fأَهَّلَ / يُؤَهِّلُ الْمُعَلِّم\u200F", meaning: "教師を養成する" },
+    { word: "\u200Fمَدْرَسَةٌ رِيفِيَّة\u200F", meaning: "農村の学校" },
+    { word: "\u200Fطَالِبٌ مُجْتَهِد\u200F", meaning: "勤勉な学生" },
+    { word: "\u200Fمَنْهَجٌ تَعْلِيمِيّ\u200F", meaning: "教育カリキュラム" },
+    { word: "\u200Fتَطْوِيرُ الْمَهَارَات\u200F", meaning: "スキルの開発" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：環境汚染 (ID: 13219) ---
+{
+  id: 13219,
+  title: "中級：環境汚染とその対策",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَلَوَّثَ / يَتَلَوَّثُ الْهَوَاء\u200F", meaning: "空気が汚染される" },
+    { word: "\u200Fنِفَايَاتٌ صِنَاعِيَّة\u200F", meaning: "産業廃棄物" },
+    { word: "\u200Fانْبِعَاثُ الْغَازَات\u200F", meaning: "ガスの排出" },
+    { word: "\u200Fتَسَرُّبٌ نَفْطِيّ\u200F", meaning: "原油漏れ" },
+    { word: "\u200Fقَلَّلَ / يُقَلِّلُ مِنَ الضَّرَر\u200F", meaning: "被害を減らす" },
+    { word: "\u200Fمَوَادُّ سَامَّة\u200F", meaning: "毒性物質" },
+    { word: "\u200Fإِعَادَةُ التَّدْوِير\u200F", meaning: "リサイクル" },
+    { word: "\u200Fحِمَايَةُ الطَّبِيعَة\u200F", meaning: "自然の保護" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：哲学と道徳 (ID: 13220) ---
+{
+  id: 13220,
+  title: "中級：哲学的な思考と道徳",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fفَكَّرَ / يُفَكِّرُ فِي الْقِيم\u200F", meaning: "価値観について考える" },
+    { word: "\u200Fمَبْدَأٌ أَخْلَاقِيّ\u200F", meaning: "道徳的原則" },
+    { word: "\u200Fمَفْهُومُ الْحُرِّيَّة\u200F", meaning: "自由の概念" },
+    { word: "\u200Fضَمِيرٌ حَيّ\u200F", meaning: "生きた良心" },
+    { word: "\u200Fبَحَثَ / يَبْحَثُ عَنِ الْحَقِيقَة\u200F", meaning: "真実を探し求める" },
+    { word: "\u200Fتَصَوُّرٌ فَلْسَفِيّ\u200F", meaning: "哲学的構想" },
+    { word: "\u200Fظُلْمٌ بَيِّن\u200F", meaning: "明らかな不正" },
+    { word: "\u200Fحِكْمَةٌ بَالِغَة\u200F", meaning: "至高の知恵" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：宇宙探査 (ID: 13221) ---
+{
+  id: 13221,
+  title: "中級：宇宙の探査と未知",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fأَطْلَقَ / يُطْلِقُ صَارُوخًا\u200F", meaning: "ロケットを打ち上げる" },
+    { word: "\u200Fرِحْلَةٌ فَضَائِيَّة\u200F", meaning: "宇宙旅行" },
+    { word: "\u200Fمَجَرَّةٌ بَعِيدَة\u200F", meaning: "遠い銀河" },
+    { word: "\u200Fرَائِدُ فَضَاء\u200F", meaning: "宇宙飛行士" },
+    { word: "\u200Fهَبَطَ / يَهْبُطُ عَلَى الْقَمَر\u200F", meaning: "月に着陸する" },
+    { word: "\u200Fانْعِدَامُ الْجَاذِبِيَّة\u200F", meaning: "無重力" },
+    { word: "\u200Fكَوْكَبٌ مَجْهُول\u200F", meaning: "未知の惑星" },
+    { word: "\u200Fمِرْصَدٌ فَلَكِيّ\u200F", meaning: "天文台" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：農業と食料 (ID: 13222) ---
+{
+  id: 13222,
+  title: "中級：現代の農業と食料供給",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fزَرَعَ / يَزْرَعُ الْمَحَاصِيل\u200F", meaning: "作物を育てる" },
+    { word: "\u200Fأَمْنٌ غِذَائِيّ\u200F", meaning: "食料安全保障" },
+    { word: "\u200Fزِرَاعَةٌ عُضْوِيَّة\u200F", meaning: "有機農業" },
+    { word: "\u200Fحَصَدَ / يَحْصِدُ الْقَمْح\u200F", meaning: "小麦を収穫する" },
+    { word: "\u200Fتُرْبَةٌ خِصْبَة\u200F", meaning: "肥沃な土壌" },
+    { word: "\u200Fرَيٌّ حَدِيث\u200F", meaning: "近代的な灌漑" },
+    { word: "\u200Fمُبِيدٌ حَشَرِيّ\u200F", meaning: "殺虫剤" },
+    { word: "\u200Fإِنْتَاجٌ وَفِير\u200F", meaning: "豊かな生産量" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：労働市場 (ID: 13223) ---
+{
+  id: 13223,
+  title: "中級：現代の労働市場とキャリア",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fبَحَثَ / يَبْحَثُ عَنْ عَمَل\u200F", meaning: "仕事を探す" },
+    { word: "\u200Fسُوقُ الْعَمَل\u200F", meaning: "労働市場" },
+    { word: "\u200Fمُقَابَلَةٌ شَخْصِيَّة\u200F", meaning: "個人面接" },
+    { word: "\u200Fتَوَظَّفَ / يَتَوَظَّفُ فِي شَرِكَة\u200F", meaning: "会社に就職する" },
+    { word: "\u200Fخِبْرَةٌ مِهْنِيَّة\u200F", meaning: "職務経験" },
+    { word: "\u200Fرَاتِبٌ شَهْرِيّ\u200F", meaning: "月給" },
+    { word: "\u200Fاسْتَقَالَ / يَسْتَقِيلُ مِنَ الْمَنْصِب\u200F", meaning: "役職を辞任する" },
+    { word: "\u200Fتَرْقِيَةٌ سَرِيعَة\u200F", meaning: "迅速な昇進" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：法学と契約 (ID: 13224) ---
+{
+  id: 13224,
+  title: "中級：法律の適用と契約関係",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fوَقَّعَ / يُوَقِّعُ الْعَقْد\u200F", meaning: "契約に署名する" },
+    { word: "\u200Fبَنْدٌ قَانُونِيّ\u200F", meaning: "法的条項" },
+    { word: "\u200Fالْتَزَمَ / يَلْتَزِمُ بِالشُّرُوط\u200F", meaning: "条件を遵守する" },
+    { word: "\u200Fخَرَقَ / يَخْرِقُ الِاتِّفَاق\u200F", meaning: "合意を破る" },
+    { word: "\u200Fمُحَامٍ مُخْتَصّ\u200F", meaning: "専門の弁護士" },
+    { word: "\u200Fقَضِيَّةٌ مَدَنِيَّة\u200F", meaning: "民事事件" },
+    { word: "\u200Fحُكْمٌ نِهَائِيّ\u200F", meaning: "最終判決" },
+    { word: "\u200Fتَسْوِيَةٌ وِدِّيَّة\u200F", meaning: "円満な解決" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：心理学と発達 (ID: 13225) ---
+{
+  id: 13225,
+  title: "中級：心理の発達と影響",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fنَمَا / يَنْمُو الطِّفْلُ ذِهْنِيًّا\u200F", meaning: "子供が知的に発達する" },
+    { word: "\u200Fسُلُوكٌ اجْتِمَاعِيّ\u200F", meaning: "社会的行動" },
+    { word: "\u200Fتَأَثَّرَ / يَتَأَثَّرُ بِالْبِيئَة\u200F", meaning: "環境に影響される" },
+    { word: "\u200Fذَكَاءٌ عاطِفِيّ\u200F", meaning: "心の知能指数（EQ）" },
+    { word: "\u200Fتَرِبِيَّةٌ سَلِيمَة\u200F", meaning: "健全な教育（しつけ）" },
+    { word: "\u200Fشَخْصِيَّةٌ قَوِيَّة\u200F", meaning: "強い個性" },
+    { word: "\u200Fوَاجَهَ / يُوَاجِهُ الْمَخَاوِف\u200F", meaning: "恐怖に立ち向かう" },
+    { word: "\u200Fاسْتِجَابَةٌ فَوْرِيَّة\u200F", meaning: "即座の反応" }
+  ],
+  questions: [],
+  sentences: []
+},
+// --- 中級：論理と推論 (ID: 13226) ---
+{
+  id: 13226,
+  title: "中級：論理的思考と言語",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاسْتَنْتَجَ / يَسْتَنْتِجُ مِن\u200F", meaning: "〜から推論（結論）を導き出す" },
+    { word: "\u200Fمَنْطِقٌ سَلِيم\u200F", meaning: "健全な論理" },
+    { word: "\u200Fفَرَضِيَّةٌ مَبْدَئِيَّة\u200F", meaning: "前提条件・仮説" },
+    { word: "\u200Fنَاقَضَ / يُنَاقِضُ نَفْسَهُ\u200F", meaning: "自己矛盾する" },
+    { word: "\u200Fبُرْهَانٌ قَاطِع\u200F", meaning: "決定的な証拠（証明）" },
+    { word: "\u200Fتَحْلِيلٌ نَقْدِيّ\u200F", meaning: "批判的分析" },
+    { word: "\u200Fجَدَلٌ عَقِيم\u200F", meaning: "不毛な論争" },
+    { word: "\u200Fخُلَاصَةُ الْقَوْل\u200F", meaning: "結論・要約" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：デジタル通信と影響 (ID: 13227) ---
+{
+  id: 13227,
+  title: "中級：デジタルの波及効果",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَأَثَّرَ / يَتَأَثَّرُ بِـ\u200F", meaning: "〜に影響される" },
+    { word: "\u200Fتَفَاعَلَ / يَتَفَاعَلُ مَعَ\u200F", meaning: "〜と相互作用する（エンゲージする）" },
+    { word: "\u200Fمُحْتَوًى رَقْمِيّ\u200F", meaning: "デジタルコンテンツ" },
+    { word: "\u200Fخُصُوصِيَّةُ الْبَيَانَات\u200F", meaning: "データのプライバシー" },
+    { word: "\u200Fنَشَرَ / يَنْشُرُ مَعْلُومَات\u200F", meaning: "情報を発信する（出版する）" },
+    { word: "\u200Fمِنَصَّةٌ تِقْنِيَّة\u200F", meaning: "技術プラットフォーム" },
+    { word: "\u200Fهَوِيَّةٌ افْتِرَاضِيَّة\u200F", meaning: "バーチャルアイデンティティ" },
+    { word: "\u200Fتَوَاصُلٌ فَوْرِيّ\u200F", meaning: "即時コミュニケーション" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：考古学と文化遺産 (ID: 13228) ---
+{
+  id: 13228,
+  title: "中級：過去の記録と保存",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fرَمَّمَ / يُرَمِّمُ الْمَبَانِي\u200F", meaning: "建物を修復（復元）する" },
+    { word: "\u200Fتُنْقِيبٌ أَثَرِيّ\u200F", meaning: "考古学的発掘" },
+    { word: "\u200Fتُرَاثٌ حَضَارِيّ\u200F", meaning: "文明遺産" },
+    { word: "\u200Fمَخْطُوطَةٌ نَادِرَة\u200F", meaning: "稀少な写本" },
+    { word: "\u200Fأَنْقَاذٌ تَارِيخِيَّة\u200F", meaning: "歴史的廃墟" },
+    { word: "\u200Fصَانَ / يَصُونُ الآثَار\u200F", meaning: "遺跡を守る（維持する）" },
+    { word: "\u200Fمَتْحَفٌ عَالَمِيّ\u200F", meaning: "世界的な博物館" },
+    { word: "\u200Fعُصُورٌ مَا قَبْلَ التَّارِيخ\u200F", meaning: "先史時代" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：金融と株式市場 (ID: 13229) ---
+{
+  id: 13229,
+  title: "中級：投資と市場動向",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fضَارَبَ / يُضَارِبُ فِي الْأَسْهُم\u200F", meaning: "株で投機する" },
+    { word: "\u200Fسُيُولَةٌ نَقْدِيَّة\u200F", meaning: "現金の流動性" },
+    { word: "\u200Fرَأْسُ مَالٍ مُخَاطِر\u200F", meaning: "ベンチャーキャピタル" },
+    { word: "\u200Fأَرْبَاحٌ سَنَوِيَّة\u200F", meaning: "年間利益" },
+    { word: "\u200Fتَقَلُّبُ الْأَسْعَار\u200F", meaning: "価格の変動" },
+    { word: "\u200Fبُورْصَةٌ عَالَمِيَّة\u200F", meaning: "世界的な証券取引所" },
+    { word: "\u200Fمُؤَشِّرٌ مَالِيّ\u200F", meaning: "金融指標" },
+    { word: "\u200Fاسْتَثْمَرَ / يَسْتَثْمِرُ بِحِكْمَة\u200F", meaning: "賢明に投資する" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：社会学と結束 (ID: 13230) ---
+{
+  id: 13230,
+  title: "中級：社会構造と連帯",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَمَاسَكَ / يَتَمَاسَكُ الْمُجْتَمَع\u200F", meaning: "社会が結束（団結）する" },
+    { word: "\u200Fطَبَقَةٌ اجْتِمَاعِيَّة\u200F", meaning: "社会階層" },
+    { word: "\u200Fفَجْوَةٌ طَبَقِيَّة\u200F", meaning: "階級格差" },
+    { word: "\u200Fتَعَايَشَ / يَتَعَايَشُ مَعَ الْآخَر\u200F", meaning: "他者と共生する" },
+    { word: "\u200Fقِيَمٌ مُشْتَرَكَة\u200F", meaning: "共通の価値観" },
+    { word: "\u200Fانْدَمَجَ / يَنْدَمِجُ كُلِّيًّا\u200F", meaning: "完全に溶け込む（統合する）" },
+    { word: "\u200Fصِرَاعُ الْمَصَالِح\u200F", meaning: "利益相反（葛藤）" },
+    { word: "\u200Fعَدَالَةٌ تَوْزِيعِيَّة\u200F", meaning: "分配的正義" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：メディア倫理 (ID: 13231) ---
+{
+  id: 13231,
+  title: "中級：情報の透明性と誠実さ",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fحَقَّقَ / يُحَقِّقُ فِي الْمَصْدَر\u200F", meaning: "情報源を調査する" },
+    { word: "\u200Fمِصْدَاقِيَّةٌ إِعْلَامِيَّة\u200F", meaning: "メディアの信頼性" },
+    { word: "\u200Fتَضْلِيلُ الرَّأْيِ الْعَامّ\u200F", meaning: "世論のミスリード（誤誘導）" },
+    { word: "\u200Fشَفَافِيَّةُ الْمَعْلُومَات\u200F", meaning: "情報の透明性" },
+    { word: "\u200Fاخْتَرَقَ / يَخْتَرِقُ الْحَقَائِق\u200F", meaning: "事実を捻じ曲げる（突破する）" },
+    { word: "\u200Fحِيادٌ صَحَفِيّ\u200F", meaning: "ジャーナリズムの中立" },
+    { word: "\u200Fتَسْرِيبٌ سِرِّيّ\u200F", meaning: "機密の漏洩（リーク）" },
+    { word: "\u200Fرِقَابَةٌ ذَاتِيَّة\u200F", meaning: "自己検閲" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：教育学とカリキュラム (ID: 13232) ---
+{
+  id: 13232,
+  title: "中級：教育手法と学びの場",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fطَوَّرَ / يُطَوِّرُ الْمَنْهَج\u200F", meaning: "カリキュラムを開発（改善）する" },
+    { word: "\u200Fوَسَائِلُ تَعْلِيمِيَّة\u200F", meaning: "教育手段（教材）" },
+    { word: "\u200Fتَفَاعَلَ / يَتَفَاعَلُ مَعَ الطُّلَّاب\u200F", meaning: "学生と対話する" },
+    { word: "\u200Fمَهَارَاتُ التَّفْكِير\u200F", meaning: "思考スキル" },
+    { word: "\u200Fتَقْيِيمٌ شَامِل\u200F", meaning: "包括的な評価" },
+    { word: "\u200Fتَعَلُّمٌ ذَاتِيّ\u200F", meaning: "自学自習" },
+    { word: "\u200Fإِبْدَاعٌ أَكَادِيمِيّ\u200F", meaning: "学術的創造性" },
+    { word: "\u200Fبِيئَةٌ تَعْلِيمِيَّة\u200F", meaning: "教育環境" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：環境政策と排出 (ID: 13233) ---
+{
+  id: 13233,
+  title: "中級：気候変動と国家の対策",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fقَلَّلَ / يُقَلِّلُ مِنَ الِانْبِعَاثَات\u200F", meaning: "排出量を削減する" },
+    { word: "\u200Fاحْتِبَاسٌ حَرَارِيّ\u200F", meaning: "地球温暖化" },
+    { word: "\u200Fتَعَهَّدَ / يَتَعَهَّدُ بِحِمَايَةِ الْبِيئَة\u200F", meaning: "環境保護を公約する" },
+    { word: "\u200Fطَاقَةٌ مُتَجَدِّدَة\u200F", meaning: "再生可能エネルギー" },
+    { word: "\u200Fاتِّفَاقِيَّةُ الْمُنَاخ\u200F", meaning: "気候協定" },
+    { word: "\u200Fبَصْمَةٌ كَرْبُونِيَّة\u200F", meaning: "カーボンフットプリント" },
+    { word: "\u200Fحِيادٌ مَنَاخِيّ\u200F", meaning: "気候中立（カーボンニュートラル）" },
+    { word: "\u200Fاسْتِدَامَةُ النُّمُوّ\u200F", meaning: "成長の持続可能性" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：法的手続きと訴訟 (ID: 13234) ---
+{
+  id: 13234,
+  title: "中級：法廷と法的紛争",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fقَاضَى / يُقَاضِي الْخَصْم\u200F", meaning: "相手を訴える" },
+    { word: "\u200Fمُحَاكَمَةٌ جِنَائِيَّة\u200F", meaning: "刑事裁判" },
+    { word: "\u200Fرَفَعَ / يَرْفَعُ دَعْوَى قَضَائِيَّة\u200F", meaning: "訴訟を起こす" },
+    { word: "\u200Fشَهَادَةُ الزُّور\u200F", meaning: "偽証" },
+    { word: "\u200Fحُكْمٌ بَاتّ\u200F", meaning: "確定判決" },
+    { word: "\u200Fاسْتَأْنَفَ / يَسْتَأْنِفُ الطَّلَب\u200F", meaning: "申請を再開（控訴）する" },
+    { word: "\u200Fنَزَاهَةُ الْقَضَاء\u200F", meaning: "司法の清廉性" },
+    { word: "\u200Fتَسْوِيَةٌ قَانُونِيَّة\u200F", meaning: "法的解決（和解）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：哲学と実存 (ID: 13235) ---
+{
+  id: 13235,
+  title: "中級：思考の深淵と存在",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَأَمَّلَ / يَتَأَمَّلُ فِي الْوُجُود\u200F", meaning: "存在について熟考する" },
+    { word: "\u200Fمَفْهُومٌ مُجَرَّد\u200F", meaning: "抽象的な概念" },
+    { word: "\u200Fآمَنَ / يُؤْمِنُ بِالْقِيم\u200F", meaning: "価値観を信じる" },
+    { word: "\u200Fجَوْهَرُ الْإِنْسَان\u200F", meaning: "人間の本質" },
+    { word: "\u200Fمَذْهَبٌ فَلْسَفِيّ\u200F", meaning: "哲学的な学説" },
+    { word: "\u200Fتَسَاءَلَ / يَتَسَاءَلُ عَنِ الْمَصِير\u200F", meaning: "運命について疑問を持つ" },
+    { word: "\u200Fأَخْلَاقِيَّاتٌ سَامِيَة\u200F", meaning: "高潔な道徳（倫理）" },
+    { word: "\u200Fحَقِيقَةٌ نِسْبِيَّة\u200F", meaning: "相対的な真実" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：技術統合とアルゴリズム (ID: 13236) ---
+{
+  id: 13236,
+  title: "中級：自動化社会の基盤",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fدَمَجَ / يَدْمُجُ التَّقْنِيَّة\u200F", meaning: "技術を統合（融合）させる" },
+    { word: "\u200Fخَوَارِزْمِيَّةٌ ذَكِيَّة\u200F", meaning: "知能的なアルゴリズム" },
+    { word: "\u200Fأَتْمَتَةُ الْعَمَلِيَّات\u200F", meaning: "プロセスの自動化" },
+    { word: "\u200Fبَيَانَاتٌ ضَخْمَة\u200F", meaning: "ビッグデータ" },
+    { word: "\u200Fحَلَّلَ / يُحَلِّلُ الْأَنْمَاط\u200F", meaning: "パターンを分析する" },
+    { word: "\u200Fبَرْمَجَةٌ مُتَقَدِّمَة\u200F", meaning: "高度なプログラミング" },
+    { word: "\u200Fتَحْدِيثٌ تِلْقَائِيّ\u200F", meaning: "自動更新" },
+    { word: "\u200Fرَقْمَنَةُ الْخِدَمَات\u200F", meaning: "サービスのデジタル化" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：外交と条約 (ID: 13237) ---
+{
+  id: 13237,
+  title: "中級：国際秩序と外交交渉",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fوَقَّعَ / يُوَقِّعُ عَلَى الْمُعَاهَدَة\u200F", meaning: "条約に署名する" },
+    { word: "\u200Fفَرَضَ / يَفْرِضُ عُقُوبَات\u200F", meaning: "制裁を科す" },
+    { word: "\u200Fتَفَاوُضٌ دِبْلُومَاسِيّ\u200F", meaning: "外交交渉" },
+    { word: "\u200Fتَبَادُلٌ تِجَارِيّ\u200F", meaning: "貿易取引" },
+    { word: "\u200Fتَحَالُفٌ اسْتِرَاتِيجيّ\u200F", meaning: "戦略的同盟" },
+    { word: "\u200Fانْضَمَّ / يَنْضَمُّ إِلَى الْمُنَظَّمَة\u200F", meaning: "組織に加入する" },
+    { word: "\u200Fعَلَاقَاتٌ ثُنَائِيَّة\u200F", meaning: "二国間関係" },
+    { word: "\u200Fبَعْثَةٌ سِيَاسِيَّة\u200F", meaning: "政治使節団" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：心理学とレジリエンス (ID: 13238) ---
+{
+  id: 13238,
+  title: "中級：心の回復とトラウマ",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَعَافَى / يَتَعَافَى مِنَ الصَّدْمَة\u200F", meaning: "トラウマから回復する" },
+    { word: "\u200Fمُرُونةٌ نَفْسِيَّة\u200F", meaning: "心理的柔軟性（レジリエンス）" },
+    { word: "\u200Fوَاجَهَ / يُوَاجِهُ التَّحَدِّي\u200F", meaning: "困難に立ち向かう" },
+    { word: "\u200Fاضْطِرَابٌ عاطِفِيّ\u200F", meaning: "情緒不安定（障害）" },
+    { word: "\u200Fدَعْمٌ مَعْنَوِيّ\u200F", meaning: "精神的支援" },
+    { word: "\u200Fتَغَلَّبَ / يَتَغَلَّبُ عَلَى الْخَوْف\u200F", meaning: "恐怖を克服する" },
+    { word: "\u200Fثِقَةٌ مُتَبَادَلَة\u200F", meaning: "相互の信頼" },
+    { word: "\u200Fنُضْجٌ ذِهْنِيّ\u200F", meaning: "知的な成熟" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：経済と購買力 (ID: 13239) ---
+{
+  id: 13239,
+  title: "中級：市場経済と生活水準",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fانْخَفَضَ / يَنْخَفِضُ سِعْرُ الْعُمْلَة\u200F", meaning: "通貨の価値が下がる" },
+    { word: "\u200Fقُوَّةٌ شِرَائِيَّة\u200F", meaning: "購買力" },
+    { word: "\u200Fارْتَفَعَ / يَرْتَفِعُ التَّضَخُّم\u200F", meaning: "インフレが加速する" },
+    { word: "\u200Fنُمُوٌّ اقْتِصَادِيّ\u200F", meaning: "経済成長" },
+    { word: "\u200Fتَوْزِيعُ الثَّرْوَة\u200F", meaning: "富の再分配" },
+    { word: "\u200Fاسْتَهْلَكَ / يَسْتَهْلِكُ بِإِسْرَاف\u200F", meaning: "浪費する（過剰に消費する）" },
+    { word: "\u200Fمُسْتَوَى الْمَعِيشَة\u200F", meaning: "生活水準" },
+    { word: "\u200Fأَزْمَةٌ مَالِيَّة\u200F", meaning: "金融危機" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：芸術批評と美学 (ID: 13240) ---
+{
+  id: 13240,
+  title: "中級：芸術表現の分析",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fقَدَّرَ / يُقَدِّرُ الْفَنّ\u200F", meaning: "芸術を評価（鑑賞）する" },
+    { word: "\u200Fتَعْبِيرٌ رَمْزِيّ\u200F", meaning: "象徴的な表現" },
+    { word: "\u200Fذَوْقٌ رَفِيع\u200F", meaning: "高い美的センス" },
+    { word: "\u200Fنَقَدَ / يَنْقُدُ اللَّوْحَة\u200F", meaning: "絵画を批評する" },
+    { word: "\u200Fإِبْدَاعٌ بِلَا حُدُود\u200F", meaning: "無限の創造性" },
+    { word: "\u200Fجَسَّدَ / يُجَسِّدُ الْمَعْنَى\u200F", meaning: "意味を具現化する" },
+    { word: "\u200Fمَعْرِضٌ فَنِّيّ\u200F", meaning: "美術展" },
+    { word: "\u200Fأُسْلُوبٌ مِعْمَارِيّ\u200F", meaning: "建築様式" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：物流と輸送 (ID: 13241) ---
+{
+  id: 13241,
+  title: "中級：物流網と世界の動き",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fشَحَنَ / يَشْحَنُ الْبَضَائِع\u200F", meaning: "商品を発送（出荷）する" },
+    { word: "\u200Fوَزَّعَ / يُوَزِّعُ بِالتَّسَاوِي\u200F", meaning: "平等に分配する" },
+    { word: "\u200Fنَقْلٌ بَحْرِيّ\u200F", meaning: "海上輸送" },
+    { word: "\u200Fتَوْصِيلٌ سَرِيع\u200F", meaning: "迅速な配送" },
+    { word: "\u200Fمَخْزَنٌ رَقْمِيّ\u200F", meaning: "デジタル倉庫" },
+    { word: "\u200Fتَأْمِينٌ جُمْرُكِيّ\u200F", meaning: "通関保険" },
+    { word: "\u200Fرَسُومُ الشَّحْن\u200F", meaning: "配送料金" },
+    { word: "\u200Fتَوْرِيدٌ عَالَمِيّ\u200F", meaning: "グローバルな供給" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：健康と栄養学 (ID: 13242) ---
+{
+  id: 13242,
+  title: "中級：食の健康とバランス",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fهَضَمَ / يَهْضِمُ الطَّعَام\u200F", meaning: "食べ物を消化する" },
+    { word: "\u200Fسُعْرَاتٌ حَرَارِيَّة\u200F", meaning: "カロリー" },
+    { word: "\u200Fتَغْذِيَةٌ مُتَوَازِنَة\u200F", meaning: "バランスの取れた栄養" },
+    { word: "\u200Fمُكَمِّلٌ غِذَائِيّ\u200F", meaning: "サプリメント" },
+    { word: "\u200Fامْتَصَّ / يَمْتَصُّ الْفِيتَامِين\u200F", meaning: "ビタミンを吸収する" },
+    { word: "\u200Fنَقْصٌ فِي الْحَدِيد\u200F", meaning: "鉄分不足" },
+    { word: "\u200Fأَمْرَاضٌ مُزْمِنَة\u200F", meaning: "慢性疾患" },
+    { word: "\u200Fلِيَاقَةٌ بَدَنِيَّة\u200F", meaning: "フィジカルフィットネス" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：宇宙物理と天体 (ID: 13243) ---
+{
+  id: 13243,
+  title: "中級：天体の動きと宇宙の謎",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fرَصَدَ / يَرْصُدُ الْكَوْكَب\u200F", meaning: "惑星を観測する" },
+    { word: "\u200Fغِلَافٌ جَوِّيّ\u200F", meaning: "大気圏" },
+    { word: "\u200Fثَقْبٌ أَسْوَد\u200F", meaning: "ブラックホール" },
+    { word: "\u200Fجَاذِبِيَّةٌ كَوْنِيَّة\u200F", meaning: "宇宙の重力" },
+    { word: "\u200Fأَطْلَقَ / يُطْلِقُ مَكُّوكًا\u200F", meaning: "シャトルを打ち上げる" },
+    { word: "\u200Fمَجَرَّةٌ لَوْلَبِيَّة\u200F", meaning: "渦巻銀河" },
+    { word: "\u200Fانْفِجَارٌ عَظِيم\u200F", meaning: "ビッグバン" },
+    { word: "\u200Fرَائِدُ فَضَاء\u200F", meaning: "宇宙飛行士" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：社会福祉と制度 (ID: 13244) ---
+{
+  id: 13244,
+  title: "中級：公的支援と社会の守り",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fقَدَّمَ / يُقَدِّمُ مَعُونَة\u200F", meaning: "援助（手当）を提供する" },
+    { word: "\u200Fضَمَانٌ اجْتِمَاعِيّ\u200F", meaning: "社会保障" },
+    { word: "\u200Fتَقَاعُدٌ مُبَكِّر\u200F", meaning: "早期退職" },
+    { word: "\u200Fتَأْمِينٌ صِحِّيّ\u200F", meaning: "健康保険" },
+    { word: "\u200Fدَعَمَ / يَدْعَمُ الْفُقَرَاء\u200F", meaning: "貧困層を支援する" },
+    { word: "\u200Fرِعَايَةُ الْأَيْتَام\u200F", meaning: "孤児の保護（ケア）" },
+    { word: "\u200Fخِدْمَةٌ مَدَنِيَّة\u200F", meaning: "公務・公共サービス" },
+    { word: "\u200Fحَقٌّ مَشْرُوع\u200F", meaning: "正当な権利" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：ビジネスリーダーシップ (ID: 13245) ---
+{
+  id: 13245,
+  title: "中級：組織を導く言葉",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fأَلْهَمَ / يُلْهِمُ الْفَرِيق\u200F", meaning: "チームを鼓舞する" },
+    { word: "\u200Fتَفْوِيضُ الصَّلَاحِيَّات\u200F", meaning: "権限の委譲" },
+    { word: "\u200Fقِيَادَةٌ حَكِيمَة\u200F", meaning: "賢明なリーダーシップ" },
+    { word: "\u200Fصَنَعَ / يَصْنَعُ الْقَرَار\u200F", meaning: "意思決定をする" },
+    { word: "\u200Fتَحْفِيزُ الْمُوَظَّفِين\u200F", meaning: "従業員のモチベーション向上" },
+    { word: "\u200Fرُؤْيَةٌ ثَاقِبَة\u200F", meaning: "鋭いビジョン（洞察）" },
+    { word: "\u200Fإِدَارَةُ الْأَزَمَات\u200F", meaning: "危機管理" },
+    { word: "\u200Fتَحَمَّلَ / يَتَحَمَّلُ الْمَسْؤُولِيَّة\u200F", meaning: "責任を負う" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：言語学と語源 (ID: 13246) ---
+{
+  id: 13246,
+  title: "中級：言葉の成り立ちと構造",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاشْتَقَّ / يَشْتَقُّ مِنَ الْجَذْر\u200F", meaning: "語根から派生する" },
+    { word: "\u200Fمُصْطَلَحٌ عِلْمِيّ\u200F", meaning: "科学用語" },
+    { word: "\u200Fدَلَالَةُ الْكَلِمَة\u200F", meaning: "言葉の意味合い（セマンティクス）" },
+    { word: "\u200Fنَحْوٌ وَصَرْف\u200F", meaning: "文法と語形変化" },
+    { word: "\u200Fبَلَاغَةٌ لُغَوِيَّة\u200F", meaning: "言語的雄弁さ（修辞法）" },
+    { word: "\u200Fتَرْجَمَ / يُتَرْجِمُ بِتَصَرُّف\u200F", meaning: "意訳する" },
+    { word: "\u200Fفَصَاحَةُ اللِّسَان\u200F", meaning: "言葉の流暢さ（明快さ）" },
+    { word: "\u200Fتَطَوُّرٌ لِسَانِيّ\u200F", meaning: "言語の進化" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：情報社会とAI (ID: 13247) ---
+{
+  id: 13247,
+  title: "中級：人工知能と未来社会",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَعَلَّمَ / يَتَعَلَّمُ آلِيًّا\u200F", meaning: "機械学習する" },
+    { word: "\u200Fذَكَاءٌ اصْطِنَاعِيّ\u200F", meaning: "人工知能" },
+    { word: "\u200Fمُعَالَجَةُ اللُّغَات\u200F", meaning: "言語処理" },
+    { word: "\u200Fأَتْمَتَةُ الْمَهَام\u200F", meaning: "タスクの自動化" },
+    { word: "\u200Fخَوَارِزْمِيَّةٌ مُعَقَّدَة\u200F", meaning: "複雑なアルゴリズム" },
+    { word: "\u200Fثَوْرَةٌ رَقْمِيَّة\u200F", meaning: "デジタル革命" },
+    { word: "\u200Fاخْتَرَقَ / يَخْتَرِقُ السِّتَار\u200F", meaning: "ベールを脱ぐ（ハッキングする）" },
+    { word: "\u200Fتَقْنِيَّةٌ رَائِدَة\u200F", meaning: "先駆的な技術" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：国際紛争と和解 (ID: 13248) ---
+{
+  id: 13248,
+  title: "中級：平和への道のり",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fوَسَطَ / يَتَوَسَّطُ لِلصُّلْح\u200F", meaning: "和解のために仲裁する" },
+    { word: "\u200Fهَدْنَةٌ مُؤَقَّتَة\u200F", meaning: "一時的な休戦" },
+    { word: "\u200Fنَزَعَ / يَنْزِعُ فَتِيلَ الْأَزْمَة\u200F", meaning: "危機の火種を消す" },
+    { word: "\u200Fصِرَاعٌ طَوِيل\u200F", meaning: "長期的な紛争" },
+    { word: "\u200Fتَسْوِيَةٌ شَامِلَة\u200F", meaning: "包括的な解決" },
+    { word: "\u200Fاحْتَرَمَ / يَحْتَرِمُ السِّيَادَة\u200F", meaning: "主権を尊重する" },
+    { word: "\u200Fتَعَايُشٌ سِلْمِيّ\u200F", meaning: "平和的共存" },
+    { word: "\u200Fبِنَاءُ الثِّقَة\u200F", meaning: "信頼醸成" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：法的手続きと証拠 (ID: 13249) ---
+{
+  id: 13249,
+  title: "中級：裁判の実務と言葉",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fقَدَّمَ / يُقَدِّمُ أَدِلَّة\u200F", meaning: "証拠を提出する" },
+    { word: "\u200Fشَهَادَةُ عَيَان\u200F", meaning: "目撃証言" },
+    { word: "\u200Fبَرَأَ / يُبَرِّئُ الْمُتَّهَم\u200F", meaning: "被告人を無罪にする" },
+    { word: "\u200Fاعْتَرَفَ / يَعْتَرِفُ بِالذَّنْب\u200F", meaning: "罪を認める" },
+    { word: "\u200Fتَحْقِيقٌ جِنَائِيّ\u200F", meaning: "犯罪捜査" },
+    { word: "\u200Fحُكْمٌ قَطْعِيّ\u200F", meaning: "断定的な判決" },
+    { word: "\u200Fتَوْكِيلٌ رَسْمِيّ\u200F", meaning: "公式な委任状" },
+    { word: "\u200Fنَزَاهَةُ الْقَضَاء\u200F", meaning: "裁判の公正さ" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：精神の健康と調和 (ID: 13250) ---
+{
+  id: 13250,
+  title: "中級：心のバランスと回復",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاسْتَعَادَ / يَسْتَعِيدُ تَقْدِيرَ الذَّات\u200F", meaning: "自尊心を取り戻す" },
+    { word: "\u200Fتَوَازُنٌ نَفْسِيّ\u200F", meaning: "心のバランス" },
+    { word: "\u200Fتَخَلَّصَ / يَتَخَلَّصُ مِنَ التَّوَتُّر\u200F", meaning: "ストレスを解消する" },
+    { word: "\u200Fالِاسْتِرْخَاءُ الذِّهْنِيّ\u200F", meaning: "精神的なリラクゼーション" },
+    { word: "\u200Fتَغَلَّبَ / يَتَغَلَّبُ عَلَى الِاكْتِئَاب\u200F", meaning: "うつを克服する" },
+    { word: "\u200Fثِقَةٌ مُطْلَقَة\u200F", meaning: "絶対的な自信" },
+    { word: "\u200Fتَأَمَّلَ / يَتَأَمَّلُ هَادِئًا\u200F", meaning: "静かに瞑想する" },
+    { word: "\u200Fنُضْجٌ عاطِفِيّ\u200F", meaning: "情緒的成熟" }
+  ],
+  questions: [],
+  sentences: []
+},
+// --- 中級：宇宙技術と通信 (ID: 13251) ---
+{
+  id: 13251,
+  title: "中級：人工衛星と通信",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fأَطْلَقَ / يُطْلِقُ قَمَرًا اصْطِنَاعِيًّا\u200F", meaning: "人工衛星を打ち上げる" },
+    { word: "\u200Fبَثَّ / يَبُثُّ الْإِشَارَة\u200F", meaning: "信号を放送（送信）する" },
+    { word: "\u200Fتِقْنِيَّةُ الِاتِّصَال\u200F", meaning: "通信技術" },
+    { word: "\u200Fتَغْطِيَةٌ عَالَمِيَّة\u200F", meaning: "世界的なカバー範囲（カバレッジ）" },
+    { word: "\u200Fمَدَارٌ جِيُوسِينكْرُونِيّ\u200F", meaning: "静止軌道" },
+    { word: "\u200Fاسْتَقْبَلَ / يَسْتَقْبِلُ الْبَيَانَات\u200F", meaning: "データを受信する" },
+    { word: "\u200Fفَضَاءٌ خَارِجِيّ\u200F", meaning: "外宇宙" },
+    { word: "\u200Fمَحَطَّةٌ أَرْضِيَّة\u200F", meaning: "地上局" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：医療と免疫 (ID: 13252) ---
+{
+  id: 13252,
+  title: "中級：ワクチンと免疫学",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fطَعَّمَ / يُطَعِّمُ ضِدَّ الْمَرَض\u200F", meaning: "病気に対して予防接種をする" },
+    { word: "\u200Fجِهَازُ الْمَنَاعَة\u200F", meaning: "免疫システム" },
+    { word: "\u200Fلِقَاحٌ فَعَّال\u200F", meaning: "効果的なワクチン" },
+    { word: "\u200Fأَجْسَامٌ مُضَادَّة\u200F", meaning: "抗体" },
+    { word: "\u200Fقَاوَمَ / يُقَاوِمُ الْعَدْوَى\u200F", meaning: "感染に抵抗する" },
+    { word: "\u200Fوَبَاءٌ عَالَمِيّ\u200F", meaning: "パンデミック（世界的な流行病）" },
+    { word: "\u200Fتَجْرِبَةٌ سَرِيرِيَّة\u200F", meaning: "臨床試験" },
+    { word: "\u200Fحِمَايَةٌ جَمَاعِيَّة\u200F", meaning: "集団免疫（集団的保護）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：国際物流とサプライチェーン (ID: 13253) ---
+{
+  id: 13253,
+  title: "中級：サプライチェーンの管理",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fأَدَارَ / يُدِيرُ سِلْسِلَةَ التَّوْرِيد\u200F", meaning: "サプライチェーンを管理する" },
+    { word: "\u200Fمَخْزُونٌ اسْتِرَاتِيجيّ\u200F", meaning: "戦略的備蓄（在庫）" },
+    { word: "\u200Fنَقْلٌ بَرِّيٌّ وَبَحْرِيّ\u200F", meaning: "陸上および海上輸送" },
+    { word: "\u200Fشَحْنَةٌ دُوَلِيَّة\u200F", meaning: "国際貨物" },
+    { word: "\u200Fتَكْلِفَةُ اللَّوْجِسْتِيَّات\u200F", meaning: "物流コスト" },
+    { word: "\u200Fوَصَلَ / يَصِلُ فِي الْمَوْعِد\u200F", meaning: "時間通りに到着する" },
+    { word: "\u200Fمَوْرِدٌ مَوْثُوق\u200F", meaning: "信頼できるサプライヤー" },
+    { word: "\u200Fعَمَلِيَّةُ التَّوْزِيع\u200F", meaning: "配送プロセス" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：社会学と都市化 (ID: 13254) ---
+{
+  id: 13254,
+  title: "中級：都市化と社会変化",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَحَضَّرَ / يَتَحَضَّرُ الْمُجْتَمَع\u200F", meaning: "社会が都市化する" },
+    { word: "\u200Fنُمُوٌّ دِيمُوغْرَافِيّ\u200F", meaning: "人口動態の成長" },
+    { word: "\u200Fتَهْجِيرٌ قَسْرِيّ\u200F", meaning: "強制移住" },
+    { word: "\u200Fحِرَاكٌ اجْتِمَاعِيّ\u200F", meaning: "社会的流動性" },
+    { word: "\u200Fبِيئَةٌ حَضَرِيَّة\u200F", meaning: "都市環境" },
+    { word: "\u200Fازْدَحَمَ / يَزْدَحِمُ بِالسُّكَّان\u200F", meaning: "住民で混雑する" },
+    { word: "\u200Fتَبَايُنٌ طَبَقِيّ\u200F", meaning: "階級間の格差" },
+    { word: "\u200Fبِنْيَةٌ مُتَهَالِكَة\u200F", meaning: "老朽化したインフラ" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：哲学と実存主義 (ID: 13255) ---
+{
+  id: 13255,
+  title: "中級：実存と自由の哲学",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fبَحَثَ / يَبْحَثُ فِي جَوْهَرِ الْوُجُود\u200F", meaning: "存在の本質を探求する" },
+    { word: "\u200Fمَسْؤُولِيَّةٌ فَرْدِيَّة\u200F", meaning: "個人の責任" },
+    { word: "\u200Fحُرِّيَّةُ الِاخْتِيَار\u200F", meaning: "選択の自由" },
+    { word: "\u200Fمَفْهُومُ الْعَبَث\u200F", meaning: "不条理の概念" },
+    { word: "\u200Fقَلَقٌ وُجُودِيّ\u200F", meaning: "実存的不安" },
+    { word: "\u200Fآمَنَ / يُؤْمِنُ بِالْقَدَر\u200F", meaning: "運命を信じる" },
+    { word: "\u200Fفَلْسَفَةٌ مُعَاصِرَة\u200F", meaning: "現代哲学" },
+    { word: "\u200Fإِرَادَةٌ حُرَّة\u200F", meaning: "自由意思" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：知的財産権 (ID: 13256) ---
+{
+  id: 13256,
+  title: "中級：著作権と知的財産",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fحَمَى / يَحْمِي حُقُوقَ النَّشْر\u200F", meaning: "著作権を保護する" },
+    { word: "\u200Fمِلْكِيَّةٌ فِكْرِيَّة\u200F", meaning: "知的財産権" },
+    { word: "\u200Fبَرَاءَةُ اخْتِرَاع\u200F", meaning: "特許権" },
+    { word: "\u200Fتَقْلِيدٌ غَيْرُ قَانُونِيّ\u200F", meaning: "違法な模倣（コピー）" },
+    { word: "\u200Fسَجَّلَ / يُسَجِّلُ الْعَلَامَةَ التِّجَارِيَّة\u200F", meaning: "商標を登録する" },
+    { word: "\u200Fانْتَهَكَ / يَنْتَهِكُ الْخُصُوصِيَّة\u200F", meaning: "プライバシーを侵害する" },
+    { word: "\u200Fقَانُونُ الْإِبْدَاع\u200F", meaning: "創造性に関する法律" },
+    { word: "\u200Fصِيَانَةُ الْحُقُوق\u200F", meaning: "権利の維持" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：情報セキュリティ（高度） (ID: 13257) ---
+{
+  id: 13257,
+  title: "中級：サイバー攻撃と防御",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاخْتَرَقَ / يَخْتَرِقُ الْجِدَارَ النَّارِيَّ\u200F", meaning: "ファイアウォールを突破する" },
+    { word: "\u200Fهُجُومٌ سِيْبِرَانِيّ\u200F", meaning: "サイバー攻撃" },
+    { word: "\u200Fتَشْفِيرُ الْبَيَانَات\u200F", meaning: "データの暗号化" },
+    { word: "\u200Fتَحَقَّقَ / يَتَحَقَّقُ مِنْ أَمْنِ النِّظَام\u200F", meaning: "システムの安全性を検証する" },
+    { word: "\u200Fفَيْرُوسٌ فَادِح\u200F", meaning: "深刻なウイルス" },
+    { word: "\u200Fبَرْمَجِيَّاتُ التَّجَسُّس\u200F", meaning: "スパイウェア" },
+    { word: "\u200Fثَغْرَةٌ أَمْنِيَّة\u200F", meaning: "セキュリティの脆弱性" },
+    { word: "\u200Fاسْتَعَادَ / يَسْتَعِيدُ النِّظَام\u200F", meaning: "システムを復旧させる" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：心理学とモチベーション (ID: 13258) ---
+{
+  id: 13258,
+  title: "中級：動機づけと成果",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fحَفَّزَ / يُحَفِّزُ الْأَفْرَاد\u200F", meaning: "個人を動機づける" },
+    { word: "\u200Fدَافِعٌ دَاخِلِيّ\u200F", meaning: "内発的動機" },
+    { word: "\u200Fحَقَّقَ / يُحَقِّقُ الْأَهْدَاف\u200F", meaning: "目標を達成する" },
+    { word: "\u200Fرِضًا مِهْنِيّ\u200F", meaning: "職業的満足" },
+    { word: "\u200Fشُعُورٌ بِالْإِنْجَاز\u200F", meaning: "達成感" },
+    { word: "\u200Fطُمُوحٌ بِلَا حُدُود\u200F", meaning: "無限の野心" },
+    { word: "\u200Fقَدَّرَ / يُقَدِّرُ الْجُهُود\u200F", meaning: "努力を評価する" },
+    { word: "\u200Fبِيئَةٌ إِيجَابِيَّة\u200F", meaning: "ポジティブな環境" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：環境とサステナビリティ (ID: 13259) ---
+{
+  id: 13259,
+  title: "中級：持続可能性への取り組み",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاسْتَدَامَ / يَسْتَدِيمُ النُّمُوّ\u200F", meaning: "成長を持続させる" },
+    { word: "\u200Fمَوَارِدُ مُتَجَدِّدَة\u200F", meaning: "再生可能資源" },
+    { word: "\u200Fحِمَايَةُ الْبِيئَة\u200F", meaning: "環境保護" },
+    { word: "\u200Fبَصْمَةٌ بِيئِيَّة\u200F", meaning: "エコロジカル・フットプリント" },
+    { word: "\u200Fقَلَّلَ / يُقَلِّلُ مِنَ النِّفَايَات\u200F", meaning: "廃棄物を削減する" },
+    { word: "\u200Fاحْتِرَامُ الطَّبِيعَة\u200F", meaning: "自然への尊重" },
+    { word: "\u200Fتَنْمِيَةٌ مُسْتَدَامَة\u200F", meaning: "持続可能な開発" },
+    { word: "\u200Fإِعَادَةُ تَدْوِير\u200F", meaning: "リサイクル" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：政治と主権 (ID: 13260) ---
+{
+  id: 13260,
+  title: "中級：国家の主権と統治",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fفَرَضَ / يَفْرِضُ السِّيَادَة\u200F", meaning: "主権を行使（賦課）する" },
+    { word: "\u200Fاسْتِقْلَالٌ سِيَاسِيّ\u200F", meaning: "政治的独立" },
+    { word: "\u200Fنِظَامُ الْحُكْم\u200F", meaning: "統治システム" },
+    { word: "\u200Fبَسَطَ / يَبْسُطُ النُّفُوذ\u200F", meaning: "影響力を広げる" },
+    { word: "\u200Fدُسْتُورُ الْبِلَاد\u200F", meaning: "国の憲法" },
+    { word: "\u200Fسِيَاسَةٌ خَارِجِيَّة\u200F", meaning: "外交政策" },
+    { word: "\u200Fانْتَمَى / يَنْتَمِي إِلَى الْوَطَن\u200F", meaning: "祖国に帰属する" },
+    { word: "\u200Fحُدُودٌ دُوَلِيَّة\u200F", meaning: "国際的な国境" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：歴史とルネサンス (ID: 13261) ---
+{
+  id: 13261,
+  title: "中級：文芸復興と歴史の転換",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fازْدَهَرَ / يَزْدَهِرُ الْعِلْم\u200F", meaning: "科学が繁栄する" },
+    { word: "\u200Fعَصْرُ النَّهْضَة\u200F", meaning: "ルネサンス（文芸復興時代）" },
+    { word: "\u200Fحَرَكَةٌ فِكْرِيَّة\u200F", meaning: "思想的運動" },
+    { word: "\u200Fتُرَاثٌ حَضَارِيّ\u200F", meaning: "文明遺産" },
+    { word: "\u200Fأَحْدَثَ / يُحْدِثُ تَغْيِيرًا\u200F", meaning: "変化をもたらす（起こす）" },
+    { word: "\u200Fإِحْيَاءُ الْفُنُون\u200F", meaning: "芸術の復活" },
+    { word: "\u200Fتَطَوُّرٌ تَارِيخِيّ\u200F", meaning: "歴史的発展" },
+    { word: "\u200Fنُقْطَةُ تَحَوُّل\u200F", meaning: "転換点" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：文学と修辞 (ID: 13262) ---
+{
+  id: 13262,
+  title: "中級：文学的形式と表現",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fنَظَمَ / يَنْظِمُ الشِّعْر\u200F", meaning: "詩を作る（詠む）" },
+    { word: "\u200Fقَافِيَةٌ مُوَحَّدَة\u200F", meaning: "統一された韻" },
+    { word: "\u200Fنَثْرٌ أَدَبِيّ\u200F", meaning: "文学的散文" },
+    { word: "\u200Fاسْتَعَارَ / يَسْتَعِيرُ اللَّفْظ\u200F", meaning: "言葉を比喩的に使う（借りる）" },
+    { word: "\u200Fرِوَايَةٌ خَيَالِيَّة\u200F", meaning: "空想小説（フィクション）" },
+    { word: "\u200Fبَلَاغَةُ الْكَاتِب\u200F", meaning: "作家の修辞的巧みさ" },
+    { word: "\u200Fنَقْدٌ بَنَّاء\u200F", meaning: "建設的な批評" },
+    { word: "\u200Fمَعْنًى عَمِيق\u200F", meaning: "深い意味" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：経済指標（高度） (ID: 13263) ---
+{
+  id: 13263,
+  title: "中級：成長とインフレの動向",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fارْتَفَعَ / يَرْتَفِعُ مُعَدَّلُ التَّضَخُّم\u200F", meaning: "インフレ率が上昇する" },
+    { word: "\u200Fنُمُوٌّ اقْتِصَادِيٌّ سَرِيع\u200F", meaning: "急速な経済成長" },
+    { word: "\u200Fقُوَّةٌ شِرَائِيَّة\u200F", meaning: "購買力" },
+    { word: "\u200Fتَحَسَّنَ / يَتَحَسَّنُ السُّوق\u200F", meaning: "市場が改善する" },
+    { word: "\u200Fإِجْمَالِيُّ النَّاتِجِ الْمَحَلِّيّ\u200F", meaning: "国内総生産 (GDP)" },
+    { word: "\u200Fسِيَاسَةٌ مَالِيَّة\u200F", meaning: "財政政策" },
+    { word: "\u200Fرُكُودٌ عَالَمِيّ\u200F", meaning: "世界的な不況（リセッション）" },
+    { word: "\u200Fتَوْزِيعُ الثَّرْوَة\u200F", meaning: "富の再分配" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：高度なコミュニケーション (ID: 13264) ---
+{
+  id: 13264,
+  title: "中級：対話と説得の技術",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fأَقْنَعَ / يُقْنِعُ بِالْحُجَّة\u200F", meaning: "論拠を持って説得する" },
+    { word: "\u200Fحِوَارٌ هَادِف\u200F", meaning: "目的のある対話" },
+    { word: "\u200Fلُغَةُ الْجَسَد\u200F", meaning: "ボディランゲージ" },
+    { word: "\u200Fتَبَادَلَ / يَتَبَادَلُ الْآرَاء\u200F", meaning: "意見を交換する" },
+    { word: "\u200Fإِقْنَاعٌ مَنْطِقِيّ\u200F", meaning: "論理的な説得" },
+    { word: "\u200Fنَبْرَةُ الصَّوْت\u200F", meaning: "声のトーン" },
+    { word: "\u200Fتَوَاصَلَ / يَتَوَاصَلُ بِفَعَالِيَّة\u200F", meaning: "効果的にコミュニケーションをとる" },
+    { word: "\u200Fمَهَارَاتُ التَّفَاوُض\u200F", meaning: "交渉スキル" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：科学的検証と事実 (ID: 13265) ---
+{
+  id: 13265,
+  title: "中級：科学的真理の探求",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fبَرْهَنَ / يُبَرْهِنُ بِالدَّلِيل\u200F", meaning: "証拠を持って証明する" },
+    { word: "\u200Fفَرَضِيَّةٌ مَنْطِقِيَّة\u200F", meaning: "論理的な仮説" },
+    { word: "\u200Fدَقَّقَ / يُدَقِّقُ فِي الْبَيَانَات\u200F", meaning: "データを精査する" },
+    { word: "\u200Fحَقِيقَةٌ عِلْمِيَّة\u200F", meaning: "科学的事実" },
+    { word: "\u200Fتَوَصَّلَ / يَتَوَصَّلُ إِلَى نَتِيجَة\u200F", meaning: "結果（結論）に到達する" },
+    { word: "\u200Fمَنْهَجٌ تَجْرِيبِيّ\u200F", meaning: "実験的手法" },
+    { word: "\u200Fمَوْضُوعِيَّةٌ تَامَّة\u200F", meaning: "完全な客観性" },
+    { word: "\u200Fفَحَصَ / يَفْحَصُ الْعَيِّنَة\u200F", meaning: "サンプルを検査する" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：文化的多様性 (ID: 13266) ---
+{
+  id: 13266,
+  title: "中級：多文化社会と尊重",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاحْتَرَمَ / يَحْتَرِمُ التَّعَدُّدِيَّة\u200F", meaning: "多様性（多元主義）を尊重する" },
+    { word: "\u200Fتَبَادُلٌ ثَقَافِيّ\u200F", meaning: "文化交流" },
+    { word: "\u200Fهُوِيَّةٌ جَمَاعِيَّة\u200F", meaning: "集団的アイデンティティ" },
+    { word: "\u200Fتَعَايُشٌ سِلْمِيّ\u200F", meaning: "平和的共存" },
+    { word: "\u200Fانْدَمَجَ / يَنْدَمِجُ فِي الْمُجْتَمَع\u200F", meaning: "社会に溶け込む（統合される）" },
+    { word: "\u200Fتَقَالِيدُ مُتَنَوِّعَة\u200F", meaning: "多様な伝統" },
+    { word: "\u200Fقَبُولُ الْآخَر\u200F", meaning: "他者の受容" },
+    { word: "\u200Fحِوَارُ الْأَدْيَان\u200F", meaning: "宗教間対話" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：起業とビジネス革新 (ID: 13267) ---
+{
+  id: 13267,
+  title: "中級：起業家精神と革新",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fأَسَّسَ / يُؤَسِّسُ شَرِكَة\u200F", meaning: "会社を設立する" },
+    { word: "\u200Fرِيَادَةُ الْأَعْمَال\u200F", meaning: "起業家精神" },
+    { word: "\u200Fابْتَكَرَ / يَبْتَكِرُ حُلُولًا\u200F", meaning: "解決策を革新（考案）する" },
+    { word: "\u200Fخَاطَرَ / يُخَاطِرُ بِرَأْسِ الْمَال\u200F", meaning: "資本をリスクにさらす" },
+    { word: "\u200Fدِرَاسَةُ جَدْوَى\u200F", meaning: "実現可能性調査（フィジビリティスタディ）" },
+    { word: "\u200Fتَنَافُسِيَّةُ السُّوق\u200F", meaning: "市場の競争力" },
+    { word: "\u200Fجَذَبَ / يَجْذِبُ الْمُسْتَثْمِرِين\u200F", meaning: "投資家を惹きつける" },
+    { word: "\u200Fرُؤْيَةٌ مُسْتَقْبَلِيَّة\u200F", meaning: "未来のビジョン" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：社会正義と平等 (ID: 13268) ---
+{
+  id: 13268,
+  title: "中級：社会的な公平さ",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fسَعَى / يَسْعَى إِلَى الْمُسَاوَاة\u200F", meaning: "平等を追求する" },
+    { word: "\u200Fعَدَالَةٌ اجْتِمَاعِيَّة\u200F", meaning: "社会正義" },
+    { word: "\u200Fتَكَافُؤُ الْفُرَص\u200F", meaning: "機会の平等" },
+    { word: "\u200Fنَاضَلَ / يُنَاضِلُ ضِدَّ الظُّلْم\u200F", meaning: "不正と闘う" },
+    { word: "\u200Fحُقُوقٌ مَشْرُوعَة\u200F", meaning: "正当な権利" },
+    { word: "\u200Fدَعَمَ / يَدْعَمُ الْفُقَرَاء\u200F", meaning: "貧困層を支援する" },
+    { word: "\u200Fكَرَامَةٌ إِنْسَانِيَّة\u200F", meaning: "人間の尊厳" },
+    { word: "\u200Fإِصْلَاحٌ تَقَدُّمِيّ\u200F", meaning: "進歩的な改革" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：人工知能の発展 (ID: 13269) ---
+{
+  id: 13269,
+  title: "中級：AI技術の進化",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fطَوَّرَ / يُطَوِّرُ خَوَارِزْمِيَّة\u200F", meaning: "アルゴリズムを開発する" },
+    { word: "\u200Fذَكَاءٌ اصْطِنَاعِيٌّ تَوْلِيدِيّ\u200F", meaning: "生成AI" },
+    { word: "\u200Fتَعَلُّمٌ عَمِيق\u200F", meaning: "ディープラーニング" },
+    { word: "\u200Fأَحْدَثَ / يُحْدِثُ نَقْلَةً نَوْعِيَّة\u200F", meaning: "劇的な転換（パラダイムシフト）をもたらす" },
+    { word: "\u200Fرُوبُوتٌ مُتَقَدِّم\u200F", meaning: "高度なロボット" },
+    { word: "\u200Fتَحْلِيلُ بَيَانَاتٍ ضَخْمَة\u200F", meaning: "ビッグデータの分析" },
+    { word: "\u200Fأَتْمَتَةُ الْمَهَام\u200F", meaning: "タスクの自動化" },
+    { word: "\u200Fمُحَاكَاةُ الْعَقْل\u200F", meaning: "脳のシミュレーション" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：メンタルヘルスと健康 (ID: 13270) ---
+{
+  id: 13270,
+  title: "中級：精神的なウェルネス",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fحَافَظَ / يُحَافِظُ عَلَى الصِّحَّة\u200F", meaning: "健康を維持する" },
+    { word: "\u200Fرَاحَةٌ نَفْسِيَّة\u200F", meaning: "精神的な安らぎ" },
+    { word: "\u200Fتَوَازُنٌ عاطِفِيّ\u200F", meaning: "感情のバランス" },
+    { word: "\u200Fتَخَلَّصَ / يَتَخَلَّصُ مِنَ التَّوَتُّر\u200F", meaning: "ストレスを取り除く" },
+    { word: "\u200Fدَعْمٌ مَعْنَوِيّ\u200F", meaning: "精神的（士気）な支援" },
+    { word: "\u200Fتَغَلَّبَ / يَتَغَلَّبُ عَلَى الْيَأْس\u200F", meaning: "絶望を克服する" },
+    { word: "\u200Fإِيجَابِيَّةٌ حَيَاتِيَّة\u200F", meaning: "人生におけるポジティブさ" },
+    { word: "\u200Fعِلَاجٌ سُلُوكِيّ\u200F", meaning: "行動療法" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：外交仲裁 (ID: 13271) ---
+{
+  id: 13271,
+  title: "中級：外交による仲裁",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَوَسَّطَ / يَتَوَسَّطُ بَيْنَ الطَّرَفَيْن\u200F", meaning: "二者間を仲裁する" },
+    { word: "\u200Fتَسْوِيَةٌ سِيَاسِيَّة\u200F", meaning: "政治的和解（解決）" },
+    { word: "\u200Fتَقْرِيبُ وُجْهَاتِ النَّظَر\u200F", meaning: "見解の歩み寄り" },
+    { word: "\u200Fمُفَاوَضَاتٌ مَارَاثُونِيَّة\u200F", meaning: "長時間の交渉" },
+    { word: "\u200Fهَدْنَةٌ دَائِمَة\u200F", meaning: "恒久的な休戦" },
+    { word: "\u200Fاحْتَرَمَ / يَحْتَرِمُ السِّيَادَة\u200F", meaning: "主権を尊重する" },
+    { word: "\u200Fاتِّفَاقٌ ثُنَائِيّ\u200F", meaning: "二国間合意" },
+    { word: "\u200Fبِنَاءُ السَّلَام\u200F", meaning: "平和構築" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：芸術と美学 (ID: 13272) ---
+{
+  id: 13272,
+  title: "中級：美の基準と感性",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَأَمَّلَ / يَتَأَمَّلُ الْجَمَال\u200F", meaning: "美を熟考（観賞）する" },
+    { word: "\u200Fذَوْقٌ فَنِّيّ\u200F", meaning: "芸術的センス" },
+    { word: "\u200Fمَعَايِيرُ جَمَالِيَّة\u200F", meaning: "美的基準" },
+    { word: "\u200Fجَسَّدَ / يُجَسِّدُ الْمَعْنَى\u200F", meaning: "意味を具現化する" },
+    { word: "\u200Fإِلْهَامٌ مُبْدِع\u200F", meaning: "創造的なインスピレーション" },
+    { word: "\u200Fتَعْبِيرٌ بَصَرِيّ\u200F", meaning: "視覚的表現" },
+    { word: "\u200Fقَدَّرَ / يُقَدِّرُ الْإِبْدَاع\u200F", meaning: "創造性を評価する" },
+    { word: "\u200Fتَحْفَةٌ فَنِّيَّة\u200F", meaning: "芸術的傑作" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：翻訳と意味 (ID: 13273) ---
+{
+  id: 13273,
+  title: "中級：翻訳の深さと正確さ",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fنَقَلَ / يَنْقُلُ الْمَعْنَى\u200F", meaning: "意味を伝える（移す）" },
+    { word: "\u200Fتَرْجَمَةٌ فَوْرِيَّة\u200F", meaning: "同時通訳" },
+    { word: "\u200Fأَمَانَةٌ لُغَوِيَّة\u200F", meaning: "言語的忠実さ" },
+    { word: "\u200Fسِيَاقُ الْكَلَام\u200F", meaning: "文脈" },
+    { word: "\u200Fدَلَالَةٌ لَفْظِيَّة\u200F", meaning: "言葉の含意" },
+    { word: "\u200Fفَسَّرَ / يُفَسِّرُ بِدِقَّة\u200F", meaning: "正確に解釈する" },
+    { word: "\u200Fمُصْطَلَحٌ تَقْنِيّ\u200F", meaning: "専門用語" },
+    { word: "\u200Fلُغَةُ الْأُمّ\u200F", meaning: "母国語" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：インフラとエネルギー (ID: 13274) ---
+{
+  id: 13274,
+  title: "中級：社会基盤と電力",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fوَلَّدَ / يُوَلِّدُ الطَّاقَة\u200F", meaning: "エネルギーを生成（発電）する" },
+    { word: "\u200Fشَبَكَةٌ كَهْرُبَائِيَّة\u200F", meaning: "電力網" },
+    { word: "\u200Fاسْتَهْلَكَ / يَسْتَهْلِكُ الْوَقُود\u200F", meaning: "燃料を消費する" },
+    { word: "\u200Fبِنْيَةٌ تَحْتِيَّةٌ صَلْبَة\u200F", meaning: "強固なインフラ" },
+    { word: "\u200Fمَصَادِرُ بَدِيلَة\u200F", meaning: "代替資源" },
+    { word: "\u200Fصِيَانَةٌ دَوْرِيَّة\u200F", meaning: "定期メンテナンス" },
+    { word: "\u200Fخِدْمَاتٌ عَامَّة\u200F", meaning: "公共サービス" },
+    { word: "\u200Fإِمْدَادَاتُ الطَّاقَة\u200F", meaning: "エネルギー供給" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：社会の統合 (ID: 13275) ---
+{
+  id: 13275,
+  title: "中級：社会への溶け込み",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fانْدَمَجَ / يَنْدَمِجُ كُلِّيًّا\u200F", meaning: "完全に溶け込む（統合される）" },
+    { word: "\u200Fتَعَايُشٌ سِلْمِيّ\u200F", meaning: "平和的共存" },
+    { word: "\u200Fاحْتَرَمَ / يَحْتَرِمُ الْقِيَم\u200F", meaning: "価値観を尊重する" },
+    { word: "\u200Fهُوِيَّةٌ وَطَنِيَّة\u200F", meaning: "国家的アイデンティティ" },
+    { word: "\u200Fتَفَاعَلَ / يَتَفَاعَلُ مَعَ الْجِيرَان\u200F", meaning: "近隣住民と交流する" },
+    { word: "\u200Fتَقَبَّلَ / يَتَقَبَّلُ الِاخْتِلَاف\u200F", meaning: "違いを受け入れる" },
+    { word: "\u200Fمُجْتَمَعٌ مُتَمَاسِك\u200F", meaning: "結束した社会" },
+    { word: "\u200Fمُوَاطَنَةٌ نَشِطَة\u200F", meaning: "活発な市民権（活動）" }
+  ],
+  questions: [],
+  sentences: []
+},
+// --- 中級：公衆衛生と疫学 (ID: 13276) ---
+{
+  id: 13276,
+  title: "中級：感染症対策と衛生",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَصَدَّى / يَتَصَدَّى لِلْوَبَاء\u200F", meaning: "流行病に対抗する（食い止める）" },
+    { word: "\u200Fتَفَشِّي الْمَرَض\u200F", meaning: "病気の蔓延（アウトブレイク）" },
+    { word: "\u200Fإِجْرَاءَاتٌ وِقَائِيَّة\u200F", meaning: "予防的措置" },
+    { word: "\u200Fحَجْرٌ صِحِّيّ\u200F", meaning: "検疫・隔離" },
+    { word: "\u200Fمُعَدَّلُ الْإِصَابَة\u200F", meaning: "感染率" },
+    { word: "\u200Fنَشَرَ / يَنْشُرُ الْوَعْيَ الصِّحِّيَّ\u200F", meaning: "衛生意識を広める" },
+    { word: "\u200Fمَرْكَزُ السَّيْطَرَة\u200F", meaning: "管理・防衛センター" },
+    { word: "\u200Fعَقَّمَ / يُعَقِّمُ الْأَدَوَات\u200F", meaning: "器具を消毒（滅菌）する" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：宇宙探査の未来 (ID: 13277) ---
+{
+  id: 13277,
+  title: "中級：深宇宙への探査",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاسْتَكْشَفَ / يَسْتَكْشِفُ الْكَوَاكِب\u200F", meaning: "惑星を探索する" },
+    { word: "\u200Fرِحْلَةٌ مَأْهُولَة\u200F", meaning: "有人飛行" },
+    { word: "\u200Fمِسْبَارٌ فَضَائِيّ\u200F", meaning: "宇宙探査機" },
+    { word: "\u200Fاسْتِعْمَارُ الْمِرِّيخ\u200F", meaning: "火星の植民（移住）" },
+    { word: "\u200Fجَاذِبِيَّةٌ اصْطِنَاعِيَّة\u200F", meaning: "人工重力" },
+    { word: "\u200Fبَحَثَ / يَبْحَثُ عَنْ حَيَاة\u200F", meaning: "生命を探索する" },
+    { word: "\u200Fقَاعِدَةٌ قَمَرِيَّة\u200F", meaning: "月面基地" },
+    { word: "\u200Fتَقَدُّمٌ عِلْمِيٌّ هَائِل\u200F", meaning: "莫大な科学的進歩" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：司法制度と権利 (ID: 13278) ---
+{
+  id: 13278,
+  title: "中級：司法の独立と法的権利",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fضَمِنَ / يَضْمَنُ الْحُقُوق\u200F", meaning: "権利を保障する" },
+    { word: "\u200Fاسْتِقْلَالُ الْقَضَاء\u200F", meaning: "司法の独立" },
+    { word: "\u200Fمُحَاكَمَةٌ عَادِلَة\u200F", meaning: "公正な裁判" },
+    { word: "\u200Fنَقَضَ / يَنْقُضُ الْحُكْم\u200F", meaning: "判決を破棄（取り消し）する" },
+    { word: "\u200Fمَسْؤُولِيَّةٌ جِنَائِيَّة\u200F", meaning: "刑事責任" },
+    { word: "\u200Fحَقُّ الِاسْتِئْنَاف\u200F", meaning: "控訴権" },
+    { word: "\u200Fأَدِلَّةٌ دَامِغَة\u200F", meaning: "決定的な証拠" },
+    { word: "\u200Fتَشْرِيعٌ جَدِيد\u200F", meaning: "新しい立法" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：心理学と社会行動 (ID: 13279) ---
+{
+  id: 13279,
+  title: "中級：群衆心理と個人の行動",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَأَثَّرَ / يَتَأَثَّرُ بِرَأْيِ الْأَغْلَبِيَّة\u200F", meaning: "多数派の意見に影響される" },
+    { word: "\u200Fضَغْطُ الْأَقْرَان\u200F", meaning: "同調圧力" },
+    { word: "\u200Fعِلْمُ نَفْسِ الْجَمَاهِير\u200F", meaning: "群衆心理学" },
+    { word: "\u200Fانْتَمَى / يَنْتَمِي إِلَى فِئَة\u200F", meaning: "あるグループ（部類）に属する" },
+    { word: "\u200Fتَقْلِيدٌ أَعْمَى\u200F", meaning: "盲目的な模倣" },
+    { word: "\u200Fسُلُوكٌ عَدْوَائِيّ\u200F", meaning: "攻撃的な行動" },
+    { word: "\u200Fتَفَاعُلٌ اجْتِمَاعِيّ\u200F", meaning: "社会的相互作用" },
+    { word: "\u200Fصُورَةٌ نَمَطِيَّة\u200F", meaning: "ステレオタイプ（固定観念）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：イノベーションと知財 (ID: 13280) ---
+{
+  id: 13280,
+  title: "中級：イノベーションの保護",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fابْتَكَرَ / يَبْتَكِرُ تِقْنِيَّةً رَائِدَة\u200F", meaning: "先駆的な技術を革新（開発）する" },
+    { word: "\u200Fحُقُوقُ الْمِلْكِيَّة\u200F", meaning: "所有権（知財権）" },
+    { word: "\u200Fبَرَاءَةُ اخْتِرَاع\u200F", meaning: "特許" },
+    { word: "\u200Fاسْتَثْمَرَ / يَسْتَثْمِرُ فِي الْبَحْث\u200F", meaning: "研究に投資する" },
+    { word: "\u200Fنَقْلُ التِّكْنُولُوجِيَا\u200F", meaning: "技術移転" },
+    { word: "\u200Fسِرٌّ تِجَارِيّ\u200F", meaning: "営業秘密" },
+    { word: "\u200Fمُنَافَسَةٌ عَالَمِيَّة\u200F", meaning: "世界的な競争" },
+    { word: "\u200Fنَمُوذَجٌ أَوَّلِيّ\u200F", meaning: "プロトタイプ（試作品）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：都市開発とエコロジー (ID: 13281) ---
+{
+  id: 13281,
+  title: "中級：持続可能な都市計画",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fخَطَّطَ / يُخَطِّطُ لِمَدِينَةٍ خَضْرَاء\u200F", meaning: "緑の都市を計画する" },
+    { word: "\u200Fمَسَاحَاتٌ صَدِيقَةٌ لِلْبِيئَة\u200F", meaning: "環境に優しいスペース" },
+    { word: "\u200Fإِدَارَةُ النِّفَايَات\u200F", meaning: "廃棄物管理" },
+    { word: "\u200Fنَقْلٌ مُسْتَدَام\u200F", meaning: "持続可能な輸送" },
+    { word: "\u200Fحَافَظَ / يُحَافِظُ عَلَى الْمَوَارِد\u200F", meaning: "資源を保存する" },
+    { word: "\u200Fهَنْدَسَةٌ مِعْمَارِيَّة\u200F", meaning: "建築学（エンジニアリング）" },
+    { word: "\u200Fتَقْلِيلُ الِاسْتِهْلَاك\u200F", meaning: "消費の削減" },
+    { word: "\u200Fجَوْدَةُ الْحَيَاة\u200F", meaning: "生活の質（QOL）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：メディアの倫理性 (ID: 13282) ---
+{
+  id: 13282,
+  title: "中級：ジャーナリズムの責任",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fنَقَلَ / يَنْقُلُ الْخَبَرَ بِنَزَاهَة\u200F", meaning: "誠実にニュースを伝える" },
+    { word: "\u200Fأَخْلَاقِيَّاتُ النَّشْر\u200F", meaning: "出版・報道の倫理" },
+    { word: "\u200Fتَحَرِّي الدِّقَّة\u200F", meaning: "正確さの追求" },
+    { word: "\u200Fمَصْدَرٌ مَوْثُوق\u200F", meaning: "信頼できる情報源" },
+    { word: "\u200Fتَحَيُّزٌ سِيَاسِيّ\u200F", meaning: "政治的偏向" },
+    { word: "\u200Fشَفَافِيَّةُ الصَّحَافَة\u200F", meaning: "報道の透明性" },
+    { word: "\u200Fحَقُّ الرَّدّ\u200F", meaning: "反論権" },
+    { word: "\u200Fتَشْوِيهُ الْحَقَائِق\u200F", meaning: "事実の歪曲" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：教育技術（EdTech） (ID: 13283) ---
+{
+  id: 13283,
+  title: "中級：教育のデジタル化",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَعَلَّمَ / يَتَعَلَّمُ عَنْ بُعْد\u200F", meaning: "遠隔で学習する" },
+    { word: "\u200Fمِنَصَّةٌ تَعْلِيمِيَّة\u200F", meaning: "教育プラットフォーム" },
+    { word: "\u200Fتَفَاعُلٌ رَقْمِيّ\u200F", meaning: "デジタルな相互作用" },
+    { word: "\u200Fمُحْتَوًى تَعْلِيمِيّ\u200F", meaning: "教育コンテンツ" },
+    { word: "\u200Fطَوَّرَ / يُطَوِّرُ مَهَارَاتِه\u200F", meaning: "スキルを開発（向上）させる" },
+    { word: "\u200Fشَهَادَةٌ إِلِكْتُرُونِيَّة\u200F", meaning: "電子証明書（学位）" },
+    { word: "\u200Fتَقْنِيَّةُ الْفُصُول\u200F", meaning: "教室の技術（クラスルーム・テック）" },
+    { word: "\u200Fدَوْرَةٌ تَدْرِيبِيَّة\u200F", meaning: "トレーニングコース" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：金融市場とリスク (ID: 13284) ---
+{
+  id: 13284,
+  title: "中級：市場の不確実性と投資",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fخَاطَرَ / يُخَاطِرُ بِالِاسْتِثْمَار\u200F", meaning: "投資でリスクを冒す" },
+    { word: "\u200Fتَقَلُّبُ السُّوق\u200F", meaning: "市場の変動" },
+    { word: "\u200Fرَأْسُ مَالٍ مُتَاح\u200F", meaning: "利用可能な資本" },
+    { word: "\u200Fإِدَارَةُ الْمَخَاطِر\u200F", meaning: "リスク管理" },
+    { word: "\u200Fتَضَخُّمٌ مَالِيّ\u200F", meaning: "インフレーション" },
+    { word: "\u200Fارْتَفَعَ / يَرْتَفِعُ سِعْرُ الْفَائِدَة\u200F", meaning: "金利が上昇する" },
+    { word: "\u200Fمَحْفَظَةٌ مَالِيَّة\u200F", meaning: "ポートフォリオ（金融資産）" },
+    { word: "\u200Fأَزْمَةٌ سُيُولَة\u200F", meaning: "流動性危機" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：人権とアドボカシー (ID: 13285) ---
+{
+  id: 13285,
+  title: "中級：人権擁護と活動",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fدَافَعَ / يُدَافِعُ عَنِ الْمَظْلُومِين\u200F", meaning: "虐げられた人々を擁護する" },
+    { word: "\u200Fحَمْلَةٌ حُقُوقِيَّة\u200F", meaning: "人権キャンペーン" },
+    { word: "\u200Fالْعَدَالَةُ الِاجْتِمَاعِيَّة\u200F", meaning: "社会正義" },
+    { word: "\u200Fتَمْيِيزٌ عُنْصُرِيّ\u200F", meaning: "人種差別" },
+    { word: "\u200Fنَاشِطٌ مَدَنِيّ\u200F", meaning: "市民活動家" },
+    { word: "\u200Fتَعَرَّضَ / يَتَعَرَّضُ لِلِاضْطِهَاد\u200F", meaning: "迫害を受ける" },
+    { word: "\u200Fكَرَامَةٌ مَصُونَة\u200F", meaning: "守られた尊厳" },
+    { word: "\u200Fمُنَظَّمَةٌ عَالَمِيَّة\u200F", meaning: "国際組織" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：文学批評 (ID: 13286) ---
+{
+  id: 13286,
+  title: "中級：文学作品の分析",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fحَلَّلَ / يُحَلِّلُ الرِّوَايَة\u200F", meaning: "小説を分析する" },
+    { word: "\u200Fنَقْدٌ أَدَبِيّ\u200F", meaning: "文芸批評" },
+    { word: "\u200Fرَمْزِيَّةٌ عَمِيقَة\u200F", meaning: "深い象徴性" },
+    { word: "\u200Fتَجْسِيدُ الشَّخْصِيَّة\u200F", meaning: "キャラクターの具現化（描写）" },
+    { word: "\u200Fأُسْلُوبٌ سَرْدِيّ\u200F", meaning: "叙述（語り）のスタイル" },
+    { word: "\u200Fرَوَى / يَرْوِي الْأَحْدَاث\u200F", meaning: "出来事を語る" },
+    { word: "\u200Fبَلَاغَةُ اللُّغَة\u200F", meaning: "言語の修辞（雄弁さ）" },
+    { word: "\u200Fإِبْدَاعٌ فِكْرِيّ\u200F", meaning: "思想的創造性" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：生物学とバイオエシックス (ID: 13287) ---
+{
+  id: 13287,
+  title: "中級：生命科学と倫理",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fهَنْدَسَ / يُهَنْدِسُ جِينِيًّا\u200F", meaning: "遺伝子工学を行う" },
+    { word: "\u200Fأَخْلَاقِيَّاتُ الْبِيُولُوجِيَا\u200F", meaning: "生命倫理（バイオエシックス）" },
+    { word: "\u200Fتَعْدِيلٌ وِرَاثِيّ\u200F", meaning: "遺伝子組み換え" },
+    { word: "\u200Fتَجَارِبُ مِخْبَرِيَّة\u200F", meaning: "実験室でのテスト" },
+    { word: "\u200Fاحْتَرَمَ / يَحْتَرِمُ الطَّبِيعَة\u200F", meaning: "自然を尊重する" },
+    { word: "\u200Fخَلَايَا جِذْعِيَّة\u200F", meaning: "幹細胞" },
+    { word: "\u200Fتَنَوُّعٌ أَحْيَائِيّ\u200F", meaning: "生物多様性" },
+    { word: "\u200Fنِظَامٌ بِيئِيّ\u200F", meaning: "エコシステム" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：国際外交 (ID: 13288) ---
+{
+  id: 13288,
+  title: "中級：外交交渉と儀礼",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَفَاوَضَ / يَتَفَاوَضُ مَعَ السَّفِير\u200F", meaning: "大使と交渉する" },
+    { word: "\u200Fبَعْثَةٌ دِبْلُومَاسِيَّة\u200F", meaning: "外交使節団" },
+    { word: "\u200Fبُرُوتُوكُولٌ رَسْمِيّ\u200F", meaning: "公式プロトコル（儀礼）" },
+    { word: "\u200Fقِمَّةٌ ثُنَائِيَّة\u200F", meaning: "二国間首脳会談" },
+    { word: "\u200Fوَقَّعَ / يُوَقِّعُ الِاتِّفَاق\u200F", meaning: "合意に署名する" },
+    { word: "\u200Fتَبَادُلٌ دِبْلُومَاسِيّ\u200F", meaning: "外交交換" },
+    { word: "\u200Fتَسْوِيَةٌ سِيَاسِيَّة\u200F", meaning: "政治的解決" },
+    { word: "\u200Fسِيَادَةُ الدَّوْلَة\u200F", meaning: "国家の主権" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：キャリアとソフトスキル (ID: 13289) ---
+{
+  id: 13289,
+  title: "中級：職場で必要なスキル",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَوَاصَلَ / يَتَوَاصَلُ بِمَهَارَة\u200F", meaning: "巧みにコミュニケーションをとる" },
+    { word: "\u200Fمَهَارَاتٌ نَاعِمَة\u200F", meaning: "ソフトスキル" },
+    { word: "\u200Fذَكَاءٌ عاطِفِيّ\u200F", meaning: "心の知能指数（EQ）" },
+    { word: "\u200Fحَلُّ النِّزَاعَات\u200F", meaning: "紛争解決" },
+    { word: "\u200Fعَمَلٌ جَمَاعِيّ\u200F", meaning: "チームワーク" },
+    { word: "\u200Fأَدَارَ / يُدِيرُ الْوَقْت\u200F", meaning: "時間を管理する" },
+    { word: "\u200Fإِقْنَاعٌ فَعَّال\u200F", meaning: "効果的な説得" },
+    { word: "\u200Fتَفْوِيضُ الْمَهَام\u200F", meaning: "タスクの委譲" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：AIと倫理 (ID: 13290) ---
+{
+  id: 13290,
+  title: "中級：人工知能の社会的課題",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَحَمَّلَ / يَتَحَمَّلُ مَسْؤُولِيَّةَ الآلَة\u200F", meaning: "機械の責任を負う" },
+    { word: "\u200Fأَخْلَاقِيَّاتُ الذَّكَاء\u200F", meaning: "AI倫理" },
+    { word: "\u200Fخَوَارِزْمِيَّةٌ مُتَحَيِّزَة\u200F", meaning: "偏ったアルゴリズム" },
+    { word: "\u200Fخُصُوصِيَّةُ الْمُسْتَخْدِم\u200F", meaning: "ユーザーのプライバシー" },
+    { word: "\u200Fتَقْنِيَّةُ التَّعَرُّف\u200F", meaning: "認識技術（顔認識など）" },
+    { word: "\u200Fأَتْمَتَةٌ شَامِلَة\u200F", meaning: "包括的な自動化" },
+    { word: "\u200Fثِقَةٌ رَقْمِيَّة\u200F", meaning: "デジタルの信頼" },
+    { word: "\u200Fمُسْتَقْبَلُ الْعَمَل\u200F", meaning: "仕事の未来" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：環境レジリエンス (ID: 13291) ---
+{
+  id: 13291,
+  title: "中級：環境変化への適応力",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَأَقْلَمَ / يَتَأَقْلَمُ مَعَ الظُّروف\u200F", meaning: "状況に順応する" },
+    { word: "\u200Fمُرُونةٌ بِيئِيَّة\u200F", meaning: "環境レジリエンス（回復力）" },
+    { word: "\u200Fكَارِثَةٌ طَبِيعِيَّة\u200F", meaning: "自然災害" },
+    { word: "\u200Fاسْتَعَدَّ / يَسْتَعِدُّ لِلطَّوَارِئ\u200F", meaning: "緊急事態に備える" },
+    { word: "\u200Fنِظَامُ إِنْذَار\u200F", meaning: "警報システム" },
+    { word: "\u200Fتَقْلِيلُ الْأَضْرَار\u200F", meaning: "被害の軽減" },
+    { word: "\u200Fإِعَادَةُ الْبِنَاء\u200F", meaning: "再建" },
+    { word: "\u200Fتَضَامُنٌ مُجْتَمَعِيّ\u200F", meaning: "コミュニティの連帯" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：論理学と哲学 (ID: 13292) ---
+{
+  id: 13292,
+  title: "中級：論理の法則と哲学",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fبَحَثَ / يَبْحَثُ فِي الْمَنْطِق\u200F", meaning: "論理を探究する" },
+    { word: "\u200Fفَلْسَفَةٌ تَحْلِيلِيَّة\u200F", meaning: "分析哲学" },
+    { word: "\u200Fمَبْدَأُ التَّنَاقُض\u200F", meaning: "矛盾の原則" },
+    { word: "\u200Fاسْتِدْلَالٌ عَقْلِيّ\u200F", meaning: "理性的推論" },
+    { word: "\u200Fنَظَرِيَّةُ الْمَعْرِفَة\u200F", meaning: "認識論" },
+    { word: "\u200Fآمَنَ / يُؤْمِنُ بِالْوَعْي\u200F", meaning: "意識（の存在）を信じる" },
+    { word: "\u200Fجَوْهَرُ الشَّيْء\u200F", meaning: "物の本質" },
+    { word: "\u200Fحَقِيقَةٌ مَوْضُوعِيَّة\u200F", meaning: "客観的真理" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：インフラとスマートシティ (ID: 13293) ---
+{
+  id: 13293,
+  title: "中級：高度化する都市インフラ",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fشَيَّدَ / يُشَيِّدُ مَدِينَةً ذَكِيَّة\u200F", meaning: "スマートシティを建設する" },
+    { word: "\u200Fبِنْيَةٌ تَحْتِيَّةٌ مُتَطَوِّرَة\u200F", meaning: "高度なインフラ" },
+    { word: "\u200Fشَبَكَةٌ رَقْمِيَّة\u200F", meaning: "デジタルネットワーク" },
+    { word: "\u200Fإِشَارَةٌ مُرُورِيَّة\u200F", meaning: "交通信号" },
+    { word: "\u200Fطَاقَةٌ كَهْرُومَائِيَّة\u200F", meaning: "水力発電" },
+    { word: "\u200Fخِدْمَاتٌ سَرِيعَة\u200F", meaning: "迅速なサービス" },
+    { word: "\u200Fرَبَطَ / يَرْبِطُ الْمَرَافِق\u200F", meaning: "施設を連結する" },
+    { word: "\u200Fتَخْطِيطٌ بِيئِيّ\u200F", meaning: "環境計画" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：文化的統合 (ID: 13294) ---
+{
+  id: 13294,
+  title: "中級：グローバル社会の文化統合",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fانْدَمَجَ / يَنْدَمِجُ فِي الثَّقَافَة\u200F", meaning: "文化に溶け込む（統合する）" },
+    { word: "\u200Fتَعَدُّدِيَّةٌ فِكْرِيَّة\u200F", meaning: "思想の多元性" },
+    { word: "\u200Fاحْتَرَمَ / يَحْتَرِمُ التَّقَالِيد\u200F", meaning: "伝統を尊重する" },
+    { word: "\u200Fتَبَادُلٌ مَعْرِفِيّ\u200F", meaning: "知識の交換" },
+    { word: "\u200Fهُوِيَّةٌ عَالَمِيَّة\u200F", meaning: "グローバル・アイデンティティ" },
+    { word: "\u200Fتَعَايُشٌ سِلْمِيّ\u200F", meaning: "平和的共存" },
+    { word: "\u200Fحِوَارُ الْأَدْيَان\u200F", meaning: "宗教間対話" },
+    { word: "\u200Fقَبُولُ الِاخْتِلَاف\u200F", meaning: "違いの受容" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：経済指標（応用） (ID: 13295) ---
+{
+  id: 13295,
+  title: "中級：経済成長と指標の分析",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fحَلَّلَ / يُحَلِّلُ النُّمُوَّ\u200F", meaning: "成長を分析する" },
+    { word: "\u200Fإِجْمَالِيُّ النَّاتِج\u200F", meaning: "総生産（GDP等）" },
+    { word: "\u200Fقُوَّةٌ شِرَائِيَّة\u200F", meaning: "購買力" },
+    { word: "\u200Fمُعَدَّلُ الْبِطَالَة\u200F", meaning: "失業率" },
+    { word: "\u200Fتَوَازُنٌ تِجَارِيّ\u200F", meaning: "貿易収支" },
+    { word: "\u200Fاسْتَثْمَرَ / يَسْتَثْمِرُ فِي الصِّنَاعَة\u200F", meaning: "産業に投資する" },
+    { word: "\u200Fسِعْرُ الصَّرْف\u200F", meaning: "為替レート" },
+    { word: "\u200Fسِيَاسَةٌ نَقْدِيَّة\u200F", meaning: "金融政策" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：歴史的探求 (ID: 13296) ---
+{
+  id: 13296,
+  title: "中級：歴史的な記録の検証",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fدَقَّقَ / يُدَقِّقُ فِي التَّارِيخ\u200F", meaning: "歴史を精査する" },
+    { word: "\u200Fمَصْدَرٌ تَارِيخِيّ\u200F", meaning: "歴史的資料" },
+    { word: "\u200Fأَرْشِيفٌ وَطَنِيّ\u200F", meaning: "国立公文書館" },
+    { word: "\u200Fحِقْبَةٌ زَمَنِيَّة\u200F", meaning: "時代区分（エポック）" },
+    { word: "\u200Fتَأْرِيخٌ دَقِيق\u200F", meaning: "正確な歴史記述" },
+    { word: "\u200Fشَهِدَ / يَشْهَدُ عَلَى الْعَصْر\u200F", meaning: "時代を証言（目撃）する" },
+    { word: "\u200Fتُرَاثٌ حَضَارِيّ\u200F", meaning: "文明遺産" },
+    { word: "\u200Fإِحْيَاءُ الذِّكْرَى\u200F", meaning: "記念（追悼）行事" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：デジタル・セキュリティ (ID: 13297) ---
+{
+  id: 13297,
+  title: "中級：サイバー空間の安全性",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fحَمَى / يَحْمِي النِّظَام\u200F", meaning: "システムを保護する" },
+    { word: "\u200Fأَمْنٌ سِيْبِرَانِيّ\u200F", meaning: "サイバーセキュリティ" },
+    { word: "\u200Fتَشْفِيرُ الْبَيَانَات\u200F", meaning: "データの暗号化" },
+    { word: "\u200Fاخْتِرَاقٌ غَيْرُ قَانُونِيّ\u200F", meaning: "不正アクセス" },
+    { word: "\u200Fجِدَارُ الْحِمَايَة\u200F", meaning: "ファイアウォール" },
+    { word: "\u200Fتَحَقَّقَ / يَتَحَقَّقُ مِنْ كَلِمَةِ الْمُرُور\u200F", meaning: "パスワードを検証する" },
+    { word: "\u200Fخُصُوصِيَّةٌ مَحْفُوظَة\u200F", meaning: "守られたプライバシー" },
+    { word: "\u200Fتَهْدِيدٌ رَقْمِيّ\u200F", meaning: "デジタル脅威" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：社会保障と福祉 (ID: 13298) ---
+{
+  id: 13298,
+  title: "中級：社会福祉と公共支援",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fقَدَّمَ / يُقَدِّمُ رِعَايَة\u200F", meaning: "ケア（介護・保護）を提供する" },
+    { word: "\u200Fضَمَانٌ اجْتِمَاعِيّ\u200F", meaning: "社会保障" },
+    { word: "\u200Fخِدْمَاتٌ مَجَّانِيَّة\u200F", meaning: "無料サービス" },
+    { word: "\u200Fدَعَمَ / يَدْعَمُ الْفُقَرَاء\u200F", meaning: "貧困層を支援する" },
+    { word: "\u200Fتَأْمِينٌ صِحِّيّ\u200F", meaning: "健康保険" },
+    { word: "\u200Fرِعَايَةُ الْمُسِنِّين\u200F", meaning: "高齢者ケア" },
+    { word: "\u200Fعَدَالَةٌ فِي التَّوْزِيع\u200F", meaning: "配分の公平性" },
+    { word: "\u200Fحَقٌّ إِنْسَانِيّ\u200F", meaning: "人間的権利" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 中級：応用科学 (ID: 13299) ---
+{
+  id: 13299,
+  title: "中級：科学の社会への応用",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَقَدَّمَ / يَتَقَدَّمُ عِلْمِيًّا\u200F", meaning: "科学的に前進する" },
+    { word: "\u200Fتَطْبِيقٌ عَمَلِيّ\u200F", meaning: "実用的応用" },
+    { word: "\u200Fتَقْنِيَّةٌ حَدِيثَة\u200F", meaning: "最新技術" },
+    { word: "\u200Fبَحْثٌ وَتَطْوِير\u200F", meaning: "研究開発（R&D）" },
+    { word: "\u200Fمُخْتَبَرٌ مُتَقَدِّم\u200F", meaning: "高度な実験室" },
+    { word: "\u200Fاخْتَرَعَ / يَخْتَرِعُ آلَةً\u200F", meaning: "機械を発明する" },
+    { word: "\u200Fنَظَرِيَّةٌ قَابِلَةٌ لِلتَّطْبِيق\u200F", meaning: "応用可能な理論" },
+    { word: "\u200Fفَائِدَةٌ بَشَرِيَّة\u200F", meaning: "人類の益" }
+  ],
+  questions: [],
+  sentences: []
+},
+// --- 中級：現代のグローバルな挑戦 (ID: 13300) ---
+{
+  id: 13300,
+  title: "中級：現代のグローバルな挑戦",
+  category: "単語データ",
+  level: "中級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fوَاجَهَ / يُوَاجِهُ التَّحَدِّي\u200F", meaning: "挑戦（困難）に立ち向かう" },
+    { word: "\u200Fالِاسْتِدَامَةُ الْبِيئِيَّة\u200F", meaning: "環境の持続可能性" },
+    { word: "\u200Fالِابْتِكَارُ وَالْإِبْدَاع\u200F", meaning: "革新と創造性" },
+    { word: "\u200Fالْمُسَاوَاةُ بَيْنَ الْجِنْسَيْن\u200F", meaning: "ジェンダー平等" },
+    { word: "\u200Fالْحَدُّ مِنَ الْفَقْر\u200F", meaning: "貧困の削減" },
+    { word: "\u200Fالتَّحَوُّلُ الرَّقْمِيُّ الشَّامِل\u200F", meaning: "包括的なデジタルトランスフォーメーション" },
+    { word: "\u200Fالتَّضَامُنُ الدُّوَلِيُّ الْفَعَّال\u200F", meaning: "効果的な国際連帯" },
+    { word: "\u200Fالْأَخْلَاقِيَّاتُ الْعَالَمِيَّة\u200F", meaning: "グローバルな倫理観" }
+  ],
+  questions: [],
+  sentences: []
+},
+// --- 上級：外交と言語的定義 (ID: 140001) ---
+{
+  id: 140001,
+  title: "上級：国際関係と主権",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fانْتَهَكَ / يَنْتَهِكُ السِّيَادَة\u200F", meaning: "主権を侵害する" },
+    { word: "\u200Fنَصَّ / يَنُصُّ عَلَى\u200F", meaning: "〜を規定する・明記する" },
+    { word: "\u200Fصَادَقَ / يُصَادِقُ عَلَى\u200F", meaning: "〜を批准する・承認する" },
+    { word: "\u200Fتَسْوِيَةٌ شَامِلَة\u200F", meaning: "包括的解決" },
+    { word: "\u200Fشَرْعِيَّةٌ دُوَلِيَّة\u200F", meaning: "国際的正当性" },
+    { word: "\u200Fبِرُوتُوكُولٌ دِبْلُومَاسِيّ\u200F", meaning: "外交プロトコル" },
+    { word: "\u200Fنَزَاهَةٌ إِقْلِيمِيَّة\u200F", meaning: "領土の保全（完全性）" },
+    { word: "\u200Fتَدَخُّلٌ سَافِر\u200F", meaning: "露骨な介入" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：高度な経済理論と市場 (ID: 140002) ---
+{
+  id: 140002,
+  title: "上級：マクロ経済と市場動向",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاحْتَكَرَ / يَحْتَكِرُ السُّوق\u200F", meaning: "市場を独占する" },
+    { word: "\u200Fتَذَبْذَبَ / يَتَذَبْذَبُ بَيْنَ\u200F", meaning: "〜の間で変動（乱高下）する" },
+    { word: "\u200Fرَكَدَ / يَرْكُدُ الِاقْتِصَاد\u200F", meaning: "経済が停滞する" },
+    { word: "\u200Fفَائِضٌ مِيزَانِيّ\u200F", meaning: "予算の黒字（剰余）" },
+    { word: "\u200Fعَجْزٌ هَيْكَلِيّ\u200F", meaning: "構造的赤字" },
+    { word: "\u200Fقُوَّةٌ شِرَائِيَّة\u200F", meaning: "購買力" },
+    { word: "\u200Fتَدَفُّقُ رُؤُوسِ الْأَمْوَال\u200F", meaning: "資本の流出入" },
+    { word: "\u200Fخَصْخَصَةُ الْقِطَاع\u200F", meaning: "部門の民営化" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：哲学と言証 (ID: 140003) ---
+{
+  id: 140003,
+  title: "上級：認識論と言語哲学",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاسْتَنْبَطَ / يَسْتَنْبِطُ مِنْ\u200F", meaning: "〜から推論・演繹する" },
+    { word: "\u200Fدَحَضَ / يَدْحَضُ الْحُجَّة\u200F", meaning: "論拠を論破（論駁）する" },
+    { word: "\u200Fبَدِيهِيَّة\u200F", meaning: "自明の理（公理）" },
+    { word: "\u200Fمِيتافِيزِيقَا\u200F", meaning: "形而上学" },
+    { word: "\u200Fتَجْرِيدٌ فِكْرِيّ\u200F", meaning: "思考の抽象化" },
+    { word: "\u200Fجَوْهَرُ الشَّيْء\u200F", meaning: "物の本質（エッセンス）" },
+    { word: "\u200Fمَنْهَجٌ اسْتِقْرَائِيّ\u200F", meaning: "帰納法的な手法" },
+    { word: "\u200Fتَنَاقُضٌ جَوْهَرِيّ\u200F", meaning: "本質的矛盾" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：人権と言論の自由 (ID: 140004) ---
+{
+  id: 140004,
+  title: "上級：法学と言権の擁護",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fنَاضَلَ / يُنَاضِلُ ضِدَّ\u200F", meaning: "〜に対して闘争・奮闘する" },
+    { word: "\u200Fصَادَرَ / يُصَادِرُ الْحُرِّيَّة\u200F", meaning: "自由を没収（剥奪）する" },
+    { word: "\u200Fتَعَرَّضَ / يَتَعَرَّضُ لِلِاضْطِهَاد\u200F", meaning: "迫害を受ける" },
+    { word: "\u200Fشَفَافِيَّةٌ مُطْلَقَة\u200F", meaning: "絶対的な透明性" },
+    { word: "\u200Fمَسَاءَلَةٌ قَانُونِيَّة\u200F", meaning: "法的説明責任（アカウンタビリティ）" },
+    { word: "\u200Fحُرِّيَّةُ التَّعْبِير\u200F", meaning: "表現の自由" },
+    { word: "\u200Fإِبَادَةٌ جَمَاعِيَّة\u200F", meaning: "ジェノサイド（集団殺害）" },
+    { word: "\u200Fكَرَامَةٌ إِنْسَانِيَّة\u200F", meaning: "人間の尊厳" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：環境科学と政策 (ID: 140005) ---
+{
+  id: 140005,
+  title: "上級：生態系と持続可能性",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَدَهْوَرَ / يَتَدَهْوَرُ النِّظَام\u200F", meaning: "システム（生態系等）が悪化・崩壊する" },
+    { word: "\u200Fفَاقَمَ / يُفَاقِمُ الْأَزْمَة\u200F", meaning: "危機を悪化（深刻化）させる" },
+    { word: "\u200Fخَفَّفَ / يُخَفِّفُ مِنْ حِدَّةِ\u200F", meaning: "〜の激しさを和らげる（緩和する）" },
+    { word: "\u200Fتَنَوُّعٌ بِيُولُوجِيّ\u200F", meaning: "生物多様性" },
+    { word: "\u200Fاحْتِبَاسٌ حَرَارِيّ\u200F", meaning: "地球温暖化" },
+    { word: "\u200Fطَاقَةٌ مُسْتَدَامَة\u200F", meaning: "持続可能なエネルギー" },
+    { word: "\u200Fانْبِعَاثَاتٌ كَرْبُونِيَّة\u200F", meaning: "炭素排出量" },
+    { word: "\u200Fتَوَازُنٌ بِيئِيّ\u200F", meaning: "生態系のバランス" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：社会変革と統合 (ID: 140006) ---
+{
+  id: 140006,
+  title: "上級：現代社会の力学",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fانْدَمَجَ / يَنْدَمِجُ فِي الْمُجْتَمَع\u200F", meaning: "社会に統合される・溶け込む" },
+    { word: "\u200Fهَمَّشَ / يُهَمِّشُ الْأَقَلِّيَّات\u200F", meaning: "少数派を疎外（周縁化）する" },
+    { word: "\u200Fأَحْدَثَ / يُحْدِثُ نَقْلَةً نَوْعِيَّة\u200F", meaning: "劇的な転換（パラダイムシフト）をもたらす" },
+    { word: "\u200Fتَمَاسُكٌ اجْتِمَاعِيّ\u200F", meaning: "社会的結束" },
+    { word: "\u200Fفَجْوَةٌ طَبَقِيَّة\u200F", meaning: "階級格差" },
+    { word: "\u200Fتَعَدُّدِيَّةٌ ثَقَافِيَّة\u200F", meaning: "文化的多様性（多元主義）" },
+    { word: "\u200Fتَحَوُّلٌ دِيمُوغْرَافِيّ\u200F", meaning: "人口動態の変化" },
+    { word: "\u200Fصِرَاعُ الْأَجْيَال\u200F", meaning: "世代間の葛藤" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：文学批評と芸術 (ID: 140007) ---
+{
+  id: 140007,
+  title: "上級：美学と言葉の象徴性",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fجَسَّدَ / يُجَسِّدُ الرُّؤْيَة\u200F", meaning: "ビジョンを具現化・象徴する" },
+    { word: "\u200Fاسْتَعَارَ / يَسْتَعِيرُ مِنْ\u200F", meaning: "〜から借用（比喩的に引用）する" },
+    { word: "\u200Fبَلَاغَةٌ لِسَانِيَّة\u200F", meaning: "言語的雄弁さ（修辞法）" },
+    { word: "\u200Fتَعْبِيرٌ مَجَازِيّ\u200F", meaning: "比喩的表現" },
+    { word: "\u200Fرَمْزِيَّةٌ عَمِيقَة\u200F", meaning: "深い象徴性" },
+    { word: "\u200Fذَوْقٌ جَمَالِيّ\u200F", meaning: "美的センス（審美眼）" },
+    { word: "\u200Fإِبْدَاعٌ فِكْرِيّ\u200F", meaning: "思想的創造性" },
+    { word: "\u200Fتَحْفَةٌ فَنِّيَّة\u200F", meaning: "芸術的傑作（マスターピース）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：最新技術とパラダイム (ID: 140008) ---
+{
+  id: 140008,
+  title: "上級：サイバー空間とAI倫理",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fدَمَجَ / يَدْمُجُ التَّقْنِيَّة\u200F", meaning: "技術を統合（融合）させる" },
+    { word: "\u200Fهَيْمَنَ / يَهْيَمِنُ عَلَى الْقِطَاع\u200F", meaning: "セクターを支配（席巻）する" },
+    { word: "\u200Fحَاكَى / يُحَاكِي الْعَقْل\u200F", meaning: "脳をシミュレート（模倣）する" },
+    { word: "\u200Fذَكَاءٌ اصْطِنَاعِيٌّ تَوْلِيدِيّ\u200F", meaning: "生成AI" },
+    { word: "\u200Fخَوَارِزْمِيَّةٌ مُعَقَّدَة\u200F", meaning: "複雑なアルゴリズム" },
+    { word: "\u200Fأَمْنٌ سِيْبِرَانِيّ\u200F", meaning: "サイバーセキュリティ" },
+    { word: "\u200Fبِنْيَةٌ تَحْتِيَّةٌ رَقْمِيَّة\u200F", meaning: "デジタルインフラ" },
+    { word: "\u200Fفَجْوَةٌ تِقْنِيَّة\u200F", meaning: "技術格差（デジタルデバイド）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：心理学と言語分析 (ID: 140009) ---
+{
+  id: 140009,
+  title: "上級：深層心理と無意識",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fكَبَتَ / يَكْبِتُ الْمَشَاعِر\u200F", meaning: "感情を抑圧（抑え込む）する" },
+    { word: "\u200Fحَفَّزَ / يُحَفِّزُ السُّلُوك\u200F", meaning: "行動を刺激（動機づけ）する" },
+    { word: "\u200Fلاوَعْي\u200F", meaning: "無意識" },
+    { word: "\u200Fاضْطِرَابٌ عاطِفِيّ\u200F", meaning: "情緒不安定（感情障害）" },
+    { word: "\u200Fنُضْجٌ نَفْسِيّ\u200F", meaning: "精神的な成熟" },
+    { word: "\u200Fعُقْدَةُ النَّقْص\u200F", meaning: "劣等コンプレックス" },
+    { word: "\u200Fتَحْلِيلٌ نَفْسِيّ\u200F", meaning: "精神分析" },
+    { word: "\u200Fمُرُونةٌ ذِهْنِيَّة\u200F", meaning: "精神的柔軟性（レジリエンス）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：統治とガバナンス (ID: 140010) ---
+{
+  id: 140010,
+  title: "上級：統治機構と政策実行",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fنَفَّذَ / يُنَفِّذُ الْمَشْرُوع\u200F", meaning: "プロジェクトを実行（施行）する" },
+    { word: "\u200Fصَاغَ / يَصِيغُ السِّيَاسَة\u200F", meaning: "政策を策定（起草）する" },
+    { word: "\u200Fتَوَلَّى / يَتَوَلَّى الْمَنْصِب\u200F", meaning: "役職に就く（引き受ける）" },
+    { word: "\u200Fحَوْكَمَةٌ رَشِيدَة\u200F", meaning: "善き統治（グッドガバナンス）" },
+    { word: "\u200Fبِيرُوقْرَاطِيَّة\u200F", meaning: "官僚制度" },
+    { word: "\u200Fمَصْلَحَةٌ عَامَّة\u200F", meaning: "公共の利益" },
+    { word: "\u200Fإِصْلَاحٌ جِذْرِيّ\u200F", meaning: "根本的な改革" },
+    { word: "\u200Fتَفْوِيضُ السُّلْطَة\u200F", meaning: "権限の委譲" }
+  ],
+  questions: [],
+  sentences: []
+},
+// --- 上級：形而上学と論理 (ID: 140011) ---
+{
+  id: 140011,
+  title: "上級：形而上学とパラドックス",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَسَامَى / يَتَسَامَى عَنْ\u200F", meaning: "〜を超越する・高まる" },
+    { word: "\u200Fتَنَاقُضٌ ظَاهِرِيّ\u200F", meaning: "逆説（パラドックス）" },
+    { word: "\u200Fالْتِبَاسٌ مَفَاهِيمِيّ\u200F", meaning: "概念的な混同（曖昧さ）" },
+    { word: "\u200Fجَدَلِيَّةُ الْوُجُود\u200F", meaning: "存在の弁証法" },
+    { word: "\u200Fحَتْمِيَّةٌ بَيُولُوجِيَّة\u200F", meaning: "生物学的決定論" },
+    { word: "\u200Fنَسَقٌ فِكْرِيّ\u200F", meaning: "思想体系（パラダイム）" },
+    { word: "\u200Fتَدْحِيضُ النَّظَرِيَّة\u200F", meaning: "理論の論破（反証）" },
+    { word: "\u200Fعَدَمِيَّة\u200F", meaning: "虚無主義（ニヒリズム）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：地政学と国際秩序 (ID: 140012) ---
+{
+  id: 140012,
+  title: "上級：地政学的力学と覇権",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fهَيْمَنَ / يَهْيَمِنُ عَلَى\u200F", meaning: "〜を支配する・覇権を握る" },
+    { word: "\u200Fاسْتَقْطَبَ / يَسْتَقْطِبُ\u200F", meaning: "（支持などを）惹きつける・極性化させる" },
+    { word: "\u200Fثُنَائِيَّةُ الْقُطْبِيَّة\u200F", meaning: "二極構造" },
+    { word: "\u200Fتَوَازُنُ الرُّعْب\u200F", meaning: "恐怖の均衡" },
+    { word: "\u200Fتَحَالُفٌ جِيُوسِيَاسِيّ\u200F", meaning: "地政学的同盟" },
+    { word: "\u200Fسِيَاسَةُ الِاحْتِوَاء\u200F", meaning: "封じ込め政策" },
+    { word: "\u200Fتَطْبِيعُ الْعَلَاقَات\u200F", meaning: "関係の正常化" },
+    { word: "\u200Fصِرَاعٌ وُجُودِيّ\u200F", meaning: "存亡をかけた闘争" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：法理学と正義 (ID: 140013) ---
+{
+  id: 140013,
+  title: "上級：法理学と司法的正当性",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَعَسَّفَ / يَتَعَسَّفُ فِي\u200F", meaning: "〜を濫用する（恣意的に振る舞う）" },
+    { word: "\u200Fفِقْهُ الْقَضَاء\u200F", meaning: "法理（判例法学）" },
+    { word: "\u200Fمَشْرُوعِيَّةٌ دُسْتُورِيَّة\u200F", meaning: "憲法上の正当性" },
+    { word: "\u200Fإِجْرَاءٌ تَعَسُّفِيّ\u200F", meaning: "恣意的な措置（独断）" },
+    { word: "\u200Fعُقُوبَةٌ رَادِعَة\u200F", meaning: "抑止力のある刑罰" },
+    { word: "\u200Fسَابِقَةٌ قَانُونِيَّة\u200F", meaning: "法的先例" },
+    { word: "\u200Fقَرِينَةُ الْبَرَاءَة\u200F", meaning: "推定無罪" },
+    { word: "\u200Fتَقْنِينُ التَّشْرِيع\u200F", meaning: "立法の法典化" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：社会批評と言語 (ID: 140014) ---
+{
+  id: 140014,
+  title: "上級：社会批評と記号論",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fشَيَّأَ / يُشَيِّئُ\u200F", meaning: "物象化する（人を物のように扱う）" },
+    { word: "\u200Fنَسَقٌ سِيمِيَائِيّ\u200F", meaning: "記号論的な体系" },
+    { word: "\u200Fتَفْكِيكُ الْخِطَاب\u200F", meaning: "言説（ディスクール）の脱構築" },
+    { word: "\u200Fهَوِيَّةٌ هَجِينَة\u200F", meaning: "ハイブリッドなアイデンティティ" },
+    { word: "\u200Fاسْتِحْوَاذٌ ثَقَافِيّ\u200F", meaning: "文化的盗用（領有）" },
+    { word: "\u200Fاغْتِرَابٌ اجْتِمَاعِيّ\u200F", meaning: "社会的疎外（アリエナシオン）" },
+    { word: "\u200Fنَمَطٌ اِسْتِهْلَاكِيّ\u200F", meaning: "消費主義的パターン" },
+    { word: "\u200Fتَمْثِيلٌ بَصَرِيّ\u200F", meaning: "視覚的表象" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：高度な経済・財政 (ID: 140015) ---
+{
+  id: 140015,
+  title: "上級：財政再建と構造調整",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَقَشَّفَ / يَتَقَشَّفُ مَالِيًّا\u200F", meaning: "緊縮財政を行う" },
+    { word: "\u200Fتَحْوِيلَاتٌ نَقْدِيَّة\u200F", meaning: "現金移転（送金）" },
+    { word: "\u200Fإِصْلَاحٌ هَيْكَلِيّ\u200F", meaning: "構造改革" },
+    { word: "\u200Fتَضَخُّمٌ جَامِح\u200F", meaning: "ハイパーインフレ" },
+    { word: "\u200Fمَدْيُونِيَّةٌ خَارِجِيَّة\u200F", meaning: "対外債務" },
+    { word: "\u200Fفَتْرَةُ رُكُود\u200F", meaning: "不況期（停滞期）" },
+    { word: "\u200Fالِاقْتِصَادُ الْكُلِّيّ\u200F", meaning: "マクロ経済" },
+    { word: "\u200Fخَفْضُ قِيمَةِ الْعُمْلَة\u200F", meaning: "通貨の切り下げ" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：精神分析と認知 (ID: 140016) ---
+{
+  id: 140016,
+  title: "上級：認知不協和と精神分析",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَنَافُرٌ مَعْرِفِيّ\u200F", meaning: "認知的不協和" },
+    { word: "\u200Fإِسْقَاطٌ نَفْسِيّ\u200F", meaning: "心理的投影（プロジェクション）" },
+    { word: "\u200Fآلِيَّةُ الدِّفَاع\u200F", meaning: "防衛機制" },
+    { word: "\u200Fلاوَعْيٌ جَمْعِيّ\u200F", meaning: "集合的無意識" },
+    { word: "\u200Fتَحَيُّزٌ مَعْرِفِيّ\u200F", meaning: "認知的バイアス" },
+    { word: "\u200Fكَارِيزْمَا طَاغِيَة\u200F", meaning: "圧倒的なカリスマ性" },
+    { word: "\u200Fنُكُوصٌ عاطِفِيّ\u200F", meaning: "情緒的退行" },
+    { word: "\u200Fتَحْلِيلٌ وُجُودِيّ\u200F", meaning: "実存分析" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：国際紛争と安全保障 (ID: 140017) ---
+{
+  id: 140017,
+  title: "上級：安全保障と非対称戦争",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fنَزَعَ / يَنْزِعُ السِّلَاح\u200F", meaning: "武装解除する" },
+    { word: "\u200Fحَرْبٌ غَيْرُ نَمَطِيَّة\u200F", meaning: "非対称戦争（非定型戦）" },
+    { word: "\u200Fرَدْعٌ نَوَوِيّ\u200F", meaning: "核抑止" },
+    { word: "\u200Fتَحَالُفٌ عَسْكَرِيّ\u200F", meaning: "軍事同盟" },
+    { word: "\u200Fفَاعِلُونَ غَيْرُ حُكُومِيِّين\u200F", meaning: "非国家主体" },
+    { word: "\u200Fأَمْنٌ سِيْبِرَانِيّ\u200F", meaning: "サイバー安全保障" },
+    { word: "\u200Fاسْتِنْزَافٌ عَسْكَرِيّ\u200F", meaning: "軍事的消耗" },
+    { word: "\u200Fقَوَاعِدُ الِاشْتِبَاك\u200F", meaning: "交戦規定（ROE）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：高度な科学哲学 (ID: 140018) ---
+{
+  id: 140018,
+  title: "上級：量子力学と言語の限界",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fرَصَدَ / يَرْصُدُ الِاحْتِمَال\u200F", meaning: "確率を観測する" },
+    { word: "\u200Fنِسْبِيَّةٌ مُطْلَقَة\u200F", meaning: "絶対的相対性" },
+    { word: "\u200Fتَشَابُكٌ كَمِّيّ\u200F", meaning: "量子もつれ（エンタングルメント）" },
+    { word: "\u200Fفَرَضِيَّةٌ عِلْمِيَّة\u200F", meaning: "科学的仮説" },
+    { word: "\u200Fقَابِلِيَّةُ التَّكْذِيب\u200F", meaning: "反証可能性" },
+    { word: "\u200Fثَوْرَةٌ عِلْمِيَّة\u200F", meaning: "科学革命" },
+    { word: "\u200Fنَمُوذَجٌ مَعْرِفِيّ\u200F", meaning: "認識モデル" },
+    { word: "\u200Fحَتْمِيَّةٌ قَدَرِيَّة\u200F", meaning: "運命的決定論" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：現代の倫理的ジレンマ (ID: 140019) ---
+{
+  id: 140019,
+  title: "上級：倫理的葛藤とバイオエシックス",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fأَخْلَقَ / يُؤَخْلِقُ الْقَرَار\u200F", meaning: "決定を倫理化する" },
+    { word: "\u200Fمُعْضِلَةٌ أَخْلَاقِيَّة\u200F", meaning: "倫理的ジレンマ" },
+    { word: "\u200Fأَخْلَاقِيَّاتُ الْبِيُولُوجِيَا\u200F", meaning: "生命倫理（バイオエシックス）" },
+    { word: "\u200Fقَتْلٌ رَحِيم\u200F", meaning: "安楽死" },
+    { word: "\u200Fمُوَافَقَةٌ مُسْبَقَة\u200F", meaning: "インフォームド・コンセント" },
+    { word: "\u200Fتَعْدِيلٌ وِرَاثِيّ\u200F", meaning: "遺伝子組み換え" },
+    { word: "\u200Fتَمَايُزٌ صَارِخ\u200F", meaning: "明白な差異（差別化）" },
+    { word: "\u200Fقِيَمٌ كَوْنِيَّة\u200F", meaning: "普遍的価値" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：歴史の終焉とポストモダン (ID: 140020) ---
+{
+  id: 140020,
+  title: "上級：ポストモダンと歴史の終焉",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fانْدَثَرَ / يَنْدَثِرُ التَّارِيخ\u200F", meaning: "歴史が消滅（風化）する" },
+    { word: "\u200Fنِهَايَةُ التَّارِيخ\u200F", meaning: "歴史の終焉" },
+    { word: "\u200Fمَا بَعْدَ الْحَدَاثَة\u200F", meaning: "ポストモダン" },
+    { word: "\u200Fنُكُوصٌ حَضَارِيّ\u200F", meaning: "文明の退行" },
+    { word: "\u200Fنَسَقٌ شُمُولِيّ\u200F", meaning: "全体主義的体系" },
+    { word: "\u200Fإِعَادَةُ بِنَاء\u200F", meaning: "再構築" },
+    { word: "\u200Fصِرَاعُ الْحَضَارَات\u200F", meaning: "文明の衝突" },
+    { word: "\u200Fتَحَوُّلٌ جَوْهَرِيّ\u200F", meaning: "本質的変容" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：高度な語彙（抽象名詞） (ID: 140021) ---
+{
+  id: 140021,
+  title: "上級：抽象概念の極地",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fصَهَرَ / يَصْهَرُ فِي\u200F", meaning: "〜の中で融解させる（同化させる）" },
+    { word: "\u200Fشُمُولِيَّة\u200F", meaning: "全体主義・包括性" },
+    { word: "\u200Fمِثَالِيَّةٌ أَفْلَاطُونِيَّة\u200F", meaning: "プラトン的理想主義" },
+    { word: "\u200Fفَوْضَى خَلَّاقَة\u200F", meaning: "創造的破壊（混沌）" },
+    { word: "\u200Fتَرَاتُبِيَّةٌ هَرَمِيَّة\u200F", meaning: "階層的なヒエラルキー" },
+    { word: "\u200Fعَقْلَانِيَّةٌ مَحْضَة\u200F", meaning: "純粋理性（合理性）" },
+    { word: "\u200Fتَجَلٍّ رُوحِيّ\u200F", meaning: "霊的な顕現（エピファニー）" },
+    { word: "\u200Fنَزْعَةٌ اِنْفِصَالِيَّة\u200F", meaning: "分離主義的傾向" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：高度な語彙（動詞句） (ID: 140022) ---
+{
+  id: 140022,
+  title: "上級：洗練された論理動詞",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fبَلْوَرَ / يُبَلْوِرُ الْفِكْرَة\u200F", meaning: "考えを具体化（結晶化）させる" },
+    { word: "\u200Fتَمَحْوَرَ / يَتَمَحْوَرُ حَوْلَ\u200F", meaning: "〜を中心に展開（回転）する" },
+    { word: "\u200Fاسْتَحْضَرَ / يَسْتَحْضِرُ الذِّكْرَى\u200F", meaning: "記憶を呼び覚ます（喚起する）" },
+    { word: "\u200Fفَنَّدَ / يُفَنِّدُ الْقَوْل\u200F", meaning: "言説を詳細に論破する" },
+    { word: "\u200Fتَجَذَّرَ / يَتَجَذَّرُ فِي\u200F", meaning: "〜に深く根を下ろす" },
+    { word: "\u200Fتَخَلَّلَ / يَتَخَلَّلُ النَّسِيج\u200F", meaning: "組織（布地）の間に浸透する" },
+    { word: "\u200Fانْسَاقَ / يَنْسَاقُ وَرَاءَ\u200F", meaning: "〜の背後に盲従する（流される）" },
+    { word: "\u200Fتَسَارَعَ / يَتَسَارَعُ نَحْوَ\u200F", meaning: "〜に向かって加速する" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：高度な語彙（形容詞・副詞） (ID: 140023) ---
+{
+  id: 140023,
+  title: "上級：洗練された修飾語",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fجَوْهَرِيٌّ لِلْغَايَة\u200F", meaning: "極めて本質的な" },
+    { word: "\u200Fضِمْنِيٌّ بَالِغ\u200F", meaning: "非常に暗黙的な" },
+    { word: "\u200Fجَدَلِيٌّ بِشِدَّة\u200F", meaning: "激しく議論を呼ぶ（弁証法的な）" },
+    { word: "\u200Fفَادِحٌ لا يُغْتَفَر\u200F", meaning: "許されざる（甚大な）" },
+    { word: "\u200Fنَمَطِيٌّ مُجْحِف\u200F", meaning: "不当な（ステレオタイプな）" },
+    { word: "\u200Fبَدِيهِيٌّ مُطْلَق\u200F", meaning: "絶対的に自明な" },
+    { word: "\u200Fغَامِضٌ مُلْتَبِس\u200F", meaning: "不可解で曖昧な" },
+    { word: "\u200Fمِثَالِيٌّ طُوبَاوِيّ\u200F", meaning: "ユートピア的な理想主義の" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：高度な語彙（複合表現） (ID: 140024) ---
+{
+  id: 140024,
+  title: "上級：イディオム的複合表現",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fوَقَعَ / يَقَعُ فِي فَخِّ\u200F", meaning: "〜の罠（陥穽）に陥る" },
+    { word: "\u200Fضَرَبَ / يَضْرِبُ عُرْضَ الْحَائِط\u200F", meaning: "（壁に叩きつけるように）完全に無視する" },
+    { word: "\u200Fذَرَّ / يَذُرُّ الرَّمَادَ فِي الْعُيُون\u200F", meaning: "（目に灰を撒くように）煙に巻く・欺く" },
+    { word: "\u200Fحِبْرٌ عَلَى وَرَق\u200F", meaning: "（紙の上のインクのように）形骸化した（実行されない）約束" },
+    { word: "\u200Fقَلَبَ / يَقْلِبُ الْمَوَازِين\u200F", meaning: "（天秤をひっくり返すように）情勢を一変させる" },
+    { word: "\u200Fقَطَعَ / يَقْطَعُ دَابِرَ\u200F", meaning: "〜の根を絶つ（根絶する）" },
+    { word: "\u200Fعَلَى قَدَمِ السَّاق\u200F", meaning: "（脛で立って）着々と・全力で準備して" },
+    { word: "\u200Fمِنْ بَابِ أَوْلَى\u200F", meaning: "なおさら・ましてや" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：総括：知性の調和 (ID: 140025) ---
+{
+  id: 140025,
+  title: "上級：知性の調和と未来",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fوَفَّقَ / يُوَفِّقُ بَيْنَ\u200F", meaning: "〜の間を調和（折衷）させる" },
+    { word: "\u200Fمَنْظُومَةٌ قِيَمِيَّة\u200F", meaning: "価値観の体系" },
+    { word: "\u200Fتَطَلُّعَاتٌ سَامِيَة\u200F", meaning: "高潔な志（願望）" },
+    { word: "\u200Fإِرْثٌ مَعْرِفِيّ\u200F", meaning: "知識の遺産" },
+    { word: "\u200Fإِدْرَاكٌ شُمُولِيّ\u200F", meaning: "包括的な認識" },
+    { word: "\u200Fأُفُقٌ مَعْرِفِيّ\u200F", meaning: "知的な地平（可能性）" },
+    { word: "\u200Fتَجْدِيدٌ فِكْرِيّ\u200F", meaning: "思想の刷新" },
+    { word: "\u200Fوَئَامٌ عَالَمِيّ\u200F", meaning: "世界的な和合" }
+  ],
+  questions: [],
+  sentences: []
+},
+// --- 上級：憲法と統治の法理 (ID: 140026) ---
+{
+  id: 140026,
+  title: "上級：憲法秩序と権限",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاصْدَرَ / يُصْدِرُ مَرْسُومًا\u200F", meaning: "政令（勅令）を発布する" },
+    { word: "\u200Fاسْتَفْتَى / يَسْتَفْتِي الشَّعْب\u200F", meaning: "国民投票にかける（民意を問う）" },
+    { word: "\u200Fنِطَاقُ الِاخْتِصَاص\u200F", meaning: "管轄範囲" },
+    { word: "\u200Fتَفْوِيضٌ شَعْبِيّ\u200F", meaning: "国民による委任（マンデート）" },
+    { word: "\u200Fفَصْلُ السُّلُطَات\u200F", meaning: "三権分立" },
+    { word: "\u200Fحَصَانَةٌ دِبْلُومَاسِيَّة\u200F", meaning: "外交特権（免責）" },
+    { word: "\u200Fتَعْدِيلٌ دُسْتُورِيّ\u200F", meaning: "憲法改正" },
+    { word: "\u200Fتَسَلُّطُ الدَّوْلَة\u200F", meaning: "国家の権威主義（専制）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：認識論と言語的直感 (ID: 140027) ---
+{
+  id: 140027,
+  title: "上級：認識論と知覚の哲学",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fارْتَكَزَ / يَرْتَكِزُ عَلَى\u200F", meaning: "〜に依拠する・基礎を置く" },
+    { word: "\u200Fالْمَنْهَجُ التَّجْرِيبِيّ\u200F", meaning: "経験的手法（エンピリシズム）" },
+    { word: "\u200Fنَظَرِيَّةُ الْمَعْرِفَة\u200F", meaning: "認識論（エピステモロジー）" },
+    { word: "\u200Fالْبَدِيهَةُ الْعَقْلِيَّة\u200F", meaning: "理性的直感" },
+    { word: "\u200Fتَمَثُّلٌ ذِهْنِيّ\u200F", meaning: "心的表象（表現）" },
+    { word: "\u200Fمُسَلَّمَاتٌ فِكْرِيَّة\u200F", meaning: "思考の自明の前提（アキショム）" },
+    { word: "\u200Fأَدْرَكَ / يُدْرِكُ الْكُنْه\u200F", meaning: "本質（深奥）を悟る・理解する" },
+    { word: "\u200Fظَاهِرَاتِيَّة\u200F", meaning: "現象学" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：国際安全保障と抑止 (ID: 140028) ---
+{
+  id: 140028,
+  title: "上級：地政学と軍事抑止",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fضَمَّ / يَضُمُّ الْأَرَاضِي\u200F", meaning: "領土を併合する" },
+    { word: "\u200Fالرَّدْعُ الِاسْتِرَاتِيجيّ\u200F", meaning: "戦略的抑止（デタレンス）" },
+    { word: "\u200Fفَرَضَ / يَفْرِضُ حِصَارًا\u200F", meaning: "封鎖（包囲）を強いる" },
+    { word: "\u200Fنَزَعَ / يَنْزِعُ فَتِيلَ الْأَزْمَة\u200F", meaning: "危機の火種を取り除く（緩和する）" },
+    { word: "\u200Fتَجَسُّسٌ اسْتِخْبَارِيّ\u200F", meaning: "情報収集（スパイ活動）" },
+    { word: "\u200Fتَفَوُّقٌ عَسْكَرِيّ\u200F", meaning: "軍事的優位" },
+    { word: "\u200Fانْتِشَارٌ نَوَوِيّ\u200F", meaning: "核拡散" },
+    { word: "\u200Fسِبَاقُ التَّسَلُّح\u200F", meaning: "軍備拡張競争" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：社会現象と疎外 (ID: 140029) ---
+{
+  id: 140029,
+  title: "上級：社会の病理と疎外",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاغْتَرَبَ / يَغْتَرِبُ عَنِ الْوَاقِع\u200F", meaning: "現実から疎外（乖離）される" },
+    { word: "\u200Fتَهْمِيشٌ سُوسْيُولوجِيّ\u200F", meaning: "社会学的疎外（周縁化）" },
+    { word: "\u200Fنَسِيجٌ مُجْتَمَعِيّ\u200F", meaning: "社会の織り目（構造）" },
+    { word: "\u200Fتَفَكُّكٌ أُسَرِيّ\u200F", meaning: "家族の崩壊" },
+    { word: "\u200Fاسْتِلابٌ فِكْرِيّ\u200F", meaning: "思想的強奪（洗脳・疎外）" },
+    { word: "\u200Fنَزْعَةٌ مَادِّيَّة\u200F", meaning: "物質主義的傾向" },
+    { word: "\u200Fرِيَاءٌ اجْتِمَاعِيّ\u200F", meaning: "社会的偽善" },
+    { word: "\u200Fتَنْمِيطٌ جِنْسَانِيّ\u200F", meaning: "ジェンダーの定型化（ステレオタイプ化）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：科学哲学と言語 (ID: 140030) ---
+{
+  id: 140030,
+  title: "上級：科学的パラダイム",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fدَحَضَ / يَدْحَضُ الْبُرْهَان\u200F", meaning: "証拠を論破（反証）する" },
+    { word: "\u200Fنَمُوذَجٌ مَعْرِفِيّ\u200F", meaning: "認識モデル（パラダイム）" },
+    { word: "\u200Fقَابِلِيَّةُ التَّطْبِيق\u200F", meaning: "適応可能性（実用性）" },
+    { word: "\u200Fحَتْمِيَّةٌ تِقْنِيَّة\u200F", meaning: "技術決定論" },
+    { word: "\u200Fتَشَفُّرٌ جِينِيّ\u200F", meaning: "遺伝的暗号化" },
+    { word: "\u200Fمَوْضُوعِيَّةٌ عِلْمِيَّة\u200F", meaning: "科学的客観性" },
+    { word: "\u200Fثَوْرَةٌ مَعْلُومَاتِيَّة\u200F", meaning: "情報革命" },
+    { word: "\u200Fذَكَاءٌ مَنْطِقِيّ\u200F", meaning: "論理的知性" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：高度な経済・財政用語 (ID: 140031) ---
+{
+  id: 140031,
+  title: "上級：財政再建と経済構造",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fقَلَّصَ / يُقَلِّصُ الْعَجْز\u200F", meaning: "赤字を削減（圧縮）する" },
+    { word: "\u200Fإِصْلَاحٌ هَيْكَلِيّ\u200F", meaning: "構造改革" },
+    { word: "\u200Fتَقَشُّفٌ مَالِيّ\u200F", meaning: "緊縮財政" },
+    { word: "\u200Fمَدْيُونِيَّةٌ خَارِجِيَّة\u200F", meaning: "対外債務" },
+    { word: "\u200Fتَضَخُّمٌ مُفْرِط\u200F", meaning: "ハイパーインフレ" },
+    { word: "\u200Fخَصْخَصَةُ الْمَرَافِق\u200F", meaning: "公共施設の民営化" },
+    { word: "\u200Fتَدَفُّقُ الِاسْتِثْمَار\u200F", meaning: "投資の流入" },
+    { word: "\u200Fالِاقْتِصَادُ الْكُلِّيّ\u200F", meaning: "マクロ経済" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：外交と戦略的レトリック (ID: 140032) ---
+{
+  id: 140032,
+  title: "上級：外交交渉とレトリック",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fنَاوَرَ / يُنَاوِرُ سِيَاسِيًّا\u200F", meaning: "政治的に駆け引き（機動演習）する" },
+    { word: "\u200Fتَسْوِيَةٌ مَرْضِيَّة\u200F", meaning: "満足のいく和解（解決）" },
+    { word: "\u200Fمَذْكَرَةُ تَفَاهُم\u200F", meaning: "覚書（MoU）" },
+    { word: "\u200Fشَرْعِيَّةٌ دِيبْلُومَاسِيَّة\u200F", meaning: "外交的正当性" },
+    { word: "\u200Fتَعَهَّدَ / يَتَعَهَّدُ بِالِالْتِزَام\u200F", meaning: "遵守を誓約する" },
+    { word: "\u200Fوَسَاطَةٌ مَحَايِدَة\u200F", meaning: "中立的な仲裁" },
+    { word: "\u200Fتَطْبِيعٌ كَامِل\u200F", meaning: "完全な正常化（国交回復等）" },
+    { word: "\u200Fخِطَابٌ شَعْبَوِيّ\u200F", meaning: "ポピュリズム的言説" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：精神と実存の用語 (ID: 140033) ---
+{
+  id: 140033,
+  title: "上級：実存的心理と倫理",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَخَلَّى / يَتَخَلَّى عَنِ الْمَبَادِئ\u200F", meaning: "原則（主義）を捨てる・放棄する" },
+    { word: "\u200Fصِرَاعٌ دَاخِلِيّ\u200F", meaning: "葛藤（内的対立）" },
+    { word: "\u200Fقَنَاعَةٌ رَاسِخَة\u200F", meaning: "確固たる信念（確信）" },
+    { word: "\u200Fوَعْيٌ جَمْعِيّ\u200F", meaning: "集合意識" },
+    { word: "\u200Fنَزْعَةٌ أَنَانِيَّة\u200F", meaning: "利己主義的傾向" },
+    { word: "\u200Fمِثَالِيَّةٌ طُوبَاوِيَّة\u200F", meaning: "ユートピア的理想主義" },
+    { word: "\u200Fتَجَلٍّ رُوحِيّ\u200F", meaning: "精神的な顕現（エピファニー）" },
+    { word: "\u200Fضَمِيرٌ مُعَذَّب\u200F", meaning: "さいなまれる良心" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：文学と脱構築 (ID: 140034) ---
+{
+  id: 140034,
+  title: "上級：文学批評と言説分析",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fفَكَّكَ / يُفَكِّكُ النَّصّ\u200F", meaning: "テクストを脱構築（解体）する" },
+    { word: "\u200Fتَنَاصّ أَدَبِيّ\u200F", meaning: "インターテクスチュアリティ（間テクスト性）" },
+    { word: "\u200Fتَجْرِيدٌ جَمَالِيّ\u200F", meaning: "美的抽象化" },
+    { word: "\u200Fخِطَابٌ سُلْطَوِيّ\u200F", meaning: "権威的言説（ディスクール）" },
+    { word: "\u200Fتَأْوِيلٌ هَرْمِينُوطِيّ\u200F", meaning: "解釈学的解釈" },
+    { word: "\u200Fرَمْزِيَّةٌ مَسْتُورَة\u200F", meaning: "隠された象徴性" },
+    { word: "\u200Fبِنْيَوِيَّة\u200F", meaning: "構造主義" },
+    { word: "\u200Fمَا بَعْدَ الْحَدَاثَة\u200F", meaning: "ポストモダン" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：環境倫理とバイオ技術 (ID: 140035) ---
+{
+  id: 140035,
+  title: "上級：環境倫理と生命の尊厳",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاسْتَنْسَخَ / يَسْتَنْسِخُ الْكَائِن\u200F", meaning: "生物をクローン化（複製）する" },
+    { word: "\u200Fأَخْلَاقِيَّاتُ الْبِيُولُوجِيَا\u200F", meaning: "生命倫理（バイオエシックス）" },
+    { word: "\u200Fتَلَاشِي الْأَنْوَاع\u200F", meaning: "種の消滅（絶滅）" },
+    { word: "\u200Fتَحَوُّرٌ جِينِيّ\u200F", meaning: "遺伝的変異" },
+    { word: "\u200Fاسْتِدَامَةٌ بِيئِيَّة\u200F", meaning: "環境の持続可能性" },
+    { word: "\u200Fانْتِهَاكُ الطَّبِيعَة\u200F", meaning: "自然の冒涜（侵害）" },
+    { word: "\u200Fتَوَازُنٌ إِيكُولُوجِيّ\u200F", meaning: "生態学的バランス" },
+    { word: "\u200Fإِرْثٌ طَبِيعِيّ\u200F", meaning: "自然遺産" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：地政学的な対立 (ID: 140036) ---
+{
+  id: 140036,
+  title: "上級：地政学的な衝突と覇権",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fهَيْمَنَ / يَهْيَمِنُ عَلَى الْمِنْطَقَة\u200F", meaning: "地域を支配（席巻）する" },
+    { word: "\u200Fنُفُوذٌ جِيُوبُولِيتِيكِيّ\u200F", meaning: "地政学的影響力" },
+    { word: "\u200Fتَحَالُفٌ مَصِيرِيّ\u200F", meaning: "運命的な（死活的な）同盟" },
+    { word: "\u200Fاسْتِقْطَابٌ دُوَلِيّ\u200F", meaning: "国際的な極性化（ポラリゼーション）" },
+    { word: "\u200Fتَوَازُنُ الرُّعْب\u200F", meaning: "恐怖の均衡" },
+    { word: "\u200Fسِيَادَةٌ مَنْقُوصَة\u200F", meaning: "制限された（不完全な）主権" },
+    { word: "\u200Fمَجَالٌ حَيَوِيّ\u200F", meaning: "生存圏（リーベンスラウム）" },
+    { word: "\u200Fصِرَاعٌ وُجُودِيّ\u200F", meaning: "存亡をかけた闘争" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：高度なメディア批評 (ID: 140037) ---
+{
+  id: 140037,
+  title: "上級：メディアの記号論と扇動",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fحَرَّضَ / يُحَرِّضُ عَلَى الْعُنْف\u200F", meaning: "暴力を煽動する" },
+    { word: "\u200Fتَضْلِيلٌ مُمَنْهَج\u200F", meaning: "体系的な誤報（ミスインフォメーション）" },
+    { word: "\u200Fبَرُوبَاغَانْدَا طَاغِيَة\u200F", meaning: "圧倒的なプロパガンダ" },
+    { word: "\u200Fنَسَقٌ سِيمِيَائِيّ\u200F", meaning: "記号論的体系" },
+    { word: "\u200Fصِنَاعَةُ الْوَعْي\u200F", meaning: "意識の生産（マニュファクチャリング・コンセント）" },
+    { word: "\u200Fرِقَابَةٌ صَارِمَة\u200F", meaning: "厳格な検閲" },
+    { word: "\u200Fتَحَيُّزٌ أَيْدِيُولُوجِيّ\u200F", meaning: "イデオロギー的偏向" },
+    { word: "\u200Fتَلَاعُبٌ بِالْعُقُول\u200F", meaning: "マインドコントロール（心理的操作）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：法理学と正義の深淵 (ID: 140038) ---
+{
+  id: 140038,
+  title: "上級：法理学と刑罰の正当性",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَعَسَّفَ / يَتَعَسَّفُ فِي السُّلْطَة\u200F", meaning: "権力を濫用する（恣意的に振る舞う）" },
+    { word: "\u200Fفِقْهُ الْقَانُون\u200F", meaning: "法理学（ジュリスプルデンス）" },
+    { word: "\u200Fقَرِينَةُ الْبَرَاءَة\u200F", meaning: "推定無罪" },
+    { word: "\u200Fعُقُوبَةٌ رَادِعَة\u200F", meaning: "抑止力のある刑罰" },
+    { word: "\u200Fمَشْرُوعِيَّةٌ دُسْتُورِيَّة\u200F", meaning: "憲法上の合法性" },
+    { word: "\u200Fانْتِهَاكٌ صَارِخ\u200F", meaning: "明白な（甚だしい）侵害" },
+    { word: "\u200Fإِجْرَاءٌ احْتِرَازِيّ\u200F", meaning: "予防措置（保全措置）" },
+    { word: "\u200Fتَسْوِيَةٌ قَضَائِيَّة\u200F", meaning: "司法による解決" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：抽象的な思考と弁証法 (ID: 140039) ---
+{
+  id: 140039,
+  title: "上級：弁証法と絶対的理性",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَنَاقَضَ / يَتَنَاقَضُ مَعَ الْمَنْطِق\u200F", meaning: "論理と矛盾する" },
+    { word: "\u200Fجَدَلِيَّةُ الْفِكْر\u200F", meaning: "思考の弁証法（ダイアレクティクス）" },
+    { word: "\u200Fصَيْرُورَةُ التَّارِيخ\u200F", meaning: "歴史の生成過程（プロセス）" },
+    { word: "\u200Fتَعَالٍ فَلْسَفِيّ\u200F", meaning: "哲学的超越" },
+    { word: "\u200Fنَسَقٌ شُمُولِيّ\u200F", meaning: "包括的な体系（トータルシステム）" },
+    { word: "\u200Fمَاهِيَّةُ الْأَشْيَاء\u200F", meaning: "事物の本質（クィディティ）" },
+    { word: "\u200Fعَقْلَانِيَّةٌ مَحْضَة\u200F", meaning: "純粋理性" },
+    { word: "\u200Fتَجْرِيدٌ مَفَاهِيمِيّ\u200F", meaning: "概念的抽象化" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：総括：知性の地平 (ID: 140040) ---
+{
+  id: 140040,
+  title: "上級：知性の地平と未来",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاسْتَشْرَفَ / يَسْتَشْرِفُ الْمُسْتَقْبَل\u200F", meaning: "未来を展望（予測）する" },
+    { word: "\u200Fأُفُقٌ مَعْرِفِيّ\u200F", meaning: "知の地平（エピステーメー）" },
+    { word: "\u200Fتَجْدِيدٌ حَضَارِيّ\u200F", meaning: "文明の刷新" },
+    { word: "\u200Fإِرْثٌ ثَقَافِيٌّ خَالِد\u200F", meaning: "不滅の文化的遺産" },
+    { word: "\u200Fتَطَلُّعَاتٌ مَشْرُوعَة\u200F", meaning: "正当な志（願望）" },
+    { word: "\u200Fوَئَامٌ كَوْنِيّ\u200F", meaning: "宇宙的な（世界的な）調和" },
+    { word: "\u200Fتَحَوُّلٌ جَوْهَرِيّ\u200F", meaning: "本質的な変容" },
+    { word: "\u200Fحِكْمَةٌ بَالِغَة\u200F", meaning: "至高の知恵" }
+  ],
+  questions: [],
+  sentences: []
+},
+// --- 上級：憲法と統治の法理 (ID: 140026) ---
+{
+  id: 140026,
+  title: "上級：憲法秩序と権限",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fأَصْدَرَ / يُصْدِرُ مَرْسُومًا\u200F", meaning: "政令（勅令）を発布する" },
+    { word: "\u200Fاسْتَفْتَى / يَسْتَفْتِي الشَّعْب\u200F", meaning: "国民投票にかける" },
+    { word: "\u200Fنِطَاقُ الِاخْتِصَاص\u200F", meaning: "管轄範囲" },
+    { word: "\u200Fتَفْوِيضٌ شَعْبِيّ\u200F", meaning: "国民による委任（マンデート）" },
+    { word: "\u200Fفَصْلُ السُّلُطَات\u200F", meaning: "三権分立" },
+    { word: "\u200Fحَصَانَةٌ دِبْلُومَاسِيَّة\u200F", meaning: "外交特権（免責）" },
+    { word: "\u200Fتَعْدِيلٌ دُسْتُورِيّ\u200F", meaning: "憲法改正" },
+    { word: "\u200Fتَسَلُّطُ الدَّوْلَة\u200F", meaning: "国家の権威主義（専制）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：認識論と言語的直感 (ID: 140027) ---
+{
+  id: 140027,
+  title: "上級：認識論と知覚の哲学",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fارْتَكَزَ / يَرْتَكِزُ عَلَى\u200F", meaning: "〜に依拠する・基礎を置く" },
+    { word: "\u200Fالْمَنْهَجُ التَّجْرِيبِيّ\u200F", meaning: "経験的手法（エンピリシズム）" },
+    { word: "\u200Fنَظَرِيَّةُ الْمَعْرِفَة\u200F", meaning: "認識論（エピステモロジー）" },
+    { word: "\u200Fالْبَدِيهَةُ الْعَقْلِيَّة\u200F", meaning: "理性的直感" },
+    { word: "\u200Fتَمَثُّلٌ ذِهْنِيّ\u200F", meaning: "心的表象（表現）" },
+    { word: "\u200Fمُسَلَّمَاتٌ فِكْرِيَّة\u200F", meaning: "思考の自明の前提（アキショム）" },
+    { word: "\u200Fأَدْرَكَ / يُدْرِكُ الْكُنْه\u200F", meaning: "本質（深奥）を悟る" },
+    { word: "\u200Fظَاهِرَاتِيَّة\u200F", meaning: "現象学" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：国際安全保障と抑止 (ID: 140028) ---
+{
+  id: 140028,
+  title: "上級：地政学と軍事抑止",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fضَمَّ / يَضُمُّ الْأَرَاضِي\u200F", meaning: "領土を併合する" },
+    { word: "\u200Fالرَّدْعُ الِاسْتِرَاتِيجيّ\u200F", meaning: "戦略的抑止（デタレンス）" },
+    { word: "\u200Fفَرَضَ / يَفْرِضُ حِصَارًا\u200F", meaning: "封鎖を強いる" },
+    { word: "\u200Fنَزَعَ / يَنْزِعُ فَتِيلَ الْأَزْمَة\u200F", meaning: "危機の火種を取り除く" },
+    { word: "\u200Fتَجَسُّسٌ اسْتِخْبَارِيّ\u200F", meaning: "情報収集（スパイ活動）" },
+    { word: "\u200Fتَفَوُّقٌ عَسْكَرِيّ\u200F", meaning: "軍事的優位" },
+    { word: "\u200Fانْتِشَارٌ نَوَوِيّ\u200F", meaning: "核拡散" },
+    { word: "\u200Fسِبَاقُ التَّسَلُّح\u200F", meaning: "軍備拡張競争" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：社会現象と疎外 (ID: 140029) ---
+{
+  id: 140029,
+  title: "上級：社会の病理と疎外",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاغْتَرَبَ / يَغْتَرِبُ عَنِ الْوَاقِع\u200F", meaning: "現実から疎外される" },
+    { word: "\u200Fتَهْمِيشٌ سُوسْيُولوجِيّ\u200F", meaning: "社会学的疎外（周縁化）" },
+    { word: "\u200Fنَسِيجٌ مُجْتَمَعِيّ\u200F", meaning: "社会構造（ファブリック）" },
+    { word: "\u200Fتَفَكُّكٌ أُسَرِيّ\u200F", meaning: "家族の崩壊" },
+    { word: "\u200Fاسْتِلابٌ فِكْرِيّ\u200F", meaning: "思想的強奪（洗脳・疎外）" },
+    { word: "\u200Fنَزْعَةٌ مَادِّيَّة\u200F", meaning: "物質主義的傾向" },
+    { word: "\u200Fرِيَاءٌ اجْتِمَاعِيّ\u200F", meaning: "社会的偽善" },
+    { word: "\u200Fتَنْمِيطٌ جِنْسَانِيّ\u200F", meaning: "ジェンダーの定型化" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：科学哲学と言語 (ID: 140030) ---
+{
+  id: 140030,
+  title: "上級：科学的パラダイム",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fدَحَضَ / يَدْحَضُ الْبُرْهَان\u200F", meaning: "証拠を論破する" },
+    { word: "\u200Fنَمُوذَجٌ مَعْرِفِيّ\u200F", meaning: "認識モデル（パラダイム）" },
+    { word: "\u200Fقَابِلِيَّةُ التَّطْبِيق\u200F", meaning: "適応可能性（実用性）" },
+    { word: "\u200Fحَتْمِيَّةٌ تِقْنِيَّة\u200F", meaning: "技術決定論" },
+    { word: "\u200Fتَشَفُّرٌ جِينِيّ\u200F", meaning: "遺伝的暗号化" },
+    { word: "\u200Fمَوْضُوعِيَّةٌ عِلْمِيَّة\u200F", meaning: "科学的客観性" },
+    { word: "\u200Fثَوْرَةٌ مَعْلُومَاتِيَّة\u200F", meaning: "情報革命" },
+    { word: "\u200Fذَكَاءٌ مَنْطِقِيّ\u200F", meaning: "論理的知性" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：高度な経済・財政用語 (ID: 140031) ---
+{
+  id: 140031,
+  title: "上級：財政再建と経済構造",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fقَلَّصَ / يُقَلِّصُ الْعَجْز\u200F", meaning: "赤字を削減する" },
+    { word: "\u200Fإِصْلَاحٌ هَيْكَلِيّ\u200F", meaning: "構造改革" },
+    { word: "\u200Fتَقَشُّفٌ مَالِيّ\u200F", meaning: "緊縮財政" },
+    { word: "\u200Fمَدْيُونِيَّةٌ خَارِجِيَّة\u200F", meaning: "対外債務" },
+    { word: "\u200Fتَضَخُّمٌ مُفْرِط\u200F", meaning: "ハイパーインフレ" },
+    { word: "\u200Fخَصْخَصَةُ الْمَرَافِق\u200F", meaning: "公共施設の民営化" },
+    { word: "\u200Fتَدَفُّقُ الِاسْتِثْمَار\u200F", meaning: "投資の流入" },
+    { word: "\u200Fالِاقْتِصَادُ الْكُلِّيّ\u200F", meaning: "マクロ経済" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：外交と戦略的レトリック (ID: 140032) ---
+{
+  id: 140032,
+  title: "上級：外交交渉とレトリック",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fنَاوَرَ / يُنَاوِرُ سِيَاسِيًّا\u200F", meaning: "政治的に駆け引きする" },
+    { word: "\u200Fتَسْوِيَةٌ مَرْضِيَّة\u200F", meaning: "満足のいく和解" },
+    { word: "\u200Fمَذْكَرَةُ تَفَاهُم\u200F", meaning: "覚書（MoU）" },
+    { word: "\u200Fشَرْعِيَّةٌ دِيبْلُومَاسِيَّة\u200F", meaning: "外交的正当性" },
+    { word: "\u200Fتَعَهَّدَ / يَتَعَهَّدُ بِالِالْتِزَام\u200F", meaning: "遵守を誓約する" },
+    { word: "\u200Fوَسَاطَةٌ مَحَايِدَة\u200F", meaning: "中立的な仲裁" },
+    { word: "\u200Fتَطْبِيعٌ كَامِل\u200F", meaning: "完全な正常化" },
+    { word: "\u200Fخِطَابٌ شَعْبَوِيّ\u200F", meaning: "ポピュリズム的言説" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：精神と実存の用語 (ID: 140033) ---
+{
+  id: 140033,
+  title: "上級：実存的心理と倫理",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَخَلَّى / يَتَخَلَّى عَنِ الْمَبَادِئ\u200F", meaning: "原則を放棄する" },
+    { word: "\u200Fصِرَاعٌ دَاخِلِيّ\u200F", meaning: "葛藤" },
+    { word: "\u200Fقَنَاعَةٌ رَاسِخَة\u200F", meaning: "確固たる信念" },
+    { word: "\u200Fوَعْيٌ جَمْعِيّ\u200F", meaning: "集合意識" },
+    { word: "\u200Fنَزْعَةٌ أَنَانِيَّة\u200F", meaning: "利己主義的傾向" },
+    { word: "\u200Fمِثَالِيَّةٌ طُوبَاوِيَّة\u200F", meaning: "ユートピア的理想主義" },
+    { word: "\u200Fتَجَلٍّ رُوحِيّ\u200F", meaning: "精神的顕現（エピファニー）" },
+    { word: "\u200Fضَمِيرٌ مُعَذَّب\u200F", meaning: "さいなまれる良心" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：文学と脱構築 (ID: 140034) ---
+{
+  id: 140034,
+  title: "上級：文学批評と言説分析",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fفَكَّكَ / يُفَكِّكُ النَّصّ\u200F", meaning: "テクストを脱構築する" },
+    { word: "\u200Fتَنَاصّ أَدَبِيّ\u200F", meaning: "インターテクスチュアリティ" },
+    { word: "\u200Fتَجْرِيدٌ جَمَالِيّ\u200F", meaning: "美的抽象化" },
+    { word: "\u200Fخِطَابٌ سُلْطَوِيّ\u200F", meaning: "権威的言説" },
+    { word: "\u200Fتَأْوِيلٌ هَرْمِينُوطِيّ\u200F", meaning: "解釈学的解釈" },
+    { word: "\u200Fرَمْزِيَّةٌ مَسْتُورَة\u200F", meaning: "隠された象徴性" },
+    { word: "\u200Fبِنْيَوِيَّة\u200F", meaning: "構造主義" },
+    { word: "\u200Fمَا بَعْدَ الْحَدَاثَة\u200F", meaning: "ポストモダン" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：環境倫理と生命の尊厳 (ID: 140035) ---
+{
+  id: 140035,
+  title: "上級：環境倫理と生命倫理",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاسْتَنْسَخَ / يَسْتَنْسِخُ الْكَائِن\u200F", meaning: "生物をクローン化する" },
+    { word: "\u200Fأَخْلَاقِيَّاتُ الْبِيُولُوجِيَا\u200F", meaning: "生命倫理（バイオエシックス）" },
+    { word: "\u200Fتَلَاشِي الْأَنْوَاع\u200F", meaning: "種の消滅（絶滅）" },
+    { word: "\u200Fتَحَوُّرٌ جِينِيّ\u200F", meaning: "遺伝的変異" },
+    { word: "\u200Fاسْتِدَامَةٌ بِيئِيَّة\u200F", meaning: "環境の持続可能性" },
+    { word: "\u200Fانْتِهَاكُ الطَّبِيعَة\u200F", meaning: "自然の侵害" },
+    { word: "\u200Fتَوَازُنٌ إِيكُولُوجِيّ\u200F", meaning: "生態学的バランス" },
+    { word: "\u200Fإِرْثٌ طَبِيعِيّ\u200F", meaning: "自然遺産" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：地政学的な対立 (ID: 140036) ---
+{
+  id: 140036,
+  title: "上級：地政学的極性と覇権",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fهَيْمَنَةٌ جِيُوبُولِيتِيكِيَّة\u200F", meaning: "地政学的覇権" },
+    { word: "\u200Fنُفُوذٌ إِقْلِيمِيّ\u200F", meaning: "地域的な影響力" },
+    { word: "\u200Fتَحَالُفٌ مَصِيرِيّ\u200F", meaning: "死活的な同盟" },
+    { word: "\u200Fاسْتِقْطَابٌ دُوَلِيّ\u200F", meaning: "国際的な極性化" },
+    { word: "\u200Fتَوَازُنُ الرُّعْب\u200F", meaning: "恐怖の均衡" },
+    { word: "\u200Fسِيَادَةٌ مَنْقُوصَة\u200F", meaning: "不完全な主権" },
+    { word: "\u200Fمَجَالٌ حَيَوِيّ\u200F", meaning: "生存圏" },
+    { word: "\u200Fصِرَاعٌ وُجُودِيّ\u200F", meaning: "存亡をかけた闘争" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：高度なメディア批評 (ID: 140037) ---
+{
+  id: 140037,
+  title: "上級：メディア表象と扇動",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fحَرَّضَ / يُحَرِّضُ عَلَى الْعُنْف\u200F", meaning: "暴力を煽動する" },
+    { word: "\u200Fتَضْلِيلٌ مُمَنْهَج\u200F", meaning: "体系的な誤報" },
+    { word: "\u200Fبَرُوبَاغَانْدَا طَاغِيَة\u200F", meaning: "圧倒的なプロパガンダ" },
+    { word: "\u200Fنَسَقٌ سِيمِيَائِيّ\u200F", meaning: "記号論的体系" },
+    { word: "\u200Fصِنَاعَةُ الْوَعْي\u200F", meaning: "意識の生産" },
+    { word: "\u200Fرِقَابَةٌ صَارِمَة\u200F", meaning: "厳格な検閲" },
+    { word: "\u200Fتَحَيُّزٌ أَيْدِيُولُوجِيّ\u200F", meaning: "イデオロギー的偏向" },
+    { word: "\u200Fتَلَاعُبٌ بِالْعُقُول\u200F", meaning: "心理的操作" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：法理学と正義の深淵 (ID: 140038) ---
+{
+  id: 140038,
+  title: "上級：法理と司法の濫用",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَعَسَّفَ / يَتَعَسَّفُ فِي السُّلْطَة\u200F", meaning: "権力を濫用する" },
+    { word: "\u200Fفِقْهُ الْقَانُون\u200F", meaning: "法理学" },
+    { word: "\u200Fقَرِينَةُ الْبَرَاءَة\u200F", meaning: "推定無罪" },
+    { word: "\u200Fعُقُوبَةٌ رَادِعَة\u200F", meaning: "抑止力のある刑罰" },
+    { word: "\u200Fمَشْرُوعِيَّةٌ دُسْتُورِيَّة\u200F", meaning: "憲法上の合法性" },
+    { word: "\u200Fانْتِهَاكٌ صَارِخ\u200F", meaning: "明白な侵害" },
+    { word: "\u200Fإِجْرَاءٌ احْتِرَازِيّ\u200F", meaning: "予防措置" },
+    { word: "\u200Fتَسْوِيَةٌ قَضَائِيَّة\u200F", meaning: "司法による解決" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：抽象的な思考と弁証法 (ID: 140039) ---
+{
+  id: 140039,
+  title: "上級：弁証法的思考と抽象",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَنَاقَضَ / يَتَنَاقَضُ مَعَ الْمَنْطِق\u200F", meaning: "論理と矛盾する" },
+    { word: "\u200Fجَدَلِيَّةُ الْفِكْر\u200F", meaning: "思考の弁証法" },
+    { word: "\u200Fصَيْرُورَةُ التَّارِيخ\u200F", meaning: "歴史の生成過程" },
+    { word: "\u200Fتَعَالٍ فَلْسَفِيّ\u200F", meaning: "哲学的超越" },
+    { word: "\u200Fنَسَقٌ شُمُولِيّ\u200F", meaning: "包括的な体系" },
+    { word: "\u200Fمَاهِيَّةُ الْأَشْيَاء\u200F", meaning: "事物の本質" },
+    { word: "\u200Fعَقْلَانِيَّةٌ مَحْضَة\u200F", meaning: "純粋理性" },
+    { word: "\u200Fتَجْرِيدٌ مَفَاهِيمِيّ\u200F", meaning: "概念的抽象化" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：知性の地平と未来 (ID: 140040) ---
+{
+  id: 140040,
+  title: "上級：知のエピステーメー",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاسْتَشْرَفَ / يَسْتَشْرِفُ الْمُسْتَقْبَل\u200F", meaning: "未来を展望する" },
+    { word: "\u200Fأُفُقٌ مَعْرِفِيّ\u200F", meaning: "知の地平" },
+    { word: "\u200Fتَجْدِيدٌ حَضَارِيّ\u200F", meaning: "文明の刷新" },
+    { word: "\u200Fإِرْثٌ ثَقَافِيٌّ خَالِد\u200F", meaning: "不滅の文化的遺産" },
+    { word: "\u200Fتَطَلُّعَاتٌ مَشْرُوعَة\u200F", meaning: "正当な志" },
+    { word: "\u200Fوَئَامٌ كَوْنِيّ\u200F", meaning: "宇宙的な調和" },
+    { word: "\u200Fتَحَوُّلٌ جَوْهَرِيّ\u200F", meaning: "本質的な変容" },
+    { word: "\u200Fحِكْمَةٌ بَالِغَة\u200F", meaning: "至高の知恵" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：外交と戦略的均衡 (ID: 140041) ---
+{
+  id: 140041,
+  title: "上級：国際政治の均衡と紛争",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fانْخَرَطَ / يَنْخَرِطُ فِي\u200F", meaning: "〜に関与する・巻き込まれる" },
+    { word: "\u200Fاسْتَنْزَفَ / يَسْتَنْزِفُ\u200F", meaning: "消耗させる・枯渇させる" },
+    { word: "\u200Fثُنَائِيَّةُ الْقُطْبِيَّة\u200F", meaning: "二極構造" },
+    { word: "\u200Fنُفُوذٌ جِيُوسِيَاسِيّ\u200F", meaning: "地政学的影響力" },
+    { word: "\u200Fطَرِيِقٌ مَسْدُود\u200F", meaning: "袋小路（行き詰まり）" },
+    { word: "\u200Fتَصْعِيدٌ عَسْكَرِيّ\u200F", meaning: "軍事的エスカレーション" },
+    { word: "\u200Fوَسَاطَةٌ مَكُوكِيَّة\u200F", meaning: "シャトル外交" },
+    { word: "\u200Fحَالَةُ الِاسْتِعْصَاء\u200F", meaning: "膠着状態" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：認識論と実存 (ID: 140042) ---
+{
+  id: 140042,
+  title: "上級：認識論と言語の限界",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَجَاوَزَ / يَتَجَاوَزُ الْمَأْلُوف\u200F", meaning: "既成概念を超越する" },
+    { word: "\u200Fمَاهِيَّةُ الْأَشْيَاء\u200F", meaning: "事物の本質" },
+    { word: "\u200Fإِدْرَاكٌ حِسِّيّ\u200F", meaning: "感性的知覚" },
+    { word: "\u200Fنَسَقٌ مَفَاهِيمِيّ\u200F", meaning: "概念的体系" },
+    { word: "\u200Fتَأْوِيلٌ هَرْمِينُوطِيقِيّ\u200F", meaning: "解釈学的解釈" },
+    { word: "\u200Fنَزْعَةٌ تَقْلِيدِيَّة\u200F", meaning: "伝統主義的傾向" },
+    { word: "\u200Fاغْتِرَابٌ فِكْرِيّ\u200F", meaning: "思想的疎外" },
+    { word: "\u200Fالصَّيْرُورَة\u200F", meaning: "生成" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：経済的脆弱性と構造調整 (ID: 140043) ---
+{
+  id: 140043,
+  title: "上級：マクロ経済の構造改革",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fفَاقَمَ / يُفَاقِمُ الْعَجْز\u200F", meaning: "赤字を悪化させる" },
+    { word: "\u200Fخَصْخَصَةٌ شَامِلَة\u200F", meaning: "包括的な民営化" },
+    { word: "\u200Fرُكُودٌ تَضَخُّمِيّ\u200F", meaning: "スタグフレーション" },
+    { word: "\u200Fتَدَفُّقُ رُؤُوسِ الْأَمْوَال\u200F", meaning: "資本流出入" },
+    { word: "\u200Fمَدْيُونِيَّةٌ خَارِجِيَّة\u200F", meaning: "対外債務" },
+    { word: "\u200Fإِصْلَاحٌ هَيْكَلِيّ\u200F", meaning: "構造改革" },
+    { word: "\u200Fسِيَاسَةُ التَّقَشُّف\u200F", meaning: "緊縮財政政策" },
+    { word: "\u200Fالِاقْتِصَادُ الرَّيْعِيّ\u200F", meaning: "レンティア国家経済" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：憲法秩序と法的正当性 (ID: 140044) ---
+{
+  id: 140044,
+  title: "上級：憲法秩序と権力濫用",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fطَعَنَ / يَطْعَنُ فِي الشَّرْعِيَّة\u200F", meaning: "正当性に異議を申し立てる" },
+    { word: "\u200Fمَشْرُوعِيَّةٌ دُسْتُورِيَّة\u200F", meaning: "憲法上の正当性" },
+    { word: "\u200Fفَصْلُ السُّلُطَات\u200F", meaning: "三権分立" },
+    { word: "\u200Fتَعَسُّفٌ فِي اسْتِعْمَالِ الْحَقّ\u200F", meaning: "権利の濫用" },
+    { word: "\u200Fنِطَاقُ الِاخْتِصَاص\u200F", meaning: "管轄範囲" },
+    { word: "\u200Fمَسَاءَلَةٌ قَانُونِيَّة\u200F", meaning: "法的説明責任" },
+    { word: "\u200Fقَرِينَةُ الْبَرَاءَة\u200F", meaning: "推定無罪" },
+    { word: "\u200Fتَشْرِيعٌ اسْتِثْنَائِيّ\u200F", meaning: "緊急立法" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：AI倫理とサイバー空間 (ID: 140045) ---
+{
+  id: 140045,
+  title: "上級：デジタル主権と倫理",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاخْتَرَقَ / يَخْتَرِقُ الْأَمْن\u200F", meaning: "セキュリティを侵害する" },
+    { word: "\u200Fتَشْفِيرٌ نِهَائِيّ\u200F", meaning: "エンドツーエンドの暗号化" },
+    { word: "\u200Fخَوَارِزْمِيَّةٌ مُتَحَيِّزَة\u200F", meaning: "偏ったアルゴリズム" },
+    { word: "\u200Fتَقْنِيَّةُ التَّزْيِيفِ الْعَمِيق\u200F", meaning: "ディープフェイク技術" },
+    { word: "\u200Fسِيَادَةٌ رَقْمِيَّة\u200F", meaning: "デジタル主権" },
+    { word: "\u200Fفَجْوَةٌ مَعْرِفِيَّة\u200F", meaning: "知識格差" },
+    { word: "\u200Fحَوْكَمَةُ الْبَيَانَات\u200F", meaning: "データガバナンス" },
+    { word: "\u200Fأَخْلَاقِيَّاتُ الذَّكَاء\u200F", meaning: "AI倫理" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：社会階層とポストモダン (ID: 140046) ---
+{
+  id: 140046,
+  title: "上級：文化的多元主義",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fهَمَّشَ / يُهَمِّشُ الْفِئَات\u200F", meaning: "特定層を疎外する" },
+    { word: "\u200Fتَمَاسُكٌ اجْتِمَاعِيّ\u200F", meaning: "社会的結束" },
+    { word: "\u200Fتَعَدُّدِيَّةٌ ثَقَافِيَّة\u200F", meaning: "文化的多元主義" },
+    { word: "\u200Fنَسَقٌ سُلْطَوِيّ\u200F", meaning: "権威主義的体系" },
+    { word: "\u200Fتَحَوُّلٌ بِنْيَوِيّ\u200F", meaning: "構造的変容" },
+    { word: "\u200Fاسْتِهْلَاكٌ بَذْخِيّ\u200F", meaning: "誇示的消費" },
+    { word: "\u200Fصُورَةٌ نَمَطِيَّة\u200F", meaning: "ステレオタイプ" },
+    { word: "\u200Fنَزْعَةٌ نَفْعِيَّة\u200F", meaning: "功利主義的傾向" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：環境倫理と生命科学 (ID: 140047) ---
+{
+  id: 140047,
+  title: "上級：生命工学と環境劣化",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاسْتَنْسَخَ / يَسْتَنْسِخُ الْخَلَايَا\u200F", meaning: "細胞を複製する" },
+    { word: "\u200Fهَنْدَسَةٌ جِينِيَّة\u200F", meaning: "遺伝子工学" },
+    { word: "\u200Fتَنَوُّعٌ بِيُولُوجِيّ\u200F", meaning: "生物多様性" },
+    { word: "\u200Fاحْتِبَاسٌ كَرْبُونِيّ\u200F", meaning: "炭素固定" },
+    { word: "\u200Fتَدَهْوُرٌ بِيئِيّ\u200F", meaning: "環境劣化" },
+    { word: "\u200Fإِعَادَةُ التَّدْوِير\u200F", meaning: "リサイクル" },
+    { word: "\u200Fأَخْلَاقِيَّاتُ الْبِيُولُوجِيَا\u200F", meaning: "生命倫理" },
+    { word: "\u200Fاسْتِدَامَةٌ مَنْقُوصَة\u200F", meaning: "不完全な持続可能性" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：言説分析とメディア批評 (ID: 140048) ---
+{
+  id: 140048,
+  title: "上級：言説分析と偏向",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fفَكَّكَ / يُفَكِّكُ الْخِطَاب\u200F", meaning: "言説を脱構築する" },
+    { word: "\u200Fتَضْلِيلٌ إِعْلَامِيّ\u200F", meaning: "メディアによる誤誘導" },
+    { word: "\u200Fمَوْضُوعِيَّةٌ نِسْبِيَّة\u200F", meaning: "相対的客観性" },
+    { word: "\u200Fبَرُوبَاغَانْدَا طَاغِيَة\u200F", meaning: "圧倒的なプロパガンダ" },
+    { word: "\u200Fرِقَابَةٌ صَارِمَة\u200F", meaning: "厳格な検閲" },
+    { word: "\u200Fحُرِّيَّةٌ مَسْؤُولَة\u200F", meaning: "責任ある自由" },
+    { word: "\u200Fتَحَيُّزٌ أَيْدِيُولُوجِيّ\u200F", meaning: "イデオロギー的偏向" },
+    { word: "\u200Fصِنَاعَةُ الرَّأْي\u200F", meaning: "世論の形成" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：法理学と刑罰理論 (ID: 140049) ---
+{
+  id: 140049,
+  title: "上級：刑事改革と規範",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fجَرَّمَ / يُجَرِّمُ الْفِعْل\u200F", meaning: "行為を犯罪化する" },
+    { word: "\u200Fعُقُوبَةٌ رَادِعَة\u200F", meaning: "抑止力のある刑罰" },
+    { word: "\u200Fإِصْلَاحٌ جِنَائِيّ\u200F", meaning: "刑事改革" },
+    { word: "\u200Fقَاعِدَةٌ آمِرَة\u200F", meaning: "強行規範" },
+    { word: "\u200Fتَوْثِيقٌ عَدْلِيّ\u200F", meaning: "司法上の公正な記録" },
+    { word: "\u200Fحَقُّ الِاسْتِئْنَاف\u200F", meaning: "控訴権" },
+    { word: "\u200Fتَبْرِئَةُ السَّاحَة\u200F", meaning: "潔白の証明" },
+    { word: "\u200Fقَانُونُ الْعُقُوبَات\u200F", meaning: "刑法" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：形而上学と存在論 (ID: 140050) ---
+{
+  id: 140050,
+  title: "上級：実体とニヒリズム",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَسَامَى / يَتَسَامَى عَنِ الْمَادَّة\u200F", meaning: "物質を超越する" },
+    { word: "\u200Fمِيتافِيزِيقَا\u200F", meaning: "形而上学" },
+    { word: "\u200Fجَوْهَرٌ وَعَرَض\u200F", meaning: "実体と偶性" },
+    { word: "\u200Fنِهَائِيَّةُ الْوُجُود\u200F", meaning: "存在の有限性" },
+    { word: "\u200Fوِحْدَةُ الْوُجُود\u200F", meaning: "汎神論" },
+    { word: "\u200Fتَجَلٍّ إِلَهِيّ\u200F", meaning: "神的な顕現" },
+    { word: "\u200Fعَدَمِيَّةٌ مُطْلَقَة\u200F", meaning: "絶対的ニヒリズム" },
+    { word: "\u200Fإِدْرَاكٌ كُلِّيّ\u200F", meaning: "普遍的な認識" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：資源ナショナリズムと紛争 (ID: 140051) ---
+{
+  id: 140051,
+  title: "上級：エネルギー覇権",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fأَمَّمَ / يُأَمِّمُ الْمَوَارِد\u200F", meaning: "資源を国有化する" },
+    { word: "\u200Fهَيْمَنَةٌ طَاقَوِيَّة\u200F", meaning: "エネルギー覇権" },
+    { word: "\u200Fسِلْسِلَةُ التَّوْرِيد\u200F", meaning: "サプライチェーン" },
+    { word: "\u200Fصِرَاعٌ عَلَى الْمِيَاه\u200F", meaning: "水紛争" },
+    { word: "\u200Fأَمْنٌ غِذَائِيّ\u200F", meaning: "食料安全保障" },
+    { word: "\u200Fتَبَادُلٌ تِجَارِيٌّ مَشْرُوط\u200F", meaning: "条件付き貿易取引" },
+    { word: "\u200Fمَجَالٌ حَيَوِيّ\u200F", meaning: "生存圏" },
+    { word: "\u200Fتَحَالُفٌ اسْتِرَاتِيجيّ\u200F", meaning: "戦略的同盟" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：言語の構造と恣意性 (ID: 140052) ---
+{
+  id: 140052,
+  title: "上級：記号論と修辞",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاشْتَقَّ / يَشْتَقُّ مِنَ الْجَذْر\u200F", meaning: "語根から派生する" },
+    { word: "\u200Fاعْتِبَاطِيَّةُ الْإِشَارَة\u200F", meaning: "記号の恣意性" },
+    { word: "\u200Fنَسَقٌ سِيمِيَائِيّ\u200F", meaning: "記号論的体系" },
+    { word: "\u200Fدَالٌّ وَمَدْلُول\u200F", meaning: "シニフィアンとシニフィエ" },
+    { word: "\u200Fبَلَاغَةُ الْمَجَاز\u200F", meaning: "比喩的な修辞" },
+    { word: "\u200Fنَحْوٌ تَوْلِيدِيّ\u200F", meaning: "生成文法" },
+    { word: "\u200Fمُتَرَادِفَاتٌ دَقِيقَة\u200F", meaning: "精密な類義語" },
+    { word: "\u200Fتَعْرِيبُ الْمُصْطَلَح\u200F", meaning: "用語のアラビア語化" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：通貨危機と金融市場 (ID: 140053) ---
+{
+  id: 140053,
+  title: "上級：ソブリン危機と為替",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَذَبْذَبَ / يَتَذَبْذَبُ السِّعْر\u200F", meaning: "価格が変動する" },
+    { word: "\u200Fسُيُولَةٌ نَقْدِيَّة\u200F", meaning: "通貨流動性" },
+    { word: "\u200Fمُضَارَبَةٌ مَالِيَّة\u200F", meaning: "金融投機" },
+    { word: "\u200Fأَزْمَةٌ سِيَادِيَّة\u200F", meaning: "ソブリン危機" },
+    { word: "\u200Fتَقْلِيصُ النَّفَقَات\u200F", meaning: "歳出削減" },
+    { word: "\u200Fنُمُوٌّ صِفْرِيّ\u200F", meaning: "ゼロ成長" },
+    { word: "\u200Fمِيزَانُ الْمَدْفُوعَات\u200F", meaning: "国際収支" },
+    { word: "\u200Fتَعْوِيمُ الْعُمْلَة\u200F", meaning: "通貨の変動相場制への移行" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：法の支配と権威 (ID: 140054) ---
+{
+  id: 140054,
+  title: "上級：社会契約と法治",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fسَنَّ / يَسُنُّ التَّشْرِيع\u200F", meaning: "立法を制定する" },
+    { word: "\u200Fعَقْدٌ اجْتِمَاعِيّ\u200F", meaning: "社会契約" },
+    { word: "\u200Fدَوْلَةُ الْمُؤَسَّسَات\u200F", meaning: "法治国家" },
+    { word: "\u200Fفَتْوَى قَانُونِيَّة\u200F", meaning: "法的勧告" },
+    { word: "\u200Fتَسَلُّطٌ نَاعِم\u200F", meaning: "ソフトな権威主義" },
+    { word: "\u200Fشَرْعِيَّةٌ سِيَاسِيَّة\u200F", meaning: "政治的正当性" },
+    { word: "\u200Fإِجْمَاعٌ وَطَنِيّ\u200F", meaning: "国民的合意" },
+    { word: "\u200Fقَانُونٌ أَسَاسِيّ\u200F", meaning: "基本法" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：アノミーと社会的連帯 (ID: 140055) ---
+{
+  id: 140055,
+  title: "上級：社会の乖離とアノミー",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fانْفَصَمَ / يَنْفَصِمُ عَنِ الْمُجْتَمَع\u200F", meaning: "社会から乖離する" },
+    { word: "\u200Fأَنُومِيَا\u200F", meaning: "アノミー" },
+    { word: "\u200Fتَرَاتُبِيَّةٌ هَرَمِيَّة\u200F", meaning: "階層的ヒエラルキー" },
+    { word: "\u200Fرَأْسُ مَالٍ اجْتِمَاعِيّ\u200F", meaning: "ソーシャル・キャピタル" },
+    { word: "\u200Fصِرَاعٌ طَبَقِيّ\u200F", meaning: "階級闘争" },
+    { word: "\u200Fتَقَالِيدُ رَاسِخَة\u200F", meaning: "根付いた伝統" },
+    { word: "\u200Fنَسَقٌ قِيَمِيّ\u200F", meaning: "価値体系" },
+    { word: "\u200Fتَمْيِيزٌ مُمَنْهَج\u200F", meaning: "体系的な差別" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：多国間外交と抑止 (ID: 140056) ---
+{
+  id: 140056,
+  title: "上級：多国間主義とソフトパワー",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fنَاوَرَ / يُنَاوِرُ فِي الْمُفَاوَضَات\u200F", meaning: "交渉で駆け引きする" },
+    { word: "\u200Fتَعَدُّدِيَّةُ الْأَطْرَاف\u200F", meaning: "多国間主義" },
+    { word: "\u200Fقُوَّةٌ نَاعِمَة\u200F", meaning: "ソフトパワー" },
+    { word: "\u200Fتَوَازُنُ الرُّعْب\u200F", meaning: "恐怖の均衡" },
+    { word: "\u200Fتَسْوِيَةٌ شَامِلَة\u200F", meaning: "包括的解決" },
+    { word: "\u200Fبِرُوتُوكُولٌ دِبْلُومَاسِيّ\u200F", meaning: "外交儀礼" },
+    { word: "\u200Fنَزَعَ / يَنْزِعُ فَتِيلَ التَّوَتُّر\u200F", meaning: "緊張の火種を取り除く" },
+    { word: "\u200Fعُزْلَةٌ دُوَلِيَّة\u200F", meaning: "国際的孤立" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：認識論と知覚の哲学 (ID: 140057) ---
+{
+  id: 140057,
+  title: "上級：現象学と概念的抽象",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fارْتَكَزَ / يَرْتَكِزُ عَلَى التَّجْرِبَة\u200F", meaning: "経験に依拠する" },
+    { word: "\u200Fبَدِيهَةٌ عَقْلِيَّة\u200F", meaning: "理性的直感" },
+    { word: "\u200Fتَمَثُّلٌ ذِهْنِيّ\u200F", meaning: "心的表象" },
+    { word: "\u200Fمُسَلَّمَاتٌ فِكْرِيَّة\u200F", meaning: "思考の自明の前提" },
+    { word: "\u200Fأَدْرَكَ / يُدْرِكُ الْكُنْه\u200F", meaning: "本質を悟る" },
+    { word: "\u200Fظَاهِرَاتِيَّة\u200F", meaning: "現象学" },
+    { word: "\u200Fمَنْهَجٌ اسْتِقْرَائِيّ\u200F", meaning: "帰納法的な手法" },
+    { word: "\u200Fتَجْرِيدٌ مَفَاهِيمِيّ\u200F", meaning: "概念的抽象化" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：サイバー戦争と暗号学 (ID: 140058) ---
+{
+  id: 140058,
+  title: "上級：情報セキュリティと認証",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fفَكَّ / يَفُكُّ الشَّفْرَة\u200F", meaning: "暗号を解読する" },
+    { word: "\u200Fهُجُومٌ سِيْبِرَانِيّ\u200F", meaning: "サイバー攻撃" },
+    { word: "\u200Fتَشْفِيرٌ لَا تَمَاثُلِيّ\u200F", meaning: "非対称暗号" },
+    { word: "\u200Fتَحَقَّقَ / يَتَحَقَّقُ ثُنَائِيًّا\u200F", meaning: "二段階認証をする" },
+    { word: "\u200Fبَرْمَجِيَّاتٌ خَبِيثَة\u200F", meaning: "マルウェア" },
+    { word: "\u200Fاخْتِرَاقٌ سَحَابِيّ\u200F", meaning: "クラウドへの侵入" },
+    { word: "\u200Fثَغْرَةٌ أَمْنِيَّة\u200F", meaning: "セキュリティホール" },
+    { word: "\u200Fمُصَادَقَةٌ حَيَوِيَّة\u200F", meaning: "生体認証" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：ポストモダンと文明の衝突 (ID: 140059) ---
+{
+  id: 140059,
+  title: "上級：歴史の終焉と文明の退行",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fانْدَثَرَ / يَنْدَثِرُ التَّارِيخ\u200F", meaning: "歴史が消滅する" },
+    { word: "\u200Fنِهَايَةُ التَّارِيخ\u200F", meaning: "歴史の終焉" },
+    { word: "\u200Fنُكُوصٌ حَضَارِيّ\u200F", meaning: "文明の退行" },
+    { word: "\u200Fإِعَادَةُ بِنَاء\u200F", meaning: "再構築" },
+    { word: "\u200Fصِرَاعُ الْحَضَارَات\u200F", meaning: "文明の衝突" },
+    { word: "\u200Fتَحَوُّلٌ جَوْهَرِيّ\u200F", meaning: "本質的変容" },
+    { word: "\u200Fإِرْثٌ ثَقَافِيّ\u200F", meaning: "文化的遺産" },
+    { word: "\u200Fحِقْبَةٌ جَدِيدَة\u200F", meaning: "新時代" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：現代社会の病理と疎外 (ID: 140060) ---
+{
+  id: 140060,
+  title: "上級：家族の崩壊と社会的偽善",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاغْتَرَبَ / يَغْتَرِبُ عَنِ الْوَاقِع\u200F", meaning: "現実から疎外される" },
+    { word: "\u200Fتَهْمِيشٌ سُوسْيُولوجِيّ\u200F", meaning: "社会学的周縁化" },
+    { word: "\u200Fنَسِيجٌ مُجْتَمَعِيّ\u200F", meaning: "社会構造" },
+    { word: "\u200Fاسْتِلابٌ فِكْرِيّ\u200F", meaning: "思想的強奪" },
+    { word: "\u200Fنَزْعَةٌ مَادِّيَّة\u200F", meaning: "物質主義的傾向" },
+    { word: "\u200Fرِيَاءٌ اجْتِمَاعِيّ\u200F", meaning: "社会的偽善" },
+    { word: "\u200Fتَنْمِيطٌ جِنْسَانِيّ\u200F", meaning: "ジェンダーの定型化" },
+    { word: "\u200Fتَفَكُّكٌ أُسَرِيّ\u200F", meaning: "家族の崩壊" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：財政再建とマクロ経済 (ID: 140061) ---
+{
+  id: 140061,
+  title: "上級：対外債務と構造改革",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fقَلَّصَ / يُقَلِّصُ الْعَجْز\u200F", meaning: "赤字を圧縮する" },
+    { word: "\u200Fتَقَشُّفٌ مَالِيّ\u200F", meaning: "緊縮財政" },
+    { word: "\u200Fتَضَخُّمٌ مُفْرِط\u200F", meaning: "ハイパーインフレ" },
+    { word: "\u200Fخَصْخَصَةُ الْمَرَافِق\u200F", meaning: "公共施設の民営化" },
+    { word: "\u200Fتَدَفُّقُ الِاسْتِثْمَار\u200F", meaning: "投資の流入" },
+    { word: "\u200Fالِاقْتِصَادُ الْكُلِّيّ\u200F", meaning: "マクロ経済" },
+    { word: "\u200Fإِصْلَاحٌ هَيْكَلِيّ\u200F", meaning: "構造改革" },
+    { word: "\u200Fمَدْيُونِيَّةٌ خَارِجِيَّة\u200F", meaning: "対外債務" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：戦略的交渉とレトリック (ID: 140062) ---
+{
+  id: 140062,
+  title: "上級：外交的正常化と言説",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fنَاوَرَ / يُنَاوِرُ سِيَاسِيًّا\u200F", meaning: "政治的に駆け引きする" },
+    { word: "\u200Fتَسْوِيَةٌ مَرْضِيَّة\u200F", meaning: "満足のいく和解" },
+    { word: "\u200Fمَذْكَرَةُ تَفَاهُم\u200F", meaning: "覚書（MoU）" },
+    { word: "\u200Fشَرْعِيَّةٌ دِيبْلُومَاسِيَّة\u200F", meaning: "外交的正当性" },
+    { word: "\u200Fتَعَهَّدَ / يَتَعَهَّدُ بِالِالْتِزَام\u200F", meaning: "遵守を誓約する" },
+    { word: "\u200Fوَسَاطَةٌ مَحَايِدَة\u200F", meaning: "中立的な仲裁" },
+    { word: "\u200Fتَطْبِيعٌ كَامِل\u200F", meaning: "完全な正常化" },
+    { word: "\u200Fخِطَابٌ شَعْبَوِيّ\u200F", meaning: "ポピュリズム的言説" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：精神の深層と実存 (ID: 140063) ---
+{
+  id: 140063,
+  title: "上級：ユートピア的理想主義",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَخَلَّى / يَتَخَلَّى عَنِ الْمَبَادِئ\u200F", meaning: "原則を放棄する" },
+    { word: "\u200Fصِرَاعٌ دَاخِلِيّ\u200F", meaning: "内的対立" },
+    { word: "\u200Fقَنَاعَةٌ رَاسِخَة\u200F", meaning: "確固たる信念" },
+    { word: "\u200Fوَعْيٌ جَمْعِيّ\u200F", meaning: "集合意識" },
+    { word: "\u200Fنَزْعَةٌ أَنَانِيَّة\u200F", meaning: "利己主義的傾向" },
+    { word: "\u200Fمِثَالِيَّةٌ طُوبَاوِيَّة\u200F", meaning: "ユートピア的理想主義" },
+    { word: "\u200Fتَجَلٍّ رُوحِيّ\u200F", meaning: "精神的顕現" },
+    { word: "\u200Fضَمِيرٌ مُعَذَّب\u200F", meaning: "さいなまれる良心" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：言説分析と脱構築 (ID: 140064) ---
+{
+  id: 140064,
+  title: "上級：解釈学と言説分析",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fفَكَّكَ / يُفَكِّكُ النَّصّ\u200F", meaning: "テクストを脱構築する" },
+    { word: "\u200Fتَنَاصّ أَدَبِيّ\u200F", meaning: "インターテクスチュアリティ" },
+    { word: "\u200Fتَجْرِيدٌ جَمَالِيّ\u200F", meaning: "美的抽象化" },
+    { word: "\u200Fخِطَابٌ سُلْطَوِيّ\u200F", meaning: "権威的言説" },
+    { word: "\u200Fتَأْوِيلٌ هَرْمِينُوطِيّ\u200F", meaning: "解釈学的解釈" },
+    { word: "\u200Fرَمْزِيَّةٌ مَسْتُورَة\u200F", meaning: "隠された象徴性" },
+    { word: "\u200Fبِنْيَوِيَّة\u200F", meaning: "構造主義" },
+    { word: "\u200Fمَا بَعْدَ الْحَدَاثَة\u200F", meaning: "ポストモダン" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：生命科学と環境倫理 (ID: 140065) ---
+{
+  id: 140065,
+  title: "上級：生態学的バランスと変異",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاسْتَنْسَخَ / يَسْتَنْسِخُ الْكَائِن\u200F", meaning: "生物をクローン化する" },
+    { word: "\u200Fأَخْلَاقِيَّاتُ الْبِيُولُوجِيَا\u200F", meaning: "生命倫理" },
+    { word: "\u200Fتَلَاشِي الْأَنْوَاع\u200F", meaning: "種の絶滅" },
+    { word: "\u200Fتَحَوُّرٌ جِينِيّ\u200F", meaning: "遺伝的変異" },
+    { word: "\u200Fاسْتِدَامَةٌ بِيئِيَّة\u200F", meaning: "環境の持続可能性" },
+    { word: "\u200Fانْتِهَاكُ الطَّبِيعَة\u200F", meaning: "自然の侵害" },
+    { word: "\u200Fتَوَازُنٌ إِيكُولُوجِيّ\u200F", meaning: "生態学的バランス" },
+    { word: "\u200Fإِرْثٌ طَبِيعِيّ\u200F", meaning: "自然遺産" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：地政学的極性と覇権 (ID: 140066) ---
+{
+  id: 140066,
+  title: "上級：存亡をかけた闘争",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fهَيْمَنَةٌ جِيُوبُولِيتِيكِيَّة\u200F", meaning: "地政学的覇権" },
+    { word: "\u200Fنُفُوذٌ إِقْلِيمِيّ\u200F", meaning: "地域的な影響力" },
+    { word: "\u200Fتَحَالُفٌ مَصِيرِيّ\u200F", meaning: "死活的な同盟" },
+    { word: "\u200Fاسْتِقْطَابٌ دُوَلِيّ\u200F", meaning: "国際的な極性化" },
+    { word: "\u200Fتَوَازُنُ الرُّعْب\u200F", meaning: "恐怖の均衡" },
+    { word: "\u200Fسِيَادَةٌ مَنْقُوصَة\u200F", meaning: "不完全な主権" },
+    { word: "\u200Fمَجَالٌ حَيَوِيّ\u200F", meaning: "生存圏" },
+    { word: "\u200Fصِرَاعٌ وُجُودِيّ\u200F", meaning: "存亡をかけた闘争" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：メディア表象と扇動 (ID: 140067) ---
+{
+  id: 140067,
+  title: "上級：イデオロギー的偏向と操作",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fحَرَّضَ / يُحَرِّضُ عَلَى الْعُنْف\u200F", meaning: "暴力を煽動する" },
+    { word: "\u200Fتَضْلِيلٌ مُمَنْهَج\u200F", meaning: "体系的な誤報" },
+    { word: "\u200Fبَرُوبَاغَانْدَا طَاغِيَة\u200F", meaning: "圧倒的なプロパガンダ" },
+    { word: "\u200Fنَسَقٌ سِيمِيَائِيّ\u200F", meaning: "記号論的体系" },
+    { word: "\u200Fصِنَاعَةُ الْوَعْي\u200F", meaning: "意識の生産" },
+    { word: "\u200Fرِقَابَةٌ صَارِمَة\u200F", meaning: "厳格な検閲" },
+    { word: "\u200Fتَحَيُّزٌ أَيْدِيُولُوجِيّ\u200F", meaning: "イデオロギー的偏向" },
+    { word: "\u200Fتَلَاعُبٌ بِالْعُقُول\u200F", meaning: "心理的操作" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：法理と司法の濫用 (ID: 140068) ---
+{
+  id: 140068,
+  title: "上級：憲法上の合法性と和解",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَعَسَّفَ / يَتَعَسَّفُ فِي السُّلْطَة\u200F", meaning: "権力を濫用する" },
+    { word: "\u200Fفِقْهُ الْقَانُون\u200F", meaning: "法理学" },
+    { word: "\u200Fقَرِينَةُ الْبَرَاءَة\u200F", meaning: "推定無罪" },
+    { word: "\u200Fعُقُوبَةٌ رَادِعَة\u200F", meaning: "抑止力のある刑罰" },
+    { word: "\u200Fمَشْرُوعِيَّةٌ دُسْتُورِيَّة\u200F", meaning: "憲法上の合法性" },
+    { word: "\u200Fانْتِهَاكٌ صَارِخ\u200F", meaning: "甚だしい侵害" },
+    { word: "\u200Fإِجْرَاءٌ احْتِرَازِيّ\u200F", meaning: "予防措置" },
+    { word: "\u200Fتَسْوِيَةٌ قَضَائِيَّة\u200F", meaning: "司法による解決" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：弁証法的思考と抽象 (ID: 140069) ---
+{
+  id: 140069,
+  title: "上級：歴史の生成過程と純粋理性",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَنَاقَضَ / يَتَنَاقَضُ مَعَ الْمَنْطِق\u200F", meaning: "論理と矛盾する" },
+    { word: "\u200Fجَدَلِيَّةُ الْفِكْر\u200F", meaning: "思考の弁証法" },
+    { word: "\u200Fصَيْرُورَةُ التَّارِيخ\u200F", meaning: "歴史の生成過程" },
+    { word: "\u200Fتَعَالٍ فَلْسَفِيّ\u200F", meaning: "哲学的超越" },
+    { word: "\u200Fنَسَقٌ شُمُولِيّ\u200F", meaning: "包括的な体系" },
+    { word: "\u200Fمَاهِيَّةُ الْأَشْيَاء\u200F", meaning: "事物の本質" },
+    { word: "\u200Fعَقْلَانِيَّةٌ مَحْضَة\u200F", meaning: "純粋理性" },
+    { word: "\u200Fتَجْرِيدٌ مَفَاهِيمِيّ\u200F", meaning: "概念的抽象化" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：知のエピステーメー (ID: 140070) ---
+{
+  id: 140070,
+  title: "上級：宇宙的な調和と刷新",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاسْتَشْرَفَ / يَسْتَشْرِفُ الْمُسْتَقْبَل\u200F", meaning: "未来を展望する" },
+    { word: "\u200Fأُفُقٌ مَعْرِفِيّ\u200F", meaning: "知の地平" },
+    { word: "\u200Fتَجْدِيدٌ حَضَارِيّ\u200F", meaning: "文明の刷新" },
+    { word: "\u200Fإِرْثٌ ثَقَافِيٌّ خَالِد\u200F", meaning: "不滅の文化的遺産" },
+    { word: "\u200Fتَطَلُّعَاتٌ مَشْرُوعَة\u200F", meaning: "正当な志" },
+    { word: "\u200Fوَئَامٌ كَوْنِيّ\u200F", meaning: "宇宙的な調和" },
+    { word: "\u200Fتَحَوُّلٌ جَوْهَرِيّ\u200F", meaning: "本質的な変容" },
+    { word: "\u200Fحِكْمَةٌ بَالِغَة\u200F", meaning: "至高の知恵" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：法的正当性と権力 (ID: 140071) ---
+{
+  id: 140071,
+  title: "上級：政令と憲法改正",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fأَصْدَرَ / يُصْدِرُ مَرْسُومًا\u200F", meaning: "政令を発布する" },
+    { word: "\u200Fاسْتَفْتَى / يَسْتَفْتِي الشَّعْب\u200F", meaning: "国民投票にかける" },
+    { word: "\u200Fنِطَاقُ الِاخْتِصَاص\u200F", meaning: "管轄範囲" },
+    { word: "\u200Fتَفْوِيضٌ شَعْبِيّ\u200F", meaning: "国民による委任" },
+    { word: "\u200Fفَصْلُ السُّلُطَات\u200F", meaning: "三権分立" },
+    { word: "\u200Fحَصَانَةٌ دِبْلُومَاسِيَّة\u200F", meaning: "外交特権" },
+    { word: "\u200Fتَعْدِيلٌ دُسْتُورِيّ\u200F", meaning: "憲法改正" },
+    { word: "\u200Fتَسَلُّطُ الدَّوْلَة\u200F", meaning: "国家の権威主義" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：理性的直感と認識 (ID: 140072) ---
+{
+  id: 140072,
+  title: "上級：認識の前提と現象学",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fارْتَكَزَ / يَرْتَكِزُ عَلَى\u200F", meaning: "〜に依拠する" },
+    { word: "\u200Fالْمَنْهَجُ التَّجْرِيبِيّ\u200F", meaning: "経験的手法" },
+    { word: "\u200Fنَظَرِيَّةُ الْمَعْرِفَة\u200F", meaning: "認識論" },
+    { word: "\u200Fالْبَدِيهَةُ الْعَقْلِيَّة\u200F", meaning: "理性的直感" },
+    { word: "\u200Fتَمَثُّلٌ ذِهْنِيّ\u200F", meaning: "心的表象" },
+    { word: "\u200Fمُسَلَّمَاتٌ فِكْرِيَّة\u200F", meaning: "思考の自明の前提" },
+    { word: "\u200Fأَدْرَكَ / يُدْرِكُ الْكُنْه\u200F", meaning: "本質を悟る" },
+    { word: "\u200Fظَاهِرَاتِيَّة\u200F", meaning: "現象学" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：戦略的抑止と地政学 (ID: 140073) ---
+{
+  id: 140073,
+  title: "上級：領土併合と抑止力",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fضَمَّ / يَضُمُّ الْأَرَاضِي\u200F", meaning: "領土を併合する" },
+    { word: "\u200Fالرَّدْعُ الِاسْتِرَاتِيجيّ\u200F", meaning: "戦略的抑止" },
+    { word: "\u200Fفَرَضَ / يَفْرِضُ حِصَارًا\u200F", meaning: "封鎖を強いる" },
+    { word: "\u200Fنَزَعَ / يَنْزِعُ فَتِيلَ الْأَزْمَة\u200F", meaning: "危機の火種を取り除く" },
+    { word: "\u200Fتَجَسُّسٌ اسْتِخْبَارِيّ\u200F", meaning: "情報収集" },
+    { word: "\u200Fتَفَوُّقٌ عَسْكَرِيّ\u200F", meaning: "軍事的優位" },
+    { word: "\u200Fانْتِشَارٌ نَوَوِيّ\u200F", meaning: "核拡散" },
+    { word: "\u200Fسِبَاقُ التَّسَلُّح\u200F", meaning: "軍備拡張競争" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：社会的アノミーと疎外 (ID: 140074) ---
+{
+  id: 140074,
+  title: "上級：思想的強奪と病理",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاغْتَرَبَ / يَغْتَرِبُ عَنِ الْوَاقِع\u200F", meaning: "現実から疎外される" },
+    { word: "\u200Fتَهْمِيشٌ سُوسْيُولوجِيّ\u200F", meaning: "社会学的疎外" },
+    { word: "\u200Fنَسِيجٌ مُجْتَمَعِيّ\u200F", meaning: "社会構造" },
+    { word: "\u200Fتَفَكُّكٌ أُسَرِيّ\u200F", meaning: "家族の崩壊" },
+    { word: "\u200Fاسْتِلابٌ فِكْرِيّ\u200F", meaning: "思想的強奪" },
+    { word: "\u200Fنَزْعَةٌ مَادِّيَّة\u200F", meaning: "物質主義的傾向" },
+    { word: "\u200Fرِيَاءٌ اجْتِمَاعِيّ\u200F", meaning: "社会的偽善" },
+    { word: "\u200Fتَنْمِيطٌ جِنْسَانِيّ\u200F", meaning: "ジェンダーの定型化" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：情報の革命と論理 (ID: 140075) ---
+{
+  id: 140075,
+  title: "上級：情報の適応可能性",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fدَحَضَ / يَدْحَضُ الْبُرْهَان\u200F", meaning: "証拠を論破する" },
+    { word: "\u200Fنَمُوذَجٌ مَعْرِفِيّ\u200F", meaning: "認識モデル" },
+    { word: "\u200Fقَابِلِيَّةُ التَّطْبِيق\u200F", meaning: "適応可能性" },
+    { word: "\u200Fحَتْمِيَّةٌ تِقْنِيَّة\u200F", meaning: "技術決定論" },
+    { word: "\u200Fتَشَفُّرٌ جِينِيّ\u200F", meaning: "遺伝的暗号化" },
+    { word: "\u200Fمَوْضُوعِيَّةٌ عِلْمِيَّة\u200F", meaning: "科学的客観性" },
+    { word: "\u200Fثَوْرَةٌ مَعْلُومَاتِيَّة\u200F", meaning: "情報革命" },
+    { word: "\u200Fذَكَاءٌ مَنْطِقِيّ\u200F", meaning: "論理的知性" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：マクロ経済の構造改革 (ID: 140076) ---
+{
+  id: 140076,
+  title: "上級：マクロ経済と歳出削減",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fقَلَّصَ / يُقَلِّصُ الْعَجْز\u200F", meaning: "赤字を削減する" },
+    { word: "\u200Fإِصْلَاحٌ هَيْكَلِيّ\u200F", meaning: "構造改革" },
+    { word: "\u200Fتَقَشُّفٌ مَالِيّ\u200F", meaning: "緊縮財政" },
+    { word: "\u200Fمَدْيُونِيَّةٌ خَارِجِيَّة\u200F", meaning: "対外債務" },
+    { word: "\u200Fتَضَخُّمٌ مُفْرِط\u200F", meaning: "ハイパーインフレ" },
+    { word: "\u200Fخَصْخَصَةُ الْمَرَافِق\u200F", meaning: "公共施設の民営化" },
+    { word: "\u200Fتَدَفُّقُ الِاسْتِثْمَار\u200F", meaning: "投資の流入" },
+    { word: "\u200Fالِاقْتِصَادُ الْكُلِّيّ\u200F", meaning: "マクロ経済" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：ポピュリズムと言説 (ID: 140077) ---
+{
+  id: 140077,
+  title: "上級：外交交渉とポピュリズム",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fنَاوَرَ / يُنَاوِرُ سِيَاسِيًّا\u200F", meaning: "政治的に駆け引きする" },
+    { word: "\u200Fتَسْوِيَةٌ مَرْضِيَّة\u200F", meaning: "満足のいく和解" },
+    { word: "\u200Fمَذْكَرَةُ تَفَاهُم\u200F", meaning: "覚書（MoU）" },
+    { word: "\u200Fشَرْعِيَّةٌ دِيبْلُومَاسِيَّة\u200F", meaning: "外交的正当性" },
+    { word: "\u200Fتَعَهَّدَ / يَتَعَهَّدُ بِالِالْتِزَام\u200F", meaning: "遵守を誓約する" },
+    { word: "\u200Fوَسَاطَةٌ مَحَايِدَة\u200F", meaning: "中立的な仲裁" },
+    { word: "\u200Fتَطْبِيعٌ كَامِل\u200F", meaning: "完全な正常化" },
+    { word: "\u200Fخِطَابٌ شَعْبَوِيّ\u200F", meaning: "ポピュリズム的言説" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：思想の顕現と良心 (ID: 140078) ---
+{
+  id: 140078,
+  title: "上級：集合意識と実存心理",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَخَلَّى / يَتَخَلَّى عَنِ الْمَبَادِئ\u200F", meaning: "原則を放棄する" },
+    { word: "\u200Fصِرَاعٌ دَاخِلِيّ\u200F", meaning: "葛藤" },
+    { word: "\u200Fقَنَاعَةٌ رَاسِخَة\u200F", meaning: "確固たる信念" },
+    { word: "\u200Fوَعْيٌ جَمْعِيّ\u200F", meaning: "集合意識" },
+    { word: "\u200Fنَزْعَةٌ أَنَانِيَّة\u200F", meaning: "利己主義的傾向" },
+    { word: "\u200Fمِثَالِيَّةٌ طُوبَاوِيَّة\u200F", meaning: "ユートピア的理想主義" },
+    { word: "\u200Fتَجَلٍّ رُوحِيّ\u200F", meaning: "精神的な顕現" },
+    { word: "\u200Fضَمِيرٌ مُعَذَّب\u200F", meaning: "さいなまれる良心" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：解釈学と脱構築 (ID: 140079) ---
+{
+  id: 140079,
+  title: "上級：テクストの脱構築",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fفَكَّكَ / يُفَكِّكُ النَّصّ\u200F", meaning: "テクストを脱構築する" },
+    { word: "\u200Fتَنَاصّ أَدَبِيّ\u200F", meaning: "インターテクスチュアリティ" },
+    { word: "\u200Fتَجْرِيدٌ جَمَالِيّ\u200F", meaning: "美的抽象化" },
+    { word: "\u200Fخِطَابٌ سُلْطَوِيّ\u200F", meaning: "権威的言説" },
+    { word: "\u200Fتَأْوِيلٌ هَرْمِينُوطِيّ\u200F", meaning: "解釈学的解釈" },
+    { word: "\u200Fرَمْزِيَّةٌ مَسْتُورَة\u200F", meaning: "隠された象徴性" },
+    { word: "\u200Fبِنْيَوِيَّة\u200F", meaning: "構造主義" },
+    { word: "\u200Fمَا بَعْدَ الْحَدَاثَة\u200F", meaning: "ポストモダン" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：持続可能性と生命倫理 (ID: 140080) ---
+{
+  id: 140080,
+  title: "上級：遺伝的変異と環境侵害",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاسْتَنْسَخَ / يَسْتَنْسِخُ الْكَائِن\u200F", meaning: "生物をクローン化する" },
+    { word: "\u200Fأَخْلَاقِيَّاتُ الْبِيُولُوجِيَا\u200F", meaning: "生命倫理" },
+    { word: "\u200Fتَلَاشِي الْأَنْوَاع\u200F", meaning: "種の絶滅" },
+    { word: "\u200Fتَحَوُّرٌ جِينِيّ\u200F", meaning: "遺伝的変異" },
+    { word: "\u200Fاسْتِدَامَةٌ بِيئِيَّة\u200F", meaning: "環境の持続可能性" },
+    { word: "\u200Fانْتِهَاكُ الطَّبِيعَة\u200F", meaning: "自然の侵害" },
+    { word: "\u200Fتَوَازُنٌ إِيكُولُوجِيّ\u200F", meaning: "生態学的バランス" },
+    { word: "\u200Fإِرْثٌ طَبِيعِيّ\u200F", meaning: "自然遺産" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：国際的極性と主権 (ID: 140081) ---
+{
+  id: 140081,
+  title: "上級：地政学と運命的同盟",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fهَيْمَنَ / يَهْيَمِنُ عَلَى الْمِنْطَقَة\u200F", meaning: "地域を支配する" },
+    { word: "\u200Fنُفُوذٌ جِيُوبُولِيتِيكِيّ\u200F", meaning: "地政学的影響力" },
+    { word: "\u200Fتَحَالُفٌ مَصِيرِيّ\u200F", meaning: "運命的な同盟" },
+    { word: "\u200Fاسْتِقْطَابٌ دُوَلِيّ\u200F", meaning: "国際的な極性化" },
+    { word: "\u200Fتَوَازُنُ الرُّعْب\u200F", meaning: "恐怖の均衡" },
+    { word: "\u200Fسِيَادَةٌ مَنْقُوصَة\u200F", meaning: "制限された主権" },
+    { word: "\u200Fمَجَالٌ حَيَوِيّ\u200F", meaning: "生存圏" },
+    { word: "\u200Fصِرَاعٌ وُجُودِيّ\u200F", meaning: "存亡をかけた闘争" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：意識の生産と検閲 (ID: 140082) ---
+{
+  id: 140082,
+  title: "上級：メディアの操作と扇動",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fحَرَّضَ / يُحَرِّضُ عَلَى الْعُنْف\u200F", meaning: "暴力を煽動する" },
+    { word: "\u200Fتَضْلِيلٌ مُمَنْهَج\u200F", meaning: "体系的な誤報" },
+    { word: "\u200Fبَرُوبَاغَانْدَا طَاغِيَة\u200F", meaning: "圧倒的なプロパガンダ" },
+    { word: "\u200Fنَسَقٌ سِيمِيَائِيّ\u200F", meaning: "記号論的体系" },
+    { word: "\u200Fصِنَاعَةُ الْوَعْي\u200F", meaning: "意識の生産" },
+    { word: "\u200Fرِقَابَةٌ صَارِمَة\u200F", meaning: "厳格な検閲" },
+    { word: "\u200Fتَحَيُّزٌ أَيْدِيُولُوجِيّ\u200F", meaning: "イデオロギー的偏向" },
+    { word: "\u200Fتَلَاعُبٌ بِالْعُقُول\u200F", meaning: "心理的操作" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：刑罰理論と司法的正当性 (ID: 140083) ---
+{
+  id: 140083,
+  title: "上級：法理学と予防措置",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَعَسَّفَ / يَتَعَسَّفُ فِي السُّلْطَة\u200F", meaning: "権力を濫用する" },
+    { word: "\u200Fفِقْهُ الْقَانُون\u200F", meaning: "法理学" },
+    { word: "\u200Fقَرِينَةُ الْبَرَاءَة\u200F", meaning: "推定無罪" },
+    { word: "\u200Fعُقُوبَةٌ رَادِعَة\u200F", meaning: "抑止力のある刑罰" },
+    { word: "\u200Fمَشْرُوعِيَّةٌ دُسْتُورِيَّة\u200F", meaning: "憲法上の合法性" },
+    { word: "\u200Fانْتِهَاكٌ صَارِخ\u200F", meaning: "明白な侵害" },
+    { word: "\u200Fإِجْرَاءٌ احْتِرَازِيّ\u200F", meaning: "予防措置" },
+    { word: "\u200Fتَسْوِيَةٌ قَضَائِيَّة\u200F", meaning: "司法による解決" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：抽象的な思考と弁証法 (ID: 140084) ---
+{
+  id: 140084,
+  title: "上級：事物の本質と弁証法",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَنَاقَضَ / يَتَنَاقَضُ مَعَ الْمَنْطِق\u200F", meaning: "論理と矛盾する" },
+    { word: "\u200Fجَدَلِيَّةُ الْفِكْر\u200F", meaning: "思考の弁証法" },
+    { word: "\u200Fصَيْرُورَةُ التَّارِيخ\u200F", meaning: "歴史の生成過程" },
+    { word: "\u200Fتَعَالٍ فَلْسَفِيّ\u200F", meaning: "哲学的超越" },
+    { word: "\u200Fنَسَقٌ شُمُولِيّ\u200F", meaning: "包括的な体系" },
+    { word: "\u200Fمَاهِيَّةُ الْأَشْيَاء\u200F", meaning: "事物の本質" },
+    { word: "\u200Fعَقْلَانِيَّةٌ مَحْضَة\u200F", meaning: "純粋理性" },
+    { word: "\u200Fتَجْرِيدٌ مَفَاهِيمِيّ\u200F", meaning: "概念的抽象化" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：総括：知性の地平 (ID: 140085) ---
+{
+  id: 140085,
+  title: "上級：不滅の文化的遺産",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاسْتَشْرَفَ / يَسْتَشْرِفُ الْمُسْتَقْبَل\u200F", meaning: "未来を展望する" },
+    { word: "\u200Fأُفُقٌ مَعْرِفِيّ\u200F", meaning: "知の地平" },
+    { word: "\u200Fتَجْدِيدٌ حَضَارِيّ\u200F", meaning: "文明の刷新" },
+    { word: "\u200Fإِرْثٌ ثَقَافِيٌّ خَالِد\u200F", meaning: "不滅の文化的遺産" },
+    { word: "\u200Fتَطَلُّعَاتٌ مَشْرُوعَة\u200F", meaning: "正当な志" },
+    { word: "\u200Fوَئَامٌ كَوْنِيّ\u200F", meaning: "宇宙的な調和" },
+    { word: "\u200Fتَحَوُّلٌ جَوْهَرِيّ\u200F", meaning: "本質的な変容" },
+    { word: "\u200Fحِكْمَةٌ بَالِغَة\u200F", meaning: "至高の知恵" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：憲法秩序と権限 (ID: 140086) ---
+{
+  id: 140086,
+  title: "上級：政令と管轄範囲",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fأَصْدَرَ / يُصْدِرُ مَرْسُومًا\u200F", meaning: "政令を発布する" },
+    { word: "\u200Fاسْتَفْتَى / يَسْتَفْتِي الشَّعْب\u200F", meaning: "国民投票にかける" },
+    { word: "\u200Fنِطَاقُ الِاخْتِصَاص\u200F", meaning: "管轄範囲" },
+    { word: "\u200Fتَفْوِيضٌ شَعْبِيّ\u200F", meaning: "国民による委任" },
+    { word: "\u200Fفَصْلُ السُّلُطَات\u200F", meaning: "三権分立" },
+    { word: "\u200Fحَصَانَةٌ دِبْلُومَاسِيَّة\u200F", meaning: "外交特権" },
+    { word: "\u200Fتَعْدِيلٌ دُسْتُورِيّ\u200F", meaning: "憲法改正" },
+    { word: "\u200Fتَسَلُّطُ الدَّوْلَة\u200F", meaning: "国家の権威主義" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：認識論と言語的直感 (ID: 140087) ---
+{
+  id: 140087,
+  title: "上級：認識論と経験的手法",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fارْتَكَزَ / يَرْتَكِزُ عَلَى\u200F", meaning: "〜に依拠する" },
+    { word: "\u200Fالْمَنْهَجُ التَّجْرِيبِيّ\u200F", meaning: "経験的手法" },
+    { word: "\u200Fنَظَرِيَّةُ الْمَعْرِفَة\u200F", meaning: "認識論" },
+    { word: "\u200Fالْبَدِيهَةُ الْعَقْلِيَّة\u200F", meaning: "理性的直感" },
+    { word: "\u200Fتَمَثُّلٌ ذِهْنِيّ\u200F", meaning: "心的表象" },
+    { word: "\u200Fمُسَلَّمَاتٌ فِكْرِيَّة\u200F", meaning: "思考の自明の前提" },
+    { word: "\u200Fأَدْرَكَ / يُدْرِكُ الْكُنْه\u200F", meaning: "本質を悟る" },
+    { word: "\u200Fظَاهِرَاتِيَّة\u200F", meaning: "現象学" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：国際安全保障と抑止 (ID: 140088) ---
+{
+  id: 140088,
+  title: "上級：地政学と軍備拡張",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fضَمَّ / يَضُمُّ الْأَرَاضِي\u200F", meaning: "領土を併合する" },
+    { word: "\u200Fالرَّدْعُ الِاسْتِرَاتِيجيّ\u200F", meaning: "戦略的抑止" },
+    { word: "\u200Fفَرَضَ / يَفْرِضُ حِصَارًا\u200F", meaning: "封鎖を強いる" },
+    { word: "\u200Fنَزَعَ / يَنْزِعُ فَتِيلَ الْأَزْمَة\u200F", meaning: "危機の火種を取り除く" },
+    { word: "\u200Fتَجَسُّسٌ اسْتِخْبَارِيّ\u200F", meaning: "情報収集" },
+    { word: "\u200Fتَفَوُّقٌ عَسْكَرِيّ\u200F", meaning: "軍事的優位" },
+    { word: "\u200Fانْتِشَارٌ نَوَوِيّ\u200F", meaning: "核拡散" },
+    { word: "\u200Fسِبَاقُ التَّسَلُّح\u200F", meaning: "軍備拡張競争" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：社会現象と疎外 (ID: 140089) ---
+{
+  id: 140089,
+  title: "上級：社会構造とジェンダー定型化",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاغْتَرَبَ / يَغْتَرِبُ عَنِ الْوَاقِع\u200F", meaning: "現実から疎外される" },
+    { word: "\u200Fتَهْمِيشٌ سُوسْيُولوجِيّ\u200F", meaning: "社会学的疎外" },
+    { word: "\u200Fنَسِيجٌ مُجْتَمَعِيّ\u200F", meaning: "社会構造" },
+    { word: "\u200Fتَفَكُّكٌ أُسَرِيّ\u200F", meaning: "家族の崩壊" },
+    { word: "\u200Fاسْتِلابٌ فِكْرِيّ\u200F", meaning: "思想的強奪" },
+    { word: "\u200Fنَزْعَةٌ مَادِّيَّة\u200F", meaning: "物質主義的傾向" },
+    { word: "\u200Fرِيَاءٌ اجْتِمَاعِيّ\u200F", meaning: "社会的偽善" },
+    { word: "\u200Fتَنْمِيطٌ جِنْسَانِيّ\u200F", meaning: "ジェンダーの定型化" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：科学哲学と言語 (ID: 140090) ---
+{
+  id: 140090,
+  title: "上級：論理的知性と情報革命",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fدَحَضَ / يَدْحَضُ الْبُرْهَان\u200F", meaning: "証拠を論破する" },
+    { word: "\u200Fنَمُوذَجٌ مَعْرِفِيّ\u200F", meaning: "認識モデル" },
+    { word: "\u200Fقَابِلِيَّةُ التَّطْبِيق\u200F", meaning: "適応可能性" },
+    { word: "\u200Fحَتْمِيَّةٌ تِقْنِيَّة\u200F", meaning: "技術決定論" },
+    { word: "\u200Fتَشَفُّرٌ جِينِيّ\u200F", meaning: "遺伝的暗号化" },
+    { word: "\u200Fمَوْضُوعِيَّةٌ عِلْمِيَّة\u200F", meaning: "科学的客観性" },
+    { word: "\u200Fثَوْرَةٌ مَعْلُومَاتِيَّة\u200F", meaning: "情報革命" },
+    { word: "\u200Fذَكَاءٌ مَنْطِقِيّ\u200F", meaning: "論理的知性" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：高度な経済・財政用語 (ID: 140091) ---
+{
+  id: 140091,
+  title: "上級：マクロ経済と投資流入",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fقَلَّصَ / يُقَلِّصُ الْعَجْز\u200F", meaning: "赤字を削減する" },
+    { word: "\u200Fإِصْلَاحٌ هَيْكَلِيّ\u200F", meaning: "構造改革" },
+    { word: "\u200Fتَقَشُّفٌ مَالِيّ\u200F", meaning: "緊縮財政" },
+    { word: "\u200Fمَدْيُونِيَّةٌ خَارِجِيَّة\u200F", meaning: "対外債務" },
+    { word: "\u200Fتَضَخُّمٌ مُفْرِط\u200F", meaning: "ハイパーインフレ" },
+    { word: "\u200Fخَصْخَصَةُ الْمَرَافِق\u200F", meaning: "公共施設の民営化" },
+    { word: "\u200Fتَدَفُّقُ الِاسْتِثْمَار\u200F", meaning: "投資の流入" },
+    { word: "\u200Fالِاقْتِصَادُ الْكُلِّيّ\u200F", meaning: "マクロ経済" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：外交と戦略的レトリック (ID: 140092) ---
+{
+  id: 140092,
+  title: "上級：中立的仲裁と正常化",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fنَاوَرَ / يُنَاوِرُ سِيَاسِيًّا\u200F", meaning: "政治的に駆け引きする" },
+    { word: "\u200Fتَسْوِيَةٌ مَرْضِيَّة\u200F", meaning: "満足のいく和解" },
+    { word: "\u200Fمَذْكَرَةُ تَفَاهُم\u200F", meaning: "覚書（MoU）" },
+    { word: "\u200Fشَرْعِيَّةٌ دِيبْلُومَاسِيَّة\u200F", meaning: "外交的正当性" },
+    { word: "\u200Fتَعَهَّدَ / يَتَعَهَّدُ بِالِالْتِزَام\u200F", meaning: "遵守を誓約する" },
+    { word: "\u200Fوَسَاطَةٌ مَحَايِدَة\u200F", meaning: "中立的な仲裁" },
+    { word: "\u200Fتَطْبِيعٌ كَامِل\u200F", meaning: "完全な正常化" },
+    { word: "\u200Fخِطَابٌ شَعْبَوِيّ\u200F", meaning: "ポピュリズム的言説" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：精神と実存の用語 (ID: 140093) ---
+{
+  id: 140093,
+  title: "上級：利己主義と内的対立",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَخَلَّى / يَتَخَلَّى عَنِ الْمَبَادِئ\u200F", meaning: "原則を放棄する" },
+    { word: "\u200Fصِرَاعٌ دَاخِلِيّ\u200F", meaning: "内的対立" },
+    { word: "\u200Fقَنَاعَةٌ رَاسِخَة\u200F", meaning: "確固たる信念" },
+    { word: "\u200Fوَعْيٌ جَمْعِيّ\u200F", meaning: "集合意識" },
+    { word: "\u200Fنَزْعَةٌ أَنَانِيَّة\u200F", meaning: "利己主義的傾向" },
+    { word: "\u200Fمِثَالِيَّةٌ طُوبَاوِيَّة\u200F", meaning: "ユートピア的理想主義" },
+    { word: "\u200Fتَجَلٍّ رُوحِيّ\u200F", meaning: "精神的な顕現" },
+    { word: "\u200Fضَمِيرٌ مُعَذَّب\u200F", meaning: "さいなまれる良心" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：文学と脱構築 (ID: 140094) ---
+{
+  id: 140094,
+  title: "上級：解釈学とテクスト脱構築",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fفَكَّكَ / يُفَكِّكُ النَّصّ\u200F", meaning: "テクストを脱構築する" },
+    { word: "\u200Fتَنَاصّ أَدَبِيّ\u200F", meaning: "インターテクスチュアリティ" },
+    { word: "\u200Fتَجْرِيدٌ جَمَالِيّ\u200F", meaning: "美的抽象化" },
+    { word: "\u200Fخِطَابٌ سُلْطَوِيّ\u200F", meaning: "権威的言説" },
+    { word: "\u200Fتَأْوِيلٌ هَرْمِينُوطِيّ\u200F", meaning: "解釈学的解釈" },
+    { word: "\u200Fرَمْزِيَّةٌ مَسْتُورَة\u200F", meaning: "隠された象徴性" },
+    { word: "\u200Fبِنْيَوِيَّة\u200F", meaning: "構造主義" },
+    { word: "\u200Fمَا بَعْدَ الْحَدَاثَة\u200F", meaning: "ポストモダン" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：環境倫理と生命の尊厳 (ID: 140095) ---
+{
+  id: 140095,
+  title: "上級：生態学的バランスと自然侵害",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاسْتَنْسَخَ / يَسْتَنْسِخُ الْكَائِن\u200F", meaning: "生物をクローン化する" },
+    { word: "\u200Fأَخْلَاقِيَّاتُ الْبِيُولُوجِيَا\u200F", meaning: "生命倫理" },
+    { word: "\u200Fتَلَاشِي الْأَنْوَاع\u200F", meaning: "種の絶滅" },
+    { word: "\u200Fتَحَوُّرٌ جِينِيّ\u200F", meaning: "遺伝的変異" },
+    { word: "\u200Fاسْتِدَامَةٌ بِيئِيَّة\u200F", meaning: "環境の持続可能性" },
+    { word: "\u200Fانْتِهَاكُ الطَّبِيعَة\u200F", meaning: "自然の侵害" },
+    { word: "\u200Fتَوَازُنٌ إِيكُولُوجِيّ\u200F", meaning: "生態学的バランス" },
+    { word: "\u200Fإِرْثٌ طَبِيعِيّ\u200F", meaning: "自然遺産" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：地政学的な対立 (ID: 140096) ---
+{
+  id: 140096,
+  title: "上級：覇権と不完全な主権",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fهَيْمَنَ / يَهْيَمِنُ عَلَى الْمِنْطَقَة\u200F", meaning: "地域を支配する" },
+    { word: "\u200Fنُفُوذٌ جِيُوبُولِيتِيكِيّ\u200F", meaning: "地政学的影響力" },
+    { word: "\u200Fتَحَالُفٌ مَصِيرِيّ\u200F", meaning: "死活的な同盟" },
+    { word: "\u200Fاسْتِقْطَابٌ دُوَلِيّ\u200F", meaning: "国際的な極性化" },
+    { word: "\u200Fتَوَازُنُ الرُّعْب\u200F", meaning: "恐怖の均衡" },
+    { word: "\u200Fسِيَادَةٌ مَنْقُوصَة\u200F", meaning: "制限された主権" },
+    { word: "\u200Fمَجَالٌ حَيَوِيّ\u200F", meaning: "生存圏" },
+    { word: "\u200Fصِرَاعٌ وُجُودِيّ\u200F", meaning: "存亡をかけた闘争" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：高度なメディア批評 (ID: 140097) ---
+{
+  id: 140097,
+  title: "上級：体系的な誤報と操作",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fحَرَّضَ / يُحَرِّضُ عَلَى الْعُنْف\u200F", meaning: "暴力を煽動する" },
+    { word: "\u200Fتَضْلِيلٌ مُمَنْهَج\u200F", meaning: "体系的な誤報" },
+    { word: "\u200Fبَرُوبَاغَانْدَا طَاغِيَة\u200F", meaning: "圧倒的なプロパガンダ" },
+    { word: "\u200Fنَسَقٌ سِيمِيَائِيّ\u200F", meaning: "記号論的体系" },
+    { word: "\u200Fصِنَاعَةُ الْوَعْي\u200F", meaning: "意識の生産" },
+    { word: "\u200Fرِقَابَةٌ صَارِمَة\u200F", meaning: "厳格な検閲" },
+    { word: "\u200Fتَحَيُّزٌ أَيْدِيُولُوجِيّ\u200F", meaning: "イデオロギー的偏向" },
+    { word: "\u200Fتَلَاعُبٌ بِالْعُقُول\u200F", meaning: "心理的操作" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：法理学と正義の深淵 (ID: 140098) ---
+{
+  id: 140098,
+  title: "上級：判例法学と明白な侵害",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَعَسَّفَ / يَتَعَسَّفُ فِي السُّلْطَة\u200F", meaning: "権力を濫用する" },
+    { word: "\u200Fفِقْهُ الْقَانُون\u200F", meaning: "法理学" },
+    { word: "\u200Fقَرِينَةُ الْبَرَاءَة\u200F", meaning: "推定無罪" },
+    { word: "\u200Fعُقُوبَةٌ رَادِعَة\u200F", meaning: "抑止力のある刑罰" },
+    { word: "\u200Fمَشْرُوعِيَّةٌ دُسْتُورِيَّة\u200F", meaning: "憲法上の合法性" },
+    { word: "\u200Fانْتِهَاكٌ صَارِخ\u200F", meaning: "明白な侵害" },
+    { word: "\u200Fإِجْرَاءٌ احْتِرَازِيّ\u200F", meaning: "予防措置" },
+    { word: "\u200Fتَسْوِيَةٌ قَضَائِيَّة\u200F", meaning: "司法による解決" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：抽象的な思考と弁証法 (ID: 140099) ---
+{
+  id: 140099,
+  title: "上級：哲学的超越と本質",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَنَاقَضَ / يَتَنَاقَضُ مَعَ الْمَنْطِق\u200F", meaning: "論理と矛盾する" },
+    { word: "\u200Fجَدَلِيَّةُ الْفِكْر\u200F", meaning: "思考の弁証法" },
+    { word: "\u200Fصَيْرُورَةُ التَّارِيخ\u200F", meaning: "歴史の生成過程" },
+    { word: "\u200Fتَعَالٍ فَلْسَفِيّ\u200F", meaning: "哲学的超越" },
+    { word: "\u200Fنَسَقٌ شُمُولِيّ\u200F", meaning: "包括的な体系" },
+    { word: "\u200Fمَاهِيَّةُ الْأَشْيَاء\u200F", meaning: "事物の本質" },
+    { word: "\u200Fعَقْلَانِيَّةٌ مَحْضَة\u200F", meaning: "純粋理性" },
+    { word: "\u200Fتَجْرِيدٌ مَفَاهِيمِيّ\u200F", meaning: "概念的抽象化" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：総括：知性の地平 (ID: 140100) ---
+{
+  id: 140100,
+  title: "上級：文明の刷新と至高の知恵",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاسْتَشْرَفَ / يَسْتَشْرِفُ الْمُسْتَقْبَل\u200F", meaning: "未来を展望する" },
+    { word: "\u200Fأُفُقٌ مَعْرِفِيّ\u200F", meaning: "知の地平" },
+    { word: "\u200Fتَجْدِيدٌ حَضَارِيّ\u200F", meaning: "文明の刷新" },
+    { word: "\u200Fإِرْثٌ ثَقَافِيٌّ خَالِد\u200F", meaning: "不滅の文化的遺産" },
+    { word: "\u200Fتَطَلُّعَاتٌ مَشْرُوعَة\u200F", meaning: "正当な志" },
+    { word: "\u200Fوَئَامٌ كَوْنِيّ\u200F", meaning: "宇宙的な調和" },
+    { word: "\u200Fتَحَوُّلٌ جَوْهَرِيّ\u200F", meaning: "本質的な変容" },
+    { word: "\u200Fحِكْمَةٌ بَالِغَة\u200F", meaning: "至高の知恵" }
+  ],
+  questions: [],
+  sentences: []
+},
+// --- 上級：政治権力と統治機構 (ID: 140111) ---
+{
+  id: 140111,
+  title: "上級：国家権力と民主的統治",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fحَقُّ النَّقْض\u200F", meaning: "拒否権（ベト）" },
+    { word: "\u200Fالسُّلْطَةُ التَّشْرِيعِيَّة\u200F", meaning: "立法権（立法府）" },
+    { word: "\u200Fالسُّلْطَةُ التَّنْفِيذِيَّة\u200F", meaning: "行政権（行政府）" },
+    { word: "\u200Fالسُّلْطَةُ الْقَضَائِيَّة\u200F", meaning: "司法権（司法府）" },
+    { word: "\u200Fالتَّدَاوُلُ عَلَى السُّلْطَة\u200F", meaning: "政権交代（権力の輪番）" },
+    { word: "\u200Fالِاسْتِبْدَادُ الطُّغْيَانِيّ\u200F", meaning: "暴虐な専制" },
+    { word: "\u200Fالْبِيرُوقْرَاطِيَّةُ الْمُقَيِّدَة\u200F", meaning: "（進展を阻害する）硬直した官僚主義" },
+    { word: "\u200Fتَفْوِيضٌ شَعْبِيّ\u200F", meaning: "民衆の負託（民意による委任）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：文学的な変遷と情緒 (ID: 140112) ---
+{
+  id: 140112,
+  title: "上級：文学的変容の動詞",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fذَوِيَ / يَذْوَى\u200F", meaning: "（花や若さが）凋む・萎れる・色褪せる" },
+    { word: "\u200Fتَأَجَّجَ / يَتَأَجَّجُ\u200F", meaning: "（情熱や炎が）激しく燃え上がる" },
+    { word: "\u200Fتَنَهَّدَ / يَتَنَهَّدُ\u200F", meaning: "溜息をつく" },
+    { word: "\u200Fانْتَحَبَ / يَنْتَحِبُ\u200F", meaning: "（声を上げて）激しく泣きむせぶ・慟哭する" },
+    { word: "\u200Fرَثَى / يَرْثِي لِـ\u200F", meaning: "〜を哀悼する・（死を）悼む" },
+    { word: "\u200Fبَاحَ / يَبُوحُ بِـ\u200F", meaning: "（秘密や想いを）漏らす・打ち明ける" },
+    { word: "\u200Fاشْرَأَبَّ / يَشْرَئِبُّ إِلَى\u200F", meaning: "（首を長くして）〜を切望する・熱望する" },
+    { word: "\u200Fاضْمَحَلَّ / يَضْمَحِلُّ\u200F", meaning: "消滅する・次第に消えていく" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：イデオロギーと政治思想 (ID: 140113) ---
+{
+  id: 140113,
+  title: "上級：政治思想と主義",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالْبَرَاغْمَاتِيَّة\u200F", meaning: "実用主義（プラグマティズム）" },
+    { word: "\u200Fالرَّادِيكَالِيَّة\u200F", meaning: "急進主義（ラジカリズム）" },
+    { word: "\u200Fالشَّعْبَوِيَّة\u200F", meaning: "ポピュリズム（大衆迎合主義）" },
+    { word: "\u200Fالْفَوْضَوِيَّة\u200F", meaning: "無政府主義（アナーキズム）" },
+    { word: "\u200Fاللِّيبرَالِيَّةُ الْحَدِيثَة\u200F", meaning: "新自由主義（ネオリベラリズム）" },
+    { word: "\u200Fالشُّمُولِيَّة\u200F", meaning: "全体主義" },
+    { word: "\u200Fالْمُحَافَظَة\u200F", meaning: "保守主義" },
+    { word: "\u200Fالْإِصْلَاحِيَّة\u200F", meaning: "修正主義・改革主義" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：詩学と修辞技法 (ID: 140114) ---
+{
+  id: 140114,
+  title: "上級：詩学の専門用語",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالْوَزْنُ وَالْقَافِيَة\u200F", meaning: "韻律と韻（メトロと言韻）" },
+    { word: "\u200Fالِاسْتِعَارَةُ الْمَكْنِيَّة\u200F", meaning: "隠喩（メタファーの一種）" },
+    { word: "\u200Fالْجِنَاس\u200F", meaning: "語呂合わせ（頭韻・類音語）" },
+    { word: "\u200Fالتَّشْبِيهُ الْبَلِيغ\u200F", meaning: "（助詞を用いない）直喩（シミリ）" },
+    { word: "\u200Fالْمُحَسِّنَاتُ اللَّفْظِيَّة\u200F", meaning: "言葉の装飾（修辞的飾り）" },
+    { word: "\u200Fالْبُحُورُ الشِّعْرِيَّة\u200F", meaning: "（アラブ詩独自の）韻律形式（ブフール）" },
+    { word: "\u200Fالْقَصِيدَةُ الْعَمُودِيَّة\u200F", meaning: "伝統的な定型詩" },
+    { word: "\u200Fالشِّعْرُ الْحُرّ\u200F", meaning: "自由詩" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：高度な行政と公法 (ID: 140115) ---
+{
+  id: 140115,
+  title: "上級：公法と行政の極致",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالنِّظَامُ الْعَامّ\u200F", meaning: "公の秩序（公序良俗）" },
+    { word: "\u200Fالْقَانُونُ الدُّسْتُورِيّ\u200F", meaning: "憲法学（憲法）" },
+    { word: "\u200Fالْحُكْمُ الذَّاتِيّ\u200F", meaning: "地方自治・自主統治" },
+    { word: "\u200Fالْمَرْكَزِيَّةُ الْإِدَارِيَّة\u200F", meaning: "中央集権的な行政" },
+    { word: "\u200Fالْعَدَالَةُ الِانْتِقَالِيَّة\u200F", meaning: "移行期正義（体制転換期の正義）" },
+    { word: "\u200Fالنَّزَاهَةُ الشَّفَّافَة\u200F", meaning: "透明性のある清廉さ" },
+    { word: "\u200Fالْمَسَاءَلَةُ السِّيَاسِيَّة\u200F", meaning: "政治的説明責任" },
+    { word: "\u200Fتَضَارُبُ الْمَصَالِح\u200F", meaning: "利益相反" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：古典文学の抽象概念 (ID: 140116) ---
+{
+  id: 140116,
+  title: "上級：古典にみる抽象的心理",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالْوَجْد\u200F", meaning: "（神や愛への）忘我の境地・法悦・エクスタシー" },
+    { word: "\u200Fالْجَوًى\u200F", meaning: "（秘めたる）恋の苦しみ・激しい悲しみ" },
+    { word: "\u200Fالسُّهَاد\u200F", meaning: "（悩みによる）不眠・眠れぬ夜" },
+    { word: "\u200Fالتَّوْق\u200F", meaning: "（激しい）憧れ・熱望" },
+    { word: "\u200Fالِاغْتِرَاب\u200F", meaning: "（精神的な）疎外・孤独・異邦感" },
+    { word: "\u200Fالنَّسِيب\u200F", meaning: "（詩の序頭における）追想・恋愛の調べ" },
+    { word: "\u200Fالْحَنِينُ الْقَاتِل\u200F", meaning: "身を切るような郷愁" },
+    { word: "\u200Fالْفَنَاء\u200F", meaning: "（神秘主義における）自己の消滅・滅却" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：外交と地政学的紛争 (ID: 140117) ---
+{
+  id: 140117,
+  title: "上級：地政学と国際紛争",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَحَالُفٌ جِيُوسِيَاسِيّ\u200F", meaning: "地政学的同盟" },
+    { word: "\u200Fمَجَالٌ حَيَوِيّ\u200F", meaning: "生存圏（リーベンスラウム）" },
+    { word: "\u200Fتَوَازُنُ الْقُوَى\u200F", meaning: "勢力均衡" },
+    { word: "\u200Fالنِّزَاعُ الْحُدُودِيّ\u200F", meaning: "国境紛争" },
+    { word: "\u200Fالْعُقُوبَاتُ الِاقْتِصَادِيَّة\u200F", meaning: "経済制裁" },
+    { word: "\u200Fسِبَاقُ التَّسَلُّح\u200F", meaning: "軍拡競争" },
+    { word: "\u200Fالْحَرْبُ بِالْوَكَالَة\u200F", meaning: "代理戦争" },
+    { word: "\u200Fتَسْوِيَةٌ نِهَائِيَّة\u200F", meaning: "最終合意（解決）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：文学的な比喩と象徴 (ID: 140118) ---
+{
+  id: 140118,
+  title: "上級：文学的象徴と暗喩",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالرَّقِيب\u200F", meaning: "（恋仲を邪魔する）監視者・邪魔者" },
+    { word: "\u200Fالْعَاذِل\u200F", meaning: "（恋を）非難する者・諫める者" },
+    { word: "\u200Fخَمْرَةُ الْحُبّ\u200F", meaning: "愛の酒（酔いしれるほどの情熱）" },
+    { word: "\u200Fنُورُ الْهَدْي\u200F", meaning: "（迷いを照らす）導きの光" },
+    { word: "\u200Fسِجْنُ الْجَسَد\u200F", meaning: "肉体という牢獄" },
+    { word: "\u200Fأُفُقٌ مَسْدُود\u200F", meaning: "閉ざされた地平（希望のない未来）" },
+    { word: "\u200Fظِمَاءُ الرُّوح\u200F", meaning: "魂の渇き" },
+    { word: "\u200Fرِيَاحُ التَّغْيِير\u200F", meaning: "変革の風" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：現代政治の諸相 (ID: 140119) ---
+{
+  id: 140119,
+  title: "上級：現代の政治的課題",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالِاسْتِقْطَابُ الْأَيْدِيُولُوجِيّ\u200F", meaning: "イデオロギーの極性化（対立の激化）" },
+    { word: "\u200Fالتَّطَرُّفُ الْفِكْرِيّ\u200F", meaning: "思想的過激主義" },
+    { word: "\u200Fالشَّفَافِيَّةُ الْمُؤَسَّسِيَّة\u200F", meaning: "組織的な透明性" },
+    { word: "\u200Fالْحِمَائِيَّةُ التِّجَارِيَّة\u200F", meaning: "保護貿易主義" },
+    { word: "\u200Fمُبَادَرَةٌ سِيَاسِيَّة\u200F", meaning: "政治的イニシアチブ（構想）" },
+    { word: "\u200Fتَحَوُّلٌ دِيمُقْرَاطِيّ\u200F", meaning: "民主化への移行" },
+    { word: "\u200Fالنُّخْبَةُ الْحَاكِمَة\u200F", meaning: "支配エリート（統治階層）" },
+    { word: "\u200Fالسُّخْطُ الشَّعْبِيّ\u200F", meaning: "国民の不満（憤り）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：詩的表現の粋 (ID: 140120) ---
+{
+  id: 140120,
+  title: "上級：文学を彩る崇高な語",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالْعَلْيَاء\u200F", meaning: "高貴・至高・天空（高い志を指す）" },
+    { word: "\u200Fالْمَجْدُ الْغَابِر\u200F", meaning: "過ぎ去りし栄光" },
+    { word: "\u200Fاللُّجَّة\u200F", meaning: "深淵・大海のただ中" },
+    { word: "\u200Fالْوَرَى\u200F", meaning: "人類・生きとし生けるもの" },
+    { word: "\u200Fالْأَنَام\u200F", meaning: "人々・被造物（古風な表現）" },
+    { word: "\u200Fسِدْرَةُ الْمُنْتَهَى\u200F", meaning: "（最高到達点としての）最果てのナツメの木" },
+    { word: "\u200Fالصَّمَد\u200F", meaning: "不変の・永遠の・（神の属性としての）自存" },
+    { word: "\u200Fالْهَيْبَة\u200F", meaning: "威厳・畏怖すべき風格" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：国家の安全保障と諜報 (ID: 140121) ---
+{
+  id: 140121,
+  title: "上級：安全保障と諜報活動",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالِاسْتِخْبَارَات\u200F", meaning: "情報機関・諜報活動" },
+    { word: "\u200Fالْأَمْنُ الْقَوْمِيّ\u200F", meaning: "国家安全保障" },
+    { word: "\u200Fخَلِيَّةٌ نَائِمَة\u200F", meaning: "スリーパー・セル（潜伏工作員グループ）" },
+    { word: "\u200Fاغْتِيَالٌ سِيَاسِيّ\u200F", meaning: "政治的暗殺" },
+    { word: "\u200Fتَبَادُلُ الْمَعْلُومَات\u200F", meaning: "情報交換（インテリジェンス・シェアリング）" },
+    { word: "\u200Fمُكَافَحَةُ الْإِرْهَاب\u200F", meaning: "対テロ作戦" },
+    { word: "\u200Fسِرِّيَّةٌ مُطْلَقَة\u200F", meaning: "絶対機密" },
+    { word: "\u200Fالرَّدْعُ النَّوَوِيّ\u200F", meaning: "核抑止" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：文学的な「時」と「運命」 (ID: 140122) ---
+{
+  id: 140122,
+  title: "上級：文学における時と運命",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالرَّدَى\u200F", meaning: "死・滅び（文学的な表現）" },
+    { word: "\u200Fصُرُوفُ الدَّهْر\u200F", meaning: "時の移ろい・運命の変転" },
+    { word: "\u200Fالْأَزَل\u200F", meaning: "永遠の過去・太古" },
+    { word: "\u200Fالْأَبَد\u200F", meaning: "永遠の未来" },
+    { word: "\u200Fالْقَدَرُ الْمَحْتُوم\u200F", meaning: "避けられぬ運命" },
+    { word: "\u200Fلَحْظَةٌ عَابِرَة\u200F", meaning: "束の間の瞬間" },
+    { word: "\u200Fخُلُودُ الرُّوح\u200F", meaning: "魂の不滅" },
+    { word: "\u200Fالْأَمَلُ الْمَنْشُود\u200F", meaning: "待ち望まれた希望" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：外交交渉の深層心理 (ID: 140123) ---
+{
+  id: 140123,
+  title: "上級：交渉と合意の用語",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fحَلٌّ وَسَط\u200F", meaning: "妥協案（妥協点）" },
+    { word: "\u200Fتَنَازُلٌ مُتَبَادَل\u200F", meaning: "相互譲歩" },
+    { word: "\u200Fتَعَهُّدٌ صَارِم\u200F", meaning: "厳格な誓約" },
+    { word: "\u200Fضَمَانَاتٌ دُوَلِيَّة\u200F", meaning: "国際的保証" },
+    { word: "\u200Fإِبْرَامُ الِاتِّفَاقِيَّة\u200F", meaning: "協定の締結" },
+    { word: "\u200Fبَنْدٌ سِرِّيّ\u200F", meaning: "密約（秘密条項）" },
+    { word: "\u200Fخَرْقُ الْعَهْد\u200F", meaning: "誓約の破棄（背信）" },
+    { word: "\u200Fفَسْخُ الْعَقْد\u200F", meaning: "契約解除" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：文学的な「光」と「闇」 (ID: 140124) ---
+{
+  id: 140124,
+  title: "上級：明暗を対比させる表現",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالنُّورُ الْمُبِين\u200F", meaning: "明らかな光（真理の光）" },
+    { word: "\u200Fالظَّلَامُ الدَّامِس\u200F", meaning: "漆黒の闇" },
+    { word: "\u200Fبَارِقَةُ أَمَل\u200F", meaning: "一筋の希望の光（ひらめき）" },
+    { word: "\u200Fغَسَقُ الدُّجَى\u200F", meaning: "深い夜の闇" },
+    { word: "\u200Fالشَّفَقُ الْأَحْمَر\u200F", meaning: "鮮やかな夕焼け（茜色の空）" },
+    { word: "\u200Fالضَّيَاء\u200F", meaning: "まばゆい輝き" },
+    { word: "\u200Fالسَّدَف\u200F", meaning: "薄暗がり・黄昏（光と闇の混在）" },
+    { word: "\u200Fبُرُوقٌ خَاطِفَة\u200F", meaning: "一瞬の稲妻（ひらめき）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：総括：国家と人間の調和 (ID: 140125) ---
+{
+  id: 140125,
+  title: "上級：高潔なる国家と人間",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالسُّمُوُّ الْفِكْرِيّ\u200F", meaning: "思想的高潔さ" },
+    { word: "\u200Fالرَّفَاهِيَةُ الْعَامَّة\u200F", meaning: "公共の福祉" },
+    { word: "\u200Fالْمَجْدُ الْأَثِيل\u200F", meaning: "揺るぎなき高貴な栄光" },
+    { word: "\u200Fالسِّيَادَةُ الْمُطْلَقَة\u200F", meaning: "絶対的主権" },
+    { word: "\u200Fالْوِئَامُ الْوَطَنِيّ\u200F", meaning: "国民的和合" },
+    { word: "\u200Fالِاسْتِقْرَارُ الْمُزْدَهِر\u200F", meaning: "繁栄する安定" },
+    { word: "\u200Fإِرْثُ الْأَجْدَاد\u200F", meaning: "祖先の遺産" },
+    { word: "\u200Fالْمُسْتَقْبَلُ الْوَاعِد\u200F", meaning: "前途有望な未来" }
+  ],
+  questions: [],
+  sentences: []
+},
+// --- 上級：政治と法解釈 (ID: 140126) ---
+{
+  id: 140126,
+  title: "上級：憲法解釈と政治的正当性",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالِاسْتِحْقَاقُ الِانْتِخَابِيّ\u200F", meaning: "選挙の正当な実施（選挙という節目）" },
+    { word: "\u200Fالتَّفْسِيرُ الدُّسْتُورِيّ\u200F", meaning: "憲法解釈" },
+    { word: "\u200Fشَرْعِيَّةُ النِّظَام\u200F", meaning: "体制の正当性" },
+    { word: "\u200Fالْإِجْمَاعُ الْوَطَنِيّ\u200F", meaning: "国家的コンセンサス（合意）" },
+    { word: "\u200Fالْحَصَانَةُ الْبَرْلَمَانِيَّة\u200F", meaning: "議員特権（不逮捕特権）" },
+    { word: "\u200Fنَزْعُ الصَّلَاحِيَّات\u200F", meaning: "権限の剥奪" },
+    { word: "\u200Fمَسْوَدَّةُ الْقَانُون\u200F", meaning: "法案（草案）" },
+    { word: "\u200Fالِاسْتِقْرَارُ السِّيَاسِيّ\u200F", meaning: "政治的安定" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：文学的な「雨」の同義語 (ID: 140127) ---
+{
+  id: 140127,
+  title: "上級：文学を彩る「雨」の呼び名",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالْغَيْث\u200F", meaning: "（恵みの）雨・救いの雨" },
+    { word: "\u200Fالْوَابِل\u200F", meaning: "激しく降り注ぐ大雨" },
+    { word: "\u200Fالطَّلّ\u200F", meaning: "霧雨・しずく・微かな雨" },
+    { word: "\u200Fالْهَتُون\u200F", meaning: "絶え間なく降り続く雨" },
+    { word: "\u200Fالدِّيمَة\u200F", meaning: "（雷を伴わない）静かに降り続く雨" },
+    { word: "\u200Fالرَّذَاذ\u200F", meaning: "小雨・霧のような細かな雨" },
+    { word: "\u200Fالْمَطَرُ الْهَمَال\u200F", meaning: "勢いよく流れるような雨" },
+    { word: "\u200Fالْعَرِيض\u200F", meaning: "広範囲に降る雲を伴う雨" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：文学的な「ライオン」の同義語 (ID: 140128) ---
+{
+  id: 140128,
+  title: "上級：文学における「獅子」の異称",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fاللَّيْث\u200F", meaning: "勇猛なライオン（文学的・詩的な代表語）" },
+    { word: "\u200Fالْهِزَبْر\u200F", meaning: "屈強なライオン" },
+    { word: "\u200Fالْقَسْوَرَة\u200F", meaning: "獲物を追い詰める力強いライオン" },
+    { word: "\u200Fالضَّيْغَم\u200F", meaning: "（牙の鋭い）獰猛なライオン" },
+    { word: "\u200Fأُسَامَة\u200F", meaning: "ライオンの別名（固有名詞的にも使われる）" },
+    { word: "\u200Fالْغَضَنْفَر\u200F", meaning: "筋肉質の逞しいライオン" },
+    { word: "\u200Fالْعَبَّاس\u200F", meaning: "顔をしかめる（威厳のある）ライオン" },
+    { word: "\u200Fالْجَسُور\u200F", meaning: "恐れを知らぬライオン" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：格調高い文学的動詞（光と影） (ID: 140129) ---
+{
+  id: 140129,
+  title: "上級：情景を描写する雅な動詞",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fانْبَلَجَ / يَنْبَلِجُ\u200F", meaning: "（夜が明けて光が）差し込む・現れる" },
+    { word: "\u200Fاكْفَهَرَّ / يَكْفَهِرُّ\u200F", meaning: "（空や顔色が）暗く陰る・険しくなる" },
+    { word: "\u200Fاسْتَشَاطَ / يَسْتَشِيطُ غَضَبًا\u200F", meaning: "激怒する（怒りで燃え上がる）" },
+    { word: "\u200Fتَلَأْلَأَ / يَتَلَأْلَأُ\u200F", meaning: "（星や宝石が）きらきらと輝く" },
+    { word: "\u200Fخَبَا / يَخْبُو\u200F", meaning: "（火や情熱が）静かに消えかかる・衰える" },
+    { word: "\u200Fتَشَظَّى / يَتَشَظَّى\u200F", meaning: "（砕けて）粉々になる・飛散する" },
+    { word: "\u200Fانْبَجَسَ / يَنْبَجِسُ\u200F", meaning: "（水などが）湧き出る・噴き出す" },
+    { word: "\u200Fتَأَزَّمَ / يَتَأَزَّمُ\u200F", meaning: "（事態が）深刻化する・危機に陥る" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：政治制度とガバナンス (ID: 140130) ---
+{
+  id: 140130,
+  title: "上級：統治と権力の均衡",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالنِّظَامُ الرِّئَاسِيّ\u200F", meaning: "大統領制" },
+    { word: "\u200Fالنِّظَامُ الْبَرْلَمَانِيّ\u200F", meaning: "議院内閣制" },
+    { word: "\u200Fالْفَيْدَرَالِيَّة\u200F", meaning: "連邦制" },
+    { word: "\u200Fتَدَاوُلُ السُّلْطَة\u200F", meaning: "平和的な政権交代（権力の循環）" },
+    { word: "\u200Fالِاسْتِبْدَادُ السِّيَاسِيّ\u200F", meaning: "政治的専制" },
+    { word: "\u200Fالسِّيَادَةُ الْوَطَنِيَّة\u200F", meaning: "国家主権" },
+    { word: "\u200Fالْمُؤَسَّسَاتُ الدُّسْتُورِيَّة\u200F", meaning: "憲法上の諸機関" },
+    { word: "\u200Fالرَّقَابَةُ الشَّعْبِيَّة\u200F", meaning: "国民による監視" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：文学的・抽象的語彙（高潔と卑俗） (ID: 140131) ---
+{
+  id: 140131,
+  title: "上級：人間の品格を表す雅語",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالسُّمُوّ\u200F", meaning: "高潔・至高（精神的な高さ）" },
+    { word: "\u200Fالضَّعَة\u200F", meaning: "卑しさ・卑俗（品格の低さ）" },
+    { word: "\u200Fالْأَنَفَة\u200F", meaning: "（高潔な）自尊心・誇り" },
+    { word: "\u200Fالْمُرُوءَة\u200F", meaning: "騎士道精神・人間的徳目" },
+    { word: "\u200Fالْبَسَالَة\u200F", meaning: "勇猛・卓越した勇気" },
+    { word: "\u200Fالْخِزْي\u200F", meaning: "屈辱・恥辱" },
+    { word: "\u200Fالْعِزَّة\u200F", meaning: "誉れ・栄光・尊厳" },
+    { word: "\u200Fالْجَشَع\u200F", meaning: "強欲・貪欲" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：文学的な「剣」の同義語 (ID: 140132) ---
+{
+  id: 140132,
+  title: "上級：騎士道文学における「剣」の異称",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالسَّيْف\u200F", meaning: "剣（一般的な名称）" },
+    { word: "\u200Fالْحُسَام\u200F", meaning: "（鋭く切れる）決断の剣" },
+    { word: "\u200Fالصَّارِم\u200F", meaning: "（曲がらない）鋭利な剣" },
+    { word: "\u200Fالْمُهَنَّد\u200F", meaning: "（インド産の優れた鉄で作られた）名剣" },
+    { word: "\u200Fالْبَتَّار\u200F", meaning: "（獲物を一刀両断する）断ち切り剣" },
+    { word: "\u200Fالْفَارُوق\u200F", meaning: "（真偽を分かつ）分別の剣" },
+    { word: "\u200Fالنَّصْل\u200F", meaning: "剣の刃（または剣そのもの）" },
+    { word: "\u200Fذُو الْفَقَار\u200F", meaning: "（歴史上の名剣として知られる）背骨のある剣" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：格調高い文学的動詞（精神と動作） (ID: 140133) ---
+{
+  id: 140133,
+  title: "上級：精神の動きを描く雅な動詞",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fتَرَنَّمَ / يَتَرَنَّمُ بِـ\u200F", meaning: "〜を（心地よく）口ずさむ・吟じる" },
+    { word: "\u200Fتَشَبَّثَ / يَتَشَبَّثُ بِـ\u200F", meaning: "〜に固執する・（希望などに）しがみつく" },
+    { word: "\u200Fتَلَاشَى / يَتَلَاشَى\u200F", meaning: "霧散する・形なく消え去る" },
+    { word: "\u200Fارْتَقَى / يَرْتَقِي إِلَى\u200F", meaning: "〜へと昇進する・（高みに）登る" },
+    { word: "\u200Fانْصَهَرَ / يَنْصَهِرُ فِي\u200F", meaning: "〜の中に溶け込む・融合する" },
+    { word: "\u200Fانْدَثَرَ / يَنْدَثِرُ\u200F", meaning: "（文明などが）滅びる・風化する" },
+    { word: "\u200Fتَقَمَّصَ / يَتَقَمَّصُ\u200F", meaning: "（役になりきるように）体現する・生まれ変わる" },
+    { word: "\u200Fانْغَمَسَ / يَنْغَمِسُ فِي\u200F", meaning: "〜に没頭する・浸りきる" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：国際関係と外交政策 (ID: 140134) ---
+{
+  id: 140134,
+  title: "上級：外交交渉と国際秩序",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالتَّحَالُفُ الِاسْتِرَاتِيجيّ\u200F", meaning: "戦略的同盟" },
+    { word: "\u200Fدِبْلُومَاسِيَّةُ الْمَكُّوك\u200F", meaning: "シャトル外交" },
+    { word: "\u200Fتَسْوِيَةٌ سِيَاسِيَّة\u200F", meaning: "政治的解決（和解）" },
+    { word: "\u200Fالنُّفُوذُ الْإِقْلِيمِيّ\u200F", meaning: "地域的な影響力" },
+    { word: "\u200Fخَرْقُ الِاتِّفَاقِيَّة\u200F", meaning: "協定の違反" },
+    { word: "\u200Fالْوَسَاطَةُ الدُّوَلِيَّة\u200F", meaning: "国際的な仲裁" },
+    { word: "\u200Fالْعُقُوبَاتُ الذَّكِيَّة\u200F", meaning: "スマートサンクション（特定の対象への制裁）" },
+    { word: "\u200Fالْمَصَالِحُ الْمُشْتَرَكَة\u200F", meaning: "共通の利益" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：文学的・哲学的な対比（生と死） (ID: 140135) ---
+{
+  id: 140135,
+  title: "上級：生と死を巡る格調高い語彙",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالْخُلُود\u200F", meaning: "永遠・不滅" },
+    { word: "\u200Fالْفَنَاء\u200F", meaning: "滅び・無常・消滅" },
+    { word: "\u200Fالْمَنِيَّة\u200F", meaning: "死・宿命的な死（文学的）" },
+    { word: "\u200Fالرَّدَى\u200F", meaning: "滅亡・死の淵" },
+    { word: "\u200Fالْبَقَاء\u200F", meaning: "存続・永続" },
+    { word: "\u200Fالْأَزَل\u200F", meaning: "永遠の過去（太古）" },
+    { word: "\u200Fالْأَبَد\u200F", meaning: "永遠の未来（永劫）" },
+    { word: "\u200Fالصَّيْرُورَة\u200F", meaning: "生成・変化し続けること（プロセス）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：格調高い文学的動詞（自然と予兆） (ID: 140136) ---
+{
+  id: 140136,
+  title: "上級：自然の理を描く雅な動詞",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fأَفَلَ / يَأْفُلُ\u200F", meaning: "（太陽や星が）沈む・衰退する" },
+    { word: "\u200Fبَزَغَ / يَبْزُغُ\u200F", meaning: "（夜明けや希望が）現れ始める" },
+    { word: "\u200Fاشْرَأَبَّ / يَشْرَئِبُّ إِلَى\u200F", meaning: "（首を長くして）〜を熱望する・待ち構える" },
+    { word: "\u200Fتَضَوَّعَ / يَتَضَوَّعُ طِيبًا\u200F", meaning: "（香りが）辺り一面に漂う" },
+    { word: "\u200Fهَمَى / يَهْمِي\u200F", meaning: "（雨や涙が）静かに流れ落ちる" },
+    { word: "\u200Fخَارَ / يَخُورُ\u200F", meaning: "（力が）衰える・挫ける" },
+    { word: "\u200Fتَهَادَى / يَتَهَادَى\u200F", meaning: "（ゆったりと優雅に）歩む・進む" },
+    { word: "\u200Fتَرَقْرَقَ / يَتَرَقْرَقُ\u200F", meaning: "（涙や水が）うるうると溜まる・煌めく" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：政治紛争と社会動乱 (ID: 140137) ---
+{
+  id: 140137,
+  title: "上級：社会の動乱と変革の語彙",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالِاضْطِرَابَاتُ الْأَهْلِيَّة\u200F", meaning: "市民による暴動・騒乱" },
+    { word: "\u200Fالْعِصْيَانُ الْمَدَنِيّ\u200F", meaning: "非暴力不服従（市民的不服従）" },
+    { word: "\u200Fقَمْعُ الْمُعَارَضَة\u200F", meaning: "反対派の弾圧" },
+    { word: "\u200Fالِانْقِلابُ الْعَسْكَرِيّ\u200F", meaning: "軍事クーデター" },
+    { word: "\u200Fالْمُصَالَحَةُ الْوَطَنِيَّة\u200F", meaning: "国民的な和解" },
+    { word: "\u200Fتَعْبِئَةُ الْجَمَاهِير\u200F", meaning: "大衆の動員" },
+    { word: "\u200Fالْفَرَاغُ السِّيَاسِيّ\u200F", meaning: "政治の空白" },
+    { word: "\u200Fالِانْتِقَالُ السِّلْمِيّ\u200F", meaning: "平和的な移行" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：文学的な「雲」と「風」の表現 (ID: 140138) ---
+{
+  id: 140138,
+  title: "上級：天候を象徴的に描く雅な語彙",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالسَّحَابُ الْمُثْقَل\u200F", meaning: "（雨を含んだ）重々しい雲" },
+    { word: "\u200Fالنَّسِيمُ الْعَلِيل\u200F", meaning: "心地よいそよ風" },
+    { word: "\u200Fالْإِعْصَارُ الْهَائِج\u200F", meaning: "猛烈な嵐（ハリケーン）" },
+    { word: "\u200Fالْمُزْن\u200F", meaning: "雨雲（文学的に多用される）" },
+    { word: "\u200Fالصَّبَا\u200F", meaning: "東風（恋を運ぶ風として詩に頻出）" },
+    { word: "\u200Fالدَّبُور\u200F", meaning: "西風" },
+    { word: "\u200Fالْعَاصِفَةُ الْهَوْجَاء\u200F", meaning: "荒れ狂う嵐" },
+    { word: "\u200Fالسَّدَف\u200F", meaning: "薄暗がり・黄昏の光" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：人権と言論の自由 (ID: 140139) ---
+{
+  id: 140139,
+  title: "上級：人権の擁護と言論の法理",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fحُرِّيَّةُ التَّعْبِير\u200F", meaning: "表現の自由" },
+    { word: "\u200Fمُصَادَرَةُ الْآرَاء\u200F", meaning: "意見の封殺（検閲）" },
+    { word: "\u200Fالِاعْتِقَالُ التَّعَسُّفِيّ\u200F", meaning: "恣意的な拘禁" },
+    { word: "\u200Fكَرَامَةُ الْإِنْسَان\u200F", meaning: "人間の尊厳" },
+    { word: "\u200Fالْمُسَاوَاةُ أَمَامَ الْقَانُون\u200F", meaning: "法の下の平等" },
+    { word: "\u200Fنَاشِطٌ حُقُوقِيّ\u200F", meaning: "人権活動家" },
+    { word: "\u200Fمَنَاهِضَةُ التَّمْيِيز\u200F", meaning: "差別の反対（撤廃）" },
+    { word: "\u200Fتَقْرِيرُ الْمَصِير\u200F", meaning: "民族自決（自決権）" }
+  ],
+  questions: [],
+  sentences: []
+},
+
+// --- 上級：総括：知性の極致 (ID: 140140) ---
+{
+  id: 140140,
+  title: "上級：普遍的な真理と調和",
+  category: "単語データ",
+  level: "上級",
+  contentVoweled: "",
+  contentPlain: "",
+  vocabList: [
+    { word: "\u200Fالْحِكْمَةُ الْخَالِدَة\u200F", meaning: "不朽の知恵" },
+    { word: "\u200Fالتَّنَافُذُ الثَّقَافِيّ\u200F", meaning: "文化的な相互浸透" },
+    { word: "\u200Fرُؤْيَةٌ كَوْنِيَّة\u200F", meaning: "宇宙的（普遍的）な視点" },
+    { word: "\u200Fالْوَعْيُ الْمُتَعَالِي\u200F", meaning: "超越的な意識" },
+    { word: "\u200Fالِانْسِجَامُ الرُّوحِيّ\u200F", meaning: "精神的な調和" },
+    { word: "\u200Fجَوْهَرُ الْحَقِيقَة\u200F", meaning: "真理の本質" },
+    { word: "\u200Fالْإِرْثُ الْإِنْسَانِيّ\u200F", meaning: "人類の遺産" },
+    { word: "\u200Fأُفُقٌ لَا يَتَنَاهَى\u200F", meaning: "無限の地平" }
+  ],
+  questions: [],
+  sentences: []
+},
+{
+  id: 20000,
+  title: "桃太郎 (مُومُوتَارُو)",
+  category: "物語",
+  level: "物語", 
+  contentVoweled: "\u200Fفِي قَدِيمِ الزَّمَانِ، كَانَ هُنَاكَ رَجُلٌ عَجُوزٌ وَزَوْجَتُهُ الْعَجُوزُ يَعِيشَانِ فِي قَرْيَةٍ صَغِيرَةٍ. ذَاتَ يَوْمٍ، ذَهَبَ الرَّجُلُ الْعَجُوزُ إِلَى الْجَبَلِ لِجَمْعِ الْحَطَبِ، وَذَهَبَتِ الْعَجُوزُ إِلَى النَّهْرِ لِغَسْلِ الْمَلَابِسِ. وَبَيْنَمَا كَانَتْ تَغْسِلُ الْمَلَابِسَ، طَفَتْ خَوْخَةٌ عِمْلَاقَةٌ عَلَى سَطْحِ الْمَاءِ قَادِمَةً مِنْ أَعْلَى النَّهْرِ. أَخَذَتِ الْعَجُوزُ الْخَوْخَةَ الْكَبِيرَةَ وَعَادَتْ بِهَا إِلَى الْمَنْزِلِ. وَعِنْدَمَا عَادَ الْعَجُوزُ، حَاوَلَا قَطْعَ الْخَوْخَةِ بِسِكِّينٍ لِتَنَاوُلِهَا، فَجْأَةً انْشَقَّتِ الْخَوْخَةُ وَخَرَجَ مِنْهَا طِفْلٌ رَضِيعٌ سَلِيمٌ وَقَوِيٌّ. فَرِحَ الزَّوْجَانِ كَثِيرًا، وَأَطْلَقَا عَلَيْهِ اسْمَ \"مُومُوتَارُو\" (فَتَى الْخَوْخِ). كَبِرَ مُومُوتَارُو بِسُرْعَةٍ وَأَصْبَحَ شَابًّا قَوِيًّا وَشُجَاعًا جِدًّا. فِي ذَلِكَ الْوَقْتِ، كَانَتْ هُنَاكَ شَيَاطِينُ شِرِّيرَةٌ تَعِيشُ فِي \"جَزِيرَةِ الشَّيَاطِينِ\" وَتُؤْذِي النَّاسَ وَتَسْرِقُ مُمْتَلَكَاتِهِمْ. قَرَّرَ مُومُوتَارُو الذَّهَابَ إِلَى الْجَزِيرَةِ لِهَزِيمَةِ هَذِهِ الشَّيَاطِينِ. صَنَعَ لَهُ الْعَجُوزَانِ كُرَاتِ الدُّخْنِ اللَّذِيذَةَ لِتَمْنَحَهُ الْقُوَّةَ، وَأَعْطَيَاهُ إِيَّاهَا لِيَأْخُذَهَا مَعَهُ فِي رِحْلَتِهِ. فِي طَرِيقِهِ، الْتَقَى مُومُوتَارُو بِكَلْبٍ. سَأَلَ الْكَلْبُ: \"مُومُوتَارُو، مَاذَا تَحْمِلُ فِي حَقِيبَتِكَ؟\" فَأَجَابَهُ: \"أَحْمِلُ أَفْضَلَ كُرَاتِ الدُّخْنِ فِي الْيَابَانِ\". فَقَالَ الْكَلْبُ: \"أَعْطِنِي وَاحِدَةً وَسَأُرَافِقُكَ\". ثُمَّ الْتَقَى بِقِرْدٍ، وَبَعْدَهُ بِطَائِرِ الدُّرَّاجِ. أَعْطَى مُومُوتَارُو كُلَّ وَاحِدٍ مِنْهُمْ كُرَةَ دُخْنٍ، وَانْضَمُّوا إِلَيْهِ لِيُصْبِحُوا أَتْبَاعَهُ الْمُخْلِصِينَ. وَصَلَ مُومُوتَارُو وَأَصْدِقَاؤُهُ الثَّلَاثَةُ أَخِيرًا إِلَى جَزِيرَةِ الشَّيَاطِينِ. كَانَتْ هُنَاكَ قَلْعَةٌ كَبِيرَةٌ ذَاتُ بَوَّابَةٍ سَوْدَاءَ ضَخْمَةٍ. طَارَ طَائِرُ الدُّرَّاجِ فَوْقَ السُّورِ وَنَقَرَ أَعْيُنَ الشَّيَاطِينِ، وَتَسَلَّقَ الْقِرْدُ لِفَتْحِ الْبَوَّابَةِ، وَهَجَمَ الْكَلْبُ وَعَضَّ أَقْدَامَهُمْ. أَمَّا مُومُوتَارُو، فَقَدِ اسْتَلَّ سَيْفَهُ وَقَاتَلَ بِشَجَاعَةٍ. عَمِلَ الْفَرِيقُ مَعًا بِقُوَّةٍ وَهَزَمُوا الشَّيَاطِينِ وَاحِدًا تِلْوَ الْآخَرِ. فِي النِّهَايَةِ، اسْتَسْلَمَ زَعِيمُ الشَّيَاطِينِ وَاعْتَذَرَ بَاكِيًا وَقَالَ: \"أَرْجُوكَ سَامِحْنِي، أَعِدُكَ بِأَلَّا أَفْعَلَ أَشْيَاءَ سَيِّئَةً مَرَّةً أُخْرَى، وَسَأُعِيدُ كُلَّ الْكُنُوزِ\". أَخَذَ مُومُوتَارُو وَأَصْدِقَاؤُهُ الْكُنُوزَ وَعَادُوا بِهَا إِلَى قَرْيَتِهِمْ. فَرِحَ الرَّجُلُ الْعَجُوزُ وَزَوْجَتُهُ الْعَجُوزُ بِعَوْدَةِ مُومُوتَارُو سَالِمًا، وَعَاشَ الْجَمِيعُ فِي سَعَادَةٍ وَسَلَامٍ إِلَى الْأَبَدِ.\u200F", 
+  contentPlain: "\u200Fفي قديم الزمان، كان هناك رجل عجوز وزوجته العجوز يعيشان في قرية صغيرة. ذات يوم، ذهب الرجل العجوز إلى الجبل لجمع الحطب، وذهبت العجوز إلى النهر لغسل الملابس. وبينما كانت تغسل الملابس، طفت خوخة عملاقة على سطح الماء قادمة من أعلى النهر. أخذت العجوز الخوخة الكبيرة وعادت بها إلى المنزل. وعندما عاد العجوز، حاولا قطع الخوخة بسكين لتناولها، فجأة انشقت الخوخة وخرج منها طفل رضيع سليم وقوي. فرح الزوجان كثيرا، وأطلقا عليه اسم \"موموتارو\" (فتى الخوخ). كبر موموتارو بسرعة وأصبح شابا قويا وشجاعا جدا. في ذلك الوقت، كانت هناك شياطين شريرة تعيش في \"جزيرة الشياطين\" وتؤذي الناس وتسرق ممتلكاتهم. قرر موموتارو الذهاب إلى الجزيرة لهزيمة هذه الشياطين. صنع له العجوزان كرات الدخن اللذيذة لتمنحه القوة، وأعطياه إياها ليأخذها معه في رحلته. في طريقه، التقى موموتارو بكلب. سأل الكلب: \"موموتارو، ماذا تحمل في حقيبتك؟\" فأجابه: \"أحمل أفضل كرات الدخن في اليابان\". فقال الكلب: \"أعطني واحدة وسأرافقك\". ثم التقى بقرد، وبعده بطائر الدراج. أعطى موموتارو كل واحد منهم كرة دخن، وانضموا إليه ليصبحوا أتباعه المخلصين. وصل موموتارو وأصدقاؤه الثلاثة أخيرا إلى جزيرة الشياطين. كانت هناك قلعة كبيرة ذات بوابة سوداء ضخمة. طار طائر الدراج فوق السور ونقر أعين الشياطين، وتسلق القرد لفتح البوابة، وهجم الكلب وعض أقدامهم. أما موموتارو، فقد استل سيفه وقاتل بشجاعة. عمل الفريق معا بقوة وهزموا الشياطين واحدا تلو الآخر. في النهاية، استسلم زعيم الشياطين واعتذر باكيا وقال: \"أرجوك سامحني، أعدك بألا أفعل أشياء سيئة مرة أخرى، وسأعيد كل الكنوز\". أخذ موموتارو وأصدقاؤه الكنوز وعادوا بها إلى قريتهم. فرح الرجل العجوز وزوجته العجوز بعودة موموتارو سالما، وعاش الجميع في سعادة وسلام إلى الأبد.\u200F",
+  vocabList: [
+    { word: "\u200Fقَدِيمُ الزَّمَانِ\u200F", meaning: "昔々" },
+    { word: "\u200Fخَوْخَةٌ\u200F", meaning: "桃" },
+    { word: "\u200Fعِمْلَاقَةٌ\u200F", meaning: "巨大な" },
+    { word: "\u200Fانْشَقَّتِ\u200F", meaning: "割れた" },
+    { word: "\u200Fشُجَاعٌ\u200F", meaning: "勇敢な" },
+    { word: "\u200Fشَيَاطِينُ\u200F", meaning: "鬼・悪魔（複数形）" },
+    { word: "\u200Fكُرَاتُ الدُّخْنِ\u200F", meaning: "きびだんご" },
+    { word: "\u200Fرِحْلَةٌ\u200F", meaning: "旅" },
+    { word: "\u200Fكَلْبٌ\u200F", meaning: "犬" },
+    { word: "\u200Fقِرْدٌ\u200F", meaning: "猿" },
+    { word: "\u200Fطَائِرُ الدُّرَّاجِ\u200F", meaning: "雉（キジ）" },
+    { word: "\u200Fمُخْلِصِينَ\u200F", meaning: "忠実な" },
+    { word: "\u200Fهَجَمَ\u200F", meaning: "攻撃した" },
+    { word: "\u200Fاسْتَسْلَمَ\u200F", meaning: "降参した" },
+    { word: "\u200Fكُنُوزٌ\u200F", meaning: "宝物" }
+  ],
+  sentences: [
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fفِي قَدِيمِ الزَّمَانِ، كَانَ هُنَاكَ رَجُلٌ عَجُوزٌ وَزَوْجَتُهُ الْعَجُوزُ يَعِيشَانِ فِي قَرْيَةٍ صَغِيرَةٍ. ذَاتَ يَوْمٍ، ذَهَبَ الرَّجُلُ الْعَجُوزُ إِلَى الْجَبَلِ لِجَمْعِ الْحَطَبِ، وَذَهَبَتِ الْعَجُوزُ إِلَى النَّهْرِ لِغَسْلِ الْمَلَابِسِ.\u200F",
+      japanese: "昔々、あるところに、おじいさんとおばあさんが小さな村に住んでいました。ある日、おじいさんは山へ柴刈りに、おばあさんは川へ洗濯に行きました。",
+      note: "【昔々の定型表現】\n\u200Fفِي قَدِيمِ الزَّمَانِ\u200F は「時の古さに」が直訳で、物語の決まり文句「昔々」にあたります。\n\n【كَانَ の主語と述語の倒置】\n\u200Fكَانَ هُنَاكَ رَجُلٌ\u200F において、\u200Fرَجُلٌ\u200F が対格（a）ではなく主格（un）のままなのは、これが \u200Fكَانَ\u200F の「主語」だからです。\u200Fكَانَ\u200F の「述語」である \u200Fهُنَاكَ\u200F（そこに）が前に出て、主語が後ろに倒置された形です。\n\n【関係代名詞が不要な理由】\n\u200Fرَجُلٌ عَجُوزٌ وَزَوْجَتُهُ\u200F に続く \u200Fيَعِيشَانِ\u200F に関係代名詞（\u200Fالَّذِي\u200F など）がないのは、先行詞となる \u200Fرَجُلٌ عَجُوزٌ\u200F が非限定名詞（定冠詞 \u200Fال\u200F がついていない状態）だからです。アラビア語では、非限定名詞の後ろに続く文は、関係代名詞なしで直接その名詞を修飾する形容詞節になります。\n\n【時を表す ذَاتَ يَوْمٍ】\n\u200Fذَاتَ يَوْمٍ\u200F は「ある日」という意味です。\u200Fذَاتَ\u200F は時を表す状況語（副詞的用法）として対格になり、後ろの \u200Fيَوْمٍ\u200F を属格にしてイダーファ（属格代名詞）構造を作っています。\n\n【無母音の連続を避けるカスラ】\n\u200Fذَهَبَتِ الْعَجُوزُ\u200F の \u200Fتِ\u200F は、本来は女性三人称の過去形 \u200Fذَهَبَتْ\u200F（ターに無母音のスクーン）です。しかし、次に続く \u200Fالْعَجُوزُ\u200F の定冠詞の \u200Fل\u200F も無母音のため、アラビア語のルール「無母音が2つ連続することの回避」が適用され、最初のスクーンが発音しやすいカスラ（i）に変化しています。\n\n【過去の継続】\n過去形動詞 \u200Fكَانَ\u200F と現在形動詞 \u200Fيَعِيشَانِ\u200F を組み合わせることで「〜していた」という過去の継続を表します。なお、主語がおじいさんとおばあさんの2人なので、動詞は「彼ら2人は（3人称・双数）」の形に変化しています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fوَبَيْنَمَا كَانَتْ تَغْسِلُ الْمَلَابِسَ، طَفَتْ خَوْخَةٌ عِمْلَاقَةٌ عَلَى سَطْحِ الْمَاءِ قَادِمَةً مِنْ أَعْلَى النَّهْرِ. أَخَذَتِ الْعَجُوزُ الْخَوْخَةَ الْكَبِيرَةَ وَعَادَتْ بِهَا إِلَى الْمَنْزِلِ.\u200F",
+      japanese: "おばあさんが洗濯をしていると、川上から巨大な桃が水面に浮いて流れてきました。おばあさんはその大きな桃を拾って家に持ち帰りました。",
+      note: "【過去の進行と接続詞 بَيْنَمَا】\n\u200Fبَيْنَمَا\u200F は「〜している間」という接続詞です。\u200Fكَانَتْ تَغْسِلُ\u200F は「كَانَ ＋現在形動詞」の組み合わせで、「（まさにその時）洗濯をしていた」という過去の進行状態を表します。\n\n【弱動詞 طَفَتْ の変化】\n\u200Fطَفَتْ\u200F（浮いた）の原形は語尾にアリフを持つ弱動詞 \u200Fطَفَا\u200F です。主語が女性名詞の \u200Fخَوْخَةٌ\u200F（桃）であるため、女性形を示すター（\u200Fتْ\u200F）が接続しますが、その際に原形のアリフと無母音のターが衝突するため、弱文字のアリフが脱落して \u200Fطَفَتْ\u200F となっています。\n\n【状態を表すハール قَادِمَةً】\n\u200Fقَادِمَةً\u200F は「やって来る」という意味の能動分詞です。ここでは主語の桃が「どのような状態で」浮いていたのかを説明する「ハール（状態）」の用法として使われているため、対格（タンウィーンのファトハ）になっています。\n\n【比較級の形 أَعْلَى】\n\u200Fأَعْلَى\u200F は、形容詞 \u200Fعَالٍ\u200F（高い）をベースにした比較級・最上級のパターンです。ここでは「より高い所」から転じて「川上」を意味しています。\n\n【無母音の連続を避けるカスラ أَخَذَتِ】\n\u200Fأَخَذَتِ الْعَجُوزُ\u200F の \u200Fتِ\u200F は、本来は過去形女性の \u200Fتْ\u200F（無母音のスクーン）です。しかし、直後に続く \u200Fالْعَجُوزُ\u200F の定冠詞の \u200Fل\u200F も無母音のため、無母音の連続を避けるアラビア語のルールにより、発音しやすいカスラ（i）に変化しています。\n\n【前置詞 بِـ による意味の変化 عَادَتْ بِهَا】\n\u200Fعَادَتْ\u200F は「戻った」という意味ですが、これに「〜と一緒に」を表す前置詞 \u200Fبِـ\u200F と、桃を指す代名詞 \u200Fهَا\u200F を続けることで、「それと共に戻る」＝「持って帰る」という動作を表現しています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fوَعِنْدَمَا عَادَ الْعَجُوزُ، حَاوَلَا قَطْعَ الْخَوْخَةِ بِسِكِّينٍ لِتَنَاوُلِهَا، فَجْأَةً انْشَقَّتِ الْخَوْخَةُ وَخَرَجَ مِنْهَا طِفْلٌ رَضِيعٌ سَلِيمٌ وَقَوِيٌّ. فَرِحَ الزَّوْجَانِ كَثِيرًا، وَأَطْلَقَا عَلَيْهِ اسْمَ \"مُومُوتَارُو\" (فَتَى الْخَوْخِ).\u200F",
+      japanese: "おじいさんが帰ってきて、二人が桃を食べようと包丁で切ろうとしたとき、突然桃が割れて、中から元気で強い男の赤ちゃんが出てきました。夫婦はとても喜び、その子を「桃太郎」と名付けました。",
+      note: "【双数形の動詞 حَاوَلَا】\n\u200Fحَاوَلَا\u200F は第3形動詞 \u200Fحَاوَلَ\u200F（試みる）の過去形・双数です。直前の主語は \u200Fالْعَجُوزُ\u200F（おじいさん）ですが、文脈上「おじいさんとおばあさんの2人」を指すため双数形のアリフ（\u200Fـَا\u200F）が付きます。後ろの \u200Fأَطْلَقَا\u200F も同様です。\n\n【動名詞のイダーファ قَطْعَ الْخَوْخَةِ】\n\u200Fقَطْع\u200F は「切ること」という動名詞で、ここでは \u200Fحَاوَلَا\u200F の目的語として対格（a）になっています。後ろの \u200Fالْخَوْخَةِ\u200F（桃）を属格（i）にして「桃を切ることを」というイダーファ構造を作っています。\n\n【前置詞と動名詞の結合 لِتَنَاوُلِهَا】\n\u200Fلِتَنَاوُلِهَا\u200F は、目的を表す前置詞 \u200Fلِـ\u200F に、動名詞 \u200Fتَنَاوُل\u200F（食べること）、そして女性名詞の桃を指す代名詞 \u200Fهَا\u200F が結合した形です。\n\n【第7形動詞の受動的ニュアンス انْشَقَّتِ】\n\u200Fانْشَقَّتِ\u200F は第7形動詞 \u200Fانْشَقَّ\u200F（割れる・裂ける）の女性形です。第7形は「（自然に）〜なる」という受動・自発的な意味を持ちます。続く \u200Fالْخَوْخَةُ\u200F の定冠詞との接触により、無母音の連続を避けてターにカスラ（i）が付いています。\n\n【名前をつける熟語 أَطْلَقَ اسْمًا عَلَى】\n\u200Fأَطْلَقَا عَلَيْهِ اسْمَ\u200F は、直訳すると「彼に対して名前を放った」となり、これで「〜と名付けた」という定番の表現になります。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fكَبِرَ مُومُوتَارُو بِسُرْعَةٍ وَأَصْبَحَ شَابًّا قَوِيًّا وَشُجَاعًا جِدًّا. فِي ذَلِكَ الْوَقْتِ، كَانَتْ هُنَاكَ شَيَاطِينُ شِرِّيرَةٌ تَعِيشُ فِي \"جَزِيرَةِ الشَّيَاطِينِ\" وَتُؤْذِي النَّاسَ وَتَسْرِقُ مُمْتَلَكَاتِهِمْ. قَرَّرَ مُومُوتَارُو الذَّهَابَ إِلَى الْجَزِيرَةِ لِهَزِيمَةِ هَذِهِ الشَّيَاطِينِ.\u200F",
+      japanese: "桃太郎はすぐに大きくなり、とても強くて勇敢な若者になりました。その頃「鬼ヶ島」には悪い鬼たちが住んでいて、人々を苦しめ、財産を盗んでいました。桃太郎はこの鬼たちを退治するために島へ行くことを決心しました。",
+      note: "【أَصْبَحَ による対格化】\n\u200Fأَصْبَحَ\u200F は「〜になった」を意味する動詞（\u200Fكَانَ\u200F の姉妹語）で、述語を対格（目的格）にする働きがあります。そのため「強い若者に」にあたる部分は \u200Fشَابًّا قَوِيًّا\u200F と対格のタンウィーンが付きます。\n\n【人間以外の複数形は「女性単数」扱い】\n\u200Fشَيَاطِينُ\u200F（鬼たち）は複数形ですが、アラビア語の文法では「人間以外の複数形は女性単数として扱う」という強力なルールがあります。そのため、修飾する形容詞は \u200Fشِرِّيرَةٌ\u200F（邪悪な）と女性単数形になり、これを受ける動詞も \u200Fكَانَتْ\u200F や \u200Fتَعِيشُ\u200F、\u200Fتُؤْذِي\u200F など、すべて女性三人称単数の形が使われています。\n\n【動名詞を伴う決心 قَرَّرَ الذَّهَابَ】\n\u200Fقَرَّرَ\u200F は「決心した」という動詞で、後ろに直接動名詞を置くことができます。ここでは \u200Fالذَّهَابَ\u200F（行くこと）が対格で置かれています。\n\n【目的の表現 لِهَزِيمَةِ】\n\u200Fلِهَزِيمَةِ\u200F は前置詞 \u200Fلِـ\u200F（〜のために）に動名詞 \u200Fهَزِيمَة\u200F（打ち負かすこと）が続いた形で、目的を表します。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fصَنَعَ لَهُ الْعَجُوزَانِ كُرَاتِ الدُّخْنِ اللَّذِيذَةَ لِتَمْنَحَهُ الْقُوَّةَ، وَأَعْطَيَاهُ إِيَّاهَا لِيَأْخُذَهَا مَعَهُ فِي رِحْلَتِهِ. فِي طَرِيقِهِ، الْتَقَى مُومُوتَارُو بِكَلْبٍ. سَأَلَ الْكَلْبُ: \"مُومُوتَارُو، مَاذَا تَحْمِلُ فِي حَقِيبَتِكَ؟\" فَأَجَابَهُ: \"أَحْمِلُ أَفْضَلَ كُرَاتِ الدُّخْنِ فِي الْيَابَانِ\".\u200F",
+      japanese: "おじいさんとおばあさんは、彼に力を与えるために美味しいきびだんごを作り、旅に持たせました。道中、桃太郎は犬に出会いました。犬は「桃太郎さん、袋の中に何を持っているの？」と尋ねました。彼は「日本一のきびだんごだよ」と答えました。",
+      note: "【主格の双数形 الْعَجُوزَانِ】\n\u200Fالْعَجُوزَانِ\u200F は「2人の老人（おじいさんとおばあさん）」を指し、\u200Fصَنَعَ\u200F の主語なので双数形の主格（\u200Fـَانِ\u200F）になっています。\n\n【規則女性複数の対格の例外 كُرَاتِ】\n\u200Fكُرَاتِ الدُّخْنِ\u200F（キビの団子）は目的語（対格）ですが、\u200Fكُرَات\u200F のような規則女性複数（\u200Fـَات\u200F で終わる名詞）は、対格のときにファトハ（a）ではなくカスラ（i）をとる特殊なルールがあるため、\u200Fكُرَاتِ\u200F となります。しかし修飾する形容詞 \u200Fاللَّذِيذَةَ\u200F は通常の単数女性名詞なのでファトハ（a）を取ります。\n\n【目的語が2つ重なる特殊構文 أَعْطَيَاهُ إِيَّاهَا】\n動詞 \u200Fأَعْطَى\u200F（与える）の双数形過去 \u200Fأَعْطَيَا\u200F に、第1目的語の \u200Fهُ\u200F（彼に）が接続しています。さらに「それを」という第2目的語を付けたい場合、代名詞を2つ連続で繋げることはできないため、独立目的語代名詞 \u200Fإِيَّا\u200F に \u200Fهَا\u200F を付けた \u200Fإِيَّاهَا\u200F を後ろに置きます。\n\n【目的の لِـ と接続法 لِتَمْنَحَهُ】\n\u200Fلِتَمْنَحَهُ\u200F は、目的の \u200Fلِـ\u200F の後ろに動詞が続くため、動詞の語尾が接続法（ファトハ）の \u200Fتَمْنَحَ\u200F に変化し、そこに目的語の代名詞 \u200Fهُ\u200F が結びついています。\n\n【最上級 أَفْضَلَ】\n\u200Fأَفْضَلَ\u200F は比較級・最上級のパターン（アフアル型）です。後ろの \u200Fكُرَاتِ\u200F を属格にしてイダーファ構造をとることで「最も優れた〜（日本一の〜）」という最上級の意味を作っています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fفَقَالَ الْكَلْبُ: \"أَعْطِنِي وَاحِدَةً وَسَأُرَافِقُكَ\". ثُمَّ الْتَقَى بِقِرْدٍ، وَبَعْدَهُ بِطَائِرِ الدُّرَّاجِ. أَعْطَى مُومُوتَارُو كُلَّ وَاحِدٍ مِنْهُمْ كُرَةَ دُخْنٍ، وَانْضَمُّوا إِلَيْهِ لِيُصْبِحُوا أَتْبَاعَهُ الْمُخْلِصِينَ.\u200F",
+      japanese: "犬は「一つください、お供します」と言いました。その後、猿に出会い、続いて雉に出会いました。桃太郎はそれぞれにきびだんごをあげて、彼らは忠実なお供として加わりました。",
+      note: "【弱動詞の命令形と保護のヌーン أَعْطِنِي】\n\u200Fأَعْطِنِي\u200F は、第4形動詞 \u200Fأَعْطَى\u200F の命令形 \u200Fأَعْطِ\u200F（語末の弱文字が脱落するルール）に、「私に」という代名詞 \u200Fي\u200F が付いた形です。このとき、動詞と代名詞の間に発音を保護するためのヌーン（\u200Fنِ\u200F）が挿入されています。\n\n【未来を表す سَـ と動詞構造 سَأُرَافِقُكَ】\n\u200Fسَأُرَافِقُكَ\u200F は、近い未来を表す接頭辞 \u200Fسَـ\u200F ＋「私が同行する」という第3形現在形動詞 \u200Fأُرَافِقُ\u200F ＋「あなたに」という目的語代名詞 \u200Fكَ\u200F が合体した見事な一語です。\n\n【「それぞれの」 كُلَّ وَاحِدٍ】\n\u200Fكُلّ\u200F は後ろの名詞を属格にして「〜のすべて、それぞれ」を表します。ここでは \u200Fأَعْطَى\u200F の目的語になっているため、\u200Fكُلَّ\u200F と対格のファトハ（a）を取っています。\n\n【接続法によるヌーンの脱落 لِيُصْبِحُوا】\n\u200Fلِيُصْبِحُوا\u200F は、目的の \u200Fلِـ\u200F が付いているため、動詞が接続法に変化しています。三人称複数の現在形は本来 \u200Fيُصْبِحُونَ\u200F ですが、接続法になると語尾のヌーン（\u200Fن\u200F）が脱落し、アリフが追加されて \u200Fيُصْبِحُوا\u200F となります。\n\n【複数形の対格 الْمُخْلِصِينَ】\n\u200Fأَتْبَاعَهُ\u200F（彼の従者たち）は \u200Fأَصْبَحَ\u200F の述語なので対格になります。これを修飾する規則男性複数形の形容詞「忠実な」も対格になるため、主格の \u200Fالْمُخْلِصُونَ\u200F ではなく \u200Fالْمُخْلِصِينَ\u200F の形になっています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fوَصَلَ مُومُوتَارُو وَأَصْدِقَاؤُهُ الثَّلَاثَةُ أَخِيرًا إِلَى جَزِيرَةِ الشَّيَاطِينِ. كَانَتْ هُنَاكَ قَلْعَةٌ كَبِيرَةٌ ذَاتُ بَوَّابَةٍ سَوْدَاءَ ضَخْمَةٍ. طَارَ طَائِرُ الدُّرَّاجِ فَوْقَ السُّورِ وَنَقَرَ أَعْيُنَ الشَّيَاطِينِ، وَتَسَلَّقَ الْقِرْدُ لِفَتْحِ الْبَوَّابَةِ، وَهَجَمَ الْكَلْبُ وَعَضَّ أَقْدَامَهُمْ.\u200F",
+      japanese: "桃太郎と三匹の仲間は、ついに鬼ヶ島に到着しました。そこには巨大な黒い門がある大きな城がありました。雉は壁を越えて飛び鬼たちの目を突き、猿は登って門を開け、犬は攻撃して足に噛みつきました。",
+      note: "【「〜を持つ」を表す ذَاتُ】\n\u200Fذَاتُ\u200F は「〜を持つ、〜を備えた」という意味の単語で、後ろに名詞を属格（i）で伴ってイダーファ（属格代名詞）構造を作ります。ここでは「巨大な黒い門」を備えた城を表現しています。\n\n【二段変化名詞（半柔軟名詞） سَوْدَاءَ】\n\u200Fسَوْدَاءَ\u200F（黒い・女性形）は二段変化名詞（マムヌーウ・ミナ・ッサルフ）と呼ばれる特殊な名詞です。本来、属格（i）になるべき場所でもカスラではなくファトハ（a）を取るという強いルールがあるため、\u200Fبَوَّابَةٍ سَوْدَاءَ ضَخْمَةٍ\u200F と、この語だけタンウィーンを持たず母音が異なっています。\n\n【イダーファ構造 جَزِيرَةِ الشَّيَاطِينِ】\n\u200Fجَزِيرَةِ الشَّيَاطِينِ\u200F（鬼ヶ島）は、名詞が2つ並んで「〜の…」を表すイダーファ構造です。修飾語である後ろの \u200Fالشَّيَاطِينِ\u200F が属格になっています。\n\n【前置詞と動名詞の結合 لِفَتْحِ】\n\u200Fلِفَتْحِ\u200F は、目的を表す前置詞 \u200Fلِـ\u200F（〜のために）に動名詞 \u200Fفَتْح\u200F（開けること）が結合した形です。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fأَمَّا مُومُوتَارُو، فَقَدِ اسْتَلَّ سَيْفَهُ وَقَاتَلَ بِشَجَاعَةٍ. عَمِلَ الْفَرِيقُ مَعًا بِقُوَّةٍ وَهَزَمُوا الشَّيَاطِينِ وَاحِدًا تِلْوَ الْآخَرِ.\u200F",
+      japanese: "桃太郎はというと、剣を抜いて勇敢に戦いました。チームは力強く協力し、鬼たちを次々と打ち倒しました。",
+      note: "【話題の転換 أَمَّا ... فَـ】\n\u200Fأَمَّا ... فَـ\u200F は「〜について言えば、〜だ」と話題を強調したり、場面を転換したりする際によく使われる重要な構文です。\n\n【無母音の連続を避けるカスラ قَدِ】\n\u200Fقَدِ\u200F は過去形動詞の前について動作の完了や確実性を強調します。本来は \u200Fقَدْ\u200F（スクーン）ですが、後ろの \u200Fاسْتَلَّ\u200F がハムザトゥル・ワスル（接続のハムザ）で始まるため、発音の連続を助けるためにカスラ（i）に変化しています。\n\n【前置詞 بِـ ＋ 名詞で作る副詞句】\n\u200Fبِشَجَاعَةٍ\u200F（勇敢さと共に＝勇敢に）や \u200Fبِقُوَّةٍ\u200F（力と共に＝力強く）のように、前置詞 \u200Fبِـ\u200F と抽象名詞を組み合わせることで、動作の様子を表す副詞的な表現を作ることができます。\n\n【熟語表現 وَاحِدًا تِلْوَ الْآخَرِ】\n\u200Fتِلْوَ\u200F は「〜の後に」という場所・時間を表す単語で、「次々と（一つ、また他の一つの後に）」を意味する美しい定型表現です。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fفِي النِّهَايَةِ، اسْتَسْلَمَ زَعِيمُ الشَّيَاطِينِ وَاعْتَذَرَ بَاكِيًا وَقَالَ: \"أَرْجُوكَ سَامِحْنِي، أَعِدُكَ بِأَلَّا أَفْعَلَ أَشْيَاءَ سَيِّئَةً مَرَّةً أُخْرَى، وَسَأُعِيدُ كُلَّ الْكُنُوزِ\".\u200F",
+      japanese: "最後に、鬼のリーダーは降参し、泣いて謝りながら言いました。「どうか許してください。もう二度と悪いことはしないと誓います、そして宝物はすべて返します」と。",
+      note: "【状態を表すハール بَاكِيًا】\n\u200Fبَاكِيًا\u200F（泣きながら）は、主語の動作時の状態を説明する「ハール（状態）」の用法であり、常に対格（a）をとります。\n\n【融合した接続詞 بِأَلَّا】\n\u200Fبِأَلَّا\u200F は、前置詞 \u200Fبِـ\u200F ＋ 接続詞 \u200Fأَنْ\u200F ＋ 否定の \u200Fلَا\u200F が融合した形です。「〜しないことを（約束する）」という意味になります。\n\n【二段変化名詞 أَشْيَاءَ】\n\u200Fأَشْيَاءَ\u200F（物・複数形）も二段変化名詞のため、対格であってもタンウィーン（an）を取らずファトハ（a）のみとなります。一方、それを修飾する形容詞 \u200Fسَيِّئَةً\u200F（悪い）は通常の変化をするためタンウィーンが付きます。\n\n【命令形と保護のヌーン سَامِحْنِي】\n\u200Fسَامِحْنِي\u200F は「許す」の命令形に「私を」という代名詞 \u200Fي\u200F が付いたものです。動詞の語尾母音を守るために、間にヌーン（\u200Fنِ\u200F）が挿入されています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fأَخَذَ مُومُوتَارُو وَأَصْدِقَاؤُهُ الْكُنُوزَ وَعَادُوا بِهَا إِلَى قَرْيَتِهِمْ. فَرِحَ الرَّجُلُ الْعَجُوزُ وَزَوْجَتُهُ الْعَجُوزُ بِعَوْدَةِ مُومُوتَارُو سَالِمًا، وَعَاشَ الْجَمِيعُ فِي سَعَادَةٍ وَسَلَامٍ إِلَى الْأَبَدِ.\u200F",
+      japanese: "桃太郎と仲間たちは宝物を受け取り、村に持ち帰りました。おじいさんとおばあさんは桃太郎が無事に帰ってきたことを喜び、みんなでいつまでも幸せに平和に暮らしました。",
+      note: "【前置詞 بِـ による意味の変化 عَادُوا بِهَا】\n\u200Fعَادُوا\u200F は複数形の過去形動詞で「彼らは戻った」を意味します。そこに「それ（宝物）と共に」を意味する前置詞句 \u200Fبِهَا\u200F がつくことで、「（宝物を）持ち帰った」という表現になります。\n\n【ハムザの綴り字規則 أَصْدِقَاؤُهُ】\n\u200Fأَصْدِقَاؤُهُ\u200F（彼の友達）のハムザはワーウ（\u200Fؤ\u200F）の上に書かれています。これは、この名詞が主語（主格）であり、母音がダンマ（u）となっているため、アラビア語の正書法ルールに従ってワーウの土台が選ばれたからです。\n\n【理由を表す前置詞 بِـ】\n\u200Fبِعَوْدَةِ\u200F の前置詞 \u200Fبِـ\u200F は「〜によって、〜のせいで」という原因・理由を表しています。\n\n【状態を表すハール سَالِمًا】\n\u200Fسَالِمًا\u200F は「無事に、安全な状態で」という意味で、これも桃太郎が戻ってきた時の状態を説明する「ハール」の用法のため対格になっています。"
+    }
+  ],
+  questions: [
+    {
+      id: 20001,
+      type: "reading",
+      text: "おじいさんはどこへ行きましたか？\n\u200Fأَيْنَ ذَهَبَ الرَّجُلُ الْعَجُوزُ؟\u200F",
+      options: [
+        "\u200Fإِلَى النَّهْرِ\u200F (川へ)",
+        "\u200Fإِلَى الْجَبَلِ\u200F (山へ)",
+        "\u200Fإِلَى الْبَحْرِ\u200F (海へ)",
+        "\u200Fإِلَى السُّوقِ\u200F (市場へ)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fذَهَبَ الرَّجُلُ الْعَجُوزُ إِلَى الْجَبَلِ لِجَمْعِ الْحَطَبِ.\u200F (おじいさんは柴刈りのために山へ行きました。)"
+    },
+    {
+      id: 20002,
+      type: "reading",
+      text: "おばあさんは川で何を見つけましたか？\n\u200Fمَاذَا وَجَدَتِ الْعَجُوزُ فِي النَّهْرِ؟\u200F",
+      options: [
+        "\u200Fسَمَكَةً\u200F (魚)",
+        "\u200Fخَوْخَةً كَبِيرَةً\u200F (大きな桃)",
+        "\u200Fصُنْدُوقًا\u200F (箱)",
+        "\u200Fقَارِبًا\u200F (ボート)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fوَجَدَتِ الْعَجُوزُ خَوْخَةً عِمْلَاقَةً تَطْفُو عَلَى الْمَاءِ.\u200F (おばあさんは水に浮かぶ巨大な桃を見つけました。)"
+    },
+    {
+      id: 20003,
+      type: "reading",
+      text: "桃から何が出てきましたか？\n\u200Fمَاذَا خَرَجَ مِنَ الْخَوْخَةِ؟\u200F",
+      options: [
+        "\u200Fكَنْزٌ\u200F (宝物)",
+        "\u200Fطِفْلٌ قَوِيٌّ\u200F (強い子ども)",
+        "\u200Fطَائِرٌ\u200F (鳥)",
+        "\u200Fسَيْفٌ\u200F (剣)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fخَرَجَ مِنَ الْخَوْخَةِ طِفْلٌ رَضِيعٌ سَلِيمٌ وَقَوِيٌّ.\u200F (桃からは元気で強い男の赤ちゃんが出てきました。)"
+    },
+    {
+      id: 20004,
+      type: "reading",
+      text: "なぜ桃太郎は鬼ヶ島へ行くことを決心しましたか？\n\u200Fلِمَاذَا قَرَّرَ مُومُوتَارُو الذَّهَابَ إِلَى جَزِيرَةِ الشَّيَاطِينِ؟\u200F",
+      options: [
+        "\u200Fلِصَيْدِ السَّمَكِ\u200F (魚釣りをするため)",
+        "\u200Fلِلْبَحْثِ عَنِ الْكَنْزِ فَقَطْ\u200F (宝探しのためだけ)",
+        "\u200Fلِهَزِيمَةِ الشَّيَاطِينِ الأَشْرَارِ\u200F (悪い鬼たちを倒すため)",
+        "\u200Fلِبِنَاءِ مَنْزِلٍ\u200F (家を建てるため)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fقَرَّرَ الذَّهَابَ لِهَزِيمَةِ الشَّيَاطِينِ الَّتِي تُؤْذِي النَّاسَ.\u200F (人々を苦しめる鬼たちを打ち負かすために行くことを決めました。)"
+    },
+    {
+      id: 20005,
+      type: "reading",
+      text: "おじいさんとおばあさんは、旅の力になるように桃太郎に何を与えましたか？\n\u200Fمَاذَا أَعْطَى الْعَجُوزَانِ لِمُومُوتَارُو لِيَأْخُذَهُ فِي رِحْلَتِهِ؟\u200F",
+      options: [
+        "\u200Fتُفَّاحًا\u200F (りんご)",
+        "\u200Fخُبْزًا\u200F (パン)",
+        "\u200Fكُرَاتِ الدُّخْنِ\u200F (きびだんご)",
+        "\u200Fأَرُزًّا\u200F (お米)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fأَعْطَيَاهُ كُرَاتِ الدُّخْنِ اللَّذِيذَةَ لِتَمْنَحَهُ الْقُوَّةَ.\u200F (彼に力を与えるため、美味しいきびだんごを渡しました。)"
+    },
+    {
+      id: 20006,
+      type: "reading",
+      text: "桃太郎が最初に出会った動物は誰ですか？\n\u200Fمَنْ هُوَ أَوَّلُ حَيَوَانٍ الْتَقَى بِهِ مُومُوتَارُو؟\u200F",
+      options: [
+        "\u200Fالْقِرْدُ\u200F (猿)",
+        "\u200Fطَائِرُ الدُّرَّاجِ\u200F (雉)",
+        "\u200Fالْقِطَّةُ\u200F (猫)",
+        "\u200Fالْكَلْبُ\u200F (犬)"
+      ],
+      correctIndex: 3,
+      explanation: "\u200Fفِي طَرِيقِهِ، الْتَقَى أَوَّلًا بِكَلْبٍ ثُمَّ قِرْدٍ ثُمَّ طَائِرِ الدُّرَّاجِ.\u200F (道中、最初に犬、次に猿、その次に雉に出会いました。)"
+    },
+    {
+      id: 20007,
+      type: "reading",
+      text: "桃太郎のお供をした3匹の動物は何ですか？\n\u200Fمَا هِيَ الْحَيَوَانَاتُ الثَّلَاثَةُ الَّتِي رَافَقَتْ مُومُوتَارُو؟\u200F",
+      options: [
+        "\u200Fأَسَدٌ وَنَمِرٌ وَدُبٌّ\u200F (ライオンと虎と熊)",
+        "\u200Fكَلْبٌ وَقِرْدٌ وَطَائِرُ الدُّرَّاجِ\u200F (犬と猿と雉)",
+        "\u200Fحِصَانٌ وَبَقَرَةٌ وَغَنَمَةٌ\u200F (馬と牛と羊)",
+        "\u200Fفَأْرٌ وَقِطَّةٌ وَكَلْبٌ\u200F (ネズミと猫と犬)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fالْكَلْبُ وَالْقِرْدُ وَطَائِرُ الدُّرَّاجِ أَصْبَحُوا أَتْبَاعَهُ الْمُخْلِصِينَ.\u200F (犬、猿、雉が彼の忠実なお供になりました。)"
+    },
+    {
+      id: 20008,
+      type: "reading",
+      text: "猿は戦いでどのように助けましたか？\n\u200Fكَيْفَ سَاعَدَ الْقِرْدُ فِي الْمَعْرَكَةِ؟\u200F",
+      options: [
+        "\u200Fعَضَّ أَقْدَامَهُمْ\u200F (足を噛んだ)",
+        "\u200Fنَقَرَ أَعْيُنَهُمْ\u200F (目を突いた)",
+        "\u200Fتَسَلَّقَ لِفَتْحِ الْبَوَّابَةِ\u200F (登って門を開けた)",
+        "\u200Fنَامَ بَعِيدًا\u200F (遠くで寝ていた)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fتَسَلَّقَ الْقِرْدُ لِفَتْحِ الْبَوَّابَةِ السَّوْدَاءِ الضَّخْمَةِ.\u200F (猿は登って巨大な黒い門を開けました。)"
+    },
+    {
+      id: 20009,
+      type: "reading",
+      text: "最後に鬼のリーダーはどうしましたか？\n\u200Fمَاذَا فَعَلَ زَعِيمُ الشَّيَاطِينِ فِي النِّهَايَةِ؟\u200F",
+      options: [
+        "\u200Fاسْتَسْلَمَ وَاعْتَذَرَ بَاكِيًا\u200F (降参し、泣いて謝った)",
+        "\u200Fهَرَبَ فِي الْبَحْرِ\u200F (海へ逃げた)",
+        "\u200Fقَاتَلَ حَتَّى الْمَوْتِ\u200F (死ぬまで戦った)",
+        "\u200Fأَصْبَحَ صَدِيقًا لَهُمْ\u200F (彼らの友達になった)"
+      ],
+      correctIndex: 0,
+      explanation: "\u200Fاسْتَسْلَمَ زَعِيمُ الشَّيَاطِينِ وَاعْتَذَرَ وَوَعَدَ بِأَلَّا يَفْعَلَ أَشْيَاءَ سَيِّئَةً.\u200F (鬼のリーダーは降参して謝罪し、悪いことをしないと約束しました。)"
+    },
+    {
+      id: 20010,
+      type: "reading",
+      text: "桃太郎と仲間たちは何を村に持ち帰りましたか？\n\u200Fبِمَاذَا عَادَ مُومُوتَارُو وَأَصْدِقَاؤُهُ إِلَى الْقَرْيَةِ؟\u200F",
+      options: [
+        "\u200Fبِخَوْخَةٍ جَدِيدَةٍ\u200F (新しい桃)",
+        "\u200Fبِالشَّيَاطِينِ\u200F (鬼たち)",
+        "\u200Fبِكُلِّ الْكُنُوزِ\u200F (すべての宝物)",
+        "\u200Fبِلَا شَيْءٍ\u200F (何も持たずに)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fأَخَذُوا كُلَّ الْكُنُوزِ الَّتِي أَعَادَهَا الشَّيَاطِينُ وَعَادُوا بِهَا إِلَى قَرْيَتِهِمْ.\u200F (鬼たちが返したすべての宝物を持って村に帰りました。)"
+    }
+  ],
+},
+{
+  id: 20100,
+  title: "浦島太郎 (أُورَاشِيمَا تَارُو)",
+  category: "物語",
+  level: "物語",
+  contentVoweled: "\u200Fفِي قَدِيمِ الزَّمَانِ، عَاشَ صَيَّادٌ شَابٌّ وَلَطِيفٌ يُدْعَى أُورَاشِيمَا تَارُو فِي قَرْيَةٍ صَغِيرَةٍ. ذَاتَ يَوْمٍ، بَيْنَمَا كَانَ تَارُو يَمْشِي عَلَى الشَّاطِئِ، وَجَدَ أَطْفَالًا يُعَذِّبُونَ سُلَحْفَاةً صَغِيرَةً. أَنْقَذَ تَارُو السُّلَحْفَاةَ وَأَطْلَقَهَا فِي الْبَحْرِ. بَعْدَ بِضْعَةِ أَيَّامٍ، بَيْنَمَا كَانَ تَارُو يَصْطَادُ فِي الْبَحْرِ، ظَهَرَتْ سُلَحْفَاةٌ كَبِيرَةٌ مِنَ الْمَاءِ. قَالَتِ السُّلَحْفَاةُ: \"أُرِيدُ أَنْ آخُذَكَ إِلَى قَصْرِ التِّنِّينِ شُكْرًا لَكَ عَلَى إِنْقَاذِي\"، فَحَمَلَتْ تَارُو عَلَى ظَهْرِهَا وَغَاصَتْ بِهِ إِلَى أَعْمَاقِ الْبَحْرِ. فِي قَاعِ الْبَحْرِ، كَانَ هُنَاكَ قَصْرُ التِّنِّينِ الْمُتَلَأْلِئُ وَالْجَمِيلُ. هُنَاكَ رَحَّبَتْ بِهِ الْأَمِيرَةُ الْجَمِيلَةُ أُوتُوهِيمِيه بِحَفَاوَةٍ كَبِيرَةٍ. تَنَاوَلَ تَارُو طَعَامًا لَذِيذًا، وَشَاهَدَ رَقَصَاتٍ جَمِيلَةً، وَقَضَى أَيَّامًا سَعِيدَةً كَأَنَّهَا حُلْمٌ. وَلَكِنْ، بَعْدَ مُرُورِ ثَلَاثِ سَنَوَاتٍ، شَعَرَ تَارُو بِالْقَلَقِ عَلَى قَرْيَتِهِ وَأُمِّهِ الْعَجُوزِ، وَطَلَبَ الْعَوْدَةَ إِلَى وَطَنِهِ. حَزِنَتِ الْأَمِيرَةُ، وَلَكِنَّهَا أَعْطَتْهُ صُنْدُوقًا سِحْرِيًّا كَهَدِيَّةٍ، وَقَالَتْ لَهُ: \"يَجِبُ عَلَيْكَ أَلَّا تَفْتَحَهُ أَبَدًا\". عِنْدَمَا عَادَ تَارُو إِلَى قَرْيَتِهِ، كَانَ كُلُّ شَيْءٍ قَدْ تَغَيَّرَ تَمَامًا، وَلَمْ يَجِدْ أَيَّ شَخْصٍ يَعْرِفُهُ. لَقَدْ مَرَّتْ ثَلَاثُمِائَةِ عَامٍ عَلَى وَجْهِ الْأَرْضِ. فِي لَحْظَةِ يَأْسٍ، نَسِيَ تَارُو وَعْدَهُ وَفَتَحَ الصُّنْدُوقَ. فَجْأَةً، تَصَاعَدَ دُخَانٌ أَبْيَضُ مِنْ دَاخِلِ الصُّنْدُوقِ، وَأَحَاطَ بِتَارُو الَّذِي تَحَوَّلَ فِي لَحْظَةٍ إِلَى رَجُلٍ عَجُوزٍ ذِي شَعْرٍ أَبْيَضَ.\u200F",
+  contentPlain: "\u200Fفي قديم الزمان، عاش صياد شاب ولطيف يدعى أوراشيما تارو في قرية صغيرة. ذات يوم، بينما كان تارو يمشي على الشاطئ، وجد أطفالا يعذبون سلحفاة صغيرة. أنقذ تارو السلحفاة وأطلقها في البحر. بعد بضعة أيام، بينما كان تارو يصطاد في البحر، ظهرت سلحفاة كبيرة من الماء. قالت السلحفاة: \"أريد أن آخذك إلى قصر التنين شكرا لك على إنقاذي\"، فحملت تارو على ظهرها وغاصت به إلى أعماق البحر. في قاع البحر، كان هناك قصر التنين المتلألئ والجميل. هناك رحبت به الأميرة الجميلة أوتوهيميه بحفاوة كبيرة. تناول تارو طعاما لذيذا، وشاهد رقصات جميلة، وقضى أياما سعيدة كأنها حلم. ولكن، بعد مرور ثلاث سنوات، شعر تارو بالقلق على قريته وأمه العجوز، وطلب العودة إلى وطنه. حزنت الأميرة، ولكنها أعطته صندوقا سحريا كهدية، وقالت له: \"يجب عليك ألا تفتحه أبدا\". عندما عاد تارو إلى قريته، كان كل شيء قد تغير تماما، ولم يجد أي شخص يعرفه. لقد مرت ثلاثمائة عام على وجه الأرض. في لحظة يأس، نسي تارو وعده وفتح الصندوق. فجأة، تصاعد دخان أبيض من داخل الصندوق، وأحاط بتارو الذي تحول في لحظة إلى رجل عجوز ذي شعر أبيض.\u200F",
+  vocabList: [
+    { word: "\u200Fصَيَّادٌ\u200F", meaning: "漁師" },
+    { word: "\u200Fيُدْعَى\u200F", meaning: "〜と呼ばれる" },
+    { word: "\u200Fشَاطِئٌ\u200F", meaning: "浜辺・海岸" },
+    { word: "\u200Fسُلَحْفَاةٌ\u200F", meaning: "亀" },
+    { word: "\u200Fقَصْرُ التِّنِّينِ\u200F", meaning: "竜宮城（竜の城）" },
+    { word: "\u200Fأَعْمَاقٌ\u200F", meaning: "深海・深み" },
+    { word: "\u200Fأَمِيرَةٌ\u200F", meaning: "姫・王女" },
+    { word: "\u200Fقَلَقٌ\u200F", meaning: "心配・不安" },
+    { word: "\u200Fصُنْدُوقٌ\u200F", meaning: "箱" },
+    { word: "\u200Fسِحْرِيٌّ\u200F", meaning: "魔法の" },
+    { word: "\u200Fتَغَيَّرَ\u200F", meaning: "変わった" },
+    { word: "\u200Fيَأْسٌ\u200F", meaning: "絶望" },
+    { word: "\u200Fدُخَانٌ\u200F", meaning: "煙" },
+    { word: "\u200Fتَحَوَّلَ\u200F", meaning: "変化した" }
+  ],
+  sentences: [
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fفِي قَدِيمِ الزَّمَانِ، عَاشَ صَيَّادٌ شَابٌّ وَلَطِيفٌ يُدْعَى أُورَاشِيمَا تَارُو فِي قَرْيَةٍ صَغِيرَةٍ. ذَاتَ يَوْمٍ، بَيْنَمَا كَانَ تَارُو يَمْشِي عَلَى الشَّاطِئِ، وَجَدَ أَطْفَالًا يُعَذِّبُونَ سُلَحْفَاةً صَغِيرَةً.\u200F",
+      japanese: "昔々、ある小さな村に浦島太郎と呼ばれる親切な若い漁師が住んでいました。ある日、太郎が浜辺を歩いていると、子供たちが小さな亀をいじめているのを見つけました。",
+      note: "【受動態の現在形 يُدْعَى】\n\u200Fيُدْعَى\u200F は動詞 \u200Fدَعَا\u200F（呼ぶ）の受動態・現在形で、「〜と呼ばれる、〜という名前である」という意味の定型表現です。\n\n【形容詞節を作る現在形動詞 يُعَذِّبُونَ】\n\u200Fوَجَدَ أَطْفَالًا يُعَذِّبُونَ\u200F（いじめている子供たちを見つけた）において、\u200Fأَطْفَالًا\u200F は非限定名詞（定冠詞 \u200Fال\u200F なし）です。そのため、関係代名詞を置かずに、後ろの現在形動詞 \u200Fيُعَذِّبُونَ\u200F がそのまま「いじめている（子供たち）」という形容詞節として機能します。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fأَنْقَذَ تَارُو السُّلَحْفَاةَ وَأَطْلَقَهَا فِي الْبَحْرِ. بَعْدَ بِضْعَةِ أَيَّامٍ، بَيْنَمَا كَانَ تَارُو يَصْطَادُ فِي الْبَحْرِ، ظَهَرَتْ سُلَحْفَاةٌ كَبِيرَةٌ مِنَ الْمَاءِ.\u200F",
+      japanese: "太郎は亀を助けて、海へ逃がしてやりました。数日後、太郎が海で釣りをしていると、大きな亀が水の中から現れました。",
+      note: "【数を表す بِضْعَةِ】\n\u200Fبِضْعَةِ أَيَّامٍ\u200F は「数日間」を意味します。\u200Fبِضْعَة\u200F は3から9までの少数を漠然と表す名詞で、後ろに続く名詞（ここでは日 \u200Fيَوْم\u200F の複数形 \u200Fأَيَّام\u200F）を属格（i）にしてイダーファ構造を作ります。\n\n【進行形を作る كَانَ يَصْطَادُ】\n\u200Fكَانَ\u200F（過去形）と \u200Fيَصْطَادُ\u200F（現在形）を組み合わせることで、「（まさにその時）釣りをしていた」という過去の進行状態を表現しています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fقَالَتِ السُّلَحْفَاةُ: \"أُرِيدُ أَنْ آخُذَكَ إِلَى قَصْرِ التِّنِّينِ شُكْرًا لَكَ عَلَى إِنْقَاذِي\"، فَحَمَلَتْ تَارُو عَلَى ظَهْرِهَا وَغَاصَتْ بِهِ إِلَى أَعْمَاقِ الْبَحْرِ.\u200F",
+      japanese: "亀は「助けていただいたお礼に、あなたを竜宮城へお連れしたいのです」と言い、太郎を背中に乗せて海の底深くへ潜っていきました。",
+      note: "【目的語を伴う接続法 أَنْ آخُذَكَ】\n\u200Fأَنْ\u200F の後ろの動詞は接続法（ファトハ）になるため、\u200Fآخُذَ\u200F と変化し、そこに「あなたを」という目的語代名詞 \u200Fكَ\u200F が結びついています。\n\n【理由を表す絶対目的語 شُكْرًا】\n\u200Fشُكْرًا\u200F は「感謝」という動名詞が対格（an）になった形です。文末に置くことで「感謝として、お礼として」という行為の理由（目的の対格）を表す重要な文法用法です。\n\n【前置詞 بِـ による意味の派生 غَاصَتْ بِهِ】\n\u200Fغَاصَتْ\u200F は「（亀が）潜った」という意味の過去形動詞です。ここに「〜と共に」を表す前置詞句 \u200Fبِهِ\u200F を続けることで、「彼（太郎）を連れて潜った」という表現になります。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fفِي قَاعِ الْبَحْرِ، كَانَ هُنَاكَ قَصْرُ التِّنِّينِ الْمُتَلَأْلِئُ وَالْجَمِيلُ. هُنَاكَ رَحَّبَتْ بِهِ الْأَمِيرَةُ الْجَمِيلَةُ أُوتُوهِيمِيه بِحَفَاوَةٍ كَبِيرَةٍ.\u200F",
+      japanese: "海の底には、美しく輝く竜宮城がありました。そこでは美しい乙姫様が、彼を大歓迎してくれました。",
+      note: "【能動分詞 الْمُتَلَأْلِئُ】\n\u200Fالْمُتَلَأْلِئُ\u200F は「輝く、きらきら光る」という意味の能動分詞で、城（\u200Fقَصْرُ\u200F）を修飾する形容詞として主格（u）になっています。\n\n【動詞と前置詞のセット رَحَّبَتْ بِهِ】\n\u200Fرَحَّبَ\u200F は「歓迎する」という動詞ですが、必ず前置詞 \u200Fبِـ\u200F を伴って「〜（人）を歓迎する」という構造をとります。そのため \u200Fرَحَّبَتْ بِهِ\u200F（彼女は彼を歓迎した）となります。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fتَنَاوَلَ تَارُو طَعَامًا لَذِيذًا، وَشَاهَدَ رَقَصَاتٍ جَمِيلَةً، وَقَضَى أَيَّامًا سَعِيدَةً كَأَنَّهَا حُلْمٌ.\u200F",
+      japanese: "太郎は美味しいご馳走を食べ、美しい踊りを見て、まるで夢のような楽しい日々を過ごしました。",
+      note: "【規則女性複数の対格 رَقَصَاتٍ】\n\u200Fرَقَصَاتٍ\u200F（複数の踊り）は目的語（対格）ですが、\u200Fـَات\u200F で終わる規則女性複数のため、対格のときにファトハ（a）ではなくカスラ（i）を取るという特殊なルールが適用されています。修飾する形容詞 \u200Fجَمِيلَةً\u200F は通常の単数女性形なのでファトハ（an）を取ります。\n\n【「まるで〜のように」を表す كَأَنَّ】\n\u200Fكَأَنَّ\u200F は \u200Fإِنَّ\u200F の姉妹語で「まるで〜のようだ」という比喩を表します。代名詞 \u200Fهَا\u200F（それ＝幸せな日々）が主語として結びつき、\u200Fحُلْمٌ\u200F（夢）が主格（un）の述語となっています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fوَلَكِنْ، بَعْدَ مُرُورِ ثَلَاثِ سَنَوَاتٍ، شَعَرَ تَارُو بِالْقَلَقِ عَلَى قَرْيَتِهِ وَأُمِّهِ الْعَجُوزِ، وَطَلَبَ الْعَوْدَةَ إِلَى وَطَنِهِ.\u200F",
+      japanese: "しかし、三年が経つと、太郎は故郷の村や年老いた母親のことが心配になり、帰りたいと言い出しました。",
+      note: "【前置詞と動名詞のイダーファ بَعْدَ مُرُورِ】\n\u200Fبَعْدَ\u200F（〜の後）は後ろに名詞を置いてイダーファ構造を作ります。\u200Fمُرُور\u200F は「経過すること」という動名詞で、属格（i）になり「経過した後に」となります。\n\n【数詞の文法 ثَلَاثِ سَنَوَاتٍ】\n3から10までの数詞は、数えられる名詞の複数形を属格にして修飾します。\u200Fسَنَوَاتٍ\u200F（年・複数形）は女性名詞なので、数詞の \u200Fثَلَاث\u200F はターマルブータを持たない形になります。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fحَزِنَتِ الْأَمِيرَةُ، وَلَكِنَّهَا أَعْطَتْهُ صُنْدُوقًا سِحْرِيًّا كَهَدِيَّةٍ، وَقَالَتْ لَهُ: \"يَجِبُ عَلَيْكَ أَلَّا تَفْتَحَهُ أَبَدًا\".\u200F",
+      japanese: "乙姫様は悲しみましたが、お土産として魔法の箱（玉手箱）を渡し、彼にこう言いました。「決して開けてはいけませんよ」。",
+      note: "【資格を表す前置詞 كَـ】\n\u200Fكَهَدِيَّةٍ\u200F についている接頭前置詞 \u200Fكَـ\u200F は、通常「〜のように」という比喩を表しますが、ここでは「贈り物として」という資格や目的のニュアンスで使われています。\n\n【二重目的語をとる動詞 أَعْطَى】\n\u200Fأَعْطَتْهُ صُنْدُوقًا\u200F（彼女は彼に箱を与えた）で使われている第4形動詞 \u200Fأَعْطَى\u200F は、前置詞を使わずに目的語を2つ直接とる（二重他動詞）という重要な特徴があります。ここでは女性形過去の \u200Fأَعْطَتْ\u200F に第1目的語の代名詞 \u200Fهُ\u200F（彼に）が接続し、その直後に第2目的語の \u200Fصُنْدُوقًا\u200F（箱を）が対格（an）で並べられています。\n\n【強い禁止の表現 أَلَّا تَفْتَحَهُ】\n\u200Fأَلَّا\u200F は、接続詞 \u200Fأَنْ\u200F（〜すること）と否定の \u200Fلَا\u200F が融合した単語です。\u200Fيَجِبُ عَلَيْكَ\u200F（あなたは〜しなければならない）に続くことで、「開けないこと」が義務化され、強い禁止表現となります。動詞 \u200Fتَفْتَحَ\u200F は接続法（ファトハ）になります。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fعِنْدَمَا عَادَ تَارُو إِلَى قَرْيَتِهِ، كَانَ كُلُّ شَيْءٍ قَدْ تَغَيَّرَ تَمَامًا، وَلَمْ يَجِدْ أَيَّ شَخْصٍ يَعْرِفُهُ. لَقَدْ مَرَّتْ ثَلَاثُمِائَةِ عَامٍ عَلَى وَجْهِ الْأَرْضِ.\u200F",
+      japanese: "太郎が村に帰ると、そこはすっかり変わっていて、知っている人は誰もいませんでした。地上ではなんと三百年もの時間が過ぎていたのです。",
+      note: "【過去完了を作る كَانَ قَدْ】\n\u200Fكَانَ ... قَدْ تَغَيَّرَ\u200F は「すでに変わってしまっていた」という過去完了を表す重要な構文です。\u200Fقَدْ\u200F が付くことで変化が完了していることが強調されます。\n\n【否定と要求法 لَمْ يَجِدْ】\n\u200Fلَمْ\u200F は過去の否定を表す助詞で、後ろの現在形動詞を「要求法（マジズーム）」に変化させます。そのため、動詞 \u200Fيَجِدُ\u200F の語尾のダンマ（u）がスクーンに変化し、\u200Fلَمْ يَجِدْ\u200F となります。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fفِي لَحْظَةِ يَأْسٍ، نَسِيَ تَارُو وَعْدَهُ وَفَتَحَ الصُّنْدُوقَ. فَجْأَةً، تَصَاعَدَ دُخَانٌ أَبْيَضُ مِنْ دَاخِلِ الصُّنْدُوقِ، وَأَحَاطَ بِتَارُو الَّذِي تَحَوَّلَ فِي لَحْظَةٍ إِلَى رَجُلٍ عَجُوزٍ ذِي شَعْرٍ أَبْيَضَ.\u200F",
+      japanese: "絶望した瞬間、太郎は約束を忘れて箱を開けてしまいました。すると突然、箱の中から白い煙が立ち上り、煙に包まれた太郎は、あっという間に白髪のおじいさんになってしまいました。",
+      note: "【名詞を修飾する関係代名詞 الَّذِي】\n\u200Fبِتَارُو الَّذِي تَحَوَّلَ\u200F において、太郎（固有名詞＝限定名詞）を後ろから「変わってしまった（太郎）」と修飾するために、関係代名詞の \u200Fالَّذِي\u200F が使われています。\n\n【5つの名詞 ذِي】\n\u200Fذِي\u200F は「〜を持つ者」という意味で、後ろに名詞を伴って「白髪の（持ち主の）おじいさん」という表現を作ります。この単語は文法上の格によって形を変える「5つの名詞（アスマール・ハムサ）」の一つです。ここでは前置詞 \u200Fإِلَى\u200F の影響を受けている \u200Fرَجُلٍ عَجُوزٍ\u200F を修飾しているため、属格を示す \u200Fي\u200F が使われた \u200Fذِي\u200F の形になっています。"
+    }
+  ],
+  questions: [
+    {
+      id: 20101,
+      type: "reading",
+      text: "浦島太郎の職業は何ですか？\n\u200Fمَا هِيَ مِهْنَةُ أُورَاشِيمَا تَارُو؟\u200F",
+      options: [
+        "\u200Fمُزَارِعٌ\u200F (農民)",
+        "\u200Fتَاجِرٌ\u200F (商人)",
+        "\u200Fصَيَّادٌ\u200F (漁師)",
+        "\u200Fجُنْدِيٌّ\u200F (兵士)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fعَاشَ صَيَّادٌ شَابٌّ وَلَطِيفٌ يُدْعَى أُورَاشِيمَا تَارُو.\u200F (浦島太郎という親切な若い漁師が住んでいました。)"
+    },
+    {
+      id: 20102,
+      type: "reading",
+      text: "太郎は浜辺で誰を助けましたか？\n\u200Fمَنْ أَنْقَذَ تَارُو عَلَى الشَّاطِئِ؟\u200F",
+      options: [
+        "\u200Fطِفْلًا\u200F (子供)",
+        "\u200Fسُلَحْفَاةً صَغِيرَةً\u200F (小さな亀)",
+        "\u200Fكَلْبًا\u200F (犬)",
+        "\u200Fسَمَكَةً\u200F (魚)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fوَجَدَ أَطْفَالًا يُعَذِّبُونَ سُلَحْفَاةً صَغِيرَةً، فَأَنْقَذَهَا.\u200F (子供たちが小さな亀をいじめているのを見つけ、それを助けました。)"
+    },
+    {
+      id: 20103,
+      type: "reading",
+      text: "大きな亀は太郎をどこへ連れて行きましたか？\n\u200Fإِلَى أَيْنَ أَخَذَتِ السُّلَحْفَاةُ الْكَبِيرَةُ تَارُو؟\u200F",
+      options: [
+        "\u200Fإِلَى قَصْرِ التِّنِّينِ\u200F (竜宮城へ)",
+        "\u200Fإِلَى جَزِيرَةِ الشَّيَاطِينِ\u200F (鬼ヶ島へ)",
+        "\u200Fإِلَى جَبَلٍ عَالٍ\u200F (高い山へ)",
+        "\u200Fإِلَى السُّوقِ\u200F (市場へ)"
+      ],
+      correctIndex: 0,
+      explanation: "\u200Fقَالَتْ: أُرِيدُ أَنْ آخُذَكَ إِلَى قَصْرِ التِّنِّينِ شُكْرًا لَكَ.\u200F (「感謝として竜宮城へお連れしたい」と亀は言いました。)"
+    },
+    {
+      id: 20104,
+      type: "reading",
+      text: "竜宮城で太郎を歓迎したのは誰ですか？\n\u200Fمَنْ رَحَّبَ بِتَارُو فِي قَصْرِ التِّنِّينِ؟\u200F",
+      options: [
+        "\u200Fأُمُّهُ الْعَجُوزُ\u200F (彼の年老いた母)",
+        "\u200Fزَعِيمُ الشَّيَاطِينِ\u200F (鬼のリーダー)",
+        "\u200Fالْأَمِيرَةُ الْجَمِيلَةُ أُوتُوهِيمِيه\u200F (美しい乙姫様)",
+        "\u200Fالصَّيَّادُونَ\u200F (漁師たち)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fرَحَّبَتْ بِهِ الْأَمِيرَةُ الْجَمِيلَةُ أُوتُوهِيمِيه بِحَفَاوَةٍ كَبِيرَةٍ.\u200F (美しい乙姫様が彼を大歓迎しました。)"
+    },
+    {
+      id: 20105,
+      type: "reading",
+      text: "太郎が村に帰りたくなった理由は何ですか？\n\u200Fلِمَاذَا أَرَادَ تَارُو الْعَوْدَةَ إِلَى قَرْيَتِهِ؟\u200F",
+      options: [
+        "\u200Fلِأَنَّهُ لَمْ يُحِبَّ الطَّعَامَ\u200F (食べ物が気に入らなかったから)",
+        "\u200Fلِأَنَّهُ شَعَرَ بِالْقَلَقِ عَلَى أُمِّهِ الْعَجُوزِ\u200F (年老いた母親のことが心配になったから)",
+        "\u200Fلِأَنَّ السُّلَحْفَاةَ طَلَبَتْ مِنْهُ ذَلِكَ\u200F (亀が彼にそう頼んだから)",
+        "\u200Fلِأَنَّهُ أَرَادَ اصْطِيَادَ السَّمَكِ\u200F (魚釣りがしたかったから)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fشَعَرَ تَارُو بِالْقَلَقِ عَلَى قَرْيَتِهِ وَأُمِّهِ الْعَجُوزِ.\u200F (太郎は自分の村と年老いた母親のことが心配になりました。)"
+    },
+    {
+      id: 20106,
+      type: "reading",
+      text: "乙姫様は太郎に何を渡しましたか？\n\u200Fمَاذَا أَعْطَتِ الْأَمِيرَةُ لِتَارُو؟\u200F",
+      options: [
+        "\u200Fسَيْفًا سِحْرِيًّا\u200F (魔法の剣)",
+        "\u200Fكُرَاتِ الدُّخْنِ\u200F (きびだんご)",
+        "\u200Fمَلَابِسَ جَدِيدَةً\u200F (新しい服)",
+        "\u200Fصُنْدُوقًا سِحْرِيًّا\u200F (魔法の箱)"
+      ],
+      correctIndex: 3,
+      explanation: "\u200Fأَعْطَتْهُ صُنْدُوقًا سِحْرِيًّا كَهَدِيَّةٍ.\u200F (彼女はお土産として魔法の箱を彼に渡しました。)"
+    },
+    {
+      id: 20107,
+      type: "reading",
+      text: "乙姫様が箱を渡す時に言ったことは何ですか？\n\u200Fمَاذَا قَالَتِ الْأَمِيرَةُ عِنْدَمَا أَعْطَتْهُ الصُّنْدُوقَ؟\u200F",
+      options: [
+        "\u200Fيَجِبُ عَلَيْكَ أَنْ تَفْتَحَهُ فَوْرًا\u200F (すぐに開けなければならない)",
+        "\u200Fيَجِبُ عَلَيْكَ أَلَّا تَفْتَحَهُ أَبَدًا\u200F (決して開けてはいけない)",
+        "\u200Fأَعْطِهِ لِأُمِّكَ\u200F (あなたのお母さんに渡しなさい)",
+        "\u200Fبِعْهُ فِي السُّوقِ\u200F (市場で売りなさい)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fقَالَتْ لَهُ: \"يَجِبُ عَلَيْكَ أَلَّا تَفْتَحَهُ أَبَدًا\".\u200F (「決して開けてはいけませんよ」と彼女は言いました。)"
+    },
+    {
+      id: 20108,
+      type: "reading",
+      text: "太郎が地上に帰った時、どれくらいの時間が過ぎていましたか？\n\u200Fكَمْ مِنَ الْوَقْتِ مَرَّ عَلَى وَجْهِ الْأَرْضِ عِنْدَمَا عَادَ تَارُو؟\u200F",
+      options: [
+        "\u200Fثَلَاثَةُ أَيَّامٍ\u200F (3日間)",
+        "\u200Fثَلَاثُ سَنَوَاتٍ\u200F (3年間)",
+        "\u200Fثَلَاثُمِائَةِ عَامٍ\u200F (300年間)",
+        "\u200Fثَلَاثَةُ أَشْهُرٍ\u200F (3ヶ月間)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fلَقَدْ مَرَّتْ ثَلَاثُمِائَةِ عَامٍ عَلَى وَجْهِ الْأَرْضِ.\u200F (地上では300年もの月日が流れていました。)"
+    },
+    {
+      id: 20109,
+      type: "reading",
+      text: "箱を開けると中から何が出てきましたか？\n\u200Fمَاذَا خَرَجَ مِنَ الصُّنْدُوقِ عِنْدَمَا فَتَحَهُ؟\u200F",
+      options: [
+        "\u200Fذَهَبٌ وَفِضَّةٌ\u200F (金と銀)",
+        "\u200Fطَائِرٌ صَغِيرٌ\u200F (小さな鳥)",
+        "\u200Fمَاءٌ بَارِدٌ\u200F (冷たい水)",
+        "\u200Fدُخَانٌ أَبْيَضُ\u200F (白い煙)"
+      ],
+      correctIndex: 3,
+      explanation: "\u200Fتَصَاعَدَ دُخَانٌ أَبْيَضُ مِنْ دَاخِلِ الصُّنْدُوقِ.\u200F (箱の中から白い煙が立ち上りました。)"
+    },
+    {
+      id: 20110,
+      type: "reading",
+      text: "白い煙を浴びた後、太郎はどうなりましたか？\n\u200Fمَاذَا حَدَثَ لِتَارُو بَعْدَ أَنْ أَحَاطَ بِهِ الدُّخَانُ؟\u200F",
+      options: [
+        "\u200Fأَصْبَحَ شَابًّا قَوِيًّا مَرَّةً أُخْرَى\u200F (再び強い若者になった)",
+        "\u200Fتَحَوَّلَ إِلَى سُلَحْفَاةٍ\u200F (亀に変わった)",
+        "\u200Fتَحَوَّلَ إِلَى رَجُلٍ عَجُوزٍ ذِي شَعْرٍ أَبْيَضَ\u200F (白髪のおじいさんに変わった)",
+        "\u200Fاخْتَفَى تَمَامًا\u200F (完全に消えてしまった)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fتَحَوَّلَ فِي لَحْظَةٍ إِلَى رَجُلٍ عَجُوزٍ ذِي شَعْرٍ أَبْيَضَ.\u200F (一瞬にして白髪のおじいさんへと変わってしまいました。)"
+    }
+  ]
+},
+{
+  id: 20200,
+  title: "かぐや姫 (الْأَمِيرَةُ كَاغُويَا)",
+  category: "物語",
+  level: "物語",
+  contentVoweled: "\u200Fفِي قَدِيمِ الزَّمَانِ، كَانَ هُنَاكَ رَجُلٌ عَجُوزٌ يَقْطَعُ الْخَيْزُرَانَ يَوْمِيًّا. ذَاتَ يَوْمٍ، وَجَدَ خَيْزُرَانَةً تُضِيءُ فِي الْغَابَةِ. عِنْدَمَا قَطَعَهَا، وَجَدَ بِدَاخِلِهَا فَتَاةً صَغِيرَةً وَجَمِيلَةً جِدًّا. أَخَذَهَا إِلَى زَوْجَتِهِ، وَرَبَّيَاهَا كَابْنَتِهِمَا وَسَمَّيَاهَا \"كَاغُويَاهِيمِيه\" (الْأَمِيرَةَ كَاغُويَا). كَبِرَتِ الْأَمِيرَةُ كَاغُويَا بِسُرْعَةٍ عَجِيبَةٍ، وَخِلَالَ ثَلَاثَةِ أَشْهُرٍ فَقَطْ، أَصْبَحَتْ شَابَّةً فَائِقَةَ الْجَمَالِ. بَعْدَ ذَلِكَ، بَدَأَ الْعَجُوزُ يَجِدُ الذَّهَبَ دَاخِلَ الْخَيْزُرَانِ، فَأَصْبَحَ غَنِيًّا جِدًّا. انْتَشَرَ خَبَرُ جَمَالِهَا فِي جَمِيعِ أَنْحَاءِ الْبِلَادِ، وَتَقَدَّمَ خَمْسَةُ أُمَرَاءَ نُبَلَاءَ لِلزَّوَاجِ مِنْهَا. وَلَكِنَّهَا لَمْ تُرِدِ الزَّوَاجَ، فَطَلَبَتْ مِنْ كُلِّ وَاحِدٍ مِنْهُمْ أَنْ يُحْضِرَ لَهَا كَنْزًا نَادِرًا وَمُسْتَحِيلَ الْحُصُولِ عَلَيْهِ كَشَرْطٍ لِلزَّوَاجِ. فَشِلَ الْأُمَرَاءُ الْخَمْسَةُ فِي مَهَامِّهِمْ؛ فَبَعْضُهُمْ أَحْضَرَ أَشْيَاءَ مُزَيَّفَةً وَبَعْضُهُمْ تَخَلَّى عَنِ الْمُهِمَّةِ. حَتَّى الْإِمْبِرَاطُورُ نَفْسُهُ طَلَبَ الزَّوَاجَ مِنْهَا، لَكِنَّهَا رَفَضَتْ طَلَبَهُ أَيْضًا بِلُطْفٍ. وَمَعَ مُرُورِ الْوَقْتِ، كُلَّمَا نَظَرَتْ كَاغُويَا إِلَى الْقَمَرِ فِي الرَّبِيعِ، كَانَتْ تَبْكِي بِحُزْنٍ شَدِيدٍ. سَأَلَهَا الْعَجُوزَانِ عَنِ السَّبَبِ، فَاعْتَرَفَتْ لَهُمَا قَائِلَةً: \"أَنَا لَسْتُ مِنْ هَذَا الْعَالَمِ. أَنَا مِنْ أَهْلِ الْقَمَرِ، وَيَجِبُ أَنْ أَعُودَ إِلَيْهِ فِي لَيْلَةِ الْبَدْرِ الْقَادِمَةِ\". فِي لَيْلَةِ اكْتِمَالِ الْقَمَرِ، أَرْسَلَ الْإِمْبِرَاطُورُ حُرَّاسًا لِحِمَايَتِهَا، وَلَكِنْ عِنْدَمَا نَزَلَ أَهْلُ الْقَمَرِ مِنَ السَّمَاءِ، فَقَدَ الْحُرَّاسُ قُدْرَتَهُمْ عَلَى الْحَرَكَةِ. أَعْطَتْ كَاغُويَا الْعَجُوزَيْنِ دَوَاءَ الْخُلُودِ وَرِسَالَةً وِدَاعِيَّةً، ثُمَّ ارْتَدَتْ ثَوْبَ الرِّيشِ الَّذِي أَنْسَاهَا كُلَّ ذِكْرَيَاتِهَا عَلَى الْأَرْضِ، وَعَادَتْ إِلَى الْقَمَرِ.\u200F",
+  contentPlain: "\u200Fفي قديم الزمان، كان هناك رجل عجوز يقطع الخيزران يوميا. ذات يوم، وجد خيزرانة تضيء في الغابة. عندما قطعها، وجد بداخلها فتاة صغيرة وجميلة جدا. أخذها إلى زوجته، وربياها كابنتهما وسمياها \"كاغوياهيميه\" (الأميرة كاغويا). كبرت الأميرة كاغويا بسرعة عجيبة، وخلال ثلاثة أشهر فقط، أصبحت شابة فائقة الجمال. بعد ذلك، بدأ العجوز يجد الذهب داخل الخيزران، فأصبح غنيا جدا. انتشر خبر جمالها في جميع أنحاء البلاد، وتقدم خمسة أمراء نبلاء للزواج منها. ولكنها لم ترد الزواج، فطلبت من كل واحد منهم أن يحضر لها كنزا نادرا ومستحيل الحصول عليه كشرط للزواج. فشل الأمراء الخمسة في مهامهم؛ فبعضهم أحضر أشياء مزيفة وبعضهم تخلى عن المهمة. حتى الإمبراطور نفسه طلب الزواج منها، لكنها رفضت طلبه أيضا بلطف. ومع مرور الوقت، كلما نظرت كاغويا إلى القمر في الربيع، كانت تبكي بحزن شديد. سألها العجوزان عن السبب، فاعترفت لهما قائلة: \"أنا لست من هذا العالم. أنا من أهل القمر، ويجب أن أعود إليه في ليلة البدر القادمة\". في ليلة اكتمال القمر، أرسل الإمبراطور حراسا لحمايتها، ولكن عندما نزل أهل القمر من السماء، فقد الحراس قدرتهم على الحركة. أعطت كاغويا العجوزين دواء الخلود ورسالة وداعية، ثم ارتدت ثوب الريش الذي أنساها كل ذكرياتها على الأرض، وعادت إلى القمر.\u200F",
+  vocabList: [
+    { word: "\u200Fخَيْزُرَانٌ\u200F", meaning: "竹" },
+    { word: "\u200Fتُضِيءُ\u200F", meaning: "光る" },
+    { word: "\u200Fعَجِيبَةٌ\u200F", meaning: "不思議な・驚くべき" },
+    { word: "\u200Fذَهَبٌ\u200F", meaning: "金（きん）" },
+    { word: "\u200Fأُمَرَاءُ\u200F", meaning: "王子たち・貴公子" },
+    { word: "\u200Fنُبَلَاءُ\u200F", meaning: "貴族たち" },
+    { word: "\u200Fمُسْتَحِيلٌ\u200F", meaning: "不可能な" },
+    { word: "\u200Fمُزَيَّفَةٌ\u200F", meaning: "偽物の" },
+    { word: "\u200Fالْإِمْبِرَاطُورُ\u200F", meaning: "帝（天皇・皇帝）" },
+    { word: "\u200Fالْبَدْرُ\u200F", meaning: "満月" },
+    { word: "\u200Fحُرَّاسٌ\u200F", meaning: "護衛・兵士たち" },
+    { word: "\u200Fالْخُلُودُ\u200F", meaning: "不死・永遠" },
+    { word: "\u200Fرِيشٌ\u200F", meaning: "羽・羽根" },
+    { word: "\u200Fذِكْرَيَاتٌ\u200F", meaning: "記憶・思い出" }
+  ],
+  sentences: [
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fفِي قَدِيمِ الزَّمَانِ، كَانَ هُنَاكَ رَجُلٌ عَجُوزٌ يَقْطَعُ الْخَيْزُرَانَ يَوْمِيًّا. ذَاتَ يَوْمٍ، وَجَدَ خَيْزُرَانَةً تُضِيءُ فِي الْغَابَةِ.\u200F",
+      japanese: "昔々、あるところに毎日竹を切るおじいさんがいました。ある日、彼は森の中で光る竹を見つけました。",
+      note: "【過去の習慣 كَانَ... يَقْطَعُ】\n過去形 \u200Fكَانَ\u200F と現在形動詞 \u200Fيَقْطَعُ\u200F を組み合わせることで、「（習慣的に）切っていた」という過去の継続・反復を表します。\n\n【形容詞節を作る現在形動詞 تُضِيءُ】\n\u200Fخَيْزُرَانَةً\u200F（一本の竹）は非限定名詞なので、直後の現在形動詞 \u200Fتُضِيءُ\u200F（光る）が関係代名詞なしで直接「光る竹」という形容詞節として修飾しています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fعِنْدَمَا قَطَعَهَا، وَجَدَ بِدَاخِلِهَا فَتَاةً صَغِيرَةً وَجَمِيلَةً جِدًّا. أَخَذَهَا إِلَى زَوْجَتِهِ، وَرَبَّيَاهَا كَابْنَتِهِمَا وَسَمَّيَاهَا \"كَاغُويَاهِيمِيه\".\u200F",
+      japanese: "それを切ってみると、中にはとても小さくて美しい女の子がいました。おじいさんは彼女を妻のもとへ連れて帰り、二人は彼女を自分たちの娘のように育て「かぐや姫」と名付けました。",
+      note: "【双数形の動詞と代名詞の結合 رَبَّيَاهَا / سَمَّيَاهَا】\n\u200Fرَبَّيَا\u200F（彼ら二人は育てた）と \u200Fسَمَّيَا\u200F（彼ら二人は名付けた）は双数形（\u200Fـَا\u200F）の過去形動詞です。そこに「彼女を」という目的語代名詞 \u200Fهَا\u200F が結びついています。\n\n【比喩を表す前置詞 كَـ】\n\u200Fكَابْنَتِهِمَا\u200F の先頭の \u200Fكَـ\u200F は「〜のように」を表す前置詞です。\u200Fابْنَة\u200F（娘）＋ \u200Fهِمَا\u200F（彼ら二人の）と組み合わさって「彼ら二人の娘のように」となります。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fكَبِرَتِ الْأَمِيرَةُ كَاغُويَا بِسُرْعَةٍ عَجِيبَةٍ، وَخِلَالَ ثَلَاثَةِ أَشْهُرٍ فَقَطْ، أَصْبَحَتْ شَابَّةً فَائِقَةَ الْجَمَالِ. بَعْدَ ذَلِكَ، بَدَأَ الْعَجُوزُ يَجِدُ الذَّهَبَ دَاخِلَ الْخَيْزُرَانِ، فَأَصْبَحَ غَنِيًّا جِدًّا.\u200F",
+      japanese: "かぐや姫は驚くべき速さで成長し、たった3ヶ月で類まれな美しさを持つ若い女性になりました。その後、おじいさんは竹の中から金を見つけるようになり、とてもお金持ちになりました。",
+      note: "【疑似イダーファ فَائِقَةَ الْجَمَالِ】\n\u200Fأَصْبَحَتْ\u200F（〜になった）の述語である \u200Fشَابَّةً\u200F（若い女性に）は対格になります。\u200Fفَائِقَةَ الْجَمَالِ\u200F は「美しさが際立った」という意味の「疑似イダーファ（非真正属格代名詞）」です。形容詞 \u200Fفَائِقَةَ\u200F が \u200Fشَابَّةً\u200F に合わせて対格（a）になり、後ろの \u200Fالْجَمَالِ\u200F を属格（i）にしています。\n\n【開始を表す動詞 بَدَأَ】\n\u200Fبَدَأَ\u200F は「始めた」という動詞ですが、後ろに現在形動詞（\u200Fيَجِدُ\u200F）を伴うことで「〜し始めた（見つけるようになった）」という開始の助動詞として働きます。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fانْتَشَرَ خَبَرُ جَمَالِهَا فِي جَمِيعِ أَنْحَاءِ الْبِلَادِ، وَتَقَدَّمَ خَمْسَةُ أُمَرَاءَ نُبَلَاءَ لِلزَّوَاجِ مِنْهَا.\u200F",
+      japanese: "彼女の美しさの噂は国中に広まり、5人の高貴な貴公子たちが結婚を申し込みにやってきました。",
+      note: "【二段変化名詞の属格 アリフ・マムドゥーダ】\n3〜10の数詞（\u200Fخَمْسَةُ\u200F）の後ろは、名詞の複数形が属格（i）で置かれます。しかし、\u200Fأُمَرَاءَ\u200F（王子たち）や \u200Fنُبَلَاءَ\u200F（貴族たち）は、語尾がアリフとハムザ（\u200Fـَاء\u200F）で終わる「二段変化名詞」のため、属格であってもカスラではなくファトハ（a）を取る強力なルールが適用されます。\n\n【前置詞 مِنْ の用法 لِلزَّوَاجِ مِنْهَا】\nアラビア語の \u200Fتَزَوَّجَ\u200F（結婚する）やその動名詞 \u200Fزَوَاج\u200F は、「〜と」という対象を表す際に \u200Fمَعَ\u200F（〜と一緒に）ではなく前置詞 \u200Fمِنْ\u200F（〜から）を使用します。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fوَلَكِنَّهَا لَمْ تُرِدِ الزَّوَاجَ، فَطَلَبَتْ مِنْ كُلِّ وَاحِدٍ مِنْهُمْ أَنْ يُحْضِرَ لَهَا كَنْزًا نَادِرًا وَمُسْتَحِيلَ الْحُصُولِ عَلَيْهِ كَشَرْطٍ لِلزَّوَاجِ.\u200F",
+      japanese: "しかし彼女は結婚したくなかったので、結婚の条件として、彼ら一人一人に手に入れることが不可能な珍しい宝物を持ってくるよう求めました。",
+      note: "【否定の要求法 لَمْ تُرِدِ】\n\u200Fلَمْ\u200F は過去の否定を表し、後ろの動詞を要求法（マジズーム）にします。\u200Fتُرِيدُ\u200F（彼女は望む）は無母音化すると \u200Fتُرِدْ\u200F となりますが、続く \u200Fالزَّوَاجَ\u200F の定冠詞との接触による無母音の連続を避けるため、カスラ（i）が付いて \u200Fلَمْ تُرِدِ\u200F と発音されます。\n\n【目的語節を作る أَنْ يُحْضِرَ】\n\u200Fأَنْ\u200F（〜すること）の後ろに続く動詞 \u200Fيُحْضِرَ\u200F（彼が持ってくる）は、接続法（ファトハ）に変化しています。\n\n【複雑な疑似イダーファ مُسْتَحِيلَ الْحُصُولِ عَلَيْهِ】\n「手に入れることが不可能」という表現です。\u200Fمُسْتَحِيلَ\u200F（不可能な）が \u200Fكَنْزًا\u200F（宝物を）を修飾するため対格（a）になり、後ろの動名詞 \u200Fالْحُصُولِ\u200F（得ること）を属格（i）にしています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fفَشِلَ الْأُمَرَاءُ الْخَمْسَةُ فِي مَهَامِّهِمْ؛ فَبَعْضُهُمْ أَحْضَرَ أَشْيَاءَ مُزَيَّفَةً وَبَعْضُهُمْ تَخَلَّى عَنِ الْمُهِمَّةِ. حَتَّى الْإِمْبِرَاطُورُ نَفْسُهُ طَلَبَ الزَّوَاجَ مِنْهَا، لَكِنَّهَا رَفَضَتْ طَلَبَهُ أَيْضًا بِلُطْفٍ.\u200F",
+      japanese: "5人の貴公子たちは使命に失敗しました。ある者は偽物を持っていき、ある者は諦めました。帝（天皇）ご自身も彼女にプロポーズしましたが、彼女はそれも優しく断りました。",
+      note: "【意味の強調を表す نَفْسُهُ】\n\u200Fالْإِمْبِرَاطُورُ نَفْسُهُ\u200F（帝ご自身が）の \u200Fنَفْس\u200F は「自身、本体」という意味で、直前の名詞を強調する「意味上の強調（タウキード・マアナウィー）」の役割を果たします。主語を強調しているため、\u200Fنَفْسُ\u200F と主格（u）になっています。\n\n【前置詞 بِـ による副詞表現 بِلُطْفٍ】\n\u200Fبِلُطْفٍ\u200F は、前置詞 \u200Fبِـ\u200F に「優しさ」を表す名詞 \u200Fلُطْف\u200F が付いたもので、「優しさをもって＝優しく、丁重に」という副詞的な意味を作ります。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fوَمَعَ مُرُورِ الْوَقْتِ، كُلَّمَا نَظَرَتْ كَاغُويَا إِلَى الْقَمَرِ فِي الرَّبِيعِ، كَانَتْ تَبْكِي بِحُزْنٍ شَدِيدٍ.\u200F",
+      japanese: "時間が経ち、春になって月を見るたびに、かぐや姫は深い悲しみと共に泣くようになりました。",
+      note: "【反復を表す条件詞 كُلَّمَا】\n\u200Fكُلَّمَا\u200F は「〜するたびに」という意味の条件詞で、必ず後ろに過去形動詞（ここでは \u200Fنَظَرَتْ\u200F）を伴います。日本語では「見るたびに（現在形）」となりますが、アラビア語では「（その動作が完了した）たびに」という感覚から過去形が使われます。\n\n【過去の習慣的動作 كَانَتْ تَبْكِي】\n\u200Fكَانَتْ\u200F（過去形）＋ \u200Fتَبْكِي\u200F（現在形）で「（月を見るたびに）泣いていた」という過去の反復的な動作を表しています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fسَأَلَهَا الْعَجُوزَانِ عَنِ السَّبَبِ، فَاعْتَرَفَتْ لَهُمَا قَائِلَةً: \"أَنَا لَسْتُ مِنْ هَذَا الْعَالَمِ. أَنَا مِنْ أَهْلِ الْقَمَرِ، وَيَجِبُ أَنْ أَعُودَ إِلَيْهِ فِي لَيْلَةِ الْبَدْرِ الْقَادِمَةِ\".\u200F",
+      japanese: "おじいさんとおばあさんが理由を尋ねると、彼女は告白しました。「私はこの世界の人間ではありません。私は月の都の者で、次の満月の夜には帰らなければならないのです」。",
+      note: "【状態を表すハール قَائِلَةً】\n\u200Fقَائِلَةً\u200F は「言う」の能動分詞の女性形です。彼女が「言いながら（告白した）」という主語の状態（ハール）を説明しているため、対格（an）になっています。\n\n【否定動詞 لَيْسَ の活用 لَسْتُ】\n\u200Fلَسْتُ\u200F は「〜ではない」を意味する \u200Fلَيْسَ\u200F の一人称単数（私）の形です。動詞のように活用しますが、意味は名詞文の否定を作ります。\n\n【イダーファ構造 لَيْلَةِ الْبَدْرِ الْقَادِمَةِ】\n\u200Fلَيْلَةِ الْبَدْرِ\u200F（満月の夜）はイダーファ構造です。最後の \u200Fالْقَادِمَةِ\u200F（次の）は女性名詞の \u200Fلَيْلَةِ\u200F を修飾する形容詞なので、同じく女性形で属格（i）に揃えられています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fفِي لَيْلَةِ اكْتِمَالِ الْقَمَرِ، أَرْسَلَ الْإِمْبِرَاطُورُ حُرَّاسًا لِحِمَايَتِهَا، وَلَكِنْ عِنْدَمَا نَزَلَ أَهْلُ الْقَمَرِ مِنَ السَّمَاءِ، فَقَدَ الْحُرَّاسُ قُدْرَتَهُمْ عَلَى الْحَرَكَةِ.\u200F",
+      japanese: "満月の夜、帝は彼女を守るために兵士たちを送りましたが、天人（月の住人）が空から降りてくると、兵士たちは動けなくなってしまいました。",
+      note: "【動名詞の連鎖 لَيْلَةِ اكْتِمَالِ الْقَمَرِ】\n\u200Fلَيْلَة\u200F（夜）、\u200Fاكْتِمَال\u200F（満ちること）、\u200Fالْقَمَر\u200F（月）という3つの名詞がイダーファで数珠つなぎになっています。「月が満ちることの夜＝満月の夜」となります。\n\n【目的を表す لِـ と動名詞 لِحِمَايَتِهَا】\n\u200Fلِحِمَايَتِهَا\u200F は、目的の \u200Fلِـ\u200F ＋ 動名詞 \u200Fحِمَايَة\u200F（保護すること） ＋ 彼女（\u200Fهَا\u200F）で、「彼女を保護するために」という意味を作ります。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fأَعْطَتْ كَاغُويَا الْعَجُوزَيْنِ دَوَاءَ الْخُلُودِ وَرِسَالَةً وِدَاعِيَّةً، ثُمَّ ارْتَدَتْ ثَوْبَ الرِّيشِ الَّذِي أَنْسَاهَا كُلَّ ذِكْرَيَاتِهَا عَلَى الْأَرْضِ، وَعَادَتْ إِلَى الْقَمَرِ.\u200F",
+      japanese: "かぐや姫は、おじいさんとおばあさんに不死の薬と別れの手紙を渡し、地上のすべての記憶を消してしまう羽衣を着て、月へと帰っていきました。",
+      note: "【二重目的語と双数形の対格 الْعَجُوزَيْنِ】\n動詞 \u200Fأَعْطَتْ\u200F（与えた）は目的語を2つ取ります。第1目的語は \u200Fالْعَجُوزَيْنِ\u200F（2人の老人）で、双数形の対格を示す \u200Fـَيْنِ\u200F の語尾になっています。第2目的語は \u200Fدَوَاءَ الْخُلُودِ\u200F（不死の薬）です。\n\n【関係代名詞と第4形動詞 أَنْسَاهَا】\n\u200Fثَوْبَ الرِّيشِ الَّذِي أَنْسَاهَا\u200F は、「彼女を忘れさせた羽衣」という意味です。\u200Fأَنْسَى\u200F は「忘れる（نَسِيَ）」の第4形で「忘れさせる」という使役の意味を持ち、これも目的語を2つ取ります。ここでは第1目的語の \u200Fهَا\u200F（彼女に）と、第2目的語の \u200Fكُلَّ ذِكْرَيَاتِهَا\u200F（彼女のすべての記憶を）を繋げています。"
+    }
+  ],
+  questions: [
+    {
+      id: 20201,
+      type: "reading",
+      text: "おじいさんは竹の中で何を見つけましたか？\n\u200Fمَاذَا وَجَدَ الرَّجُلُ الْعَجُوزُ دَاخِلَ الْخَيْزُرَانِ؟\u200F",
+      options: [
+        "\u200Fذَهَبًا\u200F (金)",
+        "\u200Fطَائِرًا صَغِيرًا\u200F (小さな鳥)",
+        "\u200Fفَتَاةً صَغِيرَةً وَجَمِيلَةً\u200F (小さくて美しい女の子)",
+        "\u200Fدَوَاءً سِحْرِيًّا\u200F (魔法の薬)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fعِنْدَمَا قَطَعَهَا، وَجَدَ بِدَاخِلِهَا فَتَاةً صَغِيرَةً وَجَمِيلَةً جِدًّا.\u200F (竹を切ると、中にはとても小さくて美しい女の子がいました。)"
+    },
+    {
+      id: 20202,
+      type: "reading",
+      text: "かぐや姫が美しい若い女性に成長するまで、どれくらいの時間がかかりましたか？\n\u200Fكَمْ مِنَ الْوَقْتِ اسْتَغْرَقَتْ كَاغُويَا لِتُصْبِحَ شَابَّةً جَمِيلَةً؟\u200F",
+      options: [
+        "\u200Fثَلَاثَ سَنَوَاتٍ\u200F (3年)",
+        "\u200Fثَلَاثَةَ أَشْهُرٍ\u200F (3ヶ月)",
+        "\u200Fثَلَاثَةَ أَيَّامٍ\u200F (3日)",
+        "\u200Fعَشْرَ سَنَوَاتٍ\u200F (10年)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fخِلَالَ ثَلَاثَةِ أَشْهُرٍ فَقَطْ، أَصْبَحَتْ شَابَّةً فَائِقَةَ الْجَمَالِ.\u200F (たった3ヶ月の間に、類まれな美しさを持つ若い女性になりました。)"
+    },
+    {
+      id: 20203,
+      type: "reading",
+      text: "女の子を見つけた後、おじいさんは竹から何を見つけるようになりましたか？\n\u200Fمَاذَا بَدَأَ الْعَجُوزُ يَجِدُ فِي الْخَيْزُرَانِ بَعْدَ ذَلِكَ؟\u200F",
+      options: [
+        "\u200Fالْمَاءَ\u200F (水)",
+        "\u200Fالذَّهَبَ\u200F (金・ゴールド)",
+        "\u200Fطَعَامًا لَذِيذًا\u200F (美味しい食べ物)",
+        "\u200Fمَلَابِسَ حَرِيرِيَّةً\u200F (絹の服)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fبَدَأَ الْعَجُوزُ يَجِدُ الذَّهَبَ دَاخِلَ الْخَيْزُرَانِ، فَأَصْبَحَ غَنِيًّا جِدًّا.\u200F (おじいさんは竹の中に金を見つけるようになり、とてもお金持ちになりました。)"
+    },
+    {
+      id: 20204,
+      type: "reading",
+      text: "何人の貴公子たちが結婚を申し込みましたか？\n\u200Fكَمْ عَدَدُ الْأُمَرَاءِ الَّذِينَ تَقَدَّمُوا لِلزَّوَاجِ مِنْهَا؟\u200F",
+      options: [
+        "\u200Fثَلَاثَةُ أُمَرَاءَ\u200F (3人の貴公子)",
+        "\u200Fأَرْبَعَةُ أُمَرَاءَ\u200F (4人の貴公子)",
+        "\u200Fخَمْسَةُ أُمَرَاءَ\u200F (5人の貴公子)",
+        "\u200Fعَشَرَةُ أُمَرَاءَ\u200F (10人の貴公子)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fتَقَدَّمَ خَمْسَةُ أُمَرَاءَ نُبَلَاءَ لِلزَّوَاجِ مِنْهَا.\u200F (5人の高貴な貴公子たちが結婚を申し込みました。)"
+    },
+    {
+      id: 20205,
+      type: "reading",
+      text: "かぐや姫は結婚の条件として何を求めましたか？\n\u200Fمَاذَا طَلَبَتْ كَاغُويَا كَشَرْطٍ لِلزَّوَاجِ؟\u200F",
+      options: [
+        "\u200Fقَصْرًا كَبِيرًا\u200F (大きなお城)",
+        "\u200Fكَنْزًا نَادِرًا وَمُسْتَحِيلَ الْحُصُولِ عَلَيْهِ\u200F (手に入れることが不可能な珍しい宝物)",
+        "\u200Fدَوَاءَ الْخُلُودِ\u200F (不死の薬)",
+        "\u200Fأَنْ يَأْخُذُوهَا إِلَى الْقَمَرِ\u200F (月へ連れて行くこと)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fطَلَبَتْ مِنْهُمْ أَنْ يُحْضِرُوا كَنْزًا نَادِرًا وَمُسْتَحِيلَ الْحُصُولِ عَلَيْهِ.\u200F (珍しくて手に入れるのが不可能な宝物を持ってくるよう求めました。)"
+    },
+    {
+      id: 20206,
+      type: "reading",
+      text: "貴公子たちと帝（天皇）のプロポーズの結果はどうなりましたか？\n\u200Fمَاذَا كَانَتْ نَتِيجَةُ طَلَبَاتِ الزَّوَاجِ مِنَ الْأُمَرَاءِ وَالْإِمْبِرَاطُورِ؟\u200F",
+      options: [
+        "\u200Fتَزَوَّجَتْ مِنَ الْإِمْبِرَاطُورِ\u200F (帝と結婚した)",
+        "\u200Fتَزَوَّجَتْ مِنْ أَحَدِ الْأُمَرَاءِ\u200F (貴公子の一人と結婚した)",
+        "\u200Fفَشِلَ الْجَمِيعُ وَرَفَضَتْ طَلَبَ الْإِمْبِرَاطُورِ\u200F (全員失敗し、帝の申し出も断った)",
+        "\u200Fهَرَبَتْ إِلَى الْغَابَةِ\u200F (森へ逃げた)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fفَشِلَ الْأُمَرَاءُ الْخَمْسَةُ، وَرَفَضَتْ طَلَبَ الْإِمْبِرَاطُورِ أَيْضًا بِلُطْفٍ.\u200F (5人の貴公子は失敗し、帝の申し出も優しく断りました。)"
+    },
+    {
+      id: 20207,
+      type: "reading",
+      text: "かぐや姫は春に何を見て泣いていましたか？\n\u200Fإِلَى مَاذَا كَانَتْ كَاغُويَا تَنْظُرُ عِنْدَمَا كَانَتْ تَبْكِي فِي الرَّبِيعِ؟\u200F",
+      options: [
+        "\u200Fإِلَى الشَّمْسِ\u200F (太陽)",
+        "\u200Fإِلَى الْقَمَرِ\u200F (月)",
+        "\u200Fإِلَى الْبَحْرِ\u200F (海)",
+        "\u200Fإِلَى الْغَابَةِ\u200F (森)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fكُلَّمَا نَظَرَتْ كَاغُويَا إِلَى الْقَمَرِ فِي الرَّبِيعِ، كَانَتْ تَبْكِي بِحُزْنٍ شَدِيدٍ.\u200F (春に月を見るたびに、激しい悲しみで泣いていました。)"
+    },
+    {
+      id: 20208,
+      type: "reading",
+      text: "かぐや姫はどこから来た人でしたか？\n\u200Fمِنْ أَيْنَ جَاءَتْ كَاغُويَا فِي الْأَصْلِ؟\u200F",
+      options: [
+        "\u200Fمِنْ قَاعِ الْبَحْرِ\u200F (海の底から)",
+        "\u200Fمِنْ بَلَدٍ بَعِيدٍ\u200F (遠い国から)",
+        "\u200Fمِنَ الْقَمَرِ\u200F (月から)",
+        "\u200Fمِنَ الشَّمْسِ\u200F (太陽から)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fاعْتَرَفَتْ لَهُمَا قَائِلَةً: \"أَنَا مِنْ أَهْلِ الْقَمَرِ\".\u200F (「私は月の世界の者です」と告白しました。)"
+    },
+    {
+      id: 20209,
+      type: "reading",
+      text: "帝が送った兵士たちはどうなりましたか？\n\u200Fمَاذَا حَدَثَ لِلْحُرَّاسِ الَّذِينَ أَرْسَلَهُمُ الْإِمْبِرَاطُورُ؟\u200F",
+      options: [
+        "\u200Fقَاتَلُوا أَهْلَ الْقَمَرِ بِنَجَاحٍ\u200F (月の住人たちと見事に戦った)",
+        "\u200Fفَقَدُوا قُدْرَتَهُمْ عَلَى الْحَرَكَةِ\u200F (動く能力を失った・動けなくなった)",
+        "\u200Fهَرَبُوا مِنَ الْخَوْفِ\u200F (恐怖で逃げ出した)",
+        "\u200Fصَعِدُوا إِلَى الْقَمَرِ\u200F (月へ登っていった)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fعِنْدَمَا نَزَلَ أَهْلُ الْقَمَرِ، فَقَدَ الْحُرَّاسُ قُدْرَتَهُمْ عَلَى الْحَرَكَةِ.\u200F (月の住人が降りてくると、兵士たちは動けなくなってしまいました。)"
+    },
+    {
+      id: 20210,
+      type: "reading",
+      text: "羽衣を着た後、かぐや姫はどうなりましたか？\n\u200Fمَاذَا حَدَثَ لِكَاغُويَا بَعْدَ أَنِ ارْتَدَتْ ثَوْبَ الرِّيشِ؟\u200F",
+      options: [
+        "\u200Fأَصْبَحَتْ طَائِرًا\u200F (鳥になった)",
+        "\u200Fنَسِيَتْ كُلَّ ذِكْرَيَاتِهَا عَلَى الْأَرْضِ\u200F (地上のすべての記憶を忘れた)",
+        "\u200Fبَكَتْ كَثِيرًا قَبْلَ أَنْ تَرْحَلَ\u200F (去る前にたくさん泣いた)",
+        "\u200Fأَعْطَتِ الثَّوْبَ لِلْعَجُوزِ\u200F (その服をおじいさんに渡した)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fارْتَدَتْ ثَوْبَ الرِّيشِ الَّذِي أَنْسَاهَا كُلَّ ذِكْرَيَاتِهَا عَلَى الْأَرْضِ.\u200F (地上の記憶をすべて消し去る羽衣を着ました。)"
+    }
+  ]
+},
+{
+  id: 20300,
+  title: "鶴の恩返し (رَدُّ جَمِيلِ طَائِرِ الْكُرْكِيِّ)",
+  category: "物語",
+  level: "物語",
+  contentVoweled: "\u200Fفِي قَدِيمِ الزَّمَانِ، عَاشَ رَجُلٌ عَجُوزٌ فَقِيرٌ وَزَوْجَتُهُ فِي قَرْيَةٍ تُغَطِّيهَا الثُّلُوجُ. ذَاتَ يَوْمٍ، ذَهَبَ الْعَجُوزُ إِلَى الْمَدِينَةِ لِبَيْعِ الْحَطَبِ. فِي طَرِيقِ عَوْدَتِهِ، وَجَدَ طَائِرَ كُرْكِيٍّ عَالِقًا فِي فَخٍّ وَيَتَخَبَّطُ. أَشْفَقَ الْعَجُوزُ عَلَيْهِ، فَفَكَّ الْفَخَّ وَأَطْلَقَ الطَّائِرَ حُرًّا فِي السَّمَاءِ. فِي تِلْكَ اللَّيْلَةِ الثَّلْجِيَّةِ الْعَاصِفَةِ، زَارَتْ فَتَاةٌ شَابَّةٌ وَجَمِيلَةٌ مَنْزِلَهُمَا، وَقَالَتْ: \"لَقَدْ أَضْلَلْتُ طَرِيقِي، هَلْ يُمْكِنُنِي الْبَقَاءُ هُنَا؟\". كَانَتِ الْفَتَاةُ لَطِيفَةً جِدًّا، وَاعْتَنَتْ بِالْعَجُوزَيْنِ بِإِخْلَاصٍ كَبِيرٍ. أَحَبَّ الرَّجُلُ وَزَوْجَتُهُ الْفَتَاةَ وَعَامَلَاهَا كَابْنَتِهِمَا الْحَقِيقِيَّةِ. ذَاتَ يَوْمٍ، قَالَتِ الْفَتَاةُ: \"أُرِيدُ أَنْ أَنْسِجَ قُمَاشًا، وَلَكِنْ أَرْجُوكُمَا أَنْ تَعِدَانِي بِأَلَّا تَنْظُرَا أَبَدًا إِلَى دَاخِلِ الْغُرْفَةِ\"، ثُمَّ أَغْلَقَتِ الْبَابَ عَلَى نَفْسِهَا. نَسَجَتِ الْفَتَاةُ لِمُدَّةِ ثَلَاثَةِ أَيَّامٍ وَلَيَالٍ دُونَ تَوَقُّفٍ، وَصَنَعَتْ قُمَاشًا رَائِعَ الْجَمَالِ لَمْ يُرَ يَوْمًا مِثْلُهُ. بَاعَهُ الْعَجُوزُ فِي الْمَدِينَةِ بِسِعْرٍ مُرْتَفِعٍ جِدًّا، فَأَصْبَحَا أَثْرِيَاءَ. نَسَجَتِ الْفَتَاةُ الْقُمَاشَ عِدَّةَ مَرَّاتٍ، وَلَكِنْ مَعَ كُلِّ مَرَّةٍ كَانَتْ تَنْسِجُ فِيهَا، كَانَتْ تُصْبِحُ أَكْثَرَ نَحَافَةً وَشُحُوبًا. شَعَرَتِ الْعَجُوزُ بِالْقَلَقِ الشَّدِيدِ، وَبِدَافِعِ الْفُضُولِ أَيْضًا، نَقَضَتْ وَعْدَهَا وَنَظَرَتْ خِلْسَةً إِلَى دَاخِلِ الْغُرْفَةِ. فَلَمْ تَجِدِ الْفَتَاةَ هُنَاكَ، بَلْ رَأَتْ طَائِرَ كُرْكِيٍّ يَنْتِفُ رِيشَهُ بِمِنْقَارِهِ، وَيَسْتَخْدِمُهُ لِنَسْجِ الْقُمَاشِ. وَبَعْدَ أَنِ انْكَشَفَتْ حَقِيقَتُهَا، قَالَتِ الْفَتَاةُ: \"أَنَا طَائِرُ الْكُرْكِيِّ الَّذِي أَنْقَذْتَهُ. بِمَا أَنَّكُمَا رَأَيْتُمَا هَيْئَتِي الْحَقِيقِيَّةَ، لَا يُمْكِنُنِي الْبَقَاءُ هُنَا بَعْدَ الْآنَ\". ثُمَّ عَادَتْ إِلَى هَيْئَةِ طَائِرٍ وَحَلَّقَتْ مُوَدِّعَةً فِي السَّمَاءِ الثَّلْجِيَّةِ.\u200F",
+  contentPlain: "\u200Fفي قديم الزمان، عاش رجل عجوز فقير وزوجته في قرية تغطيها الثلوج. ذات يوم، ذهب العجوز إلى المدينة لبيع الحطب. في طريق عودته، وجد طائر كركي عالقا في فخ ويتخبط. أشفق العجوز عليه، ففك الفخ وأطلق الطائر حرا في السماء. في تلك الليلة الثلجية العاصفة، زارت فتاة شابة وجميلة منزلهما، وقالت: \"لقد أضللت طريقي، هل يمكنني البقاء هنا؟\". كانت الفتاة لطيفة جدا، واعتنت بالعجوزين بإخلاص كبير. أحب الرجل وزوجته الفتاة وعاملاها كابنتهما الحقيقية. ذات يوم، قالت الفتاة: \"أريد أن أنسج قماشا، ولكن أرجوكما أن تعداني بألا تنظرا أبدا إلى داخل الغرفة\"، ثم أغلقت الباب على نفسها. نسجت الفتاة لمدة ثلاثة أيام وليال دون توقف، وصنعت قماشا رائع الجمال لم ير يوما مثله. باعه العجوز في المدينة بسعر مرتفع جدا، فأصبحا أثرياء. نسجت الفتاة القماش عدة مرات، ولكن مع كل مرة كانت تنسج فيها، كانت تصبح أكثر نحافة وشحوبا. شعرت العجوز بالقلق الشديد، وبدافع الفضول أيضا، نقضت وعدها ونظرت خلسة إلى داخل الغرفة. فلم تجد الفتاة هناك، بل رأت طائر كركي ينتف ريشه بمنقاره، ويستخدمه لنسج القماش. وبعد أن انكشفت حقيقتها، قالت الفتاة: \"أنا طائر الكركي الذي أنقذته. بما أنكما رأيتما هيئتي الحقيقية، لا يمكنني البقاء هنا بعد الآن\". ثم عادت إلى هيئة طائر وحلقت مودعة في السماء الثلجية.\u200F",
+  vocabList: [
+    { word: "\u200Fرَدُّ جَمِيلٍ\u200F", meaning: "恩返し" },
+    { word: "\u200Fطَائِرُ الْكُرْكِيِّ\u200F", meaning: "鶴（ツル）" },
+    { word: "\u200Fحَطَبٌ\u200F", meaning: "薪（まき）" },
+    { word: "\u200Fفَخٌّ\u200F", meaning: "罠（わな）" },
+    { word: "\u200Fأَشْفَقَ عَلَى\u200F", meaning: "〜を哀れむ・同情する" },
+    { word: "\u200Fأَضَلَّ الطَّرِيقَ\u200F", meaning: "道に迷う" },
+    { word: "\u200Fنَسَجَ\u200F", meaning: "織る" },
+    { word: "\u200Fقُمَاشٌ\u200F", meaning: "布・生地" },
+    { word: "\u200Fنَحَافَةٌ\u200F", meaning: "痩せること・やせ細り" },
+    { word: "\u200Fفُضُولٌ\u200F", meaning: "好奇心" },
+    { word: "\u200Fخِلْسَةً\u200F", meaning: "こっそりと・盗み見で" },
+    { word: "\u200Fيَنْتِفُ\u200F", meaning: "（毛や羽を）引き抜く" },
+    { word: "\u200Fمِنْقَارٌ\u200F", meaning: "くちばし" },
+    { word: "\u200Fهَيْئَةٌ\u200F", meaning: "姿・形" },
+    { word: "\u200Fحَلَّقَ\u200F", meaning: "空を飛ぶ・舞い上がる" }
+  ],
+  sentences: [
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fفِي قَدِيمِ الزَّمَانِ، عَاشَ رَجُلٌ عَجُوزٌ فَقِيرٌ وَزَوْجَتُهُ فِي قَرْيَةٍ تُغَطِّيهَا الثُّلُوجُ. ذَاتَ يَوْمٍ، ذَهَبَ الْعَجُوزُ إِلَى الْمَدِينَةِ لِبَيْعِ الْحَطَبِ.\u200F",
+      japanese: "昔々、雪に覆われた村に貧しいおじいさんとその妻が住んでいました。ある日、おじいさんは町へ薪を売りに行きました。",
+      note: "【関係代名詞なしの形容詞節 تُغَطِّيهَا】\n\u200Fقَرْيَةٍ\u200F（村）は非限定名詞なので、関係代名詞（\u200Fالَّتِي\u200Fなど）を使わずに、後ろの動詞文 \u200Fتُغَطِّيهَا الثُّلُوجُ\u200F（雪がそれを覆っている）が直接「雪に覆われた村」という形容詞節として修飾します。\n\n【目的を表す لِـ と動名詞 لِبَيْعِ】\n\u200Fلِبَيْعِ\u200F は、目的を表す前置詞 \u200Fلِـ\u200F（〜のために）に動名詞 \u200Fبَيْع\u200F（売ること）が結合した形です。「薪を売るために」という意味になります。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fفِي طَرِيقِ عَوْدَتِهِ، وَجَدَ طَائِرَ كُرْكِيٍّ عَالِقًا فِي فَخٍّ وَيَتَخَبَّطُ. أَشْفَقَ الْعَجُوزُ عَلَيْهِ، فَفَكَّ الْفَخَّ وَأَطْلَقَ الطَّائِرَ حُرًّا فِي السَّمَاءِ.\u200F",
+      japanese: "帰り道、彼は罠にかかって暴れている一羽の鶴を見つけました。おじいさんは彼を可哀想に思い、罠を外してその鳥を空へ自由に逃がしてやりました。",
+      note: "【状態を表すハール عَالِقًا / حُرًّا】\n\u200Fعَالِقًا\u200F（引っかかって）と \u200Fحُرًّا\u200F（自由な状態で）は、どちらも対象がどのような状態であったかを説明する「ハール（状態）」の用法です。ハールは常に対格（an）をとります。\n\n【前置詞を伴う動詞 أَشْفَقَ عَلَى】\n\u200Fأَشْفَقَ\u200F は「同情する、哀れむ」という第4形動詞で、必ず前置詞 \u200Fعَلَى\u200F を伴って対象を示します。ここでは「それ（鶴）に」を表す代名詞 \u200Fهِ\u200F が付いています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fفِي تِلْكَ اللَّيْلَةِ الثَّلْجِيَّةِ الْعَاصِفَةِ، زَارَتْ فَتَاةٌ شَابَّةٌ وَجَمِيلَةٌ مَنْزِلَهُمَا، وَقَالَتْ: \"لَقَدْ أَضْلَلْتُ طَرِيقِي، هَلْ يُمْكِنُنِي الْبَقَاءُ هُنَا؟\".\u200F",
+      japanese: "その大雪と吹雪の夜、若くて美しい娘が二人の家を訪ねてきて言いました。「道に迷ってしまいました。ここに居させてもらえませんか？」。",
+      note: "【指示代名詞と定冠詞のセット تِلْكَ اللَّيْلَةِ】\n\u200Fتِلْكَ\u200F（あの・その）の後ろに定冠詞 \u200Fال\u200F がついた名詞が来ると、「あの夜」という一つのまとまった意味になります。後ろに続く \u200Fالثَّلْجِيَّةِ الْعَاصِفَةِ\u200F はその夜を修飾する形容詞です。\n\n【第4形動詞 أَضَلَّ】\n\u200Fأَضْلَلْتُ\u200F は「失う、見失う」という意味の第4形動詞 \u200Fأَضَلَّ\u200F の過去形（一人称・私）です。「私の道を見失った＝道に迷った」という定番の表現です。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fكَانَتِ الْفَتَاةُ لَطِيفَةً جِدًّا، وَاعْتَنَتْ بِالْعَجُوزَيْنِ بِإِخْلَاصٍ كَبِيرٍ. أَحَبَّ الرَّجُلُ وَزَوْجَتُهُ الْفَتَاةَ وَعَامَلَاهَا كَابْنَتِهِمَا الْحَقِيقِيَّةِ.\u200F",
+      japanese: "娘はとても優しく、誠心誠意おじいさんとおばあさんの世話をしました。男とその妻は娘を愛し、本当の娘のように扱いました。",
+      note: "【كَانَ の対格化と無母音回避 كَانَتِ】\n\u200Fكَانَتْ\u200F の語尾は本来スクーンですが、次の \u200Fالْفَتَاةُ\u200F の定冠詞と連続するためカスラ（i）になります。また、述語の \u200Fلَطِيفَةً\u200F は \u200Fكَانَ\u200F の働きにより対格（an）になります。\n\n【双数形と代名詞の結合 عَامَلَاهَا】\n\u200Fعَامَلَا\u200F（彼ら二人は接した・扱った）という第3形動詞の双数過去形に、目的語 \u200Fهَا\u200F（彼女を）が結合した形です。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fذَاتَ يَوْمٍ، قَالَتِ الْفَتَاةُ: \"أُرِيدُ أَنْ أَنْسِجَ قُمَاشًا، وَلَكِنْ أَرْجُوكُمَا أَنْ تَعِدَانِي بِأَلَّا تَنْظُرَا أَبَدًا إِلَى دَاخِلِ الْغُرْفَةِ\"، ثُمَّ أَغْلَقَتِ الْبَابَ عَلَى نَفْسِهَا.\u200F",
+      japanese: "ある日、娘は「布を織りたいのですが、絶対に部屋の中を覗かないと約束してください」と言い、部屋にこもりました（自分に扉を閉めた）。",
+      note: "【接続法によるヌーンの脱落 تَعِدَانِي / تَنْظُرَا】\n\u200Fأَنْ\u200F（〜すること）の後ろの動詞は接続法になります。\u200Fتَعِدَانِ\u200F（あなたたち二人は約束する）や \u200Fتَنْظُرَانِ\u200F（あなたたち二人は見る）といった双数現在形は、接続法になると語尾のヌーン（\u200Fن\u200F）が脱落します。\u200Fتَعِدَانِي\u200F に残っているヌーンは、目的語 \u200Fي\u200F（私に）を保護するためのヌーン（ヌーヌル・ウィカーヤ）です。\n\n【強い禁止の表現 بِأَلَّا】\n前置詞 \u200Fبِـ\u200F ＋ 接続詞 \u200Fأَنْ\u200F ＋ 否定 \u200Fلَا\u200F の融合形で、「〜しないことを約束する」という強い禁止を表します。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fنَسَجَتِ الْفَتَاةُ لِمُدَّةِ ثَلَاثَةِ أَيَّامٍ وَلَيَالٍ دُونَ تَوَقُّفٍ، وَصَنَعَتْ قُمَاشًا رَائِعَ الْجَمَالِ لَمْ يُرَ يَوْمًا مِثْلُهُ. بَاعَهُ الْعَجُوزُ فِي الْمَدِينَةِ بِسِعْرٍ مُرْتَفِعٍ جِدًّا، فَأَصْبَحَا أَثْرِيَاءَ.\u200F",
+      japanese: "娘は三日三晩休むことなく織り続け、これまで見たこともないほど素晴らしい美しさの布を作りました。おじいさんがそれを町でとても高い値段で売り、二人はお金持ちになりました。",
+      note: "【否定の要求法と受動態 لَمْ يُرَ】\n\u200Fلَمْ\u200F は過去の否定を表し、後ろの動詞を要求法（マジズーム）にします。\u200Fيُرَى\u200F（見られる・受動態）は弱動詞のため、要求法になると語尾の弱文字アリフが脱落し、\u200Fلَمْ يُرَ\u200F となります。\n\n【二段変化名詞の対格 أَثْرِيَاءَ】\n\u200Fأَصْبَحَا\u200F（彼ら二人は〜になった）の述語であるため対格になりますが、\u200Fأَثْرِيَاء\u200F（お金持ち・複数形）は二段変化名詞のためタンウィーンを取らず、ファトハ（a）のみとなります。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fنَسَجَتِ الْفَتَاةُ الْقُمَاشَ عِدَّةَ مَرَّاتٍ، وَلَكِنْ مَعَ كُلِّ مَرَّةٍ كَانَتْ تَنْسِجُ فِيهَا، كَانَتْ تُصْبِحُ أَكْثَرَ نَحَافَةً وَشُحُوبًا.\u200F",
+      japanese: "娘は何度も布を織りましたが、織るたびに、彼女はどんどん痩せ細り、青ざめていきました。",
+      note: "【過去の反復 كَانَتْ تَنْسِجُ / تُصْبِحُ】\n\u200Fكَانَتْ\u200F と現在形動詞の組み合わせで「（何度も）織っていた」「（だんだん）なっていった」という過去の継続や反復を表します。\n\n【比較級と識別語 أَكْثَرَ نَحَافَةً】\n\u200Fأَكْثَرَ\u200F（より多く）という比較級の後ろに、何が「より多い」のかを説明する名詞（識別語・タムイーズ）を対格（an）で置くことで、「より痩せていく」状態を表現する重要な文法です。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fشَعَرَتِ الْعَجُوزُ بِالْقَلَقِ الشَّدِيدِ، وَبِدَافِعِ الْفُضُولِ أَيْضًا، نَقَضَتْ وَعْدَهَا وَنَظَرَتْ خِلْسَةً إِلَى دَاخِلِ الْغُرْفَةِ.\u200F",
+      japanese: "おばあさんは激しい不安を感じ、また好奇心も手伝って、約束を破って部屋の中をこっそり覗いてしまいました。",
+      note: "【理由を表す بِدَافِعِ】\n\u200Fبِدَافِعِ الْفُضُولِ\u200F は「好奇心の動機によって＝好奇心から」という行為の理由を表す表現です。\n\n【状態を表す副詞的用法 خِلْسَةً】\n\u200Fخِلْسَةً\u200F は「こっそりと、盗み見で」という意味で、動作の様子（ハール）を表すために対格（an）になっています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fفَلَمْ تَجِدِ الْفَتَاةَ هُنَاكَ، بَلْ رَأَتْ طَائِرَ كُرْكِيٍّ يَنْتِفُ رِيشَهُ بِمِنْقَارِهِ، وَيَسْتَخْدِمُهُ لِنَسْجِ الْقُمَاشِ.\u200F",
+      japanese: "するとそこに娘はおらず、一羽の鶴がくちばしで自分の羽を引き抜き、それを使って布を織っているのを見たのです。",
+      note: "【否定の継続と転換 بَلْ】\n\u200Fفَلَمْ تَجِدْ... بَلْ رَأَتْ\u200F は「見つけなかった、それどころか（むしろ）〜を見た」という強い対比・転換を表す表現です。\n\n【手段を表す前置詞 بِـ】\n\u200Fبِمِنْقَارِهِ\u200F の前置詞 \u200Fبِـ\u200F は「〜を使って、〜という手段で」という意味を持ち、「くちばしを使って」という道具・手段を示しています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fوَبَعْدَ أَنِ انْكَشَفَتْ حَقِيقَتُهَا، قَالَتِ الْفَتَاةُ: \"أَنَا طَائِرُ الْكُرْكِيِّ الَّذِي أَنْقَذْتَهُ. بِمَا أَنَّكُمَا رَأَيْتُمَا هَيْئَتِي الْحَقِيقِيَّةَ، لَا يُمْكِنُنِي الْبَقَاءُ هُنَا بَعْدَ الْآنَ\". ثُمَّ عَادَتْ إِلَى هَيْئَةِ طَائِرٍ وَحَلَّقَتْ مُوَدِّعَةً فِي السَّمَاءِ الثَّلْجِيَّةِ.\u200F",
+      japanese: "正体がバレた後、娘は言いました。「私はあなたが助けてくれた鶴です。あなた方が私の本当の姿を見てしまった以上、もうここにはいられません」。そして彼女は鳥の姿に戻り、別れを告げながら雪空へと飛び去っていきました。",
+      note: "【関係代名詞 الَّذِي】\n\u200Fطَائِرُ الْكُرْكِيِّ\u200F（鶴）を修飾するために、関係代名詞 \u200Fالَّذِي\u200F が使われ、後ろの \u200Fأَنْقَذْتَهُ\u200F（あなたがそれを救った）という文を導いています。\n\n【原因を表す بِمَا أَنَّ】\n\u200Fبِمَا أَنَّ\u200F は「〜である以上、〜なのだから」という原因や前提を表す接続詞です。後ろに代名詞 \u200Fكُمَا\u200F（あなたたち二人）が接続しています。\n\n【状態を表すハール مُوَدِّعَةً】\n\u200Fمُوَدِّعَةً\u200F は「別れを告げる」という能動分詞の女性形で、「別れを告げながら（飛び立った）」と主語の状態を表すため対格になっています。"
+    }
+  ],
+  questions: [
+    {
+      id: 20301,
+      type: "reading",
+      text: "おじいさんは町へ何をしに行きましたか？\n\u200Fلِمَاذَا ذَهَبَ الْعَجُوزُ إِلَى الْمَدِينَةِ؟\u200F",
+      options: [
+        "\u200Fلِشِرَاءِ طَعَامٍ\u200F (食べ物を買うため)",
+        "\u200Fلِبَيْعِ الْحَطَبِ\u200F (薪を売るため)",
+        "\u200Fلِزِيَارَةِ طَبِيبٍ\u200F (医者を訪ねるため)",
+        "\u200Fلِلْبَحْثِ عَنِ الْكَنْزِ\u200F (宝を探すため)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fذَهَبَ الْعَجُوزُ إِلَى الْمَدِينَةِ لِبَيْعِ الْحَطَبِ.\u200F (おじいさんは薪を売るために町へ行きました。)"
+    },
+    {
+      id: 20302,
+      type: "reading",
+      text: "おじいさんは帰り道に何を見つけましたか？\n\u200Fمَاذَا وَجَدَ الْعَجُوزُ فِي طَرِيقِ عَوْدَتِهِ؟\u200F",
+      options: [
+        "\u200Fكَلْبًا صَغِيرًا\u200F (小さな犬)",
+        "\u200Fطَائِرَ كُرْكِيٍّ عَالِقًا فِي فَخٍّ\u200F (罠にかかった鶴)",
+        "\u200Fصُنْدُوقًا سِحْرِيًّا\u200F (魔法の箱)",
+        "\u200Fخَيْزُرَانَةً تُضِيءُ\u200F (光る竹)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fوَجَدَ طَائِرَ كُرْكِيٍّ عَالِقًا فِي فَخٍّ وَيَتَخَبَّطُ.\u200F (罠にかかって暴れている鶴を見つけました。)"
+    },
+    {
+      id: 20303,
+      type: "reading",
+      text: "吹雪の夜、誰が家を訪ねてきましたか？\n\u200Fمَنْ زَارَ مَنْزِلَهُمَا فِي اللَّيْلَةِ الثَّلْجِيَّةِ الْعَاصِفَةِ؟\u200F",
+      options: [
+        "\u200Fفَتَاةٌ شَابَّةٌ وَجَمِيلَةٌ\u200F (若くて美しい娘)",
+        "\u200Fرَجُلٌ غَنِيٌّ\u200F (お金持ちの男)",
+        "\u200Fطَائِرٌ كَبِيرٌ\u200F (大きな鳥)",
+        "\u200Fزَعِيمُ الشَّيَاطِينِ\u200F (鬼のリーダー)"
+      ],
+      correctIndex: 0,
+      explanation: "\u200Fزَارَتْ فَتَاةٌ شَابَّةٌ وَجَمِيلَةٌ مَنْزِلَهُمَا.\u200F (若くて美しい娘が彼らの家を訪れました。)"
+    },
+    {
+      id: 20304,
+      type: "reading",
+      text: "娘が布を織る前に、二人に約束させたことは何ですか？\n\u200Fمَاذَا طَلَبَتِ الْفَتَاةُ أَنْ يَعِدَاهَا بِهِ قَبْلَ أَنْ تَنْسِجَ الْقُمَاشَ؟\u200F",
+      options: [
+        "\u200Fأَلَّا يَبِيعَا الْقُمَاشَ\u200F (布を売らないこと)",
+        "\u200Fأَنْ يُعْطِيَاهَا طَعَامًا\u200F (彼女に食べ物を与えること)",
+        "\u200Fأَلَّا تَنْظُرَا أَبَدًا إِلَى دَاخِلِ الْغُرْفَةِ\u200F (絶対に部屋の中を覗かないこと)",
+        "\u200Fأَنْ يُسَاعِدَاهَا فِي النَّسْجِ\u200F (織るのを手伝うこと)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fقَالَتْ: أَرْجُوكُمَا أَنْ تَعِدَانِي بِأَلَّا تَنْظُرَا أَبَدًا إِلَى دَاخِلِ الْغُرْفَةِ.\u200F (「絶対に部屋の中を見ないでください」と彼女は頼みました。)"
+    },
+    {
+      id: 20305,
+      type: "reading",
+      text: "娘が最初に布を織った時、どれくらいかかりましたか？\n\u200Fكَمْ مِنَ الْوَقْتِ اسْتَغْرَقَتِ الْفَتَاةُ لِنَسْجِ الْقُمَاشِ فِي الْمَرَّةِ الْأُولَى؟\u200F",
+      options: [
+        "\u200Fيَوْمًا وَاحِدًا\u200F (1日)",
+        "\u200Fثَلَاثَةَ أَيَّامٍ وَلَيَالٍ دُونَ تَوَقُّفٍ\u200F (休まず三日三晩)",
+        "\u200Fأُسْبُوعًا كَامِلًا\u200F (丸1週間)",
+        "\u200Fشَهْرًا\u200F (1ヶ月)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fنَسَجَتِ الْفَتَاةُ لِمُدَّةِ ثَلَاثَةِ أَيَّامٍ وَلَيَالٍ دُونَ تَوَقُّفٍ.\u200F (三日と三晩、止まることなく織り続けました。)"
+    },
+    {
+      id: 20306,
+      type: "reading",
+      text: "布を織るたびに、娘はどうなっていきましたか？\n\u200Fمَاذَا كَانَ يَحْدُثُ لِلْفَتَاةِ كُلَّمَا نَسَجَتِ الْقُمَاشَ؟\u200F",
+      options: [
+        "\u200Fكَانَتْ تُصْبِحُ أَكْثَرَ قُوَّةً\u200F (より強くなっていった)",
+        "\u200Fكَانَتْ تُصْبِحُ أَكْثَرَ جَمَالًا\u200F (より美しくなっていった)",
+        "\u200Fكَانَتْ تُصْبِحُ أَكْثَرَ نَحَافَةً وَشُحُوبًا\u200F (より痩せ細り、青ざめていった)",
+        "\u200Fكَانَتْ تَبْكِي\u200F (泣いていた)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fمَعَ كُلِّ مَرَّةٍ، كَانَتْ تُصْبِحُ أَكْثَرَ نَحَافَةً وَشُحُوبًا.\u200F (織るたびに、どんどん痩せて顔色が悪くなっていきました。)"
+    },
+    {
+      id: 20307,
+      type: "reading",
+      text: "なぜおばあさんは部屋の中を覗いてしまいましたか？\n\u200Fلِمَاذَا نَظَرَتِ الْعَجُوزُ إِلَى دَاخِلِ الْغُرْفَةِ؟\u200F",
+      options: [
+        "\u200Fلِأَنَّهَا أَرَادَتِ التَّنْظِيفَ\u200F (掃除をしたかったから)",
+        "\u200Fلِأَنَّ الْفَتَاةَ نَادَتْهَا\u200F (娘が彼女を呼んだから)",
+        "\u200Fبِدَافِعِ الْقَلَقِ الشَّدِيدِ وَالْفُضُولِ\u200F (激しい心配と好奇心から)",
+        "\u200Fلِأَنَّهَا كَانَتْ غَاضِبَةً\u200F (怒っていたから)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fشَعَرَتِ الْعَجُوزُ بِالْقَلَقِ الشَّدِيدِ، وَبِدَافِعِ الْفُضُولِ أَيْضًا، نَقَضَتْ وَعْدَهَا.\u200F (心配と好奇心によって、約束を破ってしまいました。)"
+    },
+    {
+      id: 20308,
+      type: "reading",
+      text: "部屋の中では、何が布を織っていましたか？\n\u200Fمَاذَا كَانَ يَنْسِجُ الْقُمَاشَ دَاخِلَ الْغُرْفَةِ؟\u200F",
+      options: [
+        "\u200Fآلَةٌ سِحْرِيَّةٌ\u200F (魔法の機械)",
+        "\u200Fطَائِرُ كُرْكِيٍّ يَنْتِفُ رِيشَهُ\u200F (自分の羽を抜いている鶴)",
+        "\u200Fأَهْلُ الْقَمَرِ\u200F (月の住人たち)",
+        "\u200Fرَجُلٌ عَجُوزٌ\u200F (おじいさん)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fرَأَتْ طَائِرَ كُرْكِيٍّ يَنْتِفُ رِيشَهُ بِمِنْقَارِهِ وَيَسْتَخْدِمُهُ لِنَسْجِ الْقُمَاشِ.\u200F (鶴が自分の羽をくちばしで抜いて布を織っていました。)"
+    },
+    {
+      id: 20309,
+      type: "reading",
+      text: "娘の本当の正体は何でしたか？\n\u200Fمَا هِيَ الْحَقِيقَةُ وَرَاءَ هَوِيَّةِ الْفَتَاةِ؟\u200F",
+      options: [
+        "\u200Fأَمِيرَةٌ مِنَ الْقَمَرِ\u200F (月の姫)",
+        "\u200Fأَمِيرَةُ الْبَحْرِ\u200F (海の姫)",
+        "\u200Fطَائِرُ الْكُرْكِيِّ الَّذِي أَنْقَذَهُ الْعَجُوزُ\u200F (おじいさんが助けた鶴)",
+        "\u200Fشَيْطَانٌ مُتَنَكِّرٌ\u200F (変装した鬼)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fقَالَتِ: \"أَنَا طَائِرُ الْكُرْكِيِّ الَّذِي أَنْقَذْتَهُ\".\u200F (「私はあなたが助けてくれた鶴です」と彼女は言いました。)"
+    },
+    {
+      id: 20310,
+      type: "reading",
+      text: "正体を知られた後、彼女はどうしましたか？\n\u200Fمَاذَا فَعَلَتِ الْفَتَاةُ بَعْدَ أَنِ انْكَشَفَتْ حَقِيقَتُهَا؟\u200F",
+      options: [
+        "\u200Fبَقِيَتْ مَعَهُمْ لِلْأَبَدِ\u200F (彼らと永遠に一緒に残った)",
+        "\u200Fطَلَبَتِ الْمَزِيدَ مِنَ الطَّعَامِ\u200F (もっと食べ物を要求した)",
+        "\u200Fعَادَتْ إِلَى هَيْئَةِ طَائِرٍ وَحَلَّقَتْ مُوَدِّعَةً فِي السَّمَاءِ\u200F (鳥の姿に戻り、別れを告げて空へ飛んでいった)",
+        "\u200Fغَضِبَتْ وَدَمَّرَتِ الْمَنْزِلَ\u200F (怒って家を破壊した)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fعَادَتْ إِلَى هَيْئَةِ طَائِرٍ وَحَلَّقَتْ مُوَدِّعَةً فِي السَّمَاءِ الثَّلْجِيَّةِ.\u200F (鳥の姿に戻り、雪空へと飛び去っていきました。)"
+    }
+  ]
+},
+{
+  id: 20400,
+  title: "赤ずきん (ذَاتُ الْقُبَّعَةِ الْحَمْرَاءِ)",
+  category: "物語",
+  level: "物語",
+  contentVoweled: "\u200Fفِي قَدِيمِ الزَّمَانِ، عَاشَتْ فَتَاةٌ صَغِيرَةٌ لَطِيفَةٌ يُحِبُّهَا الْجَمِيعُ، وَخَاصَّةً جَدَّتَهَا الَّتِي أَهْدَتْهَا قُبَّعَةً حَمْرَاءَ جَمِيلَةً. وَلِأَنَّهَا كَانَتْ تَرْتَدِيهَا دَائِمًا، أَطْلَقَ عَلَيْهَا النَّاسُ اسْمَ \"ذَاتِ الْقُبَّعَةِ الْحَمْرَاءِ\". ذَاتَ يَوْمٍ، قَالَتْ لَهَا أُمُّهَا: \"خُذِي هَذِهِ الْكَعْكَةَ وَزُجَاجَةَ الْعَصِيرِ إِلَى جَدَّتِكِ الْمَرِيضَةِ، وَلَكِنْ إِيَّاكِ أَنْ تَبْتَعِدِي عَنِ الطَّرِيقِ الْمُسْتَقِيمِ\". فِي طَرِيقِهَا عَبْرَ الْغَابَةِ، الْتَقَتْ بِذِئْبٍ شِرِّيرٍ. لَمْ تَكُنِ الْفَتَاةُ تَعْرِفُ مَدَى خُطُورَتِهِ، فَأَخْبَرَتْهُ بِبَرَاءَةٍ أَنَّهَا ذَاهِبَةٌ لِزِيَارَةِ جَدَّتِهَا. أَقْنَعَهَا الذِّئْبُ بِجَمْعِ بَعْضِ الزُّهُورِ الْجَمِيلَةِ لِتُفْرِحَ جَدَّتَهَا، وَبَيْنَمَا انْشَغَلَتِ الْفَتَاةُ بِذَلِكَ، أَسْرَعَ الذِّئْبُ إِلَى مَنْزِلِ الْجَدَّةِ وَابْتَلَعَهَا دُفْعَةً وَاحِدَةً. بَعْدَ ذَلِكَ، ارْتَدَى الذِّئْبُ مَلَابِسَ الْجَدَّةِ، وَنَامَ فِي سَرِيرِهَا يَنْتَظِرُ وُصُولَ الْفَتَاةِ. عِنْدَمَا وَصَلَتْ ذَاتُ الْقُبَّعَةِ الْحَمْرَاءِ، لَاحَظَتْ أَنَّ شَكْلَ جَدَّتِهَا غَرِيبٌ فَقَالَتْ: \"يَا جَدَّتِي، لِمَاذَا أُذُنَاكِ كَبِيرَتَانِ هَكَذَا؟\". فَأَجَابَ الذِّئْبُ: \"لِأَسْمَعَكِ بِهِمَا جَيِّدًا\". \"وَلِمَاذَا عَيْنَاكِ كَبِيرَتَانِ هَكَذَا؟\" \"لِأَرَاكِ بِهِمَا جَيِّدًا\". \"وَلِمَاذَا أَسْنَانُكِ كَبِيرَةٌ هَكَذَا؟\" فَصَرَخَ الذِّئْبُ: \"لِآكُلَكِ بِهَا!\" ثُمَّ انْقَضَّ عَلَيْهَا وَابْتَلَعَهَا أَيْضًا. لِحُسْنِ الْحَظِّ، مَرَّ صَيَّادٌ شُجَاعٌ بِالْقُرْبِ مِنَ الْمَنْزِلِ وَسَمِعَ شَخِيرَ الذِّئْبِ الْعَالِي. دَخَلَ وَوَجَدَ الذِّئْبَ نَائِمًا، فَأَدْرَكَ مَا حَدَثَ. شَقَّ الصَّيَّادُ بَطْنَ الذِّئْبِ بِمِقَصٍّ، فَخَرَجَتْ ذَاتُ الْقُبَّعَةِ الْحَمْرَاءِ وَجَدَّتُهَا سَالِمَتَيْنِ. مَلَأُوا بَطْنَ الذِّئْبِ بِالْحِجَارَةِ الثَّقِيلَةِ، فَلَمَّا اسْتَيْقَظَ وَحَاوَلَ الْهَرَبَ، سَقَطَ مَيِّتًا بَسَبَبِ ثِقَلِهَا. وَعَاشَ الْجَمِيعُ فِي أَمَانٍ بَعْدَ ذَلِكَ.\u200F",
+  contentPlain: "\u200Fفي قديم الزمان، عاشت فتاة صغيرة لطيفة يحبها الجميع، وخاصة جدتها التي أهدتها قبعة حمراء جميلة. ولأنها كانت ترتديها دائما، أطلق عليها الناس اسم \"ذات القبعة الحمراء\". ذات يوم، قالت لها أمها: \"خذي هذه الكعكة وزجاجة العصير إلى جدتك المريضة، ولكن إياك أن تبتعدي عن الطريق المستقيم\". في طريقها عبر الغابة، التقت بذئب شرير. لم تكن الفتاة تعرف مدى خطورته، فأخبرته ببراءة أنها ذاهبة لزيارة جدتها. أقنعها الذئب بجمع بعض الزهور الجميلة لتفرح جدتها، وبينما انشغلت الفتاة بذلك، أسرع الذئب إلى منزل الجدة وابتلعها دفعة واحدة. بعد ذلك، ارتدى الذئب ملابس الجدة، ونام في سريرها ينتظر وصول الفتاة. عندما وصلت ذات القبعة الحمراء، لاحظت أن شكل جدتها غريب فقالت: \"يا جدتي، لماذا أذناك كبيرتان هكذا؟\". فأجاب الذئب: \"لأسمعك بهما جيدا\". \"ولماذا عيناك كبيرتان هكذا؟\" \"لأراك بهما جيدا\". \"ولماذا أسنانك كبيرة هكذا؟\" فصرخ الذئب: \"لآكلك بها!\" ثم انقض عليها وابتلعها أيضا. لحسن الحظ، مر صياد شجاع بالقرب من المنزل وسمع شخير الذئب العالي. دخل ووجد الذئب نائما، فأدرك ما حدث. شق الصياد بطن الذئب بمقص، فخرجت ذات القبعة الحمراء وجدتها سالمتين. ملأوا بطن الذئب بالحجارة الثقيلة، فلما استيقظ وحاول الهرب، سقط ميتا بسبب ثقلها. وعاش الجميع في أمان بعد ذلك.\u200F",
+  vocabList: [
+    { word: "\u200Fقُبَّعَةٌ\u200F", meaning: "帽子・ずきん" },
+    { word: "\u200Fذِئْبٌ\u200F", meaning: "狼（おおかみ）" },
+    { word: "\u200Fشِرِّيرٌ\u200F", meaning: "邪悪な" },
+    { word: "\u200Fكَعْكَةٌ\u200F", meaning: "ケーキ・焼き菓子" },
+    { word: "\u200Fزُجَاجَةٌ\u200F", meaning: "瓶（びん）" },
+    { word: "\u200Fبَرَاءَةٌ\u200F", meaning: "無邪気さ・純真" },
+    { word: "\u200Fابْتَلَعَ\u200F", meaning: "飲み込む・丸飲みする" },
+    { word: "\u200Fأُذُنَانِ\u200F", meaning: "両耳" },
+    { word: "\u200Fعَيْنَانِ\u200F", meaning: "両目" },
+    { word: "\u200Fأَسْنَانٌ\u200F", meaning: "歯（複数形）" },
+    { word: "\u200Fانْقَضَّ عَلَى\u200F", meaning: "〜に飛びかかる・襲いかかる" },
+    { word: "\u200Fشَخِيرٌ\u200F", meaning: "いびき" },
+    { word: "\u200Fشَقَّ\u200F", meaning: "切り裂く" },
+    { word: "\u200Fحِجَارَةٌ\u200F", meaning: "石（複数形）" }
+  ],
+  sentences: [
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fفِي قَدِيمِ الزَّمَانِ، عَاشَتْ فَتَاةٌ صَغِيرَةٌ لَطِيفَةٌ يُحِبُّهَا الْجَمِيعُ، وَخَاصَّةً جَدَّتَهَا الَّتِي أَهْدَتْهَا قُبَّعَةً حَمْرَاءَ جَمِيلَةً. وَلِأَنَّهَا كَانَتْ تَرْتَدِيهَا دَائِمًا، أَطْلَقَ عَلَيْهَا النَّاسُ اسْمَ \"ذَاتِ الْقُبَّعَةِ الْحَمْرَاءِ\".\u200F",
+      japanese: "昔々、みんなに愛される可愛らしい小さな女の子がいました。特に彼女のことが大好きだったおばあさんは、美しい赤いずきん（帽子）をプレゼントしました。彼女がいつもそれを被っていたので、人々は彼女を「赤ずきん」と呼びました。",
+      note: "【関係代名詞なしの形容詞節 يُحِبُّهَا الْجَمِيعُ】\n\u200Fفَتَاةٌ\u200F（少女）は非限定名詞なので、直後の動詞文 \u200Fيُحِبُّهَا الْجَمِيعُ\u200F（みんなが彼女を愛する）が直接形容詞節としてかかります。\n\n【〜の持ち主を表す ذَاتُ】\n\u200Fذَاتِ الْقُبَّعَةِ الْحَمْرَاءِ\u200F は「赤い帽子の持ち主（女性）」という意味です。\u200Fذَات\u200F は「〜を持つ（男性）」である \u200Fذُو\u200F の女性形で、後ろの名詞を属格（i）にしてイダーファ構造を作ります。ここでは「名前（اسْمَ）」の属格にあたるため \u200Fذَاتِ\u200F とカスラが付いています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fذَاتَ يَوْمٍ، قَالَتْ لَهَا أُمُّهَا: \"خُذِي هَذِهِ الْكَعْكَةَ وَزُجَاجَةَ الْعَصِيرِ إِلَى جَدَّتِكِ الْمَرِيضَةِ، وَلَكِنْ إِيَّاكِ أَنْ تَبْتَعِدِي عَنِ الطَّرِيقِ الْمُسْتَقِيمِ\".\u200F",
+      japanese: "ある日、お母さんは彼女に言いました。「このケーキとジュースの瓶を、病気のおばあちゃんのところへ持っていきなさい。でも、決して寄り道をしてはいけませんよ（まっすぐな道から離れないように）」。",
+      note: "【女性に対する命令形 خُذِي】\n\u200Fأَخَذَ\u200F（取る・持っていく）の命令形は、語頭のハムザが消えて \u200Fخُذْ\u200F となります。女性に対して命令する場合は語尾に \u200Fي\u200F が付き、\u200Fخُذِي\u200F となります。\n\n【強い警告の表現 إِيَّاكِ أَنْ】\n\u200Fإِيَّاكَ\u200F（女性なら إِيَّاكِ）は「あなたを」という独立した目的語代名詞ですが、後ろに \u200Fأَنْ\u200F ＋ 接続法動詞を続けると「〜しないように気をつけなさい！」という強い警告（タフズィール）の構文になります。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fفِي طَرِيقِهَا عَبْرَ الْغَابَةِ، الْتَقَتْ بِذِئْبٍ شِرِّيرٍ. لَمْ تَكُنِ الْفَتَاةُ تَعْرِفُ مَدَى خُطُورَتِهِ، فَأَخْبَرَتْهُ بِبَرَاءَةٍ أَنَّهَا ذَاهِبَةٌ لِزِيَارَةِ جَدَّتِهَا.\u200F",
+      japanese: "森を抜ける道中、彼女は邪悪な狼に出会いました。少女はその狼がどれほど危険かを知らなかったので、おばあさんを訪ねて行くところだと無邪気に教えてしまいました。",
+      note: "【動詞と前置詞のセット الْتَقَى بِـ】\n\u200Fالْتَقَى\u200F は「出会う」という第8形動詞ですが、対象を表すときは必ず前置詞 \u200Fبِـ\u200F を伴います。\n\n【過去の進行・状態の否定 لَمْ تَكُنْ تَعْرِفُ】\n「知っていた（كانَتْ تَعْرِفُ）」という過去の継続的状態を否定するには、\u200Fكَانَ\u200F の部分を否定します。\u200Fلَمْ\u200F は要求法をとるため \u200Fتَكُنْ\u200F（無母音）となりますが、次の \u200Fالْفَتَاةُ\u200F との接触を避けるためカスラが付き \u200Fلَمْ تَكُنِ\u200F と発音されます。\n\n【状態を表す副詞句 بِبَرَاءَةٍ】\n前置詞 \u200Fبِـ\u200F ＋ 抽象名詞 \u200Fبَرَاءَة\u200F（無邪気さ）で、「無邪気に」という動作の状態（ハール）を表す副詞句になります。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fأَقْنَعَهَا الذِّئْبُ بِجَمْعِ بَعْضِ الزُّهُورِ الْجَمِيلَةِ لِتُفْرِحَ جَدَّتَهَا، وَبَيْنَمَا انْشَغَلَتِ الْفَتَاةُ بِذَلِكَ، أَسْرَعَ الذِّئْبُ إِلَى مَنْزِلِ الْجَدَّةِ وَابْتَلَعَهَا دُفْعَةً وَاحِدَةً.\u200F",
+      japanese: "狼は、おばあさんを喜ばせるために美しい花を摘むよう彼女を説得しました。そして少女がそれに夢中になっている間に、狼はおばあさんの家へ急ぎ、おばあさんを一口で丸飲みにしてしまいました。",
+      note: "【目的の لِـ と接続法 لِتُفْرِحَ】\n\u200Fلِـ\u200F の後ろの動詞は接続法になります。\u200Fتُفْرِحَ\u200F は第4形動詞 \u200Fأَفْرَحَ\u200F（喜ばせる）の現在形接続法です。\n\n【状態を表す副詞的表現 دُفْعَةً وَاحِدَةً】\n\u200Fدُفْعَة\u200F は「一回、押し出すこと」を意味し、\u200Fدُفْعَةً وَاحِدَةً\u200F で「一気に、一度に（一口で）」という副詞的な意味を作ります。文法的には絶対目的語やハールの働きをします。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fبَعْدَ ذَلِكَ، ارْتَدَى الذِّئْبُ مَلَابِسَ الْجَدَّةِ، وَنَامَ فِي سَرِيرِهَا يَنْتَظِرُ وُصُولَ الْفَتَاةِ.\u200F",
+      japanese: "その後、狼はおばあさんの服を着て彼女のベッドに寝転び、少女の到着を待ちました。",
+      note: "【動詞文によるハール يَنْتِفُ / يَنْتَظِرُ】\n「待っている（يَنْتَظِرُ）」という現在形動詞が、主語（狼）が寝ている時の「状態」を説明するハール（状態節）として機能しています。アラビア語では現在形動詞をそのまま置くことで「〜しながら（〜した）」という表現が可能です。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fعِنْدَمَا وَصَلَتْ ذَاتُ الْقُبَّعَةِ الْحَمْرَاءِ، لَاحَظَتْ أَنَّ شَكْلَ جَدَّتِهَا غَرِيبٌ فَقَالَتْ: \"يَا جَدَّتِي، لِمَاذَا أُذُنَاكِ كَبِيرَتَانِ هَكَذَا؟\". فَأَجَابَ الذِّئْبُ: \"لِأَسْمَعَكِ بِهِمَا جَيِّدًا\".\u200F",
+      japanese: "赤ずきんが到着すると、おばあさんの様子が変であることに気づき言いました。「おばあちゃん、どうしてそんなに耳が大きいの？」。狼は答えました。「お前の声をよく聞くためだよ」。",
+      note: "【双数形のイダーファによるヌーン脱落 أُذُنَاكِ】\n\u200Fأُذُنَانِ\u200F（両耳）という双数形に、所有代名詞 \u200Fكِ\u200F（あなたの）が接続してイダーファ構造を作る際、双数形の語尾のヌーン（\u200Fنِ\u200F）は必ず脱落します。そのため \u200Fأُذُنَاكِ\u200F となります。これを修飾する形容詞 \u200Fكَبِيرَتَانِ\u200F にはイダーファがないためヌーンが残っています。\n\n【目的の接続法と代名詞 لِأَسْمَعَكِ】\n\u200Fلِـ\u200F ＋ 接続法 \u200Fأَسْمَعَ\u200F（私が聞く）＋ \u200Fكِ\u200F（あなたを）。耳は双数なので「それらを使って」は \u200Fبِهِمَا\u200F となります。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200F\"وَلِمَاذَا عَيْنَاكِ كَبِيرَتَانِ هَكَذَا؟\" \"لِأَرَاكِ بِهِمَا جَيِّدًا\". \"وَلِمَاذَا أَسْنَانُكِ كَبِيرَةٌ هَكَذَا؟\" فَصَرَخَ الذِّئْبُ: \"لِآكُلَكِ بِهَا!\" ثُمَّ انْقَضَّ عَلَيْهَا وَابْتَلَعَهَا أَيْضًا.\u200F",
+      japanese: "「どうしてそんなに目が大きいの？」「お前のことをよく見るためだよ」。「どうしてそんなに歯が大きいの？」。すると狼は叫びました。「お前を食べるためだ！」そして彼女に飛びかかり、彼女も飲み込んでしまいました。",
+      note: "【 عَيْنَاكِ のヌーン脱落】\n目も耳と同じく双数形 \u200Fعَيْنَانِ\u200F ですが、代名詞 \u200Fكِ\u200F の接続によりヌーンが脱落して \u200Fعَيْنَاكِ\u200F となっています。\n\n【人間以外の複数形 أَسْنَانُكِ】\n\u200Fأَسْنَان\u200F（歯）は人間以外の複数形なので「女性単数」として扱われます。そのため、修飾する形容詞は \u200Fكَبِيرَةٌ\u200F と単数女性形になり、「それを使って食べる」の代名詞も \u200Fبِهِمَا\u200F（双数）ではなく \u200Fبِهَا\u200F（女性単数）になっています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fلِحُسْنِ الْحَظِّ، مَرَّ صَيَّادٌ شُجَاعٌ بِالْقُرْبِ مِنَ الْمَنْزِلِ وَسَمِعَ شَخِيرَ الذِّئْبِ الْعَالِي. دَخَلَ وَوَجَدَ الذِّئْبَ نَائِمًا، فَأَدْرَكَ مَا حَدَثَ.\u200F",
+      japanese: "幸運なことに、勇敢な猟師が家の近くを通りかかり、狼の大きないびきを聞きました。中に入り、眠っている狼を見つけると、彼は何が起きたのかを悟りました。",
+      note: "【幸運を表すイディオム لِحُسْنِ الْحَظِّ】\n\u200Fحُسْن\u200F（良さ）と \u200Fحَظّ\u200F（運）のイダーファに前置詞 \u200Fلِـ\u200F がついた形で「幸運にも」という定番のフレーズです。\n\n【状態を表すハール نَائِمًا】\n\u200Fنَائِمًا\u200F は「眠っている」という能動分詞で、見つけた時の狼の状態を表すため対格（an）になっています。\n\n【関係代名詞 مَا】\n\u200Fأَدْرَكَ مَا حَدَثَ\u200F の \u200Fمَا\u200F は疑問詞ではなく、「〜したこと」を表す関係代名詞です。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fشَقَّ الصَّيَّادُ بَطْنَ الذِّئْبِ بِمِقَصٍّ، فَخَرَجَتْ ذَاتُ الْقُبَّعَةِ الْحَمْرَاءِ وَجَدَّتُهَا سَالِمَتَيْنِ.\u200F",
+      japanese: "猟師がハサミで狼の腹を切り裂くと、赤ずきんとおばあさんが無事に出てきました。",
+      note: "【手段・道具の前置詞 بِـ】\n\u200Fبِمِقَصٍّ\u200F の前置詞 \u200Fبِـ\u200F は「〜を使って」という手段や道具を表します。\n\n【双数形のハール（状態） سَالِمَتَيْنِ】\n\u200Fسَالِمَتَيْنِ\u200F は「安全な・無事な」という意味の形容詞の双数形です。赤ずきんとおばあさんの「2人が無事な状態で」出てきたことを説明するハール（状態）のため、主格の \u200Fـَتَانِ\u200F ではなく、対格を示す \u200Fـَتَيْنِ\u200F になっています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fمَلَأُوا بَطْنَ الذِّئْبِ بِالْحِجَارَةِ الثَّقِيلَةِ، فَلَمَّا اسْتَيْقَظَ وَحَاوَلَ الْهَرَبَ، سَقَطَ مَيِّتًا بَسَبَبِ ثِقَلِهَا. وَعَاشَ الْجَمِيعُ فِي أَمَانٍ بَعْدَ ذَلِكَ.\u200F",
+      japanese: "彼らは狼の腹を重い石でいっぱいにしました。狼が目を覚まして逃げようとすると、その重さのせいで倒れて死んでしまいました。その後、みんなは安全に（平和に）暮らしました。",
+      note: "【満たす対象と手段 مَلَأُوا... بِـ】\n動詞 \u200Fمَلَأَ\u200F（満たす）は、満たす場所（腹）を直接目的語に取り、何で満たしたかの「中身」は前置詞 \u200Fبِـ\u200F で表します（\u200Fبِالْحِجَارَةِ\u200F）。\n\n【時を表す接続詞 لَمَّا】\n\u200Fلَمَّا\u200F は過去形動詞の前に付くと、「〜した時、〜すると」という時の接続詞として働きます。\n\n【状態を表すハール مَيِّتًا】\n\u200Fسَقَطَ مَيِّتًا\u200F（死んだ状態で倒れた＝倒れて死んだ）。\u200Fمَيِّتًا\u200F が倒れた時の状態を表すため対格になっています。"
+    }
+  ],
+  questions: [
+    {
+      id: 20401,
+      type: "reading",
+      text: "なぜ少女は「赤ずきん」と呼ばれていたのですか？\n\u200Fلِمَاذَا أُطْلِقَ عَلَى الْفَتَاةِ اسْمُ \"ذَاتِ الْقُبَّعَةِ الْحَمْرَاءِ\"؟\u200F",
+      options: [
+        "\u200Fلِأَنَّ شَعْرَهَا كَانَ أَحْمَرَ\u200F (髪が赤かったから)",
+        "\u200Fلِأَنَّهَا كَانَتْ تَرْتَدِي دَائِمًا قُبَّعَةً حَمْرَاءَ\u200F (いつも赤い帽子をかぶっていたから)",
+        "\u200Fلِأَنَّهَا كَانَتْ تُحِبُّ التُّفَّاحَ\u200F (りんごが好きだったから)",
+        "\u200Fلِأَنَّهَا كَانَتْ تَبْكِي دَائِمًا\u200F (いつも泣いていたから)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fلِأَنَّهَا كَانَتْ تَرْتَدِيهَا دَائِمًا، أَطْلَقَ عَلَيْهَا النَّاسُ هَذَا الِاسْمَ.\u200F (おばあさんにもらった赤い帽子をいつも被っていたからです。)"
+    },
+    {
+      id: 20402,
+      type: "reading",
+      text: "お母さんは赤ずきんに何を持って行くよう頼みましたか？\n\u200Fمَاذَا طَلَبَتِ الْأُمُّ مِنْهَا أَنْ تَأْخُذَ إِلَى جَدَّتِهَا؟\u200F",
+      options: [
+        "\u200Fكَعْكَةً وَزُجَاجَةَ عَصِيرٍ\u200F (ケーキとジュースの瓶)",
+        "\u200Fخُبْزًا وَمَاءً\u200F (パンと水)",
+        "\u200Fدَوَاءً\u200F (薬)",
+        "\u200Fفَوَاكِهَ وَخُضْرَوَاتٍ\u200F (果物と野菜)"
+      ],
+      correctIndex: 0,
+      explanation: "\u200Fقَالَتْ لَهَا أُمُّهَا: خُذِي هَذِهِ الْكَعْكَةَ وَزُجَاجَةَ الْعَصِيرِ.\u200F (ケーキとジュースの瓶を持っていきなさいと頼みました。)"
+    },
+    {
+      id: 20403,
+      type: "reading",
+      text: "お母さんが赤ずきんにした警告は何ですか？\n\u200Fمَا هُوَ التَّحْذِيرُ الَّذِي وَجَّهَتْهُ الْأُمُّ لِلْفَتَاةِ؟\u200F",
+      options: [
+        "\u200Fأَلَّا تَتَحَدَّثَ مَعَ الْحَيَوَانَاتِ\u200F (動物と話さないこと)",
+        "\u200Fأَلَّا تَجْرِيَ بِسُرْعَةٍ\u200F (速く走らないこと)",
+        "\u200Fإِيَّاكِ أَنْ تَبْتَعِدِي عَنِ الطَّرِيقِ الْمُسْتَقِيمِ\u200F (決して寄り道をしないこと)",
+        "\u200Fأَلَّا تَتَأَخَّرَ حَتَّى اللَّيْلِ\u200F (夜まで遅くならないこと)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fحَذَّرَتْهَا قَائِلَةً: \"إِيَّاكِ أَنْ تَبْتَعِدِي عَنِ الطَّرِيقِ الْمُسْتَقِيمِ\".\u200F (「まっすぐな道から離れないように（寄り道しないように）」と警告しました。)"
+    },
+    {
+      id: 20404,
+      type: "reading",
+      text: "赤ずきんは森で誰に出会いましたか？\n\u200Fبِمَنْ الْتَقَتِ الْفَتَاةُ فِي الْغَابَةِ؟\u200F",
+      options: [
+        "\u200Fبِصَيَّادٍ\u200F (猟師に)",
+        "\u200Fبِذِئْبٍ شِرِّيرٍ\u200F (邪悪な狼に)",
+        "\u200Fبِطَائِرٍ جَمِيلٍ\u200F (美しい鳥に)",
+        "\u200Fبِجَدَّتِهَا\u200F (おばあさんに)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fفِي طَرِيقِهَا عَبْرَ الْغَابَةِ، الْتَقَتْ بِذِئْبٍ شِرِّيرٍ.\u200F (森の道中で邪悪な狼に出会いました。)"
+    },
+    {
+      id: 20405,
+      type: "reading",
+      text: "狼は赤ずきんをどのように騙して時間を稼ぎましたか？\n\u200Fكَيْفَ خَدَعَ الذِّئْبُ الْفَتَاةَ لِيَكْسِبَ الْوَقْتَ؟\u200F",
+      options: [
+        "\u200Fطَلَبَ مِنْهَا أَنْ تَلْعَبَ مَعَهُ\u200F (一緒に遊ぼうと誘った)",
+        "\u200Fأَقْنَعَهَا بِجَمْعِ بَعْضِ الزُّهُورِ\u200F (花を摘むように説得した)",
+        "\u200Fأَخْبَرَهَا بِقِصَّةٍ طَوِيلَةٍ\u200F (長い話を聞かせた)",
+        "\u200Fسَرَقَ قُبَّعَتَهَا\u200F (帽子を盗んだ)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fأَقْنَعَهَا بِجَمْعِ الزُّهُورِ، وَبَيْنَمَا انْشَغَلَتْ، أَسْرَعَ إِلَى الْمَنْزِلِ.\u200F (彼女が花を摘むのに夢中になっている間に、彼は急いで家に向かいました。)"
+    },
+    {
+      id: 20406,
+      type: "reading",
+      text: "狼はおばあさんの家に着くと、まず何をしましたか？\n\u200Fمَاذَا فَعَلَ الذِّئْبُ أَوَّلًا عِنْدَمَا وَصَلَ إِلَى مَنْزِلِ الْجَدَّةِ؟\u200F",
+      options: [
+        "\u200Fنَامَ فِي السَّرِيرِ فَوْرًا\u200F (すぐにベッドで寝た)",
+        "\u200Fابْتَلَعَ الْجَدَّةَ دُفْعَةً وَاحِدَةً\u200F (おばあさんを一口で丸飲みした)",
+        "\u200Fأَكَلَ الْكَعْكَةَ\u200F (ケーキを食べた)",
+        "\u200Fاخْتَبَأَ فِي الْخِزَانَةِ\u200F (クローゼットに隠れた)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fأَسْرَعَ الذِّئْبُ إِلَى مَنْزِلِ الْجَدَّةِ وَابْتَلَعَهَا دُفْعَةً وَاحِدَةً.\u200F (おばあさんを飲み込んだ後、服を着てベッドで待ち伏せました。)"
+    },
+    {
+      id: 20407,
+      type: "reading",
+      text: "赤ずきんが「どうして耳が大きいの？」と聞いた時、狼はどう答えましたか？\n\u200Fبِمَاذَا أَجَابَ الذِّئْبُ عِنْدَمَا سَأَلَتْهُ: \"لِمَاذَا أُذُنَاكِ كَبِيرَتَانِ\"؟\u200F",
+      options: [
+        "\u200Fلِأَرَاكِ جَيِّدًا\u200F (よく見るためだよ)",
+        "\u200Fلِأَسْمَعَكِ جَيِّدًا\u200F (よく聞くためだよ)",
+        "\u200Fلِأَشُمَّ الرَّائِحَةَ جَيِّدًا\u200F (匂いをよく嗅ぐためだよ)",
+        "\u200Fلِآكُلَكِ جَيِّدًا\u200F (よく食べるためだよ)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fأَجَابَ الذِّئْبُ: \"لِأَسْمَعَكِ بِهِمَا جَيِّدًا\".\u200F (「お前の声をよく聞くためだよ」と答えました。)"
+    },
+    {
+      id: 20408,
+      type: "reading",
+      text: "猟師はどうして狼が家にいることに気づきましたか？\n\u200Fكَيْفَ لَاحَظَ الصَّيَّادُ وُجُودَ الذِّئْبِ فِي الْمَنْزِلِ؟\u200F",
+      options: [
+        "\u200Fرَآهُ مِنَ النَّافِذَةِ\u200F (窓から彼を見た)",
+        "\u200Fسَمِعَ شَخِيرَ الذِّئْبِ الْعَالِي\u200F (狼の大きないびきを聞いた)",
+        "\u200Fسَمِعَ صُرَاخَ الْفَتَاةِ\u200F (少女の悲鳴を聞いた)",
+        "\u200Fشَمَّ رَائِحَةَ الذِّئْبِ\u200F (狼の匂いを嗅いだから)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fمَرَّ بِالْقُرْبِ مِنَ الْمَنْزِلِ وَسَمِعَ شَخِيرَ الذِّئْبِ الْعَالِي.\u200F (家の近くを通りかかり、大きないびきを聞いて中に入りました。)"
+    },
+    {
+      id: 20409,
+      type: "reading",
+      text: "猟師は赤ずきんとおばあさんをどうやって助け出しましたか？\n\u200Fكَيْفَ أَنْقَذَ الصَّيَّادُ الْفَتَاةَ وَجَدَّتَهَا؟\u200F",
+      options: [
+        "\u200Fأَيْقَظَ الذِّئْبَ وَضَرَبَهُ\u200F (狼を起こして叩いた)",
+        "\u200Fشَقَّ بَطْنَ الذِّئْبِ بِمِقَصٍّ\u200F (ハサミで狼の腹を切り裂いた)",
+        "\u200Fأَعْطَى الذِّئْبَ دَوَاءً\u200F (狼に薬を飲ませた)",
+        "\u200Fرَبَطَ الذِّئْبَ بِحَبْلٍ\u200F (狼を縄で縛った)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fشَقَّ الصَّيَّادُ بَطْنَ الذِّئْبِ بِمِقَصٍّ، فَخَرَجَتَا سَالِمَتَيْنِ.\u200F (ハサミで腹を裂き、二人を無事に救出しました。)"
+    },
+    {
+      id: 20410,
+      type: "reading",
+      text: "彼らは狼のお腹に何を詰めましたか？\n\u200Fبِمَاذَا مَلَأُوا بَطْنَ الذِّئْبِ؟\u200F",
+      options: [
+        "\u200Fبِالرِّمَالِ\u200F (砂)",
+        "\u200Fبِالْمَاءِ\u200F (水)",
+        "\u200Fبِالْحِجَارَةِ الثَّقِيلَةِ\u200F (重い石)",
+        "\u200Fبِالْأَخْشَابِ\u200F (木材)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fمَلَأُوا بَطْنَ الذِّئْبِ بِالْحِجَارَةِ الثَّقِيلَةِ.\u200F (重い石でいっぱいにして、狼が倒れるようにしました。)"
+    }
+  ]
+},
+{
+  id: 20500,
+  title: "嘘つきと狼 (الرَّاعِي الْكَاذِبُ وَالذِّئْبُ)",
+  category: "物語",
+  level: "物語",
+  contentVoweled: "\u200Fفِي قَدِيمِ الزَّمَانِ، كَانَ هُنَاكَ صَبِيٌّ رَاعٍ يَشْعُرُ بِالْمَلَلِ الشَّدِيدِ أَثْنَاءَ حِرَاسَةِ أَغْنَامِهِ عَلَى تَلٍّ قَرِيبٍ مِنَ الْقَرْيَةِ. ذَاتَ يَوْمٍ، قَرَّرَ الصَّبِيُّ أَنْ يَسْخَرَ مِنَ الْقَرَوِيِّينَ لِيَتَسَلَّى قَلِيلًا. فَرَكَضَ نَحْوَ الْقَرْيَةِ وَهُوَ يَصْرُخُ بِأَعْلَى صَوْتِهِ: \"ذِئْبٌ! ذِئْبٌ! سَاعِدُونِي، هُنَاكَ ذِئْبٌ يُهَاجِمُ الْخِرْفَانَ!\". سَمِعَ الْقَرَوِيُّونَ صُرَاخَهُ، فَتَرَكُوا أَعْمَالَهُمْ وَأَسْرَعُوا إِلَى التَّلِّ لِإِنْقَاذِ الصَّبِيِّ وَقَطِيعِهِ. وَلَكِنْ عِنْدَمَا وَصَلُوا، لَمْ يَجِدُوا أَيَّ ذِئْبٍ، بَيْنَمَا كَانَ الصَّبِيُّ يَضْحَكُ بِصَوْتٍ عَالٍ عَلَى خِدْعَتِهِ النَّاجِحَةِ. غَضِبَ الْقَرَوِيُّونَ وَحَذَّرُوهُ قَائِلِينَ: \"لَا تَصْرُخْ مُحَذِّرًا مِنْ ذِئْبٍ إِذَا لَمْ يَكُنْ هُنَاكَ ذِئْبٌ حَقِيقِيٌّ أَبَدًا!\". بَعْدَ بِضْعَةِ أَيَّامٍ، كَرَّرَ الصَّبِيُّ نَفْسَ الْخِدْعَةِ، فَصَعِدَ الْقَرَوِيُّونَ لِمُسَاعَدَتِهِ مَرَّةً أُخْرَى، لَكِنَّهُمُ اكْتَشَفُوا كَذِبَهُ وَعَادُوا مُسْتَائِينَ. وَفِي مَسَاءِ أَحَدِ الْأَيَّامِ، ظَهَرَ ذِئْبٌ حَقِيقِيٌّ جَائِعٌ وَبَدَأَ يُهَاجِمُ قَطِيعَ الْأَغْنَامِ بِشَرَاسَةٍ. شَعَرَ الصَّبِيُّ بِالرُّعْبِ الشَّدِيدِ، وَأَخَذَ يَصْرُخُ بَاكِيًا: \"ذِئْبٌ! ذِئْبٌ حَقِيقِيٌّ! أَرْجُوكُمْ أَنْقِذُونِي!\". سَمِعَ الْقَرَوِيُّونَ صِدَاءَ صَوْتِهِ، وَلَكِنَّهُمْ قَالُوا: \"إِنَّهُ يَكْذِبُ مَرَّةً أُخْرَى، لَنْ نُخْدَعَ بِهِ بَعْدَ الْآنَ\"، فَلَمْ يَذْهَبْ أَحَدٌ لِمُسَاعَدَتِهِ. وَخَسِرَ الصَّبِيُّ كُلَّ أَغْنَامِهِ لِيَتَعَلَّمَ أَنَّ الْكَاذِبَ لَا يُصَدِّقُهُ أَحَدٌ حَتَّى وَلَوْ قَالَ الْحَقِيقَةَ.\u200F",
+  contentPlain: "\u200Fفي قديم الزمان، كان هناك صبي راع يشعر بالملل الشديد أثناء حراسة أغنامه على تل قريب من القرية. ذات يوم، قرر الصبي أن يسخر من القرويين ليتسلى قليلا. فركض نحو القرية وهو يصرخ بأعلى صوته: \"ذئب! ذئب! ساعدوني، هناك ذئب يهاجم الخرفان!\". سمع القرويون صراخه، فتركوا أعمالهم وأسرعوا إلى التل لإنقاذ الصبي وقطيعه. ولكن عندما وصلوا، لم يجدوا أي ذئب، بينما كان الصبي يضحك بصوت عال على خدعته الناجحة. غضب القرويون وحذروه قائلين: \"لا تصرخ محذرا من ذئب إذا لم يكن هناك ذئب حقيقي أبدا!\". بعد بضعة أيام، كرر الصبي نفس الخدعة، فصعد القرويون لمساعدته مرة أخرى، لكنهم اكتشفوا كذبه وعادوا مستائين. وفي مساء أحد الأيام، ظهر ذئب حقيقي جائع وبدأ يهاجم قطيع الأغنام بشراسة. شعر الصبي بالرعب الشديد، وأخذ يصرخ باكيا: \"ذئب! ذئب حقيقي! أرجوكم أنقذوني!\". سمع القرويون صداء صوته، ولكنهم قالوا: \"إنه يكذب مرة أخرى، لن نخدع به بعد الآن\"، فلم يذهب أحد لمساعدته. وخسر الصبي كل أغنامه ليتعلم أن الكاذب لا يصدقه أحد حتى ولو قال الحقيقة.\u200F",
+  vocabList: [
+    { word: "\u200Fرَاعٍ\u200F", meaning: "羊飼い" },
+    { word: "\u200Fمَلَلٌ\u200F", meaning: "退屈・退屈さ" },
+    { word: "\u200Fأَغْنَامٌ\u200F", meaning: "羊（複数形）" },
+    { word: "\u200Fتَلٌّ\u200F", meaning: "丘" },
+    { word: "\u200Fسَخِرَ مِنْ\u200F", meaning: "〜をからかう・馬鹿にする" },
+    { word: "\u200Fقَرَوِيُّونَ\u200F", meaning: "村人たち" },
+    { word: "\u200Fيُهَاجِمُ\u200F", meaning: "攻撃する" },
+    { word: "\u200Fقَطِيعٌ\u200F", meaning: "群れ" },
+    { word: "\u200Fخِدْعَةٌ\u200F", meaning: "罠・嘘・悪ふざけ" },
+    { word: "\u200Fمُسْتَاءٌ\u200F", meaning: "不満な・腹を立てた" },
+    { word: "\u200Fشَرَاسَةٌ\u200F", meaning: "凶暴さ・激しさ" },
+    { word: "\u200Fرُعْبٌ\u200F", meaning: "恐怖" },
+    { word: "\u200Fيُصَدِّقُ\u200F", meaning: "信じる" },
+    { word: "\u200Fحَقِيقَةٌ\u200F", meaning: "真実・本当のこと" }
+  ],
+  sentences: [
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fفِي قَدِيمِ الزَّمَانِ، كَانَ هُنَاكَ صَبِيٌّ رَاعٍ يَشْعُرُ بِالْمَلَلِ الشَّدِيدِ أَثْنَاءَ حِرَاسَةِ أَغْنَامِهِ عَلَى تَلٍّ قَرِيبٍ مِنَ الْقَرْيَةِ.\u200F",
+      japanese: "昔々、村の近くの丘で羊の番をしながら、ひどい退屈を感じている羊飼いの少年がいました。",
+      note: "【欠尾名詞（イスム・マンクース） رَاعٍ】\n\u200Fرَاعٍ\u200F（羊飼い）は本来 \u200Fرَاعِي\u200F という語尾に \u200Fي\u200F（ヤー）を持つ名詞ですが、非限定で主格や属格の場合、語尾の \u200Fي\u200F が脱落してタンウィーン・カスラ（in）の \u200Fرَاعٍ\u200F になります。ここでは \u200Fصَبِيٌّ\u200F（少年）を修飾する主格の形容詞として働いています。\n\n【時を表す状況語 أَثْنَاءَ】\n\u200Fأَثْنَاءَ\u200F は「〜の間に」という意味で、後ろに名詞を置いてイダーファ構造を作ります。副詞的に機能するため、常に対格（a）をとります。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fذَاتَ يَوْمٍ، قَرَّرَ الصَّبِيُّ أَنْ يَسْخَرَ مِنَ الْقَرَوِيِّينَ لِيَتَسَلَّى قَلِيلًا.\u200F",
+      japanese: "ある日、少年は少し楽しもう（暇つぶしをしよう）と、村人たちをからかうことに決めました。",
+      note: "【前置詞を伴う動詞 يَسْخَرَ مِنْ】\n\u200Fسَخِرَ\u200F は「からかう、嘲笑する」という動詞で、対象を示す際には必ず前置詞 \u200Fمِنْ\u200F を伴います。\u200Fأَنْ\u200F の後ろなので接続法 \u200Fيَسْخَرَ\u200F になっています。\n\n【アリフ・マクスーラ上の隠れた母音 لِيَتَسَلَّى】\n\u200Fلِـ\u200F（〜のために）の後は接続法になるため、本来は語尾がファトハ（a）になるはずですが、\u200Fيَتَسَلَّى\u200F のように語尾がアリフ・マクスーラ（\u200Fى\u200F）で終わる動詞の場合、母音記号をつけることができないため、見た目の変化はありません（文法的には「隠れたファトハで接続法」とみなされます）。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fفَرَكَضَ نَحْوَ الْقَرْيَةِ وَهُوَ يَصْرُخُ بِأَعْلَى صَوْتِهِ: \"ذِئْبٌ! ذِئْبٌ! سَاعِدُونِي، هُنَاكَ ذِئْبٌ يُهَاجِمُ الْخِرْفَانَ!\".\u200F",
+      japanese: "そして彼は、ありったけの大声で「狼だ！狼だ！助けて、狼が羊を襲っている！」と叫びながら村の方へ走りました。",
+      note: "【状態を表すワウ وَهُوَ يَصْرُخُ】\nこの \u200Fوَ\u200F は「そして」ではなく、動作主の状態を表す「ワーウ・アルハール（状態のワウ）」です。「彼は走った、（彼が）叫んでいる状態で」と、名詞文全体をハール（状態節）として機能させます。\n\n【最上級のイダーファ بِأَعْلَى صَوْتِهِ】\n\u200Fأَعْلَى\u200F（最も高い）＋ \u200Fصَوْت\u200F（声）で「最も高い声で＝ありったけの大声で」という最上級の表現です。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fسَمِعَ الْقَرَوِيُّونَ صُرَاخَهُ، فَتَرَكُوا أَعْمَالَهُمْ وَأَسْرَعُوا إِلَى التَّلِّ لِإِنْقَاذِ الصَّبِيِّ وَقَطِيعِهِ.\u200F",
+      japanese: "村人たちは彼の叫び声を聞くと、仕事の手を止め、少年と彼の群れを救うために丘へ急行しました。",
+      note: "【規則男性複数と主格 الْقَرَوِيُّونَ】\n\u200Fالْقَرَوِيُّونَ\u200F（村人たち）は \u200Fسَمِعَ\u200F（聞いた）の主語であるため主格となります。規則男性複数の主格は \u200Fـُونَ\u200F の語尾を取ります。\n\n【動名詞のイダーファ لِإِنْقَاذِ الصَّبِيِّ】\n\u200Fلِـ\u200F ＋ \u200Fإِنْقَاذ\u200F（救うこと・第4形動名詞）＋ \u200Fالصَّبِيِّ\u200F（少年）。「少年を救うことのために」という名詞同士の結びつき（イダーファ）です。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fوَلَكِنْ عِنْدَمَا وَصَلُوا، لَمْ يَجِدُوا أَيَّ ذِئْبٍ، بَيْنَمَا كَانَ الصَّبِيُّ يَضْحَكُ بِصَوْتٍ عَالٍ عَلَى خِدْعَتِهِ النَّاجِحَةِ.\u200F",
+      japanese: "しかし彼らが到着したとき、狼は一匹も見当たらず、その一方で少年は自分の嘘が大成功したことを大声で笑っていました。",
+      note: "【否定の要求法 لَمْ يَجِدُوا】\n\u200Fلَمْ\u200F は現在形動詞を要求法（マジズーム）にします。\u200Fيَجِدُونَ\u200F（彼らは見つける）は要求法になると語尾のヌーンが脱落し、アリフが補われて \u200Fيَجِدُوا\u200F となります。\n\n【名詞の限定・非限定の一致 خِدْعَتِهِ النَّاجِحَةِ】\n\u200Fخِدْعَة\u200F（嘘・罠）には所有代名詞 \u200Fهِ\u200F が付いているため「限定名詞」の扱いになります。そのため、それを修飾する形容詞 \u200Fالنَّاجِحَةِ\u200F（成功した）にも定冠詞 \u200Fال\u200F をつけて限定性を一致させています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fغَضِبَ الْقَرَوِيُّونَ وَحَذَّرُوهُ قَائِلِينَ: \"لَا تَصْرُخْ مُحَذِّرًا مِنْ ذِئْبٍ إِذَا لَمْ يَكُنْ هُنَاكَ ذِئْبٌ حَقِيقِيٌّ أَبَدًا!\".\u200F",
+      japanese: "村人たちは怒り、彼を注意して言いました。「本当の狼がいない時に、狼が出たぞと警告して叫ぶんじゃない！」。",
+      note: "【複数のハール قَائِلِينَ】\n\u200Fقَائِلِينَ\u200F は「言う」の能動分詞の複数形です。村人たちが「言いながら（注意した）」という状態を表すため、対格の \u200Fـِينَ\u200F の形になっています。\n\n【禁止の لَا と要求法 لَا تَصْرُخْ】\n「〜するな」という禁止を表す \u200Fلَا\u200F（ラー・アンナーヒヤ）も、動詞を要求法にします。そのため語尾がスクーンの \u200Fتَصْرُخْ\u200F となっています。\n\n【条件文の否定 إِذَا لَمْ يَكُنْ】\n\u200Fإِذَا\u200F は「もし〜ならば」という条件を表し、後ろの \u200Fيَكُونُ\u200F（存在する）が \u200Fلَمْ\u200F によって要求法 \u200Fيَكُنْ\u200F となっています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fبَعْدَ بِضْعَةِ أَيَّامٍ، كَرَّرَ الصَّبِيُّ نَفْسَ الْخِدْعَةِ، فَصَعِدَ الْقَرَوِيُّونَ لِمُسَاعَدَتِهِ مَرَّةً أُخْرَى، لَكِنَّهُمُ اكْتَشَفُوا كَذِبَهُ وَعَادُوا مُسْتَائِينَ.\u200F",
+      japanese: "数日後、少年は全く同じ嘘を繰り返しました。村人たちは彼を助けるために再び登ってきましたが、彼の嘘に気づき、腹を立てて帰っていきました。",
+      note: "【同じであることを強調する نَفْسَ】\n\u200Fنَفْس\u200F は名詞の前でイダーファ構造を作ることで「全く同じ〜」という意味になります。\u200Fنَفْسَ الْخِدْعَةِ\u200F は「全く同じ嘘を」という目的語（対格）です。\n\n【状態を表すハール مُسْتَائِينَ】\n\u200Fمُسْتَاءٌ\u200F（不満な、腹を立てた）の複数形です。彼らが帰っていった時の状態を表すため、対格の \u200Fمُسْتَائِينَ\u200F となっています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fوَفِي مَسَاءِ أَحَدِ الْأَيَّامِ، ظَهَرَ ذِئْبٌ حَقِيقِيٌّ جَائِعٌ وَبَدَأَ يُهَاجِمُ قَطِيعَ الْأَغْنَامِ بِشَرَاسَةٍ.\u200F",
+      japanese: "そしてある日の夕方、本物の腹を空かせた狼が現れ、凶暴に羊の群れを襲い始めました。",
+      note: "【開始の動詞 بَدَأَ يُهَاجِمُ】\n\u200Fبَدَأَ\u200F は「始めた」という動詞ですが、後ろに現在形動詞（\u200Fيُهَاجِمُ\u200F）を置くことで、「〜し始める」という「開始の動詞（アフアール・アッシュルーア）」として働きます。この際、\u200Fأَنْ\u200F などを挟まずに直接現在形を置くのがルールです。\n\n【手段や様子を表す副詞句 بِشَرَاسَةٍ】\n前置詞 \u200Fبِـ\u200F に \u200Fشَرَاسَة\u200F（凶暴さ）を続けることで「激しく、凶暴に」という動作の様子を表します。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fشَعَرَ الصَّبِيُّ بِالرُّعْبِ الشَّدِيدِ، وَأَخَذَ يَصْرُخُ بَاكِيًا: \"ذِئْبٌ! ذِئْبٌ حَقِيقِيٌّ! أَرْجُوكُمْ أَنْقِذُونِي!\".\u200F",
+      japanese: "少年はひどい恐怖を感じ、泣きながら叫び始めました。「狼だ！本当の狼だ！お願いだ、助けてくれ！」。",
+      note: "【開始の動詞 أَخَذَ يَصْرُخُ】\n\u200Fأَخَذَ\u200F は本来「取る」という意味ですが、\u200Fبَدَأَ\u200F と同様に後ろに現在形動詞を置くと「〜し始める」という意味に変化します。「彼は叫び始めた」となります。\n\n【状態を表すハール بَاكِيًا】\n\u200Fبَاكِيًا\u200F は「泣いている」という能動分詞です。少年が「泣きながら（叫んだ）」という状態を表すため、対格（an）になっています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fسَمِعَ الْقَرَوِيُّونَ صِدَاءَ صَوْتِهِ، وَلَكِنَّهُمْ قَالُوا: \"إِنَّهُ يَكْذِبُ مَرَّةً أُخْرَى، لَنْ نُخْدَعَ بِهِ بَعْدَ الْآنَ\"، فَلَمْ يَذْهَبْ أَحَدٌ لِمُسَاعَدَتِهِ. وَخَسِرَ الصَّبِيُّ كُلَّ أَغْنَامِهِ لِيَتَعَلَّمَ أَنَّ الْكَاذِبَ لَا يُصَدِّقُهُ أَحَدٌ حَتَّى وَلَوْ قَالَ الْحَقِيقَةَ.\u200F",
+      japanese: "村人たちは彼の声の響きを聞きましたが、「彼はまた嘘をついている。もうあいつには騙されないぞ」と言って、誰も彼を助けに行きませんでした。少年は自分の羊をすべて失い、「嘘つきは、たとえ本当のことを言ったとしても誰にも信じてもらえない」という教訓を学んだのでした。",
+      note: "【未来の強い否定 لَنْ نُخْدَعَ】\n\u200Fلَنْ\u200F は未来の強い否定（絶対に〜しないだろう）を表し、後ろの動詞を接続法にします。\u200Fنُخْدَعَ\u200F は「騙す」の受動態・一人称複数で、「私たちは騙されないだろう」となります。\n\n【目的の لِـ と名詞句化 أَنَّ】\n\u200Fلِيَتَعَلَّمَ\u200F は「彼が学ぶために」という目的を表し、その学ぶ内容が \u200Fأَنَّ\u200F（〜ということ）から始まる名詞節として対格の位置に置かれています。"
+    }
+  ],
+  questions: [
+    {
+      id: 20501,
+      type: "reading",
+      text: "少年はどこで羊の番をしていましたか？\n\u200Fأَيْنَ كَانَ الصَّبِيُّ يَحْرُسُ أَغْنَامَهُ؟\u200F",
+      options: [
+        "\u200Fفِي الْغَابَةِ\u200F (森の中)",
+        "\u200Fعَلَى تَلٍّ قَرِيبٍ مِنَ الْقَرْيَةِ\u200F (村の近くの丘の上)",
+        "\u200Fبِجَانِبِ النَّهْرِ\u200F (川のそば)",
+        "\u200Fدَاخِلَ الْمَنْزِلِ\u200F (家の中)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fكَانَ يَحْرُسُ أَغْنَامَهُ عَلَى تَلٍّ قَرِيبٍ مِنَ الْقَرْيَةِ.\u200F (村の近くの丘で羊の番をしていました。)"
+    },
+    {
+      id: 20502,
+      type: "reading",
+      text: "少年は初め、どんな気分でしたか？\n\u200Fبِمَاذَا كَانَ يَشْعُرُ الصَّبِيُّ فِي الْبِدَايَةِ؟\u200F",
+      options: [
+        "\u200Fبِالْمَلَلِ الشَّدِيدِ\u200F (ひどい退屈)",
+        "\u200Fبِالْخَوْفِ مِنَ الذِّئْبِ\u200F (狼への恐怖)",
+        "\u200Fبِالْجُوعِ\u200F (空腹)",
+        "\u200Fبِالسَّعَادَةِ\u200F (幸せ)"
+      ],
+      correctIndex: 0,
+      explanation: "\u200Fكَانَ هُنَاكَ صَبِيٌّ رَاعٍ يَشْعُرُ بِالْمَلَلِ الشَّدِيدِ.\u200F (彼はひどく退屈を感じていました。)"
+    },
+    {
+      id: 20503,
+      type: "reading",
+      text: "暇つぶしのために少年は何をしましたか？\n\u200Fمَاذَا فَعَلَ الصَّبِيُّ لِيَتَسَلَّى قَلِيلًا؟\u200F",
+      options: [
+        "\u200Fنَامَ تَحْتَ شَجَرَةٍ\u200F (木の下で寝た)",
+        "\u200Fقَرَّرَ أَنْ يَسْخَرَ مِنَ الْقَرَوِيِّينَ وَيَصْرُخَ مُحَذِّرًا مِنْ ذِئْبٍ\u200F (村人をからかうと決め、狼が出たと叫んだ)",
+        "\u200Fبَدَأَ يَغْنِي لِلْخِرْفَانِ\u200F (羊たちに歌い始めた)",
+        "\u200Fعَادَ إِلَى الْمَنْزِلِ مُبَكِّرًا\u200F (早く家に帰った)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fرَكَضَ نَحْوَ الْقَرْيَةِ وَهُوَ يَصْرُخُ: ذِئْبٌ! ذِئْبٌ!\u200F (村人をからかって楽しむために、狼が出たと嘘の叫び声をあげました。)"
+    },
+    {
+      id: 20504,
+      type: "reading",
+      text: "最初に叫び声を聞いた時、村人たちはどうしましたか？\n\u200Fمَاذَا فَعَلَ الْقَرَوِيُّونَ فِي الْمَرَّةِ الْأُولَى الَّتِي سَمِعُوا فِيهَا صُرَاخَهُ؟\u200F",
+      options: [
+        "\u200Fتَجَاهَلُوهُ\u200F (彼を無視した)",
+        "\u200Fضَحِكُوا مَعَهُ\u200F (一緒に笑った)",
+        "\u200Fتَرَكُوا أَعْمَالَهُمْ وَأَسْرَعُوا لِإِنْقَاذِهِ\u200F (仕事を辞めて彼を救うために急いだ)",
+        "\u200Fخَافُوا وَاخْتَبَأُوا\u200F (恐れて隠れた)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fتَرَكُوا أَعْمَالَهُمْ وَأَسْرَعُوا إِلَى التَّلِّ لِإِنْقَاذِ الصَّبِيِّ وَقَطِيعِهِ.\u200F (仕事を放り出し、少年を助けるために丘へ急行しました。)"
+    },
+    {
+      id: 20505,
+      type: "reading",
+      text: "村人たちが丘に着いた時、少年は何をしていましたか？\n\u200Fمَاذَا كَانَ الصَّبِيُّ يَفْعَلُ عِنْدَمَا وَصَلَ الْقَرَوِيُّونَ إِلَى التَّلِّ؟\u200F",
+      options: [
+        "\u200Fكَانَ يَبْكِي مِنَ الْخَوْفِ\u200F (恐怖で泣いていた)",
+        "\u200Fكَانَ يُقَاتِلُ الذِّئْبَ\u200F (狼と戦っていた)",
+        "\u200Fكَانَ يَبْحَثُ عَنِ الْخِرْفَانِ\u200F (羊を探していた)",
+        "\u200Fكَانَ يَضْحَكُ بِصَوْتٍ عَالٍ عَلَى خِدْعَتِهِ\u200F (自分の嘘を大声で笑っていた)"
+      ],
+      correctIndex: 3,
+      explanation: "\u200Fلَمْ يَجِدُوا أَيَّ ذِئْبٍ، بَيْنَمَا كَانَ الصَّبِيُّ يَضْحَكُ عَلَى خِدْعَتِهِ.\u200F (狼はおらず、少年は嘘が成功して笑っていました。)"
+    },
+    {
+      id: 20506,
+      type: "reading",
+      text: "数日後、少年はどうしましたか？\n\u200Fمَاذَا فَعَلَ الصَّبِيُّ بَعْدَ بِضْعَةِ أَيَّامٍ؟\u200F",
+      options: [
+        "\u200Fاعْتَذَرَ لِلْقَرَوِيِّينَ\u200F (村人たちに謝った)",
+        "\u200Fكَرَّرَ نَفْسَ الْخِدْعَةِ مَرَّةً أُخْرَى\u200F (また同じ嘘を繰り返した)",
+        "\u200Fغَادَرَ الْقَرْيَةَ\u200F (村を去った)",
+        "\u200Fبَاعَ كُلَّ أَغْنَامِهِ\u200F (すべての羊を売った)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fكَرَّرَ الصَّبِيُّ نَفْسَ الْخِدْعَةِ، فَصَعِدَ الْقَرَوِيُّونَ لِمُسَاعَدَتِهِ مُجَدَّدًا.\u200F (彼は同じ嘘をもう一度繰り返しました。)"
+    },
+    {
+      id: 20507,
+      type: "reading",
+      text: "ある夕方、本当に起きたことは何ですか？\n\u200Fمَاذَا حَدَثَ بِالْفِعْلِ فِي مَسَاءِ أَحَدِ الْأَيَّامِ؟\u200F",
+      options: [
+        "\u200Fظَهَرَ ذِئْبٌ حَقِيقِيٌّ وَبَدَأَ يُهَاجِمُ الْأَغْنَامَ\u200F (本物の狼が現れ、羊たちを襲い始めた)",
+        "\u200Fسَرَقَ اللُّصُوصُ الْخِرْفَانَ\u200F (泥棒が羊を盗んだ)",
+        "\u200Fمَرِضَ الصَّبِيُّ فَقَدَ وَعْيَهُ\u200F (少年が病気になり意識を失った)",
+        "\u200Fهَطَلَ مَطَرٌ غَزِيرٌ\u200F (大雨が降った)"
+      ],
+      correctIndex: 0,
+      explanation: "\u200Fظَهَرَ ذِئْبٌ حَقِيقِيٌّ جَائِعٌ وَبَدَأَ يُهَاجِمُ قَطِيعَ الْأَغْنَامِ بِشَرَاسَةٍ.\u200F (本当の腹を空かせた狼が現れ、群れを襲いました。)"
+    },
+    {
+      id: 20508,
+      type: "reading",
+      text: "本物の狼が出た時、村人たちはなぜ助けに来なかったのですか？\n\u200Fلِمَاذَا لَمْ يَأْتِ الْقَرَوِيُّونَ لِمُسَاعَدَتِهِ عِنْدَمَا ظَهَرَ الذِّئْبُ الْحَقِيقِيّ؟\u200F",
+      options: [
+        "\u200Fلِأَنَّهُمْ لَمْ يَسْمَعُوا صَوْتَهُ\u200F (彼の声が聞こえなかったから)",
+        "\u200Fلِأَنَّهُمْ خَافُوا مِنَ الذِّئْبِ\u200F (狼が怖かったから)",
+        "\u200Fلِأَنَّهُمْ ظَنُّوا أَنَّهُ يَكْذِبُ مَرَّةً أُخْرَى\u200F (彼がまた嘘をついていると思ったから)",
+        "\u200Fلِأَنَّهُمْ كَانُوا نَائِمِينَ\u200F (彼らは寝ていたから)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fقَالُوا: إِنَّهُ يَكْذِبُ مَرَّةً أُخْرَى، فَلَمْ يَذْهَبْ أَحَدٌ.\u200F (「また嘘をついている」と考え、誰も助けに行きませんでした。)"
+    },
+    {
+      id: 20509,
+      type: "reading",
+      text: "少年の羊たちはどうなりましたか？\n\u200Fمَاذَا حَدَثَ لِأَغْنَامِ الصَّبِيِّ فِي النِّهَايَةِ؟\u200F",
+      options: [
+        "\u200Fأَنْقَذَهَا الْقَرَوِيُّونَ\u200F (村人たちが救った)",
+        "\u200Fخَسِرَ الصَّبِيُّ كُلَّ أَغْنَامِهِ\u200F (少年はすべての羊を失った)",
+        "\u200Fهَرَبَتْ إِلَى الْغَابَةِ\u200F (森へ逃げた)",
+        "\u200Fبَاعَهَا فِي السُّوقِ\u200F (市場で売った)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fخَسِرَ الصَّبِيُّ كُلَّ أَغْنَامِهِ لِأَنَّ أَحَدًا لَمْ يُسَاعِدْهُ.\u200F (誰も助けに来なかったため、羊をすべて失ってしまいました。)"
+    },
+    {
+      id: 20510,
+      type: "reading",
+      text: "この物語から少年が学んだ教訓は何ですか？\n\u200Fمَا هُوَ الدَّرْسُ الَّذِي تَعَلَّمَهُ الصَّبِيُّ مِنْ هَذِهِ الْقِصَّةِ؟\u200F",
+      options: [
+        "\u200Fيَجِبُ أَنْ يَحْمِلَ سِلَاحًا دَائِمًا\u200F (常に武器を持つべきだ)",
+        "\u200Fالذِّئَابُ تَخَافُ مِنَ النَّاسِ\u200F (狼は人を恐れる)",
+        "\u200Fالْكَاذِبُ لَا يُصَدِّقُهُ أَحَدٌ حَتَّى وَلَوْ قَالَ الْحَقِيقَةَ\u200F (嘘つきは、本当のことを言っても誰にも信じてもらえない)",
+        "\u200Fالْأَغْنَامُ حَيَوَانَاتٌ ضَعِيفَةٌ\u200F (羊は弱い動物だ)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fلِيَتَعَلَّمَ أَنَّ الْكَاذِبَ لَا يُصَدِّقُهُ أَحَدٌ حَتَّى وَلَوْ قَالَ الْحَقِيقَةَ.\u200F (嘘ばかりついていると、いざという時に本当のことを言っても信じてもらえない、という教訓です。)"
+    }
+  ]
+},
+{
+  id: 20600,
+  title: "3匹の子豚 (الْخَنَازِيرُ الثَّلَاثَةُ الصِّغَارُ)",
+  category: "物語",
+  level: "物語",
+  contentVoweled: "\u200Fفِي قَدِيمِ الزَّمَانِ، عَاشَتْ أُمٌّ مَعَ أَبْنَائِهَا الْخَنَازِيرِ الثَّلَاثَةِ. وَعِنْدَمَا كَبِرُوا، قَالَتْ لَهُمُ الْأُمُّ: \"لَقَدْ حَانَ الْوَقْتُ لِتَخْرُجُوا إِلَى الْعَالَمِ وَتَبْنُوا مَنَازِلَكُمْ بِأَنْفُسِكُمْ، وَلَكِنِ احْذَرُوا مِنَ الذِّئْبِ الشِّرِّيرِ\". بَنَى الْخِنْزِيرُ الْأَوَّلُ، الَّذِي كَانَ كَسُولًا، مَنْزِلَهُ مِنَ الْقَشِّ بِسُرْعَةٍ لِيَلْعَبَ. وَبَنَى الْخِنْزِيرُ الثَّانِي مَنْزِلَهُ مِنَ الْخَشَبِ، لِأَنَّهُ أَرَادَ أَنْ يَنْتَهِيَ سَرِيعًا أَيْضًا. أَمَّا الْخِنْزِيرُ الثَّالِثُ، فَقَدْ كَانَ مُجْتَهِدًا وَذَكِيًّا، فَبَنَى مَنْزِلًا قَوِيًّا مِنَ الطُّوبِ، وَرَغْمَ أَنَّ الْأَمْرَ اسْتَغْرَقَ وَقْتًا طَوِيلًا وَجُهْدًا كَبِيرًا، إِلَّا أَنَّهُ كَانَ آمِنًا. ذَاتَ يَوْمٍ، جَاءَ الذِّئْبُ الشِّرِّيرُ إِلَى مَنْزِلِ الْقَشِّ وَطَرَقَ الْبَابَ قَائِلًا: \"افْتَحِ الْبَابَ دَعْنِي أَدْخُلْ!\". فَرَدَّ الْخِنْزِيرُ: \"كَلَّا، لَنْ أَسْمَحَ لَكَ بِالدُّخُولِ أَبَدًا!\". فَغَضِبَ الذِّئْبُ وَقَالَ: \"سَأَنْفُخُ وَأَنْفُخُ حَتَّى أُطَيِّرَ مَنْزِلَكَ!\". وَبِالْفِعْلِ، نَفَخَ الذِّئْبُ بِقُوَّةٍ فَتَطَايَرَ مَنْزِلُ الْقَشِّ، فَهَرَبَ الْخِنْزِيرُ الْأَوَّلُ مَذْعُورًا إِلَى مَنْزِلِ أَخِيهِ الثَّانِي. لَاحَقَهُمَا الذِّئْبُ إِلَى مَنْزِلِ الْخَشَبِ، وَطَرَقَ الْبَابَ صَارِخًا بِالطَّلَبِ نَفْسِهِ. وَرَغْمَ رَفْضِهِمَا، نَفَخَ الذِّئْبُ بِقُوَّةٍ أَكْبَرَ فَتَحَطَّمَ الْمَنْزِلُ الْخَشَبِيُّ أَيْضًا، فَهَرَبَ الْأَخَوَانِ إِلَى مَنْزِلِ الطُّوبِ. وَقَفَ الذِّئْبُ أَمَامَ مَنْزِلِ الطُّوبِ وَنَفَخَ بِكُلِّ مَا أُوتِيَ مِنْ قُوَّةٍ، ثُمَّ نَفَخَ مَرَّةً أُخْرَى، لَكِنَّ الْمَنْزِلَ لَمْ يَتَحَرَّكْ إِنْشًا وَاحِدًا لِأَنَّهُ كَانَ مَتِينًا جِدًّا. شَعَرَ الذِّئْبُ بِالْإِحْبَاطِ وَالْغَضَبِ، فَقَرَّرَ أَنْ يَتَسَلَّقَ السَّطْحَ وَيَنْزِلَ مِنْ خِلَالِ الْمِدْخَنَةِ لِيَصِلَ إِلَى الْخَنَازِيرِ. أَدْرَكَ الْخِنْزِيرُ الثَّالِثُ خُطَّةَ الذِّئْبِ، فَأَشْعَلَ نَارًا كَبِيرَةً فِي الْمَوْقِدِ وَوَضَعَ فَوْقَهَا قِدْرًا ضَخْمَةً مَمْلُوءَةً بِالْمَاءِ الْمَغْلِيِّ. وَعِنْدَمَا انْزَلَقَ الذِّئْبُ مِنَ الْمِدْخَنَةِ، سَقَطَ مُبَاشَرَةً فِي الْمَاءِ الْمَغْلِيِّ، فَصَرَخَ مِنْ شِدَّةِ الْأَلَمِ وَهَرَبَ بِأَقْصَى سُرْعَةٍ، وَلَمْ يَعُدْ لِمُضَايَقَتِهِمْ أَبَدًا، وَعَاشَتِ الْخَنَازِيرُ فِي أَمَانٍ وَسَعَادَةٍ.\u200F",
+  contentPlain: "\u200Fفي قديم الزمان، عاشت أم مع أبنائها الخنازير الثلاثة. وعندما كبروا، قالت لهم الأم: \"لقد حان الوقت لتخرجوا إلى العالم وتبنوا منازلكم بأنفسكم، ولكن احذروا من الذئب الشرير\". بنى الخنزير الأول، الذي كان كسولا، منزله من القش بسرعة ليلعب. وبنى الخنزير الثاني منزله من الخشب، لأنه أراد أن ينتهي سريعا أيضا. أما الخنزير الثالث، فقد كان مجتهدا وذكيا، فبنى منزلا قويا من الطوب، ورغم أن الأمر استغرق وقتا طويلا وجهدا كبيرا، إلا أنه كان آمنا. ذات يوم، جاء الذئب الشرير إلى منزل القش وطرق الباب قائلا: \"افتح الباب دعني أدخل!\". فرد الخنزير: \"كلا، لن أسمح لك بالدخول أبدا!\". فغضب الذئب وقال: \"سأنفخ وأنفخ حتى أطير منزلك!\". وبالفعل، نفخ الذئب بقوة فتطاير منزل القش، فهرب الخنزير الأول مذعورا إلى منزل أخيه الثاني. لاحقهما الذئب إلى منزل الخشب، وطرق الباب صارخا بالطلب نفسه. ورغم رفضهما، نفخ الذئب بقوة أكبر فتحطم المنزل الخشبي أيضا، فهرب الأخوان إلى منزل الطوب. وقف الذئب أمام منزل الطوب ونفخ بكل ما أوتي من قوة، ثم نفخ مرة أخرى، لكن المنزل لم يتحرك إنشا واحدا لأنه كان متينا جدا. شعر الذئب بالإحباط والغضب، فقرر أن يتسلق السطح وينزل من خلال المدخنة ليصل إلى الخنازير. أدرك الخنزير الثالث خطة الذئب، فأشعل نارا كبيرة في الموقد ووضع فوقها قدرا ضخمة مملوءة بالماء المغلي. وعندما انزلق الذئب من المدخنة، سقط مباشرة في الماء المغلي، فصرخ من شدة الألم وهرب بأقصى سرعة، ولم يعد لمضايقتهم أبدا، وعاشت الخنازير في أمان وسعادة.\u200F",
+  vocabList: [
+    { word: "\u200Fخِنْزِيرٌ\u200F", meaning: "豚" },
+    { word: "\u200Fقَشٌّ\u200F", meaning: "藁（わら）" },
+    { word: "\u200Fخَشَبٌ\u200F", meaning: "木・木材" },
+    { word: "\u200Fطُوبٌ\u200F", meaning: "レンガ" },
+    { word: "\u200Fكَسُولٌ\u200F", meaning: "怠け者" },
+    { word: "\u200Fمُجْتَهِدٌ\u200F", meaning: "勤勉な・働き者" },
+    { word: "\u200Fنَفَخَ\u200F", meaning: "吹く・息を吹きかける" },
+    { word: "\u200Fتَطَايَرَ\u200F", meaning: "吹き飛ぶ・飛び散る" },
+    { word: "\u200Fمَذْعُورٌ\u200F", meaning: "怯えた・パニックになった" },
+    { word: "\u200Fمَتِينٌ\u200F", meaning: "頑丈な・丈夫な" },
+    { word: "\u200Fإِحْبَاطٌ\u200F", meaning: "挫折・フラストレーション" },
+    { word: "\u200Fمِدْخَنَةٌ\u200F", meaning: "煙突" },
+    { word: "\u200Fقِدْرٌ\u200F", meaning: "鍋（なべ）" },
+    { word: "\u200Fمَغْلِيٌّ\u200F", meaning: "沸騰した" }
+  ],
+  sentences: [
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fفِي قَدِيمِ الزَّمَانِ، عَاشَتْ أُمٌّ مَعَ أَبْنَائِهَا الْخَنَازِيرِ الثَّلَاثَةِ. وَعِنْدَمَا كَبِرُوا، قَالَتْ لَهُمُ الْأُمُّ: \"لَقَدْ حَانَ الْوَقْتُ لِتَخْرُجُوا إِلَى الْعَالَمِ وَتَبْنُوا مَنَازِلَكُمْ بِأَنْفُسِكُمْ، وَلَكِنِ احْذَرُوا مِنَ الذِّئْبِ الشِّرِّيرِ\".\u200F",
+      japanese: "昔々、お母さん豚が3匹の子豚たちと住んでいました。彼らが大きくなった時、お母さんは言いました。「お前たちが世界へ出て、自分たちで家を建てる時が来ました。でも、悪い狼には気をつけなさい」。",
+      note: "【数詞と形容詞の一致 الْخَنَازِيرِ الثَّلَاثَةِ】\n\u200Fالْخَنَازِيرِ\u200F は「豚」の複数形（属格）です。3から10の数を名詞の後ろに形容詞として置く場合、限定性や格を一致させますが、性は「単数形」の性に反転させます。「豚（خِنْزِير）」は男性名詞なので、数詞は女性形の \u200Fالثَّلَاثَةِ\u200F となります。\n\n【目的の لِـ と接続法 لِتَخْرُجُوا وَتَبْنُوا】\n「〜するために」という目的の \u200Fلِـ\u200F の後ろの動詞は接続法になります。複数形 \u200Fتَخْرُجُونَ\u200F と \u200Fتَبْنُونَ\u200F は、語尾のヌーンが脱落して \u200Fلِتَخْرُجُوا\u200F と \u200Fتَبْنُوا\u200F に変化しています。\n\n【前置詞を伴う動詞 احْذَرُوا مِنْ】\n\u200Fاحْذَرُوا\u200F は「警戒する、気をつける」の命令形・複数です。対象を示す際には必ず前置詞 \u200Fمِنْ\u200F を伴います。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fبَنَى الْخِنْزِيرُ الْأَوَّلُ، الَّذِي كَانَ كَسُولًا، مَنْزِلَهُ مِنَ الْقَشِّ بِسُرْعَةٍ لِيَلْعَبَ. وَبَنَى الْخِنْزِيرُ الثَّانِي مَنْزِلَهُ مِنَ الْخَشَبِ، لِأَنَّهُ أَرَادَ أَنْ يَنْتَهِيَ سَرِيعًا أَيْضًا.\u200F",
+      japanese: "怠け者だった一番目の豚は、遊ぶために急いで藁（わら）の家を建てました。二番目の豚は、彼も早く終わらせたかったので、木の家を建てました。",
+      note: "【関係代名詞の挿入 الَّذِي كَانَ كَسُولًا】\n\u200Fالْخِنْزِيرُ الْأَوَّلُ\u200F（一番目の豚）という限定名詞を修飾するために、関係代名詞 \u200Fالَّذِي\u200F を使って「怠け者であった（豚）」という節を挿入しています。\n\n【動名詞の副詞的用法 سَرِيعًا】\n\u200Fسَرِيعًا\u200F は「速い」という形容詞ですが、対格になることで「速く」という副詞として機能します。（絶対目的語の修飾語が独立した形です）。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fأَمَّا الْخِنْزِيرُ الثَّالِثُ، فَقَدْ كَانَ مُجْتَهِدًا وَذَكِيًّا، فَبَنَى مَنْزِلًا قَوِيًّا مِنَ الطُّوبِ، وَرَغْمَ أَنَّ الْأَمْرَ اسْتَغْرَقَ وَقْتًا طَوِيلًا وَجُهْدًا كَبِيرًا، إِلَّا أَنَّهُ كَانَ آمِنًا.\u200F",
+      japanese: "しかし三番目の豚は、働き者で賢かったので、レンガで頑丈な家を建てました。時間はかかり、大変な労力も必要でしたが、その家は安全でした。",
+      note: "【譲歩の構文 رَغْمَ أَنَّ ... إِلَّا أَنَّ】\n\u200Fرَغْمَ أَنَّ\u200F（〜であるにもかかわらず）で始まる節を受けた後、主節の頭に \u200Fإِلَّا أَنَّ\u200F を置いて「しかしながら〜だ」とつなぐ、アラビア語の非常に美しく論理的な譲歩の構文です。\n\n【時間がかかる اسْتَغْرَقَ】\n第10形動詞 \u200Fاسْتَغْرَقَ\u200F は「（時間が）かかる、没頭する」という意味で、ここでは目的語として \u200Fوَقْتًا\u200F（時間を）と \u200Fجُهْدًا\u200F（労力を）を対格で取っています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fذَاتَ يَوْمٍ، جَاءَ الذِّئْبُ الشِّرِّيرُ إِلَى مَنْزِلِ الْقَشِّ وَطَرَقَ الْبَابَ قَائِلًا: \"افْتَحِ الْبَابَ دَعْنِي أَدْخُلْ!\". فَرَدَّ الْخِنْزِيرُ: \"كَلَّا، لَنْ أَسْمَحَ لَكَ بِالدُّخُولِ أَبَدًا!\".\u200F",
+      japanese: "ある日、悪い狼が藁の家にやってきて、ドアを叩いて言いました。「ドアを開けろ、俺を中に入れろ！」。豚は答えました。「いやだ、絶対に中には入れないぞ！」。",
+      note: "【命令形に対する応答の要求法 دَعْنِي أَدْخُلْ】\n\u200Fدَعْنِي\u200F（私を放っておけ、私に〜させろ）という命令形の後ろに、その結果や目的として \u200Fأَدْخُلُ\u200F（私は入る）が続くと、アラビア語のルールにより動詞は要求法（マジズーム）になり、\u200Fأَدْخُلْ\u200F（無母音のスクーン）となります。\n\n【未来の強い否定 لَنْ أَسْمَحَ】\n\u200Fلَنْ\u200F は未来の強い否定（絶対に〜しない）を表し、後ろの動詞を接続法（ファトハ）にします。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fفَغَضِبَ الذِّئْبُ وَقَالَ: \"سَأَنْفُخُ وَأَنْفُخُ حَتَّى أُطَيِّرَ مَنْزِلَكَ!\". وَبِالْفِعْلِ، نَفَخَ الذِّئْبُ بِقُوَّةٍ فَتَطَايَرَ مَنْزِلُ الْقَشِّ، فَهَرَبَ الْخِنْزِيرُ الْأَوَّلُ مَذْعُورًا إِلَى مَنْزِلِ أَخِيهِ الثَّانِي.\u200F",
+      japanese: "狼は怒って言いました。「お前の家が吹き飛ぶまで、フーフー息を吹きかけてやる！」。そして本当に、狼が力強く息を吹くと藁の家は吹き飛び、一番目の豚はパニックになって二番目の兄弟の家へ逃げ込みました。",
+      note: "【目的・到達点を表す حَتَّى ＋ 接続法】\n\u200Fحَتَّى\u200F（〜するまで）の後ろに動詞が来る場合、その動詞は接続法（ファトハ）になります。ここでは第2形動詞 \u200Fطَيَّرَ\u200F（飛ばす）の現在形が \u200Fأُطَيِّرَ\u200F と変化しています。\n\n【状態を表すハール مَذْعُورًا】\n\u200Fمَذْعُورًا\u200F（怯えた状態で、パニックになって）は受動分詞の対格で、豚が逃げた時の状態（ハール）を表しています。\n\n【5つの名詞 أَخِيهِ】\n「兄弟」を意味する \u200Fأَخٌ\u200F は、格によって語尾の母音字が変わる「5つの名詞」の一つです。ここでは前置詞 \u200Fإِلَى مَنْزِلِ\u200F の後ろの属格（イダーファの修飾語）であるため、属格を示す \u200Fي\u200F が使われ \u200Fأَخِيهِ\u200F となっています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fلَاحَقَهُمَا الذِّئْبُ إِلَى مَنْزِلِ الْخَشَبِ، وَطَرَقَ الْبَابَ صَارِخًا بِالطَّلَبِ نَفْسِهِ. وَرَغْمَ رَفْضِهِمَا، نَفَخَ الذِّئْبُ بِقُوَّةٍ أَكْبَرَ فَتَحَطَّمَ الْمَنْزِلُ الْخَشَبِيُّ أَيْضًا، فَهَرَبَ الْأَخَوَانِ إِلَى مَنْزِلِ الطُّوبِ.\u200F",
+      japanese: "狼は2匹を木の家まで追いかけ、同じ要求を叫びながらドアを叩きました。2匹が拒否したにもかかわらず、狼がさらに強く息を吹くと木の家も壊れてしまい、兄弟はレンガの家へと逃げました。",
+      note: "【双数形の代名詞 هُمَا】\n\u200Fلَاحَقَهُمَا\u200F（彼は彼ら二人を追いかけた）や \u200Fرَفْضِهِمَا\u200F（彼ら二人の拒否）のように、対象が2匹の豚であるため、双数の代名詞 \u200Fهُمَا\u200F が使われています。\n\n【意味上の強調 نَفْسِهِ】\n\u200Fبِالطَّلَبِ نَفْسِهِ\u200F の \u200Fنَفْس\u200F は「同じ、自身」という意味で、直前の名詞を強調します。前置詞 \u200Fبِـ\u200F によって \u200Fالطَّلَبِ\u200F が属格になっているため、一致して \u200Fنَفْسِهِ\u200F と属格になります。\n\n【双数形の主格 الْأَخَوَانِ】\n\u200Fالْأَخَوَانِ\u200F は「2人の兄弟」を意味する双数形で、逃げた主語であるため主格を示す \u200Fـَانِ\u200F が付いています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fوَقَفَ الذِّئْبُ أَمَامَ مَنْزِلِ الطُّوبِ وَنَفَخَ بِكُلِّ مَا أُوتِيَ مِنْ قُوَّةٍ، ثُمَّ نَفَخَ مَرَّةً أُخْرَى، لَكِنَّ الْمَنْزِلَ لَمْ يَتَحَرَّكْ إِنْشًا وَاحِدًا لِأَنَّهُ كَانَ مَتِينًا جِدًّا.\u200F",
+      japanese: "狼はレンガの家の前に立ち、ありったけの力（与えられたすべての力）で息を吹きかけました。そしてもう一度吹きましたが、家はとても頑丈だったので1インチたりとも動きませんでした。",
+      note: "【受動態を用いた慣用表現 مَا أُوتِيَ مِنْ قُوَّةٍ】\n\u200Fأُوتِيَ\u200F は「与える（آتَى）」の受動態で、「彼が与えられた力＝彼が持っている力」を意味します。\u200Fبِكُلِّ مَا أُوتِيَ مِنْ قُوَّةٍ\u200F で「ありったけの力で」という美しい文学的表現になります。\n\n【空洞動詞の要求法 لَمْ يَتَحَرَّكْ】\n\u200Fلَمْ\u200F は過去の否定を表し、後ろの動詞を要求法（マジズーム）にします。動詞 \u200Fيَتَحَرَّكُ\u200F の語尾がスクーンになり \u200Fلَمْ يَتَحَرَّكْ\u200F となります。\n\n【単位を表す対格 إِنْشًا】\n\u200Fإِنْشًا\u200F（インチ）は、動詞の動作がどれくらい行われなかったかという程度や範囲を示すために対格になっています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fشَعَرَ الذِّئْبُ بِالْإِحْبَاطِ وَالْغَضَبِ، فَقَرَّرَ أَنْ يَتَسَلَّقَ السَّطْحَ وَيَنْزِلَ مِنْ خِلَالِ الْمِدْخَنَةِ لِيَصِلَ إِلَى الْخَنَازِيرِ.\u200F",
+      japanese: "狼は挫折と怒りを感じ、屋根に登って煙突の中から降りて豚たちのもとへ行くことを決めました。",
+      note: "【感情を表す前置詞 بِـ】\n\u200Fشَعَرَ\u200F（感じる）は、感情や感覚を表す際、直接目的語ではなく前置詞 \u200Fبِـ\u200F を伴って対象を示します。\n\n【接続法の連続 أَنْ يَتَسَلَّقَ ... وَيَنْزِلَ】\n\u200Fأَنْ\u200F（〜すること）の後の動詞は接続法（ファトハ）になり \u200Fيَتَسَلَّقَ\u200F となります。その後に \u200Fوَ\u200F（そして）で続く動詞も、同じく \u200Fأَنْ\u200F の影響を受けて接続法の \u200Fيَنْزِلَ\u200F となります。\n\n【目的の لِـ لِيَصِلَ】\nさらに「〜するために」という目的の \u200Fلِـ\u200F が付いているため、続く動詞も接続法の \u200Fيَصِلَ\u200F となります。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fأَدْرَكَ الْخِنْزِيرُ الثَّالِثُ ذَكِيُّ خُطَّةَ الذِّئْبِ، فَأَشْعَلَ نَارًا كَبِيرَةً فِي الْمَوْقِدِ وَوَضَعَ فَوْقَهَا قِدْرًا ضَخْمَةً مَمْلُوءَةً بِالْمَاءِ الْمَغْلِيِّ.\u200F",
+      japanese: "賢い三番目の豚は狼の計画に気づき、暖炉に大きな火をおこして、その上に熱湯（沸騰したお湯）でいっぱいの巨大な鍋を置きました。",
+      note: "【女性名詞としての قِدْر】\n\u200Fقِدْر\u200F（鍋）は、ターマルブータ（\u200Fة\u200F）を持たないにもかかわらず「女性名詞」として扱われる不規則な名詞の一つです。そのため、修飾する形容詞は \u200Fضَخْمَةً\u200F（巨大な）と \u200Fمَمْلُوءَةً\u200F（満たされた）のように女性形になっています。\n\n【受動分詞と前置詞 مَمْلُوءَةً بِـ】\n\u200Fمَمْلُوءَةً\u200F は「満たされた」という受動分詞です。何で満たされているかを示すためには前置詞 \u200Fبِـ\u200F が使われ、\u200Fبِالْمَاءِ\u200F（水で）となります。\n\n【能動分詞による形容詞 الْمَغْلِيِّ】\n\u200Fالْمَغْلِيِّ\u200F は「沸騰させられた＝沸騰した」という意味の受動分詞で、水を修飾する形容詞として属格になっています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fوَعِنْدَمَا انْزَلَقَ الذِّئْبُ مِنَ الْمِدْخَنَةِ، سَقَطَ مُبَاشَرَةً فِي الْمَاءِ الْمَغْلِيِّ، فَصَرَخَ مِنْ شِدَّةِ الْأَلَمِ وَهَرَبَ بِأَقْصَى سُرْعَةٍ، وَلَمْ يَعُدْ لِمُضَايَقَتِهِمْ أَبَدًا، وَعَاشَتِ الْخَنَازِيرُ فِي أَمَانٍ وَسَعَادَةٍ.\u200F",
+      japanese: "狼が煙突から滑り落ちてくると、そのまま熱湯の中へ真っ逆さまに落ちました。狼は激しい痛みで叫び声をあげ、猛スピードで逃げ出しました。彼は二度と豚たちを困らせに来ることはなく、子豚たちは安全で幸せに暮らしました。",
+      note: "【最上級のイダーファ بِأَقْصَى سُرْعَةٍ】\n\u200Fأَقْصَى\u200F（最高の、極限の）という最上級に名詞 \u200Fسُرْعَة\u200F（速さ）をイダーファさせることで「最高の速さで＝猛スピードで」という表現になります。\n\n【空洞動詞の要求法 لَمْ يَعُدْ】\n\u200Fلَمْ\u200F による要求法です。\u200Fيَعُودُ\u200F（彼は戻る）の語尾がスクーンになると \u200Fيَعُودْ\u200F となりますが、長母音のウー（و）と語尾のスクーンという2つの無母音が連続してしまうため、長母音が脱落して短母音化し \u200Fيَعُدْ\u200F となります。"
+    }
+  ],
+  questions: [
+    {
+      id: 20601,
+      type: "reading",
+      text: "お母さん豚は子豚たちに何をするように言いましたか？\n\u200Fمَاذَا طَلَبَتِ الْأُمُّ مِنَ الْخَنَازِيرِ الثَّلَاثَةِ أَنْ يَفْعَلُوا؟\u200F",
+      options: [
+        "\u200Fأَنْ يَبْحَثُوا عَنْ طَعَامٍ\u200F (食べ物を探すこと)",
+        "\u200Fأَنْ يَبْنُوا مَنَازِلَهُمْ بِأَنْفُسِهِمْ\u200F (自分たちで家を建てること)",
+        "\u200Fأَنْ يَذْهَبُوا إِلَى الْمَدْرَسَةِ\u200F (学校に行くこと)",
+        "\u200Fأَنْ يُحَارِبُوا الذِّئْبَ\u200F (狼と戦うこと)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fقَالَتْ لَهُمْ: لَقَدْ حَانَ الْوَقْتُ لِتَخْرُجُوا وَتَبْنُوا مَنَازِلَكُمْ بِأَنْفُسِكُمْ.\u200F (自分たちで家を建てる時が来ました、と言いました。)"
+    },
+    {
+      id: 20602,
+      type: "reading",
+      text: "怠け者の一番目の豚は何で家を建てましたか？\n\u200Fمِمَّا بَنَى الْخِنْزِيرُ الْأَوَّلُ الْكَسُولُ مَنْزِلَهُ؟\u200F",
+      options: [
+        "\u200Fمِنَ الطُّوبِ\u200F (レンガで)",
+        "\u200Fمِنَ الْخَشَبِ\u200F (木で)",
+        "\u200Fمِنَ الْقَشِّ\u200F (藁で)",
+        "\u200Fمِنَ الْحِجَارَةِ\u200F (石で)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fبَنَى مَنْزِلَهُ مِنَ الْقَشِّ بِسُرْعَةٍ لِيَلْعَبَ.\u200F (遊ぶために急いで藁の家を建てました。)"
+    },
+    {
+      id: 20603,
+      type: "reading",
+      text: "二番目の豚が木の家を建てた理由は何ですか？\n\u200Fلِمَاذَا بَنَى الْخِنْزِيرُ الثَّانِي مَنْزِلَهُ مِنَ الْخَشَبِ؟\u200F",
+      options: [
+        "\u200Fلِأَنَّ الْخَشَبَ كَانَ قَوِيًّا\u200F (木が強かったから)",
+        "\u200Fلِأَنَّهُ أَرَادَ أَنْ يَنْتَهِيَ سَرِيعًا أَيْضًا\u200F (彼も早く終わらせたかったから)",
+        "\u200Fلِأَنَّهُ لَمْ يَجِدْ قَشًّا\u200F (藁が見つからなかったから)",
+        "\u200Fلِأَنَّ أُمَّهُ طَلَبَتْ مِنْهُ ذَلِكَ\u200F (お母さんに頼まれたから)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fبَنَى مَنْزِلَهُ مِنَ الْخَشَبِ، لِأَنَّهُ أَرَادَ أَنْ يَنْتَهِيَ سَرِيعًا أَيْضًا.\u200F (彼も早く終わらせたかったので、木の家を建てました。)"
+    },
+    {
+      id: 20604,
+      type: "reading",
+      text: "三番目の豚の家はなぜ安全だったのですか？\n\u200Fلِمَاذَا كَانَ مَنْزِلُ الْخِنْزِيرِ الثَّالِثِ آمِنًا؟\u200F",
+      options: [
+        "\u200Fلِأَنَّهُ خَبَّأَهُ فِي الْغَابَةِ\u200F (森に隠したから)",
+        "\u200Fلِأَنَّهُ بَنَاهُ مِنَ الطُّوبِ الْقَوِيِّ\u200F (頑丈なレンガで建てたから)",
+        "\u200Fلِأَنَّهُ كَانَ بَعِيدًا جِدًّا\u200F (とても遠かったから)",
+        "\u200Fلِأَنَّهُ جَلَبَ حُرَّاسًا\u200F (護衛を連れてきたから)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fلِأَنَّهُ بَنَى مَنْزِلًا قَوِيًّا مِنَ الطُّوبِ، فُرَغْمَ الْجُهْدِ، كَانَ آمِنًا.\u200F (彼はレンガで頑丈な家を建てたため安全でした。)"
+    },
+    {
+      id: 20605,
+      type: "reading",
+      text: "狼は藁の家と木の家をどうやって壊しましたか？\n\u200Fكَيْفَ حَطَّمَ الذِّئْبُ مَنْزِلَ الْقَشِّ وَمَنْزِلَ الْخَشَبِ؟\u200F",
+      options: [
+        "\u200Fضَرَبَهُمَا بِفَأْسٍ\u200F (斧で叩き割った)",
+        "\u200Fأَشْعَلَ فِيهِمَا النَّارَ\u200F (火をつけた)",
+        "\u200Fنَفَخَ بِقُوَّةٍ حَتَّى تَطَايَرَا\u200F (強く息を吹いて吹き飛ばした)",
+        "\u200Fدَفَعَهُمَا بِيَدِهِ\u200F (手で押し倒した)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fنَفَخَ الذِّئْبُ بِقُوَّةٍ فَتَطَايَرَ مَنْزِلُ الْقَشِّ وَتَحَطَّمَ الْمَنْزِلُ الْخَشَبِيُّ.\u200F (強く息を吹いて家を吹き飛ばしました。)"
+    },
+    {
+      id: 20606,
+      type: "reading",
+      text: "レンガの家を吹き飛ばせなかった時、狼はどう感じましたか？\n\u200Fبِمَاذَا شَعَرَ الذِّئْبُ عِنْدَمَا لَمْ يَتَحَرَّكْ مَنْزِلُ الطُّوبِ؟\u200F",
+      options: [
+        "\u200Fبِالْفَرَحِ\u200F (喜び)",
+        "\u200Fبِالْجُوعِ الشَّدِيدِ\u200F (ひどい空腹)",
+        "\u200Fبِالْإِحْبَاطِ وَالْغَضَبِ\u200F (挫折と怒り)",
+        "\u200Fبِالْخَوْفِ\u200F (恐怖)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fشَعَرَ الذِّئْبُ بِالْإِحْبَاطِ وَالْغَضَبِ، فَقَرَّرَ أَنْ يَتَسَلَّقَ السَّطْحَ.\u200F (挫折と怒りを感じて、屋根に登ることを決めました。)"
+    },
+    {
+      id: 20607,
+      type: "reading",
+      text: "狼はどこからレンガの家に侵入しようとしましたか？\n\u200Fمِنْ أَيْنَ حَاوَلَ الذِّئْبُ الدُّخُولَ إِلَى مَنْزِلِ الطُّوبِ؟\u200F",
+      options: [
+        "\u200Fمِنَ النَّافِذَةِ\u200F (窓から)",
+        "\u200Fمِنَ الْبَابِ الْخَلْفِيِّ\u200F (裏口から)",
+        "\u200Fمِنْ خِلَالِ الْمِدْخَنَةِ\u200F (煙突から)",
+        "\u200Fمِنْ تَحْتِ الْأَرْضِ\u200F (地下から)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fقَرَّرَ أَنْ يَتَسَلَّقَ السَّطْحَ وَيَنْزِلَ مِنْ خِلَالِ الْمِدْخَنَةِ.\u200F (屋根に登り、煙突から降りることにしました。)"
+    },
+    {
+      id: 20608,
+      type: "reading",
+      text: "三番目の豚は煙突の下に何を準備しましたか？\n\u200Fمَاذَا جَهَّزَ الْخِنْزِيرُ الثَّالِثُ تَحْتَ الْمِدْخَنَةِ؟\u200F",
+      options: [
+        "\u200Fشَبَكَةً قَوِيَّةً\u200F (丈夫な網)",
+        "\u200Fقِدْرًا ضَخْمَةً مَمْلُوءَةً بِالْمَاءِ الْمَغْلِيِّ\u200F (熱湯でいっぱいの巨大な鍋)",
+        "\u200Fسَرِيرًا مُرِيحًا\u200F (快適なベッド)",
+        "\u200Fطَعَامًا لَذِيذًا\u200F (美味しい食べ物)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fأَشْعَلَ نَارًا وَوَضَعَ قِدْرًا ضَخْمَةً مَمْلُوءَةً بِالْمَاءِ الْمَغْلِيِّ.\u200F (火をおこし、沸騰したお湯がいっぱいの大きな鍋を置きました。)"
+    },
+    {
+      id: 20609,
+      type: "reading",
+      text: "煙突から落ちた狼はどうなりましたか？\n\u200Fمَاذَا حَدَثَ لِلذِّئْبِ عِنْدَمَا سَقَطَ مِنَ الْمِدْخَنَةِ؟\u200F",
+      options: [
+        "\u200Fسَقَطَ فِي الْمَاءِ الْمَغْلِيِّ، فَصَرَخَ وَهَرَبَ\u200F (熱湯に落ち、叫んで逃げた)",
+        "\u200Fأَكَلَ الْخَنَازِيرَ\u200F (豚たちを食べた)",
+        "\u200Fنَامَ فِي الْمَوْقِدِ\u200F (暖炉で寝た)",
+        "\u200Fأَصْبَحَ صَدِيقًا لَهُمْ\u200F (彼らの友達になった)"
+      ],
+      correctIndex: 0,
+      explanation: "\u200Fسَقَطَ مُبَاشَرَةً فِي الْمَاءِ الْمَغْلِيِّ، فَصَرَخَ مِنْ شِدَّةِ الْأَلَمِ وَهَرَبَ.\u200F (熱湯の中に落ちてしまい、痛みに叫びながら逃げました。)"
+    },
+    {
+      id: 20610,
+      type: "reading",
+      text: "その後、狼は再び豚たちの前に現れましたか？\n\u200Fهَلْ عَادَ الذِّئْبُ لِمُضَايَقَةِ الْخَنَازِيرِ مَرَّةً أُخْرَى؟\u200F",
+      options: [
+        "\u200Fنَعَمْ، عَادَ فِي الْيَوْمِ التَّالِي\u200F (はい、次の日に戻ってきた)",
+        "\u200Fنَعَمْ، مَعَ ذِئَابٍ أُخْرَى\u200F (はい、他の狼たちと一緒に)",
+        "\u200Fلَا، لَمْ يَعُدْ لِمُضَايَقَتِهِمْ أَبَدًا\u200F (いいえ、二度と彼らを困らせには戻らなかった)",
+        "\u200Fلَا، لِأَنَّهُ مَاتَ\u200F (いいえ、死んだから)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fوَلَمْ يَعُدْ لِمُضَايَقَتِهِمْ أَبَدًا، وَعَاشَتِ الْخَنَازِيرُ فِي أَمَانٍ.\u200F (彼は二度と戻ってくることはなく、豚たちは安全に暮らしました。)"
+    }
+  ]
+},
+{
+  id: 20700,
+  title: "羅生門 (بَوَّابَةُ رَاشُومُون)",
+  category: "物語",
+  level: "物語",
+  contentVoweled: "\u200Fذَاتَ مَسَاءٍ، وَقَفَ خَادِمٌ مَطْرُودٌ تَحْتَ بَوَّابَةِ رَاشُومُون يَنْتَظِرُ تَوَقُّفَ الْمَطَرِ. كَانَتْ مَدِينَةُ كِيُوتُو فِي حَالَةِ خَرَابٍ شَدِيدٍ، وَلَمْ يَكُنْ هُنَاكَ أَحَدٌ غَيْرُهُ. لَمْ يَكُنْ لَدَيْهِ مَكَانٌ يَذْهَبُ إِلَيْهِ وَلَا طَعَامٌ يَأْكُلُهُ. فَكَّرَ فِي نَفْسِهِ: \"هَلْ أَمُوتُ جُوعًا، أَمْ أُصْبِحُ لِصًّا؟\". لِلْبَحْثِ عَنْ مَكَانٍ لِلنَّوْمِ، صَعِدَ السُّلَّمَ إِلَى الطَّابِقِ الْعُلْوِيِّ لِلْبَوَّابَةِ. كَانَتْ هُنَاكَ جُثَثٌ كَثِيرَةٌ مَتْرُوكَةٌ هُنَاكَ. فَجْأَةً، رَأَى ضَوْءَ نَارٍ. كَانَتْ هُنَاكَ امْرَأَةٌ عَجُوزٌ مُخِيفَةٌ تَنْتِفُ الشَّعْرَ مِنْ جُثَّةِ امْرَأَةٍ. امْتَلَأَ قَلْبُهُ بِكَرَاهِيَةٍ شَدِيدَةٍ لِلشَّرِّ. اسْتَلَّ سَيْفَهُ، وَهَجَمَ عَلَى الْعَجُوزِ، وَثَبَّتَهَا عَلَى الْأَرْضِ. \"مَاذَا تَفْعَلِينَ؟\" صَرَخَ الْخَادِمُ. أَجَابَتِ الْعَجُوزُ وَهِيَ تَرْتَجِفُ: \"أَصْنَعُ شَعْرًا مُسْتَعَارًا مِنْ هَذَا الشَّعْرِ لِأَبِيعَهُ وَأَعِيشَ\". تَابَعَتْ قَائِلَةً: \"هَذِهِ الْمَرْأَةُ الْمَيِّتَةُ كَانَتْ تَبِيعُ لَحْمَ الثَّعَابِينِ عَلَى أَنَّهُ سَمَكٌ. لَوْ لَمْ تَفْعَلْ ذَلِكَ، لَمَاتَتْ جُوعًا. وَأَنَا أَيْضًا يَجِبُ أَنْ أَفْعَلَ هَذَا، وَإِلَّا سَأَمُوتُ جُوعًا\". عِنْدَمَا سَمِعَ ذَلِكَ، اخْتَفَى تَرَدُّدُهُ تَمَامًا، وَاسْتَيْقَظَتْ فِي قَلْبِهِ \"شَجَاعَةٌ\" لِيُصْبِحَ لِصًّا. \"إِذَنْ لَنْ تَلُومِينِي إِذَا سَلَبْتُكِ ثِيَابَكِ. فَأَنَا أَيْضًا سَأَمُوتُ جُوعًا إِنْ لَمْ أَفْعَلْ!\" قَالَ الْخَادِمُ. جَرَّدَهَا مِنْ مَلَابِسِهَا، وَرَكَلَهَا بَيْنَ الْجُثَثِ، ثُمَّ رَكَضَ نَازِلًا السُّلَّمَ نَحْوَ اللَّيْلِ الْمُظْلِمِ. وَلَمْ يَعْرِفْ أَحَدٌ أَيْنَ ذَهَبَ الْخَادِمُ بَعْدَ ذَلِكَ.\u200F",
+  contentPlain: "\u200Fذات مساء، وقف خادم مطرود تحت بوابة راشومون ينتظر توقف المطر. كانت مدينة كيوتو في حالة خراب شديد، ولم يكن هناك أحد غيره. لم يكن لديه مكان يذهب إليه ولا طعام يأكله. فكر في نفسه: \"هل أموت جوعا، أم أصبح لصا؟\". للبحث عن مكان للنوم، صعد السلم إلى الطابق العلوي للبوابة. كانت هناك جثث كثيرة متروكة هناك. فجأة، رأى ضوء نار. كانت هناك امرأة عجوز مخيفة تنتف الشعر من جثة امرأة. امتلأ قلبه بكراهية شديدة للشر. استل سيفه، وهجم على العجوز، وثبتها على الأرض. \"ماذا تفعلين؟\" صرخ الخادم. أجابت العجوز وهي ترتجف: \"أصنع شعرا مستعارا من هذا الشعر لأبيعه وأعيش\". تابعت قائلة: \"هذه المرأة الميتة كانت تبيع لحم الثعابين على أنه سمك. لو لم تفعل ذلك، لماتت جوعا. وأنا أيضا يجب أن أفعل هذا، وإلا سأموت جوعا\". عندما سمع ذلك، اختفى تردده تماما، واستيقظت في قلبه \"شجاعة\" ليصبح لصا. \"إذن لن تلوميني إذا سلبتك ثيابك. فأنا أيضا سأموت جوعا إن لم أفعل!\" قال الخادم. جردها من ملابسها، وركلها بين الجثث، ثم ركض نازلا السلم نحو الليل المظلم. ولم يعرف أحد أين ذهب الخادم بعد ذلك.\u200F",
+  vocabList: [
+    { word: "\u200Fخَادِمٌ\u200F", meaning: "下人・使用人" },
+    { word: "\u200Fمَطْرُودٌ\u200F", meaning: "追い出された・解雇された" },
+    { word: "\u200Fخَرَابٌ\u200F", meaning: "荒廃・廃墟" },
+    { word: "\u200Fجُوعٌ\u200F", meaning: "飢え・空腹" },
+    { word: "\u200Fلِصٌّ\u200F", meaning: "盗人・泥棒" },
+    { word: "\u200Fجُثَّةٌ\u200F", meaning: "死体（複数形: جُثَثٌ）" },
+    { word: "\u200Fكَرَاهِيَةٌ\u200F", meaning: "憎悪・憎しみ" },
+    { word: "\u200Fشَرٌّ\u200F", meaning: "悪" },
+    { word: "\u200Fيَرْتَجِفُ\u200F", meaning: "震える" },
+    { word: "\u200Fشَعْرٌ مُسْتَعَارٌ\u200F", meaning: "かつら（偽の髪）" },
+    { word: "\u200Fثُعْبَانٌ\u200F", meaning: "蛇（複数形: ثَعَابِينُ）" },
+    { word: "\u200Fتَرَدُّدٌ\u200F", meaning: "躊躇・ためらい" },
+    { word: "\u200Fسَلَبَ\u200F", meaning: "奪う・はぎ取る" },
+    { word: "\u200Fرَكَلَ\u200F", meaning: "蹴る" }
+  ],
+  sentences: [
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fذَاتَ مَسَاءٍ، وَقَفَ خَادِمٌ مَطْرُودٌ تَحْتَ بَوَّابَةِ رَاشُومُون يَنْتَظِرُ تَوَقُّفَ الْمَطَرِ. كَانَتْ مَدِينَةُ كِيُوتُو فِي حَالَةِ خَرَابٍ شَدِيدٍ، وَلَمْ يَكُنْ هُنَاكَ أَحَدٌ غَيْرُهُ.\u200F",
+      japanese: "ある夕暮れ、解雇された下人が、雨がやむのを待ちながら羅生門の下に立っていました。京都の都はひどく荒廃しており、彼以外には誰もいませんでした。",
+      note: "【受動分詞 مَطْرُودٌ】\n\u200Fمَطْرُودٌ\u200F は「追い出す、解雇する」という動詞 \u200Fطَرَدَ\u200F の受動分詞（マフウール型）で、「追い出された、解雇された」という意味になります。\n\n【状態を表す現在形動詞 يَنْتَظِرُ】\n\u200Fيَنْتَظِرُ\u200F（待つ）という現在形動詞が、主語である \u200Fخَادِمٌ\u200F（下人）の動作時の状態（ハール）を表しています。「待っている状態で、立った」となります。\n\n【過去の否定 لَمْ と空洞動詞の要求法 يَكُنْ】\n\u200Fلَمْ\u200F は過去の否定を表し、後ろに現在形動詞を置いて要求法（マジズーム）にします。\u200Fيَكُونُ\u200F は要求法になると語尾がスクーンになりますが、長母音（ウー）と無母音の連続を避けるため、真ん中の弱文字が脱落して \u200Fيَكُنْ\u200F となります。\n\n【كَانَ の主語と述語 لَمْ يَكُنْ هُنَاكَ أَحَدٌ】\n\u200Fكَانَ\u200F（ここでは \u200Fيَكُنْ\u200F）の主語は後ろに倒置された \u200Fأَحَدٌ\u200F（誰か）であるため、主格（un）になります。本来対格（a）になるべき述語は前に出た \u200Fهُنَاكَ\u200F（そこに）ですが、これは形が変化しない不変化詞（マブニー）であるため、見た目上の格変化は起こりません。\n\n【除外の表現 غَيْرُهُ】\n\u200Fغَيْر\u200F は「〜以外」という意味で、直前の名詞の格を引き継ぎます。ここでは \u200Fأَحَدٌ\u200F が主格なので \u200Fغَيْرُهُ\u200F と主格になり、「彼以外には誰も（いなかった）」という表現になります。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fلَمْ يَكُنْ لَدَيْهِ مَكَانٌ يَذْهَبُ إِلَيْهِ وَلَا طَعَامٌ يَأْكُلُهُ. فَكَّرَ فِي نَفْسِهِ: \"هَلْ أَمُوتُ جُوعًا، أَمْ أُصْبِحُ لِصًّا؟\".\u200F",
+      japanese: "彼には行くあてもなく、食べるものもありませんでした。彼は心の中で考えました。「餓死するべきか、それとも盗人になるべきか？」。",
+      note: "【كَانَ の主語と所有表現 لَمْ يَكُنْ لَدَيْهِ مَكَانٌ】\n\u200Fلَدَيْهِ\u200F は「彼のもとに」を表す状況語 \u200Fلَدَى\u200F に代名詞 \u200Fهِ\u200F がついたもので、これが \u200Fيَكُنْ\u200F（\u200Fكَانَ\u200F の要求法）の「述語」として前に出ています。本来の「主語」は後ろの \u200Fمَكَانٌ\u200F（場所）であるため、主格（un）となっています。\n\n【等位接続による格の一致 وَلَا طَعَامٌ】\n\u200Fطَعَامٌ\u200F（食べ物）が主格になっているのは、等位接続詞 \u200Fوَ\u200F によって前の \u200Fمَكَانٌ\u200F（主語・主格）と並列に結ばれ、その格を引き継いでいるためです。\u200Fلَا\u200F は否定を強調するために挿入されています。\n\n【非限定名詞を修飾する関係代名詞の省略 يَذْهَبُ إِلَيْهِ / يَأْكُلُهُ】\n\u200Fمَكَانٌ\u200F と \u200Fطَعَامٌ\u200F は定冠詞のない非限定名詞なので、関係代名詞を挟まずに動詞文が直接修飾します。「彼がそれへ行くところの場所」「彼がそれを食べる食べ物」というアラビア語特有の構造です。\n\n【熟語表現 فَكَّرَ فِي نَفْسِهِ】\n\u200Fفَكَّرَ\u200F は「考えた」、\u200Fفِي نَفْسِهِ\u200F は「彼自身の中で」を意味します。合わせて「心の中で考えた、自問自答した」という定番の表現になります。\n\n【選択疑問文 هَلْ ... أَمْ】\n「Aか、それともBか」と2つの選択肢を問う際、\u200Fهَلْ\u200F（〜か？）で始め、選択肢の間に \u200Fأَمْ\u200F（それとも）を置きます。\n\n【原因を表す対格 جُوعًا】\n\u200Fجُوعًا\u200F（飢え）は動名詞の対格で、動作の原因・理由を表し、「飢えのせいで死ぬ＝餓死する」という意味を作ります。\n\n【كَانَ の姉妹語と対格 أُصْبِحُ لِصًّا】\n\u200Fأُصْبِحُ\u200F（私は〜になる）は \u200Fكَانَ\u200F の姉妹語（動詞）であり、述語を対格（目的格）にする働きがあります。そのため、「盗人（に）」は \u200Fلِصًّا\u200F と対格のタンウィーン（an）が付いています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fلِلْبَحْثِ عَنْ مَكَانٍ لِلنَّوْمِ، صَعِدَ السُّلَّمَ إِلَى الطَّابِقِ الْعُلْوِيِّ لِلْبَوَّابَةِ. كَانَتْ هُنَاكَ جُثَثٌ كَثِيرَةٌ مَتْرُوكَةٌ هُنَاكَ.\u200F",
+      japanese: "寝る場所を探すため、彼は門の上層階へと続く階段を登りました。そこには、多くの死体が打ち捨てられていました。",
+      note: "【目的を表す لِـ と動名詞 لِلْبَحْثِ】\n\u200Fلِلْبَحْثِ\u200F は、前置詞 \u200Fلِـ\u200F（〜のために）に動名詞 \u200Fبَحْث\u200F（探すこと）が結合した形です。定冠詞の \u200Fال\u200F のアリフが脱落する綴りの規則があります。\n\n【非限定名詞 مَكَانٍ】\n\u200Fمَكَانٍ\u200F に定冠詞がついていないのは、特定の決まった場所ではなく、「（どこか）ある一つの場所」を探している段階だからです。\n\n【到達・連続を表す前置詞 إِلَى】\n\u200Fالسُّلَّمَ إِلَى الطَّابِقِ الْعُلْوِيِّ\u200F における前置詞 \u200Fإِلَى\u200F は、単なる方向ではなく「上層階へと続く、上層階まで至る」という到達や連続のニュアンスを持っています。\n\n【人間以外の複数形 جُثَثٌ】\n\u200Fجُثَثٌ\u200F（死体）は人間以外の複数形なので女性単数扱いになります。そのため、修飾する形容詞の \u200Fكَثِيرَةٌ\u200F（多くの）は女性単数形になっています。\n\n【受動分詞 مَتْرُوكَةٌ】\n\u200Fمَتْرُوكَةٌ\u200F は動詞 \u200Fتَرَكَ\u200F（残す・捨てる）の受動分詞（マフウール型）の女性形で、「残された、打ち捨てられた」という意味になります。これも \u200Fجُثَثٌ\u200F を修飾しているため女性単数形です。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fفَجْأَةً، رَأَى ضَوْءَ نَارٍ. كَانَتْ هُنَاكَ امْرَأَةٌ عَجُوزٌ مُخِيفَةٌ تَنْتِفُ الشَّعْرَ مِنْ جُثَّةِ امْرَأَةٍ.\u200F",
+      japanese: "突然、彼は火の光を見ました。そこには恐ろしい老婆がいて、女の死体から髪の毛を引き抜いていました。",
+      note: "【副詞的な対格 فَجْأَةً】\n\u200Fفَجْأَةً\u200F（突然）は名詞ですが、状態や状況を表すために対格（タンウィーンのファトハ）となることで、アラビア語における副詞的な役割を果たしています。\n\n【イダーファ構造 ضَوْءَ نَارٍ】\n\u200Fضَوْءَ\u200F（光）と \u200Fنَارٍ\u200F（火）のイダーファ構造で、「火の光を」という対格（目的語）になっています。\n\n【ターマルブータがつかない形容詞 عَجُوزٌ】\n\u200Fعَجُوزٌ\u200F は「年老いた」という意味の形容詞ですが、男女共通で使われる特殊なパターンの語彙です。そのため、修飾する名詞が \u200Fامْرَأَةٌ\u200F（女性）であっても女性形を示すターマルブータ（\u200Fة\u200F）はつきません。一方、それに続く \u200Fمُخِيفَةٌ\u200F（恐ろしい）は通常の形容詞なのでターマルブータがついています。\n\n【動詞 نَتَفَ と状態を表す現在形 تَنْتِفُ】\n\u200Fتَنْتِفُ\u200F（彼女は引き抜く）の原形（過去形）は第1形動詞の \u200Fنَتَفَ\u200F です。ここでは現在形動詞が、前にある非限定名詞 \u200Fامْرَأَةٌ عَجُوزٌ\u200F（老婆）の行っている状態をそのまま関係代名詞なしの形容詞節として修飾しています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fامْتَلَأَ قَلْبُهُ بِكَرَاهِيَةٍ شَدِيدَةٍ لِلشَّرِّ. اسْتَلَّ سَيْفَهُ، وَهَجَمَ عَلَى الْعَجُوزِ، وَثَبَّتَهَا عَلَى الْأَرْضِ.\u200F",
+      japanese: "彼の心は悪に対する激しい憎悪で満たされました。彼は剣を抜き、老婆に飛びかかって彼女を地面に押さえつけました。",
+      note: "【前置詞を伴う動詞 امْتَلَأَ بِـ】\n第8形動詞 \u200Fامْتَلَأَ\u200F（満ちる）は、何で満たされるかを示す時に必ず前置詞 \u200Fبِـ\u200F を伴います。\n\n【前置詞 لِـ による対象の明示 لِلشَّرِّ】\n\u200Fلِلشَّرِّ\u200F は \u200Fلِـ\u200F ＋ \u200Fالشَّرِّ\u200F（悪）で、「悪に対する（憎悪）」という方向や対象を示しています。\n\n【動詞と代名詞の結合 ثَبَّتَهَا】\n\u200Fثَبَّتَ\u200F は「固定する、押さえつける」という第2形動詞で、目的語の \u200Fهَا\u200F（彼女を）が結合しています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200F\"مَاذَا تَفْعَلِينَ؟!\" صَرَخَ الْخَادِمُ. أَجَابَتِ الْعَجُوزُ وَهِيَ تَرْتَجِفُ: \"أَصْنَعُ شَعْرًا مُسْتَعَارًا مِنْ هَذَا الشَّعْرِ لِأَبِيعَهُ وَأَعِيشَ\".\u200F",
+      japanese: "「何をしているんだ！」と下人は叫びました。老婆は震えながら答えました。「この髪の毛からカツラを作って、それを売って生きるためだよ」。",
+      note: "【ワウ・アルハール（状態のワウ） وَهِيَ تَرْتَجِفُ】\nこの \u200Fوَ\u200F は「そして」ではなく、同時進行の状態を表すワウです。\u200Fهِيَ تَرْتَجِفُ\u200F（彼女は震えている）という名詞文全体が、「彼女が震えている状態で（答えた）」という副詞節になります。\n\n【目的の لِـ と接続法 لِأَبِيعَهُ وَأَعِيشَ】\n\u200Fلِـ\u200F の後ろの動詞 \u200Fأَبِيعَ\u200F は接続法になり、目的語 \u200Fهُ\u200F が結びついています。続く \u200Fوَ\u200F の後ろの \u200Fأَعِيشَ\u200F も同じく接続法となり、「売るために、そして生きるために」となります。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fتَابَعَتْ قَائِلَةً: \"هَذِهِ الْمَرْأَةُ الْمَيِّتَةُ كَانَتْ تَبِيعُ لَحْمَ الثَّعَابِينِ عَلَى أَنَّهُ سَمَكٌ. لَوْ لَمْ تَفْعَلْ ذَلِكَ، لَمَاتَتْ جُوعًا. وَأَنَا أَيْضًا يَجِبُ أَنْ أَفْعَلَ هَذَا، وَإِلَّا سَأَمُوتُ جُوعًا\".\u200F",
+      japanese: "彼女は続けて言いました。「この死んだ女は、蛇の肉を魚だと偽って売っていたんだ。そうしなければ餓死していただろう。私もこれをしなければ、餓死してしまうんだ」。",
+      note: "【状態を表すハール قَائِلَةً】\n\u200Fقَائِلَةً\u200F（言いながら）は能動分詞の女性形・対格で、主語の状態を表します。\n\n【過去の反事実条件 لَوْ لَمْ ... لَمَاتَتْ】\n\u200Fلَوْ\u200F は「もし（過去に）〜だったなら」という非現実の条件を表す強力な接続詞です。\u200Fلَمْ تَفْعَلْ\u200F（しなかった）が条件節で、帰結節の \u200Fمَاتَتْ\u200F（死んだだろう）の頭には結果を強調する \u200Fلَـ\u200F が付きます。\n\n【省略された条件 وَإِلَّا】\n\u200Fوَإِلَّا\u200F は \u200Fوَ إِنْ لَا\u200F が融合した形で「さもなければ（もしそうしなければ）」という表現です。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fعِنْدَمَا سَمِعَ ذَلِكَ، اخْتَفَى تَرَدُّدُهُ تَمَامًا. وَاسْتَيْقَظَتْ فِي قَلْبِهِ \"شَجَاعَةٌ\" لِيُصْبِحَ لِصًّا.\u200F",
+      japanese: "それを聞いた時、彼の躊躇（ためらい）は完全に消え去りました。そして盗人になるための「勇気」が、彼の心の中に目覚めたのです。",
+      note: "【主語の配置 اسْتَيْقَظَتْ فِي قَلْبِهِ \"شَجَاعَةٌ\"】\n動詞 \u200Fاسْتَيْقَظَتْ\u200F（目覚めた・女性形）の主語は後ろにある \u200Fشَجَاعَةٌ\u200F（勇気）です。アラビア語では前置詞句 \u200Fفِي قَلْبِهِ\u200F（彼の心の中に）を動詞と主語の間に挟むことで、ドラマチックな語順を作ることができます。\n\n【目的の لِـ と変化の動詞 لِيُصْبِحَ】\n\u200Fلِيُصْبِحَ\u200F は目的の \u200Fلِـ\u200F ＋接続法の動詞です。続く \u200Fلِصًّا\u200F（盗人に）は \u200Fأَصْبَحَ\u200F の述語なので対格（an）になります。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200F\"إِذَنْ لَنْ تَلُومِينِي إِذَا سَلَبْتُكِ ثِيَابَكِ. فَأَنَا أَيْضًا سَأَمُوتُ جُوعًا إِنْ لَمْ أَفْعَلْ!\" قَالَ الْخَادِمُ.\u200F",
+      japanese: "「それなら、俺がお前の着物を剥ぎ取っても恨むまいな。俺もそうしなければ餓死する体なのだ！」と下人は言いました。",
+      note: "【未来の強い否定と保護のヌーン لَنْ تَلُومِينِي】\n\u200Fلَنْ\u200F は未来の否定を表します。\u200Fتَلُومِينَ\u200F（あなたは責める・女性形）が接続法になって語尾のヌーンが脱落し \u200Fتَلُومِي\u200F となります。そこに「私を」という目的語 \u200Fي\u200F をつなぐため、保護のヌーン（\u200Fنِ\u200F）が挿入されて \u200Fتَلُومِينِي\u200F となります。\n\n【二重目的語の動詞 سَلَبْتُكِ ثِيَابَكِ】\n\u200Fسَلَبَ\u200F（奪う）は目的語を2つ取ります。第1目的語の \u200Fكِ\u200F（あなたから）が動詞に接続し、第2目的語の \u200Fثِيَابَكِ\u200F（あなたの服を）が対格で続いています。\n\n【条件文 إِنْ لَمْ أَفْعَلْ】\n\u200Fإِنْ\u200F は「もし〜ならば」という条件詞です。\u200Fلَمْ\u200F と組み合わさることで「もししなかったら」となり、動詞は要求法 \u200Fأَفْعَلْ\u200F となります。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fجَرَّدَهَا مِنْ مَلَابِسِهَا، وَرَكَلَهَا بَيْنَ الْجُثَثِ، ثُمَّ رَكَضَ نَازِلًا السُّلَّمَ نَحْوَ اللَّيْلِ الْمُظْلِمِ. وَلَمْ يَعْرِفْ أَحَدٌ أَيْنَ ذَهَبَ الْخَادِمُ بَعْدَ ذَلِكَ.\u200F",
+      japanese: "彼は老婆から着物をはぎ取り、死体の中へ蹴り倒すと、暗い夜に向かって階段を駆け下りていきました。その後、下人がどこへ行ったのか、誰も知りません。",
+      note: "【動詞と前置詞 جَرَّدَهَا مِنْ】\n\u200Fجَرَّدَ\u200F（はぎ取る）は対象を直接目的語（\u200Fهَا\u200F）で取り、何をはぎ取ったのかを前置詞 \u200Fمِنْ\u200F で示します。\n\n【状態を表すハール نَازِلًا】\n\u200Fنَازِلًا\u200F（降りながら）は能動分詞の対格で、下人が走っている時の状態（ハール）を表しています。\n\n【名詞節を作る疑問詞 أَيْنَ】\n\u200Fأَيْنَ\u200F（どこへ）は疑問詞ですが、ここでは \u200Fيَعْرِفْ\u200F（知る）の目的語となる名詞節「下人がどこへ行ったのかを」を導く役割をしています。"
+    }
+  ],
+  questions: [
+    {
+      id: 20701,
+      type: "reading",
+      text: "下人は雨がやむのをどこで待っていましたか？\n\u200Fأَيْنَ كَانَ الْخَادِمُ يَنْتَظِرُ تَوَقُّفَ الْمَطَرِ؟\u200F",
+      options: [
+        "\u200Fفِي مَنْزِلِهِ\u200F (自分の家で)",
+        "\u200Fتَحْتَ بَوَّابَةِ رَاشُومُون\u200F (羅生門の下で)",
+        "\u200Fفِي الْغَابَةِ\u200F (森の中で)",
+        "\u200Fفِي السُّوقِ\u200F (市場で)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fوَقَفَ خَادِمٌ مَطْرُودٌ تَحْتَ بَوَّابَةِ رَاشُومُون يَنْتَظِرُ تَوَقُّفَ الْمَطَرِ.\u200F (羅生門の下に立ち、雨がやむのを待っていました。)"
+    },
+    {
+      id: 20702,
+      type: "reading",
+      text: "下人の心の中にあった究極の選択は何ですか？\n\u200Fمَا هُوَ الْخِيَارُ الصَّعْبُ الَّذِي كَانَ يُفَكِّرُ فِيهِ الْخَادِمُ؟\u200F",
+      options: [
+        "\u200Fالْعَوْدَةُ إِلَى سَيِّدِهِ أَمِ السَّفَرُ\u200F (主人に戻るか、旅に出るか)",
+        "\u200Fالْمَوْتُ جُوعًا أَمْ أَنْ يُصْبِحَ لِصًّا\u200F (餓死するか、盗人になるか)",
+        "\u200Fالنَّوْمُ أَمِ الْعَمَلُ\u200F (寝るか、働くか)",
+        "\u200Fشِرَاءُ طَعَامٍ أَمْ مَلَابِسَ\u200F (食べ物を買うか、服を買うか)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fفَكَّرَ فِي نَفْسِهِ: \"هَلْ أَمُوتُ جُوعًا، أَمْ أُصْبِحُ لِصًّا؟\".\u200F (「餓死するか、盗人になるか」という葛藤を抱えていました。)"
+    },
+    {
+      id: 20703,
+      type: "reading",
+      text: "門の上層階には何がありましたか？\n\u200Fمَاذَا كَانَ يُوجَدُ فِي الطَّابِقِ الْعُلْوِيِّ لِلْبَوَّابَةِ؟\u200F",
+      options: [
+        "\u200Fكُنُوزٌ مَخْفِيَّةٌ\u200F (隠された宝)",
+        "\u200Fجُثَثٌ كَثِيرَةٌ مَتْرُوكَةٌ\u200F (捨てられた多くの死体)",
+        "\u200Fأَشْخَاصٌ نَائِمُونَ\u200F (眠っている人々)",
+        "\u200Fطَعَامٌ وَشَرَابٌ\u200F (食べ物と飲み物)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fكَانَتْ هُنَاكَ جُثَثٌ كَثِيرَةٌ مَتْرُوكَةٌ هُنَاكَ.\u200F (門の上にはたくさんの死体が放置されていました。)"
+    },
+    {
+      id: 20704,
+      type: "reading",
+      text: "老婆は女の死体に何をしていましたか？\n\u200Fمَاذَا كَانَتِ الْعَجُوزُ تَفْعَلُ بِجُثَّةِ الْمَرْأَةِ؟\u200F",
+      options: [
+        "\u200Fكَانَتْ تَسْرِقُ مَلَابِسَهَا\u200F (服を盗んでいた)",
+        "\u200Fكَانَتْ تُصَلِّي مِنْ أَجْلِهَا\u200F (彼女のために祈っていた)",
+        "\u200Fكَانَتْ تَنْتِفُ الشَّعْرَ مِنْ رَأْسِهَا\u200F (頭から髪の毛を引き抜いていた)",
+        "\u200Fكَانَتْ تُخْفِيهَا\u200F (彼女を隠していた)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fكَانَتْ هُنَاكَ امْرَأَةٌ عَجُوزٌ مُخِيفَةٌ تَنْتِفُ الشَّعْرَ مِنْ جُثَّةِ امْرَأَةٍ.\u200F (恐ろしい老婆が女の死体から髪の毛を抜いていました。)"
+    },
+    {
+      id: 20705,
+      type: "reading",
+      text: "その光景を見た下人は最初、どのような感情を抱きましたか？\n\u200Fمَا هُوَ الشُّعُورُ الَّذِي مَلَأَ قَلْبَ الْخَادِمِ فِي الْبِدَايَةِ عِنْدَمَا رَأَى ذَلِكَ؟\u200F",
+      options: [
+        "\u200Fشَفَقَةٌ شَدِيدَةٌ عَلَى الْعَجُوزِ\u200F (老婆への強い同情)",
+        "\u200Fخَوْفٌ وَرُعْبٌ\u200F (恐怖と怯え)",
+        "\u200Fفَرَحٌ بِوُجُودِ شَخْصٍ آخَرَ\u200F (他に人がいたことへの喜び)",
+        "\u200Fكَرَاهِيَةٌ شَدِيدَةٌ لِلشَّرِّ\u200F (悪に対する激しい憎悪)"
+      ],
+      correctIndex: 3,
+      explanation: "\u200Fامْتَلَأَ قَلْبُهُ بِكَرَاهِيَةٍ شَدِيدَةٍ لِلشَّرِّ.\u200F (彼の心は悪に対する強い憎しみで満たされました。)"
+    },
+    {
+      id: 20706,
+      type: "reading",
+      text: "老婆はなぜ髪の毛を抜いていたのですか？\n\u200Fلِمَاذَا كَانَتِ الْعَجُوزُ تَنْتِفُ الشَّعْرَ؟\u200F",
+      options: [
+        "\u200Fلِتَصْنَعَ مِنْهُ شَعْرًا مُسْتَعَارًا لِتَبِيعَهُ وَتَعِيشَ\u200F (カツラを作って売り、生きるため)",
+        "\u200Fلِتَجْعَلَ الْمَيِّتَةَ قَبِيحَةً\u200F (死体を醜くするため)",
+        "\u200Fلِتَسْتَخْدِمَهُ فِي السِّحْرِ\u200F (魔法に使うため)",
+        "\u200Fلِتَتَدَفَّأَ بِهِ\u200F (それで暖まるため)"
+      ],
+      correctIndex: 0,
+      explanation: "\u200Fأَجَابَتْ: أَصْنَعُ شَعْرًا مُسْتَعَارًا مِنْ هَذَا الشَّعْرِ لِأَبِيعَهُ وَأَعِيشَ.\u200F (抜いた髪でカツラを作り、売って生き延びるためでした。)"
+    },
+    {
+      id: 20707,
+      type: "reading",
+      text: "髪を抜かれていた死体の女は、生前何をしていましたか？\n\u200Fمَاذَا كَانَتْ تَفْعَلُ الْمَرْأَةُ الْمَيِّتَةُ فِي حَيَاتِهَا حَسَبَ كَلَامِ الْعَجُوزِ؟\u200F",
+      options: [
+        "\u200Fكَانَتْ تَسْرِقُ الْمَلَابِسَ\u200F (服を盗んでいた)",
+        "\u200Fكَانَتْ تَبِيعُ لَحْمَ الثَّعَابِينِ عَلَى أَنَّهُ سَمَكٌ\u200F (蛇の肉を魚だと偽って売っていた)",
+        "\u200Fكَانَتْ تَقْتُلُ النَّاسَ\u200F (人を殺していた)",
+        "\u200Fكَانَتْ تَنْتِفُ شَعْرَ الْأَحْيَاءِ\u200F (生きている人の髪を抜いていた)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fكَانَتْ تَبِيعُ لَحْمَ الثَّعَابِينِ عَلَى أَنَّهُ سَمَكٌ.\u200F (彼女は生きるために、蛇の肉を魚として売っていました。)"
+    },
+    {
+      id: 20708,
+      type: "reading",
+      text: "老婆の話を聞いた後、下人の心はどう変わりましたか？\n\u200Fكَيْفَ تَغَيَّرَ قَلْبُ الْخَادِمِ بَعْدَ أَنْ سَمِعَ قِصَّةَ الْعَجُوزِ؟\u200F",
+      options: [
+        "\u200Fشَعَرَ بِالذَّنْبِ وَتَرَكَهَا\u200F (罪悪感を感じて彼女を放っておいた)",
+        "\u200Fقَرَّرَ أَنْ يُسَاعِدَهَا فِي صُنْعِ الشَّعْرِ\u200F (カツラ作りを手伝うことにした)",
+        "\u200Fاخْتَفَى تَرَدُّدُهُ وَاسْتَيْقَظَتْ فِيهِ شَجَاعَةٌ لِيُصْبِحَ لِصًّا\u200F (ためらいが消え、盗人になる勇気が目覚めた)",
+        "\u200Fقَرَّرَ أَنْ يَنْتَحِرَ\u200F (自殺することを決めた)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fاخْتَفَى تَرَدُّدُهُ تَمَامًا، وَاسْتَيْقَظَتْ فِي قَلْبِهِ \"شَجَاعَةٌ\" لِيُصْبِحَ لِصًّا.\u200F (生きるために悪をなすという老婆の論理を聞き、盗人になる決心がつきました。)"
+    },
+    {
+      id: 20709,
+      type: "reading",
+      text: "下人は老婆に対して何をしましたか？\n\u200Fمَاذَا فَعَلَ الْخَادِمُ بِالْعَجُوزِ فِي النِّهَايَةِ؟\u200F",
+      options: [
+        "\u200Fقَتَلَهَا بِسَيْفِهِ\u200F (剣で彼女を殺した)",
+        "\u200Fأَعْطَاهَا بَعْضَ الطَّعَامِ\u200F (食べ物を与えた)",
+        "\u200Fأَخَذَ مِنْهَا الشَّعْرَ الْمُسْتَعَارَ\u200F (彼女からカツラを奪った)",
+        "\u200Fجَرَّدَهَا مِنْ مَلَابِسِهَا وَرَكَلَهَا\u200F (彼女の服をはぎ取り、蹴り飛ばした)"
+      ],
+      correctIndex: 3,
+      explanation: "\u200Fجَرَّدَهَا مِنْ مَلَابِسِهَا، وَرَكَلَهَا بَيْنَ الْجُثَثِ.\u200F (「俺もそうしなければ餓死するのだ」と言って、彼女の服を奪いました。)"
+    },
+    {
+      id: 20710,
+      type: "reading",
+      text: "下人は最後にどこへ行きましたか？\n\u200Fإِلَى أَيْنَ ذَهَبَ الْخَادِمُ بَعْدَ ذَلِكَ؟\u200F",
+      options: [
+        "\u200Fعَادَ إِلَى سَيِّدِهِ\u200F (主人のもとへ戻った)",
+        "\u200Fبَقِيَ فِي الْبَوَّابَةِ\u200F (門に留まった)",
+        "\u200Fلَمْ يَعْرِفْ أَحَدٌ أَيْنَ ذَهَبَ\u200F (誰も彼がどこへ行ったか知らない)",
+        "\u200Fذَهَبَ لِبَيْعِ الْمَلَابِسِ\u200F (服を売りにいった)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fوَلَمْ يَعْرِفْ أَحَدٌ أَيْنَ ذَهَبَ الْخَادِمُ بَعْدَ ذَلِكَ.\u200F (闇の中へ消え、彼のその後の行方は誰にも分かっていません。)"
+    }
+  ]
+},
+{
+  id: 20800,
+  title: "一寸法師 (إِيسُونْبُوشِي)",
+  category: "物語",
+  level: "物語",
+  contentVoweled: "\u200Fفِي قَدِيمِ الزَّمَانِ، كَانَ هُنَاكَ زَوْجَانِ عَجُوزَانِ لَمْ يُرْزَقَا بِأَطْفَالٍ، فَدَعَيَا اللَّهَ أَنْ يَمْنَحَهُمَا طِفْلًا حَتَّى لَوْ كَانَ بِحَجْمِ الْإِصْبَعِ. وُلِدَ لَهُمَا طِفْلٌ صَغِيرٌ جِدًّا، وَأَسْمَيَاهُ \"إِيسُونْبُوشِي\" لِأَنَّ طُولَهُ كَانَ قَرَابَةَ ثَلَاثَةِ سَنْتِيمِتْرَاتٍ فَقَطْ. رَغْمَ مُرُورِ السِّنِينَ، لَمْ يَكْبَرْ إِيسُونْبُوشِي، لَكِنَّهُ كَانَ شُجَاعًا، فَقَرَّرَ الذَّهَابَ إِلَى الْعَاصِمَةِ لِيُصْبِحَ مُحَارِبًا عَظِيمًا. صَنَعَ لَهُ وَالِدَاهُ قَارِبًا مِنْ وِعَاءِ حَسَاءٍ، وَمِجْدَافًا مِنْ عُودِ طَعَامٍ، وَسَيْفًا مِنْ إِبْرَةِ خِيَاطَةٍ. فِي الْعَاصِمَةِ، عَمِلَ إِيسُونْبُوشِي خَادِمًا وَحَارِسًا لَدَى لُورْدٍ نَبِيلٍ، وَأَصْبَحَ مُرَافِقًا لِابْنَتِهِ الْأَمِيرَةِ الْجَمِيلَةِ. ذَاتَ يَوْمٍ، بَيْنَمَا كَانَتِ الْأَمِيرَةُ فِي طَرِيقِهَا إِلَى الْمَعْبَدِ، هَجَمَ عَلَيْهَا شَيْطَانٌ عِمْلَاقٌ لِيَخْطِفَهَا. تَصَدَّى لَهُ إِيسُونْبُوشِي بِشَجَاعَةٍ، لَكِنَّ الشَّيْطَانَ سَخِرَ مِنْ حَجْمِهِ الصَّغِيرِ وَابْتَلَعَهُ دُفْعَةً وَاحِدَةً. دَاخِلَ بَطْنِ الشَّيْطَانِ، بَدَأَ إِيسُونْبُوشِي يَطْعَنُ مَعِدَتَهُ بِإِبْرَتِهِ مِرَارًا وَتَكْرَارًا حَتَّى صَرَخَ الشَّيْطَانُ مِنَ الْأَلَمِ. تَقَيَّأَ الشَّيْطَانُ إِيسُونْبُوشِي وَهَرَبَ مَذْعُورًا إِلَى الْجَبَلِ، تَارِكًا وَرَاءَهُ مِطْرَقَةً سِحْرِيَّةً تُحَقِّقُ الْأُمْنِيَّاتِ. لَوَّحَتِ الْأَمِيرَةُ بِالْمِطْرَقَةِ السِّحْرِيَّةِ، فَتَحَوَّلَ إِيسُونْبُوشِي فِي لَحْظَةٍ إِلَى شَابٍّ طَوِيلٍ وَوَسِيمٍ، ثُمَّ تَزَوَّجَهَا وَعَاشَا فِي سَعَادَةٍ لِلْأَبَدِ.\u200F",
+  contentPlain: "\u200Fفي قديم الزمان، كان هناك زوجان عجوزان لم يرزقا بأطفال، فدعيا الله أن يمنحهما طفلا حتى لو كان بحجم الإصبع. ولد لهما طفل صغير جدا، وأسمياه \"إيسونبوشي\" لأن طوله كان قرابة ثلاثة سنتيمترات فقط. رغم مرور السنين، لم يكبر إيسونبوشي، لكنه كان شجاعا، فقرر الذهاب إلى العاصمة ليصبح محاربا عظيما. صنع له والداه قاربا من وعاء حساء، ومجدافا من عود طعام، وسيفا من إبرة خياطة. في العاصمة، عمل إيسونبوشي خادما وحارسا لدى لورد نبيل، وأصبح مرافقا لابنته الأميرة الجميلة. ذات يوم، بينما كانت الأميرة في طريقها إلى المعبد، هجم عليها شيطان عملاق ليخطفها. تصدى له إيسونبوشي بشجاعة، لكن الشيطان سخر من حجمه الصغير وابتلعه دفعة واحدة. داخل بطن الشيطان، بدأ إيسونبوشي يطعن معدته بإبرته مرارا وتكرارا حتى صرخ الشيطان من الألم. تقيأ الشيطان إيسونبوشي وهرب مذعورا إلى الجبل، تاركا وراءه مطرقة سحرية تحقق الأمنيات. لوحت الأميرة بالمطرقة السحرية، فتحول إيسونبوشي في لحظة إلى شاب طويل ووسيم، ثم تزوجها وعاشا في سعادة للأبد.\u200F",
+  vocabList: [
+    { word: "\u200Fيُرْزَقُ\u200F", meaning: "授かる・恵まれる" },
+    { word: "\u200Fإِصْبَعٌ\u200F", meaning: "指" },
+    { word: "\u200Fالْعَاصِمَةُ\u200F", meaning: "首都・都" },
+    { word: "\u200Fمُحَارِبٌ\u200F", meaning: "戦士・武士" },
+    { word: "\u200Fوِعَاءٌ\u200F", meaning: "器・お椀" },
+    { word: "\u200Fمِجْدَافٌ\u200F", meaning: "オール・櫂（かい）" },
+    { word: "\u200Fإِبْرَةٌ\u200F", meaning: "針" },
+    { word: "\u200Fمُرَافِقٌ\u200F", meaning: "お供・護衛" },
+    { word: "\u200Fشَيْطَانٌ\u200F", meaning: "鬼・悪魔" },
+    { word: "\u200Fيَطْعَنُ\u200F", meaning: "刺す" },
+    { word: "\u200Fمَعِدَةٌ\u200F", meaning: "胃・お腹" },
+    { word: "\u200Fتَقَيَّأَ\u200F", meaning: "吐き出す" },
+    { word: "\u200Fمِطْرَقَةٌ\u200F", meaning: "小槌・ハンマー" },
+    { word: "\u200Fوَسِيمٌ\u200F", meaning: "ハンサムな・美しい" }
+  ],
+  sentences: [
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fفِي قَدِيمِ الزَّمَانِ، كَانَ هُنَاكَ زَوْجَانِ عَجُوزَانِ لَمْ يُرْزَقَا بِأَطْفَالٍ، فَدَعَيَا اللَّهَ أَنْ يَمْنَحَهُمَا طِفْلًا حَتَّى لَوْ كَانَ بِحَجْمِ الْإِصْبَعِ.\u200F",
+      japanese: "昔々、子供に恵まれない老夫婦がおり、指の大きさでもいいから子供を授けてくださいと神様に祈りました。",
+      note: "【主格の双数形 زَوْجَانِ عَجُوزَانِ】\n\u200Fزَوْجَانِ\u200F（夫婦・2人の配偶者）と、それを修飾する形容詞 \u200Fعَجُوزَانِ\u200F（年老いた）は、どちらも「2人」を表す双数形です。\u200Fكَانَ\u200F の主語（主格）として倒置されているため、語尾が主格を示す \u200Fـَانِ\u200F になっています。\n\n【要求法と双数形のヌーン脱落 لَمْ يُرْزَقَا】\n\u200Fلَمْ\u200F は過去の否定を表し、後ろの動詞を要求法（マジズーム）にします。\u200Fيُرْزَقَانِ\u200F（彼ら二人は授かる・受動態）の語尾のヌーン（\u200Fنِ\u200F）が脱落し、\u200Fلَمْ يُرْزَقَا\u200F となります。\n\n【弱動詞の双数過去 دَعَيَا】\n\u200Fدَعَا\u200F（祈る・呼ぶ）は語尾が弱文字のアリフで終わる動詞です。双数形になると、アリフが元の語根であるヤー（\u200Fي\u200F）に変化し、そこに双数のアリフ（\u200Fـَا\u200F）が接続して \u200Fدَعَيَا\u200F（彼ら二人は祈った）となります。\n\n【二重目的語の動詞 يَمْنَحَهُمَا】\n\u200Fمَنَحَ\u200F（与える）は前置詞なしで目的語を2つ取ります。ここでは第1目的語の \u200Fهُمَا\u200F（彼ら二人に）と、第2目的語の \u200Fطِفْلًا\u200F（子供を）が続いています。\n\n【譲歩の仮定 حَتَّى لَوْ】\n\u200Fحَتَّى\u200F（〜さえも）と、非現実の条件を表す \u200Fلَوْ\u200F（もし〜ならば）を組み合わせた表現で、「たとえ〜だとしても」という譲歩や極端な仮定を表す重要な構文です。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fوُلِدَ لَهُمَا طِفْلٌ صَغِيرٌ جِدًّا، وَأَسْمَيَاهُ \"إِيسُونْبُوشِي\" لِأَنَّ طُولَهُ كَانَ قَرَابَةَ ثَلَاثَةِ سَنْتِيمِتْرَاتٍ فَقَطْ.\u200F",
+      japanese: "二人にはとても小さな子供が生まれ、身長がたったの3センチほどしかなかったため「一寸法師」と名付けました。",
+      note: "【受動態の過去形 وُلِدَ】\n\u200Fوُلِدَ\u200F は「生む」の受動態で「生まれた」を意味します。\u200Fلَهُمَا\u200F（彼ら二人のために）を伴うことで「二人に子供が生まれた」となります。\n\n【第4形動詞と代名詞の結合 أَسْمَيَاهُ】\n\u200Fأَسْمَى\u200F（名付ける）の双数形 \u200Fأَسْمَيَا\u200F（彼ら二人は名付けた）に、目的語である代名詞 \u200Fهُ\u200F（彼を）が合体した形です。\n\n【理由を表す لِأَنَّ と名詞の対格化】\n\u200Fلِأَنَّ\u200F は、理由の前置詞 \u200Fلِـ\u200F と名詞文を導く \u200Fأَنَّ\u200F が結びついたもので、「なぜなら〜だからだ」という意味を作ります。\u200Fأَنَّ\u200F（\u200Fإِنَّ\u200F の姉妹語）の直後に来る名詞は対格（a）になるという強い文法ルールがあるため、「彼の身長（が）」にあたる部分は主格の \u200Fطُولُهُ\u200F ではなく、ファトハが付いた \u200Fطُولَهُ\u200F となっています。\n\n【副詞的対格 قَرَابَةَ】\n\u200Fقَرَابَةَ\u200F は「〜の近く、およそ〜」という意味で、ここでは数量の程度を表す副詞的用法として対格（ファトハ）になっています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fرَغْمَ مُرُورِ السِّنينَ، لَمْ يَكْبَرْ إِيسُونْبُوشِي، لَكِنَّهُ كَانَ شُجَاعًا، فَقَرَّرَ الذَّهَابَ إِلَى الْعَاصِمَةِ لِيُصْبِحَ مُحَارِبًا عَظِيمًا.\u200F",
+      japanese: "何年経っても一寸法師は大きくなりませんでしたが、彼は勇敢でした。そして、立派な武士になるために都へ行くことを決心しました。",
+      note: "【譲歩を表す رَغْمَ】\n\u200Fرَغْمَ\u200F は「〜にもかかわらず」という意味を持ち、後ろに名詞を置いてイダーファ構造を作ります。ここでは動名詞 \u200Fمُرُورِ\u200F（経過すること）を属格（i）にして「年月の経過にもかかわらず（何年経っても）」という譲歩の表現を作っています。\n\n【要求法による母音変化 لَمْ يَكْبَرْ】\n\u200Fلَمْ\u200F の後ろの現在形動詞 \u200Fيَكْبَرُ\u200F（大きくなる）が要求法になり、語尾がスクーンに変化して \u200Fلَمْ يَكْبَرْ\u200F となります。\n\n【逆接の لَكِنَّ と代名詞の結合 لَكِنَّهُ】\n\u200Fلَكِنَّ\u200F は「しかし」という逆接を表す \u200Fإِنَّ\u200F の姉妹語です。直後に主語となる名詞や代名詞を伴う（対格にする）というルールがあり、ここでは代名詞 \u200Fهُ\u200F が直接結合して \u200Fلَكِنَّهُ\u200F（しかし彼は）となっています。\n\n【كَانَ の姉妹語と対格 لِيُصْبِحَ مُحَارِبًا】\n\u200Fلِـ\u200F（〜のために）の後ろは接続法となり \u200Fيُصْبِحَ\u200F となります。\u200Fأَصْبَحَ\u200F は \u200Fكَانَ\u200F の姉妹語であるため、その述語（補語）である \u200Fمُحَارِبًا\u200F（武士に）は対格になります。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fصَنَعَ لَهُ وَالِدَاهُ قَارِبًا مِنْ وِعَاءِ حَسَاءٍ، وَمِجْدَافًا مِنْ عُودِ طَعَامٍ، وَسَيْفًا مِنْ إِبْرَةِ خِيَاطَةٍ.\u200F",
+      japanese: "両親は彼のために、お椀の舟、箸の櫂（かい）、そして縫い針の剣を作ってやりました。",
+      note: "【双数形のイダーファによるヌーン脱落 وَالِدَاهُ】\n\u200Fوَالِدَانِ\u200F（両親）という双数形に、所有代名詞 \u200Fهُ\u200F（彼の）が接続してイダーファ構造を作っています。双数形の語尾のヌーン（\u200Fنِ\u200F）は必ず脱落するため、\u200Fوَالِدَاهُ\u200F となります。主語なので主格のアリフ（\u200Fـَا\u200F）が保たれています。\n\n【素材・目的のイダーファ وِعَاءِ حَسَاءٍ / عُودِ طَعَامٍ】\n\u200Fوِعَاء\u200F（器）＋ \u200Fحَسَاء\u200F（スープ）で「お椀」、\u200Fعُود\u200F（棒）＋ \u200Fطَعَام\u200F（食べ物）で「お箸」、\u200Fإِبْرَة\u200F（針）＋ \u200Fخِيَاطَة\u200F（縫うこと）で「縫い針」という名詞同士の結びつき（イダーファ）です。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fفِي الْعَاصِمَةِ، عَمِلَ إِيسُونْبُوشِي خَادِمًا وَحَارِسًا لَدَى لُورْدٍ نَبِيلٍ، وَأَصْبَحَ مُرَافِقًا لِابْنَتِهِ الْأَمِيرَةِ الْجَمِيلَةِ.\u200F",
+      japanese: "都で、一寸法師は高貴な殿様のもとで家来および護衛として働き、その美しい娘であるお姫様のお供になりました。",
+      note: "【状態（あるいはタムイーズ）の対格 خَادِمًا】\n「〜として働く」という場合、職業や役割を示す名詞（ここでは \u200Fخَادِمًا\u200F）は対格になります。文法的には動作時の状態（ハール）として解釈されます。\n\n【場所・所有の前置詞（ザルフ） لَدَى】\n\u200Fلَدَى\u200F は「〜のもとで、〜のそばに」という意味の場所の状況語（ザルフ）で、後ろの名詞を属格（i）にします。\n\n【外来語 لُورْد】\n\u200Fلُورْد\u200F は英語の「Lord」に由来する外来語で、領主や貴族を意味します。日本の昔話では「殿様」や「大名」を表す際によく使われます。ここでは \u200Fلَدَى\u200F の後ろなので属格（\u200Fلُورْدٍ\u200F）になっています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fذَاتَ يَوْمٍ، بَيْنَمَا كَانَتِ الْأَمِيرَةُ فِي طَرِيقِهَا إِلَى الْمَعْبَدِ، هَجَمَ عَلَيْهَا شَيْطَانٌ عِمْلَاقٌ لِيَخْطِفَهَا.\u200F",
+      japanese: "ある日、お姫様がお寺へ向かっている途中で、巨大な鬼が彼女をさらおうと襲いかかってきました。",
+      note: "【前置詞を伴う動詞 هَجَمَ عَلَى】\n\u200Fهَجَمَ\u200F（襲う・攻撃する）は、対象を示す際に必ず前置詞 \u200Fعَلَى\u200F を伴います。\n\n【目的の لِـ と接続法 لِيَخْطِفَهَا】\n\u200Fلِـ\u200F（〜のために）の後ろの動詞は接続法（ファトハ）になります。\u200Fيَخْطِفَ\u200F（彼が奪う）に目的語 \u200Fهَا\u200F（彼女を）が結びついています。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fتَصَدَّى لَهُ إِيسُونْبُوشِي بِشَجَاعَةٍ، لَكِنَّ الشَّيْطَانَ سَخِرَ مِنْ حَجْمِهِ الصَّغِيرِ وَابْتَلَعَهُ دُفْعَةً وَاحِدَةً.\u200F",
+      japanese: "一寸法師は勇敢に立ち向かいましたが、鬼は彼の小さな体を馬鹿にして、一口で丸飲みにしてしまいました。",
+      note: "【前置詞を伴う第5形動詞 تَصَدَّى لِـ】\n\u200Fتَصَدَّى\u200F は「立ち向かう・阻止する」という意味の第5形動詞です。対象を示す際には前置詞 \u200Fلِـ\u200F を伴います。\n\n【前置詞を伴う動詞 سَخِرَ مِنْ】\n\u200Fسَخِرَ\u200F は「からかう、嘲笑する」という動詞で、前置詞 \u200Fمِنْ\u200F とセットで使われます。\n\n【副詞的表現 دُفْعَةً وَاحِدَةً】\n\u200Fدُفْعَة\u200F（一回、押し出すこと）に \u200Fوَاحِدَة\u200F（一つ）をつけて対格にすることで、「一気に、一口で」という動作の様子（ハール）や回数（絶対目的語）を表す副詞句となります。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fدَاخِلَ بَطْنِ الشَّيْطَانِ، بَدَأَ إِيسُونْبُوشِي يَطْعَنُ مَعِدَتَهُ بِإِبْرَتِهِ مِرَارًا وَتَكْرَارًا حَتَّى صَرَخَ الشَّيْطَانُ مِنَ الْأَلَمِ.\u200F",
+      japanese: "鬼の腹の中で、一寸法師は針で鬼の胃袋を何度も何度も刺し始め、ついに鬼は痛みのあまり叫び声をあげました。",
+      note: "【開始の動詞 بَدَأَ يَطْعَنُ】\n\u200Fبَدَأَ\u200F（始めた）の後ろに直接現在形動詞（\u200Fيَطْعَنُ\u200F）を置くことで、「〜し始める」という「開始の動詞（アフアール・アッシュルーア）」の構文になります。\n\n【反復を表す熟語 مِرَارًا وَتَكْرَارًا】\n\u200Fمِرَارًا\u200F（何度も）と \u200Fتَكْرَارًا\u200F（繰り返し）を並べた、アラビア語で頻出の「何度も何度も、繰り返し」を意味する副詞的表現（対格）です。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fتَقَيَّأَ الشَّيْطَانُ إِيسُونْبُوشِي وَهَرَبَ مَذْعُورًا إِلَى الْجَبَلِ، تَارِكًا وَرَاءَهُ مِطْرَقَةً سِحْرِيَّةً تُحَقِّقُ الْأُمْنِيَّاتِ.\u200F",
+      japanese: "鬼は一寸法師を吐き出し、願いを叶える打ち出の小槌（魔法のハンマー）を置いて、恐れおののいて山へ逃げていきました。",
+      note: "【状態を表すハール مَذْعُورًا / تَارِكًا】\n\u200Fمَذْعُورًا\u200F（怯えた状態で）は受動分詞の対格、\u200Fتَارِكًا\u200F（残しながら）は能動分詞の対格で、どちらも鬼が逃げた時の状態（ハール）を表しています。\n\n【非限定名詞を修飾する動詞文 تُحَقِّقُ الْأُمْنِيَّاتِ】\n\u200Fمِطْرَقَةً سِحْرِيَّةً\u200F（魔法のハンマー）は非限定名詞なので、関係代名詞なしで後ろの動詞文 \u200Fتُحَقِّقُ الْأُمْنِيَّاتِ\u200F（願いを叶える）が直接修飾し、「願いを叶える魔法のハンマー」となります。"
+    },
+    {
+      speaker: "Narrator",
+      arabic: "\u200Fلَوَّحَتِ الْأَمِيرَةُ بِالْمِطْرَقَةِ السِّحْرِيَّةِ، فَتَحَوَّلَ إِيسُونْبُوشِي فِي لَحْظَةٍ إِلَى شَابٍّ طَوِيلٍ وَوَسِيمٍ، ثُمَّ تَزَوَّجَهَا وَعَاشَا فِي سَعَادَةٍ لِلْأَبَدِ.\u200F",
+      japanese: "お姫様が魔法の小槌を振ると、一寸法師は一瞬にして背が高く美しい若者に変身しました。その後、彼は彼女と結婚し、二人はいつまでも幸せに暮らしました。",
+      note: "【無母音の連続を回避するカスラ لَوَّحَتِ】\n第2形動詞 \u200Fلَوَّحَ\u200F（振る）の女性形過去は \u200Fلَوَّحَتْ\u200F（語尾がスクーン）ですが、次の \u200Fالْأَمِيرَةُ\u200F の定冠詞と連続するため、発音上のルールによりカスラ（i）に変化して \u200Fلَوَّحَتِ\u200F となります。\n\n【前置詞を伴う第5形動詞 تَحَوَّلَ إِلَى】\n\u200Fتَحَوَّلَ\u200F は「変化する・変わる」という意味の第5形動詞で、何に変わったかを示すためには前置詞 \u200Fإِلَى\u200F を伴います。"
+    }
+  ],
+  questions: [
+    {
+      id: 20801,
+      type: "reading",
+      text: "老夫婦は神様に何を祈りましたか？\n\u200Fبِمَاذَا دَعَا الزَّوْجَانِ الْعَجُوزَانِ اللَّهَ؟\u200F",
+      options: [
+        "\u200Fأَنْ يَمْنَحَهُمَا ثَرْوَةً كَبِيرَةً\u200F (大きな富を与えてほしい)",
+        "\u200Fأَنْ يَمْنَحَهُمَا طِفْلًا حَتَّى لَوْ كَانَ بِحَجْمِ الْإِصْبَعِ\u200F (指の大きさでもいいから子供を与えてほしい)",
+        "\u200Fأَنْ يُعِيدَ لَهُمَا الشَّبَابَ\u200F (若さを取り戻してほしい)",
+        "\u200Fأَنْ يَحْمِيَ قَرْيَتَهُمْ مِنَ الذِّئَابِ\u200F (村を狼から守ってほしい)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fدَعَيَا اللَّهَ أَنْ يَمْنَحَهُمَا طِفْلًا حَتَّى لَوْ كَانَ بِحَجْمِ الْإِصْبَعِ.\u200F (たとえ指のサイズでもいいから子供を授けてくださいと祈りました。)"
+    },
+    {
+      id: 20802,
+      type: "reading",
+      text: "なぜ彼は「一寸法師」と名付けられたのですか？\n\u200Fلِمَاذَا أُسْمِيَ بِـ\"إِيسُونْبُوشِي\"؟\u200F",
+      options: [
+        "\u200Fلِأَنَّهُ وُلِدَ فِي شَهْرِ وَاحِدٍ\u200F (1月に生まれたから)",
+        "\u200Fلِأَنَّهُ كَانَ قَوِيًّا جِدًّا\u200F (とても強かったから)",
+        "\u200Fلِأَنَّ طُولَهُ كَانَ قَرَابَةَ ثَلَاثَةِ سَنْتِيمِتْرَاتٍ فَقَطْ\u200F (身長がたったの3センチほどだったから)",
+        "\u200Fلِأَنَّهُ كَانَ يَبْكِي دَائِمًا\u200F (いつも泣いていたから)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fأَسْمَيَاهُ \"إِيسُونْبُوشِي\" لِأَنَّ طُولَهُ كَانَ قَرَابَةَ ثَلَاثَةِ سَنْتِيمِتْرَاتٍ فَقَطْ.\u200F (身長が一寸（約3センチ）しかなかったためです。)"
+    },
+    {
+      id: 20803,
+      type: "reading",
+      text: "一寸法師は何のために都へ行くことを決めましたか？\n\u200Fلِمَاذَا قَرَّرَ إِيسُونْبُوشِي الذَّهَابَ إِلَى الْعَاصِمَةِ؟\u200F",
+      options: [
+        "\u200Fلِيَبْحَثَ عَنْ زَوْجَةٍ\u200F (妻を探すため)",
+        "\u200Fلِيُصْبِحَ مُحَارِبًا عَظِيمًا\u200F (立派な武士・戦士になるため)",
+        "\u200Fلِيَشْتَرِيَ مَلَابِسَ جَدِيدَةً\u200F (新しい服を買うため)",
+        "\u200Fلِيَبِيعَ الْحَطَبَ\u200F (薪を売るため)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fقَرَّرَ الذَّهَابَ إِلَى الْعَاصِمَةِ لِيُصْبِحَ مُحَارِبًا عَظِيمًا.\u200F (立派な武士になるために都へ向かいました。)"
+    },
+    {
+      id: 20804,
+      type: "reading",
+      text: "両親は一寸法師の剣として何を持たせましたか？\n\u200Fمَاذَا أَعْطَاهُ وَالِدَاهُ لِيَسْتَخْدِمَهُ كَسَيْفٍ؟\u200F",
+      options: [
+        "\u200Fإِبْرَةِ خِيَاطَةٍ\u200F (縫い針)",
+        "\u200Fعُودِ طَعَامٍ\u200F (お箸)",
+        "\u200Fسِكِّينًا صَغِيرًا\u200F (小さなナイフ)",
+        "\u200Fقِطْعَةَ خَشَبٍ\u200F (木の切れ端)"
+      ],
+      correctIndex: 0,
+      explanation: "\u200Fصَنَعَ لَهُ وَالِدَاهُ سَيْفًا مِنْ إِبْرَةِ خِيَاطَةٍ.\u200F (縫い針を剣として持たせました。)"
+    },
+    {
+      id: 20805,
+      type: "reading",
+      text: "都で一寸法師は誰のお供になりましたか？\n\u200Fمُرَافِقًا لِمَنْ أَصْبَحَ إِيسُونْبُوشِي فِي الْعَاصِمَةِ؟\u200F",
+      options: [
+        "\u200Fلِلْإِمْبِرَاطُورِ\u200F (帝・天皇のお供)",
+        "\u200Fلِابْنَةِ اللُّورْدِ (الْأَمِيرَةِ الْجَمِيلَةِ)\u200F (殿様の娘である美しいお姫様のお供)",
+        "\u200Fلِصَيَّادٍ عَجُوزٍ\u200F (年老いた猟師のお供)",
+        "\u200Fلِشَيْطَانِ الْجَبَلِ\u200F (山の鬼のお供)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fأَصْبَحَ مُرَافِقًا لِابْنَتِهِ الْأَمِيرَةِ الْجَمِيلَةِ.\u200F (高貴な殿様の美しい娘（お姫様）のお供になりました。)"
+    },
+    {
+      id: 20806,
+      type: "reading",
+      text: "お姫様がお寺へ向かっている時、何が起きましたか？\n\u200Fمَاذَا حَدَثَ عِنْدَمَا كَانَتِ الْأَمِيرَةُ فِي طَرِيقِهَا إِلَى الْمَعْبَدِ؟\u200F",
+      options: [
+        "\u200Fهَطَلَ مَطَرٌ غَزِيرٌ\u200F (大雨が降った)",
+        "\u200Fهَجَمَ عَلَيْهَا شَيْطَانٌ عِمْلَاقٌ لِيَخْطِفَهَا\u200F (巨大な鬼が彼女をさらおうと襲ってきた)",
+        "\u200Fأَضَاعَتْ طَرِيقَهَا فِي الْغَابَةِ\u200F (森の中で道に迷った)",
+        "\u200Fوَجَدَتْ صُنْدُوقًا سِحْرِيًّا\u200F (魔法の箱を見つけた)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fهَجَمَ عَلَيْهَا شَيْطَانٌ عِمْلَاقٌ لِيَخْطِفَهَا.\u200F (巨大な鬼が彼女を誘拐しようと襲いかかってきました。)"
+    },
+    {
+      id: 20807,
+      type: "reading",
+      text: "鬼は立ち向かってきた一寸法師をどうしましたか？\n\u200Fمَاذَا فَعَلَ الشَّيْطَانُ بِإِيسُونْبُوشِي عِنْدَمَا تَصَدَّى لَهُ؟\u200F",
+      options: [
+        "\u200Fضَرَبَهُ بِسَيْفِهِ\u200F (剣で彼を叩いた)",
+        "\u200Fسَخِرَ مِنْهُ وَابْتَلَعَهُ دُفْعَةً وَاحِدَةً\u200F (彼を馬鹿にして、一口で丸飲みした)",
+        "\u200Fهَرَبَ مِنْهُ خَائِفًا\u200F (彼を恐れて逃げた)",
+        "\u200Fأَعْطَاهُ مِطْرَقَةً سِحْرِيَّةً\u200F (彼に魔法のハンマーを与えた)"
+      ],
+      correctIndex: 1,
+      explanation: "\u200Fسَخِرَ الشَّيْطَانُ مِنْ حَجْمِهِ الصَّغِيرِ وَابْتَلَعَهُ دُفْعَةً وَاحِدَةً.\u200F (小ささをあざ笑い、一寸法師を飲み込んでしまいました。)"
+    },
+    {
+      id: 20808,
+      type: "reading",
+      text: "鬼の腹の中で一寸法師はどうやって反撃しましたか？\n\u200Fكَيْفَ قَاتَلَ إِيسُونْبُوشِي دَاخِلَ بَطْنِ الشَّيْطَانِ؟\u200F",
+      options: [
+        "\u200Fبَدَأَ يَطْعَنُ مَعِدَتَهُ بِإِبْرَتِهِ مِرَارًا وَتَكْرَارًا\u200F (針で鬼の胃袋を何度も何度も刺し始めた)",
+        "\u200Fأَشْعَلَ نَارًا دَاخِلَ بَطْنِهِ\u200F (腹の中で火をおこした)",
+        "\u200Fغَنَّى بِصَوْتٍ عَالٍ\u200F (大声で歌った)",
+        "\u200Fنَامَ حَتَّى خَرَجَ\u200F (外に出るまで寝た)"
+      ],
+      correctIndex: 0,
+      explanation: "\u200Fبَدَأَ يَطْعَنُ مَعِدَتَهُ بِإِبْرَتِهِ مِرَارًا وَتَكْرَارًا حَتَّى صَرَخَ مِنَ الْأَلَمِ.\u200F (針の剣で胃袋を何度も刺して攻撃しました。)"
+    },
+    {
+      id: 20809,
+      type: "reading",
+      text: "逃げていく鬼が落としていった物は何ですか？\n\u200Fمَاذَا تَرَكَ الشَّيْطَانُ وَرَاءَهُ عِنْدَمَا هَرَبَ؟\u200F",
+      options: [
+        "\u200Fصُنْدُوقًا مَلِيئًا بِالذَّهَبِ\u200F (金でいっぱいの箱)",
+        "\u200Fسَيْفًا ضَخْمًا\u200F (巨大な剣)",
+        "\u200Fمِطْرَقَةً سِحْرِيَّةً تُحَقِّقُ الْأُمْنِيَّاتِ\u200F (願いを叶える魔法の小槌)",
+        "\u200Fقُبَّعَةً حَمْرَاءَ\u200F (赤い帽子)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fتَارِكًا وَرَاءَهُ مِطْرَقَةً سِحْرِيَّةً تُحَقِّقُ الْأُمْنِيَّاتِ.\u200F (振ると願いが叶う「打ち出の小槌」を置いていきました。)"
+    },
+    {
+      id: 20810,
+      type: "reading",
+      text: "お姫様が魔法の小槌を振ると、一寸法師はどうなりましたか？\n\u200Fمَاذَا حَدَثَ لِإِيسُونْبُوشِي عِنْدَمَا لَوَّحَتِ الْأَمِيرَةُ بِالْمِطْرَقَةِ السِّحْرِيَّةِ؟\u200F",
+      options: [
+        "\u200Fعَادَ إِلَى قَرْيَتِهِ مُبَاشَرَةً\u200F (すぐに村へ帰った)",
+        "\u200Fأَصْبَحَ شَيْطَانًا جَدِيدًا\u200F (新しい鬼になった)",
+        "\u200Fتَحَوَّلَ فِي لَحْظَةٍ إِلَى شَابٍّ طَوِيلٍ وَوَسِيمٍ\u200F (一瞬にして背が高く美しい若者に変身した)",
+        "\u200Fأَصْبَحَ غَنِيًّا جِدًّا\u200F (とてもお金持ちになった)"
+      ],
+      correctIndex: 2,
+      explanation: "\u200Fتَحَوَّلَ إِيسُونْبُوشِي فِي لَحْظَةٍ إِلَى شَابٍّ طَوِيلٍ وَوَسِيمٍ.\u200F (魔法の力で立派な体の若者へと成長しました。)"
+    }
+  ]
+},
 ]; // ← articles配列全体の終わり

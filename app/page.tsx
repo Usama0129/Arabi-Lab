@@ -12,13 +12,14 @@ import {
   Square, SkipBack, Play, Pause, SkipForward, Volume2, 
   CheckCircle, XCircle, PenTool, Eye, LogOut, Check,
   Tent, Moon, Swords, Crown, Sun, Mic, Sparkles, Landmark, Coffee, Library, Pencil,
-  Loader2, PartyPopper, Frown, MessageSquare, Plus, ChevronRight, Video
+  Loader2, PartyPopper, Frown, MessageSquare, Plus, ChevronRight, Video,
+  HelpCircle // ← ★これを最後の方に追加してください
 } from 'lucide-react';
 
 // --- Types ---
-type Screen = "main_menu" | "levels_sub" | "topics" | "list" | "mode_select" | "reader" | "quiz" | "result" | "vocab" | "dictation" | "mypage" | "eras" | "era_desc" | "poets" | "poetry_read" | "phrases_list" | "phrase_detail";
+type Screen = "main_menu" | "levels_sub" | "topics" | "list" | "mode_select" | "reader" | "quiz" | "result" | "vocab" | "flashcard" | "dictation" | "mypage" | "eras" | "era_desc" | "poets" | "poetry_read" | "phrases_list" | "phrase_detail" | "vocab_quiz_select" | "vocab_quiz" | "vocab_quiz_result" | "vocab_my_quiz_select";
 type LearningMode = "reading" | "listening" | "dictation" | "grammar";
-type CourseType = "grammar" | "conversation" | "reading" | "listening" | "poetry" | "phrase" | "reorder";
+type CourseType = "grammar" | "conversation" | "reading" | "listening" | "poetry" | "phrase" | "reorder" | "story"; // ★ "story" を追加
 type StudyBreakdown = { reading: number; listening: number; dictation: number; vocab: number; grammar: number; poetry: number };
 
 type SubscriptionInfo = {
@@ -233,77 +234,77 @@ const LandingPage = ({ onLogin, onGuestStart }: { onLogin: () => void, onGuestSt
 };
 
 export default function Home() {
+  // --- [復活] 消えてしまった重要なState群 ---
+  const [allArticles, setAllArticles] = useState<(Article & { videoUrl?: string; imageUrls?: string[] })[]>(articles); 
+  const [savedVocab, setSavedVocab] = useState<{word: string, meaning: string}[]>([]); 
+  const [user, setUser] = useState<any>(null);
+  const [isPremium, setIsPremium] = useState(false); 
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [showLandingPage, setShowLandingPage] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [completedArticleIds, setCompletedArticleIds] = useState<number[]>([]);
+  const [subscription, setSubscription] = useState<SubscriptionInfo | null>(null);
+
+  // --- 単語クイズ・自作テスト用のState ---
+  const [vocabQuizMode, setVocabQuizMode] = useState<{
+    level: string;
+    direction: "ar_to_ja" | "ja_to_ar";
+  }>({ level: "初級", direction: "ar_to_ja" });
+  const [vocabQuizQuestions, setVocabQuizQuestions] = useState<any[]>([]);
+  const [currentVocabIdx, setCurrentVocabIdx] = useState(0);
+  const [vocabQuizScore, setVocabQuizScore] = useState(0);
+  const [isVocabQuizChecked, setIsVocabQuizChecked] = useState(false);
+  const [selectedVocabOption, setSelectedVocabOption] = useState<number | null>(null);
+  const [newArabic, setNewArabic] = useState(""); 
+  const [newJapanese, setNewJapanese] = useState(""); 
+  const [vocabQuizOrder, setVocabQuizOrder] = useState<"latest" | "random">("latest");
+  const [isAddingWord, setIsAddingWord] = useState(false);
+
+  // --- 画面・学習モード管理 ---
   const [currentScreen, setCurrentScreen] = useState<Screen>("main_menu");
   const [courseType, setCourseType] = useState<CourseType | null>(null);
   const [selectedLevel, setSelectedLevel] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedEraId, setSelectedEraId] = useState<string | null>(null);
-
   const [activeArticle, setActiveArticle] = useState<Article & { videoUrl?: string; imageUrls?: string[] } | null>(null);
   const [learningMode, setLearningMode] = useState<LearningMode>("reading");
   const [activeProblemNumber, setActiveProblemNumber] = useState<number>(0);
-    
-  const [allArticles, setAllArticles] = useState<(Article & { videoUrl?: string; imageUrls?: string[] })[]>(articles); 
 
-  const [completedArticleIds, setCompletedArticleIds] = useState<number[]>([]); 
-  const [savedVocab, setSavedVocab] = useState<{word: string, meaning: string}[]>([]); 
-
-  const [user, setUser] = useState<any>(null);
-  const [isPremium, setIsPremium] = useState(false); 
-  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
-
-  const [showLandingPage, setShowLandingPage] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const [subscription, setSubscription] = useState<SubscriptionInfo | null>(null);
-
-  const [isAddingWord, setIsAddingWord] = useState(false);
-  const [newArabic, setNewArabic] = useState("");
-  const [newJapanese, setNewJapanese] = useState("");
-
+  // --- クイズ・演習・音声State (既存のものを維持) ---
   const [quizScore, setQuizScore] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [grammarQuestions, setGrammarQuestions] = useState<QuizQuestion[]>([]); 
-  const [grammarFeedback, setGrammarFeedback] = useState<string | null>(null); 
   const [quizSelectedOption, setQuizSelectedOption] = useState<number | null>(null);
   const [isQuizResultVisible, setIsQuizResultVisible] = useState(false);
   const [userAnswers, setUserAnswers] = useState<boolean[]>([]);
-  const [isQuizTextVisible, setIsQuizTextVisible] = useState(false); // ★これを追加
-
+  const [isQuizTextVisible, setIsQuizTextVisible] = useState(false);
   const [dictationIndex, setDictationIndex] = useState(0);
   const [dictationInput, setDictationInput] = useState("");
   const [dictationFeedback, setDictationFeedback] = useState<"none" | "correct" | "incorrect">("none");
   const [maskedSentence, setMaskedSentence] = useState<string[]>([]);
   const [hiddenWordIndex, setHiddenWordIndex] = useState<number>(-1);
   const [targetWordClean, setTargetWordClean] = useState("");
-
   const [revealedVocabIndex, setRevealedVocabIndex] = useState<number | null>(null);
   const [isFlashcardMode, setIsFlashcardMode] = useState(false);
   const [fcIndex, setFcIndex] = useState(0);
   const [fcFlipped, setFcFlipped] = useState(false);
   const [fcReverse, setFcReverse] = useState(false);
-
-  // ★ 音声プレイヤー用のStateとRef
   const [audioState, setAudioState] = useState<"idle" | "playing" | "paused">("idle");
   const [currentAudioIndex, setCurrentAudioIndex] = useState<number>(0);
   const audioIndexRef = useRef<number>(0);
-
   const [playbackRate, setPlaybackRate] = useState<number>(1.0);
-
   const [streak, setStreak] = useState(0);
   const [stats, setStats] = useState({ today: 0, month: 0, total: 0 });
   const [breakdown, setBreakdown] = useState<StudyBreakdown>({ reading: 0, listening: 0, dictation: 0, vocab: 0, grammar: 0, poetry: 0 });
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-  
-  // ★追加: 文法ジャンプ直前の画面・記事・モードを記憶するState
   const [jumpHistory, setJumpHistory] = useState<{screen: Screen, article: any, mode: LearningMode} | null>(null);
 
+  // --- 補助関数群 ---
   const normalizeArabic = (text: string) => text.replace(/[\u064B-\u065F\u0670]/g, "").replace(/[.,،؟:;!۔"«»]/g, "").replace(/\s+/g, " ").trim();
   const removeTashkeel = (text: string) => text.replace(/[\u064B-\u065F\u0670]/g, "");
   const clamp = (val: number, min: number, max: number) => Math.min(Math.max(val, min), max);
   const getArticleById = (id: number) => allArticles.find(a => a.id === id);
   const getEraData = () => POETRY_ERAS.find(e => e.id === selectedEraId);
-
   const formatTime = (seconds: number) => {
     const h = Math.floor(seconds / 3600);
     const m = Math.floor((seconds % 3600) / 60);
@@ -311,7 +312,73 @@ export default function Home() {
     return `${m}m`;
   };
 
-  const FREE_ARTICLE_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 20, 21, 30, 40, 101, 201, 301, 401, 200, 202, 203, 501, 502, 503, 504, 505, 506]; 
+  // 公式単語クイズ生成
+  const generateVocabQuiz = (level: string, direction: "ar_to_ja" | "ja_to_ar") => {
+    const vocabDataArticles = allArticles.filter(a => a.category === "単語データ");
+    let pool = vocabDataArticles.filter(a => level === "shuffle" ? true : a.level === level).flatMap(a => a.vocabList || []);
+    if (pool.length < 4) { alert("単語データが足りません。"); return; }
+    const shuffledPool = [...pool].sort(() => 0.5 - Math.random());
+    const selected = shuffledPool.slice(0, Math.min(shuffledPool.length, 30));
+    const questions = selected.map(target => {
+      const distractors = pool.filter(v => v.word !== target.word && v.meaning !== target.meaning).sort(() => 0.5 - Math.random()).slice(0, 3);
+      const options = [target, ...distractors].sort(() => 0.5 - Math.random());
+      return { target, options, correctIdx: options.findIndex(o => o.word === target.word) };
+    });
+    setVocabQuizQuestions(questions);
+    setCurrentVocabIdx(0);
+    setVocabQuizScore(0);
+    setIsVocabQuizChecked(false);
+    setSelectedVocabOption(null);
+    changeScreen("vocab_quiz");
+  };
+
+// 自作単語テスト生成
+const generateMyVocabQuiz = () => {
+  if (savedVocab.length < 4) {
+    alert("\u200Fعفواً\u200F（すみません）テストには最低4語の登録が必要です。");
+    return;
+  }
+
+  let pool = [...savedVocab];
+  let selected = vocabQuizOrder === "random" 
+    ? [...pool].sort(() => 0.5 - Math.random()).slice(0, 30) 
+    : [...pool].slice(0, 30);
+
+  const questions = selected.map(target => {
+    const distractors = pool
+      .filter(v => v.word !== target.word && v.meaning !== target.meaning)
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 3);
+    const options = [target, ...distractors].sort(() => 0.5 - Math.random());
+    return { 
+      target, 
+      options, 
+      correctIdx: options.findIndex(o => o.word === target.word) 
+    };
+  });
+
+  setVocabQuizQuestions(questions);
+  setCurrentVocabIdx(0);
+  setVocabQuizScore(0);
+  setIsVocabQuizChecked(false);
+  setSelectedVocabOption(null);
+  changeScreen("vocab_quiz");
+};
+
+// フラッシュカードテスト開始処理
+const startFlashcardTest = (isReverse: boolean) => {
+  if (savedVocab.length === 0) {
+    alert("テストする単語が登録されていません。");
+    return;
+  }
+  // isReverse: false = アラビア語→日本語, true = 日本語→アラビア語
+  setFcReverse(isReverse);
+  setFcIndex(0);
+  setFcFlipped(false);
+  changeScreen("flashcard");
+};
+
+const FREE_ARTICLE_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 20, 21, 30, 40, 101, 201, 301, 401, 200, 202, 203, 501, 502, 503, 504, 505, 506];
   const isLockedContent = (article: Article) => {
     if (article.id > 1000) return false; 
     if (isPremium) return false; 
@@ -457,19 +524,43 @@ export default function Home() {
   }, [completedArticleIds]);
 
   const saveWord = async (word: string, meaning: string) => {
+    // 1. 重複チェック（既に保存されていたら中断）
     if (savedVocab.some(v => v.word === word)) return;
+
+    // 2. 新しいリストを作成
     const newWord = { word, meaning };
-    setSavedVocab(prev => [newWord, ...prev]);
-    setRevealedVocabIndex(null);
-    if (user) { await supabase.from('vocab').insert({ user_id: user.id, word, meaning }); } 
-    else { const updated = [newWord, ...savedVocab]; localStorage.setItem("arabicApp_vocab", JSON.stringify(updated)); }
-  };
-  const deleteWord = async (wordToDelete: string) => {
-    setSavedVocab(prev => prev.filter(v => v.word !== wordToDelete));
-    if (user) { await supabase.from('vocab').delete().match({ user_id: user.id, word: wordToDelete }); } 
-    else { const updated = savedVocab.filter(v => v.word !== wordToDelete); localStorage.setItem("arabicApp_vocab", JSON.stringify(updated)); }
+    const updatedVocab = [newWord, ...savedVocab];
+
+    // 3. 画面（UI）を更新
+    setSavedVocab(updatedVocab);
+    setRevealedVocabIndex(null); // 単語帳画面での表示リセット用
+
+    // 4. 永続化（保存）
+    if (user) {
+      // ログイン済みなら Supabase へ
+      await supabase.from('vocab').insert({ user_id: user.id, word, meaning });
+    } else {
+      // ゲストなら localStorage へ
+      localStorage.setItem("arabicApp_vocab", JSON.stringify(updatedVocab));
+    }
   };
 
+  const deleteWord = async (wordToDelete: string) => {
+    // 1. 削除後の新しいリストを作成
+    const updatedVocab = savedVocab.filter(v => v.word !== wordToDelete);
+
+    // 2. 画面（UI）を更新
+    setSavedVocab(updatedVocab);
+
+    // 3. 永続化（削除を反映）
+    if (user) {
+      // ログイン済みなら Supabase から削除
+      await supabase.from('vocab').delete().match({ user_id: user.id, word: wordToDelete });
+    } else {
+      // ゲストなら localStorage を更新
+      localStorage.setItem("arabicApp_vocab", JSON.stringify(updatedVocab));
+    }
+  };
   // ★ 画面遷移時にスクロールをリセット
   const changeScreen = (screen: Screen) => { 
       stopSpeaking(); 
@@ -508,7 +599,11 @@ export default function Home() {
         changeScreen("eras");
     } else if (type === "phrase") {
         changeScreen("levels_sub");
-    } else {
+    } else if (type === "story") {      // ★追加ここから
+        setSelectedCategory("物語");
+        changeScreen("list");
+    }                                   // ★追加ここまで
+    else {
         changeScreen("levels_sub");
     }
   };
@@ -544,6 +639,10 @@ export default function Home() {
         if (courseType === "conversation") return a.level === "会話";
         if (courseType === "phrase") return a.level === "1フレーズ";
         if (courseType === "reorder") return a.category === "並び替え" && a.level === selectedLevel;
+        
+        // ★修正1：レベルが「物語」のものだけを物語コースに表示する
+        if (courseType === "story") return a.level === "物語"; 
+        
         if (courseType === "poetry") {
             const era = POETRY_ERAS.find(e => e.id === selectedEraId);
             return a.level === "Poetry" && (era ? a.category === era.name : true);
@@ -552,10 +651,12 @@ export default function Home() {
             return (a.videoUrl && a.videoUrl.length > 0) && a.level === selectedLevel;
         }
         if (courseType === "reading") {
-            if (a.level === "文法" || a.level === "Poetry" || a.level === "1フレーズ" || a.category === "並び替え") return false; 
-            if (a.level !== selectedLevel) return false;
-            return !a.videoUrl || a.videoUrl === "";
-        }
+          // ★修正2：a.category === "物語" の除外を取り消し、a.level === "物語"（桃太郎など）だけを除外する
+          if (a.level === "文法" || a.level === "Poetry" || a.level === "1フレーズ" || a.category === "並び替え" || a.category === "単語データ" || a.level === "物語") return false; 
+          
+          if (a.level !== selectedLevel) return false;
+          return !a.videoUrl || a.videoUrl === "";
+      }
         return false;
     });
   };
@@ -632,7 +733,7 @@ export default function Home() {
     }
     else if (mode === "grammar" && activeArticle) {
       const qs = activeArticle.questions; 
-      setGrammarQuestions(qs); setCurrentQuestionIndex(0); setGrammarFeedback(null); changeScreen("reader");
+      setGrammarQuestions(qs); setCurrentQuestionIndex(0); changeScreen("reader");
     } else { changeScreen("reader"); }
   };
 
@@ -964,6 +1065,304 @@ export default function Home() {
             </div>
           </div>
         )}
+　　　　{/* 2. 単語クイズ設定画面 */}
+        {currentScreen === "vocab_quiz_select" && (
+          <div className="animate-fade-in-up text-center py-10 max-w-xl mx-auto">
+            <HeaderBackButton onClick={() => changeScreen("main_menu")} />
+            <h2 className="text-3xl font-serif font-bold mb-8 text-[#4A3018]">単語クイズ設定</h2>
+            <div className="bg-white p-8 rounded-[2rem] shadow-lg border border-[#E5C9A8] space-y-8 text-left">
+              <div>
+                <p className="text-xs font-bold text-[#A67144] mb-4 tracking-widest uppercase">出題方向</p>
+                <div className="flex gap-2">
+                  {[{ id: "ar_to_ja", label: "アラビア語 → 日本語" }, { id: "ja_to_ar", label: "日本語 → アラビア語" }].map(d => (
+                    <button key={d.id} onClick={() => setVocabQuizMode(prev => ({ ...prev, direction: d.id as any }))} className={`flex-1 py-4 rounded-xl font-bold border-2 transition-all ${vocabQuizMode.direction === d.id ? "bg-[#8A5A33] border-[#8A5A33] text-white shadow-md" : "bg-white border-[#F5F0E6] text-[#A67144]"}`}>{d.label}</button>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="text-xs font-bold text-[#A67144] mb-4 tracking-widest uppercase">レベル</p>
+                <div className="grid grid-cols-2 gap-3">
+                  {["初級", "中級", "上級", "shuffle"].map(lvl => (
+                    <button key={lvl} onClick={() => setVocabQuizMode(prev => ({ ...prev, level: lvl }))} className={`py-4 rounded-xl font-bold border-2 transition-all ${vocabQuizMode.level === lvl ? "bg-[#D4A373] border-[#D4A373] text-white shadow-md" : "bg-white border-[#F5F0E6] text-[#A67144]"}`}>{lvl === "shuffle" ? "混合テスト" : lvl}</button>
+                  ))}
+                </div>
+              </div>
+              <button onClick={() => generateVocabQuiz(vocabQuizMode.level, vocabQuizMode.direction)} className="w-full py-5 bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-white font-bold rounded-2xl shadow-xl hover:scale-[1.02] active:scale-95 transition-all text-xl flex items-center justify-center gap-2">
+                <Play size={24} fill="currentColor" /> テスト開始
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* 3. 単語クイズ本番画面 */}
+        {currentScreen === "vocab_quiz" && vocabQuizQuestions.length > 0 && (
+          <div className="animate-fade-in-up max-w-xl mx-auto py-6">
+            <div className="flex justify-between items-center mb-6">
+              <HeaderBackButton onClick={() => changeScreen("vocab_quiz_select")} text="設定に戻る" />
+              <span className="text-[10px] font-bold text-[#A67144] tracking-widest bg-white px-3 py-1 rounded-full border border-[#E5C9A8] shadow-sm">QUESTION {currentVocabIdx + 1} / {vocabQuizQuestions.length}</span>
+            </div>
+            <div className="bg-white p-8 rounded-[2rem] shadow-xl border border-[#E5C9A8] text-center">
+ {/* 問題の単語表示エリア */}
+ <div className="py-12 mb-8 bg-[#FCFAF5] rounded-2xl border-2 border-dashed border-[#D4A373] shadow-inner relative group">
+                <p className={`text-4xl font-bold text-[#3E2713] ${vocabQuizMode.direction === "ar_to_ja" ? "font-arabic leading-loose" : ""}`}>
+                  {vocabQuizMode.direction === "ar_to_ja" ? `\u200F${vocabQuizQuestions[currentVocabIdx].target.word}\u200F` : vocabQuizQuestions[currentVocabIdx].target.meaning}
+                </p>
+
+                {/* 右上の保存ボタン (単語帳に追加) */}
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation(); // クイズのクリック判定と混ざらないようにガード
+                    const target = vocabQuizQuestions[currentVocabIdx].target;
+                    saveWord(target.word, target.meaning);
+                  }}
+                  className={`absolute top-4 right-4 p-2.5 rounded-full transition-all duration-300 shadow-sm border ${
+                    savedVocab.some(v => v.word === vocabQuizQuestions[currentVocabIdx].target.word)
+                    ? "bg-amber-500 text-white border-amber-600 scale-110"
+                    : "bg-white text-amber-400 border-amber-100 hover:scale-110 hover:shadow-md"
+                  }`}
+                  title="単語帳に追加"
+                >
+                  {savedVocab.some(v => v.word === vocabQuizQuestions[currentVocabIdx].target.word) 
+                    ? <Check size={18} strokeWidth={3} /> 
+                    : <Plus size={18} strokeWidth={3} />
+                  }
+                </button>
+              </div>
+
+              {/* 選択肢エリア */}
+              <div className="grid grid-cols-1 gap-3">
+                {vocabQuizQuestions[currentVocabIdx].options.map((opt: any, idx: number) => {
+                  let btnClass = "bg-white border-[#F5F0E6] text-[#4A3018] hover:border-[#D4A373]";
+                  if (isVocabQuizChecked) {
+                    if (idx === vocabQuizQuestions[currentVocabIdx].correctIdx) btnClass = "bg-emerald-50 border-emerald-500 text-emerald-900 scale-[1.02] shadow-md";
+                    else if (idx === selectedVocabOption) btnClass = "bg-red-50 border-red-400 text-red-900 opacity-70";
+                    else btnClass = "bg-stone-50 border-stone-100 text-stone-300 opacity-40";
+                  }
+                  return (
+                    <button 
+                      key={idx} 
+                      disabled={isVocabQuizChecked} 
+                      onClick={() => {
+                        setSelectedVocabOption(idx);
+                        setIsVocabQuizChecked(true);
+                        if (idx === vocabQuizQuestions[currentVocabIdx].correctIdx) {
+                          setVocabQuizScore(s => s + 1);
+                          speakText("\u200Fأحسنت\u200F"); // 正解時の音声（オプション）
+                        }
+                      }} 
+                      className={`p-5 border-2 rounded-2xl font-bold text-lg transition-all flex items-center justify-between ${btnClass} ${vocabQuizMode.direction === "ja_to_ar" ? "font-arabic text-2xl" : ""}`}
+                    >
+                      <span>{vocabQuizMode.direction === "ar_to_ja" ? opt.meaning : `\u200F${opt.word}\u200F`}</span>
+                      {isVocabQuizChecked && idx === vocabQuizQuestions[currentVocabIdx].correctIdx && <CheckCircle className="text-emerald-500" size={24} />}
+                    </button>
+                  );
+                })}
+              </div>
+              {isVocabQuizChecked && (
+                <button onClick={() => {
+                  if (currentVocabIdx < vocabQuizQuestions.length - 1) {
+                    setCurrentVocabIdx(c => c + 1);
+                    setIsVocabQuizChecked(false);
+                    setSelectedVocabOption(null);
+                  } else {
+                    changeScreen("vocab_quiz_result");
+                  }
+                }} className="mt-8 w-full py-5 bg-[#8A5A33] text-white font-bold rounded-2xl shadow-lg flex items-center justify-center gap-2">
+                  {currentVocabIdx < vocabQuizQuestions.length - 1 ? "次の問題へ" : "結果を見る"} <ChevronRight size={20} />
+                </button>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* 4. 単語クイズ結果画面 */}
+        {currentScreen === "vocab_quiz_result" && (
+          <div className="animate-fade-in-up text-center py-10 max-w-xl mx-auto">
+            <div className="bg-white p-12 rounded-[2rem] shadow-2xl border border-[#E5C9A8]">
+              <div className="flex justify-center mb-6"><PartyPopper size={72} className="text-amber-500" /></div>
+              <h2 className="text-3xl font-serif font-bold mb-2 text-[#4A3018]">テスト完了！</h2>
+              <div className="text-7xl font-bold text-[#8A5A33] mb-10">{vocabQuizScore} <span className="text-2xl text-[#D4A373] font-normal">/ {vocabQuizQuestions.length}</span></div>
+              <div className="space-y-4">
+                <button onClick={() => generateVocabQuiz(vocabQuizMode.level, vocabQuizMode.direction)} className="w-full py-4 bg-[#8A5A33] text-white font-bold rounded-2xl shadow-lg hover:bg-[#5E3C1E] transition-all">もう一度挑戦</button>
+                <button onClick={() => changeScreen("main_menu")} className="w-full py-4 bg-[#F8F1E7] text-[#764C28] font-bold rounded-2xl hover:bg-[#EBE6DF] transition-all">メニューに戻る</button>
+              </div>
+            </div>
+          </div>
+        )}
+{/* 5. 単語帳画面 */}
+{currentScreen === "vocab" && (
+          <div className="animate-fade-in-up pb-20 max-w-xl mx-auto">
+            <HeaderBackButton onClick={() => changeScreen("main_menu")} />
+            
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-serif font-bold text-[#4A3018]">マイ単語帳</h2>
+              <span className="bg-amber-100 text-amber-800 px-4 py-1 rounded-full text-xs font-bold border border-amber-200 shadow-sm">
+                {savedVocab.length} 語
+              </span>
+            </div>
+
+            {/* 新規登録フォーム */}
+            <div className="bg-[#FCFAF5] p-6 rounded-2xl border-2 border-dashed border-[#D4A373] mb-8 shadow-inner">
+              <h3 className="font-bold text-[#764C28] mb-4 flex items-center gap-2"><Plus size={18}/> 新しい単語を登録</h3>
+              <div className="flex flex-col gap-3">
+                <input
+                  type="text"
+                  value={newArabic}
+                  onChange={(e) => setNewArabic(e.target.value)}
+                  placeholder="アラビア語 (例: شُكْراً)"
+                  className="w-full p-4 border-2 border-[#E5C9A8] rounded-xl font-arabic text-xl focus:border-amber-500 outline-none shadow-sm"
+                  dir="rtl"
+                />
+                <input
+                  type="text"
+                  value={newJapanese}
+                  onChange={(e) => setNewJapanese(e.target.value)}
+                  placeholder="日本語 (例: ありがとう)"
+                  className="w-full p-4 border-2 border-[#E5C9A8] rounded-xl font-medium focus:border-amber-500 outline-none shadow-sm"
+                />
+                <button
+                  onClick={() => {
+                    if(newArabic.trim() && newJapanese.trim()) {
+                      saveWord(newArabic.trim(), newJapanese.trim());
+                      setNewArabic("");
+                      setNewJapanese("");
+                    } else {
+                      alert("アラビア語と日本語の両方を入力してください。");
+                    }
+                  }}
+                  className="w-full bg-[#8A5A33] text-white px-6 py-4 rounded-xl font-bold shadow-md hover:bg-[#5E3C1E] transition-colors mt-2"
+                >
+                  単語帳に追加する
+                </button>
+              </div>
+            </div>
+
+            {/* テスト開始ボタン (単語がある場合のみ表示) */}
+            {savedVocab.length > 0 && (
+              <div className="mb-10 bg-white p-6 rounded-2xl border border-[#E5C9A8] shadow-sm">
+                <p className="text-xs font-bold text-[#A67144] mb-4 tracking-widest uppercase flex items-center gap-2"><Sparkles size={16}/> 単語テスト (フラッシュカード)</p>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <button onClick={() => startFlashcardTest(false)} className="flex-1 bg-[#F8F1E7] border-2 border-[#D4A373] text-[#764C28] py-4 rounded-xl font-bold shadow-sm hover:bg-[#EBE6DF] active:scale-95 transition-all flex items-center justify-center gap-2">
+                    <BookOpen size={18}/> アラビア語 → 日本語
+                  </button>
+                  <button onClick={() => startFlashcardTest(true)} className="flex-1 bg-[#F8F1E7] border-2 border-[#D4A373] text-[#764C28] py-4 rounded-xl font-bold shadow-sm hover:bg-[#EBE6DF] active:scale-95 transition-all flex items-center justify-center gap-2">
+                    <ArrowRightLeft size={18}/> 日本語 → アラビア語
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* 登録済み単語リスト */}
+            {savedVocab.length > 0 ? (
+              <div className="grid gap-4">
+                {savedVocab.map((v, i) => (
+                  <div key={i} className="bg-white p-6 rounded-2xl shadow-md border border-[#E5C9A8] flex justify-between items-center group hover:shadow-lg transition-all" dir="ltr">
+                    <div className="flex-1 text-right" dir="rtl">
+                      <p className="text-3xl font-arabic text-[#3E2713] mb-2 leading-relaxed">
+                        {v.word.includes('\u200F') ? v.word : `\u200F${v.word}\u200F`}
+                      </p>
+                      <p className="text-sm text-[#764C28] font-bold" dir="ltr">{v.meaning}</p>
+                    </div>
+                    <div className="flex gap-2 ml-4" dir="ltr">
+                      <button 
+                        onClick={() => speakText(v.word)}
+                        className="w-10 h-10 bg-[#F8F1E7] text-[#8A5A33] rounded-full flex items-center justify-center hover:bg-amber-100 transition-colors"
+                      >
+                        <Volume2 size={18} />
+                      </button>
+                      <button 
+                        onClick={() => deleteWord(v.word)}
+                        className="w-10 h-10 bg-white text-red-300 rounded-full flex items-center justify-center hover:text-red-500 transition-colors border border-red-50"
+                      >
+                        <XCircle size={18} />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-16 bg-white rounded-[2rem] border-2 border-dashed border-[#E5C9A8]">
+                <Bookmark size={48} className="mx-auto mb-4 text-stone-300" />
+                <p className="text-[#A67144] font-medium">保存された単語はまだありません。<br/>上のフォームから追加してみましょう！</p>
+              </div>
+            )}
+          </div>
+        )}
+{/* 新機能: フラッシュカード画面 */}
+{currentScreen === "flashcard" && savedVocab.length > 0 && (
+          <div className="animate-fade-in-up pb-20 max-w-xl mx-auto">
+            <div className="flex justify-between items-center mb-8">
+              <HeaderBackButton onClick={() => changeScreen("vocab")} text="単語帳に戻る" />
+              <span className="bg-white border border-[#E5C9A8] text-[#A67144] px-4 py-1.5 rounded-full text-xs font-bold tracking-widest shadow-sm">
+                {fcIndex + 1} / {savedVocab.length}
+              </span>
+            </div>
+
+            {/* カード本体 */}
+            <div
+              className={`bg-white p-10 md:p-16 rounded-[2rem] shadow-xl border-2 cursor-pointer transition-all duration-300 transform relative min-h-[350px] flex flex-col items-center justify-center text-center group ${fcFlipped ? "border-amber-400 bg-[#FCFAF5]" : "border-[#E5C9A8] hover:border-[#D4A373] hover:-translate-y-1 hover:shadow-2xl"}`}
+              onClick={() => setFcFlipped(true)}
+            >
+              {!fcFlipped ? (
+                // 表面 (問題)
+                <div className="flex flex-col items-center gap-6 w-full">
+                  <span className="text-xs font-bold text-[#A67144] uppercase tracking-widest absolute top-6 left-6 flex items-center gap-1.5"><HelpCircle size={14}/> Question</span>
+                  
+                  {fcReverse ? (
+                    // 日本語 → アラビア語
+                    <p className="text-3xl md:text-4xl font-bold text-[#4A3018] leading-normal">{savedVocab[fcIndex].meaning}</p>
+                  ) : (
+                    // アラビア語 → 日本語
+                    <div className="flex flex-col items-center gap-8 w-full">
+                      <p className="text-5xl md:text-6xl font-arabic leading-relaxed text-[#3E2713] drop-shadow-sm" dir="rtl">{`\u200F${savedVocab[fcIndex].word}\u200F`}</p>
+                      <button onClick={(e) => { e.stopPropagation(); speakText(savedVocab[fcIndex].word); }} className="w-14 h-14 bg-[#F8F1E7] text-[#8A5A33] rounded-full flex items-center justify-center shadow-md hover:bg-amber-200 hover:scale-110 active:scale-95 transition-all border border-[#E5C9A8]">
+                        <Volume2 size={28} />
+                      </button>
+                    </div>
+                  )}
+                  
+                  <p className="text-[#D4A373] text-sm mt-10 animate-pulse flex items-center gap-2 bg-white/50 px-4 py-2 rounded-full border border-[#F5F0E6]"><Eye size={16}/> タップして答えを見る</p>
+                </div>
+              ) : (
+                // 裏面 (答え)
+                <div className="flex flex-col items-center gap-6 w-full animate-fade-in-up">
+                  <span className="text-xs font-bold text-emerald-600 uppercase tracking-widest absolute top-6 left-6 flex items-center gap-1.5"><CheckCircle size={14}/> Answer</span>
+                  
+                  {fcReverse ? (
+                    // 日本語 → アラビア語の答え
+                    <div className="flex flex-col items-center gap-8 w-full">
+                      <p className="text-5xl md:text-6xl font-arabic leading-relaxed text-[#3E2713] drop-shadow-sm" dir="rtl">{`\u200F${savedVocab[fcIndex].word}\u200F`}</p>
+                      <button onClick={(e) => { e.stopPropagation(); speakText(savedVocab[fcIndex].word); }} className="w-14 h-14 bg-amber-100 text-[#8A5A33] rounded-full flex items-center justify-center shadow-md hover:bg-amber-200 hover:scale-110 active:scale-95 transition-all border border-amber-300">
+                        <Volume2 size={28} />
+                      </button>
+                    </div>
+                  ) : (
+                    // アラビア語 → 日本語の答え
+                    <p className="text-3xl md:text-4xl font-bold text-[#4A3018] leading-normal">{savedVocab[fcIndex].meaning}</p>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* 次へ進むボタン */}
+            <div className="mt-10">
+              <button
+                onClick={() => {
+                  if (fcIndex < savedVocab.length - 1) {
+                    setFcIndex(prev => prev + 1);
+                    setFcFlipped(false);
+                  } else {
+                    changeScreen("vocab");
+                  }
+                }}
+                disabled={!fcFlipped}
+                className={`w-full py-5 rounded-2xl font-bold shadow-lg transition-all text-xl flex items-center justify-center gap-2 ${fcFlipped ? "bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-white hover:shadow-xl active:scale-95 hover:-translate-y-1" : "bg-[#EBE6DF] text-[#A67144] cursor-not-allowed border border-[#D1C4B7]"}`}
+              >
+                {fcIndex < savedVocab.length - 1 ? "次の単語へ" : "テスト終了"} <ChevronRight size={24} />
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* コース選択 (メインメニュー) */}
         {currentScreen === "main_menu" && (
@@ -978,6 +1377,10 @@ export default function Home() {
               <LevelButton title="聴解" subtitle="Listening" color="bg-white border-[#E5C9A8] text-[#5E3C1E]" icon={Headphones} onClick={() => handleMainMenuClick("listening")} />
               <LevelButton title="並び替え" subtitle="Reorder" color="bg-white border-[#E5C9A8] text-[#5E3C1E]" icon={ArrowRightLeft} onClick={() => handleMainMenuClick("reorder")} />
               <LevelButton title="1フレーズ" subtitle="Phrases" color="bg-white border-[#E5C9A8] text-[#5E3C1E]" icon={Lightbulb} onClick={() => handleMainMenuClick("phrase")} />
+              {/* ★追加ここから */}
+              <LevelButton title="物語" subtitle="Story" color="bg-white border-[#E5C9A8] text-[#5E3C1E]" icon={Library} onClick={() => handleMainMenuClick("story")} />
+              {/* ★追加ここまで */}
+              <LevelButton title="単語テスト" subtitle="Vocab Test" color="bg-white border-[#E5C9A8] text-[#5E3C1E]" icon={Sparkles} onClick={() => changeScreen("vocab_quiz_select")} />
               <div className="col-span-2 md:col-span-3 flex justify-center mt-2">
                 <div className="w-full sm:w-1/2 md:w-1/3">
                     <LevelButton title="詩" subtitle="Poetry" color="bg-[#4A3018] border-[#3E2713] text-amber-100" icon={ScrollText} onClick={() => handleMainMenuClick("poetry")} />
@@ -1207,11 +1610,14 @@ export default function Home() {
             </div>
           </div>
         )}
-
-        {/* 記事リスト */}
-        {currentScreen === "list" && (
+{/* 記事リスト */}
+{currentScreen === "list" && (
           <div className="animate-fade-in-up max-w-2xl mx-auto">
-            <HeaderBackButton onClick={() => changeScreen("topics")} />
+            <HeaderBackButton onClick={() => {
+                if (courseType === "story") changeScreen("main_menu"); // ★追加
+                else if (courseType === "reorder") changeScreen("levels_sub"); // ★ついでにreorderのバグも修正
+                else changeScreen("topics");
+            }} />
 
             <div className="flex justify-between items-end mb-8 border-b-2 border-[#E5C9A8] pb-3">
               <h2 className="text-2xl font-serif font-bold text-[#4A3018] flex items-center gap-2">
@@ -1330,17 +1736,25 @@ export default function Home() {
             <h2 className="text-3xl font-serif font-bold mb-4 text-center text-[#4A3018] leading-tight">{activeArticle.title}</h2>
             <p className="text-[#A67144] mb-12 text-sm font-bold tracking-widest uppercase border-b border-[#D4A373] pb-2">Select Mode</p>
             
-            <div className={`grid gap-4 w-full ${activeArticle.level === "初級" || activeArticle.level === "文法" ? "grid-cols-2" : "grid-cols-1 md:grid-cols-3"}`} dir="ltr">
-              {(courseType === "reading" || (activeArticle.level !== "文法" && courseType !== "listening")) && (
+{/* ★物語コースの時は1列で中央配置になるように grid-cols-1 max-w-xs mx-auto を追加 */}
+<div className={`grid gap-4 w-full ${courseType === "story" ? "grid-cols-1 max-w-xs mx-auto" : activeArticle.level === "初級" || activeArticle.level === "文法" ? "grid-cols-2" : "grid-cols-1 md:grid-cols-3"}`} dir="ltr">
+              
+              {/* Reading: 物語コースでも表示するように courseType === "story" を追加 */}
+              {(courseType === "reading" || courseType === "story" || (activeArticle.level !== "文法" && courseType !== "listening")) && (
                 <ModeButton icon={BookOpen} title="Reading" subtitle="読んで理解" color="border-[#E5C9A8] bg-white hover:bg-[#F8F1E7] text-[#5E3C1E]" onClick={() => startLearning("reading")} />
               )}
-              {courseType !== "reading" && activeArticle.level !== "文法" && activeArticle.level !== "初級" && (
+              
+              {/* Listening: 物語コースでは非表示にするため courseType !== "story" を追加 */}
+              {courseType !== "reading" && courseType !== "story" && activeArticle.level !== "文法" && activeArticle.level !== "初級" && (
                 <ModeButton icon={Headphones} title="Listening" subtitle="音声のみ" color="border-[#E5C9A8] bg-white hover:bg-[#F8F1E7] text-[#5E3C1E]" onClick={() => startLearning("listening")} />
               )}
+              
               {activeArticle.level === "文法" && courseType === "grammar" && (
                 <ModeButton icon={Puzzle} title="Grammar" subtitle="文法理解" color="border-[#E5C9A8] bg-white hover:bg-[#F8F1E7] text-[#5E3C1E]" onClick={() => startLearning("grammar")} />
               )}
-              {courseType !== "reading" && (
+              
+              {/* Dictation: 物語コースでは非表示にするため courseType !== "story" を追加 */}
+              {courseType !== "reading" && courseType !== "story" && activeArticle.level !== "文法" && (
                 <ModeButton icon={PenTool} title="Dictation" subtitle="書き取り" color="border-[#E5C9A8] bg-white hover:bg-[#F8F1E7] text-[#5E3C1E]" onClick={() => startLearning("dictation")} />
               )}
             </div>
@@ -1652,8 +2066,8 @@ export default function Home() {
               </div>
 
 {/* ★ここから追加: 本文確認トグルボタン */}
-{(learningMode === "reading" || courseType === "poetry") && (
-                <div className="mb-6 animate-fade-in-up">
+{(courseType === "reading" || courseType === "poetry") && (
+    <div className="mb-6 animate-fade-in-up">
                   <button 
                     onClick={() => setIsQuizTextVisible(!isQuizTextVisible)}
                     className="w-full py-3 bg-white border-2 border-[#E5C9A8] text-[#8A5A33] font-bold rounded-2xl shadow-sm hover:bg-[#F8F1E7] transition-all flex items-center justify-center gap-2 active:scale-95"
