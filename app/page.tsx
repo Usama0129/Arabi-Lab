@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 // ↓ パスは ./ (同じ階層) になっています
 import { supabase } from "./lib/supabaseClient";
-import { articles, Article, QuizQuestion } from "./data.tsx";
+import { articles, Article, QuizQuestion } from "./data";
 import Link from 'next/link';
 
 // ★ モダンなアイコンライブラリを読み込み
