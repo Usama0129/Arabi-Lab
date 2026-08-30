@@ -1235,7 +1235,7 @@ const startSequencePlayback = async (startIndex: number) => {
     <button 
       onClick={(e) => { 
         e.stopPropagation(); // 親の onClick（メインメニュー移動）を防ぐ
-        changeScreen("notifications"); 
+        changeScreen("notifications" as any);
       }}
       className="relative p-2 text-amber-100 hover:text-amber-400 transition-all active:scale-90 ml-1"
     >
