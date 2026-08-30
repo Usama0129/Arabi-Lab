@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import OpenAI from 'openai';
 
 export const dynamic = 'force-dynamic';
 
@@ -58,8 +57,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'OpenAI API Key is missing' }, { status: 500 });
     }
 
-    const openai = new OpenAI({ apiKey });
-
     const { text, speed = 1.0 } = await req.json();
     if (!text) {
       return NextResponse.json({ error: 'Text is required' }, { status: 400 });
@@ -77,17 +74,29 @@ export async function POST(req: Request) {
     cleanText = zenkakuToHankaku(cleanText);
     cleanText = toArabicNumerals(cleanText);
 
-    // OpenAI TTS API 呼び出し
-    const response = await openai.audio.speech.create({
-      model: 'tts-1',
-      voice: 'alloy',
-      input: cleanText,
-      speed: Math.max(0.5, Math.min(2.0, speed)),
+    // OpenAI TTS API を直接 fetch で呼び出し
+    const response = await fetch('https://api.openai.com/v1/audio/speech', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: 'tts-1',
+        voice: 'alloy',
+        input: cleanText,
+        speed: Math.max(0.5, Math.min(2.0, speed)),
+      }),
     });
 
-    const buffer = Buffer.from(await response.arrayBuffer());
+    if (!response.ok) {
+      const errText = await response.text();
+      return NextResponse.json({ error: errText }, { status: response.status });
+    }
 
-    return new NextResponse(buffer, {
+    const arrayBuffer = await response.arrayBuffer();
+
+    return new NextResponse(arrayBuffer, {
       status: 200,
       headers: {
         'Content-Type': 'audio/mpeg',
