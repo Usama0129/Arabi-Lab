@@ -1,23 +1,122 @@
 import React from "react";
 import { Volume2 } from "lucide-react";
 
-// --- 音声再生用ユーティリティ ---
-const playTableAudio = (text: string) => {
-  if (typeof window !== "undefined" && "speechSynthesis" in window) {
-    window.speechSynthesis.cancel();
-    // \u200F（制御文字）を除去してアラビア文字だけを抽出
-    const cleanText = text.replace(/[^\u0600-\u06FF\s]/g, "").trim();
-    const u = new SpeechSynthesisUtterance(cleanText);
-    const voices = window.speechSynthesis.getVoices();
-    const arabicVoice = voices.find(v => v.lang.includes("ar"));
-    
-    if (arabicVoice) {
-      u.voice = arabicVoice;
-      u.lang = arabicVoice.lang;
-    } else {
-      u.lang = "ar-SA";
+// --- アラビア語アルファベット1文字の正式名称マッピング ---
+const ARABIC_LETTER_NAMES: Record<string, string> = {
+  "\u200Fا\u200F": "\u200Fأَلِف\u200F",
+  "ا": "\u200Fأَلِف\u200F",
+  "\u200Fب\u200F": "\u200Fبَاء\u200F",
+  "ب": "\u200Fبَاء\u200F",
+  "\u200Fت\u200F": "\u200Fتَاء\u200F",
+  "ت": "\u200Fتَاء\u200F",
+  "\u200Fث\u200F": "\u200Fثَاء\u200F",
+  "ث": "\u200Fثَاء\u200F",
+  "\u200Fج\u200F": "\u200Fجِيم\u200F",
+  "ج": "\u200Fجِيم\u200F",
+  "\u200Fح\u200F": "\u200Fحَاء\u200F",
+  "ح": "\u200Fحَاء\u200F",
+  "\u200Fخ\u200F": "\u200Fخَاء\u200F",
+  "خ": "\u200Fخَاء\u200F",
+  "\u200Fد\u200F": "\u200Fدَال\u200F",
+  "د": "\u200Fدَال\u200F",
+  "\u200Fذ\u200F": "\u200Fذَال\u200F",
+  "ذ": "\u200Fذَال\u200F",
+  "\u200Fر\u200F": "\u200Fرَاء\u200F",
+  "ر": "\u200Fرَاء\u200F",
+  "\u200Fز\u200F": "\u200Fزَاي\u200F",
+  "ز": "\u200Fزَاي\u200F",
+  "\u200Fس\u200F": "\u200Fسِين\u200F",
+  "س": "\u200Fسِين\u200F",
+  "\u200Fش\u200F": "\u200Fشِين\u200F",
+  "ش": "\u200Fشِين\u200F",
+  "\u200Fص\u200F": "\u200Fصَاد\u200F",
+  "ص": "\u200Fصَاد\u200F",
+  "\u200Fض\u200F": "\u200Fضَاد\u200F",
+  "ض": "\u200Fضَاد\u200F",
+  "\u200Fط\u200F": "\u200Fطَاء\u200F",
+  "ط": "\u200Fطَاء\u200F",
+  "\u200Fظ\u200F": "\u200Fظَاء\u200F",
+  "ظ": "\u200Fظَاء\u200F",
+  "\u200Fع\u200F": "\u200Fعَيْن\u200F",
+  "ع": "\u200Fعَيْن\u200F",
+  "\u200Fغ\u200F": "\u200Fغَيْن\u200F",
+  "غ": "\u200Fغَيْن\u200F",
+  "\u200Fف\u200F": "\u200Fفَاء\u200F",
+  "ف": "\u200Fفَاء\u200F",
+  "\u200Fق\u200F": "\u200Fقَاف\u200F",
+  "ق": "\u200Fقَاف\u200F",
+  "\u200Fك\u200F": "\u200Fكَاف\u200F",
+  "ك": "\u200Fكَاف\u200F",
+  "\u200Fل\u200F": "\u200Fلَام\u200F",
+  "ل": "\u200Fلَام\u200F",
+  "\u200Fم\u200F": "\u200Fمِيم\u200F",
+  "م": "\u200Fمِيم\u200F",
+  "\u200Fن\u200F": "\u200Fنُون\u200F",
+  "ن": "\u200Fنُون\u200F",
+  "\u200Fه\u200F": "\u200Fهَاء\u200F",
+  "ه": "\u200Fهَاء\u200F",
+  "\u200Fو\u200F": "\u200Fوَاو\u200F",
+  "و": "\u200Fوَاو\u200F",
+  "\u200Fي\u200F": "\u200Fيَاء\u200F",
+  "ي": "\u200Fيَاء\u200F",
+  "\u200Fء\u200F": "\u200Fهَمْزَة\u200F",
+  "ء": "\u200Fهَمْزَة\u200F",
+  "\u200Fة\u200F": "\u200Fتَاء مَرْبُوطَة\u200F",
+  "ة": "\u200Fتَاء مَرْبُوطَة\u200F"
+};
+
+// --- 音声再生用ユーティリティ（1文字の自動変換 ＆ キャッシュ対応） ---
+const tableAudioCache = new Map<string, string>();
+let currentTableAudio: HTMLAudioElement | null = null;
+
+export const playTableAudio = async (text: string) => {
+  if (typeof window === "undefined") return;
+
+  try {
+    if (currentTableAudio) {
+      currentTableAudio.pause();
+      currentTableAudio.currentTime = 0;
+      currentTableAudio = null;
     }
-    window.speechSynthesis.speak(u);
+
+    // 1文字のアルファベットなら正式な文字名（أَلِف など）に自動置換
+    const rawTrimmed = (text || "").trim();
+    const spokenText = ARABIC_LETTER_NAMES[rawTrimmed] || rawTrimmed;
+
+    // 制御文字を除去
+    const cleanText = spokenText.replace(/[\u200F\u200E]/g, "").trim();
+    if (!cleanText) return;
+
+    // キャッシュ確認
+    let audioUrl = tableAudioCache.get(cleanText);
+
+    if (!audioUrl) {
+      const res = await fetch("/api/tts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: cleanText, speed: 1.0 }),
+      });
+
+      if (!res.ok) throw new Error("Table TTS request failed");
+
+      const blob = await res.blob();
+      audioUrl = URL.createObjectURL(blob);
+      tableAudioCache.set(cleanText, audioUrl);
+    }
+
+    const audio = new Audio(audioUrl);
+    currentTableAudio = audio;
+
+    audio.onended = () => {
+      if (currentTableAudio === audio) currentTableAudio = null;
+    };
+    audio.onerror = () => {
+      if (currentTableAudio === audio) currentTableAudio = null;
+    };
+
+    await audio.play();
+  } catch (error) {
+    console.error("Table audio playback error:", error);
   }
 };
 
@@ -67963,7 +68062,7 @@ export const articles: Article[] = [
     questions: [],
     sentences: [
       {
-        arabic: "مِيَّة مِيَّة",
+        arabic: "مِيَّه مِيَّه",
         japanese: "完璧！ / その通り！",
         note: "「ミイヤ・ミイヤ」。数字の100（مِائَة：ミア）を重ねて「100パーセント＝完璧！最高！」という意味になります。レストランで「味はどう？」と聞かれた時や、仕事が上手くいった時のリアクションとして重宝します。"
       }

@@ -1,0 +1,105 @@
+import { NextResponse } from 'next/server';
+import OpenAI from 'openai';
+import { OPENAI_API_KEY as LOCAL_KEY } from '../../lib/secrets';
+
+export const dynamic = 'force-dynamic';
+
+// 1文字アルファベットの正式名称マッピング
+const ARABIC_LETTER_NAMES: Record<string, string> = {
+  "ا": "أَلِف",
+  "أ": "أَلِف",
+  "إ": "أَلِف",
+  "آ": "أَلِف مَدَّة",
+  "ب": "بَاء",
+  "ت": "تَاء",
+  "ث": "ثَاء",
+  "ج": "جِيم",
+  "ح": "حَاء",
+  "خ": "خَاء",
+  "د": "دَال",
+  "ذ": "ذَال",
+  "ر": "رَاء",
+  "ز": "زَاي",
+  "س": "سِين",
+  "ش": "شِين",
+  "ص": "صَاد",
+  "ض": "ضَاد",
+  "ط": "طَاء",
+  "ظ": "ظَاء",
+  "ع": "عَيْن",
+  "غ": "غَيْن",
+  "ف": "فَاء",
+  "ق": "قَاف",
+  "ك": "كَاف",
+  "ل": "لَام",
+  "م": "مِيم",
+  "ن": "نُون",
+  "ه": "هَاء",
+  "و": "وَاو",
+  "ي": "يَاء",
+  "ى": "أَلِف مَقْصُورَة",
+  "ء": "هَمْزَة",
+  "ة": "تَاء مَرْبُوطَة"
+};
+
+function zenkakuToHankaku(str: string) {
+  return str.replace(/[０-９]/g, (s) => String.fromCharCode(s.charCodeAt(0) - 0xFEE0));
+}
+
+function toArabicNumerals(str: string) {
+  const arabicDigits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+  return str.replace(/[0-9]/g, (d) => arabicDigits[parseInt(d, 10)]);
+}
+
+export async function POST(req: Request) {
+  try {
+    const apiKey = (process.env.OPENAI_API_KEY || process.env.NEXT_PUBLIC_OPENAI_API_KEY || LOCAL_KEY || '').trim();
+
+    if (!apiKey) {
+      return NextResponse.json({ error: 'API Key missing' }, { status: 500 });
+    }
+
+    const openai = new OpenAI({ apiKey });
+
+    const { text, speed = 1.0 } = await req.json();
+    if (!text) {
+      return NextResponse.json({ error: 'Text is required' }, { status: 400 });
+    }
+
+    // 1. 制御文字を除去
+    let cleanText = (text || '').replace(/[\u200F\u200E]/g, '').trim();
+
+    // 2. アルファベット1文字の場合は正式な文字名に自動変換（例: "خ" -> "خَاء"）
+    if (ARABIC_LETTER_NAMES[cleanText]) {
+      cleanText = ARABIC_LETTER_NAMES[cleanText];
+    }
+
+    // 3. 数字の正規化
+    cleanText = zenkakuToHankaku(cleanText);
+    cleanText = toArabicNumerals(cleanText);
+
+    // OpenAI TTS API 呼び出し
+    const response = await openai.audio.speech.create({
+      model: 'tts-1',
+      voice: 'alloy',
+      input: cleanText,
+      speed: Math.max(0.5, Math.min(2.0, speed)),
+    });
+
+    const buffer = Buffer.from(await response.arrayBuffer());
+
+    return new NextResponse(buffer, {
+      status: 200,
+      headers: {
+        'Content-Type': 'audio/mpeg',
+        'Cache-Control': 'public, max-age=31536000, immutable',
+      },
+    });
+  } catch (error: any) {
+    console.error('OpenAI TTS Error:', error);
+    return NextResponse.json(
+      { error: error.message || 'Failed to generate audio' },
+      { status: 500 }
+    );
+  }
+}

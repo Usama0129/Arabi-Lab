@@ -884,24 +884,40 @@ export default function Home() {
               <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-br from-amber-400 to-amber-600 z-0"></div>
               <div className="relative z-10"><div className="bg-white w-20 h-20 rounded-full mx-auto flex items-center justify-center text-4xl shadow-lg mb-4 mt-8">👑</div><h3 className="text-2xl font-serif font-bold text-emerald-950 mb-2">プレミアムプラン</h3><p className="text-gray-500 text-sm mb-6">このコンテンツは有料会員限定です。<br/>学習制限を解除してすべての機能を使おう！</p><ul className="text-left text-sm text-gray-600 space-y-2 mb-8 bg-stone-50 p-4 rounded-xl"><li className="flex gap-2"><span>✅</span> 中級・上級コンテンツへのアクセス</li><li className="flex gap-2"><span>✅</span> 無制限の音声再生</li><li className="flex gap-2"><span>✅</span> 広告非表示</li></ul>
               <button 
-                onClick={async () => {
-                  setShowUpgradeModal(false);
-                  try {
-                    // 決済の準備を開始（APIを呼び出す）
-                    const response = await fetch('/api/checkout', { method: 'POST' });
-                    const data = await response.json();
-                    
-                    // Stripeの決済画面へ移動
-                    if (data.url) {
-                      window.location.href = data.url;
-                    } else {
-                      alert('決済への移動に失敗しました');
-                    }
-                  } catch (err) {
-                    console.error(err);
-                    alert('エラーが発生しました');
-                  }
-                }} 
+onClick={async () => {
+  // 1. ログインチェック（未ログインなら中断）
+  if (!user) {
+    alert("ログインが必要です");
+    return;
+  }
+
+  setShowUpgradeModal(false);
+  try {
+    // 2. userId と email を JSON形式で送信
+    const response = await fetch('/api/checkout', { 
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: user.id,
+        email: user.email
+      })
+    });
+
+    const data = await response.json();
+    
+    // Stripeの決済画面へ移動
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      alert('決済への移動に失敗しました');
+    }
+  } catch (err) {
+    console.error(err);
+    alert('エラーが発生しました');
+  }
+}}
                 className="w-full bg-emerald-600 text-white font-bold py-3 rounded-xl shadow-lg hover:bg-emerald-700 transition transform hover:scale-105 mb-3"
               >
                 月額 ¥980 で登録

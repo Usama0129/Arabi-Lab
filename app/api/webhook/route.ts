@@ -2,61 +2,87 @@ import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 
-// Stripe初期化
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2023-10-16' as any,
-});
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-// Supabase初期化（管理者権限）
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-// 環境変数からWebhookシークレットを取得
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+// ターミナルに表示されている whsec_ キーを直接指定
+const endpointSecret = "whsec_879c32ce8083eef548aad929966a92370c68d695c1811aeba79eab537f1d57c7";
 
 export async function POST(req: Request) {
+  const body = await req.text();
+  const signature = req.headers.get('stripe-signature');
+
+  if (!signature) {
+    return NextResponse.json({ error: 'Missing signature' }, { status: 400 });
+  }
+
+  let event: Stripe.Event;
+
   try {
-    const body = await req.text();
-    const sig = req.headers.get('stripe-signature') as string;
+    event = stripe.webhooks.constructEvent(body, signature, endpointSecret);
+  } catch (err: any) {
+    console.error(`❌ Webhook署名検証エラー: ${err.message}`);
+    return NextResponse.json({ error: `Webhook Error: ${err.message}` }, { status: 400 });
+  }
 
-    let event: Stripe.Event;
+  try {
+    switch (event.type) {
+      // 1. 決済完了時（有料化）
+      case 'checkout.session.completed': {
+        const session = event.data.object as Stripe.Checkout.Session;
+        const userId = session.metadata?.userId;
+        const customerId = session.customer as string;
 
-    // 1. Stripeからの正しい通知か検証する
-    try {
-      if (!endpointSecret) throw new Error('Missing STRIPE_WEBHOOK_SECRET');
-      event = stripe.webhooks.constructEvent(body, sig, endpointSecret);
-    } catch (err: any) {
-      console.error(`Webhook Signature Verification Failed: ${err.message}`);
-      return new NextResponse(`Webhook Error: ${err.message}`, { status: 400 });
-    }
-
-    // 2. 支払いが完了したイベントかどうかチェック
-    if (event.type === 'checkout.session.completed') {
-      const session = event.data.object as Stripe.Checkout.Session;
-      const userId = session.metadata?.userId;
-
-      if (userId) {
-        console.log(`Payment successful for user: ${userId}`);
-        
-        // 3. Supabaseのユーザー情報を更新（プレミアム会員にする）
-        const { error } = await supabase
-          .from('profiles')
-          .update({ is_premium: true })
-          .eq('id', userId);
-
-        if (error) {
-          console.error('Supabase Update Error:', error);
-          return new NextResponse('Database Error', { status: 500 });
+        if (userId) {
+          await supabase
+            .from('profiles')
+            .update({
+              is_premium: true,
+              stripe_customer_id: customerId,
+            })
+            .eq('id', userId);
+          console.log(`✅ 有料化完了: User ${userId}`);
         }
+        break;
       }
+
+      // 2. 解約満了による終了（無料化）
+      case 'customer.subscription.deleted': {
+        const subscription = event.data.object as Stripe.Subscription;
+        const customerId = subscription.customer as string;
+
+        await supabase
+          .from('profiles')
+          .update({ is_premium: false })
+          .eq('stripe_customer_id', customerId);
+        console.log(`🛑 解約による無料化完了: Customer ${customerId}`);
+        break;
+      }
+
+      // 3. 支払い失敗時（無料化）
+      case 'invoice.payment_failed': {
+        const invoice = event.data.object as Stripe.Invoice;
+        const customerId = invoice.customer as string;
+
+        await supabase
+          .from('profiles')
+          .update({ is_premium: false })
+          .eq('stripe_customer_id', customerId);
+        console.log(`⚠️ 支払い失敗による無料化: Customer ${customerId}`);
+        break;
+      }
+
+      default:
+        console.log(`未処理イベント: ${event.type}`);
     }
 
-    return new NextResponse(null, { status: 200 });
-
-  } catch (error: any) {
-    console.error("Internal Server Error:", error);
-    return new NextResponse("Internal Server Error", { status: 500 });
+    return NextResponse.json({ received: true }, { status: 200 });
+  } catch (err: any) {
+    console.error(`❌ DB更新エラー: ${err.message}`);
+    return NextResponse.json({ error: 'Handler failed' }, { status: 500 });
   }
 }

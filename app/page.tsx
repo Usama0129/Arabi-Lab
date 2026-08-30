@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 // ↓ パスは ./ (同じ階層) になっています
 import { supabase } from "./lib/supabaseClient";
-import { articles, Article, QuizQuestion } from "./data";
+import { articles, Article, QuizQuestion } from "./data.tsx";
 import Link from 'next/link';
 
 // ★ モダンなアイコンライブラリを読み込み
@@ -13,7 +13,8 @@ import {
   CheckCircle, XCircle, PenTool, Eye, LogOut, Check,
   Tent, Moon, Swords, Crown, Sun, Mic, Sparkles, Landmark, Coffee, Library, Pencil,
   Loader2, PartyPopper, Frown, MessageSquare, Plus, ChevronRight, Video,
-  HelpCircle // ← ★これを最後の方に追加してください
+  HelpCircle,
+  Bell // ★追加// ← ★これを最後の方に追加してください
 } from 'lucide-react';
 
 // --- Types ---
@@ -28,6 +29,12 @@ type SubscriptionInfo = {
   startDate: string;
   nextPayment: string;
   amount: number;
+};
+type AppNotification = {
+  id: string;
+  created_at: string;
+  title: string;
+  content: string;
 };
 
 // --- Constants ---
@@ -116,72 +123,103 @@ const LandingPage = ({ onLogin, onGuestStart }: { onLogin: () => void, onGuestSt
         .animate-scroll-text { animation: scroll-rtl 60s linear infinite; }
       `}</style>
 
-{/* Hero Section */}
-<div className="bg-emerald-950 text-white relative overflow-hidden h-[600px] flex flex-col justify-center items-center">
-        {/* 背景のアラビア語の詩（透明度を上げてしっかり見えるように調整） */}
-        <div className="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none flex flex-col justify-around z-0 overflow-hidden" dir="rtl">
+      {/* Hero Section */}
+      <div className="bg-[#3E2713] text-white relative overflow-hidden h-[600px] flex flex-col justify-center items-center">
+        <div className="absolute top-0 left-0 w-full h-full opacity-40 pointer-events-none flex flex-col justify-around z-0 overflow-hidden" dir="rtl">
            {[...Array(5)].map((_, i) => (
-             <div key={i} className="whitespace-nowrap text-[8rem] md:text-[10rem] font-arabic leading-none animate-scroll-text text-emerald-100" style={{ animationDuration: `${40 + i * 10}s`, opacity: 0.3 + (i * 0.1) }}>
-               {MUTANABBI_POEM.repeat(10)}
+             <div key={i} className="whitespace-nowrap text-[8rem] md:text-[10rem] font-arabic leading-none animate-scroll-text text-[#E5C9A8]" style={{ animationDuration: `${40 + i * 10}s`, opacity: 0.2 + (i * 0.1) }}>
+               {`\u200F${MUTANABBI_POEM}\u200F`.repeat(10)}
              </div>
            ))}
         </div>
-        
-        {/* 深く落ち着いたダークグリーンのグラデーション（透過率を調整して文字を馴染ませる） */}
-        <div className="absolute inset-0 bg-gradient-to-b from-emerald-900/70 via-emerald-950/80 to-[#0a1712] z-1"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#4A3018]/60 via-[#3E2713]/80 to-[#2C1A0D] z-1"></div>
         
         <div className="max-w-4xl mx-auto px-6 py-10 relative z-10 text-center">
-          <div className="inline-block bg-emerald-800/30 px-5 py-1.5 rounded-full text-[10px] font-bold tracking-widest mb-6 border border-emerald-600/30 backdrop-blur-sm text-emerald-100 shadow-sm">
+          <div className="inline-block bg-[#8A5A33]/40 px-5 py-1.5 rounded-full text-[10px] font-bold tracking-widest mb-6 border border-[#A67144]/40 backdrop-blur-sm text-amber-100 shadow-sm">
             ARABIC LEARNING PLATFORM
           </div>
           <h1 className="text-4xl md:text-6xl font-serif font-bold mb-4 leading-tight drop-shadow-xl text-white">
             アラビア語を、<br />
             <span className="text-amber-500">もっと身近に。</span>
           </h1>
-          <h2 className="text-lg md:text-2xl font-serif font-bold text-emerald-100/90 mb-8 drop-shadow-md tracking-wide">
+          <h2 className="text-lg md:text-2xl font-serif font-bold text-[#F8F1E7]/90 mb-8 drop-shadow-md tracking-wide">
             『暗号』が『言葉』に変わる感動を Arabi Labで
           </h2>
-          <p className="text-base md:text-lg text-emerald-100/70 mb-12 max-w-2xl mx-auto leading-relaxed font-medium drop-shadow">
-            初心者の文法理解から、会話表現、読解・聴解、<br className="hidden md:block"/>
-            そして千年の歴史を持つアラブ詩まで。1000問以上の演習と共に。
+          <p className="text-base md:text-lg text-[#E5C9A8] mb-12 max-w-2xl mx-auto leading-relaxed font-medium drop-shadow">
+            基礎文法から日常会話、ニュース読解、<br className="hidden md:block"/>
+            そして物語や千年の歴史を持つアラビア語詩まで。
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button onClick={onLogin} className="w-full sm:w-auto px-10 py-4 bg-white text-emerald-950 font-bold rounded-full shadow-xl hover:bg-gray-100 hover:scale-105 transition transform flex items-center justify-center gap-2 border-2 border-white">
+            <button onClick={onLogin} className="w-full sm:w-auto px-10 py-4 bg-white text-[#3E2713] font-bold rounded-full shadow-xl hover:bg-gray-100 hover:scale-105 transition transform flex items-center justify-center gap-2 border-2 border-white">
               <span className="text-blue-600 font-bold text-lg">G</span> Googleで今すぐ始める
             </button>
-            <button onClick={onGuestStart} className="w-full sm:w-auto px-10 py-4 bg-transparent border-2 border-emerald-700/80 text-emerald-50 font-bold rounded-full hover:bg-emerald-900/80 hover:border-emerald-600 transition backdrop-blur-sm">
+            <button onClick={onGuestStart} className="w-full sm:w-auto px-10 py-4 bg-transparent border-2 border-[#8A5A33] text-[#FDFCF8] font-bold rounded-full hover:bg-[#4A3018]/80 hover:border-[#A67144] transition backdrop-blur-sm">
               登録せずに試す
             </button>
           </div>
         </div>
       </div>
 
+      {/* [復活] 3つの特徴セクション */}
       <div className="bg-white py-16 border-b border-stone-100">
          <div className="max-w-4xl mx-auto px-6 text-center">
             <div className="grid md:grid-cols-3 gap-8 divide-y md:divide-y-0 md:divide-x divide-stone-100">
                <div className="p-4 flex flex-col items-center">
                   <Library className="text-[#8A5A33] mb-4" size={40} strokeWidth={1.5} />
                   <h3 className="font-bold text-[#4A3018] text-lg mb-2">圧倒的な網羅性</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">初心者向けの基礎文法から、ニュース読解、日常会話表現、そして古典詩まで。あらゆるレベルに対応。</p>
+                  <p className="text-sm text-gray-500 leading-relaxed">基礎文法からニュース読解、日常会話、そして古典詩まで。あなたの「学びたい」がここにあります。</p>
                </div>
                <div className="p-4 flex flex-col items-center">
                   <Pencil className="text-[#8A5A33] mb-4" size={40} strokeWidth={1.5} />
                   <h3 className="font-bold text-[#4A3018] text-lg mb-2">1000問以上の演習</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">ただ読むだけではありません。豊富なクイズと書き取り問題で、知識を確実に定着させます。</p>
+                  <p className="text-sm text-gray-500 leading-relaxed">豊富なクイズと書き取り演習で、知識を「知っている」から「使える」レベルへと引き上げます。</p>
                </div>
                <div className="p-4 flex flex-col items-center">
                   <CreditCard className="text-[#8A5A33] mb-4" size={40} strokeWidth={1.5} />
-                  <h3 className="font-bold text-[#4A3018] text-lg mb-2">驚きのコストパフォーマンス</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">一般的なアラビア語教材は1冊3,000円〜。Arabi Labなら、月額500円ですべてのコンテンツが学び放題。</p>
+                  <h3 className="font-bold text-[#4A3018] text-lg mb-2">高いコストパフォーマンス</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed">教材1冊分の価格で、これらすべてのデジタル教材が学び放題。効率的で経済的な学習を支えます。</p>
                </div>
             </div>
          </div>
       </div>
 
-      <div className="bg-[#F5F0E6] py-20">
+      {/* 学習コンテンツセクション（文言ブラッシュアップ版） */}
+      <div className="bg-[#FDFCF8] py-24 border-b border-stone-100">
+         <div className="max-w-5xl mx-auto px-6">
+            <div className="text-center mb-16">
+               <h2 className="text-3xl font-serif font-bold text-[#4A3018] mb-4">多彩な学習アプローチ</h2>
+               <p className="text-[#8A5A33] text-sm font-medium">読む、聞く、解く。多角的なアプローチでアラビア語の真髄に触れる。</p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-12">
+               {[
+                  { icon: Puzzle, title: "文法体系の網羅", desc: "文字の基本から、一般的な教材では触れられない高度な構文までを体系的に解説。盤石な基礎を築きます。" },
+                  { icon: MessageCircle, title: "実戦会話", desc: "レストラン、買い物、ビジネス。現地で遭遇するリアルな場面を想定した、即戦力の表現を習得。" },
+                  { icon: BookOpen, title: "多読・精読", desc: "短文から、母音記号のない高度な長文読解まで。レベルに応じたステップアップで、読解力を着実に養成。" },
+                  { icon: Headphones, title: "聴解トレーニング", desc: "ネイティブの自然な発音に耳を慣らす。レベル別リスニング課題で、聞き取りの壁を突破します。" },
+                  { icon: ArrowRightLeft, title: "語順・構文演習", desc: "アラビア語独特の語順を体得する並び替え問題。パズルのように解くことで、文法感覚を鋭くします。" },
+                  { icon: Lightbulb, title: "現代の口語と標準語", desc: "格調高いフスハー（標準語）と、サウジアラビアなどで実際に話されるアンミーヤ（方言）の両輪をカバー。" },
+                  { icon: Library, title: "物語の世界", desc: "馴染み深い童話や世界の伝説をアラビア語で。物語の力で、語彙と表現を楽しく、深く定着させます。" },
+                  { icon: Sparkles, title: "習熟度別テスト", desc: "自分のレベルを客観的に把握する。各段階に合わせた単語テストで、学習の成果を可視化します。" },
+                  { icon: ScrollText, title: "不朽の古典詩", desc: "1000年以上の時を超えて愛される詩篇。原文の美しさと響きをそのままに、アラブ文学の頂点を味わう。" }
+               ].map((item, idx) => (
+                  <div key={idx} className="flex flex-col items-center text-center group">
+                     <div className="bg-[#F8F1E7] p-5 rounded-[2rem] mb-6 text-[#8A5A33] group-hover:bg-[#8A5A33] group-hover:text-white transition-all duration-500 shadow-sm">
+                        <item.icon size={32} strokeWidth={1.5} />
+                     </div>
+                     <h3 className="font-bold text-[#4A3018] text-lg mb-3">{item.title}</h3>
+                     <p className="text-sm text-gray-500 leading-relaxed px-2">{item.desc}</p>
+                  </div>
+               ))}
+            </div>
+         </div>
+      </div>
+
+      {/* プラン比較セクション（文言整理版） */}
+      <div className="bg-[#F5F0E6] py-24">
         <div className="max-w-4xl mx-auto px-6">
           <h2 className="text-2xl font-serif font-bold text-center text-[#4A3018] mb-12">シンプルで、続けやすいプラン</h2>
           <div className="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+            
             <div className="bg-white p-8 rounded-3xl border border-[#E5C9A8] shadow-sm flex flex-col hover:shadow-md transition">
               <div className="mb-4">
                 <span className="bg-stone-100 text-stone-600 px-3 py-1 rounded-full text-xs font-bold">FREE</span>
@@ -189,9 +227,9 @@ const LandingPage = ({ onLogin, onGuestStart }: { onLogin: () => void, onGuestSt
               <h3 className="text-2xl font-bold mb-2 text-[#4A3018]">フリープラン</h3>
               <p className="text-4xl font-bold mb-6 font-serif text-gray-400">¥0 <span className="text-sm font-normal">/月</span></p>
               <ul className="space-y-4 mb-8 flex-1">
-                <li className="flex items-center gap-2 text-sm text-gray-600"><CheckCircle className="text-[#A67144]" size={16}/> 初級コンテンツへのアクセス</li>
-                <li className="flex items-center gap-2 text-sm text-gray-600"><CheckCircle className="text-[#A67144]" size={16}/> 文法・単語の基礎練習</li>
-                <li className="flex items-center gap-2 text-sm text-gray-600"><CheckCircle className="text-[#A67144]" size={16}/> 制限付き音声再生</li>
+                <li className="flex items-center gap-2 text-sm text-gray-600"><CheckCircle className="text-[#A67144]" size={16}/> 各セクションの一部コンテンツへのアクセス</li>
+                <li className="flex items-center gap-2 text-sm text-gray-600"><CheckCircle className="text-[#A67144]" size={16}/> 文法・単語の基礎トレーニング</li>
+                <li className="flex items-center gap-2 text-sm text-gray-600"><CheckCircle className="text-[#A67144]" size={16}/> <b>自分専用の単語帳・フラッシュカード機能</b></li>
               </ul>
               <button onClick={onGuestStart} className="w-full py-4 border-2 border-[#D4A373] text-[#764C28] font-bold rounded-xl hover:bg-[#F8F1E7] transition">
                 無料で試す
@@ -205,12 +243,9 @@ const LandingPage = ({ onLogin, onGuestStart }: { onLogin: () => void, onGuestSt
               </div>
               <h3 className="text-2xl font-bold mb-2 text-white">プレミアムプラン</h3>
               <p className="text-4xl font-bold mb-6 font-serif text-amber-400">¥500 <span className="text-sm text-[#E5C9A8] font-normal">/月</span></p>
-              <p className="text-xs text-[#E5C9A8] mb-6">教材一冊分(約3000円)で、半年間学び放題。</p>
               <ul className="space-y-4 mb-8 flex-1">
-                <li className="flex items-center gap-2 text-sm text-amber-50 font-medium"><Sparkles className="text-amber-400" size={16}/> 全レベルの記事・詩の閲覧</li>
-                <li className="flex items-center gap-2 text-sm text-amber-50 font-medium"><Sparkles className="text-amber-400" size={16}/> ネイティブ音声 無制限リスニング</li>
-                <li className="flex items-center gap-2 text-sm text-amber-50 font-medium"><Sparkles className="text-amber-400" size={16}/> 1000問以上の全問題に挑戦</li>
-                <li className="flex items-center gap-2 text-sm text-amber-50 font-medium"><Sparkles className="text-amber-400" size={16}/> 広告非表示・優先サポート</li>
+                <li className="flex items-center gap-2 text-sm text-amber-50 font-medium"><Sparkles className="text-amber-400" size={16}/> <b>物語・詩を含むすべてのコンテンツへフルアクセス</b></li>
+                <li className="flex items-center gap-2 text-sm text-amber-50 font-medium"><Sparkles className="text-amber-400" size={16}/> 全レベル・1000問以上の演習を制限なく利用可能</li>
               </ul>
               <button onClick={onLogin} className="w-full py-4 bg-gradient-to-r from-amber-400 to-amber-500 text-[#3E2713] font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition transform">
                 プレミアムで登録する
@@ -219,7 +254,7 @@ const LandingPage = ({ onLogin, onGuestStart }: { onLogin: () => void, onGuestSt
           </div>
         </div>
       </div>
-
+      
       <footer className="bg-[#2C1A0D] text-[#D4A373] py-10 text-center text-xs mt-auto">
         <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-8 mb-6">
           <Link href="/faq" className="hover:text-amber-400 transition-colors font-medium">よくある質問</Link>
@@ -234,6 +269,9 @@ const LandingPage = ({ onLogin, onGuestStart }: { onLogin: () => void, onGuestSt
 };
 
 export default function Home() {
+  // ★ 本番テスト用: ログイン・アクセスを許可するメールアドレス
+  const ALLOWED_EMAILS = ["reousamajp@gmail.com","reo.ishikawa@hotmail.com"]; // ← ここをご自身のGoogleメールアドレスに変更
+
   // --- [復活] 消えてしまった重要なState群 ---
   const [allArticles, setAllArticles] = useState<(Article & { videoUrl?: string; imageUrls?: string[] })[]>(articles); 
   const [savedVocab, setSavedVocab] = useState<{word: string, meaning: string}[]>([]); 
@@ -244,6 +282,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [completedArticleIds, setCompletedArticleIds] = useState<number[]>([]);
   const [subscription, setSubscription] = useState<SubscriptionInfo | null>(null);
+  const [notifications, setNotifications] = useState<AppNotification[]>([]);
 
   // --- 単語クイズ・自作テスト用のState ---
   const [vocabQuizMode, setVocabQuizMode] = useState<{
@@ -297,7 +336,27 @@ export default function Home() {
   const [stats, setStats] = useState({ today: 0, month: 0, total: 0 });
   const [breakdown, setBreakdown] = useState<StudyBreakdown>({ reading: 0, listening: 0, dictation: 0, vocab: 0, grammar: 0, poetry: 0 });
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const currentAudioRef = useRef<HTMLAudioElement | null>(null); // ★追加: OpenAI音声の再生管理
+  const ttsCacheRef = useRef<Map<string, string>>(new Map());     // ★追加: 同一単語の二重課金防止キャッシュ
   const [jumpHistory, setJumpHistory] = useState<{screen: Screen, article: any, mode: LearningMode} | null>(null);
+// 速度メニューの開閉State
+const [showSpeedMenu, setShowSpeedMenu] = useState(false);
+const SPEED_OPTIONS = [0.5, 0.75, 1.0, 1.25, 1.5];
+
+// 速度変更＆再生中なら即時反映する関数
+const handleSpeedChange = (speed: number) => {
+  setPlaybackRate(speed);
+  if (currentAudioRef.current) {
+    currentAudioRef.current.playbackRate = speed;
+  }
+};
+
+// ワンタップで次の速度へサイクルする関数
+const cyclePlaybackRate = () => {
+  const currentIndex = SPEED_OPTIONS.indexOf(playbackRate);
+  const nextIndex = (currentIndex + 1) % SPEED_OPTIONS.length;
+  handleSpeedChange(SPEED_OPTIONS[nextIndex]);
+};
 
   // --- 補助関数群 ---
   const normalizeArabic = (text: string) => text.replace(/[\u064B-\u065F\u0670]/g, "").replace(/[.,،؟:;!۔"«»]/g, "").replace(/\s+/g, " ").trim();
@@ -378,12 +437,73 @@ const startFlashcardTest = (isReverse: boolean) => {
   changeScreen("flashcard");
 };
 
-const FREE_ARTICLE_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 20, 21, 30, 40, 101, 201, 301, 401, 200, 202, 203, 501, 502, 503, 504, 505, 506];
-  const isLockedContent = (article: Article) => {
-    if (article.id > 1000) return false; 
-    if (isPremium) return false; 
-    return !FREE_ARTICLE_IDS.includes(article.id);
-  };
+// --- 最終完成版：全セクション無料枠コントロール ---
+
+const FREE_ARTICLE_IDS = [
+  20, 21, 30, 40, // 1フレーズのサンプル等
+  501, 502, 503, 504, 505, 506 // 単語データ等
+];
+
+const isLockedContent = (article: Article) => {
+  // 1. プレミアムユーザーは常に全解放
+  if (isPremium) return false;
+
+  // 2. 物語セクション (ID: 20000〜20500) -> 全て有料
+  if (article.id >= 20000 && article.id <= 20500) {
+    return true;
+  }
+
+  // 3. 詩セクション (ID: 4000〜5000) -> 全て有料
+  if (article.id >= 4000 && article.id <= 5000) {
+    return true;
+  }
+
+  // 4. 並び替えセクション (ID: 10001〜11000) -> 初級1〜10のみ無料
+  if (article.id >= 10001 && article.id <= 11000) {
+    if (article.level === "初級") {
+      const freeTitles = ["初級1", "初級2", "初級3", "初級4", "初級5", "初級6", "初級7", "初級8", "初級9", "初級10"];
+      return !freeTitles.includes(article.title);
+    }
+    return true;
+  }
+
+  // 5. 文法セクション (ID: 101〜) -> Lesson 16 (116) まで無料
+  if (article.level === "文法") {
+    return article.id > 116;
+  }
+
+  // 6. 会話セクション (ID: 10〜100) -> ホテル・レストランのみ無料
+  if (article.level === "会話") {
+    return !(article.category === "ホテル" || article.category === "レストラン");
+  }
+
+  // 7. リスニングセクション (ID: 2000〜2999) -> 初級のみ無料
+  if (article.id >= 2000 && article.id <= 2999) {
+    return article.level !== "初級";
+  }
+
+  // 8. 読解 初級 (ID: 3000〜3999) -> 自己紹介・日常・買い物・食事のみ無料
+  if (article.id >= 3000 && article.id <= 3999) {
+    const freeBeginnerCats = ["自己紹介", "日常", "買い物", "食事"];
+    return !freeBeginnerCats.includes(article.category);
+  }
+
+  // 9. 読解 中級 (ID: 200〜999) -> 物語のみ無料
+  if (article.level === "中級" && (article.id >= 200 && article.id <= 999)) {
+    return article.category !== "物語";
+  }
+
+  // 10. 読解 上級 (ID: 1000〜1999) -> 経済のみ無料
+  if (article.level === "上級" && (article.id >= 1000 && article.id <= 1999)) {
+    return article.category !== "経済";
+  }
+
+  // 11. その他（11001〜19999など）未分類データは一旦無料
+  if (article.id > 11000 && article.id < 20000) return false;
+
+  // 12. 個別リスト判定
+  return !FREE_ARTICLE_IDS.includes(article.id);
+};
 
   useEffect(() => {
     const fetchSupabaseArticles = async () => {
@@ -414,6 +534,19 @@ const FREE_ARTICLE_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 20, 21, 30, 40,
     };
     fetchSupabaseArticles();
   }, []);
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      const { data, error } = await supabase
+        .from('notifications')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (!error && data) {
+        setNotifications(data);
+      }
+    };
+    fetchNotifications();
+  }, []);
 
   useEffect(() => {
     const fetchProfile = async (userId: string) => {
@@ -426,31 +559,55 @@ const FREE_ARTICLE_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 20, 21, 30, 40,
     };
     const initUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
-      setUser(session?.user ?? null);
-      if (session?.user) { 
-          fetchProfile(session.user.id); 
-          fetchVocab(session.user.id);
+      const currentUser = session?.user ?? null;
+    
+      // 許可されていないユーザーは即ログアウト
+      if (currentUser && !ALLOWED_EMAILS.includes(currentUser.email || "")) {
+        alert("現在クローズドテスト中のため、事前登録されたアカウントのみご利用いただけます。");
+        await supabase.auth.signOut();
+        setUser(null);
+        setIsPremium(false);
+        setShowLandingPage(true);
+        setIsLoading(false);
+        return;
+      }
+    
+      setUser(currentUser);
+      if (currentUser) { 
+          fetchProfile(currentUser.id); 
+          fetchVocab(currentUser.id);
           setShowLandingPage(false); 
       } else { 
           setIsPremium(false); 
-          setSavedVocab(JSON.parse(localStorage.getItem("arabicApp_vocab") || "[]"));
+          setSavedVocab(JSON.parse(localStorage.getItem("arabicApp_vocab") || "[]")); 
           setShowLandingPage(true); 
       }
       setIsLoading(false); 
     };
     initUser();
-    
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-      if (session?.user) { 
-          fetchProfile(session.user.id); 
-          fetchVocab(session.user.id);
-          setShowLandingPage(false);
-      } else { 
-          setIsPremium(false); 
-          setSavedVocab(JSON.parse(localStorage.getItem("arabicApp_vocab") || "[]")); 
-      }
-    });
+    // onAuthStateChange 部分
+const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+  const currentUser = session?.user ?? null;
+
+  if (currentUser && !ALLOWED_EMAILS.includes(currentUser.email || "")) {
+    alert("現在クローズドテスト中のため、事前登録されたアカウントのみご利用いただけます。");
+    await supabase.auth.signOut();
+    setUser(null);
+    setIsPremium(false);
+    setShowLandingPage(true);
+    return;
+  }
+
+  setUser(currentUser);
+  if (currentUser) { 
+      fetchProfile(currentUser.id); 
+      fetchVocab(currentUser.id);
+      setShowLandingPage(false); 
+  } else { 
+      setIsPremium(false); 
+      setSavedVocab(JSON.parse(localStorage.getItem("arabicApp_vocab") || "[]")); 
+  }
+});
     return () => subscription.unsubscribe();
   }, []);
 
@@ -468,9 +625,24 @@ const FREE_ARTICLE_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 20, 21, 30, 40,
     }
   }, [user, isPremium]);
 
-  const handleCancelSubscription = async () => {
-    if (!confirm("本当に解約しますか？\n解約すると次回の更新日にプレミアム機能が利用できなくなります。")) return;
-    alert("解約手続きを受け付けました。（デモ機能）\n実際の実装ではバックエンドAPIを呼び出します。");
+  const handleOpenCustomerPortal = async () => {
+    if (!user) return;
+    try {
+      const res = await fetch('/api/portal', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: user.id }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url; // Stripeの管理ポータルへ遷移
+      } else {
+        alert('ポータルを開けませんでした: ' + (data.error || '不明なエラー'));
+      }
+    } catch (err) {
+      console.error(err);
+      alert('エラーが発生しました');
+    }
   };
 
   useEffect(() => {
@@ -754,10 +926,19 @@ const FREE_ARTICLE_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 20, 21, 30, 40,
 
   const handleQuizOptionClick = (index: number) => {
     if (isQuizResultVisible || !activeArticle) return;
-    setQuizSelectedOption(index); setIsQuizResultVisible(true);
+    setQuizSelectedOption(index); 
+    setIsQuizResultVisible(true);
     const isCorrect = index === activeArticle.questions[currentQuestionIndex].correctIndex;
-    if (isCorrect) { setQuizScore(prev => prev + 1); speakText("Mumtāz"); }
-    setUserAnswers(prev => [...prev, isCorrect]);
+    if (isCorrect) { 
+      setQuizScore(prev => prev + 1); 
+      speakText("\u200Fمُمْتَاز\u200F");
+    }
+    // 問題番号(インデックス)の位置に正誤を保存
+    setUserAnswers(prev => {
+      const next = [...prev];
+      next[currentQuestionIndex] = isCorrect;
+      return next;
+    });
   };
   const nextQuizQuestion = () => {
     if (!activeArticle) return;
@@ -772,133 +953,257 @@ const FREE_ARTICLE_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 20, 21, 30, 40,
         changeScreen("result"); 
     }
   };
+
+  // ★追加: 前の問題に戻る処理
+  const prevQuizQuestion = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(prev => prev - 1);
+      setQuizSelectedOption(null);
+      setIsQuizResultVisible(false);
+      window.scrollTo(0, 0);
+    }
+  };
+
+  // ★追加: 問題を解かずにスキップして次へ進む処理
+  const skipQuizQuestion = () => {
+    if (!activeArticle) return;
+    // スキップした問題は未正解（false）として記録
+    setUserAnswers(prev => {
+      const next = [...prev];
+      next[currentQuestionIndex] = false;
+      return next;
+    });
+    setQuizSelectedOption(null);
+    setIsQuizResultVisible(false);
+    
+    // 次の問題へ進む（最後の問題なら結果画面へ）
+    if (currentQuestionIndex < activeArticle.questions.length - 1) {
+      setCurrentQuestionIndex(prev => prev + 1);
+      window.scrollTo(0, 0);
+    } else {
+      changeScreen("result");
+    }
+  };
   const checkDictation = () => { if (normalizeArabic(dictationInput) === targetWordClean) setDictationFeedback("correct"); else setDictationFeedback("incorrect"); };
   const nextDictation = () => { if (!activeArticle) return; if (dictationIndex < activeArticle.sentences.length - 1) { const nextIdx = dictationIndex + 1; setDictationIndex(nextIdx); generateDictationProblem(activeArticle, nextIdx); window.scrollTo(0,0); } else changeScreen("result"); };
     
-  const speakText = (text: string, speaker?: string) => {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      setAudioState("idle");
-      const cleanText = text.replace(/[^\u0600-\u06FF\s]/g, "").trim(); 
-      const u = new SpeechSynthesisUtterance(cleanText);
-      
-      const voices = window.speechSynthesis.getVoices();
-      const arabicVoice = voices.find(v => v.lang.includes('ar'));
-      if (arabicVoice) { u.voice = arabicVoice; u.lang = arabicVoice.lang; } else { u.lang = 'ar-SA'; }
-      
-      u.rate = clamp(playbackRate, 0.1, 2.0); 
-      window.speechSynthesis.speak(u);
-    }
+// 音声URLを取得する共通ヘルパー（同一単語の二重課金を防止）
+const getAudioUrl = async (rawText: string): Promise<string | null> => {
+  const cleanText = (rawText || "").replace(/[\u200F\u200E]/g, '').trim();
+  if (!cleanText) return null;
+
+  if (ttsCacheRef.current.has(cleanText)) {
+    return ttsCacheRef.current.get(cleanText)!;
+  }
+
+  try {
+    const res = await fetch('/api/tts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: cleanText, speed: playbackRate }),
+    });
+    if (!res.ok) throw new Error("TTS API request failed");
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    ttsCacheRef.current.set(cleanText, url);
+    return url;
+  } catch (err) {
+    console.error("OpenAI TTS Error:", err);
+    return null;
+  }
+};
+
+// 完全停止
+const stopSpeaking = () => {
+  if (currentAudioRef.current) {
+    currentAudioRef.current.pause();
+    currentAudioRef.current.currentTime = 0;
+    currentAudioRef.current.onended = null;
+    currentAudioRef.current.onerror = null;
+    currentAudioRef.current = null;
+  }
+  setAudioState("idle");
+};
+
+// 単発再生（単語帳・クイズ用）
+const speakText = async (text: string, _speaker?: string) => {
+  stopSpeaking();
+  const url = await getAudioUrl(text);
+  if (!url) return;
+
+  const audio = new Audio(url);
+  audio.playbackRate = playbackRate;
+  currentAudioRef.current = audio;
+
+  audio.onended = () => {
+    setAudioState("idle");
+    currentAudioRef.current = null;
+  };
+  audio.onerror = () => {
+    setAudioState("idle");
+    currentAudioRef.current = null;
   };
 
-  const handleTogglePlay = () => {
-    if (!('speechSynthesis' in window)) return;
-    
-    if (audioState === "playing") {
-      window.speechSynthesis.pause();
-      setAudioState("paused");
-    } else if (audioState === "paused") {
-      window.speechSynthesis.resume();
+  setAudioState("playing");
+  await audio.play().catch(() => setAudioState("idle"));
+};
+
+// ★ 文をタップした時：その文からスタートして最後まで連続再生（再生中の再タップで一時停止/再開）
+const playFromSentenceIndex = (index: number) => {
+  if (audioState === "playing" && currentAudioIndex === index) {
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+    }
+    setAudioState("paused");
+    return;
+  }
+
+  if (audioState === "paused" && currentAudioIndex === index && currentAudioRef.current) {
+    currentAudioRef.current.playbackRate = playbackRate;
+    currentAudioRef.current.play();
+    setAudioState("playing");
+    return;
+  }
+
+  startSequencePlayback(index);
+};
+
+// 再生・一時停止・再開の切り替え（下部バーの ▶ / ⏸ ボタン）
+const handleTogglePlay = () => {
+  if (audioState === "playing") {
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+    }
+    setAudioState("paused");
+  } else if (audioState === "paused") {
+    if (currentAudioRef.current) {
+      currentAudioRef.current.playbackRate = playbackRate;
+      currentAudioRef.current.play();
       setAudioState("playing");
     } else {
-      startSequencePlayback(0);
+      startSequencePlayback(audioIndexRef.current);
     }
-  };
+  } else {
+    startSequencePlayback(currentAudioIndex || 0);
+  }
+};
 
-  const handleStopPlayback = () => {
-    window.speechSynthesis.cancel();
-    setAudioState("idle");
-    setCurrentAudioIndex(0);
-    audioIndexRef.current = 0;
-  };
+// 停止（下部バーの ⏹ ボタン）
+const handleStopPlayback = () => {
+  stopSpeaking();
+  setCurrentAudioIndex(0);
+  audioIndexRef.current = 0;
+};
 
-  const handlePrevSentence = () => {
-    if (audioState === "idle" || !activeArticle?.sentences) return;
-    window.speechSynthesis.cancel();
-    const newIdx = Math.max(0, audioIndexRef.current - 1);
-    startSequencePlayback(newIdx);
-  };
+// 前の文へ（下部バーの ⏮ ボタン）
+const handlePrevSentence = () => {
+  const maxLen = activeArticle?.sentences?.length || 0;
+  if (maxLen === 0) return;
+  const newIdx = Math.max(0, currentAudioIndex - 1);
+  startSequencePlayback(newIdx);
+};
 
-  const handleNextSentence = () => {
-    if (audioState === "idle" || !activeArticle?.sentences) return;
-    window.speechSynthesis.cancel();
-    const newIdx = Math.min(activeArticle.sentences.length - 1, audioIndexRef.current + 1);
-    startSequencePlayback(newIdx);
-  };
+// 次の文へ（下部バーの ⏭ ボタン）
+const handleNextSentence = () => {
+  const maxLen = activeArticle?.sentences?.length || 0;
+  if (maxLen === 0) return;
+  const newIdx = Math.min(maxLen - 1, currentAudioIndex + 1);
+  startSequencePlayback(newIdx);
+};
 
-  const startSequencePlayback = (startIndex: number) => {
-    if (!activeArticle || !('speechSynthesis' in window)) return;
-    window.speechSynthesis.cancel();
-    
-    let voices = window.speechSynthesis.getVoices();
-    if (voices.length === 0) { 
-        window.speechSynthesis.onvoiceschanged = () => { 
-            voices = window.speechSynthesis.getVoices(); 
-            executePlayback(startIndex, voices); 
-        }; 
-    } else { 
-        executePlayback(startIndex, voices); 
-    }
-  };
+// 連続再生（指定した文から最後まで順番に自動再生）
+const startSequencePlayback = async (startIndex: number) => {
+  stopSpeaking();
+  if (!activeArticle) return;
 
-  const executePlayback = (startIndex: number, voices: SpeechSynthesisVoice[]) => {
-    const hasSentences = activeArticle?.sentences && activeArticle.sentences.length > 0;
-    
-    if (hasSentences) {
-        audioIndexRef.current = startIndex;
-        setCurrentAudioIndex(startIndex);
-        setAudioState("playing");
-        
-        const speakNext = () => {
-           if (audioIndexRef.current >= activeArticle!.sentences.length) { 
-               setAudioState("idle"); 
-               setCurrentAudioIndex(0);
-               return; 
-           }
-           
-           const sent = activeArticle!.sentences[audioIndexRef.current];
-           setCurrentAudioIndex(audioIndexRef.current); 
-           
-           const u = new SpeechSynthesisUtterance(sent.arabic);
-           u.rate = clamp(playbackRate, 0.1, 2.0);
-           const arabicVoice = voices.find(v => v.lang.includes('ar'));
-           if (arabicVoice) { u.voice = arabicVoice; u.lang = arabicVoice.lang; } else { u.lang = 'ar-SA'; }
-           
-           u.onend = () => { 
-               audioIndexRef.current++; 
-               speakNext(); 
-           };
-           u.onerror = (e) => {
-               if (e.error !== 'canceled' && e.error !== 'interrupted') {
-                   setAudioState("idle");
-               }
-           };
-           window.speechSynthesis.speak(u);
-        };
-        speakNext();
-    } else {
-        setAudioState("playing");
-        const textToRead = activeArticle!.contentVoweled || activeArticle!.contentPlain || "";
-        const cleanText = textToRead.replace(/[^\u0600-\u06FF\s]/g, "").trim();
-        const u = new SpeechSynthesisUtterance(cleanText);
-        u.rate = clamp(playbackRate, 0.1, 2.0);
-        u.lang = 'ar-SA';
-        const arabicVoice = voices.find(v => v.lang.includes('ar'));
-        if (arabicVoice) { u.voice = arabicVoice; }
-        
-        u.onend = () => setAudioState("idle");
-        u.onerror = () => setAudioState("idle");
-        window.speechSynthesis.speak(u);
-    }
-  };
+  // 1. sentences 配列がある場合
+  if (activeArticle.sentences && activeArticle.sentences.length > 0) {
+    const sentences = activeArticle.sentences;
+    audioIndexRef.current = startIndex;
+    setCurrentAudioIndex(startIndex);
+    setAudioState("playing");
 
-  const stopSpeaking = () => { 
-    if ('speechSynthesis' in window) { 
-      window.speechSynthesis.cancel(); 
-      setAudioState("idle"); 
-    } 
-  };
+    const playNext = async () => {
+      if (audioIndexRef.current >= sentences.length) {
+        setAudioState("idle");
+        setCurrentAudioIndex(0);
+        audioIndexRef.current = 0;
+        return;
+      }
 
+      const currentSent = sentences[audioIndexRef.current];
+      setCurrentAudioIndex(audioIndexRef.current);
+
+      const url = await getAudioUrl(currentSent.arabic);
+      if (!url) {
+        setAudioState("idle");
+        return;
+      }
+
+      const audio = new Audio(url);
+      audio.playbackRate = playbackRate;
+      currentAudioRef.current = audio;
+
+      audio.onended = () => {
+        audioIndexRef.current++;
+        playNext();
+      };
+      audio.onerror = () => {
+        setAudioState("idle");
+      };
+
+      await audio.play().catch(() => setAudioState("idle"));
+    };
+
+    playNext();
+  } else {
+    // 2. 1つの長文テキストの場合：句点で分割して連続再生
+    const rawText = activeArticle.level === "上級"
+      ? (activeArticle.contentPlain || removeTashkeel(activeArticle.contentVoweled || ""))
+      : (activeArticle.contentVoweled || activeArticle.contentPlain || "");
+
+    const sentenceList = (rawText.match(/[^.؟!。\n]+[.؟!。\n]*/g) || [rawText]).map(s => s.trim()).filter(Boolean);
+    if (sentenceList.length === 0) return;
+
+    audioIndexRef.current = startIndex;
+    setCurrentAudioIndex(startIndex);
+    setAudioState("playing");
+
+    const playNext = async () => {
+      if (audioIndexRef.current >= sentenceList.length) {
+        setAudioState("idle");
+        setCurrentAudioIndex(0);
+        audioIndexRef.current = 0;
+        return;
+      }
+
+      const currentSent = sentenceList[audioIndexRef.current];
+      setCurrentAudioIndex(audioIndexRef.current);
+
+      const url = await getAudioUrl(currentSent);
+      if (!url) {
+        setAudioState("idle");
+        return;
+      }
+
+      const audio = new Audio(url);
+      audio.playbackRate = playbackRate;
+      currentAudioRef.current = audio;
+
+      audio.onended = () => {
+        audioIndexRef.current++;
+        playNext();
+      };
+      audio.onerror = () => {
+        setAudioState("idle");
+      };
+
+      await audio.play().catch(() => setAudioState("idle"));
+    };
+
+    playNext();
+  }
+};
   // ★ ローディング画面 (ラクダのアニメーション付き)
   if (isLoading) {
     return (
@@ -920,14 +1225,25 @@ const FREE_ARTICLE_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 20, 21, 30, 40,
       {/* ナビゲーションバー (アラビアンなダークブラウン) */}
       <nav className="bg-[#3E2713] shadow-xl p-4 sticky top-0 z-20 border-b border-[#A67144]/40" dir="ltr">
         <div className="max-w-4xl mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-3 group cursor-pointer" onClick={() => { changeScreen("main_menu"); setIsFlashcardMode(false); }}>
-              <div className="bg-[#F5F0E6] p-1 rounded-xl shadow-md group-hover:scale-110 transition-all duration-300 border border-amber-500/50">
-                <img src="/logo.jpg" alt="Logo" className="h-10 w-auto object-contain rounded-lg" onError={(e) => {e.currentTarget.style.display = 'none'; e.currentTarget.parentElement!.innerHTML = '<div class="w-10 h-10 bg-gradient-to-br from-[#8A5A33] to-[#4A3018] rounded-lg flex items-center justify-center text-white"><Tent size={24}/></div>';}} />
-              </div>
-              <h1 className="font-serif font-bold text-amber-50 text-xl tracking-wider hidden sm:block group-hover:text-amber-200 transition-colors">Arabi Lab</h1>
-              <div className="flex items-center gap-1 bg-[#201308]/60 px-3 py-1 rounded-full border border-[#5E3C1E] text-xs font-bold text-amber-100 ml-2 shadow-inner"><Sparkles size={14} className="text-amber-400 animate-pulse"/> {streak}</div>
-          </div>
-          
+        <div className="flex items-center gap-3 group cursor-pointer" onClick={() => { changeScreen("main_menu"); setIsFlashcardMode(false); }}>
+    <div className="bg-[#F5F0E6] p-1 rounded-xl shadow-md group-hover:scale-110 transition-all duration-300 border border-amber-500/50">
+      <img src="/logo.jpg" alt="Logo" className="h-10 w-auto object-contain rounded-lg" onError={(e) => {e.currentTarget.style.display = 'none'; e.currentTarget.parentElement!.innerHTML = '<div class="w-10 h-10 bg-gradient-to-br from-[#8A5A33] to-[#4A3018] rounded-lg flex items-center justify-center text-white"><Tent size={24}/></div>';}} />
+    </div>
+    <h1 className="font-serif font-bold text-amber-50 text-xl tracking-wider hidden sm:block group-hover:text-amber-200 transition-colors">Arabi Lab</h1>
+    
+    {/* ★ 継続カウントの代わりにベルアイコンを表示 */}
+    <button 
+      onClick={(e) => { 
+        e.stopPropagation(); // 親の onClick（メインメニュー移動）を防ぐ
+        changeScreen("notifications"); 
+      }}
+      className="relative p-2 text-amber-100 hover:text-amber-400 transition-all active:scale-90 ml-1"
+    >
+      <Bell size={22} />
+      {/* 通知ドット（必要に応じて表示） */}
+      <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-[#3E2713]"></span>
+    </button>
+</div>    
           <div className="flex items-center gap-3">
             <button 
                 onClick={() => setIsPremium(!isPremium)}
@@ -953,7 +1269,40 @@ const FREE_ARTICLE_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 20, 21, 30, 40,
 
 
       <main className="max-w-3xl mx-auto p-4 pb-20">
-        
+{/* お知らせ画面 (動的データ対応版) */}
+{currentScreen === "notifications" && (
+    <div className="animate-fade-in-up max-w-xl mx-auto pb-20">
+      <HeaderBackButton onClick={() => changeScreen("main_menu")} />
+      
+      <div className="flex justify-between items-center mb-8">
+        <h2 className="text-2xl font-serif font-bold text-[#4A3018]">お知らせ</h2>
+        <Bell size={24} className="text-amber-500" />
+      </div>
+
+      <div className="space-y-4">
+        {notifications.length > 0 ? (
+          // Supabaseから取得したデータをループして表示
+          notifications.map((n) => (
+            <div key={n.id} className="bg-white p-6 rounded-[2rem] border border-[#E5C9A8] shadow-sm relative overflow-hidden">
+              <div className="absolute left-0 top-0 w-1.5 h-full bg-amber-400"></div>
+              <p className="text-[10px] font-bold text-[#A67144] mb-1 uppercase tracking-widest">
+                {new Date(n.created_at).toLocaleDateString('ja-JP')}
+              </p>
+              <h3 className="font-bold text-[#4A3018] mb-2 text-lg">{n.title}</h3>
+              <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-wrap">
+                {n.content}
+              </p>
+            </div>
+          ))
+        ) : (
+          // お知らせが0件の時の表示
+          <div className="text-center py-16 bg-white rounded-[2rem] border-2 border-dashed border-[#E5C9A8]">
+            <p className="text-gray-400">現在、新しいお知らせはありません。</p>
+          </div>
+        )}
+      </div>
+    </div>
+  )}
         {/* マイページ */}
         {currentScreen === "mypage" && (
           <div className="animate-fade-in-up pb-20">
@@ -994,38 +1343,28 @@ const FREE_ARTICLE_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 20, 21, 30, 40,
                 <StatCard label="今月" value={formatTime(stats.month)} color="text-indigo-800" />
                 <StatCard label="総計" value={formatTime(stats.total)} color="text-amber-600" />
             </div>
-
-            {/* 3. サブスクリプション管理 */}
-            <div className="mb-8">
+{/* 3. サブスクリプション管理 */}
+<div className="mb-8">
               <h3 className="font-bold text-[#764C28] mb-3 ml-2 text-sm flex items-center gap-2"><CreditCard size={18} /> サブスクリプション情報</h3>
               <div className="bg-white rounded-3xl shadow-md border border-[#E5C9A8] overflow-hidden">
-                {isPremium && subscription ? (
+                {isPremium ? (
                   <div className="p-0">
                     <div className="bg-gradient-to-r from-amber-400 to-[#D4A373] p-5 text-[#4A3018] flex justify-between items-center border-b border-amber-200">
                         <span className="font-bold text-lg flex items-center gap-2">👑 Premium Plan</span>
-                        <span className="font-bold text-2xl">¥{subscription.amount}<span className="text-xs font-normal opacity-80">/月</span></span>
                     </div>
                     <div className="p-6 space-y-4 text-sm bg-white" dir="ltr">
-                        <div className="flex justify-between border-b border-[#F5F0E6] pb-3">
+                        <div className="flex justify-between items-center border-b border-[#F5F0E6] pb-4">
                           <span className="text-stone-500 font-medium">ステータス</span>
                           <span className="font-bold text-emerald-600 flex items-center gap-1">
                             <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span> 有効 (Active)
                           </span>
                         </div>
-                        <div className="flex justify-between border-b border-[#F5F0E6] pb-3">
-                          <span className="text-stone-500 font-medium">登録日</span>
-                          <span className="font-bold text-[#4A3018]">{subscription.startDate}</span>
-                        </div>
-                        <div className="flex justify-between pb-2">
-                          <span className="text-stone-500 font-medium">次回支払日</span>
-                          <span className="font-bold text-[#4A3018]">{subscription.nextPayment}</span>
-                        </div>
-                        <div className="pt-4 text-center">
+                        <div className="pt-2 text-center">
                           <button 
-                            onClick={handleCancelSubscription}
-                            className="text-red-400 text-xs font-bold hover:text-red-600 hover:underline transition"
+                            onClick={handleOpenCustomerPortal}
+                            className="w-full py-3 bg-[#F8F1E7] border border-[#D4A373] text-[#764C28] text-xs font-bold rounded-xl hover:bg-[#EBE6DF] transition flex items-center justify-center gap-2 shadow-sm"
                           >
-                            サブスクリプションを解約する
+                            <CreditCard size={14} /> プラン管理・お支払い方法の変更・解約
                           </button>
                         </div>
                     </div>
@@ -1047,10 +1386,8 @@ const FREE_ARTICLE_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 20, 21, 30, 40,
             {/* 4. アプリ設定・サポート */}
             <div className="mb-8">
               <h3 className="font-bold text-[#764C28] mb-3 ml-2 text-sm flex items-center gap-2"><Settings size={18} /> 設定・サポート</h3>
-              <div className="bg-white rounded-3xl shadow-sm border border-[#E5C9A8] divide-y divide-[#F5F0E6]">
-                  <SettingItem icon={Mail} label="メールアドレス変更" onClick={() => alert("準備中です")} />
-                  <SettingItem icon={Lock} label="パスワード変更" onClick={() => alert("準備中です")} />
-                  <SettingItem icon={MessageSquare} label="お問い合わせ・サポート" onClick={() => window.open("mailto:support@arabilab.com", "_blank")} />
+              <div className="bg-white rounded-3xl shadow-sm border border-[#E5C9A8] divide-y divide-[#F5F0E6]">              
+                  <SettingItem icon={MessageSquare} label="お問い合わせ・サポート" onClick={() => window.open("mailto:arabilab1220@gmail.com", "_blank")} />
               </div>
             </div>
 
@@ -1456,34 +1793,56 @@ const FREE_ARTICLE_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 20, 21, 30, 40,
                 </h2>
                 
                 <div className="space-y-4">
-                    {getFilteredArticles().length > 0 ? (
-                        getFilteredArticles().map((article, index) => (
-                            <div key={article.id} onClick={() => handleArticleClick(article, index)} className="bg-white p-6 rounded-2xl shadow-sm border border-[#E5C9A8] hover:border-[#A67144] hover:shadow-lg cursor-pointer transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden">
-                                <div className="absolute top-0 right-0 w-1.5 h-full bg-gradient-to-b from-amber-300 to-[#8A5A33] opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                                <div className="flex justify-between items-center">
-                                    <div>
-                                        <h3 className="font-bold text-xl text-[#5E3C1E] group-hover:text-[#8A5A33] mb-2 transition-colors">{article.title}</h3>
-                                        <div className="flex gap-2">
-                                            <span className="text-xs bg-[#F8F1E7] text-[#8A5A33] px-3 py-1 rounded-full font-bold border border-[#E5C9A8]">詩 (Poetry)</span>
-                                            {completedArticleIds.includes(article.id) && <span className="text-xs bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full font-bold border border-emerald-200 flex items-center gap-1"><Check size={12}/> 鑑賞済み</span>}
-                                        </div>
-                                    </div>
-                                    <Pencil size={32} className="text-[#E5C9A8] group-hover:text-amber-500 transition-colors drop-shadow-sm" />
-                                </div>
-                            </div>
-                        ))
-                    ) : (
-                        <div className="text-center py-16 bg-white rounded-3xl border-dashed border-2 border-[#E5C9A8] text-[#A67144] flex flex-col items-center">
-                            <ScrollText size={48} className="mb-4 opacity-50" />
-                            <p className="font-bold">この時代の詩はまだ追加されていません</p>
+                {getFilteredArticles().length > 0 ? (
+    getFilteredArticles().map((article, index) => {
+        // ★重要：この記事がロックされているかをここで判定
+        const locked = isLockedContent(article);
+
+        return (
+            <div 
+                key={article.id} 
+                onClick={() => handleArticleClick(article, index)} 
+                className={`p-6 rounded-2xl shadow-sm border transition-all duration-300 group relative overflow-hidden cursor-pointer pointer-events-auto ${
+                    locked 
+                        ? "bg-stone-100 border-stone-200 opacity-90" // ロック時
+                        : "bg-white border-[#E5C9A8] hover:border-[#A67144] hover:shadow-lg hover:-translate-y-1" // 通常時
+                }`}
+                style={{ cursor: 'pointer' }}
+            >
+                <div className="absolute top-0 right-0 w-1.5 h-full bg-gradient-to-b from-amber-300 to-[#8A5A33] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="flex justify-between items-center">
+                    <div>
+                        <h3 className="font-bold text-xl text-[#5E3C1E] group-hover:text-[#8A5A33] mb-2 transition-colors">{article.title}</h3>
+                        <div className="flex gap-2">
+                            <span className="text-xs bg-[#F8F1E7] text-[#8A5A33] px-3 py-1 rounded-full font-bold border border-[#E5C9A8]">詩 (Poetry)</span>
+                            {completedArticleIds.includes(article.id) && (
+                                <span className="text-xs bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full font-bold border border-emerald-200 flex items-center gap-1">
+                                    <Check size={12}/> 鑑賞済み
+                                </span>
+                            )}
                         </div>
+                    </div>
+                    {locked ? (
+                        <Lock size={32} className="text-stone-300" />
+                    ) : (
+                        <Pencil size={32} className="text-[#E5C9A8] group-hover:text-amber-500 transition-colors drop-shadow-sm" />
                     )}
+                </div>
+            </div>
+        );
+    })
+) : (
+    <div className="text-center py-16 bg-white rounded-3xl border-dashed border-2 border-[#E5C9A8] text-[#A67144] flex flex-col items-center">
+        <ScrollText size={48} className="mb-4 opacity-50" />
+        <p className="font-bold">この時代の詩はまだ追加されていません</p>
+    </div>
+)}
                 </div>
             </div>
         )}
 
-        {/* 詩の鑑賞モード (クイズ前) */}
-        {currentScreen === "poetry_read" && activeArticle && (
+{/* 詩の鑑賞モード (クイズ前) */}
+{currentScreen === "poetry_read" && activeArticle && (
             <div className="animate-fade-in-up pb-20">
                 <HeaderBackButton onClick={() => changeScreen("poets")} text="詩のリストに戻る" />
                 
@@ -1510,13 +1869,30 @@ const FREE_ARTICLE_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 20, 21, 30, 40,
                             </button>
                       </div>
 
+                      {/* ガイド枠と2つのボタン */}
                       <div className="bg-white/90 p-8 rounded-2xl border border-[#E5C9A8] shadow-inner relative overflow-hidden">
-                          <div className="absolute left-0 top-0 w-1 h-full bg-amber-400"></div>
-                          <p className="font-bold text-[#5E3C1E] mb-3 text-lg">まずは意味を推測してみましょう</p>
-                          <p className="text-sm text-[#8A5A33] mb-8 font-medium leading-relaxed">詩の響きを味わったら、理解度チェックに進んでください。<br/>全問終了後に、詳しい解説と現代語訳が表示されます。</p>
-                          <button onClick={() => startQuiz()} className="w-full md:w-auto px-12 py-4 bg-[#764C28] text-amber-50 font-bold rounded-full shadow-lg hover:bg-[#5E3C1E] hover:shadow-xl hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2 mx-auto">
-                              <Pencil size={20} /> 理解度チェックへ進む
+                        <div className="absolute left-0 top-0 w-1 h-full bg-amber-400"></div>
+                        <p className="font-bold text-[#5E3C1E] mb-3 text-lg">まずは意味を推測してみましょう</p>
+                        <p className="text-sm text-[#8A5A33] mb-8 font-medium leading-relaxed">
+                          詩の響きを味わったら、理解度チェックに進んでください。<br/>
+                          すぐに内容を確認したい場合は「解説を見る」から読み進めることもできます。
+                        </p>
+
+                        <div className="flex flex-col sm:flex-row gap-4 w-full">
+                          <button 
+                            onClick={() => startQuiz()} 
+                            className="flex-1 px-8 py-4 bg-[#764C28] text-amber-50 font-bold rounded-2xl shadow-lg hover:bg-[#5E3C1E] hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2 text-lg"
+                          >
+                            <Pencil size={20} /> 理解度チェックへ
                           </button>
+                          
+                          <button 
+                            onClick={() => changeScreen("reader")} 
+                            className="flex-1 bg-white border-2 border-[#E5C9A8] text-[#764C28] font-bold py-4 rounded-2xl shadow-md hover:shadow-lg hover:border-[#D4A373] hover:bg-[#F8F1E7] hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2 text-lg"
+                          >
+                            <BookOpen size={22} /> 解説を見る
+                          </button>
+                        </div>
                       </div>
                   </div>
                 </div>
@@ -1626,23 +2002,47 @@ const FREE_ARTICLE_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 20, 21, 30, 40,
             </div>
             <div className="space-y-4">
               {getFilteredArticles().filter(a => a.category === selectedCategory).map((article, index) => {
-                  const locked = isLockedContent(article);
-                  return (
-                    <button 
-                      key={article.id} 
-                      onClick={() => handleArticleClick(article, index)} 
-                      className={`w-full text-left p-6 rounded-2xl shadow-sm border-2 flex justify-between items-center transition-all duration-300 group hover:-translate-y-1 hover:shadow-lg ${locked ? "bg-[#F5F0E6] border-[#E5C9A8] cursor-not-allowed" : "bg-white border-[#F5F0E6] hover:border-[#B8865D]"}`}
-                      disabled={locked}
-                    >
-                        <div className="flex-1 flex items-center gap-4">
-                          {locked && (<div className="bg-[#E5C9A8] text-white w-10 h-10 rounded-full flex items-center justify-center shadow-inner flex-shrink-0" title="有料会員限定"><Lock size={16}/></div>)}
-                          <h3 className={`font-bold text-lg leading-relaxed flex items-center gap-2 ${locked ? "text-[#A67144]" : "text-[#4A3018] group-hover:text-[#8A5A33] transition-colors"}`}>{article.title} {courseType === "listening" && <Video size={18} className="text-amber-500"/>}</h3>
-                        </div>
-                        <div className="flex-shrink-0 ml-4">
-                          {completedArticleIds.includes(article.id) ? <span className="text-emerald-700 font-bold text-sm bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 flex items-center gap-1"><CheckCircle size={14}/> 完了</span> : (locked ? <span className="text-[#A67144] text-xs font-bold bg-[#F8F1E7] px-3 py-1 rounded-full">Premium</span> : <ChevronRight size={24} className="text-[#E5C9A8] group-hover:text-amber-500 transition-colors drop-shadow-sm" />)}
-                        </div>
-                    </button>
-                  );
+const locked = isLockedContent(article);
+return (
+  <button 
+    key={article.id} 
+    onClick={() => handleArticleClick(article, index)} 
+    className={`w-full text-left p-6 rounded-2xl shadow-sm border-2 flex justify-between items-center transition-all duration-300 group hover:-translate-y-1 hover:shadow-lg cursor-pointer pointer-events-auto ${
+      locked 
+        ? "bg-[#F5F0E6] border-[#E5C9A8]" 
+        : "bg-white border-[#F5F0E6] hover:border-[#B8865D]"
+    }`}
+    /* 重要：disabled={locked} は削除します。ロックされていてもクリックを有効にするためです */
+  >
+      <div className="flex-1 flex items-center gap-4">
+        {locked && (
+          <div className="bg-[#E5C9A8] text-white w-10 h-10 rounded-full flex items-center justify-center shadow-inner flex-shrink-0" title="有料会員限定">
+            <Lock size={16}/>
+          </div>
+        )}
+        <h3 className={`font-bold text-lg leading-relaxed flex items-center gap-2 ${
+          locked ? "text-[#A67144]" : "text-[#4A3018] group-hover:text-[#8A5A33] transition-colors"
+        }`}>
+          {article.title} {courseType === "listening" && <Video size={18} className="text-amber-500"/>}
+        </h3>
+      </div>
+      <div className="flex-shrink-0 ml-4">
+        {completedArticleIds.includes(article.id) ? (
+          <span className="text-emerald-700 font-bold text-sm bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 flex items-center gap-1">
+            <CheckCircle size={14}/> 完了
+          </span>
+        ) : (
+          locked ? (
+            <span className="text-[#A67144] text-xs font-bold bg-[#F8F1E7] px-3 py-1 rounded-full">
+              Premium
+            </span>
+          ) : (
+            <ChevronRight size={24} className="text-[#E5C9A8] group-hover:text-amber-500 transition-colors drop-shadow-sm" />
+          )
+        )}
+      </div>
+  </button>
+);
               })}
             </div>
           </div>
@@ -1822,19 +2222,30 @@ const FREE_ARTICLE_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 20, 21, 30, 40,
                     </div>
                   )}
 
-                  {activeArticle.questions && activeArticle.questions.length > 0 ? (
+{activeArticle.questions && activeArticle.questions.length > 0 ? (
                     <div className="bg-gradient-to-b from-[#F8F1E7] to-white p-8 rounded-3xl text-center w-full border border-[#E5C9A8] shadow-sm">
                       <p className="text-[#764C28] font-bold mb-6 text-lg">解説を読み終わりましたか？</p>
-                      <button 
-                        onClick={() => {
-                            const qs = activeArticle.questions;
-                            setGrammarQuestions(qs);
-                            startQuiz();
-                        }} 
-                        className="w-full md:w-auto px-12 py-5 bg-[#8A5A33] text-white font-bold rounded-full shadow-xl hover:bg-[#5E3C1E] hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-3 mx-auto text-lg"
-                      >
-                        <Pencil size={24} /> 理解度チェック (Check Understanding)
-                      </button>
+                      <div className="flex flex-col sm:flex-row gap-4 w-full">
+                        {/* 1. テストを開始するボタン */}
+                        <button 
+                          onClick={() => {
+                              const qs = activeArticle.questions;
+                              setGrammarQuestions(qs);
+                              startQuiz();
+                          }} 
+                          className="flex-1 py-4 bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-white font-bold rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2 text-lg"
+                        >
+                          <Pencil size={22} /> 理解度チェック ({activeArticle.questions.length}問)
+                        </button>
+                        
+                        {/* 2. ★追加: すぐに問題と解答一覧へ進むボタン */}
+                        <button 
+                          onClick={() => changeScreen("result")} 
+                          className="flex-1 bg-white border-2 border-[#E5C9A8] text-[#764C28] font-bold py-4 rounded-2xl shadow-md hover:shadow-lg hover:border-[#D4A373] hover:bg-[#F8F1E7] hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2 text-lg"
+                        >
+                          <BookOpen size={22} /> すぐに問題と解答を見る
+                        </button>
+                      </div>
                     </div>
                   ) : (
                     <div className="text-center text-[#A67144] font-medium mt-8 p-6 bg-stone-50 rounded-2xl w-full border border-dashed border-[#E5C9A8]">
@@ -1853,103 +2264,134 @@ const FREE_ARTICLE_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 20, 21, 30, 40,
                       </div>
                     )}
 {/* 読解・会話・リスニング */}
-<h2 className="text-3xl font-serif font-bold mb-10 text-center text-[#4A3018] w-full">{activeArticle.level === "初級" ? `問題 ${activeProblemNumber} (${activeArticle.title})` : activeArticle.title}</h2>
-                        
-                        {activeArticle.level === "会話" || (courseType === "poetry" && activeArticle.sentences && activeArticle.sentences.length > 0) ? (
-                          <div className="w-full space-y-8 mb-12">
-                              {activeArticle.sentences?.map((sent, idx) => {
-                                const isRight = courseType === "poetry" ? true : idx % 2 === 0;
-                                const isCurrentPlaying = audioState !== "idle" && currentAudioIndex === idx;
+<h2 className="text-3xl font-serif font-bold mb-10 text-center text-[#4A3018] w-full">
+  {activeArticle.level === "初級" ? `問題 ${activeProblemNumber} (${activeArticle.title})` : activeArticle.title}
+</h2>
 
-                                return (
-                                  <div key={idx} className={`flex ${isRight ? "justify-start" : "justify-end"}`}>
-                                    <div className={`max-w-[90%] md:max-w-[85%] p-6 md:p-8 rounded-[2rem] relative shadow-md border transition-all duration-500 
-                                      ${isCurrentPlaying ? "ring-4 ring-amber-400/50 scale-[1.02] shadow-xl bg-amber-50" : ""} 
-                                      ${courseType === "poetry" ? "bg-[#FCFAF5] border-[#E5C9A8] w-full rounded-2xl text-center" : isRight ? "bg-[#F8F1E7] text-[#4A3018] rounded-tr-none border-[#E5C9A8]" : "bg-white text-[#5E3C1E] rounded-tl-none border-gray-200"}`}>
-                                      
-                                      {/* Header */}
-                                      <div className="flex justify-between items-center mb-3">
-                                        <p className="text-[10px] font-bold opacity-50 uppercase tracking-widest">{sent.speaker}</p>
-                                        {learningMode !== "listening" && (
-                                          <button onClick={() => speakText(sent.arabic, sent.speaker)} className="text-[#D4A373] hover:text-amber-600 transition-colors hover:scale-110"><Volume2 size={20}/></button>
-                                        )}
-                                      </div>
+{learningMode === "listening" ? (
+  <div className="py-12 flex flex-col items-center text-[#A67144] text-sm bg-[#F8F1E7] rounded-3xl border-2 border-dashed border-[#E5C9A8] mb-10 shadow-sm">
+    <Headphones size={48} className="mb-4 opacity-70 drop-shadow-sm" strokeWidth={1.5}/>
+    <p className="font-bold text-lg mb-2 text-[#5E3C1E]">動画・音声を視聴して内容を理解しましょう</p>
+    <p className="text-xs opacity-80">（テキストはクイズ後に表示されます）</p>
+  </div>
+) : activeArticle.level === "会話" ? (
+  /* 会話セクション：ボタンなし吹き出し形式（タップで連続再生） */
+  <div className="w-full space-y-6 mb-12">
+    {activeArticle.sentences?.map((sent, idx) => {
+      const isRight = idx % 2 === 0;
+      const isCurrentPlaying = audioState !== "idle" && currentAudioIndex === idx;
 
-                                      {/* Content */}
-                                      {learningMode === "listening" ? (
-                                        <div className="flex flex-col items-center py-4">
-                                          <button 
-                                            onClick={() => speakText(sent.arabic, sent.speaker)} 
-                                            className={`w-20 h-20 rounded-full flex items-center justify-center shadow-md border-4 transition-all transform active:scale-90 hover:scale-110 mb-4 ${isRight ? "bg-white border-[#E5C9A8] text-[#8A5A33]" : "bg-[#F5F0E6] border-white text-[#764C28]"}`}
-                                          >
-                                            <Volume2 size={36}/>
-                                          </button>
-                                          <p className="text-base font-bold text-[#5E3C1E] text-center leading-relaxed px-4">
-                                            {sent.japanese}
-                                          </p>
-                                        </div>
-                                      ) : (
-                                        <div className="flex flex-col">
-                                          <p className={`text-2xl md:text-3xl font-arabic leading-loose mb-4 drop-shadow-sm ${courseType === "poetry" ? "text-center py-2" : ""}`}>
-                                            {sent.arabic}
-                                          </p>
-                                          <p className="text-sm text-[#764C28] font-bold leading-relaxed border-t border-dashed border-[#D4A373]/50 pt-4 mt-2">
-                                            {sent.japanese}
-                                          </p>
-                                          {/* 解説ノート */}
-                                          {sent.note && (
-                                            <div className="mt-4 text-xs bg-amber-50/80 border border-amber-200/50 text-[#8A5A33] p-4 rounded-xl flex flex-col gap-3 text-left shadow-inner" dir="ltr">
-                                              <div className="flex gap-2 items-start">
-                                                <Lightbulb size={20} className="drop-shadow-sm text-amber-500 flex-shrink-0" />
-                                                <span className="font-medium leading-relaxed">{sent.note}</span>
-                                              </div>
+      return (
+        <div key={idx} className={`flex ${isRight ? "justify-start" : "justify-end"}`}>
+          <div 
+            onClick={() => playFromSentenceIndex(idx)}
+            className={`max-w-[90%] md:max-w-[85%] p-6 md:p-8 rounded-[2rem] relative shadow-sm border cursor-pointer transition-all duration-300 hover:shadow-md ${
+              isCurrentPlaying ? "ring-4 ring-amber-400/60 scale-[1.02] shadow-xl bg-amber-50" : ""
+            } ${isRight ? "bg-[#F8F1E7] text-[#4A3018] rounded-tr-none border-[#E5C9A8]" : "bg-white text-[#5E3C1E] rounded-tl-none border-gray-200"}`}
+          >
+            <p className="text-[10px] font-bold opacity-50 uppercase tracking-widest mb-2">{sent.speaker}</p>
+            <p className="text-2xl md:text-3xl font-arabic leading-loose drop-shadow-sm text-right" dir="rtl">
+              {sent.arabic.includes('\u200F') ? sent.arabic : `\u200F${sent.arabic}\u200F`}
+            </p>
+            {sent.japanese && (
+              <p className="text-sm text-[#764C28] font-bold leading-relaxed border-t border-dashed border-[#D4A373]/50 pt-3 mt-3" dir="ltr">
+                {sent.japanese}
+              </p>
+            )}
+            {sent.note && (
+              <div className="mt-3 text-xs bg-amber-50/80 border border-amber-200/50 text-[#8A5A33] p-3 rounded-xl flex flex-col gap-2 text-left shadow-inner" dir="ltr">
+                <div className="flex gap-2 items-start">
+                  <Lightbulb size={18} className="drop-shadow-sm text-amber-500 flex-shrink-0" />
+                  <span className="font-medium leading-relaxed">{sent.note}</span>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+) : courseType === "poetry" ? (
+  /* 詩セクション：行ごとに綺麗に中央揃え（タップでその行から連続再生） */
+  <div className="w-full space-y-6 mb-14 text-center">
+    {activeArticle.sentences?.map((sent, idx) => {
+      const isCurrentPlaying = audioState !== "idle" && currentAudioIndex === idx;
+      return (
+        <div
+          key={idx}
+          onClick={() => playFromSentenceIndex(idx)}
+          className={`p-4 rounded-2xl cursor-pointer transition-all duration-300 ${
+            isCurrentPlaying
+              ? "bg-amber-100 text-amber-950 font-bold scale-105 shadow-sm"
+              : "hover:bg-amber-50/80 text-[#3E2713]"
+          }`}
+        >
+          <p className="text-3xl md:text-4xl font-arabic leading-loose drop-shadow-sm" dir="rtl">
+            {sent.arabic.includes('\u200F') ? sent.arabic : `\u200F${sent.arabic}\u200F`}
+          </p>
+        </div>
+      );
+    })}
+  </div>
+) : (
+  /* 物語・読解セクション：自然な文章レイアウト（文をタップでその文から最後まで連続再生） */
+  <div className="w-full mb-14 px-4 bg-white/50 p-6 rounded-3xl border border-[#E5C9A8]/40 shadow-sm">
+    <p className="text-2xl md:text-3xl leading-[2.6] font-arabic text-justify text-[#3E2713] drop-shadow-sm" dir="rtl">
+      {(() => {
+        // 1. sentences 配列がある場合
+        if (activeArticle.sentences && activeArticle.sentences.length > 0) {
+          return activeArticle.sentences.map((sent, sIdx) => {
+            const isCurrentPlaying = audioState !== "idle" && currentAudioIndex === sIdx;
+            const displayText = activeArticle.level === "上級" 
+              ? removeTashkeel(sent.arabic) 
+              : sent.arabic;
 
-                                              {/* 関連文法 */}
-                                              {sent.relatedGrammarId && (
-                                                <button 
-                                                  onClick={() => handleJumpToGrammar(sent.relatedGrammarId!)}
-                                                  className="self-start mt-1 bg-white border border-[#D4A373] text-[#764C28] text-[10px] px-4 py-2 rounded-full font-bold hover:bg-[#F8F1E7] transition-colors flex items-center gap-1.5 shadow-sm"
-                                                >
-                                                  <BookOpen size={14} /> 文法解説: {getArticleById(sent.relatedGrammarId)?.title}
-                                                </button>
-                                              )}
-                                            </div>
-                                          )}
-                                        </div>
-                                      )}
-                                    </div>
-                                  </div>
-                                );
-                              })}
-                          </div>
-                        ) : (
-                          learningMode === "listening" ? (
-                              <div className="py-12 flex flex-col items-center text-[#A67144] text-sm bg-[#F8F1E7] rounded-3xl border-2 border-dashed border-[#E5C9A8] mb-10 shadow-sm">
-                                <Headphones size={48} className="mb-4 opacity-70 drop-shadow-sm" strokeWidth={1.5}/>
-                                <p className="font-bold text-lg mb-2 text-[#5E3C1E]">動画・音声を視聴して内容を理解しましょう</p>
-                                <p className="text-xs opacity-80">（テキストはクイズ後に表示されます）</p>
-                              </div>
-                          ) : (
-                              <p className="text-2xl md:text-3xl leading-[2.5] font-arabic text-justify mb-14 w-full text-[#3E2713] drop-shadow-sm px-4" dir="rtl">
-                                {(() => {
-                                  if (activeArticle.level === "上級") {
-                                    if (activeArticle.contentPlain) return activeArticle.contentPlain;
-                                    if (activeArticle.sentences && activeArticle.sentences.length > 0) return removeTashkeel(activeArticle.sentences.map(s => s.arabic).join(" "));
-                                    return activeArticle.contentVoweled ? removeTashkeel(activeArticle.contentVoweled) : "";
-                                  } 
-                                  else if (activeArticle.level === "中級") {
-                                    if (activeArticle.contentVoweled) return activeArticle.contentVoweled;
-                                    if (activeArticle.sentences && activeArticle.sentences.length > 0) return activeArticle.sentences.map(s => s.arabic).join(" ");
-                                    return activeArticle.contentPlain || "";
-                                  } 
-                                  else {
-                                    return (activeArticle.contentVoweled || activeArticle.contentPlain || "");
-                                  }
-                                })()}
-                              </p>
-                          )
-                        )}
-                        
+            return (
+              <span
+                key={sIdx}
+                onClick={() => playFromSentenceIndex(sIdx)}
+                className={`cursor-pointer px-1 py-0.5 rounded transition-all duration-200 inline-block m-0.5 ${
+                  isCurrentPlaying
+                    ? "bg-amber-200 text-amber-950 font-bold shadow-sm ring-2 ring-amber-400"
+                    : "hover:bg-amber-100/60 hover:text-[#5E3C1E]"
+                }`}
+                title="タップしてここから再生"
+              >
+                {displayText.includes('\u200F') ? displayText : `\u200F${displayText}\u200F`}{" "}
+              </span>
+            );
+          });
+        }
+
+        // 2. 1つの長文テキストの場合：句点で自動分割して span 化
+        const rawText = activeArticle.level === "上級"
+          ? (activeArticle.contentPlain || removeTashkeel(activeArticle.contentVoweled || ""))
+          : (activeArticle.contentVoweled || activeArticle.contentPlain || "");
+
+        const sentenceList = (rawText.match(/[^.؟!。\n]+[.؟!。\n]*/g) || [rawText]).map(s => s.trim()).filter(Boolean);
+
+        return sentenceList.map((sentText, sIdx) => {
+          const isCurrentPlaying = audioState !== "idle" && currentAudioIndex === sIdx;
+
+          return (
+            <span
+              key={sIdx}
+              onClick={() => playFromSentenceIndex(sIdx)}
+              className={`cursor-pointer px-1 py-0.5 rounded transition-all duration-200 inline-block m-0.5 ${
+                isCurrentPlaying
+                  ? "bg-amber-200 text-amber-950 font-bold shadow-sm ring-2 ring-amber-400"
+                  : "hover:bg-amber-100/60 hover:text-[#5E3C1E]"
+              }`}
+              title="タップしてここから再生"
+            >
+              {sentText.includes('\u200F') ? sentText : `\u200F${sentText}\u200F`}{" "}
+            </span>
+          );
+        });
+      })()}
+    </p>
+  </div>
+)}                
                         {/* Key Expressions */}
                         {activeArticle.keyExpressions && activeArticle.keyExpressions.length > 0 && (
                             <div className="mb-12 w-full bg-[#F8F1E7] rounded-3xl p-8 border border-[#E5C9A8] shadow-inner relative overflow-hidden">
@@ -2056,14 +2498,44 @@ const FREE_ARTICLE_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 20, 21, 30, 40,
 
 {/* クイズ画面 */}
 {currentScreen === "quiz" && activeArticle && (
-          <div className="max-w-xl mx-auto animate-fade-in-up pb-10">
-              <div className="flex justify-between items-center mb-6">
-                  <HeaderBackButton 
-                    onClick={() => changeScreen(courseType === "poetry" ? "poetry_read" : courseType === "reorder" ? "list" : "reader")} 
-                    text={courseType === "poetry" ? "詩に戻る" : courseType === "reorder" ? "一覧に戻る" : "記事に戻る"} 
-                  />
-                  <div className="text-center text-[10px] font-bold text-[#A67144] tracking-widest uppercase border border-[#E5C9A8] bg-white px-3 py-1 rounded-full shadow-sm" dir="ltr">QUESTION {currentQuestionIndex + 1} / {activeArticle.questions.length}</div>
-              </div>
+  <div className="max-w-xl mx-auto animate-fade-in-up pb-10">
+      
+      {/* 1. 一覧・記事へ戻るリンク */}
+      <div className="flex justify-between items-center mb-4">
+          <HeaderBackButton 
+            onClick={() => changeScreen(courseType === "poetry" ? "poetry_read" : courseType === "reorder" ? "list" : "reader")} 
+            text={courseType === "poetry" ? "詩に戻る" : courseType === "reorder" ? "一覧に戻る" : "記事に戻る"} 
+          />
+      </div>
+
+      {/* 2. ★追加: クイズ操作バー（前の問題 / 問題番号 / スキップ） */}
+      <div className="bg-white p-3 rounded-2xl border border-[#E5C9A8] shadow-sm mb-6 flex items-center justify-between" dir="ltr">
+        {/* 前の問題に戻るボタン（1問目の時は無効化） */}
+        <button
+          onClick={prevQuizQuestion}
+          disabled={currentQuestionIndex === 0}
+          className={`flex items-center gap-1 text-xs font-bold px-3 py-2 rounded-xl transition-all ${
+            currentQuestionIndex === 0
+              ? "text-stone-300 cursor-not-allowed"
+              : "text-[#764C28] hover:bg-[#F8F1E7] active:scale-95"
+          }`}
+        >
+          <ArrowLeft size={16} /> 前の問題
+        </button>
+
+        {/* 現在の問題番号 */}
+        <span className="text-[11px] font-bold text-[#8A5A33] tracking-widest bg-[#FCFAF5] px-3 py-1 rounded-full border border-[#E5C9A8]">
+          {currentQuestionIndex + 1} / {activeArticle.questions.length}
+        </span>
+
+        {/* スキップボタン */}
+        <button
+          onClick={skipQuizQuestion}
+          className="flex items-center gap-1 text-xs font-bold text-amber-700 bg-amber-50 hover:bg-amber-100 border border-amber-200 px-3.5 py-2 rounded-xl active:scale-95 transition-all shadow-sm"
+        >
+          スキップ <SkipForward size={14} />
+        </button>
+      </div>
 
 {/* ★ここから追加: 本文確認トグルボタン */}
 {(courseType === "reading" || courseType === "poetry") && (
@@ -2113,7 +2585,7 @@ const FREE_ARTICLE_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 20, 21, 30, 40,
                           onSpeak={speakText}
                           onScoreIncrease={() => {
                             setQuizScore(prev => prev + 1);
-                            speakText("Mumtāz");
+                            speakText("\u200Fمُمْتَاز\u200F");
                           }}
                         />
                       );
@@ -2126,7 +2598,7 @@ const FREE_ARTICLE_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 20, 21, 30, 40,
                           onSpeak={speakText}
                           onScoreIncrease={() => {
                             setQuizScore(prev => prev + 1);
-                            speakText("Mumtāz");
+                            speakText("\u200Fمُمْتَاز\u200F");
                           }}
                         />
                       );
@@ -2221,151 +2693,304 @@ const FREE_ARTICLE_IDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 20, 21, 30, 40,
           </div>
         )}
 
-        {/* 結果画面 */}
-        {currentScreen === "result" && activeArticle && (
-          <div className="pb-20 animate-fade-in-up">
-              <div className="max-w-xl mx-auto">
-                  <HeaderBackButton onClick={() => changeScreen(courseType === "poetry" ? "poets" : "list")} text="一覧に戻る" />
-              </div>
-
-            <div className="text-center py-16 bg-white rounded-[2rem] shadow-2xl mb-10 border border-[#E5C9A8] relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-[url('/pattern.png')] opacity-5 pointer-events-none"></div>
-              <div className="flex justify-center mb-6 relative z-10"><PartyPopper size={72} className="text-amber-500 drop-shadow-md" /></div>
-              <h2 className="text-3xl font-serif font-bold mb-3 text-[#4A3018] relative z-10">学習完了</h2>
-              <p className="text-[#A67144] text-sm font-bold tracking-widest uppercase mb-10 relative z-10">Great Job!</p>
-              
-              {learningMode !== "dictation" && learningMode !== "grammar" && !activeArticle.questions.some(q => q.type === "orthography") && (
-                  <div className="mb-10 relative z-10">
-                      <span className="text-xs text-stone-400 font-bold uppercase tracking-widest block mb-2">Score</span>
-                      <div className="text-6xl font-bold text-[#8A5A33]">{quizScore} <span className="text-2xl text-[#D4A373] font-normal">/ {activeArticle.questions.length}</span></div>
-                  </div>
-              )}
-              
-              {courseType === "poetry" ? (
-                  <div className="flex flex-col gap-4 max-w-xs mx-auto relative z-10">
-                      <button onClick={() => changeScreen("reader")} className="w-full py-4 bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-white font-bold rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all text-lg flex justify-center items-center gap-2">
-                          <BookOpen size={20} /> 詳しい解説を読む
-                      </button>
-                      <button onClick={() => changeScreen("poets")} className="w-full py-4 bg-[#F8F1E7] border border-[#E5C9A8] text-[#764C28] font-bold rounded-2xl hover:bg-[#EBE6DF] transition-colors">
-                          リストに戻る
-                      </button>
-                  </div>
-              ) : (
-                  <div className="space-y-8 relative z-10 px-4 md:px-8">
-                    <div className="flex justify-center mb-10">
-                        <button onClick={() => changeScreen("list")} className="px-12 py-4 bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-white font-bold rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all active:scale-95 text-lg">一覧に戻る</button>
-                    </div>
-
-                    {activeArticle.sentences && activeArticle.sentences.length > 0 && (
-                      <div className="mt-16 text-left w-full">
-                        <h3 className="text-center font-bold text-[#4A3018] text-xl mb-8 flex items-center justify-center gap-2 border-b-2 border-[#E5C9A8] pb-4"><Sparkles size={24} className="text-amber-500" /> 文章の解説・日本語訳</h3>
-                        <div className="space-y-6">
-                          {activeArticle.sentences.map((sent, idx) => (
-                            <div key={idx} className="bg-[#FCFAF5] p-6 md:p-8 rounded-2xl border border-[#E5C9A8] shadow-sm hover:shadow-md transition-shadow">
-                              <p className="text-2xl font-arabic text-[#3E2713] mb-4 leading-loose drop-shadow-sm" dir="rtl">{sent.arabic}</p>
-                              <p className="text-base font-bold text-[#5E3C1E] mb-4 text-left border-t border-dashed border-[#D4A373]/50 pt-4" dir="ltr">
-                                {sent.japanese}
-                              </p>
-                              
-                              {sent.note && (
-                                <div className="text-xs bg-[#F8F1E7] text-[#764C28] p-4 rounded-xl flex flex-col gap-3 text-left border border-[#E5C9A8] mt-4" dir="ltr">
-                                  <div className="flex gap-2 items-start">
-                                    <Lightbulb size={20} className="text-amber-500 flex-shrink-0" />
-                                    <span className="font-medium leading-relaxed">{sent.note}</span>
-                                  </div>
-
-                                  {sent.relatedGrammarId && (
-                                    <button 
-                                      onClick={() => handleJumpToGrammar(sent.relatedGrammarId!)}
-                                      className="self-start mt-2 bg-white border border-[#D4A373] text-[#A67144] text-[10px] px-4 py-1.5 rounded-full font-bold hover:bg-[#F8F1E7] transition-colors flex items-center gap-1.5 shadow-sm"
-                                    >
-                                      <BookOpen size={14} /> 文法解説: {getArticleById(sent.relatedGrammarId)?.title}
-                                    </button>
-                                  )}
-                                </div>
-                              )}
-                              
-                              <div className="mt-4 text-right">
-                                <button onClick={() => speakText(sent.arabic)} className="text-xs bg-amber-100 text-amber-800 px-4 py-2 rounded-full font-bold hover:bg-amber-200 transition-colors shadow-sm inline-flex items-center gap-1.5">
-                                  <Volume2 size={16} /> 音声を聞く
-                                </button>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-              )}
+  {/* 結果画面 */}
+  {currentScreen === "result" && activeArticle && (
+          <div className="pb-20 animate-fade-in-up max-w-2xl mx-auto">
+            <div className="mb-4">
+              <HeaderBackButton onClick={() => changeScreen(courseType === "poetry" ? "poets" : "list")} text="一覧に戻る" />
             </div>
+
+            {/* 1. スコアサマリーカード */}
+            <div className="text-center py-10 px-6 bg-white rounded-[2.5rem] shadow-xl mb-8 border border-[#E5C9A8] relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-[url('/pattern.png')] opacity-5 pointer-events-none"></div>
+              <div className="flex justify-center mb-4 relative z-10">
+                <PartyPopper size={64} className="text-amber-500 drop-shadow-md" />
+              </div>
+              <h2 className="text-3xl font-serif font-bold mb-2 text-[#4A3018] relative z-10">{activeArticle.title}</h2>
+              <p className="text-[#A67144] text-xs font-bold tracking-widest uppercase mb-6 relative z-10">Quiz Results</p>
+              
+              {/* スコア・正答率表示 */}
+              {activeArticle.questions && activeArticle.questions.length > 0 && (
+                <div className="mb-8 relative z-10 bg-[#FCFAF5] py-6 px-4 rounded-3xl border-2 border-dashed border-[#E5C9A8] max-w-sm mx-auto shadow-inner">
+                  <span className="text-[11px] text-stone-500 font-bold uppercase tracking-widest block mb-1">Total Score</span>
+                  <div className="text-5xl font-bold text-[#8A5A33]">
+                    {quizScore} <span className="text-xl text-[#D4A373] font-normal">/ {activeArticle.questions.length} 問正解</span>
+                  </div>
+                  <div className="mt-3 inline-block bg-amber-100 text-amber-900 text-xs font-bold px-4 py-1 rounded-full border border-amber-200">
+                    正答率: {Math.round((quizScore / activeArticle.questions.length) * 100)}%
+                  </div>
+                </div>
+              )}
+
+              {/* 操作ボタン */}
+              <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto relative z-10">
+                <button 
+                  onClick={() => startQuiz()} 
+                  className="flex-1 py-4 bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-white font-bold rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all flex items-center justify-center gap-2"
+                >
+                  <Pencil size={18} /> もう一度解く
+                </button>
+                <button 
+                  onClick={() => changeScreen(courseType === "poetry" ? "poets" : "list")} 
+                  className="flex-1 py-4 bg-[#F8F1E7] border border-[#E5C9A8] text-[#764C28] font-bold rounded-2xl hover:bg-[#EBE6DF] active:scale-95 transition-all"
+                >
+                  一覧に戻る
+                </button>
+              </div>
+            </div>
+
+            {/* 2. 全問題と正解・解説の一覧 */}
+            {activeArticle.questions && activeArticle.questions.length > 0 && (
+              <div className="space-y-6">
+                <div className="flex items-center gap-2 px-2 border-b-2 border-[#E5C9A8] pb-3">
+                  <BookOpen size={22} className="text-amber-600" />
+                  <h3 className="font-serif font-bold text-xl text-[#4A3018]">問題の振り返り・解答解説</h3>
+                </div>
+
+                {activeArticle.questions.map((q, idx) => {
+                  const isCorrect = userAnswers[idx] === true;
+
+                  return (
+                    <div 
+                      key={idx} 
+                      className={`p-6 rounded-[2rem] border-2 shadow-sm bg-white transition-all ${
+                        isCorrect ? "border-emerald-200" : "border-amber-200"
+                      }`}
+                    >
+                      {/* 問題ヘッダー（問題番号 ＆ 正誤バッジ） */}
+                      <div className="flex justify-between items-center mb-4">
+                        <span className="text-xs font-bold text-[#A67144] tracking-widest uppercase">
+                          第 {idx + 1} 問
+                        </span>
+                        {isCorrect ? (
+                          <span className="bg-emerald-50 text-emerald-700 border border-emerald-300 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                            <CheckCircle size={14} /> 正解
+                          </span>
+                        ) : (
+                          <span className="bg-rose-50 text-rose-700 border border-rose-300 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                            <XCircle size={14} /> 不正解 / スキップ
+                          </span>
+                        )}
+                      </div>
+
+                      {/* 問題文 */}
+                      <p className="text-lg font-bold text-[#4A3018] mb-4 whitespace-pre-wrap leading-relaxed">
+                        {q.text}
+                      </p>
+
+                      {/* 正解の表示エリア */}
+                      <div className="bg-[#FCFAF5] p-4 rounded-2xl border border-[#E5C9A8] mb-4">
+                        <span className="text-[10px] font-bold text-[#A67144] uppercase tracking-wider block mb-1">
+                          正解 (Correct Answer)
+                        </span>
+                        <p className="text-xl font-bold text-[#3E2713] font-arabic leading-relaxed" dir="rtl">
+                          {q.type === "reorder" 
+                            ? (q.correctOrder || []).join(" ") 
+                            : q.options && q.correctIndex !== undefined
+                              ? q.options[q.correctIndex]
+                              : q.explanation.split("\n")[0]}
+                        </p>
+                      </div>
+
+                      {/* 解説 */}
+                      <div className="text-sm text-[#5E3C1E] bg-[#F8F1E7]/60 p-4 rounded-2xl border border-[#E5C9A8]/60 leading-relaxed font-medium">
+                        <span className="text-[10px] font-bold text-[#8A5A33] uppercase tracking-wider block mb-1">解説</span>
+                        <p className="whitespace-pre-wrap">{q.explanation}</p>
+                      </div>
+
+                      {/* 発音・文法復習リンク（ある場合） */}
+                      <div className="mt-4 flex flex-wrap gap-2 justify-end">
+                        {q.audio && (
+                          <button 
+                            onClick={() => speakText(q.audio!)}
+                            className="bg-white border border-[#D4A373] text-[#764C28] text-xs px-4 py-2 rounded-full font-bold hover:bg-[#F8F1E7] transition-all flex items-center gap-1.5 shadow-sm"
+                          >
+                            <Volume2 size={15} /> 音声を聞く
+                          </button>
+                        )}
+                        {q.relatedGrammarId && (
+                          <button 
+                            onClick={() => handleJumpToGrammar(q.relatedGrammarId!)}
+                            className="bg-[#8A5A33] text-white text-xs px-4 py-2 rounded-full font-bold hover:bg-[#5E3C1E] transition-all flex items-center gap-1.5 shadow-sm"
+                          >
+                            <BookOpen size={15} /> 関連文法を確認
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         )}
       </main>
 
- {/* フローティング・オーディオプレイヤー */}
- {(currentScreen === "reader" || currentScreen === "poetry_read") && learningMode !== "grammar" && learningMode !== "listening" && (
-        <div className="fixed bottom-0 left-0 w-full bg-[#FBF8F1]/95 backdrop-blur-md border-t-2 border-[#D4A373] shadow-[0_-10px_30px_-10px_rgba(138,90,51,0.2)] p-4 z-40 animate-fade-in-up">
-          <div className="max-w-xl mx-auto flex items-center justify-between px-2 sm:px-0">
-            
-            {/* 1. スピードコントロール (左側) */}
-            <div className="flex items-center bg-white px-2 py-1.5 rounded-lg border border-[#E5C9A8] shadow-sm">
-              <select 
-                value={playbackRate} 
-                onChange={(e) => setPlaybackRate(parseFloat(e.target.value))}
-                className="bg-transparent text-[#764C28] text-xs font-bold outline-none cursor-pointer border-none p-0 focus:ring-0 text-center"
-                dir="ltr"
-              >
-                <option value="0.25">0.25x</option>
-                <option value="0.5">0.5x</option>
-                <option value="0.75">0.75x</option>
-                <option value="1.0">1.0x</option>
-                <option value="1.25">1.25x</option>
-                <option value="1.5">1.5x</option>
-              </select>
-            </div>
-
-            {/* 2. 再生コントロール群 (中央) */}
-            <div className="flex items-center gap-2 sm:gap-5">
-              <button 
-                onClick={handleStopPlayback}
-                disabled={audioState === "idle"}
-                className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all shadow-sm ${audioState === "idle" ? "text-[#D4A373]/50 bg-[#EBE6DF]" : "text-[#5E3C1E] bg-white border border-[#E5C9A8] hover:bg-[#F8F1E7] active:scale-90"}`}
-              >
-                <Square size={16} className={audioState !== "idle" ? "fill-current" : ""} />
-              </button>
-
-              <button 
-                onClick={handlePrevSentence}
-                disabled={audioState === "idle" || !activeArticle?.sentences}
-                className={`w-10 h-10 sm:w-14 sm:h-14 rounded-full flex items-center justify-center transition-all shadow-md ${audioState === "idle" || !activeArticle?.sentences ? "text-[#D4A373]/50 bg-[#EBE6DF]" : "text-[#764C28] bg-white border border-[#E5C9A8] hover:bg-[#F8F1E7] active:scale-90"}`}
-              >
-                <SkipBack size={20} className={audioState !== "idle" && activeArticle?.sentences ? "fill-current" : ""} />
-              </button>
-
-              <button 
-                onClick={handleTogglePlay}
-                className="w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-[#A67144] to-[#5E3C1E] text-amber-50 flex items-center justify-center shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all border-4 border-white"
-              >
-                {audioState === "playing" ? <Pause size={24} className="fill-current sm:w-8 sm:h-8" /> : <Play size={28} className="fill-current ml-1 sm:ml-2 sm:w-9 sm:h-9" />}
-              </button>
-
-              <button 
-                onClick={handleNextSentence}
-                disabled={audioState === "idle" || !activeArticle?.sentences}
-                className={`w-10 h-10 sm:w-14 sm:h-14 rounded-full flex items-center justify-center transition-all shadow-md ${audioState === "idle" || !activeArticle?.sentences ? "text-[#D4A373]/50 bg-[#EBE6DF]" : "text-[#764C28] bg-white border border-[#E5C9A8] hover:bg-[#F8F1E7] active:scale-90"}`}
-              >
-                <SkipForward size={20} className={audioState !== "idle" && activeArticle?.sentences ? "fill-current" : ""} />
-              </button>
-            </div>
-
-            {/* 3. 音声ステータス (右側) */}
-            <div className="w-10 flex justify-end">
-              {audioState === "playing" && <Volume2 size={20} className="text-amber-500 animate-pulse drop-shadow-sm" />}
-            </div>
-
-          </div>
+{/* --- ここから決済モーダルの実体を追加 --- */}
+{showUpgradeModal && (
+  <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+    <div className="bg-white rounded-[2.5rem] max-w-md w-full overflow-hidden shadow-2xl border border-[#E5C9A8]">
+      <div className="bg-[#4A3018] p-8 text-center relative">
+         <button onClick={() => setShowUpgradeModal(false)} className="absolute top-4 right-4 text-amber-200/50 hover:text-white transition-colors"><XCircle size={24}/></button>
+         <div className="w-20 h-20 bg-amber-400 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+           <Crown size={40} className="text-[#3E2713]" />
+         </div>
+         <h3 className="text-2xl font-serif font-bold text-white">Premium Plan</h3>
+         <p className="text-amber-200 text-sm mt-1 font-medium">Arabi Lab の全ての機能を使おう</p>
+      </div>
+      <div className="p-8 space-y-6">
+        <ul className="space-y-4">
+          {[ "1000問以上の演習が解き放題", "物語・古典詩へのフルアクセス", "全てのリスニング・書き取り練習" ].map((item, i) => (
+            <li key={i} className="flex items-center gap-3 text-[#5E3C1E] font-medium text-sm">
+              <CheckCircle size={18} className="text-emerald-500" /> {item}
+            </li>
+          ))}
+        </ul>
+        <div className="bg-[#F8F1E7] p-4 rounded-2xl text-center border border-[#E5C9A8]">
+          <p className="text-3xl font-bold text-[#3E2713]">¥500 <span className="text-sm font-normal opacity-60">/ 月</span></p>
+        </div>
+        <button 
+          onClick={async () => {
+            const response = await fetch('/api/checkout', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ userId: user?.id, email: user?.email })
+            });
+            const data = await response.json();
+            if (data.url) window.location.href = data.url;
+          }}
+          className="w-full py-4 bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-white font-bold rounded-2xl shadow-xl hover:-translate-y-1 active:scale-95 transition-all text-lg"
+        >
+          今すぐ登録して学習を開始する
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+{/* --- ここまで追加 --- */}
+{/* フローティング・オーディオプレイヤー（モダンUI版） */}
+{(currentScreen === "reader" || currentScreen === "poetry_read") && learningMode !== "grammar" && learningMode !== "listening" && (
+  <div className="fixed bottom-5 left-0 w-full px-4 z-40 animate-fade-in-up pointer-events-none flex justify-center">
+    <div className="bg-[#3E2713]/95 backdrop-blur-md border border-[#A67144]/60 shadow-[0_12px_40px_rgba(0,0,0,0.35)] rounded-full px-5 py-3 max-w-lg w-full flex items-center justify-between pointer-events-auto relative text-white">
+      
+      {/* 1. 速度ポップアップメニュー（展開時） */}
+      {showSpeedMenu && (
+        <div className="absolute -top-14 left-4 bg-white/95 backdrop-blur-md border border-[#D4A373] p-1.5 rounded-full shadow-2xl flex gap-1 z-50 animate-fade-in-up">
+          {SPEED_OPTIONS.map((rate) => (
+            <button
+              key={rate}
+              onClick={() => {
+                handleSpeedChange(rate);
+                setShowSpeedMenu(false);
+              }}
+              className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${
+                playbackRate === rate
+                  ? "bg-[#8A5A33] text-white shadow-md scale-105"
+                  : "text-[#764C28] hover:bg-[#F8F1E7]"
+              }`}
+            >
+              {rate}x
+            </button>
+          ))}
         </div>
       )}
+
+      {/* 2. スピードボタン（ワンタップ切替 ＆ 長押し/右クリックでメニュー） */}
+      <div className="flex items-center gap-1">
+        <button
+          onClick={cyclePlaybackRate}
+          onContextMenu={(e) => {
+            e.preventDefault();
+            setShowSpeedMenu(!showSpeedMenu);
+          }}
+          className="flex items-center gap-1 bg-[#5E3C1E] hover:bg-[#764C28] text-amber-300 px-3 py-1.5 rounded-full text-xs font-bold border border-[#A67144]/50 shadow-inner active:scale-95 transition-all"
+          title="タップで速度切替 / 右クリックで一覧"
+        >
+          <span>{playbackRate}x</span>
+        </button>
+        <button
+          onClick={() => setShowSpeedMenu(!showSpeedMenu)}
+          className="text-stone-400 hover:text-amber-300 text-[10px] p-1 transition-colors"
+          title="速度一覧を開く"
+        >
+          ▲
+        </button>
+      </div>
+
+      {/* 3. 再生コントロール群 */}
+      <div className="flex items-center gap-3 sm:gap-4">
+        {/* 停止 */}
+        <button
+          onClick={handleStopPlayback}
+          disabled={audioState === "idle"}
+          className={`w-9 h-9 rounded-full flex items-center justify-center transition-all ${
+            audioState === "idle"
+              ? "text-stone-500 opacity-40 cursor-not-allowed"
+              : "text-amber-200 hover:bg-white/10 active:scale-90"
+          }`}
+          title="停止"
+        >
+          <Square size={16} className={audioState !== "idle" ? "fill-current" : ""} />
+        </button>
+
+        {/* 前の文 */}
+        <button
+          onClick={handlePrevSentence}
+          disabled={audioState === "idle" || !activeArticle?.sentences}
+          className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
+            audioState === "idle" || !activeArticle?.sentences
+              ? "text-stone-500 opacity-40 cursor-not-allowed"
+              : "text-amber-100 hover:bg-white/10 active:scale-90"
+          }`}
+          title="前の文"
+        >
+          <SkipBack size={20} className={audioState !== "idle" ? "fill-current" : ""} />
+        </button>
+
+        {/* メイン再生 / 一時停止ボタン */}
+        <button
+          onClick={handleTogglePlay}
+          className="w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-amber-400 to-amber-500 text-[#3E2713] flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition-all border-2 border-amber-200"
+          title={audioState === "playing" ? "一時停止" : "再生"}
+        >
+          {audioState === "playing" ? (
+            <Pause size={24} className="fill-current" />
+          ) : (
+            <Play size={24} className="fill-current ml-0.5" />
+          )}
+        </button>
+
+        {/* 次の文 */}
+        <button
+          onClick={handleNextSentence}
+          disabled={audioState === "idle" || !activeArticle?.sentences}
+          className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
+            audioState === "idle" || !activeArticle?.sentences
+              ? "text-stone-500 opacity-40 cursor-not-allowed"
+              : "text-amber-100 hover:bg-white/10 active:scale-90"
+          }`}
+          title="次の文"
+        >
+          <SkipForward size={20} className={audioState !== "idle" ? "fill-current" : ""} />
+        </button>
+      </div>
+
+      {/* 4. アニメーション波形ステータス */}
+      <div className="w-12 flex justify-end items-center pr-2">
+        {audioState === "playing" ? (
+          <div className="flex items-end gap-0.5 h-4">
+            <span className="w-1 bg-amber-400 rounded-full animate-pulse h-3"></span>
+            <span className="w-1 bg-amber-300 rounded-full animate-pulse h-4 delay-75"></span>
+            <span className="w-1 bg-amber-500 rounded-full animate-pulse h-2 delay-150"></span>
+          </div>
+        ) : (
+          <Volume2 size={18} className="text-stone-500 opacity-50" />
+        )}
+      </div>
+
+    </div>
+  </div>
+)}
       {/* フッター */}
       <footer className="bg-[#2C1A0D] text-[#D4A373] py-10 pb-36 text-center text-xs border-t-4 border-[#1A0F08]">
         <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-8 mb-6">
@@ -2641,6 +3266,7 @@ function FillInBlankDrill({ question, onNext, isLast, onSpeak, onScoreIncrease }
   const [isChecked, setIsChecked] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [showAnswer, setShowAnswer] = useState(false);
+
 
   useEffect(() => {
     const correct = question.correctOrder || [];
