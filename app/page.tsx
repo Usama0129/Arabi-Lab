@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 
 // --- Types ---
-type Screen = "main_menu" | "levels_sub" | "topics" | "list" | "mode_select" | "reader" | "quiz" | "result" | "vocab" | "flashcard" | "dictation" | "mypage" | "eras" | "era_desc" | "poets" | "poetry_read" | "phrases_list" | "phrase_detail" | "vocab_quiz_select" | "vocab_quiz" | "vocab_quiz_result" | "vocab_my_quiz_select";
+type Screen = "notifications" | "main_menu" | "levels_sub" | "topics" | "list" | "mode_select" | "reader" | "quiz" | "result" | "vocab" | "flashcard" | "dictation" | "mypage" | "eras" | "era_desc" | "poets" | "poetry_read" | "phrases_list" | "phrase_detail" | "vocab_quiz_select" | "vocab_quiz" | "vocab_quiz_result" | "vocab_my_quiz_select";
 type LearningMode = "reading" | "listening" | "dictation" | "grammar";
 type CourseType = "grammar" | "conversation" | "reading" | "listening" | "poetry" | "phrase" | "reorder" | "story"; // ★ "story" を追加
 type StudyBreakdown = { reading: number; listening: number; dictation: number; vocab: number; grammar: number; poetry: number };
@@ -1235,7 +1235,7 @@ const startSequencePlayback = async (startIndex: number) => {
     <button 
       onClick={(e) => { 
         e.stopPropagation(); // 親の onClick（メインメニュー移動）を防ぐ
-        changeScreen("notifications" as any);
+        changeScreen("notifications");
       }}
       className="relative p-2 text-amber-100 hover:text-amber-400 transition-all active:scale-90 ml-1"
     >
