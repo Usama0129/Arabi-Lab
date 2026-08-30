@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
-import { OPENAI_API_KEY as LOCAL_KEY } from '../../lib/secrets';
 
 export const dynamic = 'force-dynamic';
 
@@ -53,10 +52,10 @@ function toArabicNumerals(str: string) {
 
 export async function POST(req: Request) {
   try {
-    const apiKey = (process.env.OPENAI_API_KEY || process.env.NEXT_PUBLIC_OPENAI_API_KEY || LOCAL_KEY || '').trim();
+    const apiKey = (process.env.OPENAI_API_KEY || process.env.NEXT_PUBLIC_OPENAI_API_KEY || '').trim();
 
     if (!apiKey) {
-      return NextResponse.json({ error: 'API Key missing' }, { status: 500 });
+      return NextResponse.json({ error: 'OpenAI API Key is missing' }, { status: 500 });
     }
 
     const openai = new OpenAI({ apiKey });
