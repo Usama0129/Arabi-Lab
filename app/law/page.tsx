@@ -14,7 +14,7 @@ export default function LawPage() {
       value: "090-8129-9196\n（受付時間：平日 10:00〜18:00）\n※お電話による個別サポート対応は行っておりません。お問い合わせは下記メールアドレスよりお願いいたします。",
     },
     { label: "メールアドレス", value: "arabilab1220@gmail.com" },
-    { label: "ウェブサイト", value: "https://arabi-lab.vercel.app" },
+    { label: "ウェブサイト", value: "https://arabilab.com" },
     { label: "販売価格", value: "各プラン購入ページに表示された金額（税込）" },
     {
       label: "商品代金以外の必要料金",

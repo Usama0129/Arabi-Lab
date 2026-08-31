@@ -150,8 +150,8 @@ const LandingPage = ({ onLogin, onGuestStart }: { onLogin: () => void, onGuestSt
             そして物語や千年の歴史を持つアラビア語詩まで。
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button onClick={onLogin} className="w-full sm:w-auto px-10 py-4 bg-white text-[#3E2713] font-bold rounded-full shadow-xl hover:bg-gray-100 hover:scale-105 transition transform flex items-center justify-center gap-2 border-2 border-white">
-              <span className="text-blue-600 font-bold text-lg">G</span> Googleで今すぐ始める
+            <button onClick={onLogin} className="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-[#2C1A0D] font-bold rounded-full shadow-xl hover:brightness-110 hover:scale-105 transition transform flex items-center justify-center gap-2.5 border border-amber-300">
+              <span className="w-6 h-6 rounded-full bg-white/60 text-[#2C1A0D] font-black text-xs flex items-center justify-center shadow-inner">G</span> Googleで今すぐ始める
             </button>
             <button onClick={onGuestStart} className="w-full sm:w-auto px-10 py-4 bg-transparent border-2 border-[#8A5A33] text-[#FDFCF8] font-bold rounded-full hover:bg-[#4A3018]/80 hover:border-[#A67144] transition backdrop-blur-sm">
               登録せずに試す
@@ -1257,9 +1257,9 @@ const startSequencePlayback = async (startIndex: number) => {
                     {isPremium && <span className="bg-gradient-to-r from-amber-400 to-yellow-500 text-[#4A3018] text-[10px] font-bold px-2.5 py-0.5 rounded-full animate-pulse shadow-md border border-amber-200">👑 Premium</span>}
                     <button onClick={handleLogout} className="flex items-center gap-2 bg-[#5E3C1E] text-amber-50 px-3 py-1.5 rounded-full text-xs font-bold hover:bg-[#764C28] transition-all hover:-translate-y-0.5 shadow-sm border border-[#764C28]">{user.user_metadata?.avatar_url ? (<img src={user.user_metadata.avatar_url} className="w-5 h-5 rounded-full border border-white/30" alt="icon" />) : (<LogOut size={14}/>)}<span className="hidden sm:inline">ログアウト</span></button>
                 </div>
-            ) : (
-                <button onClick={handleLogin} className="bg-[#F5F0E6] text-[#4A3018] px-4 py-1.5 rounded-full font-bold text-xs shadow hover:bg-white hover:-translate-y-0.5 transition-all mr-1 flex items-center gap-1"><span className="text-blue-600 font-bold text-sm">G</span> ログイン</button>
-            )}
+) : (
+  <button onClick={handleLogin} className="bg-amber-400/20 text-amber-100 border border-amber-400/40 px-3.5 py-1.5 rounded-full font-bold text-xs shadow-sm hover:bg-amber-400/30 hover:text-white transition-all mr-1 flex items-center gap-1.5"><span className="text-amber-300 font-bold text-xs">G</span> ログイン</button>
+)}
             <button onClick={() => changeScreen("mypage")} className="flex items-center justify-center w-10 h-10 bg-[#5E3C1E] hover:bg-[#764C28] text-amber-100 rounded-full transition-all hover:-translate-y-0.5 shadow-md border border-[#764C28]"><User size={18} /></button>
             <button onClick={() => { changeScreen("vocab"); setIsFlashcardMode(false); }} className="flex items-center gap-2 text-xs bg-gradient-to-br from-amber-400 to-amber-500 text-[#3E2713] px-4 py-2 rounded-full font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"><Bookmark size={16} /> <span className="hidden sm:inline">単語 ({savedVocab.length})</span></button>
           </div>
@@ -1402,30 +1402,30 @@ const startSequencePlayback = async (startIndex: number) => {
             </div>
           </div>
         )}
-　　　　{/* 2. 単語クイズ設定画面 */}
+{/* 2. 単語クイズ設定画面 */}
         {currentScreen === "vocab_quiz_select" && (
-          <div className="animate-fade-in-up text-center py-10 max-w-xl mx-auto">
+          <div className="animate-fade-in-up text-center py-6 sm:py-10 max-w-xl mx-auto px-2">
             <HeaderBackButton onClick={() => changeScreen("main_menu")} />
-            <h2 className="text-3xl font-serif font-bold mb-8 text-[#4A3018]">単語クイズ設定</h2>
-            <div className="bg-white p-8 rounded-[2rem] shadow-lg border border-[#E5C9A8] space-y-8 text-left">
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold mb-6 sm:mb-8 text-[#4A3018]">単語クイズ設定</h2>
+            <div className="bg-white p-5 sm:p-8 rounded-[2rem] shadow-lg border border-[#E5C9A8] space-y-6 sm:space-y-8 text-left">
               <div>
-                <p className="text-xs font-bold text-[#A67144] mb-4 tracking-widest uppercase">出題方向</p>
+                <p className="text-[11px] sm:text-xs font-bold text-[#A67144] mb-3 tracking-widest uppercase">出題方向</p>
                 <div className="flex gap-2">
                   {[{ id: "ar_to_ja", label: "アラビア語 → 日本語" }, { id: "ja_to_ar", label: "日本語 → アラビア語" }].map(d => (
-                    <button key={d.id} onClick={() => setVocabQuizMode(prev => ({ ...prev, direction: d.id as any }))} className={`flex-1 py-4 rounded-xl font-bold border-2 transition-all ${vocabQuizMode.direction === d.id ? "bg-[#8A5A33] border-[#8A5A33] text-white shadow-md" : "bg-white border-[#F5F0E6] text-[#A67144]"}`}>{d.label}</button>
+                    <button key={d.id} onClick={() => setVocabQuizMode(prev => ({ ...prev, direction: d.id as any }))} className={`flex-1 py-3 sm:py-4 px-2 rounded-xl font-bold text-xs sm:text-sm tracking-tight border-2 transition-all flex items-center justify-center text-center ${vocabQuizMode.direction === d.id ? "bg-[#8A5A33] border-[#8A5A33] text-white shadow-md" : "bg-white border-[#F5F0E6] text-[#A67144]"}`}>{d.label}</button>
                   ))}
                 </div>
               </div>
               <div>
-                <p className="text-xs font-bold text-[#A67144] mb-4 tracking-widest uppercase">レベル</p>
-                <div className="grid grid-cols-2 gap-3">
+                <p className="text-[11px] sm:text-xs font-bold text-[#A67144] mb-3 tracking-widest uppercase">レベル</p>
+                <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
                   {["初級", "中級", "上級", "shuffle"].map(lvl => (
-                    <button key={lvl} onClick={() => setVocabQuizMode(prev => ({ ...prev, level: lvl }))} className={`py-4 rounded-xl font-bold border-2 transition-all ${vocabQuizMode.level === lvl ? "bg-[#D4A373] border-[#D4A373] text-white shadow-md" : "bg-white border-[#F5F0E6] text-[#A67144]"}`}>{lvl === "shuffle" ? "混合テスト" : lvl}</button>
+                    <button key={lvl} onClick={() => setVocabQuizMode(prev => ({ ...prev, level: lvl }))} className={`py-3 sm:py-4 rounded-xl font-bold text-xs sm:text-sm border-2 transition-all ${vocabQuizMode.level === lvl ? "bg-[#D4A373] border-[#D4A373] text-white shadow-md" : "bg-white border-[#F5F0E6] text-[#A67144]"}`}>{lvl === "shuffle" ? "混合テスト" : lvl}</button>
                   ))}
                 </div>
               </div>
-              <button onClick={() => generateVocabQuiz(vocabQuizMode.level, vocabQuizMode.direction)} className="w-full py-5 bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-white font-bold rounded-2xl shadow-xl hover:scale-[1.02] active:scale-95 transition-all text-xl flex items-center justify-center gap-2">
-                <Play size={24} fill="currentColor" /> テスト開始
+              <button onClick={() => generateVocabQuiz(vocabQuizMode.level, vocabQuizMode.direction)} className="w-full py-4 sm:py-5 bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-white font-bold rounded-2xl shadow-xl hover:scale-[1.02] active:scale-95 transition-all text-base sm:text-lg flex items-center justify-center gap-2">
+                <Play size={20} className="sm:w-6 sm:h-6" fill="currentColor" /> テスト開始
               </button>
             </div>
           </div>
@@ -2223,9 +2223,9 @@ return (
                   )}
 
 {activeArticle.questions && activeArticle.questions.length > 0 ? (
-                    <div className="bg-gradient-to-b from-[#F8F1E7] to-white p-8 rounded-3xl text-center w-full border border-[#E5C9A8] shadow-sm">
-                      <p className="text-[#764C28] font-bold mb-6 text-lg">解説を読み終わりましたか？</p>
-                      <div className="flex flex-col sm:flex-row gap-4 w-full">
+                    <div className="bg-gradient-to-b from-[#F8F1E7] to-white p-5 sm:p-8 rounded-3xl text-center w-full border border-[#E5C9A8] shadow-sm">
+                      <p className="text-[#764C28] font-bold mb-4 sm:mb-6 text-base sm:text-lg">解説を読み終わりましたか？</p>
+                      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full">
                         {/* 1. テストを開始するボタン */}
                         <button 
                           onClick={() => {
@@ -2233,17 +2233,17 @@ return (
                               setGrammarQuestions(qs);
                               startQuiz();
                           }} 
-                          className="flex-1 py-4 bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-white font-bold rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2 text-lg"
+                          className="flex-1 py-3.5 sm:py-4 px-4 bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-white font-bold rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2 text-sm sm:text-base"
                         >
-                          <Pencil size={22} /> 理解度チェック ({activeArticle.questions.length}問)
+                          <Pencil size={18} className="sm:w-[22px] sm:h-[22px]" /> 理解度チェック ({activeArticle.questions.length}問)
                         </button>
                         
                         {/* 2. ★追加: すぐに問題と解答一覧へ進むボタン */}
                         <button 
                           onClick={() => changeScreen("result")} 
-                          className="flex-1 bg-white border-2 border-[#E5C9A8] text-[#764C28] font-bold py-4 rounded-2xl shadow-md hover:shadow-lg hover:border-[#D4A373] hover:bg-[#F8F1E7] hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2 text-lg"
+                          className="flex-1 bg-white border-2 border-[#E5C9A8] text-[#764C28] font-bold py-3.5 sm:py-4 px-4 rounded-2xl shadow-md hover:shadow-lg hover:border-[#D4A373] hover:bg-[#F8F1E7] hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2 text-sm sm:text-base"
                         >
-                          <BookOpen size={22} /> すぐに問題と解答を見る
+                          <BookOpen size={18} className="sm:w-[22px] sm:h-[22px]" /> すぐに問題と解答を見る
                         </button>
                       </div>
                     </div>
