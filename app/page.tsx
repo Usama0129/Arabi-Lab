@@ -1466,8 +1466,8 @@ const startSequencePlayback = async (startIndex: number) => {
                 </button>
               </div>
 
-              {/* 選択肢エリア */}
-              <div className="grid grid-cols-1 gap-3">
+{/* 選択肢エリア */}
+<div className="grid grid-cols-1 gap-3">
                 {vocabQuizQuestions[currentVocabIdx].options.map((opt: any, idx: number) => {
                   let btnClass = "bg-white border-[#F5F0E6] text-[#4A3018] hover:border-[#D4A373]";
                   if (isVocabQuizChecked) {
@@ -1484,7 +1484,7 @@ const startSequencePlayback = async (startIndex: number) => {
                         setIsVocabQuizChecked(true);
                         if (idx === vocabQuizQuestions[currentVocabIdx].correctIdx) {
                           setVocabQuizScore(s => s + 1);
-                          speakText("\u200Fأحسنت\u200F"); // 正解時の音声（オプション）
+                          speakText("\u200Fمُمْتَاز\u200F"); // ★ ممتاز (Mumtāz) を再生
                         }
                       }} 
                       className={`p-5 border-2 rounded-2xl font-bold text-lg transition-all flex items-center justify-between ${btnClass} ${vocabQuizMode.direction === "ja_to_ar" ? "font-arabic text-2xl" : ""}`}
@@ -1495,23 +1495,34 @@ const startSequencePlayback = async (startIndex: number) => {
                   );
                 })}
               </div>
+
+              {/* ★ 回答後の発音再生ボタン ＆ 次へ進むボタン */}
               {isVocabQuizChecked && (
-                <button onClick={() => {
-                  if (currentVocabIdx < vocabQuizQuestions.length - 1) {
-                    setCurrentVocabIdx(c => c + 1);
-                    setIsVocabQuizChecked(false);
-                    setSelectedVocabOption(null);
-                  } else {
-                    changeScreen("vocab_quiz_result");
-                  }
-                }} className="mt-8 w-full py-5 bg-[#8A5A33] text-white font-bold rounded-2xl shadow-lg flex items-center justify-center gap-2">
-                  {currentVocabIdx < vocabQuizQuestions.length - 1 ? "次の問題へ" : "結果を見る"} <ChevronRight size={20} />
-                </button>
+                <div className="mt-6 space-y-4 animate-fade-in-up">
+                  <div className="flex justify-center">
+                    <button
+                      onClick={() => speakText(vocabQuizQuestions[currentVocabIdx].target.word)}
+                      className="flex items-center gap-2 bg-amber-100 border border-amber-300 text-amber-900 px-6 py-2.5 rounded-full text-sm font-bold shadow-sm hover:bg-amber-200 active:scale-95 transition-all"
+                    >
+                      <Volume2 size={18} /> 単語の発音を聞く
+                    </button>
+                  </div>
+                  <button onClick={() => {
+                    if (currentVocabIdx < vocabQuizQuestions.length - 1) {
+                      setCurrentVocabIdx(c => c + 1);
+                      setIsVocabQuizChecked(false);
+                      setSelectedVocabOption(null);
+                    } else {
+                      changeScreen("vocab_quiz_result");
+                    }
+                  }} className="w-full py-5 bg-[#8A5A33] text-white font-bold rounded-2xl shadow-lg flex items-center justify-center gap-2 hover:bg-[#5E3C1E] active:scale-95 transition-all">
+                    {currentVocabIdx < vocabQuizQuestions.length - 1 ? "次の問題へ" : "結果を見る"} <ChevronRight size={20} />
+                  </button>
+                </div>
               )}
             </div>
           </div>
         )}
-
         {/* 4. 単語クイズ結果画面 */}
         {currentScreen === "vocab_quiz_result" && (
           <div className="animate-fade-in-up text-center py-10 max-w-xl mx-auto">
@@ -3230,11 +3241,19 @@ function ReorderDrill({ question, onNext, isLast, onSpeak, onScoreIncrease }: an
               <p className="font-bold text-2xl mb-3 flex items-center gap-2">
                 {isCorrect ? <><PartyPopper size={28}/> Excellent!</> : <><Frown size={28}/> Try Again...</>}
               </p>
-              {(!isCorrect && showAnswer) || isCorrect ? (
-                  <div className="text-3xl font-arabic text-center mt-6 mb-4 leading-loose drop-shadow-sm" dir="rtl">
+              {((!isCorrect && showAnswer) || isCorrect) && (
+                <div className="flex flex-col items-center mt-6 mb-4">
+                  <div className="text-3xl font-arabic text-center leading-loose drop-shadow-sm mb-3" dir="rtl">
                       {(question.correctOrder || []).join(" ")}
                   </div>
-              ) : null}
+                  <button
+                    onClick={() => onSpeak(question.audio || (question.correctOrder || []).join(" "))}
+                    className="flex items-center gap-2 bg-white border border-[#D4A373] text-[#764C28] px-5 py-2 rounded-full text-xs font-bold shadow-sm hover:bg-[#F8F1E7] active:scale-95 transition-all"
+                  >
+                    <Volume2 size={16} /> 文の音声を聞く
+                  </button>
+                </div>
+              )}
               <p className="text-sm opacity-90 text-left mt-4 whitespace-pre-wrap font-medium w-full" dir="ltr">
                 {question.explanation}
               </p>
@@ -3404,11 +3423,19 @@ function FillInBlankDrill({ question, onNext, isLast, onSpeak, onScoreIncrease }
               <p className="font-bold text-2xl mb-3 flex items-center gap-2">
                  {isCorrect ? <><PartyPopper size={28}/> Excellent!</> : <><Frown size={28}/> Try Again...</>}
               </p>
-              {(!isCorrect && showAnswer) || isCorrect ? (
-                  <div className="text-3xl font-arabic text-center mt-6 mb-4 leading-loose drop-shadow-sm" dir="rtl">
+              {((!isCorrect && showAnswer) || isCorrect) && (
+                <div className="flex flex-col items-center mt-6 mb-4">
+                  <div className="text-3xl font-arabic text-center leading-loose drop-shadow-sm mb-3" dir="rtl">
                       {(question.correctOrder || []).join(" ")}
                   </div>
-              ) : null}
+                  <button
+                    onClick={() => onSpeak(question.audio || (question.correctOrder || []).join(" "))}
+                    className="flex items-center gap-2 bg-white border border-[#D4A373] text-[#764C28] px-5 py-2 rounded-full text-xs font-bold shadow-sm hover:bg-[#F8F1E7] active:scale-95 transition-all"
+                  >
+                    <Volume2 size={16} /> 文の音声を聞く
+                  </button>
+                </div>
+              )}
               <p className="text-sm opacity-90 text-left mt-4 whitespace-pre-wrap font-medium w-full" dir="ltr">
                 {question.explanation}
               </p>
