@@ -1860,48 +1860,48 @@ const startSequencePlayback = async (startIndex: number) => {
                 <div className="bg-[#FCFAF5] rounded-3xl shadow-2xl border border-[#E5C9A8] overflow-hidden relative">
                   <div className="absolute top-0 right-0 w-64 h-64 bg-[url('/pattern.png')] opacity-[0.03] pointer-events-none"></div>
                   
-                  <div className="p-8 md:p-14 text-center">
-                      <span className="text-amber-600 text-xs tracking-widest font-bold uppercase mb-3 block">Poetry Appreciation</span>
-                      <h2 className="text-3xl font-serif font-bold mb-10 text-[#4A3018]">{activeArticle.title}</h2>
+                  <div className="p-5 sm:p-8 md:p-14 text-center">
+                      <span className="text-amber-600 text-[10px] sm:text-xs tracking-widest font-bold uppercase mb-2 sm:mb-3 block">Poetry Appreciation</span>
+                      <h2 className="text-2xl sm:text-3xl font-serif font-bold mb-6 sm:mb-10 text-[#4A3018]">{activeArticle.title}</h2>
                       
                       {/* 詩の本文 */}
-                      <div className="space-y-10 mb-14">
+                      <div className="space-y-6 sm:space-y-10 mb-8 sm:mb-14">
                           {activeArticle.sentences?.map((sent, idx) => (
                               <div key={idx} className="relative group cursor-pointer hover:scale-105 transition-transform duration-500" onClick={() => speakText(sent.arabic)}>
-                                  <p className="text-3xl md:text-4xl font-arabic leading-loose text-[#3E2713] drop-shadow-sm">{sent.arabic}</p>
-                                  <p className="text-xs text-amber-700/50 mt-3 font-bold opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-1"><Volume2 size={12} /> タップで再生</p>
+                                  <p className="text-2xl sm:text-3xl md:text-4xl font-arabic leading-loose text-[#3E2713] drop-shadow-sm">{sent.arabic}</p>
+                                  <p className="text-[10px] sm:text-xs text-amber-700/50 mt-2 font-bold opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-1"><Volume2 size={12} /> タップで再生</p>
                               </div>
                           ))}
                       </div>
 
-                      <div className="flex justify-center mb-12">
-                            <button onClick={handleTogglePlay} className="flex items-center gap-3 bg-amber-100 text-amber-900 px-8 py-3 rounded-full font-bold shadow-md border border-amber-200 hover:bg-amber-200 active:scale-95 transition-all">
-                                <Volume2 size={24} /> 詩を朗読する
+                      <div className="flex justify-center mb-8 sm:mb-12">
+                            <button onClick={handleTogglePlay} className="flex items-center gap-2 bg-amber-100 text-amber-900 px-6 py-2.5 sm:px-8 sm:py-3 rounded-full text-xs sm:text-sm font-bold shadow-md border border-amber-200 hover:bg-amber-200 active:scale-95 transition-all">
+                                <Volume2 size={18} className="sm:w-5 sm:h-5" /> 詩を朗読する
                             </button>
                       </div>
 
-                      {/* ガイド枠と2つのボタン */}
-                      <div className="bg-white/90 p-8 rounded-2xl border border-[#E5C9A8] shadow-inner relative overflow-hidden">
-                        <div className="absolute left-0 top-0 w-1 h-full bg-amber-400"></div>
-                        <p className="font-bold text-[#5E3C1E] mb-3 text-lg">まずは意味を推測してみましょう</p>
-                        <p className="text-sm text-[#8A5A33] mb-8 font-medium leading-relaxed">
-                          詩の響きを味わったら、理解度チェックに進んでください。<br/>
+{/* ガイド枠と2つのボタン */}
+<div className="bg-white/90 p-5 sm:p-8 rounded-2xl border border-[#E5C9A8] shadow-inner relative overflow-hidden text-center sm:text-left">
+                        <div className="absolute left-0 top-0 w-1 sm:w-1.5 h-full bg-amber-400"></div>
+                        <p className="font-bold text-[#5E3C1E] mb-2 sm:mb-3 text-base sm:text-lg">まずは意味を推測してみましょう</p>
+                        <p className="text-xs sm:text-sm text-[#8A5A33] mb-6 sm:mb-8 font-medium leading-relaxed">
+                          詩の響きを味わったら、理解度チェックに進んでください。<br className="hidden sm:inline"/>
                           すぐに内容を確認したい場合は「解説を見る」から読み進めることもできます。
                         </p>
 
-                        <div className="flex flex-col sm:flex-row gap-4 w-full">
+                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full">
                           <button 
                             onClick={() => startQuiz()} 
-                            className="flex-1 px-8 py-4 bg-[#764C28] text-amber-50 font-bold rounded-2xl shadow-lg hover:bg-[#5E3C1E] hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2 text-lg"
+                            className="flex-1 py-3.5 sm:py-4 px-4 bg-[#764C28] text-amber-50 font-bold rounded-2xl shadow-lg hover:bg-[#5E3C1E] hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2 text-sm sm:text-base"
                           >
-                            <Pencil size={20} /> 理解度チェックへ
+                            <Pencil size={18} className="sm:w-5 sm:h-5" /> 理解度チェックへ
                           </button>
                           
                           <button 
                             onClick={() => changeScreen("reader")} 
-                            className="flex-1 bg-white border-2 border-[#E5C9A8] text-[#764C28] font-bold py-4 rounded-2xl shadow-md hover:shadow-lg hover:border-[#D4A373] hover:bg-[#F8F1E7] hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2 text-lg"
+                            className="flex-1 bg-white border-2 border-[#E5C9A8] text-[#764C28] font-bold py-3.5 sm:py-4 px-4 rounded-2xl shadow-md hover:shadow-lg hover:border-[#D4A373] hover:bg-[#F8F1E7] hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2 text-sm sm:text-base"
                           >
-                            <BookOpen size={22} /> 解説を見る
+                            <BookOpen size={18} className="sm:w-5 sm:h-5" /> 解説を見る
                           </button>
                         </div>
                       </div>
@@ -2323,23 +2323,63 @@ return (
     })}
   </div>
 ) : courseType === "poetry" ? (
-  /* 詩セクション：行ごとに綺麗に中央揃え（タップでその行から連続再生） */
-  <div className="w-full space-y-6 mb-14 text-center">
+  /* 詩セクション：各行のアラビア語原文・日本語訳・詳細解説(note) */
+  <div className="w-full space-y-8 mb-14 text-left" dir="ltr">
     {activeArticle.sentences?.map((sent, idx) => {
       const isCurrentPlaying = audioState !== "idle" && currentAudioIndex === idx;
       return (
         <div
           key={idx}
-          onClick={() => playFromSentenceIndex(idx)}
-          className={`p-4 rounded-2xl cursor-pointer transition-all duration-300 ${
+          className={`bg-[#FCFAF5] p-6 md:p-8 rounded-[2rem] border-2 shadow-sm transition-all duration-300 ${
             isCurrentPlaying
-              ? "bg-amber-100 text-amber-950 font-bold scale-105 shadow-sm"
-              : "hover:bg-amber-50/80 text-[#3E2713]"
+              ? "border-amber-400 bg-amber-50/70 ring-2 ring-amber-300 shadow-md"
+              : "border-[#E5C9A8] hover:border-[#D4A373]"
           }`}
         >
-          <p className="text-3xl md:text-4xl font-arabic leading-loose drop-shadow-sm" dir="rtl">
-            {sent.arabic.includes('\u200F') ? sent.arabic : `\u200F${sent.arabic}\u200F`}
-          </p>
+          {/* 行番号 ＆ 朗読ボタン */}
+          <div className="flex justify-between items-center mb-4">
+            <span className="text-[10px] font-bold text-[#A67144] tracking-widest uppercase bg-white px-3 py-1 rounded-full border border-[#E5C9A8] shadow-sm">
+              VERSE {idx + 1}
+            </span>
+            <button
+              onClick={() => playFromSentenceIndex(idx)}
+              className="flex items-center gap-1.5 bg-[#F8F1E7] text-[#8A5A33] px-3.5 py-1.5 rounded-full text-xs font-bold hover:bg-amber-200 active:scale-95 transition-all shadow-sm"
+            >
+              <Volume2 size={15} /> 朗読を聞く
+            </button>
+          </div>
+
+          {/* アラビア語原文 */}
+          <div
+            onClick={() => playFromSentenceIndex(idx)}
+            className="cursor-pointer text-center py-4 group"
+          >
+            <p className="text-2xl sm:text-3xl md:text-4xl font-arabic leading-loose text-[#3E2713] drop-shadow-sm group-hover:text-amber-800 transition-colors" dir="rtl">
+              {sent.arabic.includes('\u200F') ? sent.arabic : `\u200F${sent.arabic}\u200F`}
+            </p>
+          </div>
+
+          {/* 日本語訳 */}
+          {sent.japanese && (
+            <div className="bg-white p-4 rounded-2xl border border-[#E5C9A8] mb-4 shadow-sm">
+              <span className="text-[10px] font-bold text-[#A67144] uppercase tracking-wider block mb-1">日本語訳</span>
+              <p className="text-base text-[#4A3018] font-bold leading-relaxed">
+                {sent.japanese}
+              </p>
+            </div>
+          )}
+
+          {/* 詳細解説 (note) */}
+          {sent.note && (
+            <div className="bg-[#F8F1E7]/80 p-5 rounded-2xl border border-[#E5C9A8]/70 text-sm text-[#5E3C1E] leading-relaxed">
+              <span className="text-[10px] font-bold text-[#8A5A33] uppercase tracking-widest block mb-2 border-b border-[#D4A373]/30 pb-1">
+                解説・語彙・文法
+              </span>
+              <div className="whitespace-pre-wrap font-medium">
+                {sent.note.trim()}
+              </div>
+            </div>
+          )}
         </div>
       );
     })}
@@ -2436,17 +2476,17 @@ return (
                                 {activeArticle.vocabList.map((v, i) => (<VocabButton key={i} v={v} i={i} isRevealed={revealedVocabIndex === i} isSaved={savedVocab.some(sv => sv.word === v.word)} onReveal={() => setRevealedVocabIndex(i)} onSave={() => saveWord(v.word, v.meaning)} />))}
                             </div>
                         </div>
-                     {/* クイズ・解説へ進むボタン */}
+{/* クイズ・解説へ進むボタン */}
                      {courseType !== "poetry" && (
-                            <div className="flex flex-col sm:flex-row gap-4 w-full">
-                              <button onClick={() => startQuiz()} className="flex-1 bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-amber-50 font-bold py-4 rounded-2xl shadow-xl hover:shadow-2xl hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-3 text-lg">
-                                  <Pencil size={24} className="drop-shadow-sm"/> {courseType === "listening" ? "問題を解く" : `理解度チェック (${activeArticle.questions.length}問)`}
+                            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full mt-4">
+                              <button onClick={() => startQuiz()} className="flex-1 bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-amber-50 font-bold py-3.5 sm:py-4 px-4 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2.5 text-sm sm:text-base">
+                                  <Pencil size={18} className="sm:w-5 sm:h-5 drop-shadow-sm"/> {courseType === "listening" ? "問題を解く" : `理解度チェック (${activeArticle.questions.length}問)`}
                               </button>
                               
-                              {/* ★追加: すぐに解説画面へ飛ぶボタン */}
-                              <button onClick={() => changeScreen("result")} className="flex-1 bg-white border-2 border-[#E5C9A8] text-[#764C28] font-bold py-4 rounded-2xl shadow-md hover:shadow-lg hover:border-[#D4A373] hover:bg-[#F8F1E7] hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2 text-lg">
-                                  <BookOpen size={22} /> すぐに解説を見る
-                                  </button>
+                              {/* すぐに解説画面へ飛ぶボタン */}
+                              <button onClick={() => changeScreen("result")} className="flex-1 bg-white border-2 border-[#E5C9A8] text-[#764C28] font-bold py-3.5 sm:py-4 px-4 rounded-2xl shadow-md hover:shadow-lg hover:border-[#D4A373] hover:bg-[#F8F1E7] hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2 text-sm sm:text-base">
+                                  <BookOpen size={18} className="sm:w-5 sm:h-5" /> すぐに解説を見る
+                              </button>
                             </div>
                         )}
                 </div>
@@ -2733,17 +2773,17 @@ return (
                 </div>
               )}
 
-              {/* 操作ボタン */}
-              <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto relative z-10">
+{/* 操作ボタン */}
+              <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 justify-center max-w-md mx-auto relative z-10">
                 <button 
                   onClick={() => startQuiz()} 
-                  className="flex-1 py-4 bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-white font-bold rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all flex items-center justify-center gap-2"
+                  className="flex-1 py-3 sm:py-4 px-4 bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-white font-bold text-sm sm:text-base rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all flex items-center justify-center gap-2"
                 >
-                  <Pencil size={18} /> もう一度解く
+                  <Pencil size={16} className="sm:w-[18px] sm:h-[18px]" /> もう一度解く
                 </button>
                 <button 
                   onClick={() => changeScreen(courseType === "poetry" ? "poets" : "list")} 
-                  className="flex-1 py-4 bg-[#F8F1E7] border border-[#E5C9A8] text-[#764C28] font-bold rounded-2xl hover:bg-[#EBE6DF] active:scale-95 transition-all"
+                  className="flex-1 py-3 sm:py-4 px-4 bg-[#F8F1E7] border border-[#E5C9A8] text-[#764C28] font-bold text-sm sm:text-base rounded-2xl hover:bg-[#EBE6DF] active:scale-95 transition-all"
                 >
                   一覧に戻る
                 </button>
@@ -2833,6 +2873,50 @@ return (
                 })}
               </div>
             )}
+            {/* ★★★ ここに挿入します ★★★ */}
+            {courseType === "poetry" && activeArticle.sentences && activeArticle.sentences.length > 0 && (
+              <div className="space-y-6 mt-12 pt-8 border-t-2 border-[#E5C9A8]">
+                <div className="flex items-center gap-2 px-2 border-b-2 border-[#E5C9A8] pb-3">
+                  <ScrollText size={22} className="text-amber-600" />
+                  <h3 className="font-serif font-bold text-xl text-[#4A3018]">詩の全文対訳・詳細解説</h3>
+                </div>
+
+                {activeArticle.sentences.map((sent, idx) => (
+                  <div key={idx} className="p-6 md:p-8 rounded-[2rem] border-2 border-[#E5C9A8] shadow-sm bg-white text-left" dir="ltr">
+                    <div className="flex justify-between items-center mb-3">
+                      <span className="text-xs font-bold text-[#A67144] tracking-widest uppercase bg-[#FCFAF5] px-3 py-1 rounded-full border border-[#E5C9A8]">
+                        第 {idx + 1} 句
+                      </span>
+                      <button
+                        onClick={() => speakText(sent.arabic)}
+                        className="flex items-center gap-1.5 bg-[#F8F1E7] text-[#8A5A33] px-3.5 py-1.5 rounded-full text-xs font-bold hover:bg-amber-100 active:scale-95 transition-all shadow-sm"
+                      >
+                        <Volume2 size={14} /> 朗読を聞く
+                      </button>
+                    </div>
+
+                    <p className="text-2xl sm:text-3xl font-arabic text-[#3E2713] text-center my-4 leading-loose drop-shadow-sm" dir="rtl">
+                      {sent.arabic.includes('\u200F') ? sent.arabic : `\u200F${sent.arabic}\u200F`}
+                    </p>
+
+                    {sent.japanese && (
+                      <div className="bg-[#FCFAF5] p-4 rounded-2xl border border-[#E5C9A8] mb-4">
+                        <span className="text-[10px] font-bold text-[#A67144] uppercase tracking-wider block mb-1">現代語訳</span>
+                        <p className="text-sm sm:text-base text-[#4A3018] font-bold leading-relaxed">{sent.japanese}</p>
+                      </div>
+                    )}
+
+                    {sent.note && (
+                      <div className="text-sm text-[#5E3C1E] bg-[#F8F1E7]/70 p-5 rounded-2xl border border-[#E5C9A8]/60 leading-relaxed font-medium whitespace-pre-wrap">
+                        <span className="text-[10px] font-bold text-[#8A5A33] uppercase tracking-widest block mb-2 border-b border-[#D4A373]/30 pb-1">解説・語彙・文法</span>
+                        {sent.note.trim()}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+            {/* ★★★ ここまで ★★★ */}
           </div>
         )}
       </main>
