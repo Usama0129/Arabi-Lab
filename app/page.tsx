@@ -2147,8 +2147,8 @@ return (
             <h2 className="text-3xl font-serif font-bold mb-4 text-center text-[#4A3018] leading-tight">{activeArticle.title}</h2>
             <p className="text-[#A67144] mb-12 text-sm font-bold tracking-widest uppercase border-b border-[#D4A373] pb-2">Select Mode</p>
             
-{/* ★物語コースの時は1列で中央配置になるように grid-cols-1 max-w-xs mx-auto を追加 */}
-<div className={`grid gap-4 w-full ${courseType === "story" ? "grid-cols-1 max-w-xs mx-auto" : activeArticle.level === "初級" || activeArticle.level === "文法" ? "grid-cols-2" : "grid-cols-1 md:grid-cols-3"}`} dir="ltr">
+{/* ★物語・読解コースの時は1列で中央配置になるように grid-cols-1 max-w-xs mx-auto を適用 */}
+<div className={`grid gap-4 w-full ${courseType === "story" || courseType === "reading" ? "grid-cols-1 max-w-xs mx-auto" : activeArticle.level === "初級" || activeArticle.level === "文法" ? "grid-cols-2" : "grid-cols-1 md:grid-cols-3"}`} dir="ltr">
               
               {/* Reading: 物語コースでも表示するように courseType === "story" を追加 */}
               {(courseType === "reading" || courseType === "story" || (activeArticle.level !== "文法" && courseType !== "listening")) && (
@@ -2873,41 +2873,63 @@ return (
                 })}
               </div>
             )}
-            {/* ★★★ ここに挿入します ★★★ */}
-            {courseType === "poetry" && activeArticle.sentences && activeArticle.sentences.length > 0 && (
+{/* ★リスニング・読解・物語・詩の全文対訳・スクリプト解説（クイズ終了後＆すぐに解説を見る押下後） */}
+{(courseType === "poetry" || courseType === "story" || courseType === "reading" || courseType === "listening") && activeArticle.sentences && activeArticle.sentences.length > 0 && (
               <div className="space-y-6 mt-12 pt-8 border-t-2 border-[#E5C9A8]">
                 <div className="flex items-center gap-2 px-2 border-b-2 border-[#E5C9A8] pb-3">
-                  <ScrollText size={22} className="text-amber-600" />
-                  <h3 className="font-serif font-bold text-xl text-[#4A3018]">詩の全文対訳・詳細解説</h3>
+                  {courseType === "listening" ? (
+                    <Headphones size={22} className="text-amber-600" />
+                  ) : courseType === "poetry" ? (
+                    <ScrollText size={22} className="text-amber-600" />
+                  ) : courseType === "story" ? (
+                    <Library size={22} className="text-amber-600" />
+                  ) : (
+                    <BookOpen size={22} className="text-amber-600" />
+                  )}
+                  <h3 className="font-serif font-bold text-lg sm:text-xl text-[#4A3018]">
+                    {courseType === "listening"
+                      ? "会話スクリプト・全文対訳"
+                      : courseType === "poetry"
+                      ? "詩の全文対訳・詳細解説"
+                      : courseType === "story"
+                      ? "物語の全文対訳・文法詳細解説"
+                      : "本文の全文対訳・文法詳細解説"}
+                  </h3>
                 </div>
 
                 {activeArticle.sentences.map((sent, idx) => (
-                  <div key={idx} className="p-6 md:p-8 rounded-[2rem] border-2 border-[#E5C9A8] shadow-sm bg-white text-left" dir="ltr">
+                  <div key={idx} className="p-5 sm:p-7 rounded-[2rem] border-2 border-[#E5C9A8] shadow-sm bg-white text-left" dir="ltr">
                     <div className="flex justify-between items-center mb-3">
-                      <span className="text-xs font-bold text-[#A67144] tracking-widest uppercase bg-[#FCFAF5] px-3 py-1 rounded-full border border-[#E5C9A8]">
-                        第 {idx + 1} 句
+                      <span className="text-[11px] sm:text-xs font-bold text-[#A67144] tracking-widest uppercase bg-[#FCFAF5] px-3 py-1 rounded-full border border-[#E5C9A8]">
+                        {courseType === "listening"
+                          ? (sent.speaker ? `Speaker ${sent.speaker}` : `第 ${idx + 1} 文`)
+                          : courseType === "story"
+                          ? `段落 ${idx + 1}`
+                          : courseType === "poetry"
+                          ? `第 ${idx + 1} 句`
+                          : `第 ${idx + 1} 文`}
                       </span>
                       <button
                         onClick={() => speakText(sent.arabic)}
-                        className="flex items-center gap-1.5 bg-[#F8F1E7] text-[#8A5A33] px-3.5 py-1.5 rounded-full text-xs font-bold hover:bg-amber-100 active:scale-95 transition-all shadow-sm"
+                        className="flex items-center gap-1.5 bg-[#F8F1E7] text-[#8A5A33] px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-xs font-bold hover:bg-amber-100 active:scale-95 transition-all shadow-sm"
                       >
-                        <Volume2 size={14} /> 朗読を聞く
+                        <Volume2 size={14} /> 発音を聞く
                       </button>
                     </div>
 
-                    <p className="text-2xl sm:text-3xl font-arabic text-[#3E2713] text-center my-4 leading-loose drop-shadow-sm" dir="rtl">
+                    <p className={`font-arabic text-[#3E2713] my-4 leading-loose drop-shadow-sm text-2xl sm:text-3xl ${courseType === "poetry" ? "text-center" : "text-right"}`} dir="rtl">
                       {sent.arabic.includes('\u200F') ? sent.arabic : `\u200F${sent.arabic}\u200F`}
                     </p>
 
                     {sent.japanese && (
-                      <div className="bg-[#FCFAF5] p-4 rounded-2xl border border-[#E5C9A8] mb-4">
-                        <span className="text-[10px] font-bold text-[#A67144] uppercase tracking-wider block mb-1">現代語訳</span>
-                        <p className="text-sm sm:text-base text-[#4A3018] font-bold leading-relaxed">{sent.japanese}</p>
+                      <div className="bg-[#FCFAF5] p-3.5 sm:p-4 rounded-2xl border border-[#E5C9A8] mb-3 sm:mb-4">
+                        <span className="text-[10px] font-bold text-[#A67144] uppercase tracking-wider block mb-1">日本語訳</span>
+                        <p className="text-xs sm:text-sm text-[#4A3018] font-bold leading-relaxed">{sent.japanese}</p>
                       </div>
                     )}
 
                     {sent.note && (
-                      <div className="text-sm text-[#5E3C1E] bg-[#F8F1E7]/70 p-5 rounded-2xl border border-[#E5C9A8]/60 leading-relaxed font-medium whitespace-pre-wrap">
+                      <div className="text-xs sm:text-sm text-[#5E3C1E] bg-[#F8F1E7]/70 p-4 sm:p-5 rounded-2xl border border-[#E5C9A8]/60 leading-relaxed font-medium whitespace-pre-wrap">
                         <span className="text-[10px] font-bold text-[#8A5A33] uppercase tracking-widest block mb-2 border-b border-[#D4A373]/30 pb-1">解説・語彙・文法</span>
                         {sent.note.trim()}
                       </div>
@@ -2916,7 +2938,6 @@ return (
                 ))}
               </div>
             )}
-            {/* ★★★ ここまで ★★★ */}
           </div>
         )}
       </main>
