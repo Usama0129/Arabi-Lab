@@ -866,6 +866,9 @@ const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event
       setIsQuizResultVisible(false); 
       setUserAnswers([]); 
       changeScreen("quiz");
+    } else if (courseType === "conversation") {
+      setLearningMode("reading");
+      changeScreen("reader");
   } else {
       setLearningMode("reading");
       changeScreen("mode_select"); 
@@ -2142,43 +2145,43 @@ return (
           </div>
         )}
 
-        {/* 学習モード選択 */}
-        {currentScreen === "mode_select" && activeArticle && (
-          <div className="flex flex-col items-center justify-center py-10 animate-fade-in-up max-w-xl mx-auto relative">
-            <div className="w-full text-left">
-                <HeaderBackButton onClick={() => changeScreen("list")} />
-            </div>
+{/* 学習モード選択 */}
+{currentScreen === "mode_select" && activeArticle && (
+  <div className="flex flex-col items-center justify-center py-10 animate-fade-in-up max-w-xl mx-auto relative">
+    <div className="w-full text-left">
+        <HeaderBackButton onClick={() => changeScreen("list")} />
+    </div>
 
-            <div className="w-28 h-28 bg-gradient-to-br from-[#8A5A33] to-[#4A3018] text-amber-400 rounded-full flex items-center justify-center mb-8 shadow-2xl border-4 border-[#F5F0E6]">
-               <BookOpen size={56} strokeWidth={1.5} />
-            </div>
-            <h2 className="text-3xl font-serif font-bold mb-4 text-center text-[#4A3018] leading-tight">{activeArticle.title}</h2>
-            <p className="text-[#A67144] mb-12 text-sm font-bold tracking-widest uppercase border-b border-[#D4A373] pb-2">Select Mode</p>
-            
-{/* ★物語・読解コースの時は1列で中央配置になるように grid-cols-1 max-w-xs mx-auto を適用 */}
-<div className={`grid gap-4 w-full ${courseType === "story" || courseType === "reading" ? "grid-cols-1 max-w-xs mx-auto" : activeArticle.level === "初級" || activeArticle.level === "文法" ? "grid-cols-2" : "grid-cols-1 md:grid-cols-3"}`} dir="ltr">
-              
-              {/* Reading: 物語コースでも表示するように courseType === "story" を追加 */}
-              {(courseType === "reading" || courseType === "story" || (activeArticle.level !== "文法" && courseType !== "listening")) && (
-                <ModeButton icon={BookOpen} title="Reading" subtitle="読んで理解" color="border-[#E5C9A8] bg-white hover:bg-[#F8F1E7] text-[#5E3C1E]" onClick={() => startLearning("reading")} />
-              )}
-              
-              {/* Listening: 物語コースでは非表示にするため courseType !== "story" を追加 */}
-              {courseType !== "reading" && courseType !== "story" && activeArticle.level !== "文法" && activeArticle.level !== "初級" && (
-                <ModeButton icon={Headphones} title="Listening" subtitle="音声のみ" color="border-[#E5C9A8] bg-white hover:bg-[#F8F1E7] text-[#5E3C1E]" onClick={() => startLearning("listening")} />
-              )}
-              
-              {activeArticle.level === "文法" && courseType === "grammar" && (
-                <ModeButton icon={Puzzle} title="Grammar" subtitle="文法理解" color="border-[#E5C9A8] bg-white hover:bg-[#F8F1E7] text-[#5E3C1E]" onClick={() => startLearning("grammar")} />
-              )}
-              
-              {/* Dictation: 物語コースでは非表示にするため courseType !== "story" を追加 */}
-              {courseType !== "reading" && courseType !== "story" && activeArticle.level !== "文法" && (
-                <ModeButton icon={PenTool} title="Dictation" subtitle="書き取り" color="border-[#E5C9A8] bg-white hover:bg-[#F8F1E7] text-[#5E3C1E]" onClick={() => startLearning("dictation")} />
-              )}
-            </div>
-          </div>
-        )}
+    <div className="w-28 h-28 bg-gradient-to-br from-[#8A5A33] to-[#4A3018] text-amber-400 rounded-full flex items-center justify-center mb-8 shadow-2xl border-4 border-[#F5F0E6]">
+        <BookOpen size={56} strokeWidth={1.5} />
+    </div>
+    <h2 className="text-3xl font-serif font-bold mb-4 text-center text-[#4A3018] leading-tight">{activeArticle.title}</h2>
+    <p className="text-[#A67144] mb-12 text-sm font-bold tracking-widest uppercase border-b border-[#D4A373] pb-2">Select Mode</p>
+    
+    {/* ★会話・物語・読解コースの時は1列で中央配置（Readingのみになるため） */}
+    <div className={`grid gap-4 w-full ${courseType === "story" || courseType === "reading" || courseType === "conversation" ? "grid-cols-1 max-w-xs mx-auto" : activeArticle.level === "初級" || activeArticle.level === "文法" ? "grid-cols-2" : "grid-cols-1 md:grid-cols-3"}`} dir="ltr">
+      
+      {/* Reading: 会話・物語・読解で表示 */}
+      {(courseType === "reading" || courseType === "story" || courseType === "conversation" || (activeArticle.level !== "文法" && courseType !== "listening")) && (
+        <ModeButton icon={BookOpen} title="Reading" subtitle="読んで理解" color="border-[#E5C9A8] bg-white hover:bg-[#F8F1E7] text-[#5E3C1E]" onClick={() => startLearning("reading")} />
+      )}
+      
+      {/* Listening: 会話・物語・読解コースでは非表示（courseType !== "conversation" を追加） */}
+      {courseType !== "reading" && courseType !== "story" && courseType !== "conversation" && activeArticle.level !== "文法" && activeArticle.level !== "初級" && (
+        <ModeButton icon={Headphones} title="Listening" subtitle="音声のみ" color="border-[#E5C9A8] bg-white hover:bg-[#F8F1E7] text-[#5E3C1E]" onClick={() => startLearning("listening")} />
+      )}
+      
+      {activeArticle.level === "文法" && courseType === "grammar" && (
+        <ModeButton icon={Puzzle} title="Grammar" subtitle="文法理解" color="border-[#E5C9A8] bg-white hover:bg-[#F8F1E7] text-[#5E3C1E]" onClick={() => startLearning("grammar")} />
+      )}
+      
+      {/* Dictation: 会話・物語・読解コースでは非表示（courseType !== "conversation" を追加） */}
+      {courseType !== "reading" && courseType !== "story" && courseType !== "conversation" && activeArticle.level !== "文法" && (
+        <ModeButton icon={PenTool} title="Dictation" subtitle="書き取り" color="border-[#E5C9A8] bg-white hover:bg-[#F8F1E7] text-[#5E3C1E]" onClick={() => startLearning("dictation")} />
+      )}
+    </div>
+  </div>
+)}
 
 {/* リーダー画面 */}
 {currentScreen === "reader" && activeArticle && (
@@ -2191,8 +2194,8 @@ return (
                         setLearningMode(jumpHistory.mode);
                         changeScreen(jumpHistory.screen);
                         setJumpHistory(null); // セーブデータをリセット
-                    } else if (courseType === "listening" || courseType === "grammar") {
-                        changeScreen("list");
+                   } else if (courseType === "listening" || courseType === "grammar" || courseType === "conversation") {
+      changeScreen("list");
                     } else if (courseType === "poetry") {
                         changeScreen("poets"); 
                     } else {
@@ -2294,7 +2297,7 @@ return (
     <p className="text-xs opacity-80">（テキストはクイズ後に表示されます）</p>
   </div>
 ) : activeArticle.level === "会話" ? (
-  /* 会話セクション：ボタンなし吹き出し形式（タップで連続再生） */
+  /* 会話セクション：クイズ前はアラビア語と話者のみ表示（タップで音声再生） */
   <div className="w-full space-y-6 mb-12">
     {activeArticle.sentences?.map((sent, idx) => {
       const isRight = idx % 2 === 0;
@@ -2304,33 +2307,23 @@ return (
         <div key={idx} className={`flex ${isRight ? "justify-start" : "justify-end"}`}>
           <div 
             onClick={() => playFromSentenceIndex(idx)}
-            className={`max-w-[90%] md:max-w-[85%] p-6 md:p-8 rounded-[2rem] relative shadow-sm border cursor-pointer transition-all duration-300 hover:shadow-md ${
+            className={`max-w-[90%] md:max-w-[85%] p-5 sm:p-6 md:p-8 rounded-[2rem] relative shadow-sm border cursor-pointer transition-all duration-300 hover:shadow-md ${
               isCurrentPlaying ? "ring-4 ring-amber-400/60 scale-[1.02] shadow-xl bg-amber-50" : ""
             } ${isRight ? "bg-[#F8F1E7] text-[#4A3018] rounded-tr-none border-[#E5C9A8]" : "bg-white text-[#5E3C1E] rounded-tl-none border-gray-200"}`}
           >
-            <p className="text-[10px] font-bold opacity-50 uppercase tracking-widest mb-2">{sent.speaker}</p>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-bold text-[#8A5A33] tracking-wide">{sent.speaker}</span>
+              <span className="text-[10px] text-[#A67144] opacity-60 flex items-center gap-1"><Volume2 size={12}/> タップで再生</span>
+            </div>
             <p className="text-2xl md:text-3xl font-arabic leading-loose drop-shadow-sm text-right" dir="rtl">
               {sent.arabic.includes('\u200F') ? sent.arabic : `\u200F${sent.arabic}\u200F`}
             </p>
-            {sent.japanese && (
-              <p className="text-sm text-[#764C28] font-bold leading-relaxed border-t border-dashed border-[#D4A373]/50 pt-3 mt-3" dir="ltr">
-                {sent.japanese}
-              </p>
-            )}
-            {sent.note && (
-              <div className="mt-3 text-xs bg-amber-50/80 border border-amber-200/50 text-[#8A5A33] p-3 rounded-xl flex flex-col gap-2 text-left shadow-inner" dir="ltr">
-                <div className="flex gap-2 items-start">
-                  <Lightbulb size={18} className="drop-shadow-sm text-amber-500 flex-shrink-0" />
-                  <span className="font-medium leading-relaxed">{sent.note}</span>
-                </div>
-              </div>
-            )}
           </div>
         </div>
       );
     })}
   </div>
-) : courseType === "poetry" ? (
+) :courseType === "poetry" ? (
   /* 詩セクション：各行のアラビア語原文・日本語訳・詳細解説(note) */
   <div className="w-full space-y-8 mb-14 text-left" dir="ltr">
     {activeArticle.sentences?.map((sent, idx) => {
@@ -2882,10 +2875,12 @@ return (
               </div>
             )}
 {/* ★リスニング・読解・物語・詩の全文対訳・スクリプト解説（クイズ終了後＆すぐに解説を見る押下後） */}
-{(courseType === "poetry" || courseType === "story" || courseType === "reading" || courseType === "listening") && activeArticle.sentences && activeArticle.sentences.length > 0 && (
+{(courseType === "poetry" || courseType === "story" || courseType === "reading" || courseType === "listening" || courseType === "conversation") && activeArticle.sentences && activeArticle.sentences.length > 0 && (
               <div className="space-y-6 mt-12 pt-8 border-t-2 border-[#E5C9A8]">
                 <div className="flex items-center gap-2 px-2 border-b-2 border-[#E5C9A8] pb-3">
-                  {courseType === "listening" ? (
+                  {courseType === "conversation" ? (
+                    <MessageCircle size={22} className="text-amber-600" />
+                  ) : courseType === "listening" ? (
                     <Headphones size={22} className="text-amber-600" />
                   ) : courseType === "poetry" ? (
                     <ScrollText size={22} className="text-amber-600" />
@@ -2895,7 +2890,9 @@ return (
                     <BookOpen size={22} className="text-amber-600" />
                   )}
                   <h3 className="font-serif font-bold text-lg sm:text-xl text-[#4A3018]">
-                    {courseType === "listening"
+                    {courseType === "conversation"
+                      ? "会話スクリプト・全文対訳・解説"
+                      : courseType === "listening"
                       ? "会話スクリプト・全文対訳"
                       : courseType === "poetry"
                       ? "詩の全文対訳・詳細解説"
@@ -2908,8 +2905,10 @@ return (
                 {activeArticle.sentences.map((sent, idx) => (
                   <div key={idx} className="p-5 sm:p-7 rounded-[2rem] border-2 border-[#E5C9A8] shadow-sm bg-white text-left" dir="ltr">
                     <div className="flex justify-between items-center mb-3">
-                      <span className="text-[11px] sm:text-xs font-bold text-[#A67144] tracking-widest uppercase bg-[#FCFAF5] px-3 py-1 rounded-full border border-[#E5C9A8]">
-                        {courseType === "listening"
+                      <span className="text-[11px] sm:text-xs font-bold text-[#A67144] tracking-widest bg-[#FCFAF5] px-3 py-1 rounded-full border border-[#E5C9A8]">
+                        {courseType === "conversation"
+                          ? (sent.speaker ? sent.speaker : `第 ${idx + 1} 文`)
+                          : courseType === "listening"
                           ? (sent.speaker ? `Speaker ${sent.speaker}` : `第 ${idx + 1} 文`)
                           : courseType === "story"
                           ? `段落 ${idx + 1}`
@@ -2924,7 +2923,6 @@ return (
                         <Volume2 size={14} /> 発音を聞く
                       </button>
                     </div>
-
                     <p className={`font-arabic text-[#3E2713] my-4 leading-loose drop-shadow-sm text-2xl sm:text-3xl ${courseType === "poetry" ? "text-center" : "text-right"}`} dir="rtl">
                       {sent.arabic.includes('\u200F') ? sent.arabic : `\u200F${sent.arabic}\u200F`}
                     </p>
