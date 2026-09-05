@@ -440,69 +440,77 @@ const startFlashcardTest = (isReverse: boolean) => {
 // --- 最終完成版：全セクション無料枠コントロール ---
 
 const FREE_ARTICLE_IDS = [
-  20, 21, 30, 40, // 1フレーズのサンプル等
-  501, 502, 503, 504, 505, 506 // 単語データ等
+  501, 502, 503, 504, 505, 506, // 単語データ等
+  4000,  // 詩の無料サンプル（ズハイルの懸想詩）
+  20000  // 物語の無料サンプル（桃太郎）
 ];
 
 const isLockedContent = (article: Article) => {
   // 1. プレミアムユーザーは常に全解放
   if (isPremium) return false;
 
-  // 2. 物語セクション (ID: 20000〜20500) -> 全て有料
+  // 2. 個別指定の無料コンテンツは無条件解放
+  if (FREE_ARTICLE_IDS.includes(article.id)) {
+    return false;
+  }
+
+  // 3. 物語セクション (ID: 20000〜20500) -> 桃太郎(20000)以外は有料
   if (article.id >= 20000 && article.id <= 20500) {
     return true;
   }
 
-  // 3. 詩セクション (ID: 4000〜5000) -> 全て有料
+  // 4. 詩セクション (ID: 4000〜5000) -> ズハイルの詩(4000)以外は有料
   if (article.id >= 4000 && article.id <= 5000) {
     return true;
   }
 
-  // 4. 並び替えセクション (ID: 10001〜11000) -> 初級1〜10のみ無料
+  // 5. 並び替えセクション (ID: 10001〜11000) -> 初級1〜3のみ無料 ★変更
   if (article.id >= 10001 && article.id <= 11000) {
     if (article.level === "初級") {
-      const freeTitles = ["初級1", "初級2", "初級3", "初級4", "初級5", "初級6", "初級7", "初級8", "初級9", "初級10"];
+      const freeTitles = ["初級1", "初級2", "初級3"];
       return !freeTitles.includes(article.title);
     }
     return true;
   }
 
-  // 5. 文法セクション (ID: 101〜) -> Lesson 16 (116) まで無料
+  // 6. 1フレーズセクション -> フスハーのみ無料（方言は有料） ★追加
+  if (article.level === "1フレーズ") {
+    return article.category !== "フスハー";
+  }
+
+  // 7. 文法セクション (ID: 101〜) -> Lesson 16 (116) まで無料
   if (article.level === "文法") {
     return article.id > 116;
   }
 
-  // 6. 会話セクション (ID: 10〜100) -> ホテル・レストランのみ無料
+  // 8. 会話セクション (ID: 10〜100) -> 挨拶・レストランのみ無料
   if (article.level === "会話") {
-    return !(article.category === "ホテル" || article.category === "レストラン");
+    return !(article.category === "挨拶" || article.category === "レストラン");
   }
 
-  // 7. リスニングセクション (ID: 2000〜2999) -> 初級のみ無料
+  // 9. リスニングセクション (ID: 2000〜2999) -> 初級のみ無料
   if (article.id >= 2000 && article.id <= 2999) {
     return article.level !== "初級";
   }
 
-  // 8. 読解 初級 (ID: 3000〜3999) -> 自己紹介・日常・買い物・食事のみ無料
+  // 10. 読解 初級 (ID: 3000〜3999) -> 自己紹介・日常のみ無料
   if (article.id >= 3000 && article.id <= 3999) {
-    const freeBeginnerCats = ["自己紹介", "日常", "買い物", "食事"];
+    const freeBeginnerCats = ["自己紹介", "日常"];
     return !freeBeginnerCats.includes(article.category);
   }
 
-  // 9. 読解 中級 (ID: 200〜999) -> 物語のみ無料
+  // 11. 読解 中級 (ID: 200〜999) -> 文化のみ無料
   if (article.level === "中級" && (article.id >= 200 && article.id <= 999)) {
-    return article.category !== "物語";
+    return article.category !== "文化";
   }
 
-  // 10. 読解 上級 (ID: 1000〜1999) -> 経済のみ無料
+  // 12. 読解 上級 (ID: 1000〜1999) -> 経済（サウジビジョン2030）のみ無料
   if (article.level === "上級" && (article.id >= 1000 && article.id <= 1999)) {
     return article.category !== "経済";
   }
 
-  // 11. その他（11001〜19999など）未分類データは一旦無料
-  if (article.id > 11000 && article.id < 20000) return false;
-
-  // 12. 個別リスト判定
-  return !FREE_ARTICLE_IDS.includes(article.id);
+  // 13. その他未分類データは有料
+  return true;
 };
 
   useEffect(() => {
@@ -3183,7 +3191,7 @@ function SettingItem({ icon: Icon, label, onClick }: { icon: any, label: string,
   );
 }
 
-function OrthographyDrill({ question, onNext, isLast, onSpeak }: any) {
+function OrthographyDrill({ question, onNext, isLast }: any) {
   const [isRevealed, setIsRevealed] = useState(false);
 
   useEffect(() => {
@@ -3191,50 +3199,47 @@ function OrthographyDrill({ question, onNext, isLast, onSpeak }: any) {
   }, [question]);
 
   return (
-    <div className="bg-white p-8 md:p-10 rounded-[2rem] shadow-xl border border-[#E5C9A8] text-center animate-fade-in-up relative overflow-hidden">
+    <div className="bg-white p-5 sm:p-8 md:p-10 rounded-[2rem] shadow-xl border border-[#E5C9A8] text-center animate-fade-in-up relative overflow-hidden">
       <div className="absolute top-0 right-0 w-32 h-32 bg-[url('/pattern.png')] opacity-5 pointer-events-none"></div>
       
-      <span className="inline-flex items-center gap-1.5 bg-[#F8F1E7] text-[#8A5A33] border border-[#D4A373] text-[10px] font-bold px-3 py-1 rounded-full mb-6 tracking-widest uppercase shadow-sm relative z-10">
+      <span className="inline-flex items-center gap-1.5 bg-[#F8F1E7] text-[#8A5A33] border border-[#D4A373] text-[10px] font-bold px-3 py-1 rounded-full mb-4 sm:mb-6 tracking-widest uppercase shadow-sm relative z-10">
         <PenTool size={14} /> 文字練習
       </span>
         
-      <h3 className="text-sm font-bold mb-4 text-[#A67144] uppercase tracking-widest relative z-10 border-b border-[#E5C9A8] w-max mx-auto pb-1">Question</h3>
-      <div className="text-4xl font-bold font-arabic text-[#3E2713] mb-10 py-8 bg-[#FCFAF5] rounded-2xl border-2 border-dashed border-[#D4A373] dir-rtl whitespace-pre-wrap shadow-inner relative z-10 leading-loose">
+      <h3 className="text-xs sm:text-sm font-bold mb-3 sm:mb-4 text-[#A67144] uppercase tracking-widest relative z-10 border-b border-[#E5C9A8] w-max mx-auto pb-1">Question</h3>
+      
+      {/* 問題文：スマホで大きすぎないよう text-lg sm:text-2xl に調整 */}
+      <div className="text-lg sm:text-2xl font-bold font-arabic text-[#3E2713] mb-6 sm:mb-8 py-5 sm:py-6 px-4 bg-[#FCFAF5] rounded-2xl border-2 border-dashed border-[#D4A373] dir-rtl whitespace-pre-wrap shadow-inner relative z-10 leading-relaxed">
         {question.text}
       </div>
 
       {!isRevealed ? (
         <button 
           onClick={() => setIsRevealed(true)} 
-          className="w-full bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-white font-bold py-5 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-3 text-lg relative z-10"
+          className="w-full bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-white font-bold py-3.5 sm:py-4 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-2 text-sm sm:text-base relative z-10"
         >
-          <Eye size={24} /> 答えを見る
+          <Eye size={20} /> 答えを見る
         </button>
       ) : (
         <div className="animate-fade-in-up relative z-10">
-          <div className="bg-[#F8F1E7] border-2 border-[#D4A373] rounded-2xl p-8 mb-8 shadow-sm relative overflow-hidden">
-            <div className="absolute left-0 top-0 w-2 h-full bg-[#8A5A33]"></div>
-            <div className="text-xs text-[#A67144] font-bold mb-4 tracking-widest uppercase">Answer</div>
-            <div className="text-5xl text-[#4A3018] font-arabic font-bold mb-6 leading-relaxed drop-shadow-sm">
+          <div className="bg-[#F8F1E7] border-2 border-[#D4A373] rounded-2xl p-5 sm:p-8 mb-6 sm:mb-8 shadow-sm relative overflow-hidden">
+            <div className="absolute left-0 top-0 w-1.5 sm:w-2 h-full bg-[#8A5A33]"></div>
+            <div className="text-[11px] sm:text-xs text-[#A67144] font-bold mb-3 tracking-widest uppercase">Answer</div>
+            
+            {/* 解答表示：スマホでも見やすいサイズ（text-2xl sm:text-3xl）に調整 */}
+            <div className="text-2xl sm:text-3xl text-[#4A3018] font-arabic font-bold leading-relaxed drop-shadow-sm whitespace-pre-wrap">
               {question.explanation}
             </div>
             
-            {question.audio && (
-              <button 
-                onClick={() => onSpeak(question.audio)} 
-                className="mx-auto flex items-center gap-2 bg-white border border-[#E5C9A8] text-[#764C28] px-6 py-3 rounded-full text-sm font-bold shadow-sm hover:bg-[#F5F0E6] active:scale-95 transition-all mb-2"
-              >
-                <Volume2 size={18} /> 発音を聞く
-              </button>
-            )}
+            {/* ★「発音を聞く」ボタンを削除しました */}
           </div>
             
           <div className="flex gap-3">
             <button 
               onClick={onNext} 
-              className="flex-1 bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-white font-bold py-5 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 active:scale-95 transition-all text-lg flex justify-center items-center gap-2"
+              className="flex-1 bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-white font-bold py-3.5 sm:py-4 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 active:scale-95 transition-all text-sm sm:text-base flex justify-center items-center gap-2"
             >
-              {isLast ? "結果を見る" : "次の問題へ"} <ChevronRight size={20}/>
+              {isLast ? "結果を見る" : "次の問題へ"} <ChevronRight size={18}/>
             </button>
           </div>
         </div>

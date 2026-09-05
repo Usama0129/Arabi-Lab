@@ -4168,22 +4168,22 @@ export const articles: Article[] = [
               {/* 例1 */}
               <div className="bg-white p-4 rounded-xl border border-amber-200 flex justify-between items-center">
                 <div>
-                  <p className="text-3xl font-arabic text-amber-600 mb-2 drop-shadow-sm" dir="rtl">{"\u200Fالشَّمْسُ\u200F"}</p>
+                  <p className="text-3xl font-arabic text-amber-600 mb-2 drop-shadow-sm" dir="rtl">{"\u200Fالشَّمْسُ\u200F"}</p>
                   <p className="font-bold text-[#5E3C1E] text-sm">アッ・シャムス</p>
                   <p className="text-[10px] text-[#A67144] mt-1">（その太陽）</p>
                 </div>
-                <button onClick={() => playTableAudio("\u200Fالشَّمْسُ\u200F")} className="w-12 h-12 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center shadow-sm hover:bg-amber-100 hover:text-amber-700 transition-all active:scale-95 border border-amber-200" title="発音を聞く">
+                <button onClick={() => playTableAudio("\u200Fالشَّمْسُ\u200F")} className="w-12 h-12 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center shadow-sm hover:bg-amber-100 hover:text-amber-700 transition-all active:scale-95 border border-amber-200" title="発音を聞く">
                   <Volume2 size={20} />
                 </button>
               </div>
               {/* 例2 */}
               <div className="bg-white p-4 rounded-xl border border-amber-200 flex justify-between items-center">
                 <div>
-                  <p className="text-3xl font-arabic text-amber-600 mb-2 drop-shadow-sm" dir="rtl">{"\u200Fالنُّورُ\u200F"}</p>
+                  <p className="text-3xl font-arabic text-amber-600 mb-2 drop-shadow-sm" dir="rtl">{"\u200Fالنُّورُ\u200F"}</p>
                   <p className="font-bold text-[#5E3C1E] text-sm">アン・ヌール</p>
                   <p className="text-[10px] text-[#A67144] mt-1">（その光）</p>
                 </div>
-                <button onClick={() => playTableAudio("\u200Fالنُّورُ\u200F")} className="w-12 h-12 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center shadow-sm hover:bg-amber-100 hover:text-amber-700 transition-all active:scale-95 border border-amber-200" title="発音を聞く">
+                <button onClick={() => playTableAudio("\u200Fالنُّورُ\u200F")} className="w-12 h-12 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center shadow-sm hover:bg-amber-100 hover:text-amber-700 transition-all active:scale-95 border border-amber-200" title="発音を聞く">
                   <Volume2 size={20} />
                 </button>
               </div>
@@ -4191,9 +4191,112 @@ export const articles: Article[] = [
           </div>
 
         </div>
+
+        {/* 太陽文字・月文字 全28文字一覧表 */}
+        <div className="bg-white p-6 sm:p-8 rounded-2xl border border-[#E5C9A8] shadow-sm mt-10">
+          <h4 className="font-bold text-lg sm:text-xl text-[#764C28] mb-2 text-center flex items-center justify-center gap-2">
+            📋 太陽文字・月文字 全28文字一覧表
+          </h4>
+          <p className="text-xs sm:text-sm text-[#A67144] text-center mb-8 font-medium">
+            アラビア文字全28文字は、太陽文字14文字と月文字14文字にちょうど半分ずつ分かれます。
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            {/* 月文字 14文字 */}
+            <div className="bg-[#F8F1E7]/60 p-5 rounded-2xl border border-[#E5C9A8]">
+              <div className="flex items-center justify-between border-b border-[#D4A373]/50 pb-3 mb-4">
+                <span className="font-bold text-base text-[#764C28] flex items-center gap-1.5">
+                  🌙 月文字（14文字）
+                </span>
+                <span className="text-[11px] bg-white text-[#8A5A33] px-2.5 py-0.5 rounded-full border border-[#E5C9A8] font-bold">
+                  「ル」を読む
+                </span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {[
+                  { char: "أ", word: "الأَبُ", read: "アル・アブ", meaning: "父" },
+                  { char: "ب", word: "البَابُ", read: "アル・バーブ", meaning: "扉" },
+                  { char: "ج", word: "الجَمَلُ", read: "アル・ジャマル", meaning: "ラクダ" },
+                  { char: "ح", word: "الحَقِيبَةُ", read: "アル・ハキーバ", meaning: "かばん" },
+                  { char: "خ", word: "الخُبْزُ", read: "アル・フブズ", meaning: "パン" },
+                  { char: "ع", word: "العَيْنُ", read: "アル・アイン", meaning: "目・泉" },
+                  { char: "غ", word: "الغُرْفَةُ", read: "アル・グルファ", meaning: "部屋" },
+                  { char: "ف", word: "الفَمُ", read: "アル・ファム", meaning: "口" },
+                  { char: "ق", word: "القَمَرُ", read: "アル・カマル", meaning: "月" },
+                  { char: "ك", word: "الكِتَابُ", read: "アル・キターブ", meaning: "本" },
+                  { char: "م", word: "المَاءُ", read: "アル・マーウ", meaning: "水" },
+                  { char: "هـ", word: "الهِلَالُ", read: "アル・ヒラール", meaning: "三日月" },
+                  { char: "و", word: "الوَلَدُ", read: "アル・ワラド", meaning: "少年" },
+                  { char: "ي", word: "اليَدُ", read: "アル・ヤド", meaning: "手" },
+                ].map((item, idx) => (
+                  <div key={idx} className="bg-white p-2.5 rounded-xl border border-[#E5C9A8] flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-7 h-7 bg-[#F8F1E7] text-[#8A5A33] rounded-lg font-arabic font-bold text-lg flex items-center justify-center border border-[#E5C9A8]">
+                        {`\u200F${item.char}\u200F`}
+                      </span>
+                      <div className="text-left">
+                        <p className="font-arabic font-bold text-base text-[#4A3018] leading-tight" dir="rtl">{`\u200F${item.word}\u200F`}</p>
+                        <p className="text-[10px] text-[#A67144] font-medium">{item.read}（{item.meaning}）</p>
+                      </div>
+                    </div>
+                    <button onClick={() => playTableAudio(`\u200F${item.word}\u200F`)} className="p-1.5 text-[#A67144] hover:text-amber-600 transition-colors" title="発音を聞く">
+                      <Volume2 size={15} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 太陽文字 14文字 */}
+            <div className="bg-amber-50/50 p-5 rounded-2xl border border-amber-200">
+              <div className="flex items-center justify-between border-b border-amber-200 pb-3 mb-4">
+                <span className="font-bold text-base text-amber-700 flex items-center gap-1.5">
+                  ☀️ 太陽文字（14文字）
+                </span>
+                <span className="text-[11px] bg-white text-amber-700 px-2.5 py-0.5 rounded-full border border-amber-200 font-bold">
+                  「ル」が同化
+                </span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {[
+                  { char: "ت", word: "التَّمْرُ", read: "アッ・タムル", meaning: "デーツ" },
+                  { char: "ث", word: "الثَّوْبُ", read: "アッ・サウブ", meaning: "服" },
+                  { char: "د", word: "الدِّيكُ", read: "アッ・ディーク", meaning: "雄鶏" },
+                  { char: "ذ", word: "الذَّهَبُ", read: "アズ・ザハブ", meaning: "金" },
+                  { char: "ر", word: "الرَّجُلُ", read: "アッ・ラジュル", meaning: "男" },
+                  { char: "ز", word: "الزَّهْرَةُ", read: "アズ・ザフラ", meaning: "花" },
+                  { char: "س", word: "السَّمَكُ", read: "アッ・サマク", meaning: "魚" },
+                  { char: "ش", word: "الشَّمْسُ", read: "アッ・シャムス", meaning: "太陽" },
+                  { char: "ص", word: "الصَّدِيقُ", read: "アス・サディーク", meaning: "友人" },
+                  { char: "ض", word: "الضَّيْفُ", read: "アド・ダイフ", meaning: "客" },
+                  { char: "ط", word: "الطَّالِبُ", read: "アト・ターリブ", meaning: "学生" },
+                  { char: "ظ", word: "الظِّلُّ", read: "アズ・ジル", meaning: "影" },
+                  { char: "ل", word: "اللَّيْلُ", read: "アッ・ライル", meaning: "夜" },
+                  { char: "ن", word: "النَّجْمُ", read: "アン・ナジュム", meaning: "星" },
+                ].map((item, idx) => (
+                  <div key={idx} className="bg-white p-2.5 rounded-xl border border-amber-200 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-7 h-7 bg-amber-50 text-amber-700 rounded-lg font-arabic font-bold text-lg flex items-center justify-center border border-amber-200">
+                        {`\u200F${item.char}\u200F`}
+                      </span>
+                      <div className="text-left">
+                        <p className="font-arabic font-bold text-base text-amber-700 leading-tight" dir="rtl">{`\u200F${item.word}\u200F`}</p>
+                        <p className="text-[10px] text-amber-800/80 font-medium">{item.read}（{item.meaning}）</p>
+                      </div>
+                    </div>
+                    <button onClick={() => playTableAudio(`\u200F${item.word}\u200F`)} className="p-1.5 text-amber-600 hover:text-amber-800 transition-colors" title="発音を聞く">
+                      <Volume2 size={15} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </div>
       </div>
-    ),
-    
+    ),  
     imageUrls: [],
     contentVoweled: "",
     sentences: [], 
