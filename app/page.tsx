@@ -1798,10 +1798,12 @@ const startSequencePlayback = async (startIndex: number) => {
                             ))}
                         </ul>
                     </div>
-                    <div className="flex gap-4 justify-center">
-                        <button onClick={() => changeScreen("eras")} className="px-8 py-4 rounded-full border-2 border-[#E5C9A8] text-[#8A5A33] font-bold hover:bg-[#F8F1E7] active:scale-95 transition-all">戻る</button>
-                        <button onClick={() => changeScreen("poets")} className="px-10 py-4 rounded-full bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-white font-bold shadow-lg hover:shadow-xl hover:-translate-y-1 active:scale-95 transition-all">詩人を選択する →</button>
-                    </div>
+                    <div className="flex gap-3 justify-center">
+    {/* px-8 py-4 から px-6 py-3 text-sm に縮小してすっきりと配置 */}
+    <button onClick={() => changeScreen("eras")} className="px-6 py-3 rounded-full border-2 border-[#E5C9A8] text-[#8A5A33] font-bold text-sm hover:bg-[#F8F1E7] active:scale-95 transition-all">戻る</button>
+    {/* px-10 py-4 から px-8 py-3 text-sm に縮小 */}
+    <button onClick={() => changeScreen("poets")} className="px-8 py-3 rounded-full bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-white font-bold text-sm shadow-lg hover:shadow-xl hover:-translate-y-1 active:scale-95 transition-all">詩人を選択する →</button>
+</div>
                 </div>
             </div>
         )}
@@ -2081,16 +2083,18 @@ return (
               {getFilteredArticles().filter(a => a.category === selectedCategory).length > 0 ? (
                 getFilteredArticles().filter(a => a.category === selectedCategory).map((article) => (
                   <button 
-                    key={article.id} 
-                    onClick={() => handlePhraseClick(article)} 
-                    className="w-full text-left p-6 bg-white rounded-2xl shadow-sm border-2 border-[#F5F0E6] hover:border-[#B8865D] hover:shadow-lg transition-all duration-300 group hover:-translate-y-1 flex justify-between items-center"
-                  >
-                    <div className="flex items-center gap-4">
-                      <MessageSquare size={28} className="text-[#8A5A33] opacity-90 drop-shadow-sm" strokeWidth={1.5} />
-                      <span className="font-bold text-lg text-[#4A3018] group-hover:text-[#8A5A33] transition-colors">{article.title}</span>
-                    </div>
-                    <span className="text-[#E5C9A8] font-bold text-sm group-hover:text-amber-500 transition-colors flex items-center gap-1">翻訳を見る <ChevronRight size={20} /></span>
-                  </button>
+  key={article.id} 
+  onClick={() => handlePhraseClick(article)} 
+  className="w-full text-left p-5 md:p-6 bg-white rounded-2xl shadow-sm border-2 border-[#F5F0E6] hover:border-[#B8865D] hover:shadow-lg transition-all duration-300 group hover:-translate-y-1 flex justify-between items-center gap-4"
+>
+  {/* タイトル領域に flex-1 と min-w-0 pr-2 を与え、文字が折り返せるように変更 */}
+  <div className="flex items-center gap-3.5 flex-1 min-w-0 pr-2">
+    <MessageSquare size={24} className="text-[#8A5A33] opacity-90 drop-shadow-sm flex-shrink-0" strokeWidth={1.5} />
+    <span className="font-bold text-base md:text-lg text-[#4A3018] group-hover:text-[#8A5A33] transition-colors leading-snug break-words">{article.title}</span>
+  </div>
+  {/* 「翻訳を見る」ボタンに flex-shrink-0 を与えて縮小・変形を防止 */}
+  <span className="text-[#E5C9A8] font-bold text-xs md:text-sm group-hover:text-amber-500 transition-colors flex items-center gap-1 flex-shrink-0">翻訳を見る <ChevronRight size={18} /></span>
+</button>
                 ))
               ) : (
                 <div className="text-center py-16 text-[#A67144] bg-white rounded-[2rem] border-dashed border-2 border-[#E5C9A8] shadow-sm flex flex-col items-center">
