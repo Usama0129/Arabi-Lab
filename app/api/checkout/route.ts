@@ -66,7 +66,7 @@ export async function POST(req: Request) {
       customer: customerId,
       mode: 'subscription',
       payment_method_types: ['card'],
-      line_items: [{ price: "price_1UAUOfPSuLq6PPLA0YIilXlP", quantity: 1 }], 
+      line_items: [{ price: "price_1UAUOdPSuLq6PPLAtxzLfeyM", quantity: 1 }], 
       success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`, 
       cancel_url: `${origin}/pricing`,
       allow_promotion_codes: true,
