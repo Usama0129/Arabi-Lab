@@ -9,8 +9,8 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-// ターミナルに表示されている whsec_ キーを直接指定
-const endpointSecret = "whsec_879c32ce8083eef548aad929966a92370c68d695c1811aeba79eab537f1d57c7";
+// 環境変数から本番用の Webhook シークレットを取得する
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 export async function POST(req: Request) {
   const body = await req.text();

@@ -77547,7 +77547,7 @@ ITサポートが原因を切り分けるための質問です。
     id: 9043,
     title: "ほしい / したい",
     category: "サウジ方言",
-    level: "会話",
+    level: "1フレーズ",
     contentVoweled: "",
     contentPlain: "",
     vocabList: [],
