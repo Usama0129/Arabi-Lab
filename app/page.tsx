@@ -1233,46 +1233,87 @@ const startSequencePlayback = async (startIndex: number) => {
   // --- メインアプリ画面 (ログイン済み or ゲスト利用) : 茶色＆ベージュ基調 ---
   return (
     <div className="min-h-screen bg-[#F5F0E6] font-sans text-gray-800 selection:bg-amber-200">
-      {/* ナビゲーションバー (アラビアンなダークブラウン) */}
-      <nav className="bg-[#3E2713] shadow-xl p-4 sticky top-0 z-20 border-b border-[#A67144]/40" dir="ltr">
+{/* ナビゲーションバー (アラビアンなダークブラウン) */}
+<nav className="bg-[#3E2713] shadow-xl px-3 py-2.5 sticky top-0 z-20 border-b border-[#A67144]/40" dir="ltr">
         <div className="max-w-4xl mx-auto flex justify-between items-center">
-        <div className="flex items-center gap-3 group cursor-pointer" onClick={() => { changeScreen("main_menu"); setIsFlashcardMode(false); }}>
-    <div className="bg-[#F5F0E6] p-1 rounded-xl shadow-md group-hover:scale-110 transition-all duration-300 border border-amber-500/50">
-      <img src="/logo.jpg" alt="Logo" className="h-10 w-auto object-contain rounded-lg" onError={(e) => {e.currentTarget.style.display = 'none'; e.currentTarget.parentElement!.innerHTML = '<div class="w-10 h-10 bg-gradient-to-br from-[#8A5A33] to-[#4A3018] rounded-lg flex items-center justify-center text-white"><Tent size={24}/></div>';}} />
-    </div>
-    <h1 className="font-serif font-bold text-amber-50 text-xl tracking-wider hidden sm:block group-hover:text-amber-200 transition-colors">Arabi Lab</h1>
+          
+          {/* 左側：ロゴと通知ベル */}
+          <div className="flex items-center gap-2 group cursor-pointer" onClick={() => { changeScreen("main_menu"); setIsFlashcardMode(false); }}>
+            <div className="bg-[#F5F0E6] p-1 rounded-xl shadow-md group-hover:scale-110 transition-all duration-300 border border-amber-500/50 flex-shrink-0">
+              <img src="/logo.jpg" alt="Logo" className="h-8 w-8 object-cover rounded-lg" onError={(e) => {e.currentTarget.style.display = 'none'; e.currentTarget.parentElement!.innerHTML = '<div class="w-8 h-8 bg-gradient-to-br from-[#8A5A33] to-[#4A3018] rounded-lg flex items-center justify-center text-white"><Tent size={18}/></div>';}} />
+            </div>
+            <h1 className="font-serif font-bold text-amber-50 text-lg tracking-wider hidden md:block group-hover:text-amber-200 transition-colors">Arabi Lab</h1>
+            
+            <button 
+              onClick={(e) => { 
+                e.stopPropagation();
+                changeScreen("notifications");
+              }}
+              className="relative p-1.5 text-amber-100 hover:text-amber-400 transition-all active:scale-90"
+              title="お知らせ"
+            >
+              <Bell size={20} />
+              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full border border-[#3E2713]"></span>
+            </button>
+          </div>
     
-    {/* ★ 継続カウントの代わりにベルアイコンを表示 */}
-    <button 
-      onClick={(e) => { 
-        e.stopPropagation(); // 親の onClick（メインメニュー移動）を防ぐ
-        changeScreen("notifications");
-      }}
-      className="relative p-2 text-amber-100 hover:text-amber-400 transition-all active:scale-90 ml-1"
-    >
-      <Bell size={22} />
-      {/* 通知ドット（必要に応じて表示） */}
-      <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-[#3E2713]"></span>
-    </button>
-</div>    
-          <div className="flex items-center gap-3">
+          {/* 右側：各種ボタン群（コンパクト化） */}
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            {/* プレミアム切替（PCのみ） */}
             <button 
                 onClick={() => setIsPremium(!isPremium)}
-                className="bg-indigo-900/80 text-indigo-100 px-3 py-1 rounded-full text-[10px] font-bold border border-indigo-700 shadow-md hover:bg-indigo-800 transition-all hover:scale-105 mr-1 hidden sm:block"
+                className="bg-indigo-900/80 text-indigo-100 px-2.5 py-1 rounded-full text-[10px] font-bold border border-indigo-700 shadow-sm hover:bg-indigo-800 transition-all hidden lg:block"
             >
                 {isPremium ? "🔧 無料に戻す" : "🔧 プレミアム化"}
             </button>
+
+            {/* プレミアムバッジ */}
+            {isPremium && (
+              <span className="bg-gradient-to-r from-amber-400 to-yellow-500 text-[#4A3018] text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse shadow-sm border border-amber-200">
+                👑 Premium
+              </span>
+            )}
+
+            {/* マイページボタン */}
+            <button 
+              onClick={() => changeScreen("mypage")} 
+              className="flex items-center justify-center w-9 h-9 bg-[#5E3C1E] hover:bg-[#764C28] text-amber-100 rounded-full transition-all shadow-sm border border-[#764C28]"
+              title="マイページ"
+            >
+              <User size={16} />
+            </button>
+
+            {/* 単語帳ボタン */}
+            <button 
+              onClick={() => { changeScreen("vocab"); setIsFlashcardMode(false); }} 
+              className="flex items-center gap-1.5 text-xs bg-gradient-to-br from-amber-400 to-amber-500 text-[#3E2713] px-3 py-2 rounded-full font-bold shadow-md hover:shadow-lg transition-all"
+            >
+              <Bookmark size={15} /> 
+              <span className="text-xs font-bold">({savedVocab.length})</span>
+            </button>
+
+            {/* ログイン / ログアウト */}
             {user ? (
-                <div className="flex items-center gap-2 mr-1">
-                    <span className="text-amber-100/70 text-[10px] hidden sm:inline font-medium">Ahlan!</span>
-                    {isPremium && <span className="bg-gradient-to-r from-amber-400 to-yellow-500 text-[#4A3018] text-[10px] font-bold px-2.5 py-0.5 rounded-full animate-pulse shadow-md border border-amber-200">👑 Premium</span>}
-                    <button onClick={handleLogout} className="flex items-center gap-2 bg-[#5E3C1E] text-amber-50 px-3 py-1.5 rounded-full text-xs font-bold hover:bg-[#764C28] transition-all hover:-translate-y-0.5 shadow-sm border border-[#764C28]">{user.user_metadata?.avatar_url ? (<img src={user.user_metadata.avatar_url} className="w-5 h-5 rounded-full border border-white/30" alt="icon" />) : (<LogOut size={14}/>)}<span className="hidden sm:inline">ログアウト</span></button>
-                </div>
-) : (
-  <button onClick={handleLogin} className="bg-amber-400/20 text-amber-100 border border-amber-400/40 px-3.5 py-1.5 rounded-full font-bold text-xs shadow-sm hover:bg-amber-400/30 hover:text-white transition-all mr-1 flex items-center gap-1.5"><span className="text-amber-300 font-bold text-xs">G</span> ログイン</button>
-)}
-            <button onClick={() => changeScreen("mypage")} className="flex items-center justify-center w-10 h-10 bg-[#5E3C1E] hover:bg-[#764C28] text-amber-100 rounded-full transition-all hover:-translate-y-0.5 shadow-md border border-[#764C28]"><User size={18} /></button>
-            <button onClick={() => { changeScreen("vocab"); setIsFlashcardMode(false); }} className="flex items-center gap-2 text-xs bg-gradient-to-br from-amber-400 to-amber-500 text-[#3E2713] px-4 py-2 rounded-full font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"><Bookmark size={16} /> <span className="hidden sm:inline">単語 ({savedVocab.length})</span></button>
+              <button 
+                onClick={handleLogout} 
+                className="flex items-center gap-1 bg-[#5E3C1E] text-amber-50 px-2.5 py-1.5 rounded-full text-xs font-bold hover:bg-[#764C28] transition-all shadow-sm border border-[#764C28]"
+                title="ログアウト"
+              >
+                {user.user_metadata?.avatar_url ? (
+                  <img src={user.user_metadata.avatar_url} className="w-4 h-4 rounded-full border border-white/30" alt="icon" />
+                ) : (
+                  <LogOut size={13}/>
+                )}
+                <span className="hidden md:inline">ログアウト</span>
+              </button>
+            ) : (
+              <button 
+                onClick={handleLogin} 
+                className="bg-amber-400/20 text-amber-100 border border-amber-400/40 px-3 py-1.5 rounded-full font-bold text-xs shadow-sm hover:bg-amber-400/30 transition-all flex items-center gap-1"
+              >
+                <span>G</span> ログイン
+              </button>
+            )}
           </div>
         </div>
       </nav>
