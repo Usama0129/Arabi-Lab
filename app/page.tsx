@@ -1240,7 +1240,7 @@ const startSequencePlayback = async (startIndex: number) => {
           {/* 左側：ロゴと通知ベル */}
           <div className="flex items-center gap-2 group cursor-pointer" onClick={() => { changeScreen("main_menu"); setIsFlashcardMode(false); }}>
             <div className="bg-[#F5F0E6] p-1 rounded-xl shadow-md group-hover:scale-110 transition-all duration-300 border border-amber-500/50 flex-shrink-0">
-              <img src="/logo.jpg" alt="Logo" className="h-8 w-8 object-cover rounded-lg" onError={(e) => {e.currentTarget.style.display = 'none'; e.currentTarget.parentElement!.innerHTML = '<div class="w-8 h-8 bg-gradient-to-br from-[#8A5A33] to-[#4A3018] rounded-lg flex items-center justify-center text-white"><Tent size={18}/></div>';}} />
+              <img src="/logo.jpg" alt="Logo" className="h-10 w-auto object-contain rounded-lg" onError={(e) => {e.currentTarget.style.display = 'none'; e.currentTarget.parentElement!.innerHTML = '<div class="w-10 h-10 bg-gradient-to-br from-[#8A5A33] to-[#4A3018] rounded-lg flex items-center justify-center text-white"><Tent size={20}/></div>';}} />
             </div>
             <h1 className="font-serif font-bold text-amber-50 text-lg tracking-wider hidden md:block group-hover:text-amber-200 transition-colors">Arabi Lab</h1>
             
@@ -1257,9 +1257,9 @@ const startSequencePlayback = async (startIndex: number) => {
             </button>
           </div>
     
-          {/* 右側：各種ボタン群（コンパクト化） */}
+          {/* 右側：各種ボタン群 */}
           <div className="flex items-center gap-1.5 sm:gap-2">
-            {/* プレミアム切替（PCのみ） */}
+            {/* テスト用：プレミアム切替ボタン（PC表示時のみ、または縮小表示） */}
             <button 
                 onClick={() => setIsPremium(!isPremium)}
                 className="bg-indigo-900/80 text-indigo-100 px-2.5 py-1 rounded-full text-[10px] font-bold border border-indigo-700 shadow-sm hover:bg-indigo-800 transition-all hidden lg:block"
@@ -1269,7 +1269,7 @@ const startSequencePlayback = async (startIndex: number) => {
 
             {/* プレミアムバッジ */}
             {isPremium && (
-              <span className="bg-gradient-to-r from-amber-400 to-yellow-500 text-[#4A3018] text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse shadow-sm border border-amber-200">
+              <span className="bg-gradient-to-r from-amber-400 to-yellow-500 text-[#4A3018] text-[10px] font-bold px-2.5 py-0.5 rounded-full animate-pulse shadow-sm border border-amber-200">
                 👑 Premium
               </span>
             )}
