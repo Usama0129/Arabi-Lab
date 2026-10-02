@@ -587,14 +587,6 @@ const isLockedContent = (article: Article) => {
 const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
   const currentUser = session?.user ?? null;
 
-  if (currentUser && !ALLOWED_EMAILS.includes(currentUser.email || "")) {
-    alert("現在クローズドテスト中のため、事前登録されたアカウントのみご利用いただけます。");
-    await supabase.auth.signOut();
-    setUser(null);
-    setIsPremium(false);
-    setShowLandingPage(true);
-    return;
-  }
 
   setUser(currentUser);
   if (currentUser) { 
@@ -1252,7 +1244,7 @@ const startSequencePlayback = async (startIndex: number) => {
       
             {/* 右側：主要ボタン群（マイページ、単語帳、ログイン/ログアウト） */}
             <div className="flex items-center gap-1.5 sm:gap-2">
-             c
+             
 
               {/* マイページボタン */}
               <button 
