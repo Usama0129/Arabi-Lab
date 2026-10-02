@@ -12517,6 +12517,186 @@ ITサポートが原因を切り分けるための質問です。
         explanation: "شَرِبَ",
         options: [], 
         correctIndex: 0
+      },
+      {
+        id: 1051,
+        type: "grammar",
+        text: "\u200F次の文字をつなげてください（聞いた / 動詞）：\n\u200Fسَ + مِ + عَ\u200F\u200F",
+        audio: "سَمِعَ",
+        explanation: "سَمِعَ",
+        options: [], 
+        correctIndex: 0
+      },
+      {
+        id: 1052,
+        type: "grammar",
+        text: "\u200F次の文字をつなげてください（座った / 動詞）：\n\u200Fجَ + لَ + سَ\u200F\u200F",
+        audio: "جَلَسَ",
+        explanation: "جَلَسَ",
+        options: [], 
+        correctIndex: 0
+      },
+      {
+        id: 1053,
+        type: "grammar",
+        text: "\u200F次の文字をつなげてください（出かけた / 動詞）：\n\u200Fخَ + رَ + جَ\u200F\u200F",
+        audio: "خَرَجَ",
+        explanation: "خَرَجَ",
+        options: [], 
+        correctIndex: 0
+      },
+      {
+        id: 1054,
+        type: "grammar",
+        text: "\u200F次の文字をつなげてください（入った / 動詞）：\n\u200Fدَ + خَ + لَ\u200F\u200F",
+        audio: "دَخَلَ",
+        explanation: "دَخَلَ",
+        options: [], 
+        correctIndex: 0
+      },
+      {
+        id: 1055,
+        type: "grammar",
+        text: "\u200F次の文字をつなげてください（知った / 動詞）：\n\u200Fعَ + لِ + مَ\u200F\u200F",
+        audio: "عَلِمَ",
+        explanation: "عَلِمَ",
+        options: [], 
+        correctIndex: 0
+      },
+      {
+        id: 1056,
+        type: "grammar",
+        text: "\u200F次の文字をつなげてください（理解した / 動詞）：\n\u200Fفَ + هِ + مَ\u200F\u200F",
+        audio: "فَهِمَ",
+        explanation: "فَهِمَ",
+        options: [], 
+        correctIndex: 0
+      },
+      {
+        id: 1057,
+        type: "grammar",
+        text: "\u200F次の文字をつなげてください（運んだ / 動詞）：\n\u200Fحَ + مَ + لَ\u200F\u200F",
+        audio: "حَمَلَ",
+        explanation: "حَمَلَ",
+        options: [], 
+        correctIndex: 0
+      },
+      {
+        id: 1058,
+        type: "grammar",
+        text: "\u200F次の文字をつなげてください（切った / 動詞）：\n\u200Fقَ + طَ + عَ\u200F\u200F",
+        audio: "قَطَعَ",
+        explanation: "قَطَعَ",
+        options: [], 
+        correctIndex: 0
+      },
+      {
+        id: 1059,
+        type: "grammar",
+        text: "\u200F次の文字をつなげてください（集めた / 動詞）：\n\u200Fجَ + مَ + عَ\u200F\u200F",
+        audio: "جَمَعَ",
+        explanation: "جَمَعَ",
+        options: [], 
+        correctIndex: 0
+      },
+      {
+        id: 1060,
+        type: "grammar",
+        text: "\u200F次の文字をつなげてください（働いた / 動詞）：\n\u200Fعَ + مِ + لَ\u200F\u200F",
+        audio: "عَمِلَ",
+        explanation: "عَمِلَ",
+        options: [], 
+        correctIndex: 0
+      },
+      {
+        id: 1061,
+        type: "grammar",
+        text: "\u200F次の文字をつなげてください（机）：\n\u200Fمَ + كْ + تَ + بُ\u200F\u200F",
+        audio: "مَكْتَبُ",
+        explanation: "مَكْتَبُ",
+        options: [], 
+        correctIndex: 0
+      },
+      {
+        id: 1062,
+        type: "grammar",
+        text: "\u200F次の文字をつなげてください（学校）：\n\u200Fمَ + دْ + رَ + سَ + ةُ\u200F\u200F",
+        audio: "مَدْرَسَةُ",
+        explanation: "مَدْرَسَةُ",
+        options: [], 
+        correctIndex: 0
+      },
+      {
+        id: 1063,
+        type: "grammar",
+        text: "\u200F次の文字をつなげてください（モスク）：\n\u200Fمَ + سْ + جِ + دُ\u200F\u200F",
+        audio: "مَسْجِدُ",
+        explanation: "مَسْجِدُ",
+        options: [], 
+        correctIndex: 0
+      },
+      {
+        id: 1064,
+        type: "grammar",
+        text: "\u200F次の文字をつなげてください（図書館）：\n\u200Fمَ + كْ + تَ + بَ + ةُ\u200F\u200F",
+        audio: "مَكْتَبَةُ",
+        explanation: "مَكْتَبَةُ",
+        options: [], 
+        correctIndex: 0
+      },
+      {
+        id: 1065,
+        type: "grammar",
+        text: "\u200F次の文字をつなげてください（定規）：\n\u200Fمِ + صْ + طَ + رَ + ةُ\u200F\u200F",
+        audio: "مِصْطَرَةُ",
+        explanation: "مِصْطَرَةُ",
+        options: [], 
+        correctIndex: 0
+      },
+      {
+        id: 1066,
+        type: "grammar",
+        text: "\u200F次の文字をつなげてください（舞台 / 劇場）：\n\u200Fمَ + سْ + رَ + حُ\u200F\u200F",
+        audio: "مَسْرَحُ",
+        explanation: "مَسْرَحُ",
+        options: [], 
+        correctIndex: 0
+      },
+      {
+        id: 1067,
+        type: "grammar",
+        text: "\u200F次の文字をつなげてください（応接室 / 集まり）：\n\u200Fمَ + جْ + لِ + سُ\u200F\u200F",
+        audio: "مَجْلِسُ",
+        explanation: "مَجْلِسُ",
+        options: [], 
+        correctIndex: 0
+      },
+      {
+        id: 1068,
+        type: "grammar",
+        text: "\u200F次の文字をつなげてください（住居 / 家）：\n\u200Fمَ + سْ + كَ + نُ\u200F\u200F",
+        audio: "مَسْكَنُ",
+        explanation: "مَسْكَنُ",
+        options: [], 
+        correctIndex: 0
+      },
+      {
+        id: 1069,
+        type: "grammar",
+        text: "\u200F次の文字をつなげてください（瞳）：\n\u200Fحَ + دَ + قَ + ةُ\u200F\u200F",
+        audio: "حَدَقَةُ",
+        explanation: "حَدَقَةُ",
+        options: [], 
+        correctIndex: 0
+      },
+      {
+        id: 1070,
+        type: "grammar",
+        text: "\u200F次の文字をつなげてください（運動場 / グラウンド）：\n\u200Fمَ + لْ + عَ + بُ\u200F\u200F",
+        audio: "مَلْعَبُ",
+        explanation: "مَلْعَبُ",
+        options: [], 
+        correctIndex: 0
       }
     ]
   },
@@ -12878,10 +13058,9 @@ ITサポートが原因を切り分けるための質問です。
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* ダンマターン（ウン） */}
+          {/* ウ段 + ン */}
           <div className="bg-[#F8F1E7] p-6 rounded-2xl border border-[#E5C9A8] text-center shadow-sm hover:shadow-md transition-shadow flex flex-col items-center">
-            <h4 className="font-bold text-[#764C28] mb-2">ウ段 ＋ ン（ウン）</h4>
-            <p className="text-sm text-[#A67144] mb-4">ダンマターン（{"\u200Fــٌ\u200F"}）</p>
+            <h4 className="font-bold text-[#764C28] mb-4">ウ段 ＋ ン（ウン）</h4>
             <div className="bg-white p-4 rounded-xl w-full mb-4 border border-[#E5C9A8]">
               <p className="text-4xl font-arabic text-[#8A5A33] mb-2 drop-shadow-sm" dir="rtl">{"\u200Fكِتَابٌ\u200F"}</p>
               <p className="font-bold text-[#5E3C1E] mt-3">キターブン</p>
@@ -12892,10 +13071,9 @@ ITサポートが原因を切り分けるための質問です。
             </button>
           </div>
 
-          {/* カスラターン（イン） */}
+          {/* イ段 + ン */}
           <div className="bg-[#F8F1E7] p-6 rounded-2xl border border-[#E5C9A8] text-center shadow-sm hover:shadow-md transition-shadow flex flex-col items-center">
-            <h4 className="font-bold text-[#764C28] mb-2">イ段 ＋ ン（イン）</h4>
-            <p className="text-sm text-[#A67144] mb-4">カスラターン（{"\u200Fــٍ\u200F"}）</p>
+            <h4 className="font-bold text-[#764C28] mb-4">イ段 ＋ ン（イン）</h4>
             <div className="bg-white p-4 rounded-xl w-full mb-4 border border-[#E5C9A8]">
               <p className="text-4xl font-arabic text-[#8A5A33] mb-2 drop-shadow-sm" dir="rtl">{"\u200Fكِتَابٍ\u200F"}</p>
               <p className="font-bold text-[#5E3C1E] mt-3">キタービン</p>
@@ -12906,10 +13084,9 @@ ITサポートが原因を切り分けるための質問です。
             </button>
           </div>
 
-          {/* ファトハターン（アン） */}
+          {/* ア段 + ン */}
           <div className="bg-[#F8F1E7] p-6 rounded-2xl border border-[#E5C9A8] text-center shadow-sm hover:shadow-md transition-shadow flex flex-col items-center">
-            <h4 className="font-bold text-[#764C28] mb-2">ア段 ＋ ン（アン）</h4>
-            <p className="text-sm text-[#A67144] mb-4">ファトハターン（{"\u200Fــًا\u200F"}）</p>
+            <h4 className="font-bold text-[#764C28] mb-4">ア段 ＋ ン（アン）</h4>
             <div className="bg-white p-4 rounded-xl w-full mb-4 border border-[#E5C9A8]">
               <p className="text-4xl font-arabic text-[#8A5A33] mb-2 drop-shadow-sm" dir="rtl">{"\u200Fكِتَابًا\u200F"}</p>
               <p className="font-bold text-[#5E3C1E] mt-3">キターバン</p>
@@ -12927,7 +13104,7 @@ ITサポートが原因を切り分けるための質問です。
             💡 注意事項：「アン」の特別なルール
           </h4>
           <p className="text-sm text-[#5E3C1E] leading-relaxed">
-            「アン」の記号（ファトハターン）を付けるときは、文字の最後に<strong>特別なアリフ（{"\u200Fا\u200F"}）</strong>を書き足すルールがあります。<br />
+            「アン」の記号を付けるときは、文字の最後に<strong>特別なアリフ（{"\u200Fا\u200F"}）</strong>を書き足すルールがあります。<br />
             （※ター・マルブータ {"\u200Fة\u200F"} やハムザ {"\u200Fء\u200F"} で終わる単語にはアリフを足しません。）
           </p>
         </div>
@@ -13243,13 +13420,13 @@ ITサポートが原因を切り分けるための質問です。
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             
-            {/* 月文字 14文字 */}
-            <div className="bg-[#F8F1E7]/60 p-5 rounded-2xl border border-[#E5C9A8]">
-              <div className="flex items-center justify-between border-b border-[#D4A373]/50 pb-3 mb-4">
+{/* 月文字 14文字 */}
+<div className="bg-[#F8F1E7]/60 p-5 rounded-2xl border border-[#E5C9A8]">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#D4A373]/50 pb-3 mb-4">
                 <span className="font-bold text-base text-[#764C28] flex items-center gap-1.5">
                   🌙 月文字（14文字）
                 </span>
-                <span className="text-[11px] bg-white text-[#8A5A33] px-2.5 py-0.5 rounded-full border border-[#E5C9A8] font-bold">
+                <span className="text-[11px] bg-white text-[#8A5A33] px-2.5 py-0.5 rounded-full border border-[#E5C9A8] font-bold whitespace-nowrap">
                   「ル」を読む
                 </span>
               </div>
@@ -13288,13 +13465,13 @@ ITサポートが原因を切り分けるための質問です。
               </div>
             </div>
 
-            {/* 太陽文字 14文字 */}
-            <div className="bg-amber-50/50 p-5 rounded-2xl border border-amber-200">
-              <div className="flex items-center justify-between border-b border-amber-200 pb-3 mb-4">
+{/* 太陽文字 14文字 */}
+<div className="bg-amber-50/50 p-5 rounded-2xl border border-amber-200">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-amber-200 pb-3 mb-4">
                 <span className="font-bold text-base text-amber-700 flex items-center gap-1.5">
                   ☀️ 太陽文字（14文字）
                 </span>
-                <span className="text-[11px] bg-white text-amber-700 px-2.5 py-0.5 rounded-full border border-amber-200 font-bold">
+                <span className="text-[11px] bg-white text-amber-700 px-2.5 py-0.5 rounded-full border border-amber-200 font-bold whitespace-nowrap">
                   「ル」が同化
                 </span>
               </div>
@@ -13303,17 +13480,17 @@ ITサポートが原因を切り分けるための質問です。
                   { char: "ت", word: "التَّمْرُ", read: "アッ・タムル", meaning: "デーツ" },
                   { char: "ث", word: "الثَّوْبُ", read: "アッ・サウブ", meaning: "服" },
                   { char: "د", word: "الدِّيكُ", read: "アッ・ディーク", meaning: "雄鶏" },
-                  { char: "ذ", word: "الذَّهَبُ", read: "アズ・ザハブ", meaning: "金" },
+                  { char: "ذ", word: "الذَّهَبُ", read: "アッ・ザハブ", meaning: "金" },
                   { char: "ر", word: "الرَّجُلُ", read: "アッ・ラジュル", meaning: "男" },
-                  { char: "ز", word: "الزَّهْرَةُ", read: "アズ・ザフラ", meaning: "花" },
+                  { char: "ز", word: "الزَّهْرَةُ", read: "アッ・ザフラ", meaning: "花" },
                   { char: "س", word: "السَّمَكُ", read: "アッ・サマク", meaning: "魚" },
                   { char: "ش", word: "الشَّمْسُ", read: "アッ・シャムス", meaning: "太陽" },
-                  { char: "ص", word: "الصَّدِيقُ", read: "アス・サディーク", meaning: "友人" },
-                  { char: "ض", word: "الضَّيْفُ", read: "アド・ダイフ", meaning: "客" },
-                  { char: "ط", word: "الطَّالِبُ", read: "アト・ターリブ", meaning: "学生" },
-                  { char: "ظ", word: "الظِّلُّ", read: "アズ・ジル", meaning: "影" },
+                  { char: "ص", word: "الصَّدِيقُ", read: "アッ・サディーク", meaning: "友人" },
+                  { char: "ض", word: "الضَّيْفُ", read: "アッ・ダイフ", meaning: "客" },
+                  { char: "ط", word: "الطَّالِبُ", read: "アッ・ターリブ", meaning: "学生" },
+                  { char: "ظ", word: "الظِّلُّ", read: "アッ・ズィッル", meaning: "影" },
                   { char: "ل", word: "اللَّيْلُ", read: "アッ・ライル", meaning: "夜" },
-                  { char: "ن", word: "النَّجْمُ", read: "アン・ナジュム", meaning: "星" },
+                  { char: "ن", word: "النَّجْمُ", read: "アッ・ナジュム", meaning: "星" },
                 ].map((item, idx) => (
                   <div key={idx} className="bg-white p-2.5 rounded-xl border border-amber-200 flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -13446,7 +13623,7 @@ ITサポートが原因を切り分けるための質問です。
           type: "grammar",
           text: "\u200F次の単語に定冠詞（ال）をつけてください：\n\u200Fنُورٌ\u200F (光)\u200F",
           audio: "اَلنُّورُ",
-          explanation: "اَلنُّورُ (an-nūru)\n「ن (Nūn)」は太陽文字です。「アン・ヌール」となります。",
+          explanation: "اَلنُّورُ (an-nūru)\n「ن (Nūn)」は太陽文字です。「アッ・ヌール」となります。",
           options: [], 
           correctIndex: 0
         },
@@ -13698,7 +13875,7 @@ ITサポートが原因を切り分けるための質問です。
           type: "grammar",
           text: "\u200F次の単語に定冠詞（ال）をつけてください：\n\u200Fنَجْمٌ\u200F (星)\u200F",
           audio: "اَلنَّجْمُ",
-          explanation: "اَلنَّجْمُ (an-najmu)\n「ن (Nūn)」は太陽文字です。「アン・ナジュム」。",
+          explanation: "اَلنَّجْمُ (an-najmu)\n「ن (Nūn)」は太陽文字です。「アッ・ナジュム」。",
           options: [], 
           correctIndex: 0
         }
@@ -14196,7 +14373,7 @@ ITサポートが原因を切り分けるための質問です。
             </p>
           </div>
   
-          {/* --- 男女で形を変えられる名詞（人や職業） --- */}
+          {/* --- 1. 男女で形を変えられる名詞（人や職業） --- */}
           <section>
             <h3 className="text-xl font-bold text-[#4A3018] mb-4 border-b-2 border-[#E5C9A8] pb-2">
               1. 男女で形を変えられる名詞（人・職業）
@@ -14214,7 +14391,7 @@ ITサポートが原因を切り分けるための質問です。
                 </thead>
                 <tbody className="divide-y divide-[#F5F0E6]">
                   {[
-                    { meaning: "先生", mAr: "\u200Fمُدَرِّسٌ\u200F", mKa: "ムダッリスン", fAr: "\u200Fمُدَرِّسَةٌ\u200F", fKa: "ムダッリサトゥン" },
+                    { meaning: "先生", mAr: "\u200Fمُدَرِّسٌ\u200F", mKa: "ムダッリスン", fAr: "\u200Fمُدَرِّسَةٌ\u200F", fKa: "ムダッリサトゥン" },
                     { meaning: "学生", mAr: "\u200Fطَالِبٌ\u200F", mKa: "ターリブン", fAr: "\u200Fطَالِبَةٌ\u200F", fKa: "ターリバトゥン" },
                     { meaning: "医者", mAr: "\u200Fطَبِيبٌ\u200F", mKa: "タビーブン", fAr: "\u200Fطَبِيبَةٌ\u200F", fKa: "タビーバトゥン" },
                     { meaning: "エンジニア", mAr: "\u200Fمُهَنْدِسٌ\u200F", mKa: "ムハンディスン", fAr: "\u200Fمُهَنْدِسَةٌ\u200F", fKa: "ムハンディサトゥン" },
@@ -14250,7 +14427,7 @@ ITサポートが原因を切り分けるための質問です。
             </div>
           </section>
   
-          {/* --- 最初から性が決まっている名詞（モノ） --- */}
+          {/* --- 2. 最初から性が決まっている名詞（モノ） --- */}
           <section>
             <h3 className="text-xl font-bold text-[#4A3018] mt-10 mb-4 border-b-2 border-[#E5C9A8] pb-2">
               2. もともと性が決まっている名詞（モノ・動物）
@@ -14285,7 +14462,7 @@ ITサポートが原因を切り分けるための質問です。
                 <h4 className="font-bold text-amber-700 mb-4 text-center border-b border-amber-200 pb-2">📕 女性名詞の例（{"\u200Fة\u200F"}あり）</h4>
                 <div className="space-y-4">
                   {[
-                    { arabic: "\u200Fسَيَّارَةٌ\u200F", kana: "サイヤーラトゥン", meaning: "車" },
+                    { arabic: "\u200Fسَيَّارَةٌ\u200F", kana: "サイヤーラトゥン", meaning: "車" },
                     { arabic: "\u200Fسَاعَةٌ\u200F", kana: "サーアトゥン", meaning: "時計" },
                     { arabic: "\u200Fحَقِيبَةٌ\u200F", kana: "ハキーバトゥン", meaning: "カバン" },
                   ].map((item, idx) => (
@@ -14303,8 +14480,141 @@ ITサポートが原因を切り分けるための質問です。
               </div>
             </div>
           </section>
+
+          {/* --- 3. 【発展】パッと見で分かりにくい「重要な女性名詞」の例外 --- */}
+          <section>
+            <h3 className="text-xl font-bold text-[#4A3018] mt-10 mb-4 border-b-2 border-[#E5C9A8] pb-2">
+              3. ター・マルブータがなくても「女性名詞」になる例外
+            </h3>
+            <p className="text-sm text-[#764C28] mb-4">
+              見た目が男性名詞っぽくても、以下のグループに属する単語は<strong>女性名詞</strong>として扱われます。
+            </p>
+
+            <div className="space-y-6">
+              {/* ① 対になっている身体のパーツ */}
+              <div className="bg-white p-5 rounded-2xl border border-[#E5C9A8] shadow-sm">
+                <h4 className="font-bold text-[#764C28] mb-2">👁️ ① 対になっている身体の器官・パーツ</h4>
+                <p className="text-xs text-[#A67144] mb-3">人間の体に左右で対になってついているパーツは基本的に女性名詞になります。</p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {[
+                    { arabic: "\u200Fعَيْنٌ\u200F", kana: "アイヌン", meaning: "目" },
+                    { arabic: "\u200Fيَدٌ\u200F", kana: "ヤドゥン", meaning: "手" },
+                    { arabic: "\u200Fرِجْلٌ\u200F", kana: "リジルン", meaning: "足" },
+                  ].map((item, idx) => (
+                    <div key={idx} className="bg-[#F8F1E7]/50 p-3 rounded-xl border border-[#E5C9A8] flex justify-between items-center">
+                      <div>
+                        <p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{item.arabic}</p>
+                        <p className="text-xs font-bold text-[#5E3C1E]">{item.kana} ({item.meaning})</p>
+                      </div>
+                      <button onClick={() => playTableAudio(item.arabic)} className="w-8 h-8 bg-white text-[#A67144] rounded-full flex items-center justify-center shadow-sm hover:bg-amber-100 border border-[#E5C9A8]">
+                        <Volume2 size={14} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* ② 国名・都市名 */}
+              <div className="bg-white p-5 rounded-2xl border border-[#E5C9A8] shadow-sm">
+                <h4 className="font-bold text-[#764C28] mb-2">🌍 ② 国名・都市名（原則として女性名詞）</h4>
+                <p className="text-xs text-[#A67144] mb-3">
+                  ほとんどの国名や都市名は女性名詞です。ただし、末尾にター・マルブータ等のない一部の国名（例：イラク、レバノンなど）は男性名詞になります。
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {[
+                    { arabic: "\u200Fيَابَانُ\u200F", kana: "ヤーバヌ（日本）", note: "女性名詞" },
+                    { arabic: "\u200Fمِصْرُ\u200F", kana: "ミスル（エジプト）", note: "女性名詞" },
+                  ].map((item, idx) => (
+                    <div key={idx} className="bg-[#F8F1E7]/50 p-3 rounded-xl border border-[#E5C9A8] flex justify-between items-center">
+                      <div>
+                        <p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{item.arabic}</p>
+                        <p className="text-xs font-bold text-[#5E3C1E]">{item.kana} <span className="text-[10px] text-amber-700 font-normal">({item.note})</span></p>
+                      </div>
+                      <button onClick={() => playTableAudio(item.arabic)} className="w-8 h-8 bg-white text-[#A67144] rounded-full flex items-center justify-center shadow-sm hover:bg-amber-100 border border-[#E5C9A8]">
+                        <Volume2 size={14} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* ③ 習慣的に女性名詞とされる自然・概念 */}
+              <div className="bg-white p-5 rounded-2xl border border-[#E5C9A8] shadow-sm">
+                <h4 className="font-bold text-[#764C28] mb-2">☀️ ③ 習慣的に女性名詞とされる自然物や概念</h4>
+                <p className="text-xs text-[#A67144] mb-3">太陽、風、火、大地（土地）、戦争などは女性名詞として扱われます。</p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {[
+                    { arabic: "\u200Fشَمْسٌ\u200F", kana: "シャムスン", meaning: "太陽" },
+                    { arabic: "\u200Fنَارٌ\u200F", kana: "ナールン", meaning: "火" },
+                    { arabic: "\u200Fأَرْضٌ\u200F", kana: "アルドゥン", meaning: "大地・土地" },
+                  ].map((item, idx) => (
+                    <div key={idx} className="bg-[#F8F1E7]/50 p-3 rounded-xl border border-[#E5C9A8] flex justify-between items-center">
+                      <div>
+                        <p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{item.arabic}</p>
+                        <p className="text-xs font-bold text-[#5E3C1E]">{item.kana} ({item.meaning})</p>
+                      </div>
+                      <button onClick={() => playTableAudio(item.arabic)} className="w-8 h-8 bg-white text-[#A67144] rounded-full flex items-center justify-center shadow-sm hover:bg-amber-100 border border-[#E5C9A8]">
+                        <Volume2 size={14} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* ④ 特殊な語尾（ى / اء）で終わる女性名詞 */}
+              <div className="bg-white p-5 rounded-2xl border border-[#E5C9A8] shadow-sm">
+                <h4 className="font-bold text-[#764C28] mb-2">🏜️ ④ 特殊な語尾（{"\u200Fى\u200F"} または {"\u200Fء\u200F"}）で終わる女性名詞</h4>
+                <p className="text-xs text-[#A67144] mb-3">
+                  語尾が「アリフ・マクスーラ（{"\u200Fى\u200F"}）」や「伸ばし＋ハムザ（{"\u200Fاء\u200F"}）」で終わる抽象概念や砂漠なども女性名詞になります。
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {[
+                    { arabic: "\u200Fصَحْرَاءُ\u200F", kana: "サフラーウ", meaning: "砂漠" },
+                    { arabic: "\u200Fذِكْرَى\u200F", kana: "ズィクラ", meaning: "思い出・記念" },
+                  ].map((item, idx) => (
+                    <div key={idx} className="bg-[#F8F1E7]/50 p-3 rounded-xl border border-[#E5C9A8] flex justify-between items-center">
+                      <div>
+                        <p className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{item.arabic}</p>
+                        <p className="text-xs font-bold text-[#5E3C1E]">{item.kana} <span className="text-[10px] text-[#A67144] font-normal">({item.meaning})</span></p>
+                      </div>
+                      <button onClick={() => playTableAudio(item.arabic)} className="w-8 h-8 bg-white text-[#A67144] rounded-full flex items-center justify-center shadow-sm hover:bg-amber-100 border border-[#E5C9A8]">
+                        <Volume2 size={14} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* ⑤ 男性名詞とも女性名詞とも扱われる名詞（両性名詞） */}
+              <div className="bg-amber-50/60 p-5 rounded-2xl border border-amber-200 shadow-sm">
+                <h4 className="font-bold text-amber-800 mb-2">⚖️ ⑤ 男性とも女性とも扱われる名詞（両性名詞）</h4>
+                <p className="text-xs text-amber-900 mb-3">
+                  アラビア語には、辞書や地域・文脈によって男性名詞としても女性名詞としても使われる単語（両性名詞）が存在します。代表的なものがこちらです。
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {[
+                    { arabic: "\u200Fطَرِيقٌ\u200F", kana: "タリークン", meaning: "道・道路（両方可）" },
+                    { arabic: "\u200Fبَلَدٌ\u200F", kana: "バラドゥン", meaning: "国・町（両方可）" },
+                  ].map((item, idx) => (
+                    <div key={idx} className="bg-white p-3 rounded-xl border border-amber-200 flex justify-between items-center">
+                      <div>
+                        <p className="text-xl font-arabic text-amber-700" dir="rtl">{item.arabic}</p>
+                        <p className="text-xs font-bold text-[#5E3C1E]">{item.kana} <span className="text-[10px] text-amber-800 font-normal">({item.meaning})</span></p>
+                      </div>
+                      <button onClick={() => playTableAudio(item.arabic)} className="w-8 h-8 bg-amber-50 text-amber-700 rounded-full flex items-center justify-center shadow-sm hover:bg-amber-100 border border-amber-200">
+                        <Volume2 size={14} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+            </div>
+          </section>
+
         </div>
       ),
+    
   
       imageUrls: [],
       contentVoweled: "",
@@ -14539,8 +14849,8 @@ ITサポートが原因を切り分けるための質問です。
                 </thead>
                 <tbody className="divide-y divide-[#F5F0E6]">
                   {[
-                    { type: "男性", sAr: "\u200Fمُدَرِّسٌ\u200F", sKa: "ムダッリスン", sMe: "先生(男)", dAr: "\u200Fمُدَرِّسَانِ\u200F", dKa: "ムダッリサーニ", dMe: "二人の先生(男)" },
-                    { type: "女性", sAr: "\u200Fمُدَرِّسَةٌ\u200F", sKa: "ムダッリサトゥン", sMe: "先生(女)", dAr: "\u200Fمُدَرِّسَتَانِ\u200F", dKa: "ムダッリサターニ", dMe: "二人の先生(女)" }
+                    { type: "男性", sAr: "\u200Fمُدَرِّسٌ\u200F", sKa: "ムダッリスン", sMe: "先生(男)", dAr: "\u200Fمُدَرِّسَانِ\u200F", dKa: "ムダッリサーニ", dMe: "二人の先生(男)" },
+                    { type: "女性", sAr: "\u200Fمُدَرِّسَةٌ\u200F", sKa: "ムダッリサトゥン", sMe: "先生(女)", dAr: "\u200Fمُدَرِّسَتَانِ\u200F", dKa: "ムダッリサターニ", dMe: "二人の先生(女)" }
                   ].map((item, idx) => (
                     <tr key={idx} className="hover:bg-stone-50 transition-colors">
                       <td className="px-4 py-4 text-center font-bold text-[#A67144] whitespace-nowrap bg-[#FDFCF8]">
@@ -14588,11 +14898,11 @@ ITサポートが原因を切り分けるための質問です。
                 </h4>
                 <div className="bg-white p-4 rounded-xl border border-[#E5C9A8] flex justify-between items-center text-center">
                   <div>
-                    <p className="text-3xl font-arabic text-[#8A5A33] mb-2" dir="rtl">{"\u200Fمُدَرِّسُونَ\u200F"}</p>
+                    <p className="text-3xl font-arabic text-[#8A5A33] mb-2" dir="rtl">{"\u200Fمُدَرِّسُونَ\u200F"}</p>
                     <p className="font-bold text-sm text-[#5E3C1E]">ムダッリスーナ</p>
                     <p className="text-xs text-[#A67144] mt-1">（先生たち・男）</p>
                   </div>
-                  <button onClick={() => playTableAudio("\u200Fمُدَرِّسُونَ\u200F")} className="w-10 h-10 bg-[#F8F1E7] text-[#A67144] rounded-full flex items-center justify-center shadow-sm hover:bg-amber-100 hover:text-amber-600 transition-all active:scale-95 border border-[#E5C9A8]">
+                  <button onClick={() => playTableAudio("\u200Fمُدَرِّسُونَ\u200F")} className="w-10 h-10 bg-[#F8F1E7] text-[#A67144] rounded-full flex items-center justify-center shadow-sm hover:bg-amber-100 hover:text-amber-600 transition-all active:scale-95 border border-[#E5C9A8]">
                     <Volume2 size={18} />
                   </button>
                 </div>
@@ -14604,11 +14914,11 @@ ITサポートが原因を切り分けるための質問です。
                 </h4>
                 <div className="bg-white p-4 rounded-xl border border-amber-200 flex justify-between items-center text-center">
                   <div>
-                    <p className="text-3xl font-arabic text-amber-600 mb-2" dir="rtl">{"\u200Fمُدَرِّسَاتٌ\u200F"}</p>
+                    <p className="text-3xl font-arabic text-amber-600 mb-2" dir="rtl">{"\u200Fمُدَرِّسَاتٌ\u200F"}</p>
                     <p className="font-bold text-sm text-[#5E3C1E]">ムダッリサートゥン</p>
                     <p className="text-xs text-[#A67144] mt-1">（先生たち・女）</p>
                   </div>
-                  <button onClick={() => playTableAudio("\u200Fمُدَرِّسَاتٌ\u200F")} className="w-10 h-10 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center shadow-sm hover:bg-amber-100 hover:text-amber-700 transition-all active:scale-95 border border-amber-200">
+                  <button onClick={() => playTableAudio("\u200Fمُدَرِّسَاتٌ\u200F")} className="w-10 h-10 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center shadow-sm hover:bg-amber-100 hover:text-amber-700 transition-all active:scale-95 border border-amber-200">
                     <Volume2 size={18} />
                   </button>
                 </div>
@@ -14617,45 +14927,189 @@ ITサポートが原因を切り分けるための質問です。
             </div>
           </section>
   
-          {/* --- 3. 不規則複数（割れ複数） --- */}
+          {/* --- 3. 不規則複数（割れ複数）パターン別一覧 --- */}
           <section>
             <h3 className="text-xl font-bold text-[#4A3018] mt-10 mb-4 border-b-2 border-[#E5C9A8] pb-2">
-              3. 不規則複数（割れ複数）
+              3. 不規則複数（割れ複数）パターン別一覧
             </h3>
-            <p className="text-sm text-[#764C28] mb-6">モノや動物の名前の多くは、英単語の「man → men」のように、単語の内側の形が不規則に割れるように変化します。これらは単語ごとに覚える必要があります。</p>
+            <p className="text-sm text-[#764C28] mb-6">
+              モノや動物の名前などの多くは、単語の内側の母音や形が不規則に変わる「割れ複数」になります。代表的なパターンごとに分類して覚えていきましょう。
+            </p>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="bg-[#F8F1E7] p-4 rounded-2xl border border-[#E5C9A8] text-center shadow-sm">
-                <p className="text-sm text-[#A67144] font-medium mb-2">本（単数 → 複数）</p>
-                <div className="flex justify-center items-center gap-4 mb-3">
-                  <span className="text-3xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fكِتَابٌ\u200F"}</span>
-                  <span className="text-xl text-[#D4A373]">→</span>
-                  <span className="text-3xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fكُتُبٌ\u200F"}</span>
+            <div className="space-y-6">
+              
+              {/* パターン1: 基礎的な形の変化 */}
+              <div className="bg-white p-5 rounded-2xl border border-[#E5C9A8] shadow-sm">
+                <h4 className="font-bold text-[#764C28] mb-3 border-b border-[#E5C9A8] pb-2">
+                  📚 パターン①：基本の3文字名詞の変化（本・家など）
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  
+                  {/* 本 */}
+                  <div className="bg-[#F8F1E7]/50 p-4 rounded-xl border border-[#E5C9A8] text-center">
+                    <p className="text-xs text-[#A67144] mb-1">本</p>
+                    <div className="flex justify-center items-center gap-3 mb-2">
+                      <span className="text-2xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fكِتَابٌ\u200F"}</span>
+                      <span className="text-lg text-[#D4A373]">→</span>
+                      <span className="text-2xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fكُتُبٌ\u200F"}</span>
+                    </div>
+                    <p className="font-bold text-xs text-[#5E3C1E] mb-2">キターブン → クトゥブン</p>
+                    <button onClick={() => playTableAudio("\u200Fكُتُبٌ\u200F")} className="inline-flex items-center justify-center gap-1.5 bg-white text-[#764C28] px-3 py-1.5 rounded-full text-xs font-bold border border-[#D4A373] hover:bg-amber-50">
+                      <Volume2 size={14} /> 発音を聞く
+                    </button>
+                  </div>
+
+                  {/* 家 */}
+                  <div className="bg-[#F8F1E7]/50 p-4 rounded-xl border border-[#E5C9A8] text-center">
+                    <p className="text-xs text-[#A67144] mb-1">家</p>
+                    <div className="flex justify-center items-center gap-3 mb-2">
+                      <span className="text-2xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fبَيْتٌ\u200F"}</span>
+                      <span className="text-lg text-[#D4A373]">→</span>
+                      <span className="text-2xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fبُيُوتٌ\u200F"}</span>
+                    </div>
+                    <p className="font-bold text-xs text-[#5E3C1E] mb-2">バイトゥン → ブユートゥン</p>
+                    <button onClick={() => playTableAudio("\u200Fبُيُوتٌ\u200F")} className="inline-flex items-center justify-center gap-1.5 bg-white text-[#764C28] px-3 py-1.5 rounded-full text-xs font-bold border border-[#D4A373] hover:bg-amber-50">
+                      <Volume2 size={14} /> 発音を聞く
+                    </button>
+                  </div>
+
                 </div>
-                <p className="font-bold text-[#5E3C1E] text-sm mb-3">キターブン → クトゥブン</p>
-                <button onClick={() => playTableAudio("\u200Fكُتُبٌ\u200F")} className="inline-flex items-center justify-center gap-2 bg-white text-[#764C28] px-4 py-2 rounded-full text-sm font-bold border border-[#D4A373] hover:bg-amber-50 active:scale-95 transition-all shadow-sm">
-                  <Volume2 size={16} /> 複数の発音
-                </button>
               </div>
-  
-              <div className="bg-[#F8F1E7] p-4 rounded-2xl border border-[#E5C9A8] text-center shadow-sm">
-                <p className="text-sm text-[#A67144] font-medium mb-2">ペン（単数 → 複数）</p>
-                <div className="flex justify-center items-center gap-4 mb-3">
-                  <span className="text-3xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fقَلَمٌ\u200F"}</span>
-                  <span className="text-xl text-[#D4A373]">→</span>
-                  <span className="text-3xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fأَقْلَامٌ\u200F"}</span>
+
+              {/* パターン2: 頭にアリフが加わる形 */}
+              <div className="bg-white p-5 rounded-2xl border border-[#E5C9A8] shadow-sm">
+                <h4 className="font-bold text-[#764C28] mb-3 border-b border-[#E5C9A8] pb-2">
+                  ✏️ パターン②：頭にアライフがつき形が変わるタイプ（ペン・月など）
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  
+                  {/* ペン */}
+                  <div className="bg-[#F8F1E7]/50 p-4 rounded-xl border border-[#E5C9A8] text-center">
+                    <p className="text-xs text-[#A67144] mb-1">ペン</p>
+                    <div className="flex justify-center items-center gap-3 mb-2">
+                      <span className="text-2xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fقَلَمٌ\u200F"}</span>
+                      <span className="text-lg text-[#D4A373]">→</span>
+                      <span className="text-2xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fأَقْلَامٌ\u200F"}</span>
+                    </div>
+                    <p className="font-bold text-xs text-[#5E3C1E] mb-2">カラムン → アクラームン</p>
+                    <button onClick={() => playTableAudio("\u200Fأَقْلَامٌ\u200F")} className="inline-flex items-center justify-center gap-1.5 bg-white text-[#764C28] px-3 py-1.5 rounded-full text-xs font-bold border border-[#D4A373] hover:bg-amber-50">
+                      <Volume2 size={14} /> 発音を聞く
+                    </button>
+                  </div>
+
+                  {/* 月 */}
+                  <div className="bg-[#F8F1E7]/50 p-4 rounded-xl border border-[#E5C9A8] text-center">
+                    <p className="text-xs text-[#A67144] mb-1">月（つき）</p>
+                    <div className="flex justify-center items-center gap-3 mb-2">
+                      <span className="text-2xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fشَهْرٌ\u200F"}</span>
+                      <span className="text-lg text-[#D4A373]">→</span>
+                      <span className="text-2xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fأَشْهُرٌ\u200F"}</span>
+                    </div>
+                    <p className="font-bold text-xs text-[#5E3C1E] mb-2">シャフルン → アシュフルン</p>
+                    <button onClick={() => playTableAudio("\u200Fأَشْهُرٌ\u200F")} className="inline-flex items-center justify-center gap-1.5 bg-white text-[#764C28] px-3 py-1.5 rounded-full text-xs font-bold border border-[#D4A373] hover:bg-amber-50">
+                      <Volume2 size={14} /> 発音を聞く
+                    </button>
+                  </div>
+
                 </div>
-                <p className="font-bold text-[#5E3C1E] text-sm mb-3">カラムン → アクラームン</p>
-                <button onClick={() => playTableAudio("\u200Fأَقْلَامٌ\u200F")} className="inline-flex items-center justify-center gap-2 bg-white text-[#764C28] px-4 py-2 rounded-full text-sm font-bold border border-[#D4A373] hover:bg-amber-50 active:scale-95 transition-all shadow-sm">
-                  <Volume2 size={16} /> 複数の発音
-                </button>
               </div>
+
+{/* パターン3: 特殊な母音変化・人や身の回りの名詞（完全修正版） */}
+<div className="bg-white p-5 rounded-2xl border border-[#E5C9A8] shadow-sm">
+                <h4 className="font-bold text-[#764C28] mb-3 border-b border-[#E5C9A8] pb-2">
+                  👥 パターン③：人や使者を表す名詞の変化（使者・病人・学者など）
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  
+                  {/* 使者 */}
+                  <div className="bg-[#F8F1E7]/50 p-3 rounded-xl border border-[#E5C9A8] text-center">
+                    <p className="text-[11px] text-[#A67144] mb-1">使者・預言者</p>
+                    <div className="flex justify-center items-center gap-2 mb-1">
+                      <span className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fرَسُولٌ\u200F"}</span>
+                      <span className="text-sm text-[#D4A373]">→</span>
+                      <span className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fرُسُلٌ\u200F"}</span>
+                    </div>
+                    <p className="font-bold text-[11px] text-[#5E3C1E] mb-2">ラスールン → ルスルン</p>
+                    <button onClick={() => playTableAudio("\u200Fرُسُلٌ\u200F")} className="w-full bg-white text-[#764C28] py-1 rounded-full text-xs font-bold border border-[#D4A373] hover:bg-amber-50 flex items-center justify-center gap-1">
+                      <Volume2 size={12} /> 発音を聞く
+                    </button>
+                  </div>
+
+                  {/* 病人 */}
+                  <div className="bg-[#F8F1E7]/50 p-3 rounded-xl border border-[#E5C9A8] text-center">
+                    <p className="text-[11px] text-[#A67144] mb-1">病気の人（複数）</p>
+                    <div className="flex justify-center items-center gap-2 mb-1">
+                      <span className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fمَرِيضٌ\u200F"}</span>
+                      <span className="text-sm text-[#D4A373]">→</span>
+                      <span className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fمَرْضَى\u200F"}</span>
+                    </div>
+                    <p className="font-bold text-[11px] text-[#5E3C1E] mb-2">マリードゥン → マルダー</p>
+                    <button onClick={() => playTableAudio("\u200Fمَرْضَى\u200F")} className="w-full bg-white text-[#764C28] py-1 rounded-full text-xs font-bold border border-[#D4A373] hover:bg-amber-50 flex items-center justify-center gap-1">
+                      <Volume2 size={12} /> 発音を聞く
+                    </button>
+                  </div>
+
+                  {/* 学者 */}
+                  <div className="bg-[#F8F1E7]/50 p-3 rounded-xl border border-[#E5C9A8] text-center">
+                    <p className="text-[11px] text-[#A67144] mb-1">学者（複数）</p>
+                    <div className="flex justify-center items-center gap-2 mb-1">
+                      <span className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fعَالِمٌ\u200F"}</span>
+                      <span className="text-sm text-[#D4A373]">→</span>
+                      <span className="text-xl font-arabic text-[#8A5A33]" dir="rtl">{"\u200Fعُلَمَاءُ\u200F"}</span>
+                    </div>
+                    <p className="font-bold text-[11px] text-[#5E3C1E] mb-2">アーリムン → ウラマーウ</p>
+                    <button onClick={() => playTableAudio("\u200Fعُلَمَاءُ\u200F")} className="w-full bg-white text-[#764C28] py-1 rounded-full text-xs font-bold border border-[#D4A373] hover:bg-amber-50 flex items-center justify-center gap-1">
+                      <Volume2 size={12} /> 発音を聞く
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+
+              {/* パターン4: その他の代表的な形 */}
+              <div className="bg-amber-50/60 p-5 rounded-2xl border border-amber-200 shadow-sm">
+                <h4 className="font-bold text-amber-800 mb-3 border-b border-amber-200 pb-2">
+                  📦 パターン④：その他の代表的な形（鞘・破片など）
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  
+                  {/* 鞘 */}
+                  <div className="bg-white p-4 rounded-xl border border-amber-200 text-center">
+                    <p className="text-xs text-amber-800 mb-1">鞘（さや・ケース）</p>
+                    <div className="flex justify-center items-center gap-3 mb-2">
+                      <span className="text-2xl font-arabic text-amber-700" dir="rtl">{"\u200Fغِمْدٌ\u200F"}</span>
+                      <span className="text-lg text-amber-400">→</span>
+                      <span className="text-2xl font-arabic text-amber-700" dir="rtl">{"\u200Fأَغْمِدَةٌ\u200F"}</span>
+                    </div>
+                    <p className="font-bold text-xs text-[#5E3C1E] mb-2">ギムドゥン → アグミダトゥン</p>
+                    <button onClick={() => playTableAudio("\u200Fأَغْمِدَةٌ\u200F")} className="inline-flex items-center justify-center gap-1.5 bg-amber-50 text-amber-800 px-3 py-1.5 rounded-full text-xs font-bold border border-amber-200 hover:bg-amber-100">
+                      <Volume2 size={14} /> 発音を聞く
+                    </button>
+                  </div>
+
+                  {/* 破片 */}
+                  <div className="bg-white p-4 rounded-xl border border-amber-200 text-center">
+                    <p className="text-xs text-amber-800 mb-1">破片・一片</p>
+                    <div className="flex justify-center items-center gap-3 mb-2">
+                      <span className="text-2xl font-arabic text-amber-700" dir="rtl">{"\u200Fقِطْعَةٌ\u200F"}</span>
+                      <span className="text-lg text-amber-400">→</span>
+                      <span className="text-2xl font-arabic text-amber-700" dir="rtl">{"\u200Fقِطَعٌ\u200F"}</span>
+                    </div>
+                    <p className="font-bold text-xs text-[#5E3C1E] mb-2">キトツァトゥン → キタツァン</p>
+                    <button onClick={() => playTableAudio("\u200Fقِطَعٌ\u200F")} className="inline-flex items-center justify-center gap-1.5 bg-amber-50 text-amber-800 px-3 py-1.5 rounded-full text-xs font-bold border border-amber-200 hover:bg-amber-100">
+                      <Volume2 size={14} /> 発音を聞く
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+
             </div>
           </section>
   
         </div>
       ),
-  
+       
       imageUrls: [],
       contentVoweled: "",
       sentences: [], 
@@ -18863,7 +19317,7 @@ ITサポートが原因を切り分けるための質問です。
       {/* --- 2. 応用セクション --- */}
       <section>
         <h3 className="text-xl font-bold text-[#4A3018] mt-12 mb-4 border-b-2 border-[#E5C9A8] pb-2">
-          🚀 応用セクション：複数形と特殊な動詞
+          🚀 応用セクション：双数形・複数形と特殊な動詞
         </h3>
 
         <div className="space-y-6">
@@ -18871,14 +19325,22 @@ ITサポートが原因を切り分けるための質問です。
           {/* ① 双数と複数 */}
           <div className="bg-stone-50 border border-stone-200 p-5 rounded-xl shadow-sm">
             <h4 className="font-bold text-stone-700 mb-3 text-md">
-              ① 双数（二人）と複数（三人以上）の語尾
+              ① 双数（二人）と複数（三人以上）の活用
             </h4>
             <p className="text-sm text-stone-600 leading-relaxed mb-4">
-              過去形と同じように、主語が複数になると「頭」だけでなく<strong>「語尾」</strong>にもパーツが付きます。
+              過去形と同じように、主語が双数や複数になると「頭」だけでなく<strong>「語尾」</strong>にもパーツが付きます。
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="bg-white p-4 rounded-xl border border-stone-200 text-center flex flex-col items-center">
-                <p className="text-xs font-bold text-stone-500 mb-2">彼らは書く（頭にヤ ＋ 語尾にウーナ）</p>
+                <p className="text-xs font-bold text-stone-500 mb-2">彼ら二人は書く（双数・頭ヤ ＋ 語尾アーニ）</p>
+                <p className="text-3xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fيَكْتُبَانِ\u200F"}</p>
+                <p className="font-bold text-sm text-[#5E3C1E]">ヤクタバーニ</p>
+                <button onClick={() => playTableAudio("\u200Fيَكْتُبَانِ\u200F")} className="mt-3 w-8 h-8 bg-stone-100 text-stone-600 rounded-full inline-flex items-center justify-center shadow-sm hover:bg-stone-200 transition-all">
+                  <Volume2 size={14} />
+                </button>
+              </div>
+              <div className="bg-white p-4 rounded-xl border border-stone-200 text-center flex flex-col items-center">
+                <p className="text-xs font-bold text-stone-500 mb-2">彼らは書く（複数・頭ヤ ＋ 語尾ウーナ）</p>
                 <p className="text-3xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fيَكْتُبُونَ\u200F"}</p>
                 <p className="font-bold text-sm text-[#5E3C1E]">ヤクトゥブーナ</p>
                 <button onClick={() => playTableAudio("\u200Fيَكْتُبُونَ\u200F")} className="mt-3 w-8 h-8 bg-stone-100 text-stone-600 rounded-full inline-flex items-center justify-center shadow-sm hover:bg-stone-200 transition-all">
@@ -18886,7 +19348,15 @@ ITサポートが原因を切り分けるための質問です。
                 </button>
               </div>
               <div className="bg-white p-4 rounded-xl border border-stone-200 text-center flex flex-col items-center">
-                <p className="text-xs font-bold text-stone-500 mb-2">あなたたち(男)は書く（頭にタ ＋ 語尾にウーナ）</p>
+                <p className="text-xs font-bold text-stone-500 mb-2">あなた方二人は書く（双数・頭タ ＋ 語尾アーニ）</p>
+                <p className="text-3xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fتَكْتُبَانِ\u200F"}</p>
+                <p className="font-bold text-sm text-[#5E3C1E]">タクタバーニ</p>
+                <button onClick={() => playTableAudio("\u200Fتَكْتُبَانِ\u200F")} className="mt-3 w-8 h-8 bg-stone-100 text-stone-600 rounded-full inline-flex items-center justify-center shadow-sm hover:bg-stone-200 transition-all">
+                  <Volume2 size={14} />
+                </button>
+              </div>
+              <div className="bg-white p-4 rounded-xl border border-stone-200 text-center flex flex-col items-center">
+                <p className="text-xs font-bold text-stone-500 mb-2">あなたたち(男)は書く（複数・頭タ ＋ 語尾ウーナ）</p>
                 <p className="text-3xl font-arabic text-[#8A5A33] mb-1" dir="rtl">{"\u200Fتَكْتُبُونَ\u200F"}</p>
                 <p className="font-bold text-sm text-[#5E3C1E]">タクトゥブーナ</p>
                 <button onClick={() => playTableAudio("\u200Fتَكْتُبُونَ\u200F")} className="mt-3 w-8 h-8 bg-stone-100 text-stone-600 rounded-full inline-flex items-center justify-center shadow-sm hover:bg-stone-200 transition-all">
@@ -18930,7 +19400,7 @@ ITサポートが原因を切り分けるための質問です。
             </h4>
             <p className="text-sm text-[#5E3C1E] leading-relaxed mb-4">
               「取る（アハザ）」のように<strong>最初がアリフ（{"\u200Fأ\u200F"}）で始まる動詞</strong>を「私（ア）」の現在形にする場合、「ア（私のしるし）」＋「ア（動詞の頭）」でアリフが2つ連続してしまいます。<br />
-              この時、2つのアリフは合体して<strong>「アー（{"\u200Fآ\u200F"}）」という波線の付いた文字</strong>に変化します。
+              この時、2つのアリフは合体して<strong>「アー（{"\u200Fآ\u200F"}）変動する文字」</strong>に変化します。
             </p>
             
             <div className="space-y-4">
@@ -18965,6 +19435,7 @@ ITサポートが原因を切り分けるための質問です。
 
     </div>
   ),
+
 
   imageUrls: [],
   contentVoweled: "",
@@ -19302,19 +19773,53 @@ ITサポートが原因を切り分けるための質問です。
             </tbody>
           </table>
         </div>
-        <p className="text-xs text-[#A67144] mt-2 text-center">※動詞にくっついて「私を（に）」となる場合だけ、パーツが「〜ニー（{"\u200Fـنِي\u200F"}）」に変わります。</p>
       </section>
 
-      {/* --- 2. 前置詞とくっつく場合 --- */}
+      {/* --- 2. 動詞にくっつく場合（対格：〜を、〜に） --- */}
       <section>
         <div className="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-r-xl shadow-sm mb-6">
           <h4 className="font-bold text-[#764C28] mb-3 text-lg">
-            💡 前置詞にくっつく時も大活躍！
+            💡 動詞にくっつくと「〜を」という意味になる！
           </h4>
           <p className="text-sm text-[#5E3C1E] leading-relaxed">
-            「私の本」のように名詞にくっつくだけでなく、<strong>「私と一緒に」「彼から」</strong>のように、前置詞に直接くっつけることもできます。
+            名詞にくっつくと「〜の」になりますが、<strong>動詞の語尾にピタッとくっつくと「私を」「彼を」「あなたを」</strong>という目的語（対格）の意味に変身します。<br />
+            ※「私を」と言いたいときだけ、パーツが特殊な<strong>「〜ニー（{"\u200Fـنِي\u200F"}）」</strong>に変わるのが重要ルールです！
           </p>
         </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* 例1: 彼が私を打った / 叩いた */}
+          <div className="bg-[#FFFDF9] p-4 rounded-2xl border border-[#E5C9A8] shadow-sm flex flex-col items-center text-center">
+            <span className="inline-block bg-[#E5C9A8] text-[#5E3C1E] px-2 py-0.5 rounded text-[10px] font-bold mb-2">私を ＋ 打った</span>
+            <p className="text-3xl font-arabic text-[#8A5A33] mb-2" dir="rtl">{"\u200Fضَرَبَنِي\u200F"}</p>
+            <p className="font-bold text-sm text-[#5E3C1E]">ダラバニー</p>
+            <p className="text-[11px] text-[#764C28] mt-1">（彼は私を叩いた）</p>
+            <button onClick={() => playTableAudio("\u200Fضَرَبَنِي\u200F")} className="mt-3 w-8 h-8 bg-white text-[#A67144] rounded-full flex items-center justify-center shadow-sm border border-[#E5C9A8] hover:bg-amber-100">
+              <Volume2 size={14} />
+            </button>
+          </div>
+
+          {/* 例2: 彼が彼を打った */}
+          <div className="bg-[#FFFDF9] p-4 rounded-2xl border border-[#E5C9A8] shadow-sm flex flex-col items-center text-center">
+            <span className="inline-block bg-[#E5C9A8] text-[#5E3C1E] px-2 py-0.5 rounded text-[10px] font-bold mb-2">彼を ＋ 打った</span>
+            <p className="text-3xl font-arabic text-[#8A5A33] mb-2" dir="rtl">{"\u200Fضَرَبَهُ\u200F"}</p>
+            <p className="font-bold text-sm text-[#5E3C1E]">ダラバフ</p>
+            <p className="text-[11px] text-[#764C28] mt-1">（彼は彼を叩いた）</p>
+            <button onClick={() => playTableAudio("\u200Fضَرَبَهُ\u200F")} className="mt-3 w-8 h-8 bg-white text-[#A67144] rounded-full flex items-center justify-center shadow-sm border border-[#E5C9A8] hover:bg-amber-100">
+              <Volume2 size={14} />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* --- 3. 前置詞とくっつく場合 --- */}
+      <section>
+        <h3 className="text-xl font-bold text-[#4A3018] mt-12 mb-4 border-b-2 border-[#E5C9A8] pb-2">
+          3. 前置詞にくっつく場合
+        </h3>
+        <p className="text-sm text-[#764C28] mb-4">
+          名詞だけでなく、<strong>「私と一緒に」「彼から」</strong>のように、前置詞に直接くっつけて使うこともできます。
+        </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* 例1 */}
@@ -19362,10 +19867,10 @@ ITサポートが原因を切り分けるための質問です。
             </div>
             <div className="bg-white border border-amber-200 rounded-xl p-3 flex items-center gap-3 w-full justify-center">
               <div className="text-center">
-                <p className="text-4xl font-arabic text-amber-600 mb-1" dir="rtl">{"\u200Fمِنِّي\u200F"}</p>
+                <p className="text-4xl font-arabic text-amber-600 mb-1" dir="rtl">{"\u200Fمِنِّي\u200F"}</p>
                 <p className="font-bold text-[#5E3C1E] text-sm mt-1">ミンニー</p>
               </div>
-              <button onClick={() => playTableAudio("\u200Fمِنِّي\u200F")} className="w-10 h-10 min-w-[40px] bg-amber-50 text-amber-600 rounded-full flex items-center justify-center shadow-sm hover:bg-amber-100 transition-all active:scale-95 border border-amber-200">
+              <button onClick={() => playTableAudio("\u200Fمِنِّي\u200F")} className="w-10 h-10 min-w-[40px] bg-amber-50 text-amber-600 rounded-full flex items-center justify-center shadow-sm hover:bg-amber-100 transition-all active:scale-95 border border-amber-200">
                 <Volume2 size={18} />
               </button>
             </div>
@@ -19373,7 +19878,7 @@ ITサポートが原因を切り分けるための質問です。
         </div>
       </section>
 
-      {/* --- 3. 応用セクション（複数形・発音変化） --- */}
+      {/* --- 4. 応用セクション（複数形・発音変化） --- */}
       <section>
         <h3 className="text-xl font-bold text-[#4A3018] mt-12 mb-4 border-b-2 border-[#E5C9A8] pb-2">
           🚀 応用セクション：複数形と「発音変化のルール」
@@ -19462,7 +19967,7 @@ ITサポートが原因を切り分けるための質問です。
     </div>
   ),
 
-  imageUrls: [],
+imageUrls: [],
   contentVoweled: "",
   sentences: [], 
   vocabList: [],
