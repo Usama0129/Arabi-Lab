@@ -2,9 +2,6 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import Stripe from 'stripe';
 
-// ★ 本番テスト用: 決済を許可するメールアドレス（page.tsx と同じメールアドレス）
-const ALLOWED_EMAILS = ["reousamajp@gmail.com","reo.ishikawa@hotmail.com"]; // ← ここをご自身のGoogleメールアドレスに変更
-
 // Stripeの初期化
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -27,14 +24,6 @@ export async function POST(req: Request) {
 
     if (!userId || !email) {
       return NextResponse.json({ error: 'User ID or Email is missing' }, { status: 400 });
-    }
-
-    // ★ 許可されたメールアドレス以外は決済セッション作成を拒否
-    if (!ALLOWED_EMAILS.includes(email)) {
-      return NextResponse.json(
-        { error: '現在クローズドテスト中のため、事前登録されたアカウントのみ決済可能です。' },
-        { status: 403 }
-      );
     }
 
     // 2. 既存のStripe顧客IDがあるか確認

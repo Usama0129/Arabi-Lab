@@ -270,7 +270,6 @@ const LandingPage = ({ onLogin, onGuestStart }: { onLogin: () => void, onGuestSt
 
 export default function Home() {
   // ★ 本番テスト用: ログイン・アクセスを許可するメールアドレス
-  const ALLOWED_EMAILS = ["reousamajp@gmail.com","reo.ishikawa@hotmail.com"]; // ← ここをご自身のGoogleメールアドレスに変更
 
   // --- [復活] 消えてしまった重要なState群 ---
   const [allArticles, setAllArticles] = useState<(Article & { videoUrl?: string; imageUrls?: string[] })[]>(articles); 
@@ -569,16 +568,7 @@ const isLockedContent = (article: Article) => {
       const { data: { session } } = await supabase.auth.getSession();
       const currentUser = session?.user ?? null;
     
-      // 許可されていないユーザーは即ログアウト
-      if (currentUser && !ALLOWED_EMAILS.includes(currentUser.email || "")) {
-        alert("現在クローズドテスト中のため、事前登録されたアカウントのみご利用いただけます。");
-        await supabase.auth.signOut();
-        setUser(null);
-        setIsPremium(false);
-        setShowLandingPage(true);
-        setIsLoading(false);
-        return;
-      }
+ 
     
       setUser(currentUser);
       if (currentUser) { 
@@ -1262,12 +1252,7 @@ const startSequencePlayback = async (startIndex: number) => {
       
             {/* 右側：主要ボタン群（マイページ、単語帳、ログイン/ログアウト） */}
             <div className="flex items-center gap-1.5 sm:gap-2">
-              {/* プレミアムバッジ */}
-              {isPremium && (
-                <span className="bg-gradient-to-r from-amber-400 to-yellow-500 text-[#4A3018] text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse shadow-sm border border-amber-200">
-                  👑 Premium
-                </span>
-              )}
+             c
 
               {/* マイページボタン */}
               <button 
@@ -1294,12 +1279,12 @@ const startSequencePlayback = async (startIndex: number) => {
                   className="flex items-center gap-1 bg-[#5E3C1E] text-amber-50 px-2.5 py-1.5 rounded-full text-xs font-bold hover:bg-[#764C28] transition-all shadow-sm border border-[#764C28]"
                   title="ログアウト"
                 >
-                  {user.user_metadata?.avatar_url ? (
+                 {user.user_metadata?.avatar_url ? (
                     <img src={user.user_metadata.avatar_url} className="w-4 h-4 rounded-full border border-white/30" alt="icon" />
                   ) : (
                     <LogOut size={13}/>
                   )}
-                  <span className="hidden md:inline">ログアウト</span>
+                  <span>ログアウト</span>
                 </button>
               ) : (
                 <button 
@@ -1313,15 +1298,14 @@ const startSequencePlayback = async (startIndex: number) => {
 
           </div>
 
-          {/* --- 第2行目：テスト用プレミアム切替ボタン専用行 --- */}
-          <div className="flex justify-center items-center w-full pt-1 border-t border-[#A67144]/30">
-            <button 
-                onClick={() => setIsPremium(!isPremium)}
-                className="bg-indigo-900/90 text-indigo-100 px-4 py-1 rounded-full text-xs font-bold border border-indigo-600 shadow-md hover:bg-indigo-800 transition-all active:scale-95 flex items-center gap-1.5"
-            >
-                <span>{isPremium ? "🔧 テスト用: 無料に戻す" : "🔧 テスト用: プレミアム化"}</span>
-            </button>
-          </div>
+{/* --- 第2行目：Premiumバッジ専用行（プレミアム時のみ表示） --- */}
+{isPremium && (
+            <div className="flex justify-center items-center w-full pt-1.5 border-t border-[#A67144]/30">
+              <span className="bg-gradient-to-r from-amber-400 to-yellow-500 text-[#4A3018] text-xs font-bold px-4 py-0.5 rounded-full animate-pulse shadow-md border border-amber-200 flex items-center gap-1.5">
+                👑 Premium Member
+              </span>
+            </div>
+          )}
 
         </div>
       </nav>
