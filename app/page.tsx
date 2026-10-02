@@ -3000,20 +3000,32 @@ return (
         <div className="bg-[#F8F1E7] p-4 rounded-2xl text-center border border-[#E5C9A8]">
           <p className="text-3xl font-bold text-[#3E2713]">¥500 <span className="text-sm font-normal opacity-60">/ 月</span></p>
         </div>
-        <button 
-          onClick={async () => {
-            const response = await fetch('/api/checkout', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ userId: user?.id, email: user?.email })
-            });
-            const data = await response.json();
-            if (data.url) window.location.href = data.url;
-          }}
-          className="w-full py-4 bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-white font-bold rounded-2xl shadow-xl hover:-translate-y-1 active:scale-95 transition-all text-lg"
-        >
-          今すぐ登録して学習を開始する
-        </button>
+<button 
+onClick={async () => {
+  // 未ログインの場合はログインへ誘導する
+  if (!user) {
+    alert("プレミアムプランに登録するには、まずログインしてください。");
+    setShowUpgradeModal(false);
+    handleLogin();
+    return;
+  }
+
+  const response = await fetch('/api/checkout', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ userId: user?.id, email: user?.email })
+  });
+  const data = await response.json();
+  if (data.url) {
+    window.location.href = data.url;
+  } else {
+    alert("エラーが発生しました: " + (data.error || "不明なエラー"));
+  }
+}}
+className="w-full py-4 bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-white font-bold rounded-2xl shadow-xl hover:-translate-y-1 active:scale-95 transition-all text-lg"
+>
+今すぐ登録して学習を開始する
+</button>
       </div>
     </div>
   </div>
