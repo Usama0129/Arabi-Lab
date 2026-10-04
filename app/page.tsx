@@ -477,10 +477,10 @@ const isLockedContent = (article: Article) => {
     return article.category !== "フスハー";
   }
 
-  // 7. 文法セクション (ID: 101〜) -> Lesson 16 (116) まで無料
-  if (article.level === "文法") {
-    return article.id > 116;
-  }
+ // 7. 文法セクション (ID: 101〜) -> Lesson 8 (108) まで無料
+ if (article.level === "文法") {
+  return article.id > 108;
+}
 
   // 8. 会話セクション (ID: 10〜100) -> 挨拶・レストランのみ無料
   if (article.level === "会話") {
