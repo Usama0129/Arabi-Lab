@@ -14,7 +14,8 @@ import {
   Tent, Moon, Swords, Crown, Sun, Mic, Sparkles, Landmark, Coffee, Library, Pencil,
   Loader2, PartyPopper, Frown, MessageSquare, Plus, ChevronRight, Video,
   HelpCircle,
-  Bell // ★追加// ← ★これを最後の方に追加してください
+  Bell,
+  Instagram // ★ ここに追加
 } from 'lucide-react';
 
 // --- Types ---
@@ -256,11 +257,22 @@ const LandingPage = ({ onLogin, onGuestStart }: { onLogin: () => void, onGuestSt
       </div>
       
       <footer className="bg-[#2C1A0D] text-[#D4A373] py-10 text-center text-xs mt-auto">
-        <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-8 mb-6">
+        <div className="max-w-4xl mx-auto flex flex-wrap justify-center items-center gap-8 mb-6">
           <Link href="/faq" className="hover:text-amber-400 transition-colors font-medium">よくある質問</Link>
           <Link href="/terms" className="hover:text-amber-400 transition-colors font-medium">利用規約</Link>
           <Link href="/privacy" className="hover:text-amber-400 transition-colors font-medium">プライバシーポリシー</Link>
           <Link href="/law" className="hover:text-amber-400 transition-colors font-medium">特定商取引法に基づく表記</Link>
+          
+          {/* Instagramリンクを追加 */}
+          <a 
+            href="https://www.instagram.com/arabi_lab/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="hover:text-amber-400 transition-colors flex items-center gap-1 font-medium"
+            title="Instagram"
+          >
+            <Instagram size={16} /> Instagram
+          </a>
         </div>
         <p className="opacity-40 font-serif tracking-widest">&copy; 2024 Arabi Lab. All Rights Reserved.</p>
       </footer>
@@ -3154,13 +3166,24 @@ className="w-full py-4 bg-gradient-to-r from-[#8A5A33] to-[#5E3C1E] text-white f
     </div>
   </div>
 )}
-      {/* フッター */}
-      <footer className="bg-[#2C1A0D] text-[#D4A373] py-10 pb-36 text-center text-xs border-t-4 border-[#1A0F08]">
-        <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-8 mb-6">
+{/* フッター */}
+<footer className="bg-[#2C1A0D] text-[#D4A373] py-10 pb-36 text-center text-xs border-t-4 border-[#1A0F08]">
+        <div className="max-w-4xl mx-auto flex flex-wrap justify-center items-center gap-8 mb-6">
           <Link href="/faq" className="hover:text-amber-400 transition-colors font-medium">よくある質問</Link>
           <Link href="/terms" className="hover:text-amber-400 transition-colors font-medium">利用規約</Link>
           <Link href="/privacy" className="hover:text-amber-400 transition-colors font-medium">プライバシーポリシー</Link>
           <Link href="/law" className="hover:text-amber-400 transition-colors font-medium">特定商取引法に基づく表記</Link>
+          
+          {/* Instagramリンク */}
+          <a 
+            href="https://www.instagram.com/arabi_lab/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="hover:text-amber-400 transition-colors flex items-center gap-1 font-medium"
+            title="Instagram"
+          >
+            <Instagram size={16} /> Instagram
+          </a>
         </div>
         <p className="opacity-40 font-serif tracking-widest">&copy; 2024 Arabi Lab. All Rights Reserved.</p>
       </footer>
