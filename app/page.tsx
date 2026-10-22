@@ -494,31 +494,30 @@ const isLockedContent = (article: Article) => {
   return article.id > 108;
 }
 
-  // 8. 会話セクション (ID: 10〜100) -> 挨拶・レストランのみ無料
-  if (article.level === "会話") {
-    return !(article.category === "挨拶" || article.category === "レストラン");
-  }
+// 8. 会話セクション (ID: 10〜100) -> ホテルのみ無料
+if (article.level === "会話") {
+  return article.category !== "ホテル"; 
+}
 
-  // 9. リスニングセクション (ID: 2000〜2999) -> 初級のみ無料
-  if (article.id >= 2000 && article.id <= 2999) {
-    return article.level !== "初級";
-  }
+// 9. リスニングセクション (ID: 2000〜2999) -> ID 2000 のみ無料
+if (article.id >= 2000 && article.id <= 2999) {
+  return article.id !== 2000;
+}
 
-  // 10. 読解 初級 (ID: 3000〜3999) -> 自己紹介・日常のみ無料
-  if (article.id >= 3000 && article.id <= 3999) {
-    const freeBeginnerCats = ["自己紹介", "日常"];
-    return !freeBeginnerCats.includes(article.category);
-  }
+// 10. 読解 初級 (ID: 3000〜3999) -> 自己紹介・日常のみ無料（※ここは現状のままでOKです）
+if (article.id >= 3000 && article.id <= 3999) {
+  const freeBeginnerCats = ["自己紹介", "日常"];
+  return !freeBeginnerCats.includes(article.category);
+}
+// 11. 読解 中級 (ID: 200〜999) -> 全て有料
+if (article.level === "中級" && (article.id >= 200 && article.id <= 999)) {
+  return true;
+}
 
-  // 11. 読解 中級 (ID: 200〜999) -> 文化のみ無料
-  if (article.level === "中級" && (article.id >= 200 && article.id <= 999)) {
-    return article.category !== "文化";
-  }
-
-  // 12. 読解 上級 (ID: 1000〜1999) -> 経済（サウジビジョン2030）のみ無料
-  if (article.level === "上級" && (article.id >= 1000 && article.id <= 1999)) {
-    return article.category !== "経済";
-  }
+// 12. 読解 上級 (ID: 1000〜1999) -> 全て有料
+if (article.level === "上級" && (article.id >= 1000 && article.id <= 1999)) {
+  return true;
+}
 
   // 13. その他未分類データは有料
   return true;
