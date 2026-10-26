@@ -737,6 +737,19 @@ export default function Home() {
     }
   };
 
+  // ★【ここに追加】チェックのON/OFFを切り替えてlocalStorageと同期する関数
+  const toggleComplete = (articleId: number, e: React.MouseEvent) => {
+    e.stopPropagation(); // レッスン詳細への画面遷移を防止
+    let nextIds: number[];
+    if (completedArticleIds.includes(articleId)) {
+      nextIds = completedArticleIds.filter(id => id !== articleId);
+    } else {
+      nextIds = [...completedArticleIds, articleId];
+    }
+    setCompletedArticleIds(nextIds);
+    localStorage.setItem("arabicApp_completed", JSON.stringify(nextIds));
+  };
+
   const changeScreen = (screen: Screen) => { 
       stopSpeaking(); 
       window.scrollTo(0, 0); 
@@ -1971,14 +1984,15 @@ export default function Home() {
               return (
                 <div className="mb-8" dir="ltr">
                   {/* 横一列の3つのタブ */}
-                  <div className="grid grid-cols-3 gap-1.5 sm:gap-2 bg-[#EBE6DF] p-1.5 rounded-2xl border border-[#D4A373]/60 mb-4">
+{/* 横一列の3つのタブ */}
+<div className="grid grid-cols-3 gap-1.5 sm:gap-2 bg-[#EBE6DF] p-1.5 rounded-2xl border border-[#D4A373]/60 mb-4">
                     {GRAMMAR_LEVEL_TABS.map((tab) => {
                       const isActive = grammarTab === tab.id;
                       return (
                         <button
                           key={tab.id}
                           onClick={() => setGrammarTab(tab.id)}
-                          className={`py-3 px-2 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 flex items-center justify-center text-center ${
+                          className={`py-3 px-1 sm:px-2 rounded-xl font-bold text-[11px] sm:text-sm whitespace-nowrap transition-all duration-200 flex items-center justify-center text-center ${
                             isActive
                               ? "bg-[#8A5A33] text-white shadow-md scale-[1.01]"
                               : "bg-transparent text-[#764C28] hover:bg-white/60"
@@ -2028,8 +2042,8 @@ export default function Home() {
                     const locked = isLockedContent(article);
                     const diff = article.difficulty || 1;
                     const diffStars = diff === 1 ? "★☆☆ 易" : diff === 2 ? "★★☆ 中" : "★★★ 難";
+                    const isCompleted = completedArticleIds.includes(article.id); // ★追加
 
-                    // ★ 追加：元のタイトルから「Lesson XX: 」の部分を一旦取り除き、上から順に 1, 2, 3... と番号を振り直す
                     const cleanTitle = article.title.replace(/^Lesson\s*\d+[:：]?\s*/i, "");
                     const displayTitle = `Lesson ${index + 1}: ${cleanTitle}`;
 
@@ -2058,27 +2072,35 @@ export default function Home() {
                                 {article.category}
                               </span>
                             </div>
-                            <h3 className={`font-bold text-base sm:text-lg leading-relaxed ${
+                            <h3 className={`font-bold text-xs sm:text-sm leading-relaxed ${
                               locked ? "text-[#A67144]" : "text-[#4A3018] group-hover:text-[#8A5A33] transition-colors"
                             }`}>
-                              {displayTitle} {/* ← 振り直したタイトルを表示 */}
+                              {displayTitle}
                             </h3>
                           </div>
                         </div>
-                        <div className="flex-shrink-0 ml-3">
-                          {completedArticleIds.includes(article.id) ? (
-                            <span className="text-emerald-700 font-bold text-xs sm:text-sm bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 flex items-center gap-1">
-                              <CheckCircle size={14}/> 完了
+
+                        {/* 右側の表示（有料ロック or 手動チェックボタン） */}
+                        <div className="flex-shrink-0 ml-3 flex items-center gap-3">
+                          {locked ? (
+                            <span className="text-[#A67144] text-xs font-bold bg-[#F8F1E7] px-3 py-1 rounded-full">
+                              Premium
                             </span>
                           ) : (
-                            locked ? (
-                              <span className="text-[#A67144] text-xs font-bold bg-[#F8F1E7] px-3 py-1 rounded-full">
-                                Premium
-                              </span>
-                            ) : (
-                              <ChevronRight size={22} className="text-[#A67144] group-hover:text-amber-500 transition-colors" />
-                            )
+                            <div
+                              onClick={(e) => toggleComplete(article.id, e)}
+                              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border text-xs sm:text-sm font-bold transition-all ${
+                                isCompleted
+                                  ? "bg-emerald-50 text-emerald-700 border-emerald-300 shadow-sm"
+                                  : "bg-stone-50 text-stone-400 border-stone-300 hover:border-amber-500 hover:text-amber-600"
+                              }`}
+                              title="クリックして完了/未完了を切り替え"
+                            >
+                              <CheckCircle size={16} className={isCompleted ? "text-emerald-600 fill-emerald-100" : "text-stone-300"} />
+                              <span>{isCompleted ? "完了" : "未完了"}</span>
+                            </div>
                           )}
+                          <ChevronRight size={20} className="text-[#A67144] group-hover:translate-x-1 transition-transform" />
                         </div>
                       </button>
                     );
