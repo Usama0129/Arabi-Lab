@@ -97,6 +97,38 @@ const POETRY_ERAS = [
     features: ["自由詩運動", "抵抗の詩 (Adab al-Muqawama)", "ロマン主義"]
   }
 ];
+// ★ 文法セクションの3段階レベル定義
+type GrammarLevelTab = "core" | "standard" | "master";
+
+const GRAMMAR_LEVEL_TABS: {
+  id: GrammarLevelTab;
+  label: string;
+  badge: string;
+  title: string;
+  desc: string;
+}[] = [
+  {
+    id: "core",
+    label: "🌱 ちょこっと勉強",
+    badge: "まずはここから！",
+    title: "難しい動詞を除いた、ちょっとした文が読めるレベル",
+    desc: "文字の読み書きから、代名詞・疑問詞・名詞文の基本ルールまで。複雑な動詞の活用を後回しにして、最短でアラビア語の文の仕組みを掴みます。"
+  },
+  {
+    id: "standard",
+    label: "🌿 じっくり勉強",
+    badge: "表現を広げる！",
+    title: "動詞を含んだ実用的な文が読めるレベル",
+    desc: "過去形・現在形などの動詞の基本活用や頻出構文をプラス。日常のやり取りや短いストーリーのあらすじが読めるようになります。"
+  },
+  {
+    id: "master",
+    label: "🌳 マスター",
+    badge: "完全網羅！",
+    title: "細かい文法ルールや高度な表現まで極めるレベル",
+    desc: "双数形・数詞・派生形・厳密な格変化など、アラビア語（フスハー）のすべての文法項目を網羅的にマスターします。"
+  }
+];
 
 const getYouTubeId = (url: string) => {
   if (!url) return null;
@@ -312,6 +344,7 @@ export default function Home() {
   const [courseType, setCourseType] = useState<CourseType | null>(null);
   const [selectedLevel, setSelectedLevel] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [grammarTab, setGrammarTab] = useState<GrammarLevelTab>("core");
   const [selectedEraId, setSelectedEraId] = useState<string | null>(null);
   const [activeArticle, setActiveArticle] = useState<Article & { videoUrl?: string; imageUrls?: string[] } | null>(null);
   const [learningMode, setLearningMode] = useState<LearningMode>("reading");
@@ -776,7 +809,13 @@ export default function Home() {
 
   const getFilteredArticles = () => {
     return allArticles.filter(a => {
-        if (courseType === "grammar") return a.level === "文法";
+        if (courseType === "grammar") {
+          if (a.level !== "文法") return false;
+          const imp = a.importance || "core"; // 未設定の項目は仮で "core" 扱い
+          if (grammarTab === "core") return imp === "core";
+          if (grammarTab === "standard") return imp === "core" || imp === "standard";
+          return true; // "master" は全項目を表示
+        }
         if (courseType === "conversation") return a.level === "会話";
         if (courseType === "phrase") return a.level === "1フレーズ";
         if (courseType === "reorder") return a.category === "並び替え" && a.level === selectedLevel;
@@ -1908,38 +1947,176 @@ export default function Home() {
           </div>
         )}
 
-        {/* トピック選択 */}
-        {currentScreen === "topics" && (
-          <div className="animate-fade-in-up">
+{/* トピック選択（文法コースの場合は直接レッスン一覧を表示） */}
+{currentScreen === "topics" && (
+          <div className="animate-fade-in-up pb-20">
             <HeaderBackButton onClick={() => {
               if (courseType === "conversation" || courseType === "grammar") changeScreen("main_menu");
               else changeScreen("levels_sub");
             }} />
-            
-            <h2 className="text-2xl font-serif font-bold mb-8 text-[#4A3018] border-b-2 border-amber-400 pb-3 inline-block">
-              {courseType === "grammar" ? "文法トピック" : 
+
+            <h2 className="text-2xl font-serif font-bold mb-6 text-[#4A3018] border-b-2 border-amber-400 pb-3 inline-block">
+              {courseType === "grammar" ? "文法コース" : 
                courseType === "conversation" ? "会話シーン" :
                `${selectedLevel}のテーマ`}
             </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4" dir="ltr">
-              {Array.from(new Set(getFilteredArticles().map(a => a.category))).map(cat => (
-                <button key={cat} onClick={() => handleSelectCategory(cat)} className="bg-white p-5 sm:p-6 rounded-2xl shadow-sm hover:shadow-md border border-[#E5C9A8] hover:border-[#8A5A33] transition-all text-left group flex flex-col justify-center min-h-[110px]">
-                  <Bookmark size={28} className="text-[#A67144] mb-2 group-hover:text-amber-500 transition-colors" strokeWidth={1.5} />
-                  <span className="font-bold text-base sm:text-lg text-[#5E3C1E] group-hover:text-[#8A5A33] transition-colors">{cat}</span>
-                </button>
-              ))}
-              
-              {getFilteredArticles().length === 0 && (
-                <div className="col-span-full text-center py-16 text-[#A67144] flex flex-col items-center">
-                  <Library size={48} className="mb-4 opacity-50" strokeWidth={1.5} />
-                  <p className="font-bold text-lg">
-                    {courseType === "reading" && selectedLevel === "初級" 
-                      ? "現在、初級のリーディング記事はありません" 
-                      : "コンテンツが見つかりません"}
-                  </p>
+
+            {/* 文法コース専用：横一列の3レベル切り替えタブ ＆ レベル説明バナー */}
+            {courseType === "grammar" && (() => {
+              const currentTabInfo = GRAMMAR_LEVEL_TABS.find(t => t.id === grammarTab)!;
+              const filteredGrammar = getFilteredArticles();
+              const completedCount = filteredGrammar.filter(a => completedArticleIds.includes(a.id)).length;
+              const progressPercent = filteredGrammar.length > 0 ? Math.round((completedCount / filteredGrammar.length) * 100) : 0;
+
+              return (
+                <div className="mb-8" dir="ltr">
+                  {/* 横一列の3つのタブ */}
+                  <div className="grid grid-cols-3 gap-1.5 sm:gap-2 bg-[#EBE6DF] p-1.5 rounded-2xl border border-[#D4A373]/60 mb-4">
+                    {GRAMMAR_LEVEL_TABS.map((tab) => {
+                      const isActive = grammarTab === tab.id;
+                      return (
+                        <button
+                          key={tab.id}
+                          onClick={() => setGrammarTab(tab.id)}
+                          className={`py-3 px-2 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 flex items-center justify-center text-center ${
+                            isActive
+                              ? "bg-[#8A5A33] text-white shadow-md scale-[1.01]"
+                              : "bg-transparent text-[#764C28] hover:bg-white/60"
+                          }`}
+                        >
+                          {tab.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* レベル説明バナー＆進捗バー */}
+                  <div className="bg-white p-5 sm:p-6 rounded-2xl border-2 border-[#E5C9A8] shadow-sm">
+                    <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                      <span className="bg-amber-100 text-amber-900 text-xs font-bold px-3 py-1 rounded-full border border-amber-300">
+                        {currentTabInfo.badge}
+                      </span>
+                      <span className="text-xs font-bold text-[#8A5A33]">
+                        達成度: {completedCount} / {filteredGrammar.length} レッスン ({progressPercent}%)
+                      </span>
+                    </div>
+
+                    <h3 className="font-bold text-base sm:text-lg text-[#4A3018] mb-1.5">
+                      {currentTabInfo.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-[#764C28] leading-relaxed mb-4">
+                      {currentTabInfo.desc}
+                    </p>
+
+                    {/* プログレスバー */}
+                    <div className="w-full h-2.5 bg-[#F5F0E6] rounded-full overflow-hidden border border-[#E5C9A8]">
+                      <div
+                        className="h-full bg-gradient-to-r from-amber-400 to-[#8A5A33] transition-all duration-500 rounded-full"
+                        style={{ width: `${progressPercent}%` }}
+                      />
+                    </div>
+                  </div>
                 </div>
-              )}
-            </div>
+              );
+            })()}
+
+{/* 文法コースなら直接レッスン一覧、それ以外なら従来のカテゴリ選択 */}
+{courseType === "grammar" ? (
+              <div className="space-y-3">
+                {getFilteredArticles().length > 0 ? (
+                  getFilteredArticles().map((article, index) => {
+                    const locked = isLockedContent(article);
+                    const diff = article.difficulty || 1;
+                    const diffStars = diff === 1 ? "★☆☆ 易" : diff === 2 ? "★★☆ 中" : "★★★ 難";
+
+                    // ★ 追加：元のタイトルから「Lesson XX: 」の部分を一旦取り除き、上から順に 1, 2, 3... と番号を振り直す
+                    const cleanTitle = article.title.replace(/^Lesson\s*\d+[:：]?\s*/i, "");
+                    const displayTitle = `Lesson ${index + 1}: ${cleanTitle}`;
+
+                    return (
+                      <button 
+                        key={article.id} 
+                        onClick={() => handleArticleClick(article, index)} 
+                        className={`w-full text-left p-5 rounded-2xl shadow-sm border flex justify-between items-center transition-all group cursor-pointer ${
+                          locked 
+                            ? "bg-[#F5F0E6] border-[#E5C9A8]" 
+                            : "bg-white border-[#E5C9A8] hover:border-[#8A5A33] hover:shadow-md"
+                        }`}
+                      >
+                        <div className="flex-1 flex items-center gap-3.5">
+                          {locked && (
+                            <div className="bg-[#E5C9A8] text-white w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0" title="有料会員限定">
+                              <Lock size={15}/>
+                            </div>
+                          )}
+                          <div>
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="text-[11px] font-bold bg-[#F8F1E7] text-[#8A5A33] px-2.5 py-0.5 rounded-md border border-[#E5C9A8]">
+                                難易度: {diffStars}
+                              </span>
+                              <span className="text-[11px] font-bold text-stone-500">
+                                {article.category}
+                              </span>
+                            </div>
+                            <h3 className={`font-bold text-base sm:text-lg leading-relaxed ${
+                              locked ? "text-[#A67144]" : "text-[#4A3018] group-hover:text-[#8A5A33] transition-colors"
+                            }`}>
+                              {displayTitle} {/* ← 振り直したタイトルを表示 */}
+                            </h3>
+                          </div>
+                        </div>
+                        <div className="flex-shrink-0 ml-3">
+                          {completedArticleIds.includes(article.id) ? (
+                            <span className="text-emerald-700 font-bold text-xs sm:text-sm bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 flex items-center gap-1">
+                              <CheckCircle size={14}/> 完了
+                            </span>
+                          ) : (
+                            locked ? (
+                              <span className="text-[#A67144] text-xs font-bold bg-[#F8F1E7] px-3 py-1 rounded-full">
+                                Premium
+                              </span>
+                            ) : (
+                              <ChevronRight size={22} className="text-[#A67144] group-hover:text-amber-500 transition-colors" />
+                            )
+                          )}
+                        </div>
+                      </button>
+                    );
+                  })
+                ) : (
+                  <div className="text-center py-16 text-[#A67144]">
+                    <p className="font-bold text-lg">このレベルのレッスンはまだありません</p>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4" dir="ltr">
+                  {Array.from(new Set(getFilteredArticles().map(a => a.category))).map(cat => (
+                    <button
+                      key={cat}
+                      onClick={() => handleSelectCategory(cat)}
+                      className="bg-white p-5 sm:p-6 rounded-2xl shadow-sm hover:shadow-md border border-[#E5C9A8] hover:border-[#8A5A33] transition-all text-left group flex flex-col justify-between min-h-[115px]"
+                    >
+                      <Bookmark size={26} className="text-[#A67144] group-hover:text-amber-500 transition-colors mb-2" strokeWidth={1.5} />
+                      <span className="font-bold text-base sm:text-lg text-[#5E3C1E] group-hover:text-[#8A5A33] transition-colors">
+                        {cat}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+                {getFilteredArticles().length === 0 && (
+                  <div className="col-span-full text-center py-16 text-[#A67144] flex flex-col items-center">
+                    <Library size={48} className="mb-4 opacity-50" strokeWidth={1.5} />
+                    <p className="font-bold text-lg">
+                      {courseType === "reading" && selectedLevel === "初級" 
+                        ? "現在、初級のリーディング記事はありません" 
+                        : "このレベルの項目はまだありません"}
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         )}
 
@@ -1952,14 +2129,23 @@ export default function Home() {
               else changeScreen("topics");
             }} />
 
-            <div className="flex justify-between items-end mb-6 border-b-2 border-[#E5C9A8] pb-3">
+            <div className="flex flex-wrap justify-between items-end gap-2 mb-6 border-b-2 border-[#E5C9A8] pb-3">
               <h2 className="text-2xl font-serif font-bold text-[#4A3018] flex items-center gap-2">
                 <Sparkles size={24} className="text-amber-500" /> {selectedCategory}
               </h2>
+              {courseType === "grammar" && (
+                <span className="text-xs font-bold bg-[#F8F1E7] text-[#8A5A33] px-3 py-1 rounded-full border border-[#D4A373]">
+                  現在：{GRAMMAR_LEVEL_TABS.find(t => t.id === grammarTab)?.label}
+                </span>
+              )}
             </div>
+
             <div className="space-y-3">
               {getFilteredArticles().filter(a => a.category === selectedCategory).map((article, index) => {
                 const locked = isLockedContent(article);
+                const diff = article.difficulty || 1;
+                const diffStars = diff === 1 ? "★☆☆ 易" : diff === 2 ? "★★☆ 中" : "★★★ 難";
+
                 return (
                   <button 
                     key={article.id} 
@@ -1976,11 +2162,21 @@ export default function Home() {
                           <Lock size={15}/>
                         </div>
                       )}
-                      <h3 className={`font-bold text-base sm:text-lg leading-relaxed flex items-center gap-2 ${
-                        locked ? "text-[#A67144]" : "text-[#4A3018] group-hover:text-[#8A5A33] transition-colors"
-                      }`}>
-                        {article.title} {courseType === "listening" && <Video size={18} className="text-amber-500"/>}
-                      </h3>
+                      <div>
+                        {/* ★ 文法コースのとき、参考難易度バッジを表示 */}
+                        {courseType === "grammar" && (
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="text-[11px] font-bold bg-[#F8F1E7] text-[#8A5A33] px-2.5 py-0.5 rounded-md border border-[#E5C9A8]">
+                              難易度: {diffStars}
+                            </span>
+                          </div>
+                        )}
+                        <h3 className={`font-bold text-base sm:text-lg leading-relaxed flex items-center gap-2 ${
+                          locked ? "text-[#A67144]" : "text-[#4A3018] group-hover:text-[#8A5A33] transition-colors"
+                        }`}>
+                          {article.title} {courseType === "listening" && <Video size={18} className="text-amber-500"/>}
+                        </h3>
+                      </div>
                     </div>
                     <div className="flex-shrink-0 ml-3">
                       {completedArticleIds.includes(article.id) ? (
@@ -2858,7 +3054,7 @@ export default function Home() {
           </div>
         )}
       </main>
-      
+
 {/* ▼ ここに日本語訳モーダルを追加 */}
 {showJapaneseModal && activeArticle && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in-up" onClick={() => setShowJapaneseModal(false)}>
