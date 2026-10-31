@@ -784,9 +784,15 @@ export default function Home() {
         const firstCat = allArticles.find(a => a.level === "会話")?.category || "";
         setSelectedCategory(firstCat);
         changeScreen("topics");
-    } else if (type === "reading") {
+      } else if (type === "reading") {
         setSelectedLevel("初級");
-        const firstLvArts = allArticles.filter(a => a.level === "初級" && a.category !== "並び替え" && a.category !== "単語データ");
+        // ★ videoUrl が存在しない（空文字または未定義）ものだけに限定
+        const firstLvArts = allArticles.filter(a =>
+          a.level === "初級" &&
+          !a.videoUrl?.trim() &&
+          a.category !== "並び替え" &&
+          a.category !== "単語データ"
+        );
         const firstCats = Array.from(new Set(firstLvArts.map(a => a.category)));
         setSelectedCategory(firstCats[0] || "");
         changeScreen("topics");
@@ -851,12 +857,13 @@ export default function Home() {
             return a.level === "Poetry" && (era ? a.category === era.name : true);
         }
         if (courseType === "listening") {
-            return (a.videoUrl && a.videoUrl.length > 0) && a.level === selectedLevel;
-        }
-        if (courseType === "reading") {
-          if (a.level === "文法" || a.level === "Poetry" || a.level === "1フレーズ" || a.category === "並び替え" || a.category === "単語データ" || a.level === "物語") return false; 
+          return Boolean(a.videoUrl && a.videoUrl.trim().length > 0) && a.level === selectedLevel;
+      }
+      if (courseType === "reading") {
+          if (a.level === "文法" || a.level === "Poetry" || a.level === "1フレーズ" || a.category === "並び替え" || a.category === "単語データ" || a.level === "物語" || a.level === "会話") return false; 
           if (a.level !== selectedLevel) return false;
-          return !a.videoUrl || a.videoUrl === "";
+          // ★ videoUrl がないものだけを読解とする
+          return !a.videoUrl || a.videoUrl.trim() === "";
       }
         return false;
     });
@@ -2073,7 +2080,7 @@ export default function Home() {
             {courseType === "reading" && (() => {
               const levels = ["初級", "中級", "上級"];
               const currentLevel = selectedLevel || "初級";
-              const levelArticles = allArticles.filter(a => a.level === currentLevel && a.category !== "並び替え" && a.category !== "単語データ" && a.level !== "文法" && a.level !== "Poetry" && a.level !== "1フレーズ" && a.level !== "物語");
+              const levelArticles = allArticles.filter(a => a.level === currentLevel && (!a.videoUrl || a.videoUrl === "") && a.level !== "会話" && a.category !== "並び替え" && a.category !== "単語データ" && a.level !== "文法" && a.level !== "Poetry" && a.level !== "1フレーズ" && a.level !== "物語");
               const categories = Array.from(new Set(levelArticles.map(a => a.category)));
               const activeCategory = selectedCategory || categories[0] || "";
 
@@ -2160,31 +2167,47 @@ export default function Home() {
             {["grammar", "conversation", "reading", "listening"].includes(courseType || "") ? (
               <div className="space-y-3">
                 {(() => {
-                  let targetList: Article[] = [];
-                  if (courseType === "grammar") {
-                    targetList = getFilteredArticles();
-                  } else if (courseType === "conversation") {
-                    const convCategories = Array.from(new Set(allArticles.filter(a => a.level === "会話").map(a => a.category)));
-                    const activeCat = selectedCategory || convCategories[0] || "";
-                    targetList = allArticles.filter(a => a.level === "会話" && a.category === activeCat);
-                  } else if (courseType === "reading") {
-                    const currentLevel = selectedLevel || "初級";
-                    const levelArticles = allArticles.filter(a => a.level === currentLevel && a.category !== "並び替え" && a.category !== "単語データ" && a.level !== "文法" && a.level !== "Poetry" && a.level !== "1フレーズ" && a.level !== "物語");
-                    const categories = Array.from(new Set(levelArticles.map(a => a.category)));
-                    const activeCat = selectedCategory || categories[0] || "";
-                    targetList = levelArticles.filter(a => a.category === activeCat);
-                  } else if (courseType === "listening") {
-                    const currentLevel = selectedLevel || "初級";
-                    targetList = allArticles.filter(a => a.videoUrl && a.videoUrl.length > 0 && a.level === currentLevel);
-                  }
+let targetList: Article[] = [];
+if (courseType === "grammar") {
+  targetList = getFilteredArticles();
+} else if (courseType === "conversation") {
+  const convCategories = Array.from(new Set(allArticles.filter(a => a.level === "会話").map(a => a.category)));
+  const activeCat = selectedCategory || convCategories[0] || "";
+  targetList = allArticles.filter(a => a.level === "会話" && a.category === activeCat);
+} else if (courseType === "listening") {
+  const currentLevel = selectedLevel || "初級";
+  // ★ videoUrl があり、かつ会話・文法・詩・並び替え以外の純粋なリスニング教材
+  targetList = allArticles.filter(a => Boolean(a.videoUrl && a.videoUrl.trim().length > 0) && a.level === currentLevel);
+} else if (courseType === "reading") {
+  const currentLevel = selectedLevel || "初級";
+  const levelArticles = allArticles.filter(a => 
+    a.level === currentLevel && 
+    (!a.videoUrl || a.videoUrl.trim() === "") && 
+    a.level !== "会話" && 
+    a.category !== "並び替え" && 
+    a.category !== "単語データ" && 
+    a.level !== "文法" && 
+    a.level !== "Poetry" && 
+    a.level !== "1フレーズ" && 
+    a.level !== "物語"
+  );
+  const categories = Array.from(new Set(levelArticles.map(a => a.category)));
+  const activeCat = selectedCategory || categories[0] || "";
+  // ★ 選択中のカテゴリに絞り込み、動画がないものだけを抽出
+  targetList = levelArticles.filter(a => a.category === activeCat);
+}
 
-                  if (targetList.length === 0) {
-                    return (
-                      <div className="text-center py-16 text-[#A67144]">
-                        <p className="font-bold text-lg">このレベルのリスニングレッスンはまだありません</p>
-                      </div>
-                    );
-                  }
+if (targetList.length === 0) {
+  return (
+    <div className="text-center py-16 text-[#A67144]">
+      <p className="font-bold text-lg">
+        {courseType === "listening" 
+          ? "このレベルのリスニングレッスンはまだありません" 
+          : "このカテゴリの読解レッスンはまだありません"}
+      </p>
+    </div>
+  );
+}
 
                   return targetList.map((article, index) => {
                     const locked = isLockedContent(article);
